@@ -1,0 +1,154 @@
+<km-doc>
+<km-title nodeId="973b58cfa9cf496597acff79e73cb688">说明：创建/修改因子</km-title>
+<km-catalog style="none" nodeId="f7074359bcdf427fae80b7c182098360" />
+<h1 nodeId="bd8d07eb166a4980a9949607b1cd4e93">一、背景</h1>
+<p nodeId="1ac20172a76b4fd1a2ab891321a2d4aa"><strong>因子/factor：</strong><span color=" ">组成规则的逻辑单元。一个因子可以被不同的规则使用，包含表达式型和扩展型、累计型；引擎中最小的逻辑单元，常常将复杂逻辑进行封装类似“特征”的概念，可在多个规则中复用，例如：“系统文件空间”、“baseband_version码”是判断模拟器的特征；因子目前只支持逻辑表达式，输出结果可以是规则平台允许的任意类型。因子的表达式由其他因子和参数组装而成。因子是被抽取出来的概念，目的是为了更大程度的复用表达式逻辑，同时减少规则表达式的复杂度；</span></p>
+<p nodeId="8352142a58224572a54a57c7bdeb1230" />
+<p nodeId="5d24634b6b924614bee774c7dcff86d7"><span color=" ">因子类型主要有以下几种：</span></p>
+<ul nodeId="f999b39bfd8b4730b2d2927db78bd636">
+<li nodeId="5a8186cb0408412abca268d5e56c8532"><span color="rgb(0, 0, 0)"><strong>普通因子：</strong></span><span color="rgb(0, 0, 0)">变量是参数。（复合因子的变量，复合因子本质上为规则。）</span></li>
+<li nodeId="103ddd56e6fe47c784996a9fc040a880"><span color="rgb(0, 0, 0)"><strong>累计因子：</strong></span><span color=" ">在业务中会高频使用到与累计相关的逻辑。例如：在登陆、下单、支付等事件需要对同ip的userid进行计数计算，计算结果作为特征引用在规则中。常见的实现方式可通过硬编码方式，但存在逻辑频繁变化，不好维护且更新效率低的问题，或者通过异步hive数据加工特征但时效性较低（T+1）。要满足高时效、高灵活、好维护的要求，宙斯引入Scorpio技术组件实现累计通用逻辑的封装，比如，支持累计周期、计数/求和/最近几次）、累计值等特征计算流程配置化。但在实践中发现，还存在长周期数据精度低、历史数据无法保存等问题；</span></li>
+<li nodeId="ef2f67a853ac4959be8d77222c51a8d7"><span color="rgb(0, 0, 0)"><strong>扩展因子：</strong></span>扩展因子可以认为是原有功能的扩展，目前主要用于接入各种外部依赖的因子，外部依赖的特点是，有明确的接口或函数，通过配置输入的参数，在执行规则的时候返回调用结果作为因子的值。目前主要有名单库因子（与名单库联动过程中将查询名单的逻辑进行封装）、Medis因子。</li>
+<li nodeId="2133dfd1855c4d02a9dbf7ac9d10f3f4"><strong>决策表因子：</strong><span color=" ">在部分业务中需要引擎处理的判断条件较多，各条件又相互组合、有多种决策方案的情况，需要精确、简洁的方式来描述这类复杂逻辑。在低频使用时，可以通过硬编码的case-when、if-else语句实现，但在实时性和配置化上不尽人意，最终通过决策表将多个独立的条件和多个动作直接的联系清晰的表示出来并实现逻辑的封装</span></li>
+<li nodeId="7880571099fc4b77a859b839f711ebb3"><strong>因子工具：</strong><span color=" ">由规则组生成因子工具可快速便捷提供集团内其他业务使用，相较于提供规则组直接服务可节省人力和提升安全性(北上联合构建虚假设备识别工具、上海内容安全识别工具)</span></li>
+</ul>
+<p nodeId="bbb92948e4dc46d9a44622270c9c9959" />
+<p nodeId="55936e6e296a4a748a66fac23ac9b138">下文中涉及到的其他名词解释：</p>
+<p nodeId="bd474fa091d74766afcc1c73140117b2"><strong>属性信息：</strong>标签、共享业务方</p>
+<p nodeId="538ddc85731e450dbec60d137b285399"><strong>逻辑信息：</strong>表达式、状态、英文名称</p>
+<p nodeId="efe48b18ff0f4ebca6b13e688554c943"><strong>强制更新：</strong>若本次操作影响线上表达式的执行结果，需先将线上状态取消后再进行操作或者强行变更信息；</p>
+<p nodeId="82139fd4379b4f05af7d81affb0d56da"><strong>智能测试：</strong>因子修改时按系统安全执行的双跑测试流程管理，即：当修改因子、因子工具时，若影响线上策略的执行，将会进入智能测试流程，进行修改生效前的双跑。双跑期间，线上仍按照修改前的因子逻辑执行；修改的逻辑为标记状态执行。</p>
+<p nodeId="6eb4e347f1dd4958b74ef95c2ceac899"><strong>公示：</strong>因子修改生效前的系统信息公示，为修改生效前的信息同步机制，默认30分钟，系统自动执行；</p>
+<h1 nodeId="306d1189296e4bdb8fdee82d0bfc1bb6">二、操作说明</h1>
+<h2 nodeId="a414d82b0de5408aa564930404cde12e">step1：入口</h2>
+<p nodeId="c6c55499fb79468ab9df2bb53aac9f9a"><strong>策略部署—&gt;因子—&gt;添加因子</strong></p>
+<p nodeId="5963679662084feb9d1495d5afdd8c55"><img src="https://km.sankuai.com/api/file/cdn/312512823/90240906680?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1920" height="451" nodeId="6c59205868b14e83b5b71117c3dcc71b" /></p>
+<p nodeId="082a2ed0629443e1a17db397c4b8338b" />
+<h2 nodeId="4de407d705354b80920497f512dd98a6">step2：添加因子</h2>
+<p nodeId="097c5289330f47788a183dde3b34a78e"><strong>1、首先填写因子的逻辑信息，包括因子的中文名称、英文名称，在选择工具里选择要创建的因子类型，选择结果类型，填写因子内容（表达式，因子的逻辑，表达式中的变量可以是参数或者其他因子），点击下一步</strong></p>
+<p nodeId="4bb4dd33ce984dc0bd315dc432d9a9be"><img src="https://km.sankuai.com/api/file/cdn/312512823/90237998018?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1471" height="600" nodeId="9094621fb4ac47bfb89178a4b709dcac" /></p>
+<km-note type="info" hiddenTitle="true" nodeId="8473a5cb3d0648178437e305e3708889">
+<km-title></km-title>
+<km-content>
+<p nodeId="8fbd94ce9e74414aa5cdde68d90c5660">注意：</p>
+<ul nodeId="453647d367384ca7b9f061a33490d1f8">
+<li nodeId="828a5c9a21894404a5437e241cd3a50c"><strong>英文名称：</strong>驼峰命名，<strong>因子</strong><span color=" "><strong>命名规范：</strong></span><span color=" ">factor_xxx_yyy_zzz，如factor_mac_is_not_has_owne表示因子是检验mac是否有对应厂商。</span><strong>累计因子</strong><span color=" "><strong>命名规范</strong></span><span color=" ">：acc_xxx_yyy_zzz，如acc_30d_simmobile_iccid表示30天内同simmobile的iccid累计。</span></li>
+<li nodeId="a4ac7ea7aa1147c190b3ba98bbfb5f93"><strong>选择工具：</strong>普通因子/累计因子/决策表因子/名单库因子，同原在因子列表页面中配置扩展因子相同</li>
+<li nodeId="cbb5d0faf88c49c3b793dc38a8f0e85c"><strong>因子内容：</strong>原表达式书写</li>
+<li nodeId="b527f5eb934444a4ab0f104bcdc65f8d">
+<p nodeId="530bf83cdfd54463b50471890b310a5d"><strong>点击保持草稿：</strong>草稿信息不保持在列表中，当再次点击"添加因子"时，提示有草稿信息,可使用或者废弃</p>
+<p nodeId="11f82a6577ae45b0bdd62e80c1e743be"><img src="https://km.sankuai.com/api/file/cdn/312512823/90237846237?contentType=1&amp;isNewContent=false" name="image.jpeg" width="562" height="205" nodeId="515cc0a9e0874df8a20062753a1917db" /></p>
+</li>
+</ul>
+<p nodeId="f9fd50e5ae4b4c669fe91f904a85bda1" />
+</km-content>
+</km-note>
+<p nodeId="29e65f4439af4e888937458001188a75" />
+<p nodeId="17b28a218abf42f6855c8ca8b309289d"><strong>2、接着，给因子添加测试用例（测试因子逻辑，直到显示测试成功，否则再回去修改因子表达式），测试成功后，单击下一步</strong></p>
+<p nodeId="4e7a2e7a843f4b589facbf251d6986f9"><img src="https://km.sankuai.com/api/file/cdn/312512823/90239206751?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1909" height="362" nodeId="9898041d57e547ebb367b541f2f827fa" /></p>
+<p nodeId="0a903d4401344bfb8d967f53e1700c54"><img src="https://km.sankuai.com/api/file/cdn/312512823/90238971105?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1875" height="314" nodeId="c2509f929d264b8ea534761b960e182e" /></p>
+<p nodeId="f90406697d9f417ca29d7022380ac1bd" />
+<p nodeId="8b3e3746276040e38e3f6b19489d3d21"><strong>3、最后，填写因子的属性信息，选择共享业务方和添加标签，点击完成，在因子列表中看到刚刚创建的因子，表明因子创建成功。</strong></p>
+<p nodeId="1508709dfc2d4707bb9faaeaeadc83a6"><img src="https://km.sankuai.com/api/file/cdn/312512823/90238578647?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1916" height="383" nodeId="b170ce39418447f99f1404248d86ffd4" /></p>
+<p nodeId="e85dfae7483a4bea9f5af4210f74ff36" />
+<h2 nodeId="083ba19b9e65414794ad75b8c072e82d">step4：因子修改</h2>
+<h3 nodeId="acdfbdde659a4a17a5774712fe6f0546">1、修改逻辑信息</h3>
+<km-note type="info" hiddenTitle="true" nodeId="2287fb422853420e95fb5bf0dcefd257">
+<km-title></km-title>
+<km-content>
+<p nodeId="d572619dc889496280bbdfbb8da7699c">注意：</p>
+<p nodeId="2beeb14829e841648b5be19fb06684ee">此时若有其他人正在编辑该因子，您将收到提示xxmis号正在修改，需xx修改完成/退出编辑状态后，您方可修改。若您急于修改请大象联系该用户退出编辑状态。</p>
+<p nodeId="10cc8ec7d7fe4f5c8f9cdecc8ae38102"><img src="https://km.sankuai.com/api/file/cdn/312512823/313724014?contentType=1&amp;isNewContent=false" name="image.png" width="296" height="60" nodeId="1c49a2ae71864cf0a46fa3f82b9eabf1" /></p>
+</km-content>
+</km-note>
+<p nodeId="42216c881a92464096aa4c8a2f13f9ed"><strong>（1）同添加因子入口一样，进入因子页面，在因子列表中找到创建的因子，点击因子备注，进入因子详情页面，</strong><span color=" "><strong>点击编辑，即可按照刚刚添加因子的流程对因子的逻辑信息、测试、属性信息进行修改。</strong></span></p>
+<p nodeId="523899ae75f140de89730da45dea2134"><strong>（2）进入编辑页面后，修改因子仍需要经过测试，并且至少有一条新增的成功的测试用例方可提交修改，之后启动智能测试任务。</strong></p>
+<p nodeId="561ef85952684ab4aaa8163ee2558352"><strong>（3）智能测试流程：设定标记时间（人工设定）--&gt;双跑标记（系统执行）--&gt;双跑完成（系统执行）--&gt;验证数据是否正常（系统提供数据人工验证）--&gt;数据正常，公示上线（人工确认）--&gt;公示30分钟，自动上线生效（系统执行）--&gt;智能测试完成</strong></p>
+<km-note type="info" hiddenTitle="true" nodeId="1a900f8e25944b538e4eafa5e7021cb2">
+<km-title></km-title>
+<km-content>
+<p nodeId="15dca5f212dc42c7b2e31f56ac1c22d2">注意</p>
+<ul nodeId="bf0afafe4cc74220bc2af7036a38539b">
+<li nodeId="5ef5732a1469424a8cb3201a247a74b1">修改因子，在智能测试中会依据引用因子的规则在其场景配置同期命中量作为对比数据；</li>
+<li nodeId="d37e38fedc744f569cb912204454112e">为什么要有公示----因子存在多业务方共用的情况，当一个业务方修改时会影响其他业务方，因子公示会将因子确认修改的信息和双跑结果以大象消息通知给其他业务方，若通知后30分钟内其他业务方无异议则成功；若有异议则需业务方大象同修改人沟通，终止修改；</li>
+<li nodeId="1b4f56d009d941bb9fcf2b385ea98976">双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？本期不支持，若有需求后续二期增加。</li>
+<li nodeId="bba0ae5af83d47d885896e8632f30f20">修改需要紧急上线怎么办？--可选择紧急上线申请，可跳过双跑标记、公示期。</li>
+</ul>
+<ul nodeId="3e943f7716ed46f0927cb580a520fc30">
+<li nodeId="a27ac39a32c341b18078a68ab5f89f4a">
+<p nodeId="fad92673fc6b4777a6894f2ef032c792">紧急上线：用户在编辑页面中逻辑修改并确认提交后，进行紧急上线申请，填写理由--&gt;系统将相关申请信息通过大象公众号推送给引用方的业务负责人--&gt;负责人审批通过--&gt;修改执行完成</p>
+<p nodeId="fd897acc2cb04a2d94ce9679e3d98310"><img src="https://km.sankuai.com/api/file/cdn/312512823/313724614?contentType=1&amp;isNewContent=false" name="image.png" width="205" height="208" nodeId="5d3664ebf5a14526b522c20b7d04c9e0" /></p>
+</li>
+</ul>
+</km-content>
+</km-note>
+<p nodeId="3f08c9f5e1fa4e968330489bef1ddcaf" />
+<h3 nodeId="733f6f2ff21245d796f2ba6833c30053">2、修改属性信息</h3>
+<p nodeId="cea3f04c3be64088ba7aa45d3a58a614"><strong>在因子列表中找到需要修改的因子，并点击因子进入编辑页面，进入编辑页面后，在引导页第三部分“属性信息”中，修改共享信息、标签信息等，修改后点击“提交”，完成修改；</strong></p>
+<p nodeId="3f47ccdaff0841e7af98c5a924b2bffe" />
+<h3 nodeId="f78db713c9074cb0b7a8e9cf744f7418">3、特殊说明：累计因子修改说明</h3>
+<p nodeId="b3c676e745e54c91911ef1209cc2fc28">累计因子创建流程无变化</p>
+<p nodeId="f5e6d788a7744045bd3a91ba13500e35">累计因子逻辑信息双跑说明：</p>
+<p nodeId="de03673a74a84a46a6243d5ac4cb9a42">（1）修改读取条件：累计因子的数据无变化</p>
+<p nodeId="f2befb501b814cc6aeaf5fe00036cdca">（2）修改  累计事件、累计周期、累计类型、按何累计、累计值、满足何种条件累计 的配置条件时</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/312512823/313726688?contentType=0&amp;isNewContent=false" width="706" height="180" nodeId="fe4dfb66fd864e4b935e3bffb7d2cc71" />
+<p nodeId="c96875cf66c94015878f799982a48e27">例如：近5天同ip注册用户数</p>
+<p nodeId="b2f2015e93b9484493160b3010744252">假设每天同ip注册用户数分布如下表中所示，Day6 对“满足何种条件累计”进行了修改，此时累计数据的写入条件发生变化，第六天的数据由2个变为6个。</p>
+<p nodeId="36c82b764a5f4e70ad9794a3c5ae4423">当前版本实现的累计因子双跑，近5天同ip注册用户数，【线上生效】=3+4+2+5+<span color="rgb(245, 34, 45)">2</span>=16个；【双跑】=3+4+2+5+<span color="rgb(245, 34, 45)">6</span>=20个，【智能测试修改完成后】=3+4+2+5+<span color="rgb(245, 34, 45)">6</span>=20个</p>
+<table borderColor="#cccccc" responsive="false" nodeId="6aaca1fcf1864b2ba16afc8a120a5086">
+<tr nodeId="16bbaa22d1b64b9583342e812068fd09">
+<th colwidth="[132]" nodeId="bfb63a496435414f9e0f7e39a360258f">
+<p nodeId="14c319df2788480ba7bc815b36eb856e" />
+</th>
+<th colwidth="[63]" nodeId="e8cfa6eccfce4041ac6cd22124e681ba">
+<p nodeId="329e384f3d9843c3bde3dd16d2a8ba20"><span font-size="14">Day1</span></p>
+</th>
+<th colwidth="[73]" nodeId="229e823ae0ac48b8b603b3600facf46e">
+<p nodeId="681ace2b624046d48fe90a76fac8ebd4"><span font-size="14">Day2</span></p>
+</th>
+<th colwidth="[73]" nodeId="80bb3b874a0d45278b500e5e6278de31">
+<p nodeId="848a8a50334b42c295226f5d511bf457"><span font-size="14">Day3</span></p>
+</th>
+<th colwidth="[73]" nodeId="763a88f2f9bb4b649df1ee9f86b565b2">
+<p nodeId="72989fce03b641cbb5fc8d1990aad424"><span font-size="14">Day4</span></p>
+</th>
+<th colwidth="[73]" nodeId="3cdc1d4c503649359f8b3ff334363fc3">
+<p nodeId="b558d8360a414c09937a1b81b03a89d3"><span font-size="14">Day5</span></p>
+</th>
+<th colwidth="[120]" nodeId="f52465b34aa644289e69b2516a55f252">
+<p nodeId="d52826822b2f41ec91378c7e0ea3243b"><span font-size="14">Day6</span></p>
+</th>
+</tr>
+<tr nodeId="23254921f5104fb8b2d0d9bc727a1859">
+<td colwidth="[132]" nodeId="11147c64922d4e2d9b222037b9496a96">
+<p nodeId="bc58a5d02e1d41e3bde6bc3833322dcd"><span font-size="14">同ip注册用户数</span></p>
+</td>
+<td colwidth="[63]" nodeId="195db73973d44d76afc51ca4d6b9fb62">
+<p nodeId="191c274a415c4961af47e80c144124ea"><span font-size="14">2个</span></p>
+</td>
+<td colwidth="[73]" nodeId="ecb117b61a78440f91786c5e16424d3f">
+<p nodeId="272d5fcbb899442385fa3f10e4e00410"><span font-size="14">3个</span></p>
+</td>
+<td colwidth="[73]" nodeId="190645d46f5945e982c4aba644a5c91f">
+<p nodeId="fca93aafcffe4b73b0f4e2fd4c65b08d"><span font-size="14">4个</span></p>
+</td>
+<td colwidth="[73]" nodeId="1a4dd08955244a559c33ad5f55a463a9">
+<p nodeId="4428bfff2d654819a497c35ca865d426"><span font-size="14">2个</span></p>
+</td>
+<td colwidth="[73]" nodeId="bf43bc5ddafd4507b19b3b786df080e0">
+<p nodeId="c4e2f8a9284e4ceea0b5826eb0e6a2f9"><span font-size="14">5个</span></p>
+</td>
+<td colwidth="[120]" nodeId="843e4d6f36b14640b3ad94a6701e081e">
+<p nodeId="5cfdb99ac76a48e7a0c5cc3891cfa711"><span font-size="14">2个--&gt;6个</span></p>
+</td>
+</tr>
+</table>
+<km-note type="tip" hiddenTitle="true" nodeId="c4bb4ca4f49c459e969e600f46bb860e">
+<km-title></km-title>
+<km-content>
+<p nodeId="69ae4ec7af3a4f559a1e5f5cad8b1b07">为什么这样做？</p>
+<p nodeId="7e3c1fb1d96e42e1a9ec1c51f5a653e2">当前累计因子不支持回溯，因此若按照新逻辑重新执行，会导致数据断层，【双跑】=6，涉及累计类的规则命中量均会异常</p>
+<p nodeId="7326792a8ff74e83809af356aecae5d5">同时后续累计因子支持回溯，该技术方案可无缝衔接；</p>
+</km-content>
+</km-note>
+</km-doc>

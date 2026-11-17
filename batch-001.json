@@ -1,0 +1,247 @@
+{
+  "root_id": "28139633",
+  "saved_date": "2026-11-17",
+  "batch": 1,
+  "document_count": 20,
+  "traversal": "depth_first_in_api_order",
+  "documents": [
+    {
+      "id": "28139633",
+      "title": "Zeus平台功能操作手册",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633",
+      "parent_id": "339930787",
+      "source": "https://km.sankuai.com/collabpage/28139633",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "58438034",
+      "title": "Zeus Quick Start",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/Zeus Quick Start__58438034",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/58438034",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "312485395",
+      "title": "说明：获得了正式业务方权限，接下来怎么做呢？",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：获得了正式业务方权限，接下来怎么做呢？__312485395",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/312485395",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 2,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "312476852",
+      "title": "说明：创建/修改参数",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改参数__312476852",
+      "parent_id": "312485395",
+      "source": "https://km.sankuai.com/collabpage/312476852",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "220134551",
+      "title": "说明：创建/修改场景",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改场景__220134551",
+      "parent_id": "312485395",
+      "source": "https://km.sankuai.com/collabpage/220134551",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "312585969",
+      "title": "说明：创建/修改规则",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改规则__312585969",
+      "parent_id": "312485395",
+      "source": "https://km.sankuai.com/collabpage/312585969",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 18,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "1599584338",
+      "title": "说明：创建/修改规则-sigma类型",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改规则__312585969/children/说明：创建＿修改规则-sigma类型__1599584338",
+      "parent_id": "312585969",
+      "source": "https://km.sankuai.com/collabpage/1599584338",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 8,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "312512823",
+      "title": "说明：创建/修改因子",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改因子__312512823",
+      "parent_id": "312485395",
+      "source": "https://km.sankuai.com/collabpage/312512823",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 9,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "1608157813",
+      "title": "说明：决策",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：决策__1608157813",
+      "parent_id": "312485395",
+      "source": "https://km.sankuai.com/collabpage/1608157813",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 12,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "312514906",
+      "title": "（废弃）说明：创建/修改决策",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：决策__1608157813/children/（废弃）说明：创建＿修改决策__312514906",
+      "parent_id": "1608157813",
+      "source": "https://km.sankuai.com/collabpage/312514906",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 3,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "312490068",
+      "title": "说明：添加场景配置",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：添加场景配置__312490068",
+      "parent_id": "312485395",
+      "source": "https://km.sankuai.com/collabpage/312490068",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 5,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "105435323",
+      "title": "说明：fetcher异常日志指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：fetcher异常日志指南__105435323",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/105435323",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "212068218",
+      "title": "说明：Tair因子使用手册",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Tair因子使用手册__212068218",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/212068218",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 5,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "107423301",
+      "title": "说明：Zeus多级路由使用指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus多级路由使用指南__107423301",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/107423301",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 19,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "28253500",
+      "title": "说明：普通路由场景使用文档",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus多级路由使用指南__107423301/children/说明：普通路由场景使用文档__28253500",
+      "parent_id": "107423301",
+      "source": "https://km.sankuai.com/collabpage/28253500",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 3,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "220330745",
+      "title": "说明：普通路由修改为多级路由",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus多级路由使用指南__107423301/children/说明：普通路由修改为多级路由__220330745",
+      "parent_id": "107423301",
+      "source": "https://km.sankuai.com/collabpage/220330745",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 9,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "28253556",
+      "title": "说明：回溯功能",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：回溯功能__28253556",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/28253556",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 8,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "128220884",
+      "title": "回溯功能问题收集",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：回溯功能__28253556/children/回溯功能问题收集__128220884",
+      "parent_id": "28253556",
+      "source": "https://km.sankuai.com/collabpage/128220884",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "28163548",
+      "title": "说明：Zeus静默期使用指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus静默期使用指南__28163548",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/28163548",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 6,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "73367657",
+      "title": "说明：Zeus决策表使用指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus决策表使用指南__73367657",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/73367657",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 0
+    }
+  ],
+  "media": [
+    {
+      "document_id": "58438034",
+      "type": "video",
+      "name": "规则平台演示-20170420.mp4",
+      "url": "https://km.meituan.net/7daa4080-7c12-4c06-bce5-6835ffce92be.mp4?contentId=58438034&attachmentId=108314343&originUrl=https://km.meituan.net/7daa4080-7c12-4c06-bce5-6835ffce92be.mp4&contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "312585969",
+      "type": "video",
+      "name": "video1906737043.mp4",
+      "url": "https://km.sankuai.com/api/file/cdn/312585969/67797969347?contentType=1",
+      "status": "remote_only"
+    }
+  ],
+  "asset_errors": [],
+  "pause_after_batch": true
+}

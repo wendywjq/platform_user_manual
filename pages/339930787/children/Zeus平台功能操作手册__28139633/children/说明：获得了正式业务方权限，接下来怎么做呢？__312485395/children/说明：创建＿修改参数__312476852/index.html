@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：创建/修改参数</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-7">二、操作说明</a><a href="#section-8">step1：入口</a><a href="#section-12">step2：添加参数</a><a href="#section-23">step3：参数修改</a><a href="#section-27">三、FAQ</a><a href="#section-28">Q1:常见的参数配置错误情况</a><a href="#section-31">Q2：值域管理是什么</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：获得了正式业务方权限，接下来怎么做呢？</a> / <a href="index.html">说明：创建/修改参数</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/312476852">查看学城原文</a></p><article>
+<h1>说明：创建/修改参数</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p><strong>参数：</strong><span style="color: ">业务传入的基本变量，对应于业务传入的变量，因子逻辑表达式的变量来自于输入的参数，有了参数才能创建因子。</span></p>
+<h1 id="section-7">二、操作说明</h1>
+<h2 id="section-8">step1：入口</h2>
+<p>策略部署—&gt;参数—&gt;添加参数</p>
+<p><img src="assets/501bd667bb0c2c78.png" width="1920" height="400" alt="image.jpeg"></p>
+<h2 id="section-12">step2：添加参数</h2>
+<p>填写参数英文名、中文名，选择参数类型，添加备注，是否至于管理。图片中是创建举例，创建成功会在参数列表中显示出来刚刚创建的参数</p>
+<p><span style="color:rgb(245, 35, 45)">【说明】</span><strong>参数</strong><span style="color: "><strong>命名规范：</strong></span><span style="color: "> 驼峰命名法，如isBookedDeal表示是否是预定的deal。</span></p>
+<p><img src="assets/d460e2614384f9be.png" width="1022" height="571" alt="image.jpeg"><img src="assets/879a3f536e44168a.png" width="1912" height="148" alt="image.jpeg"></p>
+<h2 id="section-23">step3：参数修改</h2>
+<p>同添加参数入口一样，进入参数页面，在参数列表中找到创建的参数，点击参数名称进入详情页面。在目前版本的页面中，支持中文名、类型、备注、标签、值域管理的修改，新名称依旧会进行重名校验。</p>
+<p><img src="assets/77cbdc9c4dd587d9.png" width="948" height="600" alt="image.jpeg"></p>
+<h1 id="section-27">三、FAQ</h1>
+<h2 id="section-28">Q1:常见的参数配置错误情况</h2>
+<p>A：mobile参数（手机号）需要选择“长整型/字符串”，不要选择整型【why:<span style="color:rgba(0, 0, 0, 0.87)">mobile是11位数，整形最多是10位数，类型转换失败了。建议改成长整形或者字符串类型</span>】</p>
+<h2 id="section-31"><span style="color:rgb(245, 35, 45)">Q2：值域管理是什么</span></h2>
+<p></p>
+</article></main></body></html>

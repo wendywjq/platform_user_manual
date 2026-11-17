@@ -1,0 +1,32 @@
+<km-doc>
+<km-title nodeId="59620326e3e04a08a70b4c2aa1a86a17">说明：获得了正式业务方权限，接下来怎么做呢？</km-title>
+<km-catalog style="none" nodeId="b1896ee8110148d5b85467033e0f257d" />
+<h1 nodeId="9326b6b1f4aa42299fb35b3698cf8fb1">1.已经完成了正式权限申请、获得了正式业务方权限，接下来怎么做呢？</h1>
+<p nodeId="e6feeb0e98a344a59a5f75f6f2257987">你还需要操作9步～～这样做👇👇👇</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/312485395/312636657?contentType=0&amp;isNewContent=false" width="1536" height="323" nodeId="105f741f6ecc4fc697e81ba5abff76c3" />
+<p nodeId="03f1a8401522430b8f06bba4ba59fafa"><span color=" "><strong>业务接入后全部是空数据首先需要进行 </strong></span><span color="rgb(245, 35, 45)"><strong>策略部署/规则部署</strong></span><span color=" "><strong>，包括</strong></span><span color="rgb(245, 35, 45)"><strong>创建参数、创建因子、创建规则，创建决策，创建场景</strong></span><span color=" "><strong>，有了以上因素后，完成最终的</strong></span><span color="rgb(245, 35, 45)"><strong>场景配置</strong></span><span color=" "><strong>，</strong></span><span color="rgb(245, 35, 45)"><strong>场景配置包括规则、决策、状态和优先级</strong></span><span color=" "><strong>。</strong></span></p>
+<h1 nodeId="916d5e948f634e0bb390f55e72ed2f0c"><span color=" "><strong>2.都怎么创建？</strong></span></h1>
+<h2 nodeId="9e1b3d5dfc2f4278b575bcc72000c471"><span color=" "><strong>第一步：登录Zeus</strong></span></h2>
+<ul nodeId="efcb93b6498b41a68bff142d2da84d71">
+<li nodeId="616b42c0bad548f3a50862756d8afdac">线上（生产环境）：<a href="https://zeus.sankuai.com/" title="https://zeus.sankuai.com" nodeId="c41010a43b2e4534a71239b38cc41770">https://zeus.sankuai.com</a></li>
+<li nodeId="dbb0fa62dcf54be58b9d50b45c03a9a2">线下（测试环境）：<a href="http://zeus.mis.rc.test.sankuai.com/" title="http://zeus.mis.rc.test.sankuai.com" nodeId="81d594c05d9c47639d41db50d4e4eda6">http://zeus.mis.rc.test.sankuai.com</a></li>
+</ul>
+<p nodeId="19e13cf8c481478a9154f673d63e6bd5"><span color=" "><strong>⚠️数据不能跨环境迁移，即测试环境数据和生产环境数据隔离，需要配置两次哦～～（技术难题呀）</strong></span></p>
+<h2 nodeId="528fee3d848c41cd8f12d09041acb4aa"><span color=" "><strong>第二步：选择邮件中的业务名称</strong></span></h2>
+<p nodeId="46cba02e0d024a3fbc09a4ebb6c85267"><img src="https://km.sankuai.com/api/file/cdn/312485395/312688065?contentType=1&amp;isNewContent=false" name="image.png" width="388" height="225" nodeId="ff7bf3f31d464a74af48abd00a95e626" /></p>
+<p nodeId="468f474ceb584d7f9d5a43483382ab7a"><span color=" "><strong>下拉选择即可</strong></span></p>
+<h2 nodeId="0b22b033a71f466b8fbf45f1b92433a7"><span color=" "><strong>第三步：创建参数 </strong></span><a href="https://km.sankuai.com/page/312476852" title="https://km.sankuai.com/page/312476852" autoUpdate="true" nodeId="ef67842fed3a4b488e8c49dcea8a7aaf">https://km.sankuai.com/page/312476852</a></h2>
+<h2 nodeId="26d7285527014be6b44e87b194882e4e"><span color=" "><strong>第四步：创建因子 </strong></span><a href="https://km.sankuai.com/page/312512823" title="https://km.sankuai.com/page/312512823" autoUpdate="true" nodeId="dda333efbdc844138cbb41654985dee0">https://km.sankuai.com/page/312512823</a></h2>
+<h2 nodeId="e61c1964978b49c0a01bda9418edf9b5"><span color=" "><strong>第五步：创建规则 </strong></span><a href="https://km.sankuai.com/page/312585969" title="https://km.sankuai.com/page/312585969" autoUpdate="true" nodeId="63291f99ed6c4d50a32e0efe945ea6e7">https://km.sankuai.com/page/312585969</a></h2>
+<h2 nodeId="2a4b4c97e3c6450ca04e409d7a15c304"><span color=" "><strong>第六步：创建决策 </strong></span><a href="https://km.sankuai.com/page/312514906" title="https://km.sankuai.com/page/312514906" autoUpdate="true" nodeId="821a2e556d8b4d4ea389e9f0e4568e0d">https://km.sankuai.com/page/312514906</a></h2>
+<h2 nodeId="17d2ed8877484869b0a2b094b53e74e1"><span color=" "><strong>第七步：创建场景 </strong></span><a href="https://km.sankuai.com/page/220134551" title="https://km.sankuai.com/page/220134551" autoUpdate="true" nodeId="7e39a3253aec49a3a7f7021b900d574d">https://km.sankuai.com/page/220134551</a></h2>
+<h2 nodeId="8dbd080e4baa4e9e996ceacd208472cd"><span color=" "><strong>第八步：完成场景配置 </strong></span><a href="https://km.sankuai.com/page/312490068" title="https://km.sankuai.com/page/312490068" autoUpdate="true" nodeId="9667afbe3c8c4dcbaf833e894e61dc24">https://km.sankuai.com/page/312490068</a>、<span color=" "><strong>让规则在场景中生效</strong></span><a href="https://km.sankuai.com/page/312550078" title="https://km.sankuai.com/page/312550078" autoUpdate="true" nodeId="32ce7f543fa548d6986d5bd87f7c82b0">https://km.sankuai.com/page/312550078</a></h2>
+<p nodeId="7f9eb66baada4efc9ac84ff38df9185e">规则在场景配置中的生效、标记、灰度和离线状态说明：</p>
+<p nodeId="2243b7b1e36e4c39b4f25c299963f6e8">生效：规则在场景配置中为生效状态，则该条规则逻辑会正常执行，且在业务侧可获取到决策信息；</p>
+<p nodeId="5118f65613044bcd89c99e58a3215088">灰度：规则在场景配置中为灰度状态，则该条规则逻辑会正常执行，且在业务侧可获取到满足灰度比例设定流量的决策信息，不满足灰度比例设定流量的信息，业务侧获取不到相关的决策信息；</p>
+<p nodeId="8548fe14521e4a68aca249e914b1ed5d">标记：规则在场景配置中为标记状态，则该条规则逻辑会正常执行，但在业务侧获取不到相关的决策信息；</p>
+<p nodeId="264aa6855ba94cb1af44bdf1295d17de">离线：规则在场景配置中为离线状态，则该条规则逻辑不会执行；</p>
+<h2 nodeId="35c27b9a9f7c49c0b3aa0f5c7407fb68"><span color=" "><strong>第九步：业务调用 </strong></span><a href="https://km.sankuai.com/page/28253497" title="https://km.sankuai.com/page/28253497" autoUpdate="true" nodeId="e04a4d6c05d847fa83a2224fe7028980">https://km.sankuai.com/page/28253497</a>（适用于RD）</h2>
+<p nodeId="184ffe3ceaf74cf19e8b68656a78d575">恭喜您，已经掌握了核心技巧了，更多功能介绍：<a href="https://km.sankuai.com/page/339930787" title="https://km.sankuai.com/page/339930787" autoUpdate="true" nodeId="b5a50fc5d9b944edbcf3a246064300e6">https://km.sankuai.com/page/339930787</a></p>
+<p nodeId="049e8b7dabd94b5da475d745eb6d7d53" />
+</km-doc>

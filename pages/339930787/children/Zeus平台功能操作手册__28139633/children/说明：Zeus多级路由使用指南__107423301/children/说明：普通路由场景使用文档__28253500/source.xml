@@ -1,0 +1,22 @@
+<km-doc>
+<km-title nodeId="24106e590cb2448b9cf39e73f05c15b7">说明：普通路由场景使用文档</km-title>
+<h3 nodeId="1f5668ea20c84a97ba1d1f40b380d2f2">概念解释</h3>
+<ul nodeId="3dd1cd6ea81d49beb02edd930d6513d2">
+<li nodeId="d73d4d7af3c146c9a089a1c39629f45a">
+<p nodeId="bd6fb56a36a648e492a5bd1317b71120">普通场景：即用来配置规则返回决策的场景，参考：</p>
+<p nodeId="efdb7a2c51dd477f96fd4ace9b9f7f22"><img src="https://km.sankuai.com/api/file/cdn/28253500/195942022?contentType=1&amp;isNewContent=false" name="image.png" width="795" height="481" nodeId="31ef246e1aa64178b7ccff598f0f159d" /></p>
+</li>
+<li nodeId="f0d2e62aa5e34812a6ba04cfaa302954">路由场景：不同于普通场景，路由场景不直接配置或返回决策，而是根据命中规则情况决定接下来要执行哪些普通场景，并执行这些普通场景的规则并返回决策</li>
+</ul>
+<h3 nodeId="d901c32a5ea94177940db5d3213c88b1">实例</h3>
+<p nodeId="06fb099da6f945c0b3f31f52457ade23"><img src="https://km.sankuai.com/api/file/28253500/28253287" name="image2016-9-7 16:42:35.png" width="350" height="128" nodeId="c1ed34f48b724c04a7fba0e3aafa5185" /></p>
+<p nodeId="af8b245be580455a92d2c235fb4854ac">新建场景时选择相应的类型即可</p>
+<p nodeId="5bc9b7c789634e30922ff4469191a0c7">场景配置流程与普通场景配置没有差别</p>
+<p nodeId="0fe43737f06247a19902c42e2de266ec"><img src="https://km.sankuai.com/api/file/28253500/28261651" name="image2016-9-7 16:41:51.png" width="858" height="209" nodeId="1ae995f76ba84255a917d4035eb4c647" /></p>
+<p nodeId="aed7a22d3553449d8a36d1f4abe0ca80">上图是一个路由场景配置的示例，550是一个路由场景</p>
+<p nodeId="d394f441bcda4ab28776d7f2581904da">如果命中规则2869，则会自动执行场景540的规则，并根据场景540的配置返回场景540的决策</p>
+<p nodeId="d217bd244706473d9037b6793ba8588e">如果命中规则2870，会在接口返回中提供命中了2870规则的信息，但是不会执行场景556的规则，因为是标记状态，这一特性与普通场景无异</p>
+<h3 nodeId="c666fdaede3c42e0a699cf51939a9669">接口文档</h3>
+<p nodeId="bedae3b6988e4f10a95712d598626118">接口文档见：<a href="https://km.sankuai.com/page/28253497" title="说明：Zeus在线服务OCTO接入文档" nodeId="82127e3fc5824203a62844c02547561f">说明：Zeus在线服务OCTO接入文档</a></p>
+<p nodeId="dc5435c1a43d47a8890c958a22f1b4b4" />
+</km-doc>

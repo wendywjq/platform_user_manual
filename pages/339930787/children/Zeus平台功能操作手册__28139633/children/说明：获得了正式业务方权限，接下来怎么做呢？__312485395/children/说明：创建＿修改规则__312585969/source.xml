@@ -1,0 +1,303 @@
+<km-doc>
+<km-title nodeId="3c152bcc344746df8962cf0d849f632e">说明：创建/修改规则</km-title>
+<km-catalog style="none" nodeId="41df6ae29dc44c38835270c4ccccbe75" />
+<km-collapse active="false" nodeId="fcee441b30994e0fa4ee629d4195288b">
+<km-title>🌟<span color="#FF4A47">上线记录</span></km-title>
+<km-content>
+<table responsive="false" nodeId="375d22d98f284ad9bd3076139a3aa55a">
+<tr nodeId="28cbe4e8cf684bff8ecb2ae4f2511145">
+<th colwidth="[107]" nodeId="6141860573c0443097b7c857d18e8d08">
+<p nodeId="eb0fc6a92e504f4db62abb68bdc69ca2"><span font-size="14">时间</span></p>
+</th>
+<th colwidth="[1077]" nodeId="25833c84d93c4cbe8e7bdd05f32518b1">
+<p nodeId="66f0ecb4302d4713843eec9d041fb809"><span font-size="14">上线内容</span></p>
+</th>
+</tr>
+<tr nodeId="0572d058126440f0a9c0f5b8e44680f7">
+<td colwidth="[107]" nodeId="d07092d0d88143d28d8d3e26fc6bb46c">
+<p nodeId="615e4f3156b7483196625663a7e7a560"><span font-size="14">20240307</span></p>
+</td>
+<td colwidth="[1077]" nodeId="3ac7f6b7fbdb42c282c0008d36ecca99">
+<p nodeId="31228670b4ec44c28cd7a6cb02b052fe"><span font-size="14">更新点一：支持条件间逻辑书写 [非] 逻辑</span></p>
+<p nodeId="73b963b25c884136935484a365275fdc"><span font-size="14">更新点二：支持规则查看表达式规则交互式展示方式</span></p>
+<p nodeId="60d4a66e8289492bbfc3c47562f4466e"><span font-size="14">更新点三：支持表达式切换交互式时一键解析填充交互式逻辑</span></p>
+<p nodeId="95f5a83a175f4c2387877841c86fe4ec"><span font-size="14">更新点四：支持加减乘除函数配置常量</span></p>
+<p nodeId="bee1bee7dcd64a768fef740899d388bb"><span font-size="14">还有部分交互细节更新~  支持交互式多条条件书写时，光标在条件间逻辑表达式某条件后，条件表格中该条件高亮；字符串模糊匹配无需选择下拉框内容输入完成即可继续下一步；只有一个条件忘了写条件间逻辑？平台自动补全；等等还有更多体验优化欢迎反馈至liusimiao</span></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h1 nodeId="f68793d695174b198caad058d6959cd8">一、什么是规则</h1>
+<p nodeId="f47faccc69594dd1b8f9e89b893f911b">规则即构成一条策略的基础元素之一，用于策略部署。<span color="">规则的表达式由规则因子和参数构成，作为逻辑封装的顶层仅存在True/False两种执行结果。例如：是不是模拟器的请求。</span><br /><span color="rgba(0, 0, 0, 0.87)">当前规则配置可支持表达式和交互式两类配置方式。</span></p>
+<blockquote nodeId="bc9b2373d9444dfe87b6b29f5bffcf12">
+<p nodeId="26114dc8a7b94d8cb85eea7860aa88e0"><strong>名词解释</strong></p>
+<p nodeId="32d1ed866cb845c3a2bf6b197506f81a"><strong>属性信息：</strong>标签、共享业务方</p>
+<p nodeId="506bdd32d188437dac8f9c64934e37be"><strong>逻辑信息：</strong>配置方式、状态、英文名称</p>
+</blockquote>
+<h1 nodeId="32de62773f10478f9354ca2e80eb0fa7">二、如何新增/修改规则</h1>
+<h2 nodeId="dc4c4e7d4e9b4c07b7b267fccc9217e6">step1：入口</h2>
+<p align="start" nodeId="2c67c977d3b14ab18efda4f28dc76cc2">规则—&gt;规则—&gt;添加规则</p>
+<p align="start" nodeId="aca2edad99c94bdaaf10d2fa6c58b350"><img src="https://km.sankuai.com/api/file/cdn/312585969/65058987744?contentType=1&amp;isNewContent=false" name="image.jpeg" width="779" height="378" nodeId="f062ac633e49454da97d16dd853a9b86" /></p>
+<h2 align="start" nodeId="cbf1ffbc3ac143d5a956daa2639b3c43">step2：添加规则</h2>
+<h3 nodeId="8ce2b77ce0424ebebeba445b22b20038">2.1 表达式配置规则</h3>
+<table responsive="false" nodeId="615fe350ea5f4a5b9e08409b53277df2">
+<tr nodeId="bffe6ef8bfea4e9aa2859f8ad927596e">
+<th colwidth="[960]" nodeId="f963bfe155914097895b0a38aac38742">
+<p nodeId="cac4dcf901bf454e9d1158f7f81936ea"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[753]" nodeId="004d31dba9b644d4ad49b44da6b1c611">
+<p nodeId="3317ef1a40b44ff093018c0f94bced31"><span font-size="14">示意图</span></p>
+</th>
+</tr>
+<tr nodeId="dd0683a228f04ffb826c1cc37e53da29">
+<td colwidth="[960]" nodeId="984e8e58c74a4513956701b11d2ac3eb">
+<p nodeId="36b5acec080d4f46aa1488c27c37fd99"><span font-size="16"><strong>1、首先填写规则逻辑信息，填写中文名称、英文名称、规则内容</strong></span></p>
+<p nodeId="4abfcbaad2e8460994277a7a1e30f8e2"><span font-size="16"><strong>2、可在输入框中书写aviator表达式</strong></span></p>
+<p nodeId="70533cc13db44010a360ce7fedce4133" />
+<p nodeId="b21ed53feaf547f89224f61cf7ac495c"><span font-size="14"><strong>填写说明：</strong></span></p>
+<ol nodeId="633b049d84ce4caaac3bcbf1317db380">
+<li nodeId="d4622e52a46f443b96ac61fe132c0558"><span font-size="14"><strong>规则内容配置：</strong></span><span font-size="14">支持表达式和模版混合使用的方式；也可以单独使用表达式、模版配置；</span></li>
+<li nodeId="1b4dda8a169e49438c4b0624cbe33d02"><span font-size="14"><strong>英文名称：</strong></span><span font-size="14">驼峰命名，且仅支持小写字母，</span><span font-size="14"><strong>规则</strong></span><span color=""><span font-size="14"><strong>命名规范：</strong></span></span><span color=""><span font-size="14">rule_xxx_yyy_zzz，如rule_mac_is_not_has_owner表示规则是检验mac是否有对应厂商。</span></span></li>
+<li nodeId="d23e5b1093514da1a05ec6bd70471283"><span font-size="14"><strong>点击保持草稿：</strong></span><span font-size="14">草稿信息不保持在列表中，当再次点击"添加规则"时，提示有草稿信息可使用或者废弃</span></li>
+<li nodeId="e842197422164148866fa0910a7f8407"><span font-size="14"><strong>表达式书写可参考：</strong></span><a href="https://km.sankuai.com/page/176739529" title="说明：表达式书写说明" autoUpdate="true" nodeId="1ea3d22740134c918abb9c092e95e4bc">说明：表达式书写说明</a><span font-size="14">、</span><a href="https://km.sankuai.com/page/28163535" title="Aviator表达式简介" autoUpdate="true" nodeId="1481fea7b14d42e6b609a527c57bb9f5">Aviator表达式简介</a></li>
+</ol>
+</td>
+<td colwidth="[753]" nodeId="a60504e8ce094c1ca588bba9697ff311">
+<p nodeId="d630b01c0cc74527af1953069138f497"><img src="https://km.sankuai.com/api/file/cdn/312585969/145634798613?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1205.65" height="600" nodeId="2eca0da7dea94ee6971f80e30082d298" /></p>
+</td>
+</tr>
+<tr nodeId="2479051393304bd695b89845102d8197">
+<td colwidth="[960]" nodeId="075d2194eff34a55826664b8e78d586d">
+<p nodeId="b38aef42eaef47dca0c2af88ceb29fd1"><span font-size="16"><strong>3、表达式书写完成，对于平台校验出的复杂逻辑（使用复杂函数/操作符/aviator5等逻辑）进行特征沉淀。</strong></span></p>
+<blockquote nodeId="6b730d014d254ae184a6c41210f99b50">
+<p nodeId="22b1a4f9c7e749b18d22aae07d620759"><strong>为什么要沉淀为特征，写在规则里可以吗？</strong></p>
+<p nodeId="99858fa19fb646d5bdea38b4843192cf">平台导向将复杂的通用的逻辑沉淀为特征，尽可能保证规则层面的可读性和简洁性。长期来看，简洁规则后续可转换为交互式<km-footnote id="82210773-efad-4286-b31e-e4f40149a550" annotate="" nodeId="b230c477585540f69a33ef185e53dd8f" />规则</p>
+</blockquote>
+<table responsive="false" nodeId="c507f4831e874964847736ea318589f8">
+<tr nodeId="243e901ba0ea4a47bfc77d7ba765dd2e">
+<th colwidth="[55]" nodeId="417032f1d90e42aca8f8dcc2d8cd2aca">
+<p nodeId="3355b2a37d50425187d6c0a84e620234" />
+</th>
+<th colwidth="[273]" nodeId="9698860ae9484804b3be982d0679a2df">
+<p nodeId="b0558397404d4c82a189b6927475f066"><span font-size="14">复杂逻辑情况</span></p>
+</th>
+</tr>
+<tr nodeId="5f2c9457895745099d1e439cc24374dc">
+<td colwidth="[55]" numCell="true" nodeId="50fcb54ba1ef4f899eb00df3d8913740">
+<p nodeId="c290ae7462b74d9dbd98dfe490c5cc30" />
+</td>
+<td colwidth="[273]" nodeId="49b30df89da444929ab54512b320343b">
+<p nodeId="66e31666d4cf4dfc8083f86cabd68727"><span font-size="14">使用了复杂函数/操作符</span></p>
+</td>
+</tr>
+<tr nodeId="ebd8e431e05343c0b680bbb65930e9b6">
+<td colwidth="[55]" numCell="true" nodeId="9404c5fbb7384ec187579cc36f4e999e">
+<p nodeId="ad7acb567ea04111bf5436d384a1cded" />
+</td>
+<td colwidth="[273]" nodeId="3dec197ed462480c96fe80c07c8133d5">
+<p nodeId="1b2ea781f4b647f1893d84c7881bd11b"><span font-size="14">操作符两边同时使用了常量</span></p>
+</td>
+</tr>
+<tr nodeId="1ef856a5ff884e8990397f4441bed7be">
+<td colwidth="[55]" numCell="true" nodeId="0fc1cf4b6b6049b288635e31c2751b26">
+<p nodeId="5c253aeda1aa45aab199310f29f67577" />
+</td>
+<td colwidth="[273]" nodeId="2caffa9bce4748f69f02e97513f4237a">
+<p nodeId="7e1292445d6b4329bf89a52701fa2ea3"><span font-size="14">操作符两边同时使用了函数</span></p>
+</td>
+</tr>
+<tr nodeId="fae545d276414d19aeb40bd37899f254">
+<td colwidth="[55]" numCell="true" nodeId="9221976f16964091ab6fdd618955814e">
+<p nodeId="bedc003408a945a694c33383cc21a1b4" />
+</td>
+<td colwidth="[273]" nodeId="f35d75a12d4b4593a6078b8289400d51">
+<p nodeId="29e0165a6e31442f9233125b1b401afb"><span font-size="14">使用了函数或操作符的互相嵌套</span></p>
+</td>
+</tr>
+<tr nodeId="a5de895810dc420386b80a1de3205f92">
+<td colwidth="[55]" numCell="true" nodeId="c3fea3093eff480599acb6017020db3b">
+<p nodeId="f2beec747ac24fec848348d471ea3f34" />
+</td>
+<td colwidth="[273]" nodeId="4dfcf8acb9e7494fa02d8de4e061cb0a">
+<p nodeId="e653624fc06c4337900081c014214117"><span font-size="14">使用了aviator5的规则</span></p>
+</td>
+</tr>
+</table>
+</td>
+<td colwidth="[753]" nodeId="3edbfc326bec4fd0bafdb066380ae900">
+<p nodeId="4c7546bd7a10486ea77621cff9a1b827"><img src="https://km.sankuai.com/api/file/cdn/312585969/109464987389?contentType=1&amp;isNewContent=false" name="image.jpeg" width="731" height="390" nodeId="4c4ad0493e2143d394f7e010c1291f26" /><img src="https://km.sankuai.com/api/file/cdn/312585969/109462868593?contentType=1&amp;isNewContent=false" name="image.jpeg" width="731" height="395" nodeId="392137b9041d450299f3890f259fcf5a" /></p>
+</td>
+</tr>
+<tr nodeId="4c1813a1909a4fe29520d975682d8d30">
+<td colwidth="[960]" nodeId="82b878db7a7f4acb933b17a7daed3812">
+<p nodeId="7e963be412034470b83e22693e3be019"><span font-size="16"><strong>4、逻辑信息填写完成，点击下一步进入测试阶段</strong></span></p>
+<p nodeId="d00724b559324011974848cb018ab882" />
+<p nodeId="65b0ea6174e34946ba14eae23c4bddd1"><span font-size="14"><strong>填写说明：</strong></span></p>
+<ol nodeId="6d0c11f02d18464f8b20fcc843e2a7cc">
+<li nodeId="27dafd193aec4046a048d8ff2b131068"><span font-size="14">通过选填/json/requestid方式输入测试用例，点击添加测试用例，可在下方查看测试结果</span></li>
+</ol>
+<km-note type="warning" hiddenTitle="true" nodeId="b72a0446730245cba781a9403192e14a">
+<km-title></km-title>
+<km-content>
+<p nodeId="bd7c654a49274b62ae53dfcc6356ee1b">如果有线上请求，可以直接输入requestid进行测试噢</p>
+</km-content>
+</km-note>
+<p nodeId="a32117f589f74397b8af51d538871c06" />
+</td>
+<td colwidth="[753]" nodeId="dda54bf4da294f0b991962ae1962247c">
+<p nodeId="c47378a0622f4243a03a4ad4e2b0ce96"><img src="https://km.sankuai.com/api/file/cdn/312585969/145631396169?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1199.38" height="600" nodeId="3e17d4337ab64e5a9bf923227b34d33c" /></p>
+</td>
+</tr>
+<tr nodeId="41947b13fc7c4ef789e8e7af8ebce4ed">
+<td colwidth="[960]" nodeId="bbccbb77b28f4c65aa11e4cc00195639">
+<p nodeId="0353963b2622412987b1a6553652e065"><span font-size="16"><strong>5、添加规则属性信息，单击完成</strong></span></p>
+<p nodeId="ca46e46646d6441983f9ba4f48155aa1" />
+<p nodeId="a8bfb206812742b699427bdd33860d8e" />
+</td>
+<td colwidth="[753]" nodeId="dd1f7000c0a847048488812f77590d6d">
+<p nodeId="72a487df079e44eb85462b5838312cd4"><img src="https://km.sankuai.com/api/file/cdn/312585969/65074816369?contentType=1&amp;isNewContent=false" name="image.jpeg" width="731" height="354" nodeId="2009c7c92f284da7af7fab29d2e13272" /></p>
+</td>
+</tr>
+<tr nodeId="dbeedcd663834e559e6186f14d064e76">
+<td colwidth="[960]" nodeId="3cc0376e17244706ac1de345a2908e00">
+<p nodeId="a9015f9e3da24b808f2e8c83097d79a7"><span font-size="16"><strong>6、规则列表中出现添加的规则</strong></span></p>
+</td>
+<td colwidth="[753]" nodeId="e196aa10a59f47178273fcd2b4793e40">
+<p nodeId="751be41c18fd49d482af848bf12e3255"><img src="https://km.sankuai.com/api/file/cdn/312585969/65075310763?contentType=1&amp;isNewContent=false" name="image.jpeg" width="731" height="54" nodeId="1cebab7552014bba9e7d60e33e148d06" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="27578267b718415db6c977a0dec28732">2.2 交互式配置规则</h3>
+<table responsive="false" nodeId="31c63bd836214dad8c8080706592c0b8">
+<tr nodeId="ab0ab8212ff44542bea7bb1c218c2186">
+<th colwidth="[960]" nodeId="2659c78a1cb2492a801cbf5f3bd4035b">
+<p nodeId="f6fad4216b0c492bbfbaa9c85daa4e76"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[753]" nodeId="3e04ca8902eb49f09f23a1f42b80c56b">
+<p nodeId="2c8cfb47e1144fe8ab43d53fe32309c7"><span font-size="14">示意图</span></p>
+</th>
+</tr>
+<tr nodeId="d407c52559d34600930e263acdf052e0">
+<td colwidth="[960]" nodeId="aa80147435b04a739c9110fa204eda4a">
+<p nodeId="be8be44e6f48408b80acb71242502958"><span font-size="16"><strong>1、首先填写规则逻辑信息，填写中文名称、英文名称、规则内容，此处通过设定左变量、右变量、操作符设置规则条件，并通过在下方条件间逻辑处书写与或表达式设定规则逻辑。</strong></span></p>
+<p nodeId="60ccbd1b80fe4e5cb29d576b82a65ac0" />
+<p nodeId="ae51c2ff1c4a4e69888e5e96200fad04"><span font-size="14"><strong>填写说明：</strong></span></p>
+<ol nodeId="93837e6168964b30b908740b4c22c496">
+<li nodeId="797bb24414ed4011bb05851c4aa108be"><span font-size="14"><strong>规则内容配置：</strong></span><span font-size="14">通过设定规则条件、条件间逻辑确定一条规则逻辑。</span></li>
+<li nodeId="253c840f8d704e728fc96708ee0bc8dd"><span font-size="14"><strong>英文名称：</strong></span><span font-size="14">驼峰命名，且仅支持小写字母，</span><span font-size="14"><strong>规则</strong></span><span color=""><span font-size="14"><strong>命名规范：</strong></span></span><span color=""><span font-size="14">rule_xxx_yyy_zzz，如rule_mac_is_not_has_owner表示规则是检验mac是否有对应厂商。</span></span></li>
+<li nodeId="56c2a8011c9a4c3780aac2962f0db4c3">
+<p nodeId="0808726d24a34332b45058c0f8780957"><span font-size="14"><strong>规则条件配置：</strong></span><span font-size="14">各名词含义说明如下：</span></p>
+<ol nodeId="01e24e04bd764e11819cb74d89399cf9">
+<li nodeId="b54c3524caa24f1ba3789f327fa94640"><span font-size="14">左变量：可选择在平台上注册过的参数/因子或使用函数对参数和因子做转换。</span></li>
+<li nodeId="bc39407d9116401ab4453b35b3f3b509"><span font-size="14">操作符：一种判断，判断左右变量间的关系。具体操作符可见：</span><a href="https://km.sankuai.com/collabpage/1871709029#id-%E4%B8%80%E3%80%81%E6%93%8D%E4%BD%9C%E7%AC%A6" title="https://km.sankuai.com/collabpage/1871709029#id-%E4%B8%80%E3%80%81%E6%93%8D%E4%BD%9C%E7%AC%A6" autoUpdate="true" nodeId="538b33d9333e441c8c30ea0fc97ee40f"><span font-size="14">https://km.sankuai.com/collabpage/1871709029#id-%E4%B8%80%E3%80%81%E6%93%8D%E4%BD%9C%E7%AC%A6</span></a></li>
+<li nodeId="6ca8f9c2af35483a8e65995328449fbb">
+<p nodeId="b134aa9888ac4693b5160594470d6879"><span font-size="14">右变量：可选择 特征 和 常量</span></p>
+<ol nodeId="146041f191a5473fab597c82f347b4e9">
+<li nodeId="e3fe1ca0529a42aab362e3555a4588d0"><span font-size="14">特征：选择在平台上注册过的参数/因子</span></li>
+<li nodeId="a903e42d102f41d4b9003c795d175b72"><span font-size="14">常量：选择左变量参数对应的枚举值或者自定义输入值</span></li>
+</ol>
+</li>
+</ol>
+</li>
+<li nodeId="9c6e2b24974f4fe3a020e0b6438f4098"><span font-size="14"><strong>条件间逻辑</strong></span><span font-size="14">：</span><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">规则逻辑由多个条件通过[与][或][非]连接。</span></span></li>
+<li nodeId="3a79223f56d64a34816ba61e8595a893"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14"><strong>查看可视化计算逻辑：</strong></span></span><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">逻辑信息中设定的规则逻辑关系，以电路图的形式展示。</span></span></li>
+</ol>
+</td>
+<td colwidth="[753]" nodeId="7635e86e13bf4175b6cb73183d2abdae">
+<p nodeId="dd1723614d37451796a1d3aba2c5da0c"><img src="https://km.sankuai.com/api/file/cdn/312585969/65078888069?contentType=1&amp;isNewContent=false" name="image.jpeg" width="731" height="354" nodeId="6ceda8c84faa46d68bdfc3f2c6667243" /><img src="https://km.sankuai.com/api/file/cdn/312585969/89459311652?contentType=1&amp;isNewContent=false" name="image.jpeg" width="731" height="353" nodeId="f5e87cde28d44cf684c210fc34b7768c" /></p>
+</td>
+</tr>
+<tr nodeId="effc4485531847269afde7d31f6d830b">
+<td colwidth="[960]" nodeId="970f8f5433a249228617720db79e79ca">
+<p nodeId="b2f1f29d10ca419186c7831e665f86e7"><span font-size="16"><strong>2、逻辑信息填写完成，点击下一步进入测试阶段</strong></span></p>
+<p nodeId="c840712e85fe415eb423d7eb18e6b3f6" />
+<p nodeId="c2552c2646be40f98595075396751fba"><span font-size="14"><strong>填写说明：</strong></span></p>
+<ol nodeId="33c9f534e0094b6f836dd9d60cdc15c8">
+<li nodeId="239e14a0bf8a4972b083179511724f47">
+<p nodeId="2ae76b3ee3e04fdf9b0aa352249e1602"><span font-size="14">通过选填/json/requestid方式输入测试用例，点击添加测试用例，可在下方查看测试结果</span></p>
+<km-note type="warning" hiddenTitle="true" nodeId="2fb8b434c2734b37b12df4bd232df06e">
+<km-title></km-title>
+<km-content>
+<p nodeId="513e9e234f2b4a9cb3ddff2d0eb292e1">如果有线上请求，可以直接输入requestid进行测试噢</p>
+</km-content>
+</km-note>
+</li>
+<li nodeId="d4f93555e881470da2db21e1e6cb4212"><span font-size="14">测试结果中可点击查看可视化计算逻辑，可查看命中链路和条件命中情况</span></li>
+</ol>
+</td>
+<td colwidth="[753]" nodeId="0d321be5d3d04ba686a37668edc4253c">
+<p nodeId="8f46108a58df4adca8fe7e04742ebaab"><img src="https://km.sankuai.com/api/file/cdn/312585969/89459587560?contentType=1&amp;isNewContent=false" name="image.jpeg" width="731" height="349" nodeId="dd61d544ad7d4bd5b044bf537724c7cd" /></p>
+</td>
+</tr>
+<tr nodeId="a480e3c353e3443683277c0f3ab2db18">
+<td colwidth="[960]" nodeId="63fe15bca08c434ca2f3f563b7e97bd6">
+<p nodeId="bba2b3f3e9854f058a0ca2f65c9b1dd4"><span font-size="16"><strong>3、添加规则属性信息，单击完成</strong></span></p>
+<p nodeId="d4f6c02908844245974e23abab61604c" />
+<p nodeId="76eda39a0aca4c8c89c104ef956dd11b" />
+</td>
+<td colwidth="[753]" nodeId="206c4d3e230d48aabfbb7d454c566f98">
+<p nodeId="98c55dcfd389470f8b693743ec017822"><img src="https://km.sankuai.com/api/file/cdn/312585969/65098241354?contentType=1&amp;isNewContent=false" name="image.jpeg" width="731" height="354" nodeId="1bbec5a82eba4ce68e7327e1f03de1ec" /></p>
+</td>
+</tr>
+<tr nodeId="54470ed113a047f4960f33d3fe0cbf8a">
+<td colwidth="[960]" nodeId="75c388b702654cc4a493c03b065d2efa">
+<p nodeId="9624fa8afe7d479fa7341243e0110567"><span font-size="16"><strong>4、规则列表中出现添加的规则</strong></span></p>
+</td>
+<td colwidth="[753]" nodeId="70f1dbab18e24488aa4c2911989e7114">
+<p nodeId="0866055f8793451fb2864bf06850b22e"><img src="https://km.sankuai.com/api/file/cdn/312585969/65093661821?contentType=1&amp;isNewContent=false" name="image.jpeg" width="731" height="51" nodeId="cee65b0d49b94242803d56954da05569" /></p>
+</td>
+</tr>
+</table>
+<h2 align="start" nodeId="278f451bc8264881bfd915ce3344ad7d">step3：规则修改</h2>
+<h3 nodeId="63407087c9de4364b55dd87be2817c5c">3.1 修改逻辑信息</h3>
+<km-note type="info" hiddenTitle="true" nodeId="26c02945f3dd4a5286df44c65b7f7634">
+<km-title></km-title>
+<km-content>
+<p nodeId="c9726fc751724fb98a59001cd0b81dab">注意：</p>
+<p nodeId="f1c4ab97143a4f43833d851607faf9e9">此时若有其他人正在编辑该规则，您将收到提示xxmis号正在修改，需xx修改完成/退出编辑状态后，您方可修改。若您着急修改请大象联系该用户退出编辑状态。</p>
+<p nodeId="696f44d34e44413d83fe2675ea6b1229"><img src="https://km.sankuai.com/api/file/cdn/312585969/313704114?contentType=1&amp;isNewContent=false" name="image.png" width="296" height="60" nodeId="ffc85adaa54b46e4915cc467d55cdc80" /></p>
+</km-content>
+</km-note>
+<table responsive="false" nodeId="35dac6ecb7ba4a7d91a26feabee54a1f">
+<tr nodeId="f3510bf931b14a1da9bf07bc8a4ce812">
+<th colwidth="[960]" nodeId="fb929de39ec24d9580ba9292754b48c7">
+<p nodeId="9b617b4213724913b88b8c3315ce2403"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[753]" nodeId="98b2bb3b01a74876aa8363b2f3a520f5">
+<p nodeId="5347322c1c7e4e819df679102973d4cf"><span font-size="14">示意图</span></p>
+</th>
+</tr>
+<tr nodeId="0418706e99544582acc627bdae67effd">
+<td colwidth="[960]" nodeId="78a520b41fc1401797a1e9aea84921f2">
+<p nodeId="eb72865268d545ac99305e81abeb2869"><span font-size="14">对于未生效规则，点击右上角【编辑】按钮，后续即可按照添加规则流程对规则进行修改，修改后的规则仍要经过测试，并且至少有一条新增的成功测试用例后才可提交。</span></p>
+<p nodeId="a281f24fc8f442138089212a46fbc445" />
+<p nodeId="41a1804ab5f64bb7b4223802c5247a7c" />
+</td>
+<td colwidth="[753]" nodeId="7cd04a03e2cf4ad1b51a7539677f34ec">
+<p nodeId="c1189f2d5fbd4054a5121966d68c5a56"><img src="https://km.sankuai.com/api/file/cdn/312585969/65131581398?contentType=1&amp;isNewContent=false" name="image.jpeg" width="477" height="231" nodeId="d9210b34c82047b782d21f7a5c47c74a" /></p>
+</td>
+</tr>
+<tr nodeId="4a268ba0c4d943b9adc5301a6ace2de1">
+<td colwidth="[960]" nodeId="2683de9b6b034477a773d1a8c823a59c">
+<p nodeId="5c7dfa3929794bfba44fd1fab4c9f86c"><span font-size="14">对于线上生效规则，点击右上角【编辑逻辑信息】按钮，弹出弹窗确认创建实验任务，实验相关可参考文档：</span><a href="https://km.sankuai.com/collabpage/1614897674" title="https://km.sankuai.com/collabpage/1614897674" autoUpdate="true" nodeId="e8554c5ce2824d9289147ba9bc855349"><span font-size="14">https://km.sankuai.com/collabpage/1614897674</span></a></p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/312585969/65138692390?contentType=0&amp;isNewContent=false" width="913" height="216" nodeId="3836472aaa0b4d40992a606cf749e2e7" />
+</td>
+<td colwidth="[753]" nodeId="921395d4950f476882b69c238b815e0f">
+<p nodeId="591c6eb65534400494eb099e9024d990"><img src="https://km.sankuai.com/api/file/cdn/312585969/65135453452?contentType=1&amp;isNewContent=false" name="image.jpeg" width="478" height="232" nodeId="a0766aaa876a453099dc2ddbe92f2954" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="9a31fddde16049e2abd94a45647fb4a6">3.2 修改属性信息</h3>
+<p nodeId="0e2c4d176d0c4165a7ccbf1645e76a64"><strong>在规则列表中找到需要修改的规则，并点击规则进入编辑页面。进入编辑页面后，在引导页第三部分“属性信息”中，修改共享信息、标签信息等，修改后点击“提交”，完成修改；</strong><img src="https://km.sankuai.com/api/file/cdn/312585969/65133444796?contentType=1&amp;isNewContent=false" name="image.jpeg" width="678" height="329" nodeId="aefbf0a1fe364a5095ba4780c04a1728" /><img src="https://km.sankuai.com/api/file/cdn/312585969/65136369513?contentType=1&amp;isNewContent=false" name="image.jpeg" width="677" height="328" nodeId="a0b73904dd3a4d66920b0145454bedb6" /></p>
+<p nodeId="0ad066fb8e0e493c89a9d3870718c141" />
+<h1 nodeId="cfb376d0f0d94c74932db3dd90beaf81">三、宣讲记录</h1>
+<p nodeId="a88e291dff344c99af927b77787b98c6">20231030-规则交互式部署宣讲</p>
+<km-video src="https://km.sankuai.com/api/file/cdn/312585969/67797969347?contentType=1" name="video1906737043.mp4" size="85.83MB" width="0" height="0" nodeId="6a44103741dd4ba28ab15ccfb64b1be6" />
+<km-footnote-list nodeId="a2ca1fb62dc04eeb8058a2fc099e1a9e">
+<km-footnote-item footnoteNodeId="b230c477585540f69a33ef185e53dd8f" nodeId="774fb7fa2573466193d07bec419ab33a"><p nodeId="8a3b829b50f54aaf9eb3daa80eec7278">交互式：交互式有什么好处？</p>
+<p nodeId="0d7ebc3daf6e4d62b23ce7cd81040d86">1. 支持规则内短路执行，计算成本低</p>
+<p nodeId="9eb91eb0e8a94018a583b27843391a3d">2. 左右变量操作符表征规则逻辑，可读性高</p>
+<p nodeId="58721566de5746dc85d7376a4409aec1">3. 对于简单逻辑类规则，用户上手学习成本低</p></km-footnote-item>
+</km-footnote-list>
+</km-doc>

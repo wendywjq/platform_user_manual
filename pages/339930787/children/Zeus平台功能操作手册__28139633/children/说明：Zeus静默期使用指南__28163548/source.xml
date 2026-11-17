@@ -1,0 +1,112 @@
+<km-doc>
+<km-title nodeId="1b5b102d7ab34179a4fc5ae4cef4af73">说明：Zeus静默期使用指南</km-title>
+<km-catalog style="none" nodeId="c9b7e08662a449adaa643a42d8466b83" />
+<h1 nodeId="81b285f95eea49899e32e16a28e3f5a1">1.静默期要解决的问题</h1>
+<p nodeId="b48db15ed52d4264848452754c0f5ef1">规避高峰期上线规则带来的风险。</p>
+<h1 nodeId="eef3c1dfc668401d9e32d89676f77753">2.如何定义高峰期</h1>
+<ul nodeId="25c7db78874c462e84455ca3b46eec1f">
+<li nodeId="4e1f136453a54fa883f1eefed49e24ce">各业务可自己定义时段</li>
+<li nodeId="84be8680010c456195cf401dedca75d7">时间段可以是多段，如14:00 -15:00,17:00-19:00</li>
+<li nodeId="d8c2a19be3f84305802322e91b144425">联系 @朱翊然 进行定制。</li>
+</ul>
+<p nodeId="4196cdd706f04a0a8bc06217b5b47025"><span color="rgb(255, 0, 0)">备注：高峰期对整个业务组有效。</span></p>
+<h1 nodeId="b7dae5cec8e8454388f18e7abe0d786a"><span color="rgb(0, 0, 0)">3.哪些操作在静默期被禁止</span></h1>
+<ul nodeId="4d05fb525a3541ccb4e32407cf203315">
+<li nodeId="d32d5af01a2346eeada8eaf117a56534">修改规则在场景中的状态、优先级、决策（状态变更含生效改为标记、标记改为生效）</li>
+<li nodeId="ce76d26532dd428da04345def34afeab">规则或因子的强制更新</li>
+<li nodeId="01684e2e3c864526b641e42a27721b36">参数的任何修改</li>
+</ul>
+<h1 nodeId="27b1094995f54c72b22f7d357b7f354b">4.哪些操作在静默期是允许的</h1>
+<ul nodeId="60c62c44ad014ac482280a039f1b78e7">
+<li nodeId="943050535e614ed4ae3cade80a9b18a9">新建或修改<span color="rgb(255, 0, 0)">标记规则</span></li>
+<li nodeId="9f45bfdd9fc84fd2beaf0e908543b804"><span color="rgb(0, 0, 0)">将</span><span color="rgb(255, 0, 0)">标记规则</span><span color="rgb(0, 0, 0)">配置在场景中</span></li>
+<li nodeId="c039cf2ee2324551938708a67579cb4e"><span color="rgb(0, 0, 0)">修改未被引用的因子</span></li>
+</ul>
+<h1 nodeId="ebc5ad095e6843819c92294c7b172b00">5.如何解除静默期限制</h1>
+<p nodeId="8629a3ce884e4e0cbcbe37c7d4b99573">点击申请两小时解禁即可：</p>
+<ul nodeId="db21b81fe5a84bcebad8349f1cdb6d56">
+<li nodeId="09e10cc087144f2c880c531eda75e2e2">
+<p nodeId="15da8183703c4527a5d1f7f10339a645"><span color="rgb(169, 68, 66)">当前时间段在静默期，禁止</span><a href="http://xn--dtra/" title="敏感操作" nodeId="3a76920db3f6488db60233f5a7acc75e"><span color="rgb(169, 68, 66)">敏感操作</span></a><span color="rgb(169, 68, 66)">，如有特殊情况，选择“立即申请”</span></p>
+<p nodeId="4d502eac3693456885e98d32a9daef99"><img src="https://km.sankuai.com/api/file/cdn/28163548/654341343?contentType=1&amp;isNewContent=false" name="image.png" width="414" height="166" nodeId="7e5e60b3d05341bdb5fc5603b04f50c4" /><img src="https://km.sankuai.com/api/file/cdn/28163548/654341105?contentType=1&amp;isNewContent=false" name="image.png" width="357" height="298" nodeId="48f67a907ce94f039f266c5456939be4" /></p>
+</li>
+</ul>
+<h1 nodeId="f429178a84814a839f896b8c0bb9aa4a">6.各业务静默期</h1>
+<table responsive="false" nodeId="642b1ca137de42d5a856f7f706d10e2d">
+<tr nodeId="d56c011385074ebdb5c5f6173b04abaf">
+<th colwidth="[122]" nodeId="ec34a2812b364f13b7b6da3f4093901c">
+<p nodeId="d950220af2264829ba4a5e88ada15e1c"><span font-size="14">业务</span></p>
+</th>
+<th colwidth="[182]" nodeId="7e9e5f9a9c9141ab8750d31c633960dd">
+<p nodeId="f657a5ac4ea743f6aa8a8d13d871ff54"><span font-size="14">静默期时段</span></p>
+</th>
+</tr>
+<tr nodeId="73e0aa628fd44ffa9563bab54c790025">
+<td colwidth="[122]" nodeId="a0cdca01fc97447ebf7d553fbf06ab9b">
+<p nodeId="db1d82932cbb4d6a899966744a406620"><span font-size="14">反作弊</span></p>
+</td>
+<td colwidth="[182]" nodeId="f342a917164d49219d0d1483111a85dd">
+<p nodeId="0680eaaa8239463eb0539d8c4e2f0544"><span font-size="14">10:30-14:00;17:00-20:00</span></p>
+</td>
+</tr>
+<tr nodeId="c35898a732d546719ed7c8cd9c4a8d68">
+<td colwidth="[122]" nodeId="6f539d9b2b3d4c58aaab5dc1f35b9768">
+<p nodeId="dbc831c532f94dfda2ea544d1282a009"><span font-size="14">支付风控</span></p>
+</td>
+<td colwidth="[182]" nodeId="45a26db128c148818adc509eb96f99ae">
+<p nodeId="2c5fb34c7e9c4eb0a4701f0f686579e9"><span font-size="14">待补充</span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="834ea9f928ac4b11a43af02d280814ac">7.静默期配置页面说明</h1>
+<table borderColor="#cccccc" responsive="false" nodeId="30ead57b980941159ff73522bce99ca0">
+<tr nodeId="6fced7f91d8a48f983c277fa82e811ea">
+<th colwidth="[73]" bgColor="rgb(247, 247, 247)" nodeId="b1076d95facf49f6ba4ae7df62b43f8b">
+<p nodeId="a67a325d0e6942c1a823e86132e900d6"><span font-size="14"><strong>旧版</strong></span></p>
+</th>
+<th colwidth="[999]" bgColor="rgb(255, 255, 255)" nodeId="4f6d74275fae479291a340b77238c63d">
+<p nodeId="48d91d1092b84bc4a5a9413da27ddecc"><img src="https://km.sankuai.com/api/file/28163548/312690073" name="image.png" width="971" height="237" nodeId="e2a657cb013d4ace8ef6a9fed73f3cbe" /></p>
+</th>
+</tr>
+<tr nodeId="6c73c3a775de4bb089e952a85d5f2a8d">
+<td colwidth="[73]" bgColor="rgb(247, 247, 247)" nodeId="b7db7c73cc3848c2b1732d17eb96b8a7">
+<p nodeId="a123c5293f53411c994e554d6ded7ba7"><span font-size="14"><strong>新版</strong></span></p>
+</td>
+<td colwidth="[999]" bgColor="rgb(255, 255, 255)" nodeId="9795fc5f0d32480ab6710c363eda9a4b">
+<p nodeId="552add1f9e3e4ab79f1d9cd33f83d5d3"><img src="https://km.sankuai.com/api/file/cdn/28163548/1230527804?contentType=1&amp;isNewContent=false" name="image.png" width="971" height="488" nodeId="361c2df621374ea3b2fc5d368be8ae10" /><span font-size="14">​</span></p>
+</td>
+</tr>
+</table>
+<ol nodeId="2dec6e8ef8404956b7b1e157cb0f4604">
+<li nodeId="94f4b303b8ea4789b4e6b919009298f2">当前业务线：登陆用户只能给当前所在业务线进行静默期配置。若当前用户为子业务管理员，那么将给子业务配置静默期，非子业务管理员仅能查看静默期时间；</li>
+<li nodeId="e2ab2c1d39c1437ba5caa45e96135d02">添加配置：可添加【周期型】和【时间段】两种类型的静默期。一条业务线具有多条静默期配置；</li>
+<li nodeId="08009795408d4f4ea220b426cec6a3ef">禁用按钮：启用或禁用静默期配置。当前静默期所属状态与按钮上文案相反。</li>
+<li nodeId="8b2c5f37300d46e798c26fd18322eea4">类型：【周期型】：适用于静默期的日常配置，以周为单位，周期性生效；【时间段】：适用于长假期间静默期配置，定义从“开始时间”～“结束时间”这一段均为静默期。</li>
+<li nodeId="24b6c74638174199bd9f9b3d24faa7cf">星期：该字段在周期型静默期配置有效，如果为空则代表没有一天符合静默期配置。</li>
+<li nodeId="61ca072943c240bba8941b2fd81017dc">时间区间：定义静默期生效的时间区间。一条【周期型】静默期配置最多可定义三个区间；一条【时间段】静默期配置最多可定义两个区间。</li>
+<li nodeId="da6d742597934afb9fe86a8107bfdc3a">操作：支持删除操作。</li>
+</ol>
+<p nodeId="d45382450aef4722894e08f23417d489" />
+<h1 nodeId="0c5a60b54fe540d6844edfc6547ada06">常见问题</h1>
+<ol nodeId="76804d512afd44c3a743b9ae8b06dc42">
+<li nodeId="c254e49035b14ea4a0ec72f93fc7d63d">
+<p nodeId="7f5e267b1be24799b2147777eec8c934">点击静默期出现如下图所示提示，是因为缓存问题导致错误。</p>
+<p nodeId="fcdd33e36a4b491786ba7cf2db171850">解决办法是：例如下图所示案例，点击红框所选项，切换下业务后，重新进入静默期配置页面即可。</p>
+</li>
+</ol>
+<p nodeId="f5e0f1db2a094b8d9e52d4ddc59eb995"><img src="https://km.sankuai.com/api/file/28163548/312731048" name="image.png" width="981" height="265" nodeId="de3586741489466e817c82a4b8f25a01" /></p>
+<p align="start" nodeId="29a04803078842abbd71f4b1c56f6a92">2.<strong>业务与子业务静默期关系</strong></p>
+<km-drawio src="https://km.sankuai.com/api/file/28163548/312612209" width="461" height="221" nodeId="4663fa21e3004ac7b4a64b07304102f6" />
+<p nodeId="f99c8c5f3baa4cfebb4f9e1e2a61d61e" />
+<p align="start" nodeId="937499d0bcbf49f8a977668f9f0db20a">zeus用户在使用zeus系统时，遵循：</p>
+<p nodeId="c6fdaf44741142b696697e067be69676">(1)如果用户属于子业务，遵循子业务静默期的设置，如果子业务静默期不匹配，则无需遵循业务A静默期设置；</p>
+<p nodeId="5ba696d194a749af8e84022f70304631">(2)如果用户属于业务A，但不属于子业务，那么遵循业务A静默期设置；</p>
+<p nodeId="a859a8c3531641e09658e4c4d9b25b3f">(3)如果用户属于多个子业务，那么该用户在哪个子业务下执行操作，就遵循哪个子业务的静默期配置；</p>
+<p nodeId="d9bf6c1b7a5442be8205cf5a7f5a79d7">(4)如果用户属于父业务，那么就不属于具体某个子业务，在进行权限配置的时候进行管控。</p>
+<p nodeId="58090b86ef634eab998f6d955b15b9a4">(5)子业务未配置静默期，则遵循父业务静默期配置；</p>
+<p align="start" nodeId="a57026e47fc74084a33f74f866940b7c">3.在skywalker上配置权限时，无法限制用户属于父业务，就不能属于子业务。</p>
+<p align="start" nodeId="134f297ef43d4011b5e4b02bd387a6c7">（影响：当用户反作弊的静默期管理员，又是反作弊下子业务的用户时，静默期只能查看子业务，不能进行反作弊静默期配置，需要优化权限控制流方可解决）</p>
+<p nodeId="24f13a81bb8043909ab3e5a741b498f2" />
+<p nodeId="2237e188ccb1446385f5f4c5c2b9f95a" />
+<p nodeId="f7bb4b0774604ee1a107976fbc50f521" />
+<p nodeId="a217ae6b50ff48e9979b8c88a7269465" />
+</km-doc>

@@ -1,0 +1,95 @@
+<km-doc>
+<km-title nodeId="5565215bda2f48609a10216d8741b79b">说明：Tair因子使用手册</km-title>
+<km-catalog style="none" nodeId="a5975548ab334e3cbbf3ffbb9be36999" />
+<p nodeId="d23a620ce0144bc5bee87405ceae0fd6" />
+<h2 nodeId="1e7905d6c98b4060b074a6e5b1f9d998">一、背景</h2>
+<p nodeId="7bc142ebd3f643378b8f6b1777d375c0">解决：业务已有了一些kv対，在规则执行时，期望获取这些key对应的value值</p>
+<p nodeId="71740494185e45be80b7866c65dc67d5">适用场景-例如：（1）业务洗出一批安卓设备ssid与厂商的映射信息，规则执行时期望通过ssid获取设备厂商；</p>
+<p nodeId="c2071c80afcb4b559111a383e939ab16" />
+<h2 nodeId="23bd0fc6a92c48529f6453ff85292a51">二、操作说明</h2>
+<h2 nodeId="6e2a3c2f2fb2494887565cb98fa6316f">1、写数据</h2>
+<p nodeId="b07ff9770a2d4da39d580089870ecf2c">使用Tair因子前需要先将数据按照指定的格式，写入指定的存储</p>
+<h4 nodeId="3f9bbfa8ab0740af80d99722ed3f0123">写入方式</h4>
+<p nodeId="4cbcd16dfed946c18e1cdc59a7de69cb">1.<strong>风控请求未过Tatooine</strong>，业务自行洗数据写入指定存储，存储信息由@Tatooine指定，并提前与@Zeus沟通待写入数据的细节。</p>
+<p nodeId="f9c90009f4ba40f4aa616b7bf77635dc">2.<strong>风控请求通过Tatooine</strong>，配置写入规则，在决策附加信息中，配置写入的数据和存储，由Tatooine完成数据写入，具体配置方式如下：</p>
+<ol nodeId="a82e89f42ee440db85bff2d96c9a4c6a">
+<li nodeId="60d7689a50ca44c381753c7f66e85663">
+<p nodeId="12a56d9e1ac8438586abb3ea1038fd83"><strong>添加附加信息模板：</strong></p>
+<table borderColor="#cccccc" responsive="false" nodeId="ae614bdf6aa54f6681ef8527d4e0fc6d">
+<tr nodeId="3e7f8ff28ee9407a969eae7c986d2117">
+<th colwidth="[73]" nodeId="8414792b95274d53ac1a574c49dc3f46">
+<p nodeId="5103d7fe0ee345658da18ecdc51f06bf" />
+</th>
+<th colwidth="[407]" nodeId="48929bd292d14f8a82fc393b94e3c9f4">
+<p nodeId="dff2807dbd4e40ed8f80dae8a848e626"><span font-size="14">含义</span></p>
+</th>
+<th colwidth="[73]" nodeId="1f5f75519163475b8de3e686e9f2fe3b">
+<p nodeId="8f9126d60a3b4150b8be19d987624f12" />
+</th>
+</tr>
+<tr nodeId="cc56a4e67cb34f90879026ef0fa8a447">
+<td colwidth="[73]" nodeId="fe84678750cc470ebeeda977fdcebc89">
+<p nodeId="d4a96773f9f24bf793784f84793f5329"><span font-size="14">key</span></p>
+</td>
+<td colwidth="[407]" nodeId="4efccccee975462e8295146296c00918">
+<p nodeId="8d62eafb1fa74ea18acf8954e67cc422"><span font-size="14">存储中的key字段，格式为读因子名+"_"+读因子key</span></p>
+</td>
+<td colwidth="[73]" nodeId="e701b60e384e41248158b28a316382b6">
+<p nodeId="b39261979a454f539185511b479dafb7" />
+</td>
+</tr>
+<tr nodeId="82c0650c62104a9ea5f40c838b2971e4">
+<td colwidth="[73]" nodeId="e35c776957df4d5684f217efc4bc84b0">
+<p nodeId="3ce7bceba6e9460e8ac8298c760864f6"><span font-size="14">value</span></p>
+</td>
+<td colwidth="[407]" nodeId="7f52be31f9c94a25a1bc30a8235a751c">
+<p nodeId="97425850aee34f5d8f474dd67e928e3f"><span font-size="14">存储的value字段</span></p>
+</td>
+<td colwidth="[73]" nodeId="6a6952cd0f8c415694c709b8240c6837">
+<p nodeId="010875b74a2d4ff1a748699bf4223d36" />
+</td>
+</tr>
+<tr nodeId="5ff9ccae0ae84171a35196a0cfcbf75a">
+<td colwidth="[73]" nodeId="44336ec99d714824b9c53c6cf94020d0">
+<p nodeId="3cff89e684884b0b89c3ddb3c6cde254"><span font-size="14">timeout</span></p>
+</td>
+<td colwidth="[407]" nodeId="6c8664a9ca1e4cceba713f2d037a123c">
+<p nodeId="e388fa69ff0b474082e2fc33291f040b"><span font-size="14">kv在存储中的过期时间，0代表不过期</span></p>
+</td>
+<td colwidth="[73]" nodeId="c59fd36e20be4129962074d40b7a964e">
+<p nodeId="2ebca67eb99b439cb8d70da7142e4a3d" />
+</td>
+</tr>
+</table>
+<p nodeId="3efa4a4c4e7e40eda63c5e99a15eddb0">模板配置如下图：</p>
+<p nodeId="435cbae658604eb7a94a2474cf38e4eb"><img src="https://km.sankuai.com/api/file/cdn/212068218/217879070?contentType=1&amp;isNewContent=false" name="屏幕快照 2019-11-14 下午7.55.18.png" width="698" height="153" nodeId="1970e30d8ca84318ab05b4a01c10d79a" /></p>
+</li>
+<li nodeId="0e0ce12a9d444d96b6d2eea1037005a2"><strong>配置一个决策附加信息写入kv数据，对应的读因子是test_tair</strong></li>
+</ol>
+<p nodeId="5852bc9e3b734ef789a655d5209ccdff"><img src="https://km.sankuai.com/api/file/cdn/212068218/217767800?contentType=1&amp;isNewContent=false" name="屏幕快照 2019-11-14 下午7.54.35.png" width="602" height="273" nodeId="8ed7be7256a041f4abc7f8ed54a90efb" /></p>
+<h4 nodeId="6f006abb3b4541aea967e0a857cec165">写入格式</h4>
+<p nodeId="66b281e8a04e41c38ea1d2eccd446c5e">不同业务的tair因子底层使用同一存储，为了保证键值的唯一性，写入的key格式为："因子名_key值"，</p>
+<p nodeId="e35129e68521403e9a6ee46c13c02c43">如图Tair因子的名称为test_tair，key值表达式为userId，对于userid= 69279227的用户，写入缓存的键值为"test_tair_69279227"。</p>
+<p nodeId="a75da33fb7554574b177e0294aac8ad3" />
+<p nodeId="0888fad9417b4ae4aaabba9255e0f904"><img src="https://km.sankuai.com/api/file/cdn/212068218/213118270?contentType=1&amp;isNewContent=false" name="image.png" width="817" height="243" nodeId="d65501b6cf3144e9974de1ca881d707f" /></p>
+<km-note type="note" nodeId="fe1671bbe7114fb8a91af24d82db0a45">
+<km-title>写入数据的限制</km-title>
+<km-content>
+<p nodeId="8d9ceece2ad74f368403bdf499fd39ef">1.Key值不能超过1000字符</p>
+<p align="start" nodeId="f6f1e6020f264d82a2b0e7b1f4990730">2.Value值大小不能超过 100K（100K怎么计算，详情👇）</p>
+<p align="start" indent="2" nodeId="a49578a321d1402498ffd007c8d17a02"><span color="">1个</span>Byte<span color="">（字节）存储一个西字字符或标点符号或阿拉伯数字。</span><br /><span color="">2个</span>Byte<span color="">（字节）存储一个汉字及相应标点符号。</span><br /><span color="">100K</span>Byte<span color="">=（100*1024）=102400个西文。</span><br /><span color="">100KByte=（100*1024）/2=51200个汉字</span></p>
+</km-content>
+</km-note>
+<h2 nodeId="1364444318e84fb09aaabe84c29fde77">2、读数据</h2>
+<h3 nodeId="c2e758204ee04728a6a5c36cf0de70a5">【Tair因子配置】</h3>
+<p nodeId="07c68fbb303543798ae79b3627e76742"><strong>首页--&gt;规则--&gt; 因子</strong></p>
+<p nodeId="3912ede5e64f4e5092dc53c4ca8aa46c"><img src="https://km.sankuai.com/api/file/cdn/212068218/212069849?contentType=1&amp;isNewContent=false" name="image.png" width="202" height="287" nodeId="fd7d8876d1ee4d35967c8c632d8b996c" /><img src="https://km.sankuai.com/api/file/cdn/212068218/212069995?contentType=1&amp;isNewContent=false" name="image.png" width="744" height="285" nodeId="464fbe703be440a9b27d5b08e5d6c651" /></p>
+<p nodeId="a5aa82f8144f4320a3cddab1d1c671c3" />
+<p nodeId="d3ce1aa56af84c0d88d04cb905c3a990">key表达式：aviator表达式，表达式配置支持参数和表达式因子；</p>
+<p nodeId="0410eb685b5f49f38bc58f119288030e">存储名称：当前只有一个集群，自行写数据的业务请先与Zeus确认数据存储名称，通过Tatooine写入的数据请与Tatooine确认存储名称；</p>
+<p nodeId="798660d00f7c42e5a2cc95fc175d5162">结果类型：请确保写入的数据类型保持一致；</p>
+<p nodeId="42db3c72db494e38b78cc06c80f1cb54" />
+<h1 nodeId="8f3fbaa63089484597e29c36a0c4697a">三、最佳实践经验</h1>
+<p nodeId="d1de8aa61ea24dfbacf62040f0e6e475"><km-quote quoteId="212068218--50e7f595-6c4b-467e-9956-18180bb98863">离线写tair：</km-quote><a href="https://km.sankuai.com/page/1325945403" title="https://km.sankuai.com/page/1325945403" autoUpdate="true" nodeId="ffa5e4d3972246aa9739d95a0b6cb85e"><km-quote quoteId="212068218--50e7f595-6c4b-467e-9956-18180bb98863">https://km.sankuai.com/page/1325945403</km-quote></a></p>
+<p nodeId="5ce185fead6c454aac24ffa5cc5cf79e"><a href="https://km.sankuai.com/page/213383489" title="https://km.sankuai.com/page/213383489" autoUpdate="true" nodeId="b52877a602d24dd9b20ff79ee41ef706">https://km.sankuai.com/page/213383489</a></p>
+</km-doc>

@@ -1,0 +1,121 @@
+<km-doc>
+<km-title nodeId="5f2672f22ac14e10a2584589a96866b6">说明：Zeus多级路由使用指南</km-title>
+<km-catalog style="none" nodeId="c2a24673295646d19954ce8f8e706b8d" />
+<h1 nodeId="2ac5e378f5404bd0ac4ed325a9908454">一、解决问题</h1>
+<ul nodeId="31622ca8209947f3b41dbf96b51ae023">
+<li nodeId="a40b9bf97a554e839b33e4e81f00c661">提升性能</li>
+</ul>
+<ul nodeId="3e0c524673da4cc0ba1b2be788629335">
+<li nodeId="86554b37dbb1405c85d77978ed0fc778">上海业务安全在内容安全维度，存在大量的消耗资源的规则（例如OCR识别算法），业务上为了提高性能，期望优先执行资源消耗低的规则服务，在执行其他高消耗的规则；</li>
+<li nodeId="9457382640874e1c9fe511e9ba375775">
+<p align="start" nodeId="b2c349de9c5a4f44bf9450a6db7a30da">支付风控业务，在某些场景中的规则量高达一千多条，任何数据需要并行过规则，为了进一步提高性能，业务期望当数据进入规则平台，命中某些高优先的决策规则，则停止执行后续规则（例如，业务数据命中加黑账号的规则后，无需继续执行后续策略直接拦截账号操作）</p>
+</li>
+</ul>
+<ul nodeId="57ed9a691e3d4db49e23ebfd4547a8d8">
+<li nodeId="9db0265d22ed4fb2a5b743c333980389">
+<p align="start" nodeId="3a4bea688b96468cbc7c26d21f9e81a5">复杂路由策略（决策流）</p>
+<ul nodeId="1f40533ea5d04361a9e9a065cefb4370">
+<li nodeId="685229811cb84e92819c754fd08ba3c1">
+<p align="start" nodeId="f6b1557d44fe45438042c4978ccf9c22">消费金融在处理复杂业务的过程中，会涉及到策略分层的概念进行分流，例如付费的执行哪些规则、免费的执行哪些规则；</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul nodeId="e9cee514b0ba4c23bb116d0d1d7f413a">
+<li nodeId="764be854d47d443fbbbe3f9e7349bc7b">
+<p align="start" nodeId="8dceb0e79df24dd2a1606445ba4ff7c7">多级路由示例</p>
+</li>
+</ul>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/107423301/220194325?contentType=0&amp;isNewContent=false" width="1320" height="483.28675237562885" nodeId="00a758afdc384d6a9475990c4fb6d221" />
+<h1 nodeId="5f627e612aba4a11bc6973f76ae578d0">二、名词说明</h1>
+<ul nodeId="06c50156250c48fa93585b03e7be06f2">
+<li nodeId="a6712edc7ff8444eb2aecd475be610c7">普通场景：一堆规则的集合，无需按照逻辑进行分流，当前执行完成就完成</li>
+<li nodeId="b5ad1a478f48450db947a9b290383764">普通路由场景：仅可支持两层，即总-分</li>
+<li nodeId="587c2f9333db4203ad3601bd45861daa">多级路由场景：可支持多层，<span color=" ">决策流模式，即</span>一堆规则的集合，支持按照逻辑进行分流，<span color=" ">满足指定条件可以指定走向在每个节点进行条件设置，实现最终流向；</span></li>
+</ul>
+<h1 nodeId="37c3de98dada4a1ea84af806a4bcf1b7">三、操作说明</h1>
+<ul nodeId="705ce466a5eb423a8b64229f69a82100">
+<li nodeId="7a0073018c4e488092bd207de5090673">
+<h2 nodeId="c4643df0c04149bbb1dfdcbd3ef4c131">Zeus-美团</h2>
+</li>
+</ul>
+<p nodeId="ac2bf5a5a9dd4838b6a4e2b4c3c0fab5">所使用的系统为<a href="https://zeus.sankuai.com/" title="https://zeus.sankuai.com/" nodeId="48f6ca107fd24e27b94317130520f197">https://zeus.sankuai.com/</a>（Zeus-美团）参考如下流程：</p>
+<h3 nodeId="d317f5828143494390541192ba00c68a">Step1:创建路由场景、规则、场景</h3>
+<p nodeId="b60c54c6998846d9ac94d32332bbd333">关于如何创建规则或者场景，这里不再赘述，请参考<a href="https://km.sankuai.com/page/28139633" title="Zeus规则平台管理系统使用指南" nodeId="addeceeaa43a40c28c1aa14286799eb6">Zeus规则平台管理系统使用指南</a>、<a href="https://km.sankuai.com/page/220134551" title="https://km.sankuai.com/page/220134551" autoUpdate="true" nodeId="720c7b91a1344e04be4454edb00d9d4f">https://km.sankuai.com/page/220134551</a>、<a href="https://km.sankuai.com/page/170907477" title="https://km.sankuai.com/page/170907477" autoUpdate="true" nodeId="12deeae6b2b4420bbc61b4a9dba2c6b0">https://km.sankuai.com/page/170907477</a></p>
+<p nodeId="10ef6776147f4d5f809ed6f4447a3af4">入口：</p>
+<p nodeId="a1df925f5cb344a48eb3d4ec09ac84e2">a.在场景模块中创建路由场景</p>
+<p nodeId="e5187dbf0a744e52b24d5db74e166e7c">b.<a href="http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList" title="http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList" nodeId="c0944e6ded0f44789c0760b88bb82c8a">http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList</a></p>
+<p nodeId="1571671011df4699b97e8dd33004dcc4"><img src="https://km.sankuai.com/api/file/cdn/107423301/220195870?contentType=2&amp;isNewContent=false" name="image.png" width="709" height="321" nodeId="1246ab0b7c9348dfb5778b014f6fce96" /></p>
+<h3 nodeId="445de124e42540b7a93f16dc84025b26">Step2:多级路由场景配置</h3>
+<h4 nodeId="66e74cc1bd434192b6f490c99f26a266">（1）入口：<a href="http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList" title="http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList" nodeId="ecd6d2fe807a4903a94805ddd146e469">http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList</a></h4>
+<h4 nodeId="c583a7b9cbdf458091d9051c945709bb">（2）默认初始化节点设置：支持普通场景作为根节点，支持规则在该场景下配置</h4>
+<p nodeId="5a7975fdde9146ac85ebfccac9c18701" />
+<p nodeId="a1cfbf79405e4e8bb180b26516775e18"><img src="https://km.sankuai.com/api/file/cdn/107423301/1402461346?contentType=1&amp;isNewContent=false" name="image.jpeg" width="923" height="441" nodeId="acdcd7d86b3145feaad007d7e6a4c370" /></p>
+<p nodeId="68494ea15c5a499baa38725de24595f3"><span color="#f5232d"><strong>鼠标的小手手</strong></span><img src="https://km.sankuai.com/api/file/cdn/107423301/5869083791?contentType=1&amp;isNewContent=false" name="image.jpeg" width="20" height="26" nodeId="f3a5588ff9354f919e20f5a4390516c2" /><span color="#f5232d"><strong> 进入红框！！！！</strong></span></p>
+<h4 nodeId="d479f11f6a58465f9824b2a67a1b9c44">（3）增加下一节点和路由规则</h4>
+<p nodeId="56cadc2a1fc743ffb8247d09e9500f69"><img src="https://km.sankuai.com/api/file/cdn/107423301/220241532?contentType=2&amp;isNewContent=false" name="image.png" width="1278" height="600" nodeId="0aa1b980179343468458aae7d09267e4" /></p>
+<h4 nodeId="632f5e332ef149ba8444ecbf07c99a9c">（4）查看下一节点的场景内配置详情</h4>
+<p nodeId="b6e2ffbbd6b34445a78d35e6adc8a384"><img src="https://km.sankuai.com/api/file/cdn/107423301/220241732?contentType=2&amp;isNewContent=false" name="image.png" width="1275" height="623" nodeId="01384746fc174fddbf1ed500818df70c" /></p>
+<p nodeId="2e5b400f77db4db1a32fb70251e3cf85"><img src="https://km.sankuai.com/api/file/cdn/107423301/220334749?contentType=1&amp;isNewContent=false" name="image.png" width="736" height="230" nodeId="d81f141db1d9497eb90c7c7f008ac278" /></p>
+<h4 nodeId="fab0fa9a4c194436b02178a25b6e40ee">（5）完成配置点击保存</h4>
+<h3 nodeId="82201940c92a48cc8fdc6051fb3ecd99">Step3:查看全量多级路由场景</h3>
+<p nodeId="2a2fefe039ad41d4be9c7089de0c76f8"><img src="https://km.sankuai.com/api/file/cdn/107423301/220242119?contentType=1&amp;isNewContent=false" name="image.png" width="407" height="458" nodeId="447c6c8089fc4fd8a19fa9207511091a" /></p>
+<ul nodeId="060c027ed17c4145aebb67e842f095cb">
+<li nodeId="70df278d31a8425b85fd69f793d84654">
+<h2 nodeId="b66a85bd85c3408ba64743e8b964af7b">Zeus-私有化</h2>
+</li>
+</ul>
+<p nodeId="1acfeb98aa094fd9ac82f337931b3272">所使用的系统为Zeus-美团私有化 参考如下流程：（<span color="rgb(250, 84, 29)">不知道私有化是什么，那就不需要看以下流程了</span>）</p>
+<h3 nodeId="979662d7005b453a9908b292ebb5462d">Step1:创建规则/场景</h3>
+<p nodeId="941d1184ba3e493c96be6ad9ad79a5c1">关于如何创建规则或者场景，这里不再赘述，请参考<a href="https://km.sankuai.com/page/28139633" title="Zeus规则平台管理系统使用指南" nodeId="0fe9fe7da63841cfae70dac71cbcb288">Zeus规则平台管理系统使用指南</a></p>
+<h3 nodeId="9cd09d67a12149d5a3300d845e095067">Step2:添加/更新多级路由场景</h3>
+<km-note type="tip" hiddenTitle="true" nodeId="36155ed31c8c43a48aabe1dbd29221b4">
+<km-title></km-title>
+<km-content>
+<p nodeId="7e1bbf5ebc6a4c7aafd2d28498cdb747">关键概念说明：</p>
+<p nodeId="0bcefb5102ec4ab3bc5a639448c12ffd">场景：多级路由的节点，场景是一组规则的集合</p>
+<p nodeId="35e885b3269f4e1fb34d878596f32329">触发规则：当前仅当触发规则为“真”时，下一节点的场景才会被执行</p>
+</km-content>
+</km-note>
+<h4 nodeId="011292217f8744fca1606897587d09b7">（1）默认初始化节点设置：支持普通场景作为根节点，支持规则在该场景下配置</h4>
+<p nodeId="5bbe5fdf06cc45fb8e7c916c0f84a067"><img src="https://km.meituan.net/a83ead13-ce0b-47d0-a412-5dd09ba1b7ec.png?contentId=107423301&amp;attachmentId=109236191&amp;originUrl=https://km.meituan.net/a83ead13-ce0b-47d0-a412-5dd09ba1b7ec.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="531" height="344" nodeId="512b4a8fb7d24468a726b27a752a5e3c" /></p>
+<h4 nodeId="341ca95aaaf6410a845e537a59fb4971">（2）增加下一节点和路由规则</h4>
+<p nodeId="0adac24642a549cb83ad7d6950a57106"><img src="https://km.meituan.net/131b4af2-3c55-4e74-bd18-7ceae23303dd.png?contentId=107423301&amp;attachmentId=109284764&amp;originUrl=https://km.meituan.net/131b4af2-3c55-4e74-bd18-7ceae23303dd.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="489" height="155" nodeId="8c915aa115fc4714a159b26d7b27e2b3" /><img src="https://km.meituan.net/02d5d1f8-c8b1-4047-99fd-2f0448ccf0a5.png?contentId=107423301&amp;attachmentId=109223678&amp;originUrl=https://km.meituan.net/02d5d1f8-c8b1-4047-99fd-2f0448ccf0a5.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="449" height="174" nodeId="d8dbc005d0d0478c95ada8ccc747ce40" /><img src="https://km.meituan.net/54d3ac63-b826-49be-b89f-841272b6daa0.png?contentId=107423301&amp;attachmentId=109276261&amp;originUrl=https://km.meituan.net/54d3ac63-b826-49be-b89f-841272b6daa0.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="331" height="179" nodeId="89381776b7294d1191ad8588b19eeda6" /></p>
+<h4 nodeId="8b3727867a9a452fa7d37fe16d45ba3d">（3）完成配置点击保存</h4>
+<h3 nodeId="0c63a1ea53f7458db6db8ab88a86ec1c">Step3:查看全量多级路由场景</h3>
+<p nodeId="79c6b75872d24e189ff13fb8109476b6"><img src="https://km.meituan.net/415df424-8d1c-49da-9eec-363c27f69dd8.png?contentId=107423301&amp;attachmentId=109285040&amp;originUrl=https://km.meituan.net/415df424-8d1c-49da-9eec-363c27f69dd8.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="727" height="61" nodeId="f260197777ae41d790eff189611e85a8" /></p>
+<p nodeId="4213f2c572874bfbae8b9dbb5470c282"><img src="https://km.meituan.net/66ee35dc-8c10-4ef5-a683-b8b22bc54605.png?contentId=107423301&amp;attachmentId=109236473&amp;originUrl=https://km.meituan.net/66ee35dc-8c10-4ef5-a683-b8b22bc54605.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="742" height="362" nodeId="516f433e151e445da9eb9c5440057a17" /></p>
+<h1 nodeId="a6a2d247548e4a11b602a0a59e8cbf16">四、FAQ</h1>
+<h4 nodeId="43066916cfd744a1820544637b4e092d"><strong>Q1：如何配置“父场景未命中任何一个决策时才执行下一场景”？</strong></h4>
+<p nodeId="753fa33b1d5b4334b27beead3f32aed0">A：Zeus内置了parentDecisionIds字段，该字段表示父场景命中了哪些决策。parentDecisionIds是一个以英文逗号列表，举例： parentDecisionIds = "101,102" ，表示父场景命中了101和102两个决策。</p>
+<p nodeId="d6d3d895cb974f3a9a0929b6c1f1f6eb"><span color="rgb(245, 35, 45)">注意：父场景指的是该条路由规则在路由场景中的上一层级场景，而非根场景。如图中路由规则2342887，使用到parentDecisionIds，指的便是12969场景中的决策命中情况。</span></p>
+<p nodeId="99f9a271cb994d4884834394c66ac80b"><img src="https://km.sankuai.com/api/file/cdn/107423301/1409607385?contentType=1&amp;isNewContent=false" name="image.jpeg" width="539" height="256" nodeId="0ffaee5c03f541c3a3cd6bb533ac4fd2" /><img src="https://km.sankuai.com/api/file/cdn/107423301/1408533808?contentType=1&amp;isNewContent=false" name="image.jpeg" width="450" height="253" nodeId="18e19ee170974725a5d4ecbf1f9635ce" /></p>
+<p nodeId="5a0ab5db80a84ff8ac8e5b6aeed724cb">     使用该字段的流程：</p>
+<p indent="1" nodeId="f419759d6f5e469a9a4809f0dc19d980">一、在Zeus平台中注册该参数，参数实例如下</p>
+<p indent="1" nodeId="7d268dcec0a4487793ace1263298d896"><img src="https://km.meituan.net/116524191.png?contentId=107423301&amp;attachmentId=116524192&amp;originUrl=https://km.meituan.net/116524191.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="409" height="107" nodeId="e2e16606e0f7499a844094e060c61679" /></p>
+<p indent="1" nodeId="69fb222486d7475e97b34137d5ad5a15">二、配置路由规则，参考如下：</p>
+<pre language="JSON" nodeId="3102fad776fb4896aa7a5ffee39622c9"><code>//父场景未命中任何一个决策
+parentDecisionIds == ""
+//父场景命中了101决策
+array.contains(parentDecisionIds, "101")</code></pre>
+<h4 nodeId="a02a4d8b93564b7da3b19db88715ea16">Q2<strong>：</strong>在场景列表/场景配置列表中出现“<strong><u><a href="https://zeus.mis.rc.test.sankuai.com/scene/edit?scene_id=140726" title="【不要修改】自动同步的多级路由的公用根节点" nodeId="012fd2d02265444e92f7e27b3c00a51d">【不要修改】自动同步的多级路由的公用根节点</a></u></strong>”是什么意思？</h4>
+<p nodeId="27dbc10b856244b886f491308459c676">A：出现该信息是您所在的业务方下有使用路由场景才会出现，若未使用路由场景但出现此信息请联系值班Zeus。</p>
+<p nodeId="a276053153c54566a4ec14b1317bc533">该信息为系统自动生成信息，支持业务方将已经使用的普通路由修改为多级路由。无任何实际意义，仅仅为多级路由的根节点</p>
+<p nodeId="89b65412aa894f22a153c250b733e2bc"><span color="rgb(245, 35, 45)">普通路由和多级路由区别：普通路由仅支持两层；多级路由支持多层，最大不能超过5层</span>；<span color="rgb(245, 35, 45)">单层不建议超过10个以上场景</span> <a href="https://km.sankuai.com/page/28253500" title="https://km.sankuai.com/page/28253500" autoUpdate="true" nodeId="bc20c5609a56475ab39693ec27cb7d3f">https://km.sankuai.com/page/28253500</a>、<a href="https://km.sankuai.com/page/107423301" title="https://km.sankuai.com/page/107423301" autoUpdate="true" nodeId="1253e84ab3024261994ef95f039fccf7">https://km.sankuai.com/page/107423301</a></p>
+<p nodeId="ea1ad65f789e423b82f8eb4e812be2e7"><img src="https://km.sankuai.com/api/file/cdn/107423301/220233555?contentType=1&amp;isNewContent=false" name="image.png" width="754" height="83" nodeId="1b55c070ed724688ae4f49ded4ce2fa5" /></p>
+<h4 nodeId="f13c3f4abf854e3da413137b01de178b">Q3<strong>：</strong>怎么查看多级路由的命中情况？</h4>
+<p nodeId="b2373dc1a09346ecba1621b43231c33d">A：在实时日志查询中查看，查看详情是每一个节点（场景）为一条日志信息，目前不支持整体的路由场景信息查看。例如：</p>
+<p nodeId="ce4ae3429bef4498b7c4fb90db5e4e36"><img src="https://km.sankuai.com/api/file/cdn/107423301/220241732?contentType=2" name="image.png" width="993" height="485" nodeId="738a01f8c48745f598b3cc4326775120" /></p>
+<p nodeId="7e391d959eca41d28d9f97a769ac5567">上图多级路由可查看的日志信息为：</p>
+<p nodeId="6efba20a8fee48179078d17f0ba6c1b4">初始节点场景配置日志、KFC活动场景配置日志、深证拉新风控场景配置日志，但不能查看外卖领用券活动场景配置日志；</p>
+<h4 nodeId="28195f7d4fa24e84ba57b2cb39bb70ea">Q4<strong>：</strong>为什么多级路由场景与场景间的路由规则不支持标记功能？</h4>
+<p nodeId="1a5ddcf3daf2459faabd804373087970">A：当前为多级路由一期项目，场景内规则支持标记状态，场景与场景间路由规则不支持标记功能，预计Q1～Q2可支持标记功能；</p>
+<h4 nodeId="af7b01fc540c4953848e5b8112b66496">Q5<strong>：</strong>修改多级路由map图、路由规则以及内部使用的因子对整体影响怎么控制？</h4>
+<p nodeId="5b629fffbe5f4ab585637b521bacf7d9">A：目前无测试的情况，修改即生效；预计2019Q4低提供策略修改的演练模式，用于修改的整体评估；预计2020Q1～Q2支持标记功能，用于新增场景的分支流向验证；</p>
+<h4 nodeId="e641b5c311734a2d9d6f077f469e3b00">Q6<strong>：</strong>如何将已经<span color="rgba(0, 0, 0, 0.87)">使用的普通路由修改为多级路由</span>？</h4>
+<p nodeId="7c13b782f66748b19bab4d2cc5d8aa9c">A：<a href="https://km.sankuai.com/page/220330745" title="https://km.sankuai.com/page/220330745" autoUpdate="true" nodeId="3cbacd87144849faa1c499b32250ec77">https://km.sankuai.com/page/220330745</a></p>
+<h4 nodeId="c6260eda65e4418da54d31f8218a4c11">Q7<strong>：</strong>多级路由返回的数据是什么？</h4>
+<p nodeId="4539d9d053d0460d996fbf5cf1d47432">A：将命中的场景及场景下的规则均返回。业务怎样确定哪个场景是最终的场景</p>
+<p nodeId="1d72f771e1f94648b37efb6f7749531e">（1）通过配置<span color="rgba(0, 0, 0, 0.87)">只有在最终场景才会出现的决策，进行标示</span></p>
+<p nodeId="ee8738706d5e4e8a9f0136825a107451"><span color="rgba(0, 0, 0, 0.87)">（2）预计2020年6月底，会增加返回多级路由的执行map和最终场景标识，便于业务从最终场景获取决策</span></p>
+</km-doc>

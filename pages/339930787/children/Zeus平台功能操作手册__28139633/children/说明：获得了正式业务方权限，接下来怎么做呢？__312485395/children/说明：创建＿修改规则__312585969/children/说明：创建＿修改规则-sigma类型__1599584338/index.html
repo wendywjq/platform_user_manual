@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：创建/修改规则-sigma类型</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-19">二、操作说明</a><a href="#section-20">1、操作流程概览</a><a href="#section-22">2、操作步骤</a><a href="#section-23">step1：入口</a><a href="#section-27">step2：添加规则</a><a href="#section-68">step3：规则修改</a><a href="#section-69">1、修改逻辑信息</a><a href="#section-80">2、修改属性信息</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：获得了正式业务方权限，接下来怎么做呢？</a> / <a href="../../index.html">说明：创建/修改规则</a> / <a href="index.html">说明：创建/修改规则-sigma类型</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1599584338">查看学城原文</a></p><article>
+<h1>说明：创建/修改规则-sigma类型</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>在办公网络入侵安全领域，使用了大量的sigma规则引擎规则(总量1200+)，sigma规则引擎是一种适用于SIEM系统的通用签名格式，在github上有7w6的fork+star，被MISP、Joe Sandbox、THOR、atomic-threat-coverage等多个知名项目引用，社区中存在近3000条恶意行为检测规则，最大的特点是逻辑结构化表达。使用该引擎可快速迁移社区中的检测规则。</p>
+<p>但Zeus上仅支持aviator语言，因此对该类逻辑Zeus支持语言转译。</p>
+<p></p>
+<p>**只针对businessid=130 空间开通，其他业务空间无改功能。</p>
+<p></p>
+<p><strong>规则/rule：</strong><span>规则的逻辑由逻辑表达式产生，规则执行的结果是命中（表达式结果为true）/不命中（表达式结果为false），规则的表达式由规则因子组装而成（也只能由因子组装而成）；由因子和参数构成作为逻辑封装的顶层，仅存在True/False两种形态，例如：是不是模拟器的请求。</span></p>
+<p>下文中涉及到的其他名词解释：</p>
+<p><strong>属性信息：</strong>标签、共享业务方</p>
+<p><strong>逻辑信息：</strong>表达式、状态、英文名称</p>
+<p><strong>强制更新：</strong>若本次操作影响线上表达式的执行结果，需先将线上状态取消后再进行操作或者强行变更信息；</p>
+<h1 id="section-19">二、操作说明</h1>
+<h2 id="section-20">1、操作流程概览</h2>
+<img src="assets/c3afd9ee7e1fa352.svg" width="1303" height="155" alt="流程图">
+<h2 id="section-22">2、操作步骤</h2>
+<h3 id="section-23">step1：入口</h3>
+<p>策略部署—&gt;规则—&gt;添加规则</p>
+<p><img src="assets/9afe01c9b931c625.png" width="2256" height="474" alt="image.jpeg"></p>
+<h3 id="section-27">step2：添加规则</h3>
+<p><strong>1、首先填写规则逻辑信息，填写中文名称、英文名称、规则内容，这里展示使用模板配置添加因子</strong></p>
+<p><img src="assets/47685bf5282654ce.png" width="1439" height="503.73" alt="image.jpeg"></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意</p>
+<ul>
+<li><strong>英文名称：</strong>驼峰命名，且仅支持小写字母，<strong>规则</strong><strong><span>命名规范：</span></strong><span>rule_xxx_yyy_zzz，如rule_mac_is_not_has_owner表示规则是检验mac是否有对应厂商。</span></li>
+<li><strong>规则内容配置：</strong>sigma语言；</li>
+<li><strong>点击保持草稿：</strong>草稿信息不保持在列表中，当再次点击"添加规则"时，提示有草稿信息可使用或者废弃</li>
+</ul>
+</div>
+</div>
+<p><strong>2、填写完规则内容后，点击转译添加完成，点击下一步</strong></p>
+<p><img src="assets/e386c0fdec7fc147.png" width="845" height="439" alt="image.jpeg"></p>
+<p><strong>3、添加完成，点击下一步</strong></p>
+<p><strong>4、添加测试用例，测试结果通过，点击下一步</strong></p>
+<p><img src="assets/a2187707ce0a78ef.png" width="1130" height="380.12" alt="image.png"></p>
+<p></p>
+<p><strong>5、添加规则属性信息，单击完成</strong></p>
+<p><img src="assets/7f3e0f2e8b46b975.png" width="1130" height="467.44" alt="image.png"></p>
+<p></p>
+<p><strong>6、规则列表中出现添加的规则</strong></p>
+<p><img src="assets/937200a4ee2a8ad5.png" width="1002" height="113" alt="image.png"></p>
+<p></p>
+<h3 id="section-68">step3：规则修改</h3>
+<h4 id="section-69">1、修改逻辑信息</h4>
+<p>对已经在场景中引用 的生效规则会触发变更管控</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意：</p>
+<p>此时若有其他人正在编辑该因子，您将收到提示xxmis号正在修改，需xx修改完成/退出编辑状态后，您方可修改。若您着急修改请大象联系该用户退出编辑状态。</p>
+<p><img src="assets/6a61fdd3379c02e4.png" width="296" height="60" alt="image.png"></p>
+</div>
+</div>
+<p><strong>同添加规则入口一样，进入规则页面，在规则列表中找到创建的规则，点击规则中文名称，进入更新规则详情页面，点击编辑，即可按照刚刚添加规则的流程对规则进行修改。修改规则仍需要经过测试，并且至少有一条新增的成功的测试用例后方可提交修改，之后启动智能任务。</strong></p>
+<h4 id="section-80">2、修改属性信息</h4>
+<p><strong>在规则列表中找到需要修改的规则，并点击规则进入编辑页面。进入编辑页面后，在引导页第三部分“属性信息”中，修改共享信息、标签信息等，修改后点击“提交”，完成修改；</strong></p>
+</article></main></body></html>

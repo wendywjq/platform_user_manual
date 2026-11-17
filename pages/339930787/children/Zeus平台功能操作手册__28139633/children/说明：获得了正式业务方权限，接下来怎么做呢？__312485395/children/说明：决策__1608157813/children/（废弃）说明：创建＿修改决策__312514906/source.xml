@@ -1,0 +1,20 @@
+<km-doc>
+<km-title nodeId="aeab220d971d40dc8f76219737071404">（废弃）说明：创建/修改决策</km-title>
+<km-catalog style="none" nodeId="936018f54e0841829aba331b01c7b2c7" />
+<p nodeId="3d7a836019704ea0b9eb08852d108335"><span color="#f5232d"><span font-size="24">本文档废弃，新文档移步——</span></span><a href="https://km.sankuai.com/collabpage/1608157813" title="https://km.sankuai.com/collabpage/1608157813" autoUpdate="true" nodeId="c52022c9741544b190c40fca40450372">https://km.sankuai.com/collabpage/1608157813</a></p>
+<h1 nodeId="b1315e35bada4ef88d5fa4c0508915f4">一、背景</h1>
+<p nodeId="1e00936ceeaf41d3a5bd8d1a59c6afa1"><strong>决策/decision：</strong><span color=" ">命中规则后需要做的动作，每一条scene_rule_conf配置产生一个决策；针对结果的处理动作，例如：通过、拦截、冻结账号、加入黑名单等；</span></p>
+<p nodeId="3b96e3e6896246a987b1e21052ea1e80"><strong>决策理由：</strong><span color=" ">描述决策的具体细节，比如当决策是拦截时，其可能的原因包括拒绝快捷支付、拒绝绑卡等，决策理由指定了做出决策的具体原因。</span></p>
+<h1 nodeId="96b2ae31bd4c40e99a167e9a4ef8a571">二、操作说明</h1>
+<h2 nodeId="6dd40115095b492d91bdd234376581f9">step1：入口</h2>
+<p nodeId="a0a0aa44468743a09ffe8eb4fc47b82a">场景—&gt;决策—&gt;新建决策</p>
+<p nodeId="a908d4eb445f46c08be18e11368ae4ca"><img src="https://km.sankuai.com/api/file/cdn/312514906/313560584?contentType=1&amp;isNewContent=false" name="image.png" width="1329" height="298" nodeId="1ae180888e4141328b4b539e862770e9" /></p>
+<p nodeId="35aaead6d84843ee80eea6fdc9a0fe00" />
+<h2 nodeId="c783311e65714f1191de8a883639b022">step2：添加决策</h2>
+<p nodeId="7619e6fa41c445788aeb34348157a2e1">在新建决策页面，填写决策名称、选择决策类型、选择是否使用附加信息、选择是否使用衍生参数，点击提交，成功后决策列表中出现创建的决策名称</p>
+<p nodeId="f001dd5195184766b88e9c0c138a8f87"><img src="https://km.sankuai.com/api/file/cdn/312514906/313561069?contentType=1&amp;isNewContent=false" name="image.png" width="1324" height="299" nodeId="d9bf05c8ab45432abe6e76a1d3ae0f43" /></p>
+<p nodeId="7fa2ebe45eb14c919c93cc03ea86c5ff" />
+<p nodeId="efe2ae6ac36f4e6aa1a5826e3d68c9ff"><img src="https://km.sankuai.com/api/file/cdn/312514906/313573447?contentType=1&amp;isNewContent=false" name="image.png" width="1047" height="277" nodeId="9a5b241ed2174cedba4cfdd7288d396f" /></p>
+<h2 nodeId="673d225dfa084bb58d36bfe6f52d5420">step3：修改决策</h2>
+<p nodeId="63f3b2c9a67047c69a4e6c0010652cfa"><span color=" ">同新建决策入口一样，进入决策页面，在决策列表中找到创建的决策，点击决策名称进入详情页面，可修改决策名称，是否使用附加信息，是否使用衍生参数，决策类型不可修改。</span></p>
+</km-doc>

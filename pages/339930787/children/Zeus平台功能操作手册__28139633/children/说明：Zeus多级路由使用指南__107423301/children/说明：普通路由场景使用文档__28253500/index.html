@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：普通路由场景使用文档</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-2">概念解释</a><a href="#section-9">实例</a><a href="#section-19">接口文档</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：Zeus多级路由使用指南</a> / <a href="index.html">说明：普通路由场景使用文档</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/28253500">查看学城原文</a></p><article>
+<h1>说明：普通路由场景使用文档</h1>
+<h3 id="section-2">概念解释</h3>
+<ul>
+<li>
+<p>普通场景：即用来配置规则返回决策的场景，参考：</p>
+<p><img src="assets/a9bb92ae432dde32.png" width="795" height="481" alt="image.png"></p>
+</li>
+<li>路由场景：不同于普通场景，路由场景不直接配置或返回决策，而是根据命中规则情况决定接下来要执行哪些普通场景，并执行这些普通场景的规则并返回决策</li>
+</ul>
+<h3 id="section-9">实例</h3>
+<p><img src="assets/14b3d76722952320.png" width="350" height="128" alt="image2016-9-7 16:42:35.png"></p>
+<p>新建场景时选择相应的类型即可</p>
+<p>场景配置流程与普通场景配置没有差别</p>
+<p><img src="assets/567bc0b2ce090246.png" width="858" height="209" alt="image2016-9-7 16:41:51.png"></p>
+<p>上图是一个路由场景配置的示例，550是一个路由场景</p>
+<p>如果命中规则2869，则会自动执行场景540的规则，并根据场景540的配置返回场景540的决策</p>
+<p>如果命中规则2870，会在接口返回中提供命中了2870规则的信息，但是不会执行场景556的规则，因为是标记状态，这一特性与普通场景无异</p>
+<h3 id="section-19">接口文档</h3>
+<p>接口文档见：<a href="https://km.sankuai.com/page/28253497" title="https://km.sankuai.com/page/28253497">说明：Zeus在线服务OCTO接入文档</a></p>
+<p></p>
+</article></main></body></html>

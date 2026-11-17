@@ -1,0 +1,62 @@
+<km-doc>
+<km-title nodeId="487564e1a01c411b906b5fa990fde64d">说明：创建/修改规则-sigma类型</km-title>
+<km-catalog style="none" nodeId="6b5b35afbb864f61afbf6283067a1e93" />
+<h1 nodeId="efc37c39a3cf4228b28bd1b4a9e89db3">一、背景</h1>
+<p nodeId="920b63b25ffc45b49f62171bde17efcb">在办公网络入侵安全领域，使用了大量的sigma规则引擎规则(总量1200+)，sigma规则引擎是一种适用于SIEM系统的通用签名格式，在github上有7w6的fork+star，被MISP、Joe Sandbox、THOR、atomic-threat-coverage等多个知名项目引用，社区中存在近3000条恶意行为检测规则，最大的特点是逻辑结构化表达。使用该引擎可快速迁移社区中的检测规则。</p>
+<p nodeId="49043b27d74c4448b0e24a33637803e2">但Zeus上仅支持aviator语言，因此对该类逻辑Zeus支持语言转译。</p>
+<p nodeId="5371187180f74daa9f3fad98c07b36c4" />
+<p nodeId="88849f8820114621bc75689d10765a09">**只针对businessid=130 空间开通，其他业务空间无改功能。</p>
+<p nodeId="9b2dc897447d495d8e87b5001f862f5c" />
+<p nodeId="f3312077a1b94ca1be0076240cf58978"><strong>规则/rule：</strong><span color="">规则的逻辑由逻辑表达式产生，规则执行的结果是命中（表达式结果为true）/不命中（表达式结果为false），规则的表达式由规则因子组装而成（也只能由因子组装而成）；由因子和参数构成作为逻辑封装的顶层，仅存在True/False两种形态，例如：是不是模拟器的请求。</span></p>
+<p nodeId="600be44f40134fd9b63f7c0b32070393">下文中涉及到的其他名词解释：</p>
+<p nodeId="be6d26df96b8443dac668a1910a5f614"><strong>属性信息：</strong>标签、共享业务方</p>
+<p nodeId="cb2dd370865a47988d1f7cb58b89d718"><strong>逻辑信息：</strong>表达式、状态、英文名称</p>
+<p nodeId="e2d46aa7a5d34341908666539478ca1d"><strong>强制更新：</strong>若本次操作影响线上表达式的执行结果，需先将线上状态取消后再进行操作或者强行变更信息；</p>
+<h1 nodeId="8a781c709970476cac395948d22eaf26">二、操作说明</h1>
+<h2 nodeId="c8f26d2cf2b64732ad35cc2b48f95cd5">1、操作流程概览</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1599584338/30541849212?contentType=0" width="1303" height="155" nodeId="480372415809499eb31c61f1cac117a4" />
+<h2 nodeId="6973771a80b649e38201190173ca857c">2、操作步骤</h2>
+<h3 nodeId="4f53ebe10bab4ff0bf3a72626b50e182">step1：入口</h3>
+<p align="start" nodeId="5593341958644f6488347a63d387899a">策略部署—&gt;规则—&gt;添加规则</p>
+<p align="start" nodeId="a183cf4363844aaebccd7e6501275001"><img src="https://km.sankuai.com/api/file/cdn/1599584338/90223469349?contentType=1&amp;isNewContent=false" name="image.jpeg" width="2256" height="474" nodeId="01b4fb3e082a402bb4b16ff58525f334" /></p>
+<h3 align="start" nodeId="31e88248a6074bdbae87317f4c58c492">step2：添加规则</h3>
+<p align="start" nodeId="34127800e31d4081b4c70f7d7a524098"><strong>1、首先填写规则逻辑信息，填写中文名称、英文名称、规则内容，这里展示使用模板配置添加因子</strong></p>
+<p nodeId="f7850afc4299425fbd938de6300d3f28"><img src="https://km.sankuai.com/api/file/cdn/1599584338/30540488218?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1439" height="503.73" nodeId="5be116e77e154ef58f276bae547e5ebb" /></p>
+<km-note type="info" hiddenTitle="true" nodeId="45f2a0b136e6491492bd97679f64925f">
+<km-title></km-title>
+<km-content>
+<p nodeId="a8042931d82d4eafbea7b58b03200f81">注意</p>
+<ul nodeId="84da826e87e1488d999e3f0086b14443">
+<li nodeId="c4b4b16f323e4bde9ec0d49ef3d3b095"><strong>英文名称：</strong>驼峰命名，且仅支持小写字母，<strong>规则</strong><strong><span color="">命名规范：</span></strong><span color="">rule_xxx_yyy_zzz，如rule_mac_is_not_has_owner表示规则是检验mac是否有对应厂商。</span></li>
+<li nodeId="7b42976dffa94ed6a17e9795ea77c41b"><strong>规则内容配置：</strong>sigma语言；</li>
+<li nodeId="6bbf4e3b5ce7448eb8db93b1f56f2af5"><strong>点击保持草稿：</strong>草稿信息不保持在列表中，当再次点击"添加规则"时，提示有草稿信息可使用或者废弃</li>
+</ul>
+</km-content>
+</km-note>
+<p nodeId="02208359f03d47cbbfad76a88673903e"><strong>2、填写完规则内容后，点击转译添加完成，点击下一步</strong></p>
+<p align="start" nodeId="e03103eb607642128e3bd58349508d44"><img src="https://km.sankuai.com/api/file/cdn/1599584338/30551243072?contentType=1&amp;isNewContent=false" name="image.jpeg" width="845" height="439" nodeId="2251bae8806241a28a8e1f38ed27b240" /></p>
+<p nodeId="30c1ea6fa8ea4f1baa85b80813e28d8d"><strong>3、添加完成，点击下一步</strong></p>
+<p nodeId="f2ed61baad89421b82146210479abb1a"><strong>4、添加测试用例，测试结果通过，点击下一步</strong></p>
+<p nodeId="5c61c6ca2bc1463aa0207a5c66d54747"><img src="https://km.sankuai.com/api/file/cdn/1599584338/30529936261?contentType=1&amp;isNewContent=false" name="image.png" width="1130" height="380.12" nodeId="1f5bc08552cd44c4b9142a8152196412" /></p>
+<p nodeId="93e2ff5523a24b0690cee820e6094501" />
+<p nodeId="aba33c2a6b064e2892c90b22bc07c3f7"><strong>5、添加规则属性信息，单击完成</strong></p>
+<p nodeId="d8789c6e94a34bf7af722e46d8c0b251"><img src="https://km.sankuai.com/api/file/cdn/1599584338/30533251537?contentType=1&amp;isNewContent=false" name="image.png" width="1130" height="467.44" nodeId="3635c391663b454dbf04b9cbc053fa14" /></p>
+<p nodeId="e082e5699ea24ed1b787ec83ec7011ad" />
+<p nodeId="f1f4b36f153d443782902844453cd7e9"><strong>6、规则列表中出现添加的规则</strong></p>
+<p nodeId="d5d24ce468f24bdfb07eb3e85522d575"><img src="https://km.sankuai.com/api/file/cdn/1599584338/30533424970?contentType=1&amp;isNewContent=false" name="image.png" width="1002" height="113" nodeId="e3dca5829f254f479e624c1be7583027" /></p>
+<p align="start" nodeId="52df91012c4d4ab6aca9a30411ee2158" />
+<h3 align="start" nodeId="1f91ab7e4c6b4e70aca1dd47ad5ded30">step3：规则修改</h3>
+<h4 nodeId="0791ecdaec434bd3937de87af1616793">1、修改逻辑信息</h4>
+<p nodeId="e242d9a891df419c9befb665b6062866">对已经在场景中引用 的生效规则会触发变更管控</p>
+<km-note type="info" hiddenTitle="true" nodeId="8c9bd3c5829244bf95c0d275f9419509">
+<km-title></km-title>
+<km-content>
+<p nodeId="54a27b269fa8471f81eb1a51e86b9e3e">注意：</p>
+<p nodeId="a320c5d4090d45748103417030a6e777">此时若有其他人正在编辑该因子，您将收到提示xxmis号正在修改，需xx修改完成/退出编辑状态后，您方可修改。若您着急修改请大象联系该用户退出编辑状态。</p>
+<p nodeId="b581994417074c26b4aa917c8be6b618"><img src="https://km.sankuai.com/api/file/cdn/1599584338/30529029834?contentType=1&amp;isNewContent=false" name="image.png" width="296" height="60" nodeId="9b43249b34054714b28d46888d363f37" /></p>
+</km-content>
+</km-note>
+<p align="start" nodeId="5f232a7ff9cd4991a9637df5952412b5"><strong>同添加规则入口一样，进入规则页面，在规则列表中找到创建的规则，点击规则中文名称，进入更新规则详情页面，点击编辑，即可按照刚刚添加规则的流程对规则进行修改。修改规则仍需要经过测试，并且至少有一条新增的成功的测试用例后方可提交修改，之后启动智能任务。</strong></p>
+<h4 nodeId="be468453725742f297c91033fc66bf3a">2、修改属性信息</h4>
+<p nodeId="6209fbc1d0c248c6b18694186db7c620"><strong>在规则列表中找到需要修改的规则，并点击规则进入编辑页面。进入编辑页面后，在引导页第三部分“属性信息”中，修改共享信息、标签信息等，修改后点击“提交”，完成修改；</strong></p>
+</km-doc>

@@ -1,0 +1,176 @@
+<km-doc>
+<km-title nodeId="cad1105cab724886b1d9797be09ab58f">回溯功能问题收集</km-title>
+<table borderColor="#cccccc" responsive="false" nodeId="ae3737c26b0045a7ad0da11bd7800c22">
+<tr nodeId="cd40e3098e424436b6790de453337ad6">
+<td colwidth="[82]" nodeId="112a85ec459a4742935d31704ecd19fe">
+<p nodeId="fee39bf7d62746188e319aace10402b9"><span font-size="14">回溯id</span></p>
+</td>
+<td colwidth="[229]" nodeId="ee68d722f92c457db31ec09f9d400378">
+<p nodeId="e0601c358041473e82805def8145f16d"><span font-size="14">问题描述</span></p>
+</td>
+<td colwidth="[254]" nodeId="84b1318a50954f2cb83dd95e88bebae6">
+<p nodeId="cb4709e2e64e4413b63e2d64c19bf4d5"><span font-size="14">解决方案</span></p>
+</td>
+<td colwidth="[159]" nodeId="10559a5a94ca45bd8a2ad3d2cbfcb382">
+<p nodeId="7b275bb7f2614c0e85eef5e14c9e2a8d"><span font-size="14">问题状态</span></p>
+</td>
+<td colwidth="[159]" nodeId="59b563190cc44c7eaa890d6f15f6e6bd">
+<p nodeId="aab0e36dd4184b6ba43b65e27b6e863a"><span font-size="14">联系人</span></p>
+</td>
+</tr>
+<tr nodeId="7b66961190c54c968ec499bc0bb7fde0">
+<td colwidth="[82]" nodeId="c9b8437a7e2145e99b628114fb9a391f">
+<p nodeId="9f8d33c0f86a4a4089b6e0017997a038"><span font-size="14">example1</span></p>
+</td>
+<td colwidth="[229]" nodeId="af4780b9080a479b8e649b8ce5dd6214">
+<p nodeId="4a4b70f6243f4e60b3b193b12727ae9c"><span font-size="14">规则命中数不符合预期；回溯进度不动；应该有命中，实际为0</span></p>
+</td>
+<td colwidth="[254]" nodeId="8fc41801f25c4127b04957482ec1e66c">
+<p nodeId="45fcbbf40fb34b748fa00992fe28c89c"><span font-size="14">暂不支持名单库因子的回溯</span></p>
+</td>
+<td colwidth="[159]" nodeId="9b04d7beef744cdcb541f31924e9783c">
+<p nodeId="96fa3e75659744668871383a85a01b33"><km-status pattern="fill" color="#f5222d" nodeId="1c50863f8c464cb09f8b84ab7eb96ad6"><span font-size="14">​undo</span></km-status></p>
+</td>
+<td colwidth="[159]" nodeId="6bc365a960ac47f69bb66b35a0a772d3">
+<p nodeId="202efb3063d94f3194cec08ad168c586"><km-mention name="杜方宇" uid="dufangyu" empId="" nodeId="23b55bef82ae4e22a5b892dca8a22fd0" /></p>
+</td>
+</tr>
+<tr nodeId="7753183c2a334a26be2a585d421c9e19">
+<td colwidth="[82]" nodeId="a1da0881895e453484f6eb296090bb55">
+<p nodeId="fb002cf88420425e9e78e20c875c12e4" />
+</td>
+<td colwidth="[229]" nodeId="3b6dcbd5de9541fa85e2f846b9169ad2">
+<p nodeId="a44aaf87c6a54933943f57a40dcaf4ab" />
+</td>
+<td colwidth="[254]" nodeId="ecce8f230b524cb2a9432163a50f41a2">
+<p nodeId="713b9fdfb7764091a7f06ec181a635e7" />
+</td>
+<td colwidth="[159]" nodeId="79429c8f72d0413bbaff9d5c256b2eee">
+<p nodeId="e8145bbc99584870a31e5eb23fe12f6d" />
+</td>
+<td colwidth="[159]" nodeId="fa1cce7c87834017a947dc29314dbd64">
+<p nodeId="71aac96bb64d46ea8330606e0889a1ed" />
+</td>
+</tr>
+<tr nodeId="b5ed0ef4d65e4454af81d5783869c069">
+<td colwidth="[82]" nodeId="cd79e1b87fd949d9ae4651aef188eb8c">
+<p nodeId="43dadc67e91a481fa6a3a3b66a125bfe" />
+</td>
+<td colwidth="[229]" nodeId="d1ffe97fd15744d3bbfdebcdadfb1bec">
+<p nodeId="1ea5bb05305341e8b8b57f1c921e0e6d" />
+</td>
+<td colwidth="[254]" nodeId="c3e9a891c0784f12a990710fc6a35654">
+<p nodeId="39e58bd10d1e4831bbe44ad58c8bfe5a" />
+</td>
+<td colwidth="[159]" nodeId="693f8f2ae81f444782da14117fe7f0f1">
+<p nodeId="9cd50a10ba07497db587871b517be24a" />
+</td>
+<td colwidth="[159]" nodeId="edd0ee91e5284d2aaa72300e639cf674">
+<p nodeId="b4a96cbfdbc0459f8f4b364421a0933b" />
+</td>
+</tr>
+<tr nodeId="6f0a9b1b38a54be784b3ae147ecdc596">
+<td colwidth="[82]" nodeId="8c86f1bbe1ed49cfab1ed51856b24241">
+<p nodeId="88fbddc327bd47669547e2a62500b3dd" />
+</td>
+<td colwidth="[229]" nodeId="d30a1d2aa9de4910b50b17f28919eb85">
+<p nodeId="7604b466bf2d47d59004dcaa6b77fa73" />
+</td>
+<td colwidth="[254]" nodeId="6a70706a171541c0859d7aec3a839d40">
+<p nodeId="395326b7058b4e5eb6eac1eaac3cffb9" />
+</td>
+<td colwidth="[159]" nodeId="61ed98df02cf42b79e015fff2b64fcae">
+<p nodeId="b8abc588985b41409715a389cee8d6d0" />
+</td>
+<td colwidth="[159]" nodeId="6a8aa69c376b4575b6fe27e579a696b8">
+<p nodeId="801003a84cc24f55b070ae422c6c5681" />
+</td>
+</tr>
+<tr nodeId="0131053d089d487d92a1d4db93612085">
+<td colwidth="[82]" nodeId="21568d6c5cba4887a83c3cc5a19377c4">
+<p nodeId="17d01c01e76d49cea7945bf2649c31ec" />
+</td>
+<td colwidth="[229]" nodeId="1952ce530ee64787931eb3f9e1977514">
+<p nodeId="8efd8bc530964c12a2784330594de1df" />
+</td>
+<td colwidth="[254]" nodeId="19f88f6eb87645ca80ad1dded2d44869">
+<p nodeId="5e54f39dade9402e9590ddcfd11ac23a" />
+</td>
+<td colwidth="[159]" nodeId="99b7796bc28e42ab92dc2dff64dd80f5">
+<p nodeId="702a9c6ae94a4fddaf13a2b4a8fd2123" />
+</td>
+<td colwidth="[159]" nodeId="6ce3ebb7ed6d4483807ec03eb56dbebc">
+<p nodeId="5ba23b69bd224a31aa999eb179c8f0d2" />
+</td>
+</tr>
+<tr nodeId="f0f80e500a6c4012a0aba4886edd53b4">
+<td colwidth="[82]" nodeId="69ddd805ad294c0b8b4fb249b8b4778c">
+<p nodeId="03e5ab0404354a989891ebdabfaaba2e" />
+</td>
+<td colwidth="[229]" nodeId="997950aeb75249cf9cb88d76ed72df6b">
+<p nodeId="565cedee7f764e0ea60f1c4d6583e189" />
+</td>
+<td colwidth="[254]" nodeId="fd7d81a5c83e48d999cf584229553c9c">
+<p nodeId="e46501d79d9244568223a5e8d7380e13" />
+</td>
+<td colwidth="[159]" nodeId="9b3d0071f0f141a5b8644c61b23802e9">
+<p nodeId="e28e51c44af54cd4b24fec6e900f0b2c" />
+</td>
+<td colwidth="[159]" nodeId="f6058c0805454b6ea5d043e81b4c2ba9">
+<p nodeId="d6a1dd301b5e4bd9995c1cea68050ce0" />
+</td>
+</tr>
+<tr nodeId="f523d03fab89485696f3795f3a5d831c">
+<td colwidth="[82]" nodeId="be0c1996ca834123abbabe3ac3ce4389">
+<p nodeId="20312e5c8056421f981ef51a1c6dbdc0" />
+</td>
+<td colwidth="[229]" nodeId="6a1a2d2540db43fda36edacebfc2bccd">
+<p nodeId="9c2c6f33119d4a74b0202a3f9aefe1b7" />
+</td>
+<td colwidth="[254]" nodeId="fdc87e70e2ec46a789d0a1a4b858e430">
+<p nodeId="2cb6f878d6c442d0b2c1d1bbfc31460f" />
+</td>
+<td colwidth="[159]" nodeId="ed0ccff353614fedb8984ba412b30c29">
+<p nodeId="a87fb04980f34c80b63fd1d7a0c7f4a5" />
+</td>
+<td colwidth="[159]" nodeId="01ecfbb6d9c24d53aed3e1a2090198c4">
+<p nodeId="9a6b70c85db14587bc0df9669b650eda" />
+</td>
+</tr>
+<tr nodeId="8be2699ef750448a9d7334a11a45de57">
+<td colwidth="[82]" nodeId="8a52137b202e4d338e8f2be4f32955f5">
+<p nodeId="da2a2d7ef6a3422e82af1872749c2aa3" />
+</td>
+<td colwidth="[229]" nodeId="fc6f76ad7f164ad79bf090c8d1835ec7">
+<p nodeId="8e419b097fbe4fa49ecc15bb5f31654c" />
+</td>
+<td colwidth="[254]" nodeId="cc1eb34f85804321bc031dabfdccc149">
+<p nodeId="bf88936f4f574410b8093244fde1beb6" />
+</td>
+<td colwidth="[159]" nodeId="d19c63d15c5049aba4109fc7b22e558a">
+<p nodeId="86b6e4cc92a34389945ae121814cdee6" />
+</td>
+<td colwidth="[159]" nodeId="ea63ee98ad6c459a86592eefffd92b08">
+<p nodeId="564d58d80be14207b86860d29b9907aa" />
+</td>
+</tr>
+<tr nodeId="e6a6f1e669074e87adfd124874df26b5">
+<td colwidth="[82]" nodeId="0cd61d4f9af14514a9da5094fd07795b">
+<p nodeId="989a2907272449f4bc9bdb2dbb079052" />
+</td>
+<td colwidth="[229]" nodeId="9164cc3d4b174a80bc41c922aefc9d2f">
+<p nodeId="093769da7c9540f78a612dd1a84b23f3" />
+</td>
+<td colwidth="[254]" nodeId="79c1089c164b4e9180b97e2c5f1fe5df">
+<p nodeId="5d5c9525462645d6935859d68785d953" />
+</td>
+<td colwidth="[159]" nodeId="81530c093cb241f4b4c941d134f428f0">
+<p nodeId="d4b94cac3f8c42de8d2a99f60f3eec9c" />
+</td>
+<td colwidth="[159]" nodeId="13fa78353aee48ca90b4f49f16bf8511">
+<p nodeId="32b3bb73d4954e0e86928796f58702cd" />
+</td>
+</tr>
+</table>
+<p nodeId="085fe76ceaea4f829cfc8fe1e951ed6e" />
+</km-doc>

@@ -1,0 +1,346 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：决策</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-8">二、名词解释</a><a href="#section-90">三、操作说明</a><a href="#section-91">3.1 决策管理</a><a href="#section-118">3.2 新建/编辑决策</a><a href="#section-156">3.3 组合决策</a><a href="#section-203">3.4 预览决策详情</a><a href="#section-228">3.5 内容安全加工决策</a><a href="#section-277">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：获得了正式业务方权限，接下来怎么做呢？</a> / <a href="index.html">说明：决策</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1608157813">查看学城原文</a></p><article>
+<h1>说明：决策</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>Zeus普通场景 或 分层场景-策略节点中部署策略时，需要对规则配置一个决策，决策在执行规则命中后会输出给调用方。</p>
+<p>对于Tatooine事件接入的流量，Zeus返回的决策会在Tatooine中统一翻译为风险等级（risklevel）向下游进行输出。<a href="https://km.sankuai.com/collabpage/1358367295" title="https://km.sankuai.com/collabpage/1358367295">学城文档 1358367295（无权限读取标题）</a></p>
+<p>目前，Zeus决策根据特点和属性，被分为三个类型：普通决策、异步决策、组合决策。</p>
+<h1 id="section-8">二、名词解释</h1>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>名词</p>
+</th>
+<th>
+<p>解释</p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>决策 (decision)</p>
+</td>
+<td>
+<p><span>命中规则后需要做的动作，每一条scene_rule_conf配置产生一个决策；针对结果的处理动作，例如：通过、拦截、冻结账号、加入黑名单等；</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>决策合并</p>
+</td>
+<td>
+<p>Tatooine事件接入的流量，在规则执行命中的决策后，将会按照一定逻辑进行合并后再输出。</p>
+<p>目前普通场景、路由场景 自身没有决策合并能力，会统一在Tatooine进行合并。</p>
+<p>分层场景本身具备<a href="https://km.sankuai.com/collabpage/1409924045" title="https://km.sankuai.com/collabpage/1409924045">决策加工组件</a>，对场景内的合并都会完成后再输出给Tatooine，若涉及场景间汇总才会在Tatooine进行。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>普通决策</p>
+</td>
+<td>
+<p>普通决策参与决策合并（分层场景-决策加工 或 Tatooine决策合并），在分层场景「补偿链路」中命中时无法输出；</p>
+<p>例如：通过、拦截、各种验证方式</p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>异步决策</p>
+</td>
+<td>
+<p>异步决策不参与决策合并，在分层场景的实时和补偿链路，只要命中都会输出给Tatooine执行（不输出下游）。</p>
+<p>由于其异步执行的特点，也可用作分层场景-补偿链路中，作为普通决策的「补偿决策」进行配置。配置方法见：<a href="https://km.sankuai.com/collabpage/1409924045" title="https://km.sankuai.com/collabpage/1409924045">决策加工组件</a></p>
+<p>例如：写kv、写名单、加入persona等</p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>组合决策</p>
+</td>
+<td>
+<p><span style="color:#FF4A47">仅支持在分层场景中使用</span>。组合决策是一串由【且、或】逻辑拼接的普通决策ID，内部可进一步细分多个顺位。</p>
+<p>在3-账户安全空间中，分层场景默认的决策加工方式是输出【组合】的模式（非单个决策），因此执行上会先将组合决策拆为多个单决策，经过Yoda过滤后，再作为整体（一个优先级）参与决策合并。</p>
+<p>例如：<span style="color:rgba(0, 0, 0, 0.6)">【三方验证，支付密码验证|人脸验证,客服验证】</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>决策优先级</p>
+</td>
+<td>
+<p>仅作为【分层场景】中的决策加工组件的决策合并依据，数字越小意味着优先级越高。不影响普通/路由场景中的执行。存量决策（未配置优先级）默认置为最低值9999。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>决策附加信息</p>
+</td>
+<td>
+<p><span>规则命中时，随决策一起输出的key-value型结构化数据，包含常量和动态的变量。在决策所指定的附加信息模板中填充具体的数据后就是一条附加信息，一个附加信息只属于一个决策。</span><a href="https://km.sankuai.com/page/28253486" title="https://km.sankuai.com/page/28253486">说明：Zeus决策附加信息使用文档</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>决策理由</p>
+</td>
+<td>
+<p><span>描述决策的具体细节，比如当决策是拦截时，其可能的原因包括拒绝快捷支付、拒绝绑卡等，决策理由指定了做出决策的具体原因。</span></p>
+<p><span>一般下游业务将此字段用于C端文案透出。在场景配置策略时，决策理由和决策是分别独立的字段，没有互相依赖关系。</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-90">三、操作说明</h1>
+<h2 id="section-91">3.1 决策管理</h2>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【决策管理】</p>
+<p>入口：菜单-策略部署-决策</p>
+<p>搜索查询：</p>
+<ul>
+<li>可根据多条件自由进行决策的检索。</li>
+</ul>
+<p>列表：</p>
+<ul>
+<li>在列表中可获取到决策的基本信息如：ID、名称、类型、映射risklevel、优先级、有无使用附加信息、在场景中的应用情况等。</li>
+<li>点击名称，进入决策详情预览。</li>
+<li>名称下方展示的<span style="color:#FF4A47">红标签</span>为场景专用，代表该决策仅能被这些场景引用。</li>
+<li>映射risklevel：展示决策在Tatooine对应的risklevel值，如果是组合决策，会分行来展示不同顺位的risklevel。</li>
+<li>点击场景中的应用次数，可查看决策的引用明细</li>
+</ul>
+</td>
+<td>
+<p><img src="assets/635be1293a2ea1d9.png" width="1258" height="600" alt="image.jpeg"></p>
+<p><img src="assets/12bd2b26ecf31566.png" width="1480" height="475.65" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-118">3.2 新建/编辑决策</h2>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【新建/编辑决策】</p>
+<p>点击右上角【新建决策】按钮，进入新建页，填写后点击提交。</p>
+<ul>
+<li>决策名称：自定义</li>
+<li>决策类型：默认普通决策，根据需要选择需创建的类型。</li>
+</ul>
+<div class="note">
+<strong></strong>
+<div>
+<p>新建的「异步决策」需要在Tatooine开发对应后置能力，才可投入使用。否则，输出到Tatooine后并不会执行相关动作。</p>
+<p>根据特点，异步决策也不会像普通决策那样参与决策合并。</p>
+<p>如有新增异步决策需求--可联系Tatooine产研<span>@张锡川</span></p>
+</div>
+</div>
+<ul>
+<li>决策优先级：<span style="color:rgba(0, 0, 0, 0.9)">支持输入范围为1-9999，历史存量决策默认值为最低优先级9999，</span>数字越小意味着优先级越高，<span style="color:rgba(0, 0, 0, 0.9)">建议百级加减预留空位。决策在其他空间共享时，优先级不会共享与联动，需要分别设定。</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.9)">附加信息：默认不使用，可选择使用，右上角按钮变为「下一步」，方可进一步配置。</span><a href="https://km.sankuai.com/page/28253486" title="https://km.sankuai.com/page/28253486">说明：Zeus决策附加信息使用文档</a></li>
+<li>设置专用场景：目前仅对3空间开放。配置后，其他非此处列举的场景，不可引用此决策。</li>
+</ul>
+<div class="note">
+<strong></strong>
+<div>
+<p>如其他空间有需要，可联系产研也开放此功能。</p>
+</div>
+</div>
+<ul>
+<li>标签：与规则、场景类似，决策也支持打上管理类标签，便于用户进行管理和维护。</li>
+</ul>
+</td>
+<td>
+<p><img src="assets/b42606503913f81a.png" width="1442" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-156">3.3 组合决策</h2>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【组合决策】</p>
+<p>组合决策是一串由【且、或】逻辑拼接的普通决策ID，内部可进一步细分多个顺位。组合决策在配置上比其他决策多一个部分「组合配置」</p>
+<p>默认可输入第一顺位的组合，也可以点击 [+] <span style="color:rgba(0, 0, 0, 0.9)">向下增设多个顺位组合，用于替补上一级组合被完全过滤至空的情况。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">每个顺位中，支持以英文','和'|'来输入'且'和'或'逻辑拼接而成的决策ID串。</span></p>
+<p></p>
+<p>Q：为什么需要使用组合决策？</p>
+<p>A：下图中4条规则配置，使用的是同一条规则（本质是同一条规则id，这里是配置有误，用了4条，可忽略），来源于同一个风险判断逻辑，但是希望出决策的时候，各个组合决策之间有一个优先排序。比如：最高优出【短信 / 支付】，如果被Yoda可验证过滤后空，则其次期望出【短信/人脸/客服】， 然后是【短信】 最后才是【客服】。——<span style="color:#FF4A47">组合决策可以实现这种多个单决策的拼接输出，以及多个顺位间 输出的顺序关系。</span></p>
+<p><img src="assets/1fa3b4532d0bbcbe.png" width="195" height="113" alt="image.jpeg"></p>
+<p></p>
+<p>Q：怎么理解顺位的作用？</p>
+<p>A：<span style="color:rgb(0, 0, 0)">如右图，说明了组合决策参与决策合并的执行逻辑。</span><br>决策默认被翻译为<span style="color:rgb(0, 0, 0)">顺位1 ，但是如果顺位1被</span><span style="color:rgb(255, 74, 71)">Yoda可验证过滤</span><sup id="129c676b-d980-44e5-baf1-31f1da74b616"></sup><span style="color:rgb(0, 0, 0)">完变空，而顺位2 没有过滤完，则取顺位2的结果作为组合决策实际输出的内容。优先级依旧是整个组合决策设定的100，然后参加下一步的决策合并。</span></p>
+<p></p>
+<p><span style="color:rgb(0, 0, 0)">Q：什么是</span><span style="color:rgb(255, 74, 71)">Yoda可验证过滤</span><span style="color:rgb(0, 0, 0)">，我的场景在决策加工时有这个步骤么？</span></p>
+<p><span style="color:rgb(0, 0, 0)">A：目前仅开放给3空间的分层场景，用于账户安全在输出各种验证方式后，统一在yoda进行过滤，排除掉当前设备/用户不支持的验证决策。</span></p>
+<p></p>
+<p><span style="color:rgb(0, 0, 0)">Q：组合决策需要配置risklevel的映射么？</span></p>
+<p><span style="color:rgb(0, 0, 0)">A：不需要（也无法配置）。组合决策由「普通决策」拼接而成，</span><span style="color:#FF4A47">仅需要保证用到的「普通决策」有映射risklevel即可。</span></p>
+</td>
+<td>
+<p><img src="assets/202d5fd2791b98ec.png" width="1179" height="600" alt="image.jpeg"></p>
+<img src="assets/9e916a45edb6b11e.svg" width="1476" height="662" alt="流程图">
+</td>
+</tr>
+</table>
+<h2 id="section-203">3.4 预览决策详情</h2>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【预览决策详情】</p>
+<p>点击决策名称，打开详情页。</p>
+<p>展示内容即为编辑提交的信息，其中有字段【risklevel】展示的是当前决策在Tatooine中配置的映射risklevel。</p>
+<p>可点击后方【配置risklevel】，打开Tatooine平台-风险等级 管理页，进行risklevel映射的配置。</p>
+<p>组合决策的【risklevel】会分多个顺位，分别展示组合决策串映射而成的risklevel串。</p>
+<p>当不存在映射值时，展示为“-”</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>组合决策整体不允许单独在Tatooine中映射risklevel</p>
+</div>
+</div>
+<p></p>
+</td>
+<td>
+<p><img src="assets/96f6fdedece0dc3a.png" width="1501" height="578.52" alt="image.jpeg"></p>
+<p><img src="assets/b30e4424cf680031.png" width="1501" height="554.66" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-228">3.5 内容安全加工决策</h2>
+<div class="note">
+<strong></strong>
+<div>
+<p>仅对于<strong>35空间 </strong><strong><span style="color:rgb(0, 0, 0)">206-UGC图片疑似、205-UGC图片删除、187-UGC删除、173-UGC疑似  </span></strong><span style="color:rgb(0, 0, 0)">四个决策支持下述能力</span></p>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+</tr>
+<tr>
+<td>
+<p><strong>使用方式：当决策下附加信息中某一字段key的加工方式为明细加工输出时，若命中该决策，对应的字段key将带上对应的规则风险标签输送至保时洁。</strong></p>
+<p></p>
+<p><strong>step1-了解决策中的附加信息字段含义</strong></p>
+<p>决策下默认已配置好四个明细加工输出类模版key字段，分别代表保时洁所接收的图/文/动图/视频list字段</p>
+<p><img src="assets/4d2f882c1d14dd5e.png" width="604" height="302" alt="image.jpeg"></p>
+<p></p>
+<p><strong>step2-新增附加信息</strong></p>
+<p><strong>点击下方附加信息右侧「添加信息」按钮，进入附加信息添加弹窗中。</strong></p>
+<ol>
+<li>对于上述四个明细加工输出类模版key，在对应的key后方填写业务原始入参。</li>
+<li>填写后，若命中当前决策，则规则风险标签携带入右侧所填写的原始命中索引入参中送向对应保时洁所接收的字段。</li>
+<li>
+<p>具体命中索引会根据条件间逻辑取交并集，可能存在交集为空情况，可在弹窗末尾配置对于此类情况的兜底打标方式。</p>
+<details>
+<summary><span style="color:#3888FF">携带方式数据结构</span></summary>
+<div>
+<pre><code>"contentTextList" : {0:[{ // 文字执行结果
+      "ruleId": 123,     // 规则ID
+      "decisionId": 188, // 决策ID
+      "tagCode":[111],   // V3标签Code
+      "extraInfo": {     // 附加信息，机审固定的附加信息输出字段如下
+        "remarks": "",
+        "DPVerifyStatus": 0,
+        "DPVerifyTips": "",
+        "operation": "pass",
+        "HLVerifyStatus": 0,
+        "HLVerifyTips": ""
+      }
+  }]}</code></pre>
+<p></p>
+</div>
+</details>
+</li>
+</ol>
+<p><img src="assets/daad3605a3b71a7c.png" width="290" height="147" alt="image.jpeg"><img src="assets/5183a1b14b56a09b.png" width="288" height="144" alt="image.jpeg"></p>
+<p></p>
+<p><strong>step3-将附加信息配置到对应的场景配置中</strong></p>
+<p>在识别树中选择对应的决策及附加信息，命中对应配置后即执行对应的附加信息加工<br><img src="assets/9e86f4aa6dc5d4e7.png" width="297" height="154" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-277">四、FAQ</h1>
+<table>
+<tr>
+<th>
+<p>问题</p>
+</th>
+<th>
+<p>答</p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:22px">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+<div>
+<p><p>Yoda可验证过滤：目前仅开放给3空间的分层场景，用于账户安全在输出各种验证方式后，统一在yoda进行过滤，排除掉当前设备/用户不支持的验证决策。</p></p>
+</div>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/（废弃）说明：创建＿修改决策__312514906/index.html">（废弃）说明：创建/修改决策</a> <span class="status">已保存</span></li></ul></section></main></body></html>

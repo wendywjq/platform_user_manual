@@ -1,0 +1,147 @@
+<km-doc>
+<km-title nodeId="497d63c1ac9347aea8f3f9863e27147d">说明：回溯功能</km-title>
+<km-catalog style="none" nodeId="03634874b11843da9220b5f0308228e4" />
+<h1 nodeId="5605e3f2c15143dcae22d82f51b88eda">一、背景</h1>
+<p nodeId="dc68f544a44e486dbf4addeaad34366a">规则平台的回溯功能，支持使用历史数据进行规则的再次执行，用于新规则逻辑的评估验证、历史风险的分析评估等</p>
+<p nodeId="c0eb163cc47747508ce43ae3740161c0">在2019年初上线的回溯功能，仅能支持近15天的日志进行回溯、回溯结果无详情查看、不支持累计因子回溯直接线上应用等。因此本期针对如上问题对回溯服务进行升级</p>
+<h1 nodeId="c87b8b08cfb34074b69ccbc5e398e420">二、名词解释</h1>
+<ol nodeId="2a165c3fcbfb4ccd932f21beb44c51f6">
+<li nodeId="0866726b2be840cdb8d30ee3d0f7bdcc">规则线下回溯：使用历史日志数据进行规则的执行，⚠️回溯过程中无法调取外部数据接口，日志中有什么参数就执行什么。即名单库、数据接口均不会调用</li>
+<li nodeId="f623d0008fe543a09062a070d63cea66">累计因子线上回溯：使用历史数据进行累计因子数据重构，重构后的累计因子值可直接应用到线上，用于规则识别</li>
+</ol>
+<h1 nodeId="6aaddf984ead4799809dfb0a5e78dda5">三、操作指南</h1>
+<h2 nodeId="173a955070b74f6d8c708936ebde895b">1.用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/28253556/409333141?contentType=0&amp;isNewContent=false" width="956" height="496" nodeId="15ce5928d3ff46549d73826f47e7d0a7" />
+<p nodeId="74e1886f56db430e842142b78207b4fd">tips：若想要进行超过15天的长周期回溯，需要业务自行提供原始hive数据</p>
+<h2 nodeId="7fe2638c5fc340e18563106671add7f7">2.QuIck Star</h2>
+<p nodeId="3c8ae671358d42caa0833136962907e1">--待补充--</p>
+<h2 nodeId="50b42bca302e4eba8b6a655f8fc2afa3">3.详细操作流程说明</h2>
+<h3 nodeId="4ca33e77f04f424d91bcebda19154306">step1:创建回溯任务</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="6992d548061c4210b88a97ac9282372a">
+<tr nodeId="1177d1f6ebcd4571824ba0f6b65afa0a">
+<th colwidth="[325]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="fb1e8e7e26c34dd8bcb8e5b1584e9a03">
+<p nodeId="c76d11fbc2bd47ff8b0a3554d33dfbd7"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="cd9bcfa2ee104a3a84e41218098141b9">
+<p nodeId="829ea9c6eb384aa4b1d88a3535a50b71"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="ec6b215bd5864df8b917c5412e1c92b1">
+<td rowspan="2" colwidth="[325]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d4f0c45dbd104b5badb5e86880318867">
+<p nodeId="bc646c7833654293b738285a06cf4d28"><span font-size="14">【入口】</span></p>
+<p nodeId="906e9574cfa54b089e140aa7712b6ab6"><span font-size="14">Plus工具中心--&gt;回溯管理 --&gt;创建回溯任务</span></p>
+<ol nodeId="0d11effac40e4a93857417059f522b03">
+<li nodeId="5e8783caeb6f4ec199e2667142208799"><span font-size="14">任务名称可以使用中英文用户自定义填写</span></li>
+<li nodeId="02af00a3977143a68ecfc2b8a01529f3">
+<p nodeId="9cd442edb5654f488194e8a847581931"><span font-size="14">回溯内容：</span></p>
+<ol nodeId="e7c0cca1aefd47d094ce4a7092e27580">
+<li nodeId="f6f9a41831944c1c8c9bb4fb02a38c0d"><span font-size="14">规则线下回溯：使用历史日志数据进行规则的执行，</span></li>
+<li nodeId="2cb94093c3f94859a9a65e8548e7d19f">
+<p nodeId="87219793cf674d959e433b09fb329a58"><span font-size="14">累计因子线上回溯：使用历史数据进行累计因子数据重构，重构后的累计因子值可直接应用到线上，用于规则识别</span></p>
+<p nodeId="96506897cdd943509df70b14ff76efa9"><span font-size="14">⚠️回溯过程中无法调取外部数据接口，日志中有什么参数就执行什么。即名单库、数据接口均不会调用</span></p>
+</li>
+</ol>
+</li>
+<li nodeId="d315a098178e4da78d8c4ad0b7da075f">
+<p nodeId="7615a568115441e08fc8d52bc167b95c"><span font-size="14">取数维度（规则线下回溯）：</span></p>
+<ol nodeId="99bff253b3544ac0ad8eab3e2ef09d4d">
+<li nodeId="a727d87032284e1e887e5adaeab421e5"><span font-size="14">场景：Zeus上的场景流量</span></li>
+<li nodeId="f38303dd3f3943d39a1d901c8608d9c7"><span color="rgba(0, 0, 0, 0.72)"><span font-size="14">RequestId List（.xlsx 形式）：业务可自定上传Zeus上的requestId List,系统自动获取这些上传请求ID相关的参数，用于规则的执行</span></span></li>
+</ol>
+</li>
+<li nodeId="89583631dd7d4e4db886a1b2da115088">
+<p nodeId="a22c12d6e0b34972a0d76ae32bda3f02"><span font-size="14">周期：回溯数据的取数时间窗口</span></p>
+<p nodeId="173d1115b48e4f9bb74c3207f900a9f8"><span font-size="14">⚠️：当使用</span><span color="rgba(0, 0, 0, 0.72)"><span font-size="14">RequestId List时，会同周期取交集取数（即And的条件）</span></span></p>
+</li>
+<li nodeId="535df8c1c7234fcab584b9477ff817f5"><span color="rgba(0, 0, 0, 0.72)"><span font-size="14">规则ID：支持同时回溯多个规则，输入规则ID\中文均可搜索</span></span></li>
+</ol>
+</td>
+<td colwidth="[930]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="db06dbbccb8d4b33a9df1644e39435b7">
+<p nodeId="55a2fd250c504c42916ae54c33efab52"><img src="https://km.sankuai.com/api/file/cdn/28253556/409420795?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="281" nodeId="0c6d568fd01f4fd9b95b444a407a681e" /></p>
+</td>
+</tr>
+<tr nodeId="1f0105ec72dd4f028c3f6103d1203e82">
+<td colwidth="[930]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ae62d041c38f4d6393b7f12d8ae71232">
+<p nodeId="90a0806d2c414fbcb38953434d483d44"><img src="https://km.sankuai.com/api/file/cdn/28253556/409369227?contentType=1&amp;isNewContent=false" name="image.png" width="821" height="409" nodeId="0b8b771bb22f454aa1d409354695b721" /></p>
+<p nodeId="2639ac5559ee4de584c2e8459619e74c"><img src="https://km.sankuai.com/api/file/cdn/28253556/409410008?contentType=1&amp;isNewContent=false" name="image.png" width="445" height="326" nodeId="801a4cb183c54e4dbe58849646025703" /><img src="https://km.sankuai.com/api/file/cdn/28253556/409430185?contentType=1&amp;isNewContent=false" name="image.png" width="312" height="324" nodeId="9a93b6604c67433cade24df4b8852ee2" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="7558e1bf7dc043b78f62c42ccabe5dc4">step2:查看回溯结果</h3>
+<table responsive="false" nodeId="7512550e7a7b4c6f9e06bab91f9d0bb6">
+<tr nodeId="82207b4d73a74ea0a2f1c5a49aa2a1f1">
+<th colwidth="[325]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="b2aa797a138c4f919ddf68dbfb3868bb">
+<p nodeId="9d31495958a34c2394ce86f61390d2bf"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="27a5f6b216214b1b902c33badc4f9d57">
+<p nodeId="9f2d339ff12c4ee7b5e73838e2abe4fa"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="cbee66f589c94b309781f8c487ab9704">
+<td rowspan="2" colwidth="[325]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="678277259698494ca819e6fbbbba80c7">
+<p nodeId="9d829b16d895474fb084506eae6542ea"><span font-size="14">回溯管理 --&gt;回溯任务名称</span></p>
+<ol nodeId="a0e9f9785efb4247b5c9c2fe5853e885">
+<li nodeId="da55a72bcfac43eda099d60765489776"><span font-size="14">在收到回溯任务完成的通知后，可在回溯列表中点击任务名称，进入任务详情</span></li>
+<li nodeId="dd45ab5fffe848959cab943796384d2d"><span font-size="14">查看回溯统计结果和回溯详情</span></li>
+<li nodeId="088135d287bf4d7fa430716a58496469"><span font-size="14">支持复制回溯任务</span></li>
+</ol>
+</td>
+<td colwidth="[930]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b1e59a7dc581469896f70b861c26f24c">
+<p nodeId="829ce30732b04f43af48a76d86196dae"><img src="https://km.sankuai.com/api/file/cdn/28253556/409420737?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="223" nodeId="cfd7567bbdc3433083cf8106df146139" /></p>
+</td>
+</tr>
+<tr nodeId="b84bd74a86c8448fb9eef151dede3c71">
+<td colwidth="[930]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dd4fb8b08a0a452ba002dd177f1492e9">
+<p nodeId="f8336460e17b45c68157b49debc2061a"><img src="https://km.sankuai.com/api/file/cdn/28253556/409380103?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="438" nodeId="06eb9847d788433da7b8159bc65f94c9" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="c4446fb323bf4230b9b72484bd7e64ac">step3:查看回溯日志</h3>
+<table responsive="false" nodeId="3701c91e56f04bb999304bfaf41b8145">
+<tr nodeId="38d1647b1cfe44aebff8b746f66afc92">
+<th colwidth="[325]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="edbac8b7ea5145588eb97bc2141998fc">
+<p nodeId="37a2c7e82fce474184a49f85d292160a"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="f425b1302821470ba5fe81ade9be3071">
+<p nodeId="1edebee57b6d4cb09ea9ac1839777ead"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="ae6f182e9935419f8af8467f256a2285">
+<td colwidth="[325]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e4373c0671cc43efb8ff222d4251b045">
+<p nodeId="a0f98897404b4670bfe94e607e9385e2"><span font-size="14">【入口】</span></p>
+<p nodeId="e4f609a4fac34f8f9dec088958c316f6"><span font-size="14">数据统计--&gt;实时服务日志--&gt;回溯任务日志</span></p>
+<ol nodeId="1048cd7d6f6d422bb59ef7c6af482bcd">
+<li nodeId="cf81ddc0072749b99ff8ea015f3987d8"><span font-size="14">回溯日志详情查询，必须输入回溯任务ID ！！！</span></li>
+<li nodeId="477a67cd8a894b1cb2e24ae32d15719a"><span font-size="14">在查看回溯命中情况时，系统已经自动关联了历史线上这个请求的命中规则的情况</span></li>
+</ol>
+<p nodeId="16a9093bae97455eba61bd7c76f52c9e" />
+</td>
+<td colwidth="[930]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e3313e33ef19473083c4b2dac801914f">
+<p nodeId="3a5a394e22674b3e8078e50bcfabd90c"><img src="https://km.sankuai.com/api/file/cdn/28253556/409430661?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="464" nodeId="0c876a4cfb0e4b2ca34a2f19218d8183" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="1acc61ce839449db8bedac6d28075615">三、FAQ</h1>
+<h4 nodeId="3b3d7b6815024315bea4dfeff2d24bc2">Q1:支持多个回溯任务并行支持么？最多可支持多少个？</h4>
+<p nodeId="235665978df54c1c80d04b8d3e41e6a1">A：支持，最多两个</p>
+<h4 nodeId="a6db79f1410b492992a21ab6537e0710">Q2:一个回溯任务支持多个规则回溯么？最多可支持多少个？</h4>
+<p nodeId="479cdf4456844afd88eaef3e323e8fcf">A：支持，根据数据量实际情况而定</p>
+<h4 nodeId="c6580e92665641feb0b15c1024d25854">Q3:累计因子回溯任务支持的最长周期是多少？</h4>
+<p nodeId="87cd8f1da5b34ab18c712c9eb90d8c2b">A：15天以内不需要业务提供数据源，超过15天，需要业务提供离线hive表</p>
+<h4 nodeId="7542768d059548579f50234b5209b77e">Q4:回溯的规则中，若存在累计周期大于15天的因子可以回溯么？</h4>
+<p nodeId="f8f738fc99c34b4aba5918ae352c4a79">A：本期暂不支持，预计9月初支持</p>
+<h4 nodeId="7b9882ed774940b9bd0f7742c70fb42a">Q5:自定义数据源的格式有哪些要求？</h4>
+<p nodeId="7bf3d6fc3a96488a82ec13510f82c1a0">A：</p>
+<p nodeId="cc72cd74214642278cc3532958798427">规则回溯数据表结构要求：</p>
+<pre language="Java" nodeId="c209f746665a44e8878faec0e653206d"><code>dt string '数据时间分片字段'
+addtime string ‘数据发生的时间’(时间戳，单位秒)
+paramContext string(json格式)参数上下文
+businesCode int 业务id</code></pre>
+<p nodeId="76a3625ad9ca4979b0b3c883576f1fe6"><km-mention name="吕笑千" uid="lvxiaoqian" empId="" nodeId="62b2009255384cf7971f2f6c46520602" />，给一个数据实例</p>
+<p nodeId="4b2e5f640bcc495bbe9ff84252e8e84c">累计回溯数据表结构要求：</p>
+<pre language="Java" nodeId="7510a02f56334a6482c12804d65f20f5"><code>dt string '数据时间分片字段'
+addtime string ‘数据发生的时间’ (时间戳，单位秒)
+accumulateEventId int ‘对应Zeus上的累计事件ID’
+contextList string(json格式) ‘累计事件详情信息，包含累计key、value和条件中涉及的参数信息，若是参数中有因子的话，就提供基础的参数信息就可以’</code></pre>
+<p nodeId="d595f08d1e6a433ead64519e5fdaa7bd"><km-mention name="吕笑千" uid="lvxiaoqian" empId="" nodeId="b08ea503a3234e5eafe30b67cae98577" />，给一个数据实例<br />未完待续～～</p>
+</km-doc>

@@ -1,0 +1,121 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：Zeus多级路由使用指南</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、解决问题</a><a href="#section-20">二、名词说明</a><a href="#section-27">三、操作说明</a><a href="#section-30">Zeus-美团</a><a href="#section-33">Step1:创建路由场景、规则、场景</a><a href="#section-44">Step2:多级路由场景配置</a><a href="#section-45">（1）入口：http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList</a><a href="#section-47">（2）默认初始化节点设置：支持普通场景作为根节点，支持规则在该场景下配置</a><a href="#section-57">（3）增加下一节点和路由规则</a><a href="#section-60">（4）查看下一节点的场景内配置详情</a><a href="#section-65">（5）完成配置点击保存</a><a href="#section-66">Step3:查看全量多级路由场景</a><a href="#section-71">Zeus-私有化</a><a href="#section-74">Step1:创建规则/场景</a><a href="#section-77">Step2:添加/更新多级路由场景</a><a href="#section-84">（1）默认初始化节点设置：支持普通场景作为根节点，支持规则在该场景下配置</a><a href="#section-87">（2）增加下一节点和路由规则</a><a href="#section-92">（3）完成配置点击保存</a><a href="#section-93">Step3:查看全量多级路由场景</a><a href="#section-98">四、FAQ</a><a href="#section-99">Q1：如何配置“父场景未命中任何一个决策时才执行下一场景”？</a><a href="#section-114">Q2：在场景列表/场景配置列表中出现“【不要修改】自动同步的多级路由的公用根节点”是什么意思？</a><a href="#section-128">Q3：怎么查看多级路由的命中情况？</a><a href="#section-135">Q4：为什么多级路由场景与场景间的路由规则不支持标记功能？</a><a href="#section-138">Q5：修改多级路由map图、路由规则以及内部使用的因子对整体影响怎么控制？</a><a href="#section-141">Q6：如何将已经使用的普通路由修改为多级路由？</a><a href="#section-146">Q7：多级路由返回的数据是什么？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：Zeus多级路由使用指南</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/107423301">查看学城原文</a></p><article>
+<h1>说明：Zeus多级路由使用指南</h1>
+<div style="none"></div>
+<h1 id="section-3">一、解决问题</h1>
+<ul>
+<li>提升性能</li>
+</ul>
+<ul>
+<li>上海业务安全在内容安全维度，存在大量的消耗资源的规则（例如OCR识别算法），业务上为了提高性能，期望优先执行资源消耗低的规则服务，在执行其他高消耗的规则；</li>
+<li>
+<p>支付风控业务，在某些场景中的规则量高达一千多条，任何数据需要并行过规则，为了进一步提高性能，业务期望当数据进入规则平台，命中某些高优先的决策规则，则停止执行后续规则（例如，业务数据命中加黑账号的规则后，无需继续执行后续策略直接拦截账号操作）</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>复杂路由策略（决策流）</p>
+<ul>
+<li>
+<p>消费金融在处理复杂业务的过程中，会涉及到策略分层的概念进行分流，例如付费的执行哪些规则、免费的执行哪些规则；</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>多级路由示例</p>
+</li>
+</ul>
+<img src="assets/d9fd2b812ffc76e3.svg" width="1320" height="483.28675237562885" alt="流程图">
+<h1 id="section-20">二、名词说明</h1>
+<ul>
+<li>普通场景：一堆规则的集合，无需按照逻辑进行分流，当前执行完成就完成</li>
+<li>普通路由场景：仅可支持两层，即总-分</li>
+<li>多级路由场景：可支持多层，<span style="color: ">决策流模式，即</span>一堆规则的集合，支持按照逻辑进行分流，<span style="color: ">满足指定条件可以指定走向在每个节点进行条件设置，实现最终流向；</span></li>
+</ul>
+<h1 id="section-27">三、操作说明</h1>
+<ul>
+<li>
+<h2 id="section-30">Zeus-美团</h2>
+</li>
+</ul>
+<p>所使用的系统为<a href="https://zeus.sankuai.com/" title="https://zeus.sankuai.com/">https://zeus.sankuai.com/</a>（Zeus-美团）参考如下流程：</p>
+<h3 id="section-33">Step1:创建路由场景、规则、场景</h3>
+<p>关于如何创建规则或者场景，这里不再赘述，请参考<a href="../../index.html" title="https://km.sankuai.com/page/28139633">Zeus规则平台管理系统使用指南</a>、<a href="../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改场景__220134551/index.html" title="https://km.sankuai.com/page/220134551">说明：创建/修改场景</a>、<a href="https://km.sankuai.com/page/170907477" title="https://km.sankuai.com/page/170907477">说明：创建/修改规则（废弃）</a></p>
+<p>入口：</p>
+<p>a.在场景模块中创建路由场景</p>
+<p>b.<a href="http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList" title="http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList">http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList</a></p>
+<p><img src="assets/0fcca874cd55ba10.png" width="709" height="321" alt="image.png"></p>
+<h3 id="section-44">Step2:多级路由场景配置</h3>
+<h4 id="section-45">（1）入口：<a href="http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList" title="http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList">http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList</a></h4>
+<h4 id="section-47">（2）默认初始化节点设置：支持普通场景作为根节点，支持规则在该场景下配置</h4>
+<p></p>
+<p><img src="assets/69dbb80bac47222d.png" width="923" height="441" alt="image.jpeg"></p>
+<p><span style="color:#f5232d"><strong>鼠标的小手手</strong></span><img src="assets/9262abb625d04dd4.png" width="20" height="26" alt="image.jpeg"><span style="color:#f5232d"><strong> 进入红框！！！！</strong></span></p>
+<h4 id="section-57">（3）增加下一节点和路由规则</h4>
+<p><img src="assets/826b7a3985e9230f.png" width="1278" height="600" alt="image.png"></p>
+<h4 id="section-60">（4）查看下一节点的场景内配置详情</h4>
+<p><img src="assets/f79f4b0683f96419.png" width="1275" height="623" alt="image.png"></p>
+<p><img src="assets/90ceb66723c6ae27.png" width="736" height="230" alt="image.png"></p>
+<h4 id="section-65">（5）完成配置点击保存</h4>
+<h3 id="section-66">Step3:查看全量多级路由场景</h3>
+<p><img src="assets/bcfcb2ef7127d760.png" width="407" height="458" alt="image.png"></p>
+<ul>
+<li>
+<h2 id="section-71">Zeus-私有化</h2>
+</li>
+</ul>
+<p>所使用的系统为Zeus-美团私有化 参考如下流程：（<span style="color:rgb(250, 84, 29)">不知道私有化是什么，那就不需要看以下流程了</span>）</p>
+<h3 id="section-74">Step1:创建规则/场景</h3>
+<p>关于如何创建规则或者场景，这里不再赘述，请参考<a href="../../index.html" title="https://km.sankuai.com/page/28139633">Zeus规则平台管理系统使用指南</a></p>
+<h3 id="section-77">Step2:添加/更新多级路由场景</h3>
+<div class="note">
+<strong></strong>
+<div>
+<p>关键概念说明：</p>
+<p>场景：多级路由的节点，场景是一组规则的集合</p>
+<p>触发规则：当前仅当触发规则为“真”时，下一节点的场景才会被执行</p>
+</div>
+</div>
+<h4 id="section-84">（1）默认初始化节点设置：支持普通场景作为根节点，支持规则在该场景下配置</h4>
+<p><img src="assets/e0bb0da4229babf1.png" width="531" height="344" alt="image.png"></p>
+<h4 id="section-87">（2）增加下一节点和路由规则</h4>
+<p><img src="assets/b10dd4543db9094b.png" width="489" height="155" alt="image.png"><img src="assets/145b10653d04c78d.png" width="449" height="174" alt="image.png"><img src="assets/d5a93bf92b8dc644.png" width="331" height="179" alt="image.png"></p>
+<h4 id="section-92">（3）完成配置点击保存</h4>
+<h3 id="section-93">Step3:查看全量多级路由场景</h3>
+<p><img src="assets/f7945bdec35b0b2b.png" width="727" height="61" alt="image.png"></p>
+<p><img src="assets/7423acf9c0736ae7.png" width="742" height="362" alt="image.png"></p>
+<h1 id="section-98">四、FAQ</h1>
+<h4 id="section-99"><strong>Q1：如何配置“父场景未命中任何一个决策时才执行下一场景”？</strong></h4>
+<p>A：Zeus内置了parentDecisionIds字段，该字段表示父场景命中了哪些决策。parentDecisionIds是一个以英文逗号列表，举例： parentDecisionIds = "101,102" ，表示父场景命中了101和102两个决策。</p>
+<p><span style="color:rgb(245, 35, 45)">注意：父场景指的是该条路由规则在路由场景中的上一层级场景，而非根场景。如图中路由规则2342887，使用到parentDecisionIds，指的便是12969场景中的决策命中情况。</span></p>
+<p><img src="assets/15b8c3bfb6501c63.png" width="539" height="256" alt="image.jpeg"><img src="assets/44be8d9c0d722e24.png" width="450" height="253" alt="image.jpeg"></p>
+<p>     使用该字段的流程：</p>
+<p>一、在Zeus平台中注册该参数，参数实例如下</p>
+<p><img src="assets/ec2d48e158a0b310.png" width="409" height="107" alt="image.png"></p>
+<p>二、配置路由规则，参考如下：</p>
+<pre><code>//父场景未命中任何一个决策
+parentDecisionIds == ""
+//父场景命中了101决策
+array.contains(parentDecisionIds, "101")</code></pre>
+<h4 id="section-114">Q2<strong>：</strong>在场景列表/场景配置列表中出现“<strong><u><a href="https://zeus.mis.rc.test.sankuai.com/scene/edit?scene_id=140726" title="【不要修改】自动同步的多级路由的公用根节点">【不要修改】自动同步的多级路由的公用根节点</a></u></strong>”是什么意思？</h4>
+<p>A：出现该信息是您所在的业务方下有使用路由场景才会出现，若未使用路由场景但出现此信息请联系值班Zeus。</p>
+<p>该信息为系统自动生成信息，支持业务方将已经使用的普通路由修改为多级路由。无任何实际意义，仅仅为多级路由的根节点</p>
+<p><span style="color:rgb(245, 35, 45)">普通路由和多级路由区别：普通路由仅支持两层；多级路由支持多层，最大不能超过5层</span>；<span style="color:rgb(245, 35, 45)">单层不建议超过10个以上场景</span> <a href="children/说明：普通路由场景使用文档__28253500/index.html" title="https://km.sankuai.com/page/28253500">说明：普通路由场景使用文档</a>、<a href="index.html" title="https://km.sankuai.com/page/107423301">说明：Zeus多级路由使用指南</a></p>
+<p><img src="assets/7a6cc38931d42010.png" width="754" height="83" alt="image.png"></p>
+<h4 id="section-128">Q3<strong>：</strong>怎么查看多级路由的命中情况？</h4>
+<p>A：在实时日志查询中查看，查看详情是每一个节点（场景）为一条日志信息，目前不支持整体的路由场景信息查看。例如：</p>
+<p><img src="assets/c99c42a8e53c11be.png" width="993" height="485" alt="image.png"></p>
+<p>上图多级路由可查看的日志信息为：</p>
+<p>初始节点场景配置日志、KFC活动场景配置日志、深证拉新风控场景配置日志，但不能查看外卖领用券活动场景配置日志；</p>
+<h4 id="section-135">Q4<strong>：</strong>为什么多级路由场景与场景间的路由规则不支持标记功能？</h4>
+<p>A：当前为多级路由一期项目，场景内规则支持标记状态，场景与场景间路由规则不支持标记功能，预计Q1～Q2可支持标记功能；</p>
+<h4 id="section-138">Q5<strong>：</strong>修改多级路由map图、路由规则以及内部使用的因子对整体影响怎么控制？</h4>
+<p>A：目前无测试的情况，修改即生效；预计2019Q4低提供策略修改的演练模式，用于修改的整体评估；预计2020Q1～Q2支持标记功能，用于新增场景的分支流向验证；</p>
+<h4 id="section-141">Q6<strong>：</strong>如何将已经<span style="color:rgba(0, 0, 0, 0.87)">使用的普通路由修改为多级路由</span>？</h4>
+<p>A：<a href="children/说明：普通路由修改为多级路由__220330745/index.html" title="https://km.sankuai.com/page/220330745">说明：普通路由修改为多级路由</a></p>
+<h4 id="section-146">Q7<strong>：</strong>多级路由返回的数据是什么？</h4>
+<p>A：将命中的场景及场景下的规则均返回。业务怎样确定哪个场景是最终的场景</p>
+<p>（1）通过配置<span style="color:rgba(0, 0, 0, 0.87)">只有在最终场景才会出现的决策，进行标示</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">（2）预计2020年6月底，会增加返回多级路由的执行map和最终场景标识，便于业务从最终场景获取决策</span></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/说明：普通路由场景使用文档__28253500/index.html">说明：普通路由场景使用文档</a> <span class="status">已保存</span></li><li><a href="children/说明：普通路由修改为多级路由__220330745/index.html">说明：普通路由修改为多级路由</a> <span class="status">已保存</span></li></ul></section></main></body></html>

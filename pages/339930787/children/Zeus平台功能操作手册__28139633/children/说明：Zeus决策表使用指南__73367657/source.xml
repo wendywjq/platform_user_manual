@@ -1,0 +1,102 @@
+<km-doc>
+<km-title nodeId="da4ecd55ffc04ecca461f63200629014">说明：Zeus决策表使用指南</km-title>
+<km-catalog style="none" nodeId="b25d79b0998c48db9a67eacda01b83c5" />
+<h2 nodeId="8d1bd0b48f204671b548f4c084e25691">配置示例</h2>
+<p nodeId="82ee9124320f4072b7f1c51f0f330da3"><img src="https://km.sankuai.com/api/file/cdn/73367657/24458601881?contentType=1&amp;isNewContent=false" name="image.jpeg" width="619" height="600" nodeId="1f464053df0344cda4a6c50f28669de3" /></p>
+<p nodeId="5d7ff214ee4d4d59a88b7188b078f0d0"><img src="https://km.sankuai.com/api/file/73367657/73503775" name="image.png" width="818" height="600" nodeId="d4264ee58552449dafe0576b3236f22c" /></p>
+<h2 nodeId="f01a60929c7d4f7c9bbde532116b29e6">配置解释</h2>
+<ul nodeId="1ad041ae39c843f2b208311104386451">
+<li nodeId="445065217888408b99cc6cd6d94ff51a">决策表在Zeus中表现为新的因子类型：决策表因子</li>
+<li nodeId="46a12f26a5d54733b7d217d21db6e1a5">决策表因子除了决策表外其他属性与普通因子完全一样</li>
+<li nodeId="5d8926a118c24e51b945806e3406d6d0">决策表因子的决策表属性展示的是一个可动态修改的表格</li>
+<li nodeId="6babf37972644248963d99e6e4e95a02">决策表含有导出功能：导出为Excel(xlsx格式)和导出为CSV(csv格式)，点击会在浏览器直接下载到本地</li>
+</ul>
+<h2 nodeId="43f5ae50e15443ca932d286341bdc624">决策表的功能使用</h2>
+<ul nodeId="8508fcd752614dcdb383d9938685297c">
+<li nodeId="0cd3be806ca94607a1dd5c1d7ef080bd">单击单元格为选中，直接输入会清除并覆盖单元格内容，双击单元格会在内容后追加。</li>
+</ul>
+<ul nodeId="7cc8072cb9bf477b899276242c180699">
+<li nodeId="f7d9e5d2f11d4c6c9c3b04bf43a6b0bf">点击1、2、3等会选中整行，点击A、B、C等会选中整列，可以动态调整行和列的宽度，但不是会记录到数据库，只会对当前页面生效</li>
+</ul>
+<ul nodeId="baa81cfe55c94b65949b71e37b56f986">
+<li nodeId="bc073d3870304dc6abae357bf4749b85">选中单元格，Command + C可以对内容进行复制，Command + V可以对内容进行粘贴</li>
+</ul>
+<ul nodeId="1f3dd54e18bd442eb5bcb69a02fd36d8">
+<li nodeId="c4f5d2cf4cec4e929896074d16f03517">右键单击任何一个单元格，会弹出决策表的功能菜单，如下图：</li>
+</ul>
+<p nodeId="030ddef5ea704e9a90884117e157fc18"><img src="https://km.sankuai.com/api/file/73367657/73796918" name="image.png" width="613" height="400" nodeId="c5cd8c73481f41218e9acfa4b8cffea0" /></p>
+<p nodeId="0acc671ee512480d801de66b52d6e726">从上到下分别为：</p>
+<ol nodeId="2dfb4a7021e54a5a9e243b5768ab2099">
+<li nodeId="7ecc82eead33474e9a02d173fedc0a17">Insert row below：下方插入行</li>
+<li nodeId="bf56e6a08d6c4066b2f7a1638ecbde26">Insert row above: 上方插入行</li>
+<li nodeId="6b325ece3a494325b4b00549f32b7495">Insert column left: 左侧插入列</li>
+<li nodeId="503b8cfde27240dca3ba25fe63db3cf9">Insert column right: 右侧插入列</li>
+<li nodeId="1476a7de648044af81cfbdcba3d21c44">Remove row: 删除行</li>
+<li nodeId="689f7703e6f344ce815f703b8b29a75e">Remove column: 删除列</li>
+<li nodeId="8d22afed66894a6392463a6505ec470c">Clear Column: 清除整列的内容</li>
+<li nodeId="3782af99f7f44b65a9c1dd8f8e9f2a39">Undo: 撤销</li>
+<li nodeId="9d82dcc182b840ca87805dfdb0a9b0c8">Redo: 重做</li>
+</ol>
+<p nodeId="4aa96941af7641bab754be77daebbb31" />
+<h2 nodeId="f126cecaa05142a88ec40f92c9276964">决策表的语法</h2>
+<ul nodeId="1a2d240ead0742669ab32756139d51ad">
+<li nodeId="56c3d1d425274f949a918882563c4b4d">决策表中所有单元格的内容都不能为空</li>
+<li nodeId="01348e72c5794eb49174dff7340c56ca">
+<p nodeId="e3dc3e6703c6483c933d2f1e4f9b0734">决策表默认第一行为表头，用粗体显示。</p>
+<ul nodeId="8968b58d528549a08031ea6596deb987">
+<li nodeId="578e5df96af6453584bb95f0658be798">表头分为条件列和结果列，最后一列默认为结果列，除了最后一列前面所有的列都为条件列。</li>
+<li nodeId="768d348f7ac5440d97be132eee74fc24">表头中条件列中单元格内容必须为已经定义的参数或因子（因子必须是就绪的）。表头的结果列所填内容不限，Zeus没有进行检查</li>
+</ul>
+</li>
+<li nodeId="3e051d8e056b43889714c29afdb429be">
+<p nodeId="f44a435c2d6f43868a2fdd848cb19c89">除了第一行，表格余下部分为表体</p>
+<ul nodeId="1c87d64ad8a74c0087f9476cfb309262">
+<li nodeId="f89678c2325f400eaf7e974db0288300">表体的条件列所在单元格都是Aviator表达式，表体的结果列所在单元格是要返回的结果，可以是常量或Zeus定义的参数/因子</li>
+<li nodeId="86b8feecf61d4a4c936092a0c77d64b4">表体条件列所在单元格除了支持所有的Aviator语法，还支持一些语法糖</li>
+</ul>
+</li>
+<li nodeId="3cb65c073a114fc4abba0e05fdbaa551">
+<p nodeId="170779d202f743ec84e29129a6ee610e">决策表语法糖</p>
+<ul nodeId="11a7759a48534f95ab9fe40f9046ce4d">
+<li nodeId="2252cab94fcc440682afa3d0f8901d28">
+<p nodeId="8af581f223e44e518854746e8320699f">单元格中只包含一个单独的常量或Zeus定义的参数/因子，则默认为添加相等(==)的语义。例如某单元格表达式为：123, 对应列的列头为userid，则该单元格补充为：userid == 123（上图的第3行第1列）</p>
+<ul nodeId="b38584bb3db940f68ed4ce3d6692487b">
+<li nodeId="5862ab4eb8c74eeabdac049d294dbe43"><strong>注意如果是字符串类型的常量，必须要加上单/双引号</strong>，如上图第3行第2列，单元格内容为'uuid'，等价于  uuid == 'uuid'</li>
+</ul>
+</li>
+<li nodeId="3ea53a96ca9240e1bf9a71f0f04f9a48">
+<p nodeId="bfe1f9c6412847da85dadb75fee6719e">对于比较操作符，在其前面自动加上变量的语法糖。支持 &gt;= , &lt;= , &gt; , &lt; , == , != 6种操作符，例如单元格表达式为：&gt; 0，列头为factor_acc_test，则自动转换为：factor_acc_test &gt; 0（上图的第4行第4列）</p>
+<ul nodeId="7b13e7640e5f4d4285cf819134efdd2c">
+<li nodeId="b059c5a90a9f4146abda91fc9877da4d">只支持含有单个比较操作符的情况，不支持如下形式：&gt; 0 &amp;&amp; &lt;= 6 ，可用开闭区间语法糖来代替</li>
+</ul>
+</li>
+<li nodeId="df4e9fae6c0240598d41a74bbb6aa4a2">
+<p nodeId="fcb3786a3de94317b41cf581ee2851de">支持数字开闭区间的语法榶。支持[num1, num2] , [num1, num2), (num1, num2], (num1, num2) 四种类型</p>
+<ul nodeId="4792bbbb65c5465eb471b04485ef60ab">
+<li nodeId="d6a24d7bf8d94a9a939c4c218f402392"> 例如：(0, 10]，列头为userid，等价于 userid &gt; 0 &amp;&amp; userid &lt;= 10（上图第4行第1列）</li>
+<li nodeId="0f110a3a1d484ee98b1e9c9738296b58">中括号是闭区间，包含等于号；小括号是开区间，不包含等于号</li>
+</ul>
+</li>
+</ul>
+</li>
+<li nodeId="8985f4abc8434e14bc1c5ec8f355d69c">
+<p nodeId="163821d6c8454b2f8105bdf2e2ae1435">决策表中的单元格支持Aviator表达式，包括扩展函数，正则表达式等。</p>
+<ul nodeId="01e6ba440fd448938ac1ccfd63ad7f7b">
+<li nodeId="716060d8949a4cc9ad7766e2afd7f5fa">如上图决策中的第5行第2列，使用了string.length扩展函数，第5行第3列，使用了正则表达式。这些表达式没有实现语法糖，都需要写完整的Aviator表达式，对应的uuid和factor_mac_head_six列头变量在单元格表达式里不能缺少（例如：直接写 =~ /A\dB\dC\d/ 是不合法的）。</li>
+</ul>
+</li>
+</ul>
+<h2 nodeId="c3c2daad0c8e4dcaba79c535ab67da65">命中日志信息</h2>
+<p nodeId="94da6b62cf3741d59f9bcac8446b173e">在发生请求时，若命中了决策表的某一行，则会在日志查询附加信息栏中体现：</p>
+<p nodeId="10f6be757075405a873fc0a71525a430"><img src="https://km.sankuai.com/api/file/73367657/74165234" name="image.png" width="566" height="284" nodeId="eb17a861007d435fb5c034f9442e3fac" /></p>
+<p nodeId="adab2034618748c7af6fad39c18030af">如上图表示名为factor_decision_table_test_2的决策表因子，该次请求命中了第5行</p>
+<p nodeId="9e3f61813fbf4c398e015b48d78b12d2">如果命中多行，会用逗号隔开，如："hitRows": "4,5"</p>
+<p nodeId="3f18f41022b645e88e6673e214b78791">若hitRows为空串则表示未命中任何一行，决策表因子结果为nil</p>
+<p nodeId="d2f3fd93eeb4415ab7e8bf91076bc738"><strong>决策表命中多行，返回命中的最后一行的结果（需求文档定义的）</strong></p>
+<h2 nodeId="ae7f4edec65847f398c6fbc8639803aa"><strong>暂不支持的功能说明</strong></h2>
+<ul nodeId="394fa542061e4bf1ac66a67f52902b9b">
+<li nodeId="aa47989041664d2187d10d7ada42cf96">每个单元格的表达式不支持补全提示功能，因为表格插件与补全插件无法整合</li>
+<li nodeId="57f8fbf64d3b4f94aae7a310d9b0d4aa">决策表不支持合并单元格功能</li>
+<li nodeId="46508f14da3f49dcbfaa123255c939fb">决策表不支持否则(else)功能</li>
+</ul>
+</km-doc>

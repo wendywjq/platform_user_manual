@@ -1,0 +1,147 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：回溯功能</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-6">二、名词解释</a><a href="#section-10">三、操作指南</a><a href="#section-11">1.用户操作流程说明</a><a href="#section-14">2.QuIck Star</a><a href="#section-16">3.详细操作流程说明</a><a href="#section-17">step1:创建回溯任务</a><a href="#section-75">step2:查看回溯结果</a><a href="#section-102">step3:查看回溯日志</a><a href="#section-126">三、FAQ</a><a href="#section-127">Q1:支持多个回溯任务并行支持么？最多可支持多少个？</a><a href="#section-129">Q2:一个回溯任务支持多个规则回溯么？最多可支持多少个？</a><a href="#section-131">Q3:累计因子回溯任务支持的最长周期是多少？</a><a href="#section-133">Q4:回溯的规则中，若存在累计周期大于15天的因子可以回溯么？</a><a href="#section-135">Q5:自定义数据源的格式有哪些要求？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：回溯功能</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/28253556">查看学城原文</a></p><article>
+<h1>说明：回溯功能</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>规则平台的回溯功能，支持使用历史数据进行规则的再次执行，用于新规则逻辑的评估验证、历史风险的分析评估等</p>
+<p>在2019年初上线的回溯功能，仅能支持近15天的日志进行回溯、回溯结果无详情查看、不支持累计因子回溯直接线上应用等。因此本期针对如上问题对回溯服务进行升级</p>
+<h1 id="section-6">二、名词解释</h1>
+<ol>
+<li>规则线下回溯：使用历史日志数据进行规则的执行，⚠️回溯过程中无法调取外部数据接口，日志中有什么参数就执行什么。即名单库、数据接口均不会调用</li>
+<li>累计因子线上回溯：使用历史数据进行累计因子数据重构，重构后的累计因子值可直接应用到线上，用于规则识别</li>
+</ol>
+<h1 id="section-10">三、操作指南</h1>
+<h2 id="section-11">1.用户操作流程说明</h2>
+<img src="assets/93a1cf5105b34320.svg" width="956" height="496" alt="流程图">
+<p>tips：若想要进行超过15天的长周期回溯，需要业务自行提供原始hive数据</p>
+<h2 id="section-14">2.QuIck Star</h2>
+<p>--待补充--</p>
+<h2 id="section-16">3.详细操作流程说明</h2>
+<h3 id="section-17">step1:创建回溯任务</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">Plus工具中心--&gt;回溯管理 --&gt;创建回溯任务</span></p>
+<ol>
+<li><span style="font-size:14px">任务名称可以使用中英文用户自定义填写</span></li>
+<li>
+<p><span style="font-size:14px">回溯内容：</span></p>
+<ol>
+<li><span style="font-size:14px">规则线下回溯：使用历史日志数据进行规则的执行，</span></li>
+<li>
+<p><span style="font-size:14px">累计因子线上回溯：使用历史数据进行累计因子数据重构，重构后的累计因子值可直接应用到线上，用于规则识别</span></p>
+<p><span style="font-size:14px">⚠️回溯过程中无法调取外部数据接口，日志中有什么参数就执行什么。即名单库、数据接口均不会调用</span></p>
+</li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">取数维度（规则线下回溯）：</span></p>
+<ol>
+<li><span style="font-size:14px">场景：Zeus上的场景流量</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.72)"><span style="font-size:14px">RequestId List（.xlsx 形式）：业务可自定上传Zeus上的requestId List,系统自动获取这些上传请求ID相关的参数，用于规则的执行</span></span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">周期：回溯数据的取数时间窗口</span></p>
+<p><span style="font-size:14px">⚠️：当使用</span><span style="color:rgba(0, 0, 0, 0.72)"><span style="font-size:14px">RequestId List时，会同周期取交集取数（即And的条件）</span></span></p>
+</li>
+<li><span style="color:rgba(0, 0, 0, 0.72)"><span style="font-size:14px">规则ID：支持同时回溯多个规则，输入规则ID\中文均可搜索</span></span></li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/107f23b586a05601.png" width="901" height="281" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/62c87a085f106f27.png" width="821" height="409" alt="image.png"></p>
+<p><img src="assets/a09d6b170a172071.png" width="445" height="326" alt="image.png"><img src="assets/e9e620f7a0266875.png" width="312" height="324" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-75">step2:查看回溯结果</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">回溯管理 --&gt;回溯任务名称</span></p>
+<ol>
+<li><span style="font-size:14px">在收到回溯任务完成的通知后，可在回溯列表中点击任务名称，进入任务详情</span></li>
+<li><span style="font-size:14px">查看回溯统计结果和回溯详情</span></li>
+<li><span style="font-size:14px">支持复制回溯任务</span></li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/d4cd60793c0bb1bb.png" width="901" height="223" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/f27f3182e4094b3d.png" width="901" height="438" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-102">step3:查看回溯日志</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">数据统计--&gt;实时服务日志--&gt;回溯任务日志</span></p>
+<ol>
+<li><span style="font-size:14px">回溯日志详情查询，必须输入回溯任务ID ！！！</span></li>
+<li><span style="font-size:14px">在查看回溯命中情况时，系统已经自动关联了历史线上这个请求的命中规则的情况</span></li>
+</ol>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/eccc91491e7c8951.png" width="901" height="464" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-126">三、FAQ</h1>
+<h4 id="section-127">Q1:支持多个回溯任务并行支持么？最多可支持多少个？</h4>
+<p>A：支持，最多两个</p>
+<h4 id="section-129">Q2:一个回溯任务支持多个规则回溯么？最多可支持多少个？</h4>
+<p>A：支持，根据数据量实际情况而定</p>
+<h4 id="section-131">Q3:累计因子回溯任务支持的最长周期是多少？</h4>
+<p>A：15天以内不需要业务提供数据源，超过15天，需要业务提供离线hive表</p>
+<h4 id="section-133">Q4:回溯的规则中，若存在累计周期大于15天的因子可以回溯么？</h4>
+<p>A：本期暂不支持，预计9月初支持</p>
+<h4 id="section-135">Q5:自定义数据源的格式有哪些要求？</h4>
+<p>A：</p>
+<p>规则回溯数据表结构要求：</p>
+<pre><code>dt string '数据时间分片字段'
+addtime string ‘数据发生的时间’(时间戳，单位秒)
+paramContext string(json格式)参数上下文
+businesCode int 业务id</code></pre>
+<p><span>@吕笑千</span>，给一个数据实例</p>
+<p>累计回溯数据表结构要求：</p>
+<pre><code>dt string '数据时间分片字段'
+addtime string ‘数据发生的时间’ (时间戳，单位秒)
+accumulateEventId int ‘对应Zeus上的累计事件ID’
+contextList string(json格式) ‘累计事件详情信息，包含累计key、value和条件中涉及的参数信息，若是参数中有因子的话，就提供基础的参数信息就可以’</code></pre>
+<p><span>@吕笑千</span>，给一个数据实例<br>未完待续～～</p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/回溯功能问题收集__128220884/index.html">回溯功能问题收集</a> <span class="status">已保存</span></li></ul></section></main></body></html>

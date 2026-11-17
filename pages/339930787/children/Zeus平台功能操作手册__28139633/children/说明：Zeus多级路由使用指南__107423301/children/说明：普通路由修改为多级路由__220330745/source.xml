@@ -1,0 +1,53 @@
+<km-doc>
+<km-title nodeId="bc58a95e3f9441c5b2abf0315bc1a175">说明：普通路由修改为多级路由</km-title>
+<km-catalog style="none" nodeId="0c2a62c0300643ff99bec71b4993dca1" />
+<h1 nodeId="c90289d8edbc4a4b8bbdabafe12bed45">一、背景</h1>
+<p nodeId="70cacf4902994493bea31e0de100eb4e">Zeus新增提供多级路由服务（决策流），原有普通路由仅支持两层路由，多级路由支持多层路由（考虑性能限制，目前最大支持5层）</p>
+<p nodeId="4d6cad14d20d4d29b04e965f321c651c">对于已经使用普通路由的用户可以基于现有普通路由修改为多级路由，不需要重新创建；</p>
+<h1 nodeId="244ba79067844a9b8c50051cb477f084">二、操作说明</h1>
+<h3 nodeId="7a8a328e70ae4421bd524c41dcd342bb">注意：</h3>
+<p nodeId="888ccfcfdaed4824bd131ce2499c22dd">当<span color="rgb(245, 35, 45)">满足普通路由和多级路由的兼容条件时</span>，普通路由的任何修改都会后台同步到对应id的多级路由，多级路由的修改也会同步到对应id的普通路由。</p>
+<p nodeId="ef416b3ba2a44afaa845e4112a4f2214">当不满足兼容条件时，意味着业务已经开始使用多级路由，此时编辑普通路由或多级路由时会提示不兼容，业务自己选择是否要将修改数据同步。</p>
+<p nodeId="c503f8922233450683fe862cd296021d">这里的修改包括添加、修改、删除场景本身（如场景名）和场景配置，尤其删除时会同时删除对应id的场景，操作时请务必小心。</p>
+<p nodeId="97c40084757c4e5186f93570a9552970"><span color="rgb(245, 35, 45)">兼容条件为同时满足以下两个条件</span></p>
+<ol nodeId="c52db651f8ef4262a500fa137fd89019">
+<li nodeId="2b72c2c353a44e8aab6a916d7d48013a">多级路由的层级为2层</li>
+<li nodeId="581faa27fb1a4cd88e537276607ca791">多级路由的根节点为空节点，即不能添加任何场景配置</li>
+</ol>
+<h3 nodeId="6cab82bf47e74690ab6bfbe10f9eaa2e">Step1：入口</h3>
+<p nodeId="891ac74777544a57b10cad46e04fe2f6"><a href="http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList" title="http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList" nodeId="7d8c948102a04190958be25cc2f04f8d">http://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/routerSceneList</a></p>
+<h3 nodeId="cd7e2dac12c2410fa03ba9e2e8541965">Step2：找到需要修改的普通路由场景</h3>
+<p nodeId="d5e800fca644447f971070963046b203">在普通路由场景中情况：</p>
+<p nodeId="6da1c4cadca643b5a357cc11b89e7ef6"><img src="https://km.sankuai.com/api/file/cdn/220330745/220432413?contentType=1&amp;isNewContent=false" name="image.png" width="802" height="364" nodeId="de38027cf71642e1ad6b139cb755b1de" /></p>
+<p nodeId="98427efc68b84ec58b273bd34973a5bb">在多级路由场景中情况：</p>
+<p nodeId="74ecc7a2ffe447a3a597011390bd82fb">⚠️目前路由规则无标记状态，因此仅同步生效状态的流分支</p>
+<p nodeId="5f7453f42ca94c269b38d5bbcea54643"><img src="https://km.sankuai.com/api/file/cdn/220330745/220427476?contentType=1&amp;isNewContent=false" name="image.png" width="822" height="589" nodeId="791f6bd1ede043d092c16c322d2c3bc3" /></p>
+<h3 nodeId="5f0c5c7963e34e5c840d67ddc77fe310">Step3：在多级路由页面内修改路由场景配置</h3>
+<p nodeId="50a409ab346e4ea5a4eff204eb5a5b58">点击编辑---&gt;进行修改，修改行为包含：可以替换根节点场景、增加路由层级，如下图例增加三级场景</p>
+<p nodeId="3adba7817cff4444a1eea2a16c4a5a10"><img src="https://km.sankuai.com/api/file/cdn/220330745/220161897?contentType=1&amp;isNewContent=false" name="image.png" width="653" height="464" nodeId="5323a7a7685d404e91e905965a792d82" /><img src="https://km.sankuai.com/api/file/cdn/220330745/220394736?contentType=1&amp;isNewContent=false" name="image.png" width="862" height="460" nodeId="493efefa9d564d978d8b52a898b72a84" /></p>
+<h3 nodeId="feb360c3dae94f3f8dc3b416822e8813">Step4：弹框提示普通路由已经修改，确认修改</h3>
+<p nodeId="02ceb4bbfc9c44c7a9da27e241aa7eaa">⚠️新增分支无法同步到普通路由上</p>
+<p nodeId="02c511eb3b4e46b68b71de803432a7b6"><img src="https://km.sankuai.com/api/file/cdn/220330745/220428484?contentType=1&amp;isNewContent=false" name="image.png" width="633" height="285" nodeId="c8da8d6bed2b4454bb1fe8024f5ef456" />、<img src="https://km.sankuai.com/api/file/cdn/220330745/220394797?contentType=1" name="image.png" width="1379" height="220" nodeId="2bad07da4ca5490599f5d363b8cfb15c" /></p>
+<h3 nodeId="c8638b107c5f49de802c87ad01837ef4">Step5：查看修改后路由场景配置</h3>
+<p nodeId="504c78e6b8914e2086288f37aad880ad"> 第一张为多级路由，第二张为普通路由，新增分支无法同步</p>
+<p nodeId="67a2075a5a59485c85f4de3630f56143"><img src="https://km.sankuai.com/api/file/cdn/220330745/220157288?contentType=1&amp;isNewContent=false" name="image.png" width="570" height="420" nodeId="af9c3c90433e4fe99f68ac7292ff7690" /><img src="https://km.sankuai.com/api/file/cdn/220330745/220419381?contentType=1&amp;isNewContent=false" name="image.png" width="913" height="419" nodeId="af4d5369304846f9b14b1a0574d4db2a" /></p>
+<h3 nodeId="170a3bf9e3d64d61857c89f1f2bd6832">Step6：研发数据接口切换</h3>
+<p nodeId="b50f995c3e154953979846c8fd088296">⚠️⚠️⚠️即使配置完成切换后，也不会影响线上的使用，如果业务之前调用的是如下接口，依然走的是原有普通路由的逻辑（EitherTypeScene表示普通场景 或 普通路由场景）</p>
+<pre language="Plain Text" nodeId="1f81900368b346d7a1e3b0f1ffc6a1d4"><code>public GetDecisionByEitherTypeSceneResult getDecisionByEitherTypeScene(Integer sceneId, Map&lt;String, ZeusObject&gt; context)</code></pre>
+<p nodeId="e70487266fa449dab49a175422e4e0cc">需要切换成新的多级路由的接口才能把流量打到多级路由上</p>
+<pre language="Plain Text" nodeId="352cf434bf144c1ea8552ed400ae71ec"><code>public GetDecisionByRouterResult getDecisionByMultiLevelRouterScene(
+            Integer routerSceneId,
+            Map&lt;String, ZeusObject&gt; context,
+            Integer accumulateEventId) throws ZeusClientException, TException {</code></pre>
+<p nodeId="f92980f1da8443f080608569b5cfeb56">切换接口后是否需要修改zeus返回结果的解析逻辑？</p>
+<p nodeId="e9e51d021cca43f7abb451f574682df6">一般情况下，业务的处理逻辑是遍历xxResult中的<span color="rgb(204, 120, 50)">public </span>List&lt;GetDecisionResult&gt; <span color="rgb(152, 118, 170)">sceneResultList</span><span color="null">字段，找出所有场景结果中命中的场景配置，然后取优先级最高的决策作为最终决策，这种解析逻辑理论上不需要做大的修改，只需要类型匹配即可。其他的解析逻辑请根据业务自身情况修改。</span></p>
+<p nodeId="01d5b6c031484a0fa0234cbe55372271"><span color="#f5232d"><strong>由于业务逻辑各不相同，无论哪种情况都希望业务能在线下测完后线上回归验证或双跑，避免接口切换后发生事故！！！</strong></span></p>
+<h1 nodeId="4b2e6c7d5d3f4ba1976fb0898cb05884">三、FAQ</h1>
+<h4 nodeId="400c35fd40dc490cbd0f460b23c7cbba">Q1<strong>：</strong>在场景列表/场景配置列表中出现“<strong><u><a href="https://zeus.mis.rc.test.sankuai.com/scene/edit?scene_id=140726" title="【不要修改】自动同步的多级路由的公用根节点" nodeId="906a52faf1c1469dbce88f3a91059568"><strong>【不要修改】自动同步的多级路由的公用根节点</strong></a></u></strong>”是什么意思？</h4>
+<p align="start" nodeId="e410a9e8ca7346f58d5e1c8dbab4d482">A：出现该信息是您所在的业务方下有使用路由场景才会出现，若未使用路由场景但出现此信息请联系值班Zeus。</p>
+<p align="start" nodeId="96bc49011be2460787af7853654878a1">该信息为系统自动生成信息，支持业务方将已经使用的普通路由修改为多级路由。无任何实际意义，仅仅为多级路由的根节点</p>
+<p align="start" nodeId="d0c4547e7e0344bd9f55ae0060430f34">普通路由和多级路由区别：普通路由仅支持两层；多级路由支持多层，最大不能超过5层；<a href="https://km.sankuai.com/page/28253500" title="说明：普通路由场景使用文档" autoUpdate="true" nodeId="ba6aef17aed74340bda4bd0541a76d55">说明：普通路由场景使用文档</a>、<a href="https://km.sankuai.com/page/107423301" title="说明：Zeus多级路由使用指南" autoUpdate="true" nodeId="23ce703dd84b4b2a8eabe27e1a13a7f2">说明：Zeus多级路由使用指南</a></p>
+<p align="start" nodeId="f5505d4bdb20445e9f48da4c53c02ab2"><img src="https://km.sankuai.com/api/file/cdn/220330745/220429879?contentType=1&amp;isNewContent=false" name="" width="754" height="83" nodeId="8e640062834a4e3e914d6b9d653648c8" /></p>
+<h4 nodeId="34d4732ae6c843dd99f68c47ec5dac90">Q2<strong>：</strong>可以不切换业务接口完成由普通路由转为多级路由么？</h4>
+<p nodeId="3cb601c936204fca9c8cd5fa5de86009">A：目前不支持</p>
+</km-doc>

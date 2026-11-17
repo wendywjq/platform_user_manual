@@ -1,0 +1,15 @@
+<km-doc>
+<km-title nodeId="aced21c476f449f6ad5a7c0533eaab14">说明：fetcher异常日志指南</km-title>
+<p nodeId="aa562a8fa43448b381f0d77dab8ea295">日志查询详情页面新增一个Tab：“数据接口信息”，如下图所示：</p>
+<p nodeId="f9ed010cdf5c45c991f73ec0ddbea45e"><img src="https://km.sankuai.com/api/file/105435323/105462981" name="image.png" width="944" height="475" nodeId="a87e00443af04fc4bfa015eefeecc283" /></p>
+<p nodeId="677df29cd03a41a1bc7f2a308aaa8f7a">数据接口信息里展示的是：该请求过程中调用数据接口失败的信息，包括：</p>
+<ol nodeId="81b00b8c5e9f44eea2b5c26d5ff7c011">
+<li nodeId="501d6ab8bb904fba8b5898cdf15fe03a">erroMessage：错误信息</li>
+<li nodeId="2a536ac81f3c4a8290dc643159dae340">rootCause：根因</li>
+<li nodeId="b522132acaf1429d9ba71e2d1824f10b">fetcherName：数据接口名称</li>
+<li nodeId="7cf07e8498c44c4eaa91b46f1005bb98">targetKeys：待获取的参数、因子名，也即这些参数、因子获取失败了</li>
+<li nodeId="5a03b158e877474194202acfa1d295bb">timeout：该数据接口设置的超时时间</li>
+<li nodeId="0a6c3c1b62614ceb901bfd31c338a0fe">costTime：调用该接口花费的时间</li>
+</ol>
+<p nodeId="1277c9d0453f46ad9fe1906933267a5e" />
+</km-doc>

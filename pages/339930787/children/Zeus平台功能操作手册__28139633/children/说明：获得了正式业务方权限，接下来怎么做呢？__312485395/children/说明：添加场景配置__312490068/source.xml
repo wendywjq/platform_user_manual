@@ -1,0 +1,23 @@
+<km-doc>
+<km-title nodeId="3585732103314719ad9b7cb82d8c3074">说明：添加场景配置</km-title>
+<km-catalog style="none" nodeId="ebaa04cf5c804adf9684bf18ab849fa2" />
+<h1 nodeId="de1795e4358349168c7a78b4147d5b50">一、背景</h1>
+<p nodeId="5169b9f6316c4b46aa47ee0bff6802a9"><strong>场景配置：</strong><span color="">通过场景、规则、决策构成的场景配置组成策略，例如：“外卖营销场景” 下 “是模拟器的请求” 进行 “拦截”；在场景配置中，scene与rule是1：n的关系，一个场景可以配多条规则，每条规则在该场景下可以产生不同的决策；</span></p>
+<h1 nodeId="ca1334d0ec614cd8a5df53d8cc8b0693">二、操作说明</h1>
+<h2 nodeId="ed93e64fed554961a89165ca52bd3968">step1：入口</h2>
+<p nodeId="6ba1989425c141d583d62e39dce18255">策略部署—&gt;场景—&gt;展开某条场景信息—&gt;添加</p>
+<p nodeId="5063086d0e034cbfa0d0702dfbad7d84"><img src="https://km.sankuai.com/api/file/cdn/312490068/90295842525?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1070" height="600" nodeId="974d2b91b38f44c5bdb1197d2eb5cb94" /></p>
+<p nodeId="c6d312c0aa244191a7fcc749a6e9ef23">策略部署—&gt;场景—&gt;批量编辑配置—&gt;添加场景配置</p>
+<p nodeId="fb68cf84a480401a9e66842e3b10ed92"><img src="https://km.sankuai.com/api/file/cdn/312490068/90298128320?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1920" height="452" nodeId="eb43725971194028ad9c5f08167cd135" /> </p>
+<p nodeId="06439c923de148a9971fa225ff7abd20" />
+<p nodeId="6f05b8de5a084f2784a7d7956d41caf8" />
+<h2 nodeId="136fea2ef9b34c36a77db28f2402af13">step2：添加场景配置</h2>
+<p nodeId="8b6365291e3d437c99ba5c04082c483d">选择规则，选择决策，填写优先级，配置微调，在微调中选择状态（有生效、离线、标记三种状态），最终点击添加，添加成功后会在场景列表中看到相关场景下的规则配置信息</p>
+<p nodeId="04939c0b188d4a7ab633e0109889d2d3"><span color="rgb(245, 35, 45)">【特殊说明】：</span>若是业务开通了强制标记权限，则新添加的场景配置（规则+决策+状态+优先级）必须在该场景下标记30分钟方可再修改状态为生效。标记满足30分钟，会有大象通知标记完成。</p>
+<p nodeId="5cc6d1c4bff0407fbf6a31ac1624d81f"><img src="https://km.sankuai.com/api/file/cdn/312490068/312633454?contentType=1&amp;isNewContent=false" name="image.png" width="1246" height="526" nodeId="be5be592f67b4c6c90599ecd7e1a9957" /></p>
+<p nodeId="4e15377f2fbf43de959d599b745d20a3" />
+<p nodeId="199a9f915d2a4f7392e44b582dc13785"><img src="https://km.sankuai.com/api/file/cdn/312490068/312672234?contentType=1&amp;isNewContent=false" name="image.png" width="1057" height="156" nodeId="c4229b96e7fa4885b7961d7a80128b01" /></p>
+<h2 nodeId="0d6bd020d49a4265b12cc7be7d409c68">step3：修改场景配置</h2>
+<p nodeId="396ab83eb21c4adf99b803471c1ff996"><span color="">同添加场景配置入口一样，进入场景列表页面，在场景列表中找到相应的场景选中，可对添加的规则决策信息进行删除，或者在规则决策信息后点击编辑，对决策、状态、优先级进行修改</span></p>
+<p nodeId="cab70d6e7514495fb6c67b13b63247be"><img src="https://km.sankuai.com/api/file/cdn/312490068/312665141?contentType=1&amp;isNewContent=false" name="image.png" width="1025" height="163" nodeId="7130745c47114eecaae276c1dc3a7623" /></p>
+</km-doc>

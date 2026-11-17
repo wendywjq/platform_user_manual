@@ -1,0 +1,22 @@
+<km-doc>
+<km-title nodeId="5c6ba78cc5c7476da457b0929cd85a42">说明：创建/修改参数</km-title>
+<km-catalog style="none" nodeId="c8afb28c81114119ae2f46c9c01f8624" />
+<h1 nodeId="6a58245fceb5454496d5e52c6da3b7b3">一、背景</h1>
+<p nodeId="aed96c5cb4514ef0afae5dec60685cb7"><strong>参数：</strong><span color=" ">业务传入的基本变量，对应于业务传入的变量，因子逻辑表达式的变量来自于输入的参数，有了参数才能创建因子。</span></p>
+<h1 nodeId="a5c0ddc514a14ea7a4bd38acc30eb754">二、操作说明</h1>
+<h2 nodeId="d1680207653c45f996775dc717cdaeeb">step1：入口</h2>
+<p nodeId="b7158e55285b4c26b78785ce2152e331">策略部署—&gt;参数—&gt;添加参数</p>
+<p nodeId="a05d73e32460477489a4adce23004c74"><img src="https://km.sankuai.com/api/file/cdn/312476852/90197310791?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1920" height="400" nodeId="3d419aa2ee114c85a8be2507b5de3510" /></p>
+<h2 nodeId="3e253981e00b4b949c42b3c3ad4accfc">step2：添加参数</h2>
+<p nodeId="fff30f08bfef4facafc5840669e6f282">填写参数英文名、中文名，选择参数类型，添加备注，是否至于管理。图片中是创建举例，创建成功会在参数列表中显示出来刚刚创建的参数</p>
+<p nodeId="4924f2c5ad4c4367bda14c5d4b0b562e"><span color="rgb(245, 35, 45)">【说明】</span><strong>参数</strong><span color=" "><strong>命名规范：</strong></span><span color=" "> 驼峰命名法，如isBookedDeal表示是否是预定的deal。</span></p>
+<p nodeId="dc4a0f025be347b098f1de930bc58d6e"><img src="https://km.sankuai.com/api/file/cdn/312476852/90191955535?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1022" height="571" nodeId="f1be336e6cdd49a2aca3b93e8dcf7c0d" /><img src="https://km.sankuai.com/api/file/cdn/312476852/90202843172?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1912" height="148" nodeId="c8278b7d0784448d89eced5e6c0f78ae" /></p>
+<h2 nodeId="344a7892fbf144eaa1f3e11611087d1e">step3：参数修改</h2>
+<p nodeId="369fcaba4a46430c91580a9db5d8d913">同添加参数入口一样，进入参数页面，在参数列表中找到创建的参数，点击参数名称进入详情页面。在目前版本的页面中，支持中文名、类型、备注、标签、值域管理的修改，新名称依旧会进行重名校验。</p>
+<p nodeId="064addb7d0644831bd5b3c43d3028d89"><img src="https://km.sankuai.com/api/file/cdn/312476852/90192301946?contentType=1&amp;isNewContent=false" name="image.jpeg" width="948" height="600" nodeId="38c2510c6c844843883e36ac6a0ec2b3" /></p>
+<h1 nodeId="a0341273557040bc8c313e6cc96f3461">三、FAQ</h1>
+<h2 nodeId="a1e6f4ac23464a44a4663e848430a85a">Q1:常见的参数配置错误情况</h2>
+<p nodeId="1cb5c65816494ffc844365a1dc4e6af4">A：mobile参数（手机号）需要选择“长整型/字符串”，不要选择整型【why:<span color="rgba(0, 0, 0, 0.87)">mobile是11位数，整形最多是10位数，类型转换失败了。建议改成长整形或者字符串类型</span>】</p>
+<h2 nodeId="59416487ec5642b0bd9d01f18075548a"><span color="rgb(245, 35, 45)">Q2：值域管理是什么</span></h2>
+<p nodeId="c425f52e9f9843518ee6b735490ff3d3" />
+</km-doc>

@@ -1,0 +1,34 @@
+<km-doc>
+<km-title nodeId="e94b33bbd1c544a4a12a54a4b742baf5">说明：创建/修改场景</km-title>
+<km-catalog style="none" nodeId="7572d1d9d4b94fb78c4266f1d174a344" />
+<h1 nodeId="ab2770dbb61a4b73a668a8e00c5f0860">一、什么是场景</h1>
+<p nodeId="32b0e71bf3534e4482048f655ece8227">场景（scene）：场景实质上是一堆规则的集合，关联业务请求与策略，便于专业人员的管理和配置，如反作弊中的促销活动、账户安全中的登录事件；调用决策平台获取决策时，需要指定场景ID，根据场景ID，Zeus才能知道需要运行哪些规则，数据流量按照场景执行；</p>
+<ul nodeId="92f5c1cf49134576885fe612c5664983">
+<li nodeId="84e7f44ed6ae44cd98639ae6c794409d">以反作弊为例，一个活动就是一个场景，如团购运营拉新活动是一个场景，它可以包含多个新客满减、立减、1分钱活动，这些活动有其共同特征：都归属于团购、都是新客、都是产品运营部发起；<br /></li>
+</ul>
+<h1 nodeId="61c3f26b0e0042b289ebb6ee9a58dab2">二、如何新增/修改场景</h1>
+<h3 nodeId="92b25d0c410c4eca9673ce79e39599b3">Step1:入口</h3>
+<p nodeId="bfa3b8b9c17c457abca2d626b47ca761">策略部署-- &gt; 场景-- &gt; 新建场景</p>
+<p nodeId="74cba1e4c2af4a6ab1ee0cac9ab04c11"><img src="https://km.sankuai.com/api/file/cdn/220134551/145607946134?contentType=1&amp;isNewContent=false" name="image.jpeg" width="812" height="244" nodeId="5e1cb223d10a4f20b1cac084ce7305e4" /></p>
+<h3 nodeId="6f1f0e2bac3e4101ad78c26b7d5559fc">Step2:新增场景</h3>
+<p nodeId="8e46a9bbbb734bba9b1ec4ea59c00f2a"><span color="">填写场景名称、场景备注，选择计算类型、场景类型、负责人、归属风险域、添加标签，配置场景通用熔断。</span></p>
+<p nodeId="b8276f9ebba0471291050ba30766f408"><span color="rgb(245, 35, 45)">【说明】</span><strong>场景</strong><span color=""><strong>命名规范：</strong></span><span color="">业务（必须）+活动主名称（表现出类型）+限定后缀（可选），如运营拉新一口价活动（成都，6月）、团购肯德基直减活动（2015年）。</span></p>
+<p nodeId="e5d082110e984baf9c907a45bae31bde"><span color=""><strong>场景类型说明：</strong></span></p>
+<ul nodeId="e93fb8118b1142a48b5fb00b08989ad5">
+<li nodeId="d3f81824222249cdacd40ec93424e9d0"><span color=""><strong>普通场景：</strong></span>一堆规则的集合，即用来配置规则返回决策的场景，无需按照逻辑进行分流，当前执行完成就完成</li>
+<li nodeId="c757c6ebc95a4bb78706711b3a6e59a9"><span color=""><strong>路由场景：</strong></span><span color="">决策流模式，即</span>一堆规则的集合，支持按照逻辑进行分流，<span color="">满足指定条件可以指定走向在每个节点进行条件设置，实现最终流向；</span>不同于普通场景，路由场景不直接配置或返回决策，而是根据命中规则情况决定接下来要执行哪些普通场景，并执行这些普通场景的规则并返回决策；</li>
+</ul>
+<p nodeId="488da6bf4bbb49c6a5cead77ea25e16e"><strong>负责人/归属风险域</strong>：输入misid并选择唯一场景负责人。根据misid平台拉取所属风险域供用户选择</p>
+<p nodeId="274839857db3422a8a25cce1b62bd0aa"><strong>场景通用熔断：</strong>为当前场景下所有策略设定兜底熔断阈值</p>
+<p nodeId="75691b753e8042ce92d48d3d97d9d9aa"><img src="https://km.sankuai.com/api/file/cdn/220134551/145616770174?contentType=1&amp;isNewContent=false" name="image.jpeg" width="837" height="420" nodeId="f87089762e3c4476a7214ee4d784f2f1" /></p>
+<p nodeId="12c6d8cd8fec4d55855d0961f5600376" />
+<h3 nodeId="554a862a47fd4785955b0d1b9e0c8c00">Step3:修改场景</h3>
+<p nodeId="78e397b2ecd7481aae1398f463a02b6d">选择需要修改的场景，点击右侧操作列「设置」。可修改名称、场景备注、负责人、标签等信息。计算类型、归属风险域不支持修改。</p>
+<p nodeId="7dbd411acdf04565864a38fb1cfb06ac"><img src="https://km.sankuai.com/api/file/cdn/220134551/145612960475?contentType=1&amp;isNewContent=false" name="image.jpeg" width="672" height="330" nodeId="55130dfa3fc1453e9be0b2977c4a2987" /></p>
+<p nodeId="fac93d932b384fdea34d8c7a4846f198"><img src="https://km.sankuai.com/api/file/cdn/220134551/145610094370?contentType=1&amp;isNewContent=false" name="image.jpeg" width="678" height="339" nodeId="62e0d11ec38a4b0f94eee76eb48c87df" /></p>
+<p nodeId="d8a08de6e7a34830965e81a3a61417e8" />
+<p nodeId="1cb5e1ad3f1a4886a45649387b404d1c" />
+<p nodeId="0e31501bd8e84eedbf9d40515902f516" />
+<p nodeId="987fbb1586f04e5890481cfd321ca1f1" />
+<p nodeId="54cc517bf04a41ffba1792800e50cac0" />
+</km-doc>

@@ -1,0 +1,38 @@
+{
+  "parentId": "107423301",
+  "parentTitle": "",
+  "children": [
+    {
+      "contentId": "28253500",
+      "title": "说明：普通路由场景使用文档",
+      "type": "学城文档2.0",
+      "creator": "jiangxianfeng",
+      "createTime": 1473237964000,
+      "modifyTime": 1574218274000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "220330745",
+      "title": "说明：普通路由修改为多级路由",
+      "type": "学城文档2.0",
+      "creator": "dusisi",
+      "createTime": 1574219989000,
+      "modifyTime": 1574665975000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    }
+  ]
+}

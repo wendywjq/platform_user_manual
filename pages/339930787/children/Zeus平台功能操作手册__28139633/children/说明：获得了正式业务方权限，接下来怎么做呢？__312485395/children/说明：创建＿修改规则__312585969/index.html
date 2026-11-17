@@ -1,0 +1,303 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：创建/修改规则</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-30">一、什么是规则</a><a href="#section-42">二、如何新增/修改规则</a><a href="#section-43">step1：入口</a><a href="#section-47">step2：添加规则</a><a href="#section-48">2.1 表达式配置规则</a><a href="#section-187">2.2 交互式配置规则</a><a href="#section-296">step3：规则修改</a><a href="#section-297">3.1 修改逻辑信息</a><a href="#section-331">3.2 修改属性信息</a><a href="#section-337">三、宣讲记录</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：获得了正式业务方权限，接下来怎么做呢？</a> / <a href="index.html">说明：创建/修改规则</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/312585969">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：创建/修改规则</h1>
+<div style="none"></div>
+<details>
+<summary>🌟<span style="color:#FF4A47">上线记录</span></summary>
+<div>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">时间</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">上线内容</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">20240307</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">更新点一：支持条件间逻辑书写 [非] 逻辑</span></p>
+<p><span style="font-size:14px">更新点二：支持规则查看表达式规则交互式展示方式</span></p>
+<p><span style="font-size:14px">更新点三：支持表达式切换交互式时一键解析填充交互式逻辑</span></p>
+<p><span style="font-size:14px">更新点四：支持加减乘除函数配置常量</span></p>
+<p><span style="font-size:14px">还有部分交互细节更新~  支持交互式多条条件书写时，光标在条件间逻辑表达式某条件后，条件表格中该条件高亮；字符串模糊匹配无需选择下拉框内容输入完成即可继续下一步；只有一个条件忘了写条件间逻辑？平台自动补全；等等还有更多体验优化欢迎反馈至liusimiao</span></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h1 id="section-30">一、什么是规则</h1>
+<p>规则即构成一条策略的基础元素之一，用于策略部署。<span>规则的表达式由规则因子和参数构成，作为逻辑封装的顶层仅存在True/False两种执行结果。例如：是不是模拟器的请求。</span><br><span style="color:rgba(0, 0, 0, 0.87)">当前规则配置可支持表达式和交互式两类配置方式。</span></p>
+<blockquote>
+<p><strong>名词解释</strong></p>
+<p><strong>属性信息：</strong>标签、共享业务方</p>
+<p><strong>逻辑信息：</strong>配置方式、状态、英文名称</p>
+</blockquote>
+<h1 id="section-42">二、如何新增/修改规则</h1>
+<h2 id="section-43">step1：入口</h2>
+<p>规则—&gt;规则—&gt;添加规则</p>
+<p><img src="assets/6f6413338460665a.png" width="779" height="378" alt="image.jpeg"></p>
+<h2 id="section-47">step2：添加规则</h2>
+<h3 id="section-48">2.1 表达式配置规则</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示意图</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px"><strong>1、首先填写规则逻辑信息，填写中文名称、英文名称、规则内容</strong></span></p>
+<p><span style="font-size:16px"><strong>2、可在输入框中书写aviator表达式</strong></span></p>
+<p></p>
+<p><span style="font-size:14px"><strong>填写说明：</strong></span></p>
+<ol>
+<li><span style="font-size:14px"><strong>规则内容配置：</strong></span><span style="font-size:14px">支持表达式和模版混合使用的方式；也可以单独使用表达式、模版配置；</span></li>
+<li><span style="font-size:14px"><strong>英文名称：</strong></span><span style="font-size:14px">驼峰命名，且仅支持小写字母，</span><span style="font-size:14px"><strong>规则</strong></span><span><span style="font-size:14px"><strong>命名规范：</strong></span></span><span><span style="font-size:14px">rule_xxx_yyy_zzz，如rule_mac_is_not_has_owner表示规则是检验mac是否有对应厂商。</span></span></li>
+<li><span style="font-size:14px"><strong>点击保持草稿：</strong></span><span style="font-size:14px">草稿信息不保持在列表中，当再次点击"添加规则"时，提示有草稿信息可使用或者废弃</span></li>
+<li><span style="font-size:14px"><strong>表达式书写可参考：</strong></span><a href="https://km.sankuai.com/page/176739529" title="https://km.sankuai.com/page/176739529">说明：表达式书写说明</a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/28163535" title="https://km.sankuai.com/page/28163535">Aviator表达式简介</a></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/bd361a53f81478ad.png" width="1205.65" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px"><strong>3、表达式书写完成，对于平台校验出的复杂逻辑（使用复杂函数/操作符/aviator5等逻辑）进行特征沉淀。</strong></span></p>
+<blockquote>
+<p><strong>为什么要沉淀为特征，写在规则里可以吗？</strong></p>
+<p>平台导向将复杂的通用的逻辑沉淀为特征，尽可能保证规则层面的可读性和简洁性。长期来看，简洁规则后续可转换为交互式<sup id="82210773-efad-4286-b31e-e4f40149a550"></sup>规则</p>
+</blockquote>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">复杂逻辑情况</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">使用了复杂函数/操作符</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">操作符两边同时使用了常量</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">操作符两边同时使用了函数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">使用了函数或操作符的互相嵌套</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">使用了aviator5的规则</span></p>
+</td>
+</tr>
+</table>
+</td>
+<td>
+<p><img src="assets/de81c59a558b4447.png" width="731" height="390" alt="image.jpeg"><img src="assets/1528a7568ab9cb54.png" width="731" height="395" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px"><strong>4、逻辑信息填写完成，点击下一步进入测试阶段</strong></span></p>
+<p></p>
+<p><span style="font-size:14px"><strong>填写说明：</strong></span></p>
+<ol>
+<li><span style="font-size:14px">通过选填/json/requestid方式输入测试用例，点击添加测试用例，可在下方查看测试结果</span></li>
+</ol>
+<div class="note">
+<strong></strong>
+<div>
+<p>如果有线上请求，可以直接输入requestid进行测试噢</p>
+</div>
+</div>
+<p></p>
+</td>
+<td>
+<p><img src="assets/8e51bc960efd44d5.png" width="1199.38" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px"><strong>5、添加规则属性信息，单击完成</strong></span></p>
+<p></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/083fcd8624cbafab.png" width="731" height="354" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px"><strong>6、规则列表中出现添加的规则</strong></span></p>
+</td>
+<td>
+<p><img src="assets/7b113893d576dac2.png" width="731" height="54" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-187">2.2 交互式配置规则</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示意图</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px"><strong>1、首先填写规则逻辑信息，填写中文名称、英文名称、规则内容，此处通过设定左变量、右变量、操作符设置规则条件，并通过在下方条件间逻辑处书写与或表达式设定规则逻辑。</strong></span></p>
+<p></p>
+<p><span style="font-size:14px"><strong>填写说明：</strong></span></p>
+<ol>
+<li><span style="font-size:14px"><strong>规则内容配置：</strong></span><span style="font-size:14px">通过设定规则条件、条件间逻辑确定一条规则逻辑。</span></li>
+<li><span style="font-size:14px"><strong>英文名称：</strong></span><span style="font-size:14px">驼峰命名，且仅支持小写字母，</span><span style="font-size:14px"><strong>规则</strong></span><span><span style="font-size:14px"><strong>命名规范：</strong></span></span><span><span style="font-size:14px">rule_xxx_yyy_zzz，如rule_mac_is_not_has_owner表示规则是检验mac是否有对应厂商。</span></span></li>
+<li>
+<p><span style="font-size:14px"><strong>规则条件配置：</strong></span><span style="font-size:14px">各名词含义说明如下：</span></p>
+<ol>
+<li><span style="font-size:14px">左变量：可选择在平台上注册过的参数/因子或使用函数对参数和因子做转换。</span></li>
+<li><span style="font-size:14px">操作符：一种判断，判断左右变量间的关系。具体操作符可见：</span><a href="https://km.sankuai.com/collabpage/1871709029#id-%E4%B8%80%E3%80%81%E6%93%8D%E4%BD%9C%E7%AC%A6" title="https://km.sankuai.com/collabpage/1871709029#id-%E4%B8%80%E3%80%81%E6%93%8D%E4%BD%9C%E7%AC%A6">Zeus规则交互式部署-操作符/函数/数据类型说明</a></li>
+<li>
+<p><span style="font-size:14px">右变量：可选择 特征 和 常量</span></p>
+<ol>
+<li><span style="font-size:14px">特征：选择在平台上注册过的参数/因子</span></li>
+<li><span style="font-size:14px">常量：选择左变量参数对应的枚举值或者自定义输入值</span></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><span style="font-size:14px"><strong>条件间逻辑</strong></span><span style="font-size:14px">：</span><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">规则逻辑由多个条件通过[与][或][非]连接。</span></span></li>
+<li><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px"><strong>查看可视化计算逻辑：</strong></span></span><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">逻辑信息中设定的规则逻辑关系，以电路图的形式展示。</span></span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/d0b0feb8b4fdc56e.png" width="731" height="354" alt="image.jpeg"><img src="assets/c10f31fcb8b78c56.png" width="731" height="353" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px"><strong>2、逻辑信息填写完成，点击下一步进入测试阶段</strong></span></p>
+<p></p>
+<p><span style="font-size:14px"><strong>填写说明：</strong></span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">通过选填/json/requestid方式输入测试用例，点击添加测试用例，可在下方查看测试结果</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>如果有线上请求，可以直接输入requestid进行测试噢</p>
+</div>
+</div>
+</li>
+<li><span style="font-size:14px">测试结果中可点击查看可视化计算逻辑，可查看命中链路和条件命中情况</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/f2e6f313a19d42a6.png" width="731" height="349" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px"><strong>3、添加规则属性信息，单击完成</strong></span></p>
+<p></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/438d4dc652b04b6f.png" width="731" height="354" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px"><strong>4、规则列表中出现添加的规则</strong></span></p>
+</td>
+<td>
+<p><img src="assets/dff28bcac990918b.png" width="731" height="51" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-296">step3：规则修改</h2>
+<h3 id="section-297">3.1 修改逻辑信息</h3>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意：</p>
+<p>此时若有其他人正在编辑该规则，您将收到提示xxmis号正在修改，需xx修改完成/退出编辑状态后，您方可修改。若您着急修改请大象联系该用户退出编辑状态。</p>
+<p><img src="assets/887715745c72eb7d.png" width="296" height="60" alt="image.png"></p>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示意图</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">对于未生效规则，点击右上角【编辑】按钮，后续即可按照添加规则流程对规则进行修改，修改后的规则仍要经过测试，并且至少有一条新增的成功测试用例后才可提交。</span></p>
+<p></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/d82ba26be05e90d8.png" width="477" height="231" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">对于线上生效规则，点击右上角【编辑逻辑信息】按钮，弹出弹窗确认创建实验任务，实验相关可参考文档：</span><a href="https://km.sankuai.com/collabpage/1614897674" title="https://km.sankuai.com/collabpage/1614897674">策略实验用户指南</a></p>
+<img src="assets/101471c768282054.svg" width="913" height="216" alt="流程图">
+</td>
+<td>
+<p><img src="assets/094b51f18f946017.png" width="478" height="232" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-331">3.2 修改属性信息</h3>
+<p><strong>在规则列表中找到需要修改的规则，并点击规则进入编辑页面。进入编辑页面后，在引导页第三部分“属性信息”中，修改共享信息、标签信息等，修改后点击“提交”，完成修改；</strong><img src="assets/72598d46854fd574.png" width="678" height="329" alt="image.jpeg"><img src="assets/c11509ab296b0762.png" width="677" height="328" alt="image.jpeg"></p>
+<p></p>
+<h1 id="section-337">三、宣讲记录</h1>
+<p>20231030-规则交互式部署宣讲</p>
+<figure><video controls="controls" preload="none" src="https://km.sankuai.com/api/file/cdn/312585969/67797969347?contentType=1"></video><figcaption>视频未下载，播放需要原站访问权限：<a href="https://km.sankuai.com/api/file/cdn/312585969/67797969347?contentType=1">video1906737043.mp4</a></figcaption></figure>
+<div>
+<p><p>交互式：交互式有什么好处？</p>
+<p>1. 支持规则内短路执行，计算成本低</p>
+<p>2. 左右变量操作符表征规则逻辑，可读性高</p>
+<p>3. 对于简单逻辑类规则，用户上手学习成本低</p></p>
+</div>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/说明：创建＿修改规则-sigma类型__1599584338/index.html">说明：创建/修改规则-sigma类型</a> <span class="status">已保存</span></li></ul></section></main></body></html>

@@ -1,0 +1,95 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：Tair因子使用手册</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-4">一、背景</a><a href="#section-8">二、操作说明</a><a href="#section-9">1、写数据</a><a href="#section-11">写入方式</a><a href="#section-63">写入格式</a><a href="#section-85">2、读数据</a><a href="#section-86">【Tair因子配置】</a><a href="#section-97">三、最佳实践经验</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：Tair因子使用手册</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/212068218">查看学城原文</a></p><article>
+<h1>说明：Tair因子使用手册</h1>
+<div style="none"></div>
+<p></p>
+<h2 id="section-4">一、背景</h2>
+<p>解决：业务已有了一些kv対，在规则执行时，期望获取这些key对应的value值</p>
+<p>适用场景-例如：（1）业务洗出一批安卓设备ssid与厂商的映射信息，规则执行时期望通过ssid获取设备厂商；</p>
+<p></p>
+<h2 id="section-8">二、操作说明</h2>
+<h2 id="section-9">1、写数据</h2>
+<p>使用Tair因子前需要先将数据按照指定的格式，写入指定的存储</p>
+<h4 id="section-11">写入方式</h4>
+<p>1.<strong>风控请求未过Tatooine</strong>，业务自行洗数据写入指定存储，存储信息由@Tatooine指定，并提前与@Zeus沟通待写入数据的细节。</p>
+<p>2.<strong>风控请求通过Tatooine</strong>，配置写入规则，在决策附加信息中，配置写入的数据和存储，由Tatooine完成数据写入，具体配置方式如下：</p>
+<ol>
+<li>
+<p><strong>添加附加信息模板：</strong></p>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">含义</span></p>
+</th>
+<th>
+<p></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">key</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">存储中的key字段，格式为读因子名+"_"+读因子key</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">value</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">存储的value字段</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">timeout</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">kv在存储中的过期时间，0代表不过期</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<p>模板配置如下图：</p>
+<p><img src="assets/2d4948660ff05ab5.png" width="698" height="153" alt="屏幕快照 2019-11-14 下午7.55.18.png"></p>
+</li>
+<li><strong>配置一个决策附加信息写入kv数据，对应的读因子是test_tair</strong></li>
+</ol>
+<p><img src="assets/1929cca7c825a653.png" width="602" height="273" alt="屏幕快照 2019-11-14 下午7.54.35.png"></p>
+<h4 id="section-63">写入格式</h4>
+<p>不同业务的tair因子底层使用同一存储，为了保证键值的唯一性，写入的key格式为："因子名_key值"，</p>
+<p>如图Tair因子的名称为test_tair，key值表达式为userId，对于userid= 69279227的用户，写入缓存的键值为"test_tair_69279227"。</p>
+<p></p>
+<p><img src="assets/4e45760edbd58ce4.png" width="817" height="243" alt="image.png"></p>
+<div class="note">
+<strong>写入数据的限制</strong>
+<div>
+<p>1.Key值不能超过1000字符</p>
+<p>2.Value值大小不能超过 100K（100K怎么计算，详情👇）</p>
+<p><span>1个</span>Byte<span>（字节）存储一个西字字符或标点符号或阿拉伯数字。</span><br><span>2个</span>Byte<span>（字节）存储一个汉字及相应标点符号。</span><br><span>100K</span>Byte<span>=（100*1024）=102400个西文。</span><br><span>100KByte=（100*1024）/2=51200个汉字</span></p>
+</div>
+</div>
+<h2 id="section-85">2、读数据</h2>
+<h3 id="section-86">【Tair因子配置】</h3>
+<p><strong>首页--&gt;规则--&gt; 因子</strong></p>
+<p><img src="assets/79072b4dc47dd535.png" width="202" height="287" alt="image.png"><img src="assets/514e872416d86543.png" width="744" height="285" alt="image.png"></p>
+<p></p>
+<p>key表达式：aviator表达式，表达式配置支持参数和表达式因子；</p>
+<p>存储名称：当前只有一个集群，自行写数据的业务请先与Zeus确认数据存储名称，通过Tatooine写入的数据请与Tatooine确认存储名称；</p>
+<p>结果类型：请确保写入的数据类型保持一致；</p>
+<p></p>
+<h1 id="section-97">三、最佳实践经验</h1>
+<p><blockquote>离线写tair：</blockquote><a href="https://km.sankuai.com/page/1325945403" title="https://km.sankuai.com/page/1325945403">Hive2Tair-Zeus的tair因子应用</a></p>
+<p><a href="https://km.sankuai.com/page/213383489" title="https://km.sankuai.com/page/213383489">学城文档 213383489（无权限读取标题）</a></p>
+</article></main></body></html>
