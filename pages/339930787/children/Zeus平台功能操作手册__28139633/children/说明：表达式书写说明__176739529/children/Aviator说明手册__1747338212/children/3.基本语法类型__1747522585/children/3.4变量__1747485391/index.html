@@ -1,0 +1,289 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.4变量</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">定义和赋值</a><a href="#section-29">动态类型</a><a href="#section-36">nil</a><a href="#section-65">传入变量</a><a href="#section-84">变量的语法糖</a><a href="#section-101">引用变量</a><a href="#section-129">访问 Java 静态变量</a><a href="#section-147">特殊变量</a><a href="#section-170">外部变量（未初始化全局变量）</a></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：表达式书写说明</a> / <a href="../../../../index.html">Aviator说明手册</a> / <a href="../../index.html">3.基本语法类型</a> / <a href="index.html">3.4变量</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747485391">查看学城原文</a></p><article>
+<h1>3.4变量</h1>
+<div><h2 id="section-3">定义和赋值</h2>
+<p>和其他语言类似， AviatorScript 也允许定义变量，变量有特定的类型和“指向”的值。不过 AviatorScript 中变量的定义和赋值是不可分割的，定义一个变量的同时需要给他赋值：</p>
+<pre><code class="language-javascript">## examples/type.av
+
+a = 1;
+println(type(a));
+
+s = "Hello AviatorScript";
+println(type(s));
+
+let p = /(?i)hello\s+(.*)/;
+println(type(p));
+
+if s =~ p {
+  println($1);
+}
+
+</code></pre>
+<p>我们将变量 a 定义并赋值成了整数 1，将变量 s 定义并赋值为字符串 <code>Hello AviatorScript</code> ，将变量 p 赋值为一个正则表达式，接下来你就可以正常使用这些变量来参与各种运算，比如上面的例子做了正则匹配，提取 <code>hello</code> 后面的字符串。</p>
+<p>在这个例子中，我们还使用 <code>type(x)</code> 函数来获取 <code>x</code> 的类型，它会返回代表具体类型的字符串，上述代码执行将打印：</p>
+<pre><code>long
+string
+pattern
+AviatorScript
+
+</code></pre>
+<p><code>type</code> 函数会将参数的类型以字符串的形式返回，包括：</p>
+<ul>
+<li>long 整数</li>
+<li>double 浮点数</li>
+<li>decimal 高精度数字类型</li>
+<li>bigint 大整数</li>
+<li>boolean 布尔类型</li>
+<li>string 字符串类型</li>
+<li>pattern 正则表达式</li>
+<li>range 用于循环语句的 <code>Range</code> 类型</li>
+<li>function 函数，参见第七章。</li>
+<li>nil 特殊变量 nil，下文解释。</li>
+</ul>
+<h2 id="section-29">动态类型</h2>
+<p>AviatorScript 是<strong>动态类型语言，变量的类型随着赋值而改变</strong>：</p>
+<pre><code class="language-javascript">## examples/type.av
+
+a = 1;
+println(type(a));
+
+s = "Hello AviatorScript";
+println(type(s));
+
+let p = /(?i)hello\s+(.*)/;
+println(type(p));
+
+if s =~ p {
+  println($1);
+}
+
+s = 99;
+println(type(s));
+
+println(a + s);
+
+</code></pre>
+<p>s 原来是一个字符串，我们通过赋值 <code>s = 99</code> ，他的类型变为了数字，就可以参与算术运算。</p>
+<h2 id="section-36">nil</h2>
+<p>当我们想表示一个变量还没有赋值的时候，需要用到 <code>nil</code>  这个特殊类型，它和 java 中的 <code>null</code>  作用一样，表示当前变量还没有赋值。nil 最常见的场景就是用于判断变量是否为 null：</p>
+<pre><code class="language-javascript">## examples/nil.av
+
+a = nil;
+b = 99;
+
+if a == nil {
+  println("a is " + type(a));
+}
+
+a = 3;
+
+if a !=nil {
+  println(a + b);
+}
+</code></pre>
+<p>输出：</p>
+<pre><code>a is nil
+102
+</code></pre>
+<p>在 Java 中， null 只能参与等于和不等于的比较运算，而在 AviatorScript 中， <strong>nil 可以参与所有的比较运算符</strong>，只是规定<strong>任何类型都比</strong><code>**nil**</code><strong>大除了</strong><code>**nil**</code><strong>本身：</strong></p>
+<pre><code class="language-javascript">## examples/nil.av
+a = 3;
+
+println("a &gt; nil: " + (a &gt; nil));
+println("nil &gt;= a: " + (nil &gt;= a));
+println("\"\" &gt;= nil: "+ ("" &gt;= nil));
+println("nil &gt; \"\": " + (nil &gt; ""));
+println("0.0 &gt; nil: " + (0.0 &gt; nil));
+println("nil &gt;= 0.0: " + (nil &gt;= 0.0));
+println("/\\s/ &gt; nil: " + (/\s/ &gt; nil));
+println("nil &lt;= /\\s/: " + (nil &lt;= /\s/));
+</code></pre>
+<p>输出：</p>
+<pre><code>a &gt; nil: true
+nil &gt;= a: false
+"" &gt;= nil: true
+nil &gt; "": false
+0.0 &gt; nil: true
+nil &gt;= 0.0: false
+/\s/ &gt; nil: true
+nil &lt;= /\s/: true
+</code></pre>
+<p>除了比较运算符之外， nil 不能参与其他运算，比如你不能将 nil 和一个整数相加，这将报错：</p>
+<pre><code class="language-javascript">c = nil;
+c + 3;
+</code></pre>
+<p>报错信息： Could not add <javatype,> with <long,></long,></javatype,></p>
+<pre><code>Exception in thread "main" com.googlecode.aviator.exception.ExpressionRuntimeException: 
+  Could not add &lt;JavaType, c, null, null&gt; with &lt;Long, 3&gt;
+    at com.googlecode.aviator.runtime.type.AviatorObject.add(AviatorObject.java:97)
+    at com.googlecode.aviator.runtime.type.AviatorJavaType.add(AviatorJavaType.java:638)
+</code></pre>
+<h2 id="section-65">传入变量</h2>
+<p>AviatorScript 一开始是一个表达式引擎，因此是允许执行的时候传入变量，在 <a href="https://www.yuque.com/boyan-avfmj/aviatorscript/fycwgt">2.1 编译和执行</a>我们已经看到一个例子：</p>
+<pre><code class="language-java">String expression = "a-(b-c) &gt; 100";
+Expression compiledExp = AviatorEvaluator.compile(expression);
+// Execute with injected variables.
+Boolean result =
+      (Boolean) compiledExp.execute(compiledExp.newEnv("a", 100.3, "b", 45, "c", -199.100));
+System.out.println(result);
+</code></pre>
+<p>我们通过 <code>execute(env)</code> 中的 env 来为表达式注入变量，<strong>传入的变量的作用域都是默认的脚本内的全局作用域</strong>。</p>
+<p><strong>如果脚本中用到的变量没有传入，并且没有定义，那么默认值将是 </strong><code>**nil**</code><strong> </strong>：</p>
+<pre><code class="language-java">  String expression = "name != nil ? ('hello, ' + name):'who are u?'";
+  Expression compiledExp = AviatorEvaluator.compile(expression);
+  // we don't inject variable name
+  String s = (String) compiledExp.execute();
+  System.out.println(s);
+
+  // inject name
+  s = (String) compiledExp.execute(compiledExp.newEnv("name", "dennis"));
+  System.out.println(s);
+</code></pre>
+<p>表达式里用三元运算符判断变量 <code>name</code> 是否为 null，并返回不同的值，例子中我们先直接执行，不传入 name，然后再将 name 绑定为 <code>dennis</code> 重新执行：</p>
+<pre><code>who are u?
+hello, dennis
+</code></pre>
+<h2 id="section-84">变量的语法糖</h2>
+<p>Aviator 有个方便用户使用变量的语法糖, 当你要访问变量<code>a</code>中的某个属性<code>b</code>, 那么你可以通过<code>a.b</code>访问到, 更进一步, <code>a.b.c</code>将访问变量<code>a</code>的<code>b</code>属性中的<code>c</code>属性值, 推广开来也就是说 Aviator 可以将变量声明为嵌套访问的形式。
+<code>TestAviator</code>类符合<code>JavaBean</code>规范, 并且是 <code>public</code> 的，我们就可以使用语法糖:</p>
+<pre><code class="language-java">package com.googlecode.aviator.example;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import com.googlecode.aviator.AviatorEvaluator;
+
+public class TestAviator {
+  int i;
+  float f;
+  Date date;
+
+  public TestAviator(final int i, final float f, final Date date) {
+    this.i = i;
+    this.f = f;
+    this.date = date;
+  }
+
+  public int getI() {
+    return this.i;
+  }
+
+  public void setI(final int i) {
+    this.i = i;
+  }
+
+  public float getF() {
+    return this.f;
+  }
+
+  public void setF(final float f) {
+    this.f = f;
+  }
+
+  public Date getDate() {
+    return this.date;
+  }
+
+  public void setDate(final Date date) {
+    this.date = date;
+  }
+
+  public static void main(final String[] args) {
+    TestAviator foo = new TestAviator(100, 3.14f, new Date());
+    Map&lt;String, Object&gt; env = new HashMap&lt;String, Object&gt;();
+    env.put("foo", foo);
+    System.out.println(AviatorEvaluator.execute("'foo.i = '+foo.i", env));
+    System.out.println(AviatorEvaluator.execute("'foo.f = '+foo.f", env));
+    System.out.println(AviatorEvaluator.execute("'foo.date.year = '+ (foo.date.year+1990)", env));
+  }
+}
+
+
+</code></pre>
+<p>这个实现的基础是 <a href="http://commons.apache.org/proper/commons-beanutils/">commons-beanutils</a>，基于反射实现。但是 AviatorScript 也做了优化，如果访问路径上的每一级变量都是 Map，会直接调用 <code>Map#get(key)</code> 访问，避免反射调用。</p>
+<h2 id="section-101">引用变量</h2>
+<p>对于深度嵌套并且同时有数组的变量访问，例如 <code>foo.bars[1].name</code>，从 3.1.0 版本开始， aviator 通过引用变量来支持（quote variable)：</p>
+<pre><code class="language-java">AviatorEvaluator.execute("'hello,' + #foo.bars[1].name", env)
+</code></pre>
+<p>引用变量要求以 <code>#</code> 符号开始，变量如果包含特殊字符串，需要使用两个 <code>符号来包围，并且变量名中不能包含其他变量，也就是并不支持</code>#foo.bars[i].name` 这样的访问，如果有此类特殊需求，请通过<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/xbdgg2">自定义函数</a>实现。</p>
+<p>aviatorscript 内部支持了 3 种特殊语法（基于 <code>PropertyUtilsBean</code> 实现）：</p>
+<ul>
+<li>索引  <code>name[index]</code> ，name 是数组或者链表可以通过索引位置 index 访问，但是 index 不能是变量或者表达式</li>
+<li>映射 <code>name(key)</code> ，如果 name 是 map 类型，并且 key 的类型为 String，可以通过此表达式获取 value。</li>
+<li>融合的，比如 <code>name1[index].name2(key)</code> 。</li>
+</ul>
+<p>请注意，因为 <code>name(key)</code> 可能被解析为方法调用，因此这里需要上面提到的特殊的语法访问  #<code>name(key)</code></p>
+<p>对于一些深度嵌套的 List 或者数组的访问， commons-beanutils 还支持类似 <code>#map.array.[0].name</code>这样的访问语法，如果不满足JavaBean规范的，请尝试使用这样的语法做嵌套访问。</p>
+<p>此外，对于嵌套变量也支持赋值，只要它有相应的 setter 方法即可：</p>
+<pre><code class="language-java">System.out.println(AviatorEvaluator.execute("foo.i = 100; foo.f + foo.i", env));
+</code></pre>
+<p>这里的例子我们定义的都是脚本范围内的全局变量，局部变量和作用域参见下一节《<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/lhht36">3.5 作用域</a>》</p>
+<h2 id="section-129">访问 Java 静态变量</h2>
+<p>从 5.2 开始，你可以直接访问 Java 类的静态变量，比如 <code>Math.PI</code> :</p>
+<pre><code class="language-javascript">## examples/static_vars.av
+
+p("Math.PI is: " + Math.PI);
+
+
+use  com.googlecode.aviator.AviatorEvaluator;
+
+p("AviatorEvaluator.VERSION is: " + AviatorEvaluator.VERSION);
+p("AviatorEvaluator.COMPILE is: " + AviatorEvaluator.COMPILE);
+
+</code></pre>
+<p>尝试执行将输出：</p>
+<pre><code>Math.PI is: 3.141592653589793
+AviatorEvaluator.VERSION is: 5.1.5-SNAPSHOT
+AviatorEvaluator.COMPILE is: 0
+</code></pre>
+<p>对于 <code>java.lang</code> 下面的类可以直接访问，比如 <code>Math</code> 等，但是对于其他包下面的类，都要求先用 <code>use</code> 语法导入该类到当前上下文，然后通过 <code>Class.Var</code> 的方式访问，比如上面例子中的 <code>AviatorEvaluator.VERSION</code> ，不能通过完整类名的方式来访问，这将报错：</p>
+<pre><code class="language-javascript">p(com.googlecode.aviator.AviatorEvaluator.VERSION);
+</code></pre>
+<pre><code>Exception in thread "main" com.googlecode.aviator.exception.ExpressionRuntimeException: Could not find variable com.googlecode.aviator.AviatorEvaluator.VERSION
+    at com.googlecode.aviator.runtime.type.AviatorJavaType.getProperty(AviatorJavaType.java:442)
+    at com.googlecode.aviator.runtime.type.AviatorJavaType.getValueFromEnv(AviatorJavaType.java:329)
+    at com.googlecode.aviator.runtime.type.AviatorJavaType.getValue(AviatorJavaType.java:317)
+    at com.googlecode.aviator.runtime.function.system.PrintlnFunction.call(PrintlnFunction.java:54)
+    at Script_1605786165591_47/1644443712.execute0(static_vars.av:11)
+    at com.googlecode.aviator.ClassExpression.executeDirectly(ClassExpression.java:65)
+    at com.googlecode.aviator.BaseExpression.execute(BaseExpression.java:136)
+    at com.googlecode.aviator.Main.main(Main.java:45)
+Caused by: java.lang.NullPointerException: com
+    at com.googlecode.aviator.runtime.type.AviatorJavaType.fastGetProperty(AviatorJavaType.java:542)
+    at com.googlecode.aviator.runtime.type.AviatorJavaType.getProperty(AviatorJavaType.java:433)
+    ... 7 more
+
+</code></pre>
+<h2 id="section-147">特殊变量</h2>
+<p>AviatorScript 内置了部分特殊变量（启用了 <code>Feature.InternalVars</code> 才可以访问）：</p>
+<ul>
+<li><code>__exp__</code> （注意是双下划线），当前表达式的 <code>Expression</code> 对象。</li>
+<li><code>__env__</code> 当前上下文环境 env</li>
+<li><code>__instance__</code> 当前执行引擎 <code>AviatorEvaluatorInstance</code> 实例</li>
+<li><code>__args__</code> 当前函数调用的参数列表。</li>
+</ul>
+<p>我们可以简单打印看下 <code>__env__</code> 看下：</p>
+<pre><code class="language-java">AviatorEvaluator.execute("let a = 1; p(__env__)");
+</code></pre>
+<p>输出：</p>
+<pre><code>com.googlecode.aviator.utils.Env@7cca494b{
+  __instance__=com.googlecode.aviator.AviatorEvaluatorInstance@7ba4f24f,
+  __exp__=Script_1596184736312_0/1149319664@3b9a45b3,
+  __env__=&lt;this&gt;,
+  a=1
+}
+</code></pre>
+<p>可以看到所有的变量包括内部特殊变量，都可以在 <code>__env__</code> 里找到。</p>
+<h2 id="section-170">外部变量（未初始化全局变量）</h2>
+<p>从编译后的 <code>Expression</code> 对象，可以获取脚本中未初始化的全局变量列表，通过 <code>getVariableNames</code> 方法：</p>
+<pre><code class="language-java">   Expression expression = AviatorEvaluator.compile("b + a", true);
+   List&lt;String&gt; vars = expression.getVariableNames();
+</code></pre>
+<p><code>vars</code> 列表将是 <code>b</code> 和 <code>a</code> ，更复杂一点的例子：</p>
+<pre><code class="language-java">   Expression exp = AviatorEvaluator
+        .compile("b=2; if(a &gt; 1) { a + b } elsif( a &gt; 10) { return a + c; } else { return 10; }");
+   List&lt;String&gt; vars = exp.getVariableNames();
+</code></pre>
+<p>上面这个 <code>vars</code> 列表将是 <code>[a, c]</code> 。该方法可以识别出所有脚本中（哪怕是嵌套循环或者闭包）里的未初始化全局变量。</p>
+<p>如果你的全局变量名称可能是 <code>a.b.c</code> 这样的命名，那么可以使用 <code>getVariableFullNames()</code> 来获取完整命名，它和 <code>getVariableNames</code> 区别就是会包括了含有 <code>.</code> 的变量名。</p></div>
+<p></p>
+</article></main></body></html>

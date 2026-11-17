@@ -1,0 +1,44 @@
+<km-doc>
+<km-title nodeId="6cfa9416a02648a08260282951f54d8d">8.4 函数和Runnable、Callable</km-title>
+<km-markdown nodeId="09b13925fd05478da89d4214adf668af"><![CDATA[
+Aviator 中的函数都实现了 Java 中的 `Runnable` 和 `Callable` 接口，只要这个函数是无参的，就可以直接作为 `Runnable` 和 `Callable` 的实现使用，比如传给 `Thread` 构造函数，作为线程任务执行：
+```javascript
+## examples/runnable.av
+
+let r = lambda() ->
+  p("run in thread");
+end;
+
+let t = new Thread(r);
+start(t);
+join(t);
+```
+
+`r` 是一个匿名的无参函数，直接用来创建一个执行线程，线程中打印文本：
+```
+run in thread
+```
+
+同时也可以作为 `Callable` 实现，返回一个结果：
+```javascript
+## examples/callable.av
+
+let callable = lambda() ->
+  new java.util.Date()
+end;
+
+p(call(callable));
+
+let task = new java.util.concurrent.FutureTask(callable);
+run(task);
+p(get(task));
+```
+
+直接调用 `call` 方法，或者包装成 `FutureTask` 都可以：
+```
+Mon Apr 27 12:16:07 CST 2020
+Mon Apr 27 12:16:07 CST 2020
+```
+]]></km-markdown>
+<p nodeId="c00c21d956924877be53a712c51d3888" />
+</km-doc>

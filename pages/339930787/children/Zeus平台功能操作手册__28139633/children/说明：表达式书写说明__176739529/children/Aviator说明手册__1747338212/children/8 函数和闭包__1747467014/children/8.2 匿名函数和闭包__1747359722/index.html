@@ -1,0 +1,208 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>8.2 匿名函数和闭包</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">匿名函数 lambda</a><a href="#section-31">函数是一等公民 (First Class)</a><a href="#section-61">闭包 Closure</a><a href="#section-74">闭包模拟 OOP</a></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：表达式书写说明</a> / <a href="../../../../index.html">Aviator说明手册</a> / <a href="../../index.html">8 函数和闭包</a> / <a href="index.html">8.2 匿名函数和闭包</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747359722">查看学城原文</a></p><article>
+<h1>8.2 匿名函数和闭包</h1>
+<div><h2 id="section-3">匿名函数 lambda</h2>
+<p>你可以通过 <code>lambda</code> 语法定义一个匿名函数：</p>
+<pre><code class="language-javascript">## examples/lambda.av
+
+let three = (lambda (x,y) -&gt; x + y end)(1, 2);
+println(three);
+</code></pre>
+<p><code>lambda (x,y) -&gt; x + y end</code> 定义了一个匿名函数，接受参数 x 和 y，返回两者的和。</p>
+<p>匿名函数的基本定义形式是</p>
+<pre><code class="language-javascript">lambda (参数1,参数2...) -&gt; 参数体表达式 end
+</code></pre>
+<p>定义了匿名函数后，我们直接传入参数 1 和 2，两者相加的结果赋值给 <code>three</code>  变量并打印，也就是结果 <code>3</code> 。</p>
+<p>匿名函数可以用赋值给一个变量：</p>
+<pre><code class="language-javascript">## examples/lambda.av
+
+let add = lambda (x,y) -&gt;
+  x + y 
+end;
+
+three = add(1, 2);
+println(three);
+</code></pre>
+<p>我们将上述匿名函数赋值给了变量 <code>add</code> ，其实相当于定义了一个 <code>add</code> 函数，然后调用 <code>add(1, 2)</code> ，同样返回结果 <code>3</code> 。</p>
+<p>从 5.2.4 开始，匿名函数的定义也可以用 <code>fn</code> 语法：</p>
+<pre><code class="language-javascript">let add = fn(x, y) { x + y};
+
+p(add(1, 2));
+</code></pre>
+<p>事实上，<strong>上一节通过 <code>fn</code> 定义函数本质上就是类似的步骤，先用 lambda 定义一个匿名函数，然后赋值给函数名指定的变量</strong>。</p>
+<h2 id="section-31">函数是一等公民 (First Class)</h2>
+<p>在 AviatorScript 中，函数也是一种类型，可以作为参数来传递，可以作为函数的返回值等等。</p>
+<pre><code class="language-javascript">## examples/function_first_class.av
+
+fn square(x) {
+  return x * 2;
+}
+
+let add = lambda(x, y, f) -&gt;
+  f(x) + f(y)
+end;
+
+let add_n = lambda(x) -&gt;
+  lambda(y) -&gt; 
+    x + y
+  end
+end;
+
+println(type(square));
+println(type(add));
+println(type(add_n));
+
+</code></pre>
+<p>我们通过 fn 和 lambda 分别定义了三个函数，通过 type 检测他们的类型：</p>
+<pre><code>function
+function
+function
+</code></pre>
+<p>都是 function 函数类型。</p>
+<p>这里的 add 函数接受的第三个参数 <code>f</code> 也是一个函数，我们用它调用 x 和 y，然后再相加，可见函数是可以作为参数来使用：</p>
+<pre><code class="language-javascript">let s = add(1, 2, square);
+println(s);
+</code></pre>
+<p>我们将 square 函数作为 <code>f</code> 传入到 add，执行的结果就是 <code>square(1) + square(2)</code> ，结果等于 6:</p>
+<pre><code>6
+</code></pre>
+<p><code>add_n</code> 演示了函数作为返回值的情况， add_n 接受一个参数 x，然后返回一个匿名函数：</p>
+<pre><code class="language-javascript"> lambda(y) -&gt; 
+    x + y
+  end
+</code></pre>
+<p>这个匿名函数接受另一个参数 y，他将 x 和 y 相加并返回：</p>
+<pre><code class="language-javascript">let add_3 = add_n(3);
+println(type(add_3));
+println(add_3(1));
+println(add_3(99));
+println(add_3(' test'));
+</code></pre>
+<p>我们将 <code>add_n(3)</code> 的返回值赋值给了变量 <code>add_3</code> ，他的类型是 function，任何时候调用 add_3 函数，它都将和 3 相加，并返回结果：</p>
+<pre><code>function
+4
+102
+3 test
+</code></pre>
+<p>这个例子也演示了闭包，我们在下一节谈到。</p>
+<h2 id="section-61">闭包 Closure</h2>
+<p>AviatorsScript 的函数都支持闭包 closure，函数将捕获当前的上下文环境，哪怕在脱离这个环境的上下文中仍然可以访问到，一个经典的例子，定义一个计数器：</p>
+<pre><code class="language-javascript">## examples/closure.av
+
+let counter = lambda() -&gt;
+  let c = 0;
+  lambda() -&gt;
+    let result = c;
+    c = c + 1;
+    return result;
+  end
+end;
+
+let c1 = counter();
+let c2 = counter();
+
+println("test c1...");
+for i in range(0, 10) {
+  x = c1();
+  println(x);
+}
+
+println("test c2...");
+for i in range(0, 10) {
+  x = c2();
+  println(x);
+}
+
+</code></pre>
+<p>counter 是一个函数，它首先初始化了一个局部变量 c，然后返回结果是另一个匿名函数，这个结果匿名函数每次调用返回 c 的值，并递增。</p>
+<p>接下来我们调用 counter 两次，赋值给了两个变量 c1 和 c2，分别调用 10 次，输出：</p>
+<pre><code>test c1...
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+test c2...
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</code></pre>
+<p>可见， c1 和 c2 的值完全独立，分别用于自增计数，互不干扰。</p>
+<p>c 在函数 <code>counter</code> 中定义，理论上说局部变量在 counter 函数返回后就“销毁”了，但是匿名的结果函数却“捕获”(closure over）了局部变量 c，哪怕在 <code>counter</code> 返回后，仍然可以继续访问到变量 <code>c</code> ，这就称之为闭包（closure）， c 就是所谓自由变量。</p>
+<h2 id="section-74">闭包模拟 OOP</h2>
+<p>闭包可以“保存”状态，因此可以用于模拟 OOP：</p>
+<pre><code class="language-javascript">## examples/closure_oop.av
+
+## a function to return a rectangle instance.
+fn rectangle(x, y) {
+  let r = seq.map("x", x, "y", y);
+
+  r.area = lambda() -&gt; 
+    return r.x * r.y;
+  end;
+  r.circum = lambda() -&gt;
+    return 2 * (r.x + r.y);
+  end;
+
+  return r;
+}
+
+let s1 = rectangle(3, 4);
+
+println("s1 info:");
+println(s1.x);
+println(s1.y);
+println(s1.area());
+println(s1.circum());
+
+let s2 = rectangle(9, 10);
+
+println("s2 info:");
+println(s2.x);
+println(s2.y);
+println(s2.area());
+println(s2.circum());
+</code></pre>
+<p><code>rectangle</code> 函数用于返回一个 x 和 y 长和宽定义的长方形对象，它有两个方法 <code>area</code>  和 <code>circum</code> 分别用于计算长方形的面积和周长。这里我们用一个 <code>map</code> 来模拟对象，将 x 和 y 作为 key 放入 map，然后定义了两个匿名函数分别赋值给了 <code>r.area</code> 和 <code>r.circum</code> ，这就相当于定义了对象的方法，最后返回结果 map。两个匿名函数是闭包，捕获了自由变量 r。</p>
+<p>接下来我们定义了两个长方形 s1 和 s2，并且打印了他们的基本信息。可以看到类似 <code>s1.x</code> 和 <code>s1.area()</code> 这样的调用，接近于面向对象的使用方式。得益于闭包，两个对象的信息是完全独立的：</p>
+<pre><code>s1 info:
+3
+4
+12
+14
+s2 info:
+9
+10
+90
+38
+</code></pre>
+<p>甚至，我们可以修改对象的属性：</p>
+<pre><code class="language-javascript">s2.x = 100;
+s2.y = 200;
+println("s2 info after setting:");
+println(s2.x);
+println(s2.y);
+println(s2.area());
+println(s2.circum());
+</code></pre>
+<p>输出：</p>
+<pre><code>s2 info after setting:
+100
+200
+20000
+600
+
+</code></pre></div>
+<p></p>
+</article></main></body></html>

@@ -1,0 +1,120 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>6 Statement 语句和值</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">条件语句的值</a><a href="#section-37">循环语句的值</a><a href="#section-64">块（Block）的值</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">6 Statement 语句和值</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747504045">查看学城原文</a></p><article>
+<h1>6 Statement 语句和值</h1>
+<div><h2 id="section-3">条件语句的值</h2>
+<p>在 AviatorScript 中，每个语句都有一个值，而不仅仅是整个脚本（参见 <a href="https://www.yuque.com/boyan-avfmj/aviatorscript/sgdfkw">3.6 节 多行表达式和 return</a>）。比如 if 条件语句也有一个值，<strong>就是实际执行的分支语句的结果</strong>：</p>
+<pre><code class="language-javascript">## examples/statement_value.av
+
+let a = if (true) {
+    1
+};
+
+p("a is :" + type(a) +", " + a);
+
+</code></pre>
+<p>输出：</p>
+<pre><code>a is :long, 1
+</code></pre>
+<p>因为条件判断为 <code>true</code> ，所以执行了大括号中的分支语句，按照规则，连续的多行表达式，返回最后一个表达式的值，这里就是 <code>1</code> ，整个分支语句的结果就是 <code>1</code> ，因此整个 if 语句的结果也是 <code>1</code> ，我们赋值给了 <code>a</code> ，并打印类型和值。 注意到 if 语句最后的分号 <code>;</code> ，它是用来结束赋值语句，将条件表达式的结果赋值给了 a，如果没有将报错：</p>
+<pre><code>Exception in thread "main" com.googlecode.aviator.exception.ExpressionSyntaxErrorException: 
+Syntax error: missing ';' for let statement at 92, lineNumber: 8, token : null,
+while parsing expression: `
+## examples/statement_value.av
+
+let a = if (true) {
+    1
+}
+
+p("a is :" + type(a) +", " + a);
+^^^
+`
+    at com.googlecode.aviator.AviatorEvaluatorInstance.innerCompile(AviatorEvaluatorInstance.java:1293)
+    at com.googlecode.aviator.AviatorEvaluatorInstance.compile(AviatorEvaluatorInstance.java:1256)
+</code></pre>
+<p>如果我们将条件判断该为 false 呢？：</p>
+<pre><code class="language-javascript">let a = if (false) {
+    1
+};
+
+p("a is :" + type(a) +", " + a);
+</code></pre>
+<p>执行输出：</p>
+<pre><code>a is :nil, null
+</code></pre>
+<p>因为没有 else 分支，默认值就是 <code>nil</code> ，整个 if 条件语句的结果也是 <code>nil</code> 。</p>
+<p>我们加上 <code>else</code> 分支试试：</p>
+<pre><code class="language-javascript">let a = if (false) {
+    1
+} else {
+    2
+};
+
+p("a is :" + type(a) +", " + a);
+</code></pre>
+<p>这时候结果就是 2 了：</p>
+<pre><code>a is :long, 2
+</code></pre>
+<h2 id="section-37">循环语句的值</h2>
+<p>事实上不仅是条件语句， for/while 循环语句也有值：</p>
+<pre><code class="language-javascript">let b = for x in range(0, 10) {
+   x
+};
+p("b is :" + type(b) +", " + b);
+</code></pre>
+<p><strong>循环语句的结果是最后一次迭代过程中返回的值</strong>，因此这里是最后一次迭代 x 的值，也就是 <code>9</code> ：</p>
+<pre><code>b is :long, 9
+</code></pre>
+<p>如果加上 break/continue 呢？：</p>
+<pre><code class="language-javascript">let b = for x in range(0, 10) {
+   if x  == 2 {
+      break;
+   }
+};
+p("b is :" + type(b) +", " + b);
+</code></pre>
+<p>因为<strong>最后一次迭代执行的是 break 或者 continue 的时候，结果都将是 <code>nil</code></strong> ：</p>
+<pre><code>b is :nil, null
+</code></pre>
+<p>但是如果是 <code>return</code>  呢？情况又不一样，如果最后一次迭代返回结果是 return，那么整个循环语句的结果就是 return 的结果，<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/sgdfkw">这跟 3.6 节的规则是一样的</a>。<strong>更一般地，如果整个语句的返回结果是 return 的结果，并且赋值给了一个变量，那么这个 return 将只是从该语句中返回，而不是从整个脚本返回</strong>：</p>
+<pre><code class="language-javascript">let b = for x in range(0, 10) {
+   if x  == 2 {
+      return x;
+   }
+};
+p("b is :" + type(b) +", " + b);
+</code></pre>
+<p>我们在循环语句中调用了 <code>return 2;</code> ，但是它不会从整个脚本中返回（否则下面的打印将无法执行），而只是从循环语句中返回，并将结果赋值给了 b：</p>
+<pre><code>b is :long, 2
+</code></pre>
+<h2 id="section-64">块（Block）的值</h2>
+<p>通过大括号括起来的一个块也有一个值，就是这个块里最后一个执行的表达式的值：</p>
+<pre><code class="language-javascript">## Block's value
+let c = {
+  let a = 1;
+  let b = 2;
+  a + b
+};
+
+p("c is :" + type(c) +", " + c);
+</code></pre>
+<p>执行输出：</p>
+<pre><code>c is :long, 3
+</code></pre>
+<p>return 也是一样，如果将块的赋值给了某个变量，那就将从块里返回：</p>
+<pre><code class="language-javascript">let c = {
+  let a = 1;
+  let b = 2;
+
+  if a &gt; b {
+    return a;
+  } else {
+    return b;
+  }
+};
+
+p("c is :" + type(c) +", " + c);
+</code></pre>
+<p>执行结果将是块里的局部变量 <code>b</code> 的值：</p>
+<pre><code>c is :long, 2
+</code></pre></div>
+<p></p>
+</article></main></body></html>

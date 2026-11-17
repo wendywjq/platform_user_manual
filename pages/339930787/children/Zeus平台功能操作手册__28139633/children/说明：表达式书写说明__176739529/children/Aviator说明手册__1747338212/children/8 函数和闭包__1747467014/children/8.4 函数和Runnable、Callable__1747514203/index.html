@@ -1,0 +1,35 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>8.4 函数和Runnable、Callable</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：表达式书写说明</a> / <a href="../../../../index.html">Aviator说明手册</a> / <a href="../../index.html">8 函数和闭包</a> / <a href="index.html">8.4 函数和Runnable、Callable</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747514203">查看学城原文</a></p><article>
+<h1>8.4 函数和Runnable、Callable</h1>
+<div><p>Aviator 中的函数都实现了 Java 中的 <code>Runnable</code> 和 <code>Callable</code> 接口，只要这个函数是无参的，就可以直接作为 <code>Runnable</code> 和 <code>Callable</code> 的实现使用，比如传给 <code>Thread</code> 构造函数，作为线程任务执行：</p>
+<pre><code class="language-javascript">## examples/runnable.av
+
+let r = lambda() -&gt;
+  p("run in thread");
+end;
+
+let t = new Thread(r);
+start(t);
+join(t);
+</code></pre>
+<p><code>r</code> 是一个匿名的无参函数，直接用来创建一个执行线程，线程中打印文本：</p>
+<pre><code>run in thread
+</code></pre>
+<p>同时也可以作为 <code>Callable</code> 实现，返回一个结果：</p>
+<pre><code class="language-javascript">## examples/callable.av
+
+let callable = lambda() -&gt;
+  new java.util.Date()
+end;
+
+p(call(callable));
+
+let task = new java.util.concurrent.FutureTask(callable);
+run(task);
+p(get(task));
+</code></pre>
+<p>直接调用 <code>call</code> 方法，或者包装成 <code>FutureTask</code> 都可以：</p>
+<pre><code>Mon Apr 27 12:16:07 CST 2020
+Mon Apr 27 12:16:07 CST 2020
+</code></pre></div>
+<p></p>
+</article></main></body></html>

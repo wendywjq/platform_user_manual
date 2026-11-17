@@ -1,0 +1,90 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>7 异常处理</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-24">throw 和 catch</a><a href="#section-40">多异常 Catch</a><a href="#section-46">finally</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">7 异常处理</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747477169">查看学城原文</a></p><article>
+<h1>7 异常处理</h1>
+<div><p>AviatorScript 完整支持了 java 的异常处理机制，只是做了一些简化：</p>
+<pre><code class="language-javascript"> ## examples/handle_exception.av
+
+ try {
+    throw "an exception";
+ } catch(e) {
+    pst(e);
+ } finally {
+  p("finally");
+ }
+</code></pre>
+<p>这段代码有几个特点：</p>
+<ol>
+<li>throw 抛出了一个字符串，在 AviatorScript 中，可以<strong> throw 任何东西，</strong>非异常的对象都将被转化包装为标准错误 com.googlecode.aviator.exception.StandardError 类的实例。</li>
+<li><code>catch(e)</code> 没有指定异常的类型， AviatorScript 允许不指定异常类型，等价于  <code>catch(Throwable e)</code> 。</li>
+<li><code>pst(e)</code>  用于打印异常堆栈，也就是 <code>e.printStackTrace()</code> 调用。</li>
+<li>AviatorScript 中同样支持 <code>finally</code> 语句，这跟 Java 保持一致。</li>
+</ol>
+<p>我们执行上面的例子，将输出：</p>
+<pre><code>com.googlecode.aviator.exception.StandardError: an exception
+    at com.googlecode.aviator.runtime.function.internal.ThrowFunction.call(ThrowFunction.java:30)
+    at Script_1587611354228_1/303563356.execute0(Unknown Source)
+    at com.googlecode.aviator.ClassExpression.executeDirectly(ClassExpression.java:65)
+    at Lambda_1587611354228_0.call(Unknown Source)
+    at com.googlecode.aviator.runtime.function.internal.TryCatchFunction.call(TryCatchFunction.java:41)
+    at Script_1587611354220_0/363771819.execute0(Unknown Source)
+    at com.googlecode.aviator.ClassExpression.executeDirectly(ClassExpression.java:65)
+    at com.googlecode.aviator.BaseExpression.execute(BaseExpression.java:92)
+    at com.googlecode.aviator.BaseExpression.execute(BaseExpression.java:144)
+    at com.googlecode.aviator.example.RunScriptExample.main(RunScriptExample.java:18)
+finally
+</code></pre>
+<p>可以看到字符串被包装成了 <code>com.googlecode.aviator.exception.StandardError: an exception</code> 异常。 <code>finally</code> 块也确保被执行了。</p>
+<h2 id="section-24">throw 和 catch</h2>
+<p>throw 也可以抛出一个设定的异常类：</p>
+<pre><code class="language-javascript"> throw new IllegalArgumentException("test");
+</code></pre>
+<p>这个语法跟 java 完全一样。catch 同样可以指定要捕获异常的类型：</p>
+<pre><code class="language-javascript">## examples/throw_catch.av
+
+try {
+  throw new IllegalArgumentException("test");
+} catch(IllegalArgumentException e) {
+  p("catch IllegalArgumentException.");
+  pst(e);
+} catch(e) {
+  p("catch all throwable.");
+  pst(e);
+}
+
+</code></pre>
+<p><code>catch(IllegalArgumentException e)</code> 指定了捕获的异常类型，<strong>catch 可以罗列多个分支，当异常发生的时候，按照从上到下的顺序匹配，如果匹配到将执行对应的分支语句</strong>，我们最后还用 <code>catch(e)</code> 来兜底其他异常：</p>
+<pre><code>catch IllegalArgumentException.
+java.lang.IllegalArgumentException: test
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+    at com.googlecode.aviator.runtime.function.internal.NewInstanceFunction.variadicCall(NewInstanceFunction.java:68)
+    at com.googlecode.aviator.runtime.function.AbstractVariadicFunction.call(AbstractVariadicFunction.java:59)
+    at Script_1587611593534_1/303563356.execute0(Unknown Source)
+    at com.googlecode.aviator.ClassExpression.executeDirectly(ClassExpression.java:65)
+    at Lambda_1587611593534_0.call(Unknown Source)
+    at com.googlecode.aviator.runtime.function.internal.TryCatchFunction.call(TryCatchFunction.java:41)
+    at Script_1587611593527_0/363771819.execute0(Unknown Source)
+    at com.googlecode.aviator.ClassExpression.executeDirectly(ClassExpression.java:65)
+    at com.googlecode.aviator.BaseExpression.execute(BaseExpression.java:92)
+    at com.googlecode.aviator.BaseExpression.execute(BaseExpression.java:144)
+    at com.googlecode.aviator.example.RunScriptExample.main(RunScriptExample.java:18)
+
+</code></pre>
+<p><code>catch(e)</code> 不指定异常类型，等价于 <code>catch(Throwable e)</code> 。</p>
+<h2 id="section-40">多异常 Catch</h2>
+<p>从 5.1.0 开始， catch 语句支持单个语句同时捕捉多个异常，当其中一个匹配的时候，就执行分支代码，例如：</p>
+<pre><code class="language-javascript">## examples/multi_catch.av
+
+try {
+  throw new java.io.IOException("test");
+} catch(IllegalArgumentException | IllegalStateException | java.io.IOException e) {
+  pst(e);
+}
+</code></pre>
+<p>异常类型之间用 <code>|</code> 隔开，当异常发生的时候，会依次从左到右匹配类型，如果匹配，就执行同一个分支语句。
+比如这个例子捕获抛出的 IO异常，并打印堆栈。</p>
+<h2 id="section-46">finally</h2>
+<p>finally 语句确保哪怕在异常发生的情况下，最终一定会执行到，整个规则跟 java 是一致，在上文中已有介绍，不再重复。</p></div>
+<p></p>
+</article></main></body></html>

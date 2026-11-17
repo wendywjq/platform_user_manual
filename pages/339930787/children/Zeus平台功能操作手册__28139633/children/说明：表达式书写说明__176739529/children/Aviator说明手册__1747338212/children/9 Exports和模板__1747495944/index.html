@@ -1,0 +1,230 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>9 Exports和模板</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-13">exports</a><a href="#section-32">require 和 load</a><a href="#section-93">MODULE</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">9 Exports和模板</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747495944">查看学城原文</a></p><article>
+<h1>9 Exports和模板</h1>
+<div><p>函数是组织代码的一种有效形式，模块是比函数更大粒度的一个方式，模块将一系列相关的函数组织在一起，例如内置的 <code>math</code> 模块，就包含了一系列数学函数调用，</p>
+<p><img alt="原文图片" src="assets/3e5a841d73b9c3a8.png"></p>
+<p>除了内置模块之外，你也可以将你的代码组织成模块的形式。</p>
+<p><strong>注意：模块系统需要启用</strong><a href="https://www.yuque.com/boyan-avfmj/aviatorscript/yr1oau#6Upjs">**  语法**</a><code>**Feature.Module**</code><strong>。</strong></p>
+<h2 id="section-13">exports</h2>
+<p>比如我们定义了一个快排的模块：</p>
+<pre><code class="language-javascript">## examples/qsort.av
+## Author: dennis
+## Desc: a script to define a quick-sort function qsort.
+
+fn swap(xs, l, r) {
+  let temp = xs[l];
+  xs[l] = xs[r];
+  xs[r] = temp; 
+}
+
+fn partition(xs, l, r, p)  {
+  while l &lt;= r {
+    while xs[l] &lt; p  {
+      l = l+1;
+    }
+    while xs[r] &gt; p {
+      r = r -1;
+    } 
+    if l &lt;= r {
+      swap(xs, l, r);
+       l = l+1;
+       r = r -1;
+    }
+  }
+  return l;
+}
+
+fn qsort0(xs, l, r) {
+  if l &gt;= r {
+    return;
+  }
+
+  let p = xs[(l+r)/2];
+  let i = partition(xs, l, r, p);
+  qsort0(xs, l, i-1);
+  qsort0(xs, i, r);
+}
+
+qsort = lambda(xs) -&gt;
+  qsort0(xs, 0, count(xs)-1);
+  return xs;
+end;
+
+## export qsort
+exports.sort = qsort;
+
+</code></pre>
+<p>这是一个经典的快速排序实现， <code>swap</code> 函数用于交换集合两个位置的元素， <code>partition</code> 用于划分集合， <code>qsort0</code> 分别对集合的左右两部分做递归排序，最终的 <code>qsort</code> 函数接受一个集合 <code>xs</code> ，然后调用 <code>qsort0</code> 进行实际的排序工作。</p>
+<p>这里特别要注意的是 <code>exports.sort = qsort</code> 这一行，这样就将 qsort 函数设置为公开并命名为 <code>sort</code> ，模块外的代码可以访问 <code>sort</code>  方法，它将调用 <code>qsort</code> 函数。<strong>没有通过 </strong><code>**exports**</code><strong> 导出的函数，将无法被模块外的代码访问。</strong></p>
+<h2 id="section-32">require 和 load</h2>
+<p>定义并导出了 <code>qsort</code> 模块后，我们可以在模块之外这么使用：</p>
+<pre><code class="language-javascript">## examples/test_qsort.av
+
+let q = require('examples/qsort.av');
+
+fn rand_list(n) {
+  let a = seq.list();
+  for i in range(0, n) {
+    seq.add(a, rand(n));
+  }
+  return a;
+}
+
+let a = rand_list(20);
+println("before sorting: " + a);
+q.sort(a);
+println("after sorting: " + a);
+</code></pre>
+<p>我们通过 <code>let q = require('examples/qsort.av');</code> 引用了模块 <code>qsort</code> ，接下来调用 <code>q.sort(a)</code> 排序随机数组 a。</p>
+<p>使用 <code>RunScriptExample</code> 来跑上述例子，输出：</p>
+<pre><code>before sorting: [8, 12, 5, 13, 19, 3, 3, 6, 19, 18, 16, 18, 8, 13, 18, 6, 18, 2, 9, 13]
+after sorting: [2, 3, 3, 5, 6, 6, 8, 8, 9, 12, 13, 13, 13, 16, 18, 18, 18, 18, 19, 19]
+</code></pre>
+<p><code>require(path)</code> 用于加载 <code>path</code> 路径指定的模块，查找的顺序跟 <code>AviatorEvaluatorInstance#compileScript</code> 一样：</p>
+<ol>
+<li>先假设 path 是绝对路径，尝试加载</li>
+<li>尝试从当前线程的类加载器 <code>ClassLoader</code> 使用 <code>getResourceAsStream(path)</code> 加载，如果未找到，则使用给 path 加上 <code>/</code> 前缀再次使用 <code>getResourceAsStream</code> 尝试查找。</li>
+<li>最后，尝试从当前 <code>AviatorEvaluatorInstance</code> 类加载器，按照第二条规则类似的方式再次查找。</li>
+<li>如果都没有找到，将抛出运行时异常。</li>
+</ol>
+<p><code>require</code> 函数如果加载成功，将返回模块的 <code>exports</code> ，这样就可以调用模块的导出函数了。</p>
+<p>除了 <code>require</code> 函数之外，你也可以用 <code>load(path)</code>函数，不同的是 <code>load</code> 每次都将重新编译并执行模块代码，而 <code>require</code> 是按照 <code>path</code> 做了模块缓存。假设我们修改 <code>qsort</code> 模块，加入一行打印：</p>
+<pre><code class="language-javascript">## examples/qsort.av
+## Author: dennis
+## Desc: a script to define a quick-sort function qsort.
+
+fn swap(xs, l, r) {
+  let temp = xs[l];
+  xs[l] = xs[r];
+  xs[r] = temp; 
+}
+
+fn partition(xs, l, r, p)  {
+  while l &lt;= r {
+    while xs[l] &lt; p  {
+      l = l+1;
+    }
+    while xs[r] &gt; p {
+      r = r -1;
+    } 
+    if l &lt;= r {
+      swap(xs, l, r);
+       l = l+1;
+       r = r -1;
+    }
+  }
+  return l;
+}
+
+fn qsort0(xs, l, r) {
+  if l &gt;= r {
+    return;
+  }
+
+  let p = xs[(l+r)/2];
+  let i = partition(xs, l, r, p);
+  qsort0(xs, l, i-1);
+  qsort0(xs, i, r);
+}
+
+qsort = lambda(xs) -&gt;
+  qsort0(xs, 0, count(xs)-1);
+  return xs;
+end;
+
+## export qsort
+exports.sort = qsort;
+## println something
+println("load qsort module.");
+</code></pre>
+<p>我们继续用 <code>require</code> 来调用，只是重复两次：</p>
+<pre><code class="language-javascript">## examples/test_qsort.av
+
+let q = require('examples/qsort.av');
+let q = require('examples/qsort.av');
+
+fn rand_list(n) {
+  let a = seq.list();
+  for i in range(0, n) {
+    seq.add(a, rand(n));
+  }
+  return a;
+}
+
+let a = rand_list(20);
+println("before sorting: " + a);
+q.sort(a);
+println("after sorting: " + a);
+</code></pre>
+<p>这样将打印：</p>
+<pre><code>load qsort module.
+before sorting: [4, 19, 2, 15, 4, 9, 3, 1, 19, 7, 11, 2, 8, 4, 17, 1, 7, 14, 11, 14]
+after sorting: [1, 1, 2, 2, 3, 4, 4, 4, 7, 7, 8, 9, 11, 11, 14, 14, 15, 17, 19, 19]
+</code></pre>
+<p>尽管我们调用了 <code>require</code> 两次，也只打印了一次 <code>load qsort module.</code> ，这就是 require 带了 module cache 的缘故。</p>
+<p>如果我们将 <code>require</code> 替换为 <code>load</code> ：</p>
+<pre><code class="language-javascript">## examples/load_qsort.av
+
+let q = load('examples/qsort.av');
+let q = load('examples/qsort.av');
+
+fn rand_list(n) {
+  let a = seq.list();
+  for i in range(0, n) {
+    seq.add(a, rand(n));
+  }
+  return a;
+}
+
+let a = rand_list(20);
+println("before sorting: " + a);
+q.sort(a);
+println("after sorting: " + a);
+</code></pre>
+<p>这次将打印两次了：</p>
+<pre><code>load qsort module.
+load qsort module.
+before sorting: [12, 19, 11, 0, 17, 13, 1, 3, 3, 0, 5, 18, 3, 13, 18, 15, 9, 6, 13, 3]
+after sorting: [0, 0, 1, 3, 3, 3, 3, 5, 6, 9, 11, 12, 13, 13, 13, 15, 17, 18, 18, 19]
+</code></pre>
+<p><strong>通常来说你都应该使用 </strong><code>**require**</code><strong> 来减少模块不必要的重新编译和加载。</strong></p>
+<h2 id="section-93"><strong>MODULE</strong></h2>
+<p>在被加载模块中，可以通过 <code>__MODULE__</code> 获取当前模块的信息，包括：</p>
+<ul>
+<li><code>path</code> ，当前模块的代码路径</li>
+<li><code>exports</code> ，当前模块导出的函数或者变量列表。</li>
+</ul>
+<p>只有被 load 或者 require 的模块才有这 <code>exports</code> 和 <code>__MODULE__</code> 这两个特殊变量，其中 <code>__MODULE__.exports</code> 指向了 <code>exports</code> 。</p>
+<p>因此可以直接赋值给 <code>__MODULE__.exports</code> 来整体导出一个方法列表：</p>
+<pre><code class="language-javascript">## examples/module.av
+
+## a test module
+
+let m = seq.map();
+
+m.add = lambda(x, y) -&gt;
+  x + y
+end;
+m.sub = lambda(x, y) -&gt;
+  x - y
+end;
+
+println("module path: " + __MODULE__.path);
+
+__MODULE__.exports = m;
+</code></pre>
+<p>我们创建了一个 map 实例 <code>m</code> ，并给 m 设置了两个变量 <code>m.add</code>  和 <code>m.sub</code> 分别赋值了两个函数。最后将整个 m 赋值给了 <code>__MODULE__.exports</code> ，这样这个测试模块导出了两个方法 <code>add</code> 和 <code>sub</code> ，我们可以这样使用它们：</p>
+<pre><code class="language-javascript">## examples/test_module.av
+
+let t = require('examples/module.av');
+
+println(t.add(1, 2));
+println(t.sub(1, 2));
+</code></pre>
+<p>这样将打印：</p>
+<pre><code>module path: examples/module.av
+3
+-1
+</code></pre>
+<p>其中第一行是在 <code>module.av</code> 里打印的，而 3 和 -1 是分别执行 <code>t.add(1, 2)</code> 和 <code>t.sub(1, 2)</code> 的结果。</p></div>
+<p></p>
+</article></main></body></html>

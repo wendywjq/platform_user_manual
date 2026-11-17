@@ -1,0 +1,318 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>附录2： Java Scripting API 支持</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-12">获取执行引擎</a><a href="#section-18">配置执行引擎</a><a href="#section-30">求值</a><a href="#section-44">注入变量</a><a href="#section-56">编译脚本并执行</a><a href="#section-66">调用脚本函数</a><a href="#section-85">使用脚本实现 Java 接口</a><a href="#section-99">多 Scope 支持</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">附录2： Java Scripting API 支持</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747399736">查看学城原文</a></p><article>
+<h1>附录2： Java Scripting API 支持</h1>
+<p></p>
+<div><p>在 <a href="https://www.yuque.com/boyan-avfmj/aviatorscript/xbdgg2">6.3 节</a>我们看到了如何在 AviatorScript 中调用 Java 函数，这里我们将介绍如何用 Java 提供的脚本 API 来调用 AviatorScript 脚本中的函数等。</p>
+<p>AviatorScript 内置了对<strong> </strong><a href="https://docs.oracle.com/javase/7/docs/technotes/guides/scripting/programmer_guide/#evalfile"><strong>Java Scripting API</strong></a> 的支持，并且提供了 <code>AviatorScriptEngineFactory</code> 的 SPI 实现，只要你的 classpath 包含了 aviator 的 jar 引用，就可以直接使用。我们来看一些例子（所有示例代码在源码 example 的 <a href="https://github.com/killme2008/aviator/tree/master/src/test/java/com/googlecode/aviator/example/scripting">scripting 目录</a>）。</p>
+<h2 id="section-12">获取执行引擎</h2>
+<p>通过 <code>ScriptEngineManager</code> 可以获得 AviatorScript 的执行引擎：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example.scripting;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+public class ScriptEngineExample {
+  public static void main(final String[] args) {
+    final ScriptEngineManager sem = new ScriptEngineManager();
+    ScriptEngine engine = sem.getEngineByName("AviatorScript");
+
+  }
+}
+</code></pre>
+<p>接下来我们将使用这个 engine 做各种例子演示。</p>
+<h2 id="section-18">配置执行引擎</h2>
+<p>可以从 <code>ScriptEngine</code> 里获取底层的 <code>AviatorEvaluatorInstance</code> 引用，进行引擎的相关配置：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example.scripting;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import com.googlecode.aviator.AviatorEvaluatorInstance;
+import com.googlecode.aviator.Feature;
+import com.googlecode.aviator.Options;
+import com.googlecode.aviator.script.AviatorScriptEngine;
+
+public class ConfigureEngine {
+  public static void main(final String[] args) throws Exception {
+    final ScriptEngineManager sem = new ScriptEngineManager();
+    ScriptEngine engine = sem.getEngineByName("AviatorScript");
+    AviatorEvaluatorInstance instance = ((AviatorScriptEngine) engine).getEngine();
+    // Use compatible feature set
+    instance.setOption(Options.FEATURE_SET, Feature.getCompatibleFeatures());
+    // Doesn't support if in compatible feature set mode.
+    engine.eval("if(true) { println('support if'); }");
+  }
+}
+
+</code></pre>
+<p>默认的引擎处于下列模式：</p>
+<ol>
+<li>全语法特性支持</li>
+<li>缓存编译模式</li>
+<li><a href="https://www.yuque.com/boyan-avfmj/aviatorscript/xbdgg2#azo1K">启用基于反射的 java 方法调用</a></li>
+</ol>
+<h2 id="section-30">求值</h2>
+<p>最简单的，你可以直接执行一段 AviatorScript 脚本，调用 <code>eval(script)</code> 方法即可</p>
+<pre><code class="language-java">package com.googlecode.aviator.example.scripting;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+public class EvalScriptExample {
+  public static void main(final String[] args) throws Exception {
+    final ScriptEngineManager sem = new ScriptEngineManager();
+    ScriptEngine engine = sem.getEngineByName("AviatorScript");
+    engine.eval("print('Hello, World')");
+  }
+}
+
+</code></pre>
+<p>这将打印 <code>Hello, World</code> 到控制台，调用了 print 函数，</p>
+<p>如果你的脚本是文件，也可以用 <code>eval(reader)</code> 方法：</p>
+<pre><code class="language-java">import javax.script.*;
+public class EvalFile {
+    public static void main(String[] args) throws Exception {
+        // create a script engine manager
+        ScriptEngineManager factory = new ScriptEngineManager();
+        // create AviatorScript engine
+        ScriptEngine engine = factory.getEngineByName("AviatorScript");
+        // evaluate AviatorScript code from given file - specified by first argument
+        engine.eval(new java.io.FileReader(args[0]));
+    }
+}
+
+</code></pre>
+<p>文件名通过执行的第一个参数指定。</p>
+<p><strong>默认引擎处于缓存表达式模式。</strong></p>
+<h2 id="section-44">注入变量</h2>
+<p>可以注入全局变量到脚本，并执行：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example.scripting;
+
+import java.io.File;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+public class ScriptVars {
+  public static void main(final String[] args) throws Exception {
+    ScriptEngineManager manager = new ScriptEngineManager();
+    ScriptEngine engine = manager.getEngineByName("AviatorScript");
+
+    File f = new File("test.txt");
+    // expose File object as variable to script
+    engine.put("file", f);
+
+    // evaluate a script string. The script accesses "file"
+    // variable and calls method on it
+    engine.eval("print(getAbsolutePath(file))");
+  }
+
+}
+
+</code></pre>
+<p>这里我们将文件 <code>f</code> 通过 <code>engine.put</code> 方法作为全局变量注入，然后执行脚本 <code>print(getAbsolutePath(file))</code> ，打印文件的绝对路径。</p>
+<p><strong>默认引擎启用了</strong><a href="https://www.yuque.com/boyan-avfmj/aviatorscript/xbdgg2#azo1K"><strong>基于 java 反射的方法调用模式。</strong></a></p>
+<h2 id="section-56">编译脚本并执行</h2>
+<p>AviatorScript 也支持了 Scripting API 的预编译模式：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example.scripting;
+
+import javax.script.Bindings;
+import javax.script.Compilable;
+import javax.script.CompiledScript;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+public class CompileScript {
+  public static void main(final String[] args) throws Exception {
+    ScriptEngineManager manager = new ScriptEngineManager();
+    ScriptEngine engine = manager.getEngineByName("AviatorScript");
+
+    Compilable compilable = (Compilable) engine;
+    CompiledScript script = compilable.compile("a + b");
+
+    final Bindings bindings = engine.createBindings();
+    bindings.put("a", 99);
+    bindings.put("b", 1);
+    System.out.println(script.eval(bindings));
+  }
+
+}
+</code></pre>
+<p>我们将表达式 <code>a+b</code> 编译成一个 <code>CompiledScript</code> 对象，接下来通过 <code>createBindings</code> 创建了一个环境绑定，将 a 和 b 分别绑定为 99 和 1，然后执行 <code>eval(bindings)</code> ，结果为 100。</p>
+<p>默认编译也是启用缓存表达式模式。</p>
+<h2 id="section-66">调用脚本函数</h2>
+<p>在 java 中调用 script 函数也同样支持：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example.scripting;
+
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+public class InvokeScriptFunction {
+  public static void main(final String[] args) throws Exception {
+    ScriptEngineManager manager = new ScriptEngineManager();
+    ScriptEngine engine = manager.getEngineByName("AviatorScript");
+
+    // AviatorScript code in a String
+    String script = "fn hello(name) { print('Hello, ' + name); }";
+    // evaluate script
+    engine.eval(script);
+
+    // javax.script.Invocable is an optional interface.
+    // Check whether your script engine implements or not!
+    // Note that the AviatorScript engine implements Invocable interface.
+    Invocable inv = (Invocable) engine;
+
+    // invoke the global function named "hello"
+    inv.invokeFunction("hello", "Scripting!!" );
+  }
+}
+
+</code></pre>
+<p>我们在脚本里定义了 <code>hello</code> 函数，然后通过 <code>Invocable</code> 接口就可以在 java 代码里调用并传入参数：</p>
+<pre><code>Hello, Scripting!!
+</code></pre>
+<p>在 AviatorScript 中可以使用 map 和闭包来<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/ksghfc#mEcAx">模拟面向对象编程</a>，同样，我们可以在 java 代码里调用 AviatorScript 中“对象”的方法：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example.scripting;
+
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+public class InvokeScriptMethod {
+  public static void main(final String[] args) throws Exception {
+    ScriptEngineManager manager = new ScriptEngineManager();
+    ScriptEngine engine = manager.getEngineByName("AviatorScript");
+
+    // AviatorScript code in a String. This code defines a script object 'obj'
+    // with one method called 'hello'.
+    String script =
+        "let obj = seq.map(); obj.hello = lambda(name) -&gt; print('Hello, ' + name); end;";
+    // evaluate script
+    engine.eval(script);
+
+    // javax.script.Invocable is an optional interface.
+    // Check whether your script engine implements or not!
+    // Note that the AviatorScript engine implements Invocable interface.
+    Invocable inv = (Invocable) engine;
+
+    // get script object on which we want to call the method
+    Object obj = engine.get("obj");
+
+    // invoke the method named "hello" on the script object "obj"
+    inv.invokeMethod(obj, "hello", "Script Method !!");
+  }
+}
+
+</code></pre>
+<p>我们定义了对象 <code>obj</code> ，它有一个方法 <code>hello(name)</code> ，在 java 代码里通过 <code>engine.get("obj")</code> 获取该对象，然后通过 <code>Invocable</code> 接口调用  <code>invokeMethod(obj, 方法名，方法参数列表)</code> 就可以调用到该对象的方法。</p>
+<h2 id="section-85">使用脚本实现 Java 接口</h2>
+<p>我们可以用 AviatorScript 脚本实现 java 中的接口，然后将函数或者对象方法转成该接口在 java 代码里使用，比如我们用 AviatorScript 实现 <code>Runnable</code> 接口：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example.scripting;
+
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+public class RunnableImpl {
+  public static void main(final String[] args) throws Exception {
+    ScriptEngineManager manager = new ScriptEngineManager();
+    ScriptEngine engine = manager.getEngineByName("AviatorScript");
+
+    // AviatorScript code in a String
+    String script = "fn run() { println('run called'); }";
+
+    // evaluate script
+    engine.eval(script);
+
+    Invocable inv = (Invocable) engine;
+
+    // get Runnable interface object from engine. This interface methods
+    // are implemented by script functions with the matching name.
+    Runnable r = inv.getInterface(Runnable.class);
+
+    // start a new thread that runs the script implemented
+    // runnable interface
+    Thread th = new Thread(r);
+    th.start();
+  }
+}
+
+</code></pre>
+<p>我们在  AviatorScript 实现了一个 <code>run()</code> 函数， 接下来就可以从引擎里获取一个 <code>Runnable</code> 接口实现，它会自动去调用已定义的 run 函数并执行，然后我们将获取的 Runnable 实例用在了线程里：</p>
+<pre><code>run called
+</code></pre>
+<p>不仅是函数，对于“对象”也同样可以的：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example.scripting;
+
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+public class RunnableImplObject {
+  public static void main(final String[] args) throws Exception {
+    ScriptEngineManager manager = new ScriptEngineManager();
+    ScriptEngine engine = manager.getEngineByName("AviatorScript");
+
+    // AviatorScript code in a String
+    String script =
+        "let obj = seq.map(); obj.run = lambda() -&gt; println('run method called'); end; ";
+
+    // evaluate script
+    engine.eval(script);
+
+    // get script object on which we want to implement the interface with
+    Object obj = engine.get("obj");
+
+    Invocable inv = (Invocable) engine;
+
+    // get Runnable interface object from engine. This interface methods
+    // are implemented by script methods of object 'obj'
+    Runnable r = inv.getInterface(obj, Runnable.class);
+
+    // start a new thread that runs the script implemented
+    // runnable interface
+    Thread th = new Thread(r);
+    th.start();
+  }
+}
+
+</code></pre>
+<p>你可以将某个对象的方法转成特定接口的实现。</p>
+<h2 id="section-99">多 Scope 支持</h2>
+<p>在上面的注入变量一节，我们注入了全局变量，Scripting API 也支持多个全局变量环境同时执行，相互隔离，这是通过 <code>ScriptContext</code> 实现，你可以把他理解成一个类似 <code>Map&lt;String, Object&gt;</code> 的映射：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example.scripting;
+
+import javax.script.Bindings;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.SimpleScriptContext;
+
+public class MultiScopes {
+  public static void main(final String[] args) throws Exception {
+    ScriptEngineManager manager = new ScriptEngineManager();
+    ScriptEngine engine = manager.getEngineByName("AviatorScript");
+
+    engine.put("x", "hello");
+    // print global variable "x"
+    engine.eval("println(x);");
+    // the above line prints "hello"
+
+    // Now, pass a different script context
+    ScriptContext newContext = new SimpleScriptContext();
+    Bindings engineScope = newContext.getBindings(ScriptContext.ENGINE_SCOPE);
+
+    // add new variable "x" to the new engineScope
+    engineScope.put("x", "world");
+
+    // execute the same script - but this time pass a different script context
+    engine.eval("println(x);", newContext);
+    // the above line prints "world"
+  }
+}
+
+</code></pre>
+<p>在 <code>newContext</code> 的 engine 级别绑定里我们重新定义了 x 为 <code>world</code> 字符串，并传入 <code>eval</code> 执行，两者打印的结果将不同：</p>
+<pre><code>hello
+world
+</code></pre></div>
+<p></p>
+</article></main></body></html>

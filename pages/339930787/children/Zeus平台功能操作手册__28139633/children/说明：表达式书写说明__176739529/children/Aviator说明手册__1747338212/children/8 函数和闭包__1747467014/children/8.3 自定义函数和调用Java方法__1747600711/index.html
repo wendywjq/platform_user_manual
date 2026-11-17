@@ -1,0 +1,391 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>8.3 自定义函数和调用Java方法</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-10">自定义函数</a><a href="#section-48">自定义可变参数函数</a><a href="#section-60">lambda 自定义函数</a><a href="#section-66">调用 Java 静态方法</a><a href="#section-77">导入 java 方法</a><a href="#section-79">导入静态方法</a><a href="#section-90">导入实例方法</a><a href="#section-110">调用可变参数方法</a><a href="#section-121">批量导入方法和注解支持</a><a href="#section-148">Function Missing</a><a href="#section-170">调用 Java 实例方法（基于反射）</a><a href="#section-183">函数加载器 FunctionLoader</a><a href="#section-196">从 classpath 加载自定义函数</a><a href="#section-208">从 spring 容器加载自定义函数</a></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：表达式书写说明</a> / <a href="../../../../index.html">Aviator说明手册</a> / <a href="../../index.html">8 函数和闭包</a> / <a href="index.html">8.3 自定义函数和调用Java方法</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747600711">查看学城原文</a></p><article>
+<h1>8.3 自定义函数和调用Java方法</h1>
+<div><p>如果你想在 AviatorScript 中调用  Java 方法，除了内置的<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/ashevw">函数库</a>之外，你还可以通过下列方式来实现：</p>
+<ol>
+<li>自定义函数</li>
+<li>自动导入 java 类方法</li>
+<li>FunctionMissing 机制</li>
+</ol>
+<p>我们将一一介绍。</p>
+<h2 id="section-10">自定义函数</h2>
+<p>可以通过 java 代码实现并往引擎中注入自定义函数，在 AviatorScript 中就可以使用，事实上所有的内置函数也是通过同样的方式实现的：</p>
+<pre><code class="language-java">public class TestAviator {
+    public static void main(String[] args) {
+            //注册函数
+            AviatorEvaluator.addFunction(new AddFunction());
+            System.out.println(AviatorEvaluator.execute("add(1, 2)"));           // 3.0
+            System.out.println(AviatorEvaluator.execute("add(add(1, 2), 100)")); // 103.0
+        }
+    }
+    class AddFunction extends AbstractFunction {
+        @Override
+        public AviatorObject call(Map&lt;String, Object&gt; env, 
+                                  AviatorObject arg1, AviatorObject arg2) {
+            Number left = FunctionUtils.getNumberValue(arg1, env);
+            Number right = FunctionUtils.getNumberValue(arg2, env);
+            return new AviatorDouble(left.doubleValue() + right.doubleValue());
+        }
+        public String getName() {
+            return "add";
+        }
+    }
+</code></pre>
+<p>所有的函数都实现了 <code>AviatorFunction</code> 接口：</p>
+<pre><code class="language-java">public interface AviatorFunction {
+  /**
+   * Get the function name
+   *
+   * @return
+   */
+  public String getName();
+
+  /**
+   * call function
+   *
+   * @param env Variable environment
+   * @return
+   */
+  public AviatorObject call(Map&lt;String, Object&gt; env);
+
+
+  public AviatorObject call(Map&lt;String, Object&gt; env, AviatorObject arg1);
+
+  public AviatorObject call(Map&lt;String, Object&gt; env, AviatorObject arg1, AviatorObject arg2);
+
+  ......
+ }
+</code></pre>
+<p>它有一系列 <code>call</code> 方法，根据参数个数不同而重载，其中 <code>getName()</code> 返回方法名。一般来说都推荐继承 <code>com.googlecode.aviator.runtime.function.AbstractFunction</code>  ，并覆写对应参数个数的方法即可，例如上面例子中定义了 <code>add</code> 方法，它接受两个参数</p>
+<pre><code class="language-java"> public AviatorObject call(Map&lt;String, Object&gt; env, 
+                                  AviatorObject arg1, AviatorObject arg2)
+</code></pre>
+<p>第一个参数是当前执行的上下文，arg1 和 arg2 分别表示从左到右的两个参数，最终结果是另一个 <code>AviatorObject</code> ，这个实现中是将两个参数相加，返回浮点结果 <code>AviatorDouble</code> 。</p>
+<p><strong>注意，哪怕结果为 null，也必须返回 </strong><code>**AviatorNil.NIL**</code><strong> 表示结果为 null，而不是直接返回 java 的 null。</strong></p>
+<p>我们再看一个内置的函数例子，比如 <code>map(seq, fn)</code> 函数，它将 fn 这个函数作用在集合 seq 里的每个元素上，并返回结果组成的新集合， 比如我们可以将数组的元素都递增 1：</p>
+<pre><code class="language-javascript">## examples/map.fn
+
+let a = tuple(1, 2, 3);
+
+map(a, println);
+
+println("after map:");
+
+a = map(a, lambda(x) -&gt; x + 1 end);
+
+map(a, println);
+</code></pre>
+<p>我们同时用 map 来遍历数组 a 并打印每个元素：</p>
+<pre><code>1
+2
+3
+after map:
+2
+3
+4
+</code></pre>
+<p>我们看下 map 的函数实现 SeqMapFunction.java</p>
+<pre><code class="language-java">public class SeqMapFunction extends AbstractFunction {
+
+  @Override
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public AviatorObject call(final Map&lt;String, Object&gt; env, final AviatorObject arg1,
+      final AviatorObject arg2) {
+
+    Object first = arg1.getValue(env);
+    AviatorFunction fun = FunctionUtils.getFunction(arg2, env, 1);
+    if (fun == null) {
+      throw new FunctionNotFoundException(
+          "There is no function named " + ((AviatorJavaType) arg2).getName());
+    }
+    if (first == null) {
+      throw new NullPointerException("null seq");
+    }
+    Sequence seq = RuntimeUtils.seq(first, env);
+    Collector collector = seq.newCollector(seq.hintSize());
+    for (Object obj : seq) {
+      collector.add(fun.call(env, AviatorRuntimeJavaType.valueOf(obj)).getValue(env));
+    }
+    return AviatorRuntimeJavaType.valueOf(collector.getRawContainer());
+  }
+
+
+  @Override
+  public String getName() {
+    return "map";
+  }
+
+}
+
+</code></pre>
+<p>我们将第一个参数通过 <code>RuntimeUtils.seq(first, env)</code> 转成了 <a href="https://www.yuque.com/boyan-avfmj/aviatorscript/yc4l93">sequence 抽象（见 10.2 节</a>），然后遍历这个集合，并对每个元素调用第二个参数传入的函数 <code>fun</code> ，将结果添加到 <code>collector</code> ，最终返回 <code>collector</code> 集合。</p>
+<h3 id="section-48">自定义可变参数函数</h3>
+<p>要实现可变参数的函数，如果是直接继承 <code>AbstractFunction</code> ，要实现一系列的 <code>call</code> 方法，未免太繁琐了，因此 AviatorScript 还提供了 <code>AbstractVariadicFunction</code> ，可以更方便地实现可变参数函数，比如内置的 <code>tuple(x, y, z,...)</code> 创建 Object 数组的函数就是基于它实现：</p>
+<pre><code class="language-java">import java.util.Map;
+import com.googlecode.aviator.runtime.function.AbstractVariadicFunction;
+import com.googlecode.aviator.runtime.type.AviatorObject;
+import com.googlecode.aviator.runtime.type.AviatorRuntimeJavaType;
+
+/**
+ * tuple(x,y,z, ...) function to return an object array.
+ *
+ * @author dennis
+ * @since 4.0.0
+ *
+ */
+public class TupleFunction extends AbstractVariadicFunction {
+
+
+  private static final long serialVersionUID = -7377110880312266008L;
+
+  @Override
+  public String getName() {
+    return "tuple";
+  }
+
+  @Override
+  public AviatorObject variadicCall(Map&lt;String, Object&gt; env, AviatorObject... args) {
+    Object[] tuple = new Object[args.length];
+    for (int i = 0; i &lt; args.length; i++) {
+      tuple[i] = args[i].getValue(env);
+    }
+    return AviatorRuntimeJavaType.valueOf(tuple);
+  }
+
+}
+
+</code></pre>
+<p>核心就是实现 <code>variadicCall(Map&lt;String, Object&gt; env, AviatorObject... args)</code> 方法，其中的 args 就是可变的参数列表。对于 tuple 函数就可以传入任意个数的函数：</p>
+<pre><code class="language-javascript">tuple();  ##空的 object 数组
+tuple(1);
+tuple(1, 2, "hello");
+</code></pre>
+<h3 id="section-60">lambda 自定义函数</h3>
+<p>除了用 java 代码实现自定义函数之外，你也可以使用 lambda 来定义，比如上面 <code>add</code> 的例子可以修改为：</p>
+<pre><code class="language-java">AviatorEvaluator.defineFunction("add", "lambda (x,y) -&gt; x + y end");
+AviatorEvaluator.execute("add(1,2)"); // 结果为 3
+</code></pre>
+<p>当然，这个例子跟上面的 add 实现还是稍有区别的，这里并没有限定 x, y 必须为数字，并且返回类型也没有限定为 double。因此它也可以将字符串相加。</p>
+<h2 id="section-66">调用 Java 静态方法</h2>
+<p>从 5.2.1 版本开始，支持直接用 <code>Class.Method(..args)</code> 的语法直接调用 Java 类的静态方法（仅限 public static 方法），基于反射实现（尽量做了缓存等优化），例如：</p>
+<pre><code class="language-javascript">## examples/static_methods.av
+
+use java.util.regex.Pattern;
+
+let p = Pattern.compile("\\d+");
+
+if "123" =~ p {
+  p("matched");
+  p($0);
+}
+
+if "a123" =~ p {
+  p("matched");
+  p($0);
+}
+
+</code></pre>
+<p>我们通过 <code>use</code> 导入了 <code>Pattern</code> 类（在 aviator 中<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/lvabnw#3S9pc">内置了正则类型</a>，这里仅是为了举例），然后调用 <code>Pattern.compile(String)</code> 方法编译了一个正则表达式，接下里使用匹配运算符 <code>=~</code> 来测试字符串是否跟正则匹配，如果匹配，就打印整个匹配的结果。</p>
+<h2 id="section-77">导入 java 方法</h2>
+<p>AviatorScript 还支持快捷地导入 Java 类方法，包括静态方法和实例方法，下面我们来详细介绍下。</p>
+<h4 id="section-79">导入静态方法</h4>
+<p>假设你有一个工具类 <code>StringUtils</code> ，里面有一系列 <strong>public 的静态方法</strong>，如 <code>StringUtils.isBlank</code> 等，那么通过：</p>
+<pre><code class="language-java">AviatorEvaluator.addStaticFunctions("str", StringUtils.class);
+</code></pre>
+<p>的方式，就可以将这个类所有公开的静态方法批量导入到 <code>str</code> 这个 namespace 下，接下来就可以直接调用这些方法：</p>
+<pre><code class="language-javascript">str.isBlank('')
+</code></pre>
+<h4 id="section-90">导入实例方法</h4>
+<p>AviatorScript 同样支持将 java 某个类的实例方法导入 aviator 求值器作为自定义函数。但是跟通常的 java 方法调用方式 <code>instance.method(args)</code> 的方式不一样的是， aviator 要求将 <code>instance</code> 这个 this 指针作为第一个参数明确传入，转成 <code>method(instance, args)</code> 的调用方式。</p>
+<p>例如 String 类有很多方法，我们可以批量导入：</p>
+<pre><code class="language-java">AviatorEvaluator.addInstanceFunctions("s", String.class);
+</code></pre>
+<p>通过 <code>addInstanceFunctions(namespace, clazz)</code> 方法导入后，你就可以对所有字符串使用 <code>String</code> 的方法，只是<strong>字符串实例要求作为第一个参数明确传入</strong>，比如调用 <code>String#indexOf</code> 方法：</p>
+<pre><code class="language-java">s.indexOf("hello", "l")
+</code></pre>
+<p>输出结果 <code>2</code>。</p>
+<p>其他调用方法类似，也就是 <code>instance.method(args)</code> 调用需要转成 <code>namespace.method(instance, args)</code> 的方式。</p>
+<h4 id="section-110">调用可变参数方法</h4>
+<p>对于 java 的可变参数方法，本质上转成一个数组来调用，例如下面这个可变参数的 join 方法：</p>
+<pre><code class="language-java">  public static String join(final String... args) {
+    if (args == null || args.length == 0) {
+      return "";
+    }
+    StringBuilder sb = new StringBuilder();
+    boolean wasFirst = true;
+    for (int i = 0; i &lt; args.length; i++) {
+      if (wasFirst) {
+        sb.append(args[i]);
+        wasFirst = false;
+      } else {
+        sb.append(",").append(args[i]);
+      }
+    }
+    return sb.toString();
+  }
+</code></pre>
+<p>在使用上面方式导入后，在表达式里必须先用 <code>seq.array</code> 创建数组来调用：</p>
+<pre><code>test.join(seq.array(java.lang.String, 'hello','dennis'))
+</code></pre>
+<p>返回 <code>hello,world</code> 字符串。 <code>seq.array</code> 的第一个参数是数组里的元素类型 class 名称，如果是基本类型，可以是 int, float, double 等等。</p>
+<h4 id="section-121">批量导入方法和注解支持</h4>
+<p>如果要同时导入静态方法和实例方法，可以使用 <code>importFunctions</code> 方法：</p>
+<pre><code class="language-java">AviatorEvaluator.importFunctions(StringUtils.class);
+</code></pre>
+<p>默认的 namespace 是类名 <code>StringUtils</code>，因此就可以在表达式里这样用 <code>StringUtils.isBlank('hello world')</code>。</p>
+<p>如果想要更多定制化的东西，可以使用注解 annotation。</p>
+<p>例如想要定制导入的 namespace 和范围，可以对 java 类使用 <code>Import</code> 标注：</p>
+<pre><code class="language-java">@Import(ns = "test", scopes = {ImportScope.Static})
+public class StringUtils {
+  ...
+
+}
+</code></pre>
+<ul>
+<li><code>ns</code> 指定导入后的 namespace，</li>
+<li>scopes 指定导入的方法范围。</li>
+</ul>
+<p>如果想忽略某个方法，可以对方法用 <code>Ignore</code> 标注：</p>
+<pre><code class="language-java">@Import(ns = "test", scopes = {ImportScope.Static})
+public class StringUtils {
+  ...
+
+  @Ignore
+  public static double test(final double a, final double b) {
+    return a + b;
+  }
+}
+</code></pre>
+<p>同时可以用 <code>Function</code> 标注导入的函数名字，默认都是原来的方法名：</p>
+<pre><code class="language-java">@Import(ns = "test", scopes = {ImportScope.Static})
+public class StringUtils {
+  ...
+
+  @Function(rename = "is_empty")
+  public boolean isEmpty(final String s) {
+    return s.isEmpty();
+  }
+}
+</code></pre>
+<p>后面将介绍的 Io 模块就是通过导入的方式实现，参见 <a href="https://github.com/killme2008/aviator/blob/master/src/main/java/com/googlecode/aviator/runtime/module/IoModule.java">IoModule.java</a>。</p>
+<h2 id="section-148">Function Missing</h2>
+<p>Function Missing 是类似 Ruby 的 <a href="https://www.leighhalliday.com/ruby-metaprogramming-method-missing">method missing 机制</a>，本质上是一个函数调用的兜底机制，当函数找不到的时候，就调用到 <code>FunctionMissing</code> 接口的实现：</p>
+<pre><code class="language-java">/**
+ * Function not found hook interface. The
+ * {@link FunctionMissing#onFunctionMissing(String, Map, AviatorObject...)} method will be called
+ * when function not found, return the invocation result.
+ *
+ * @see AviatorEvaluatorInstance#setFunctionMissing(FunctionMissing)
+ * @see AviatorEvaluator#setFunctionMissing(FunctionMissing)
+ * @author dennis zhuang(killme2008@gmail.com)
+ * @since 4.2.5
+ *
+ */
+public interface FunctionMissing {
+  /**
+   * Called when function not found, return the invocation result.
+   *
+   * @param name function name
+   * @param env invocation env
+   * @param args invocation arguments.
+   * @return The invocation result.
+   */
+  AviatorObject onFunctionMissing(String name, Map&lt;String, Object&gt; env, AviatorObject... args);
+}
+
+</code></pre>
+<p><code>onFunctionMissing</code> 方法接受函数的名称 <code>name</code> ，调用的上下文 <code>env</code> ，以及参数列表 <code>args</code> 。</p>
+<p>自定义的处理器可以通过 <code>AviatorEvaluatorInstance#setFunctionMissing</code> 来设置，一个简单的例子：</p>
+<pre><code class="language-java">public class FunctionMissingExample {
+
+  private static class TestFunctionMissing implements FunctionMissing {
+
+    @Override
+    public AviatorObject onFunctionMissing(final String name, final Map&lt;String, Object&gt; env,
+        final AviatorObject... args) {
+      // Returns the function name.
+      System.out.println(
+          "Function not found, name=" + name + ", env=" + env + ", args=" + Arrays.toString(args));
+      return FunctionUtils.wrapReturn(name);
+    }
+
+  }
+
+  public static void main(final String[] args) {
+    // Set function missing handler.
+    AviatorEvaluator.setFunctionMissing(new TestFunctionMissing());
+
+    System.out.println(AviatorEvaluator.execute("test(1,2,3)"));
+    System.out.println(AviatorEvaluator.execute("not_found(1,2,3)"));
+  }
+}
+</code></pre>
+<p><code>TestFunctionMissing</code> 只是打印了三个参数，然后返回函数名称，接下来我们测试了两个例子，执行结果：</p>
+<pre><code>Function not found, name=test, env=com.googlecode.aviator.utils.Env@681a9515{__instance__=com.googlecode.aviator.AviatorEvaluatorInstance@3af49f1c, __env__=&lt;this&gt;}, args=[&lt;Long, 1&gt;, &lt;Long, 2&gt;, &lt;Long, 3&gt;]
+test
+Function not found, name=not_found, env=com.googlecode.aviator.utils.Env@13221655{__instance__=com.googlecode.aviator.AviatorEvaluatorInstance@3af49f1c, __env__=&lt;this&gt;}, args=[&lt;Long, 1&gt;, &lt;Long, 2&gt;, &lt;Long, 3&gt;]
+not_found
+</code></pre>
+<p><code>test</code> 和 <code>not_found</code>  都没有定义，打印了函数名称、上下文 env 和参数列表 args，返回结果是名称 name，符合预期。</p>
+<h3 id="section-170">调用 Java 实例方法（基于反射）</h3>
+<p><code>JavaMethodReflectionFunctionMissing</code> 是一个特殊的 function missing 实现，它基于反射，自动调用传入的第一个参数的实例方法，将 <code>method(instance, args...)</code> 调用转化为 <code>instance.method(args...)</code> 调用：</p>
+<pre><code class="language-java">    // 启用基于反射的方法查找和调用
+    AviatorEvaluator.setFunctionMissing(JavaMethodReflectionFunctionMissing.getInstance());
+    // 调用 String#indexOf
+    System.out.println(AviatorEvaluator.execute("indexOf('hello world', 'w')"));
+    // 调用 Long#floatValue
+    System.out.println(AviatorEvaluator.execute("floatValue(3)"));
+    // 调用 BigDecimal#add
+    System.out.println(AviatorEvaluator.execute("add(3M, 4M)"));
+</code></pre>
+<p>这个方式提供了最大的方法调用灵活性，只要将调用的对象作为第一个参数传入，就会自动查找该对象是否拥有对应的 public 实例方法，如果有，就转为反射调用进行。</p>
+<p>当然也存在缺陷：</p>
+<ul>
+<li>和导入 java 方法类似，性能相比自定义函数较差，接近 3 倍的差距，原因也是反射。</li>
+<li>无法调用静态方法，静态方法调用仍然需要采用其他两种方式。</li>
+<li>如果第一个参数为 null，无法找出方法，因为没有对象  class 信息。</li>
+</ul>
+<h2 id="section-183">函数加载器 FunctionLoader</h2>
+<p><code>FunctionLoader</code> 用于定义函数加载器：</p>
+<pre><code class="language-java">public interface FunctionLoader {
+
+  /**
+   * Invoked when function not found
+   *
+   * @param name function name
+   */
+  public AviatorFunction onFunctionNotFound(String name);
+}
+</code></pre>
+<p>当函数找不到的时候，会尝试优先从函数加载器加载函数并调用，如果还没有，最终调用 <code>FunctionMissing</code> 。
+AviatorScript 提供了两个<code>FunctionLoader</code> 实现。</p>
+<p>添加 <code>FunctionLoader</code>可以通过 <code>AviatorEvaluatorInstance</code>的 <code>addFunctionLoader</code> 方法，系统默认配置了一个下文将提到的 <code>ClassPathConfigFunctionLoader</code>加载器。</p>
+<h3 id="section-196">从 classpath 加载自定义函数</h3>
+<ul>
+<li><code>ClassPathConfigFunctionLoader</code> ，默认配置，用于从 classpath 加载自定义函数列表。你可以在 classpath 下放置一个配置文件 <code>aviator_functions.config</code>，内容是一行一行的<strong>自定义函数类的完整名称</strong>，例如：</li>
+</ul>
+<pre><code class="language-java"># 这是一行注释
+com.example.TestFunction
+com.example.GetFirstNonNullFunction
+</code></pre>
+<p>那么 AviatorScript 将在 JVM 启动的时候自动加载这些自定义函数，配置文件中以 <code>#</code> 开头的行将被认为是注释。如果你想自定义文件路径，可以通过传入环境变量</p>
+<p><code>-Dcom.googlecode.aviator.custom_function_config_file=xxxx.config</code></p>
+<h3 id="section-208">从 spring 容器加载自定义函数</h3>
+<ul>
+<li><code>SpringContextFunctionLoader</code> ，如果你使用 spring 容器， <code>SpringContextFunctionLoader</code> 帮助你从 spring 容器里加载函数，按照 bean 的名称寻找：</li>
+</ul>
+<pre><code class="language-java"> @Override
+  public AviatorFunction onFunctionNotFound(String name) {
+    try {
+      return (AviatorFunction) this.applicationContext.getBean(name);
+    } catch (NoSuchBeanDefinitionException e) {
+      return null;
+    }
+  }
+</code></pre>
+<p>注意，当自定义实现加载器的实现的时候，如果找不到对应的函数，请在 <code>onFunctionNotFound</code> 返回 null，才会进入 <code>FunctionMissing</code> 实现。</p>
+<p>创建 <code>SpringContextFunctionLoader</code>需要你自己获取 spring 容器的 <code>ApplicationContext</code>，并设置到 loader：</p>
+<pre><code class="language-java">ApplicationContext context =...;
+AviatorEvaluator.addFunctionLoader(new SpringContextFunctionLoader(context));
+</code></pre></div>
+<p></p>
+</article></main></body></html>

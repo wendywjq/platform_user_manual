@@ -1,0 +1,99 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.5 作用域</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-26">let 语句</a><a href="#section-38">嵌套作用域</a></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：表达式书写说明</a> / <a href="../../../../index.html">Aviator说明手册</a> / <a href="../../index.html">3.基本语法类型</a> / <a href="index.html">3.5 作用域</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747447133">查看学城原文</a></p><article>
+<h1>3.5 作用域</h1>
+<div><p>一个变量有它的作用域，比如简单的：</p>
+<pre><code class="language-javascript">## 全局作用域
+let a = 1;
+a = a + 1;
+println(a);
+</code></pre>
+<p>a 的作用域在 <code>let</code> 定义后，在整个脚本内有效，<strong>我们称之为全局作用域</strong>，在这个范围内，你可以正常地读写它。</p>
+<p>但是你可以限定一个变量的作用域，通过大括号来引入一个嵌套的作用域：</p>
+<pre><code class="language-javascript">## examples/scope1.av
+
+let a = 1;  ## 全局作用域内的 a
+
+{
+  ## 嵌套作用域 scope1
+  let a = 2; ## let 定义了 scope1 内有效的变量 a
+  println(a); ##打印 scope1 内的 a
+  a = 3; ##给 scope1 的变量 a 赋值
+}
+
+println(a);  ## 打印全局作用域的 a
+
+</code></pre>
+<p>上面的代码将打印：</p>
+<pre><code>2
+1
+</code></pre>
+<p>首先打印嵌套作用域内的定义的 <code>a</code> ，它在里面被赋值为 2，嵌套作用域内的 <code>a</code>  “掩盖” 了全局作用域定义的 <code>a</code> 变量，在离开嵌套作用域后，继续打印了全局作用域的变量 <code>a</code> ，它的值仍然是 1。</p>
+<p>如果你有其他语言的经验，这个概念还是很好的理解的。这里 <code>scope1</code>  作用域和全局作用域形成了父子关系， <code>scope1</code> 的父作用域是全局作用域，我们通过 <code>let</code> 定义的 <code>a</code> 仅在 <code>scope1</code> 内有效。</p>
+<h2 id="section-26">let 语句</h2>
+<p>let 语句就是让你在特定作用域内定义一个变量，如果父作用域有同名的变量，将“掩盖”父作用域的变量。如果不使用 <code>let</code> ，你读写的将仍然是父作用域的变量：</p>
+<pre><code class="language-javascript">## examples/scope2.av
+
+let a = 1;  ## 全局作用域内的 a
+
+{
+  ## 嵌套作用域 scope1
+  a = 2; ## 不适用 let，访问的还是全局作用域的变量 a
+  println(a); ##打印 scope1 内的 a
+  a = 3; ##给全局作用域的变量 a 赋值
+}
+
+println(a);  ## 打印全局作用域的 a
+</code></pre>
+<p>去掉 <code>let</code> 之后，打印结果为：</p>
+<pre><code>2
+3
+</code></pre>
+<p>全局作用域的变量 <code>a</code> 在 <code>scope1</code> 内被修改成了 3。</p>
+<h2 id="section-38">嵌套作用域</h2>
+<p>作用域还可以继续深层嵌套，遵循的规则不变：</p>
+<ol>
+<li><code>let</code> 定义当前作用域的变量，这些变量同时可以被它的子作用域访问和修改，离开当前作用域后不可触达。</li>
+<li><code>let</code> 定义的变量将“掩盖”父作用域的同名变量。</li>
+<li>子作用域可以访问和修改父作用域定义的变量，离开子作用域后修改继续生效。</li>
+</ol>
+<p>稍微复杂点的例子：</p>
+<pre><code class="language-javascript">## examples/scope3.av
+
+## examples/scope3.av
+
+let a = 1;
+{
+  a = 2;
+  let a = 3;
+  b = 4;
+  {
+    a = 5;
+    b = 6;
+    let c = 7;
+    println("a in scope2:" + a);
+    println("b in scope2:" + b);
+    println("c in scope2:" + c);
+  }
+  println("a in scope1:" + a);
+  println("b in scope1:" + b);
+  println("c in scope1:" + c);
+}
+
+println("a in global scope:" + a);
+println("b in global scope:" + b);
+println("c in global scope:" + c);
+</code></pre>
+<p>打印出：</p>
+<pre><code>a in scope2:5
+b in scope2:6
+c in scope2:7
+a in scope1:5
+b in scope1:6
+c in scope1:null
+a in global scope:2
+b in global scope:null
+c in global scope:null
+
+</code></pre>
+<p>可以仔细阅读下这个代码和输出，整个规则还是比较容易理解的。</p></div>
+<p></p>
+</article></main></body></html>

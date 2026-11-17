@@ -1,0 +1,38 @@
+{
+  "parentId": "1747457904",
+  "parentTitle": "",
+  "children": [
+    {
+      "contentId": "1747582091",
+      "title": "10.1数组和集合",
+      "type": "学城文档2.0",
+      "creator": "wangyaliang",
+      "createTime": 1688024593000,
+      "modifyTime": 1688024655000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "1747496222",
+      "title": "10.2 Sequence 抽象",
+      "type": "学城文档2.0",
+      "creator": "wangyaliang",
+      "createTime": 1688024673000,
+      "modifyTime": 1688024735000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    }
+  ]
+}

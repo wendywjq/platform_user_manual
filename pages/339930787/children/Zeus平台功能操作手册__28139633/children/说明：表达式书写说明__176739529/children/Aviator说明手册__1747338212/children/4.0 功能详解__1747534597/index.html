@@ -1,0 +1,136 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>4.0 功能详解</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-4">求值器实例</a><a href="#section-16">多行表达式</a><a href="#section-27">赋值</a><a href="#section-33">Lambda 匿名函数</a><a href="#section-75">闭包和赋值</a><a href="#section-85">函数加载器</a><a href="#section-106">新增选项</a><a href="#section-120">其他</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">4.0 功能详解</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747534597">查看学城原文</a></p><article>
+<h1>4.0 功能详解</h1>
+<div><p>4.0 是一个大版本变更，本文将纤细介绍一些主要的功能特性。</p>
+<h2 id="section-4">求值器实例</h2>
+<p>4.0 之前， aviator 的求值器是一个全局共享的对象 <code>AviatorEvaluator</code>，使用起来很方便，但是无法在同一个进程内提供不同配置选项或者自定义函数的求值器，因此，从 4.0 开始，aviator 引入了 <code>AviatorEvaluatorInstance</code>，表示一个单独的求值器实例，原有的 <code>AviatorEvaluator</code> 只是默认提供的一个全局单例。</p>
+<p><code>AviatorEvaluatorInstance</code> 提供了原有 <code>AviatorEvaluator</code> 的 <code>execute</code>、<code>compile</code> 等方法，如果你有需要定义多个求值器的场景可以使用它：</p>
+<pre><code class="language-java">//创建一个求值器实例，应当尽量复用该实例。
+AviatorEvaluatorInstance instance =  AviatorEvaluator.newInstance();
+//设置自定义选项
+instance.setOption(Options.TRACE_EVAL, true);
+//正常使用
+instance.execute("3+4");
+Expression exp = instance.compile("1+3");
+</code></pre>
+<h2 id="section-16">多行表达式</h2>
+<p>允许通过分号 <code>;</code> 来求值多个表达式，多个表达式的求值结果是<strong>最后一个表达式的值</strong>：</p>
+<pre><code class="language-java">assertEquals(20.0, AviatorEvaluator.execute("a=3; b=2; c=a+b; c*4.0"));
+</code></pre>
+<p>表达式也可以换行，更清楚一些，但是分割符还是分号</p>
+<pre><code>a=3;
+b=2;
+c=a+b;
+c*4.0
+</code></pre>
+<p>最后一个表达式可以不加分号。</p>
+<p>上面的例子中使用了引入的赋值功能，参见下节。</p>
+<h2 id="section-27">赋值</h2>
+<p>从 4.1.0 开始，aviator 引入了变量赋值的能力，你可以给变量赋予任何一个有效的 aviator 类型：</p>
+<pre><code class="language-java"> assertEquals(3, AviatorEvaluator.execute("a=1; a+2"));
+ assertEquals(1, AviatorEvaluator.execute("a=5;b=4.2 ; c= a &gt; b? 1: 0; c"));
+ assertEquals(1, AviatorEvaluator.execute("a=5;b=4.2 ; c= a &gt; b? 1: 0; c"));
+</code></pre>
+<p>赋值的语法很简单，就是 <code>{var}={val}</code> 的形式。</p>
+<h2 id="section-33">Lambda 匿名函数</h2>
+<p>4.0 版本最重大的功能除了赋值之外就是 lambda 匿名函数的引入，你可以直接使用新的 lambda 语法定义函数并使用:</p>
+<pre><code class="language-java"> assertEquals(6, AviatorEvaluator.execute("square = lambda(x) -&gt; x *2 end; square(3)"));
+</code></pre>
+<p>上面的例子使用 lambda 语法定义了一个 <code>sqaure</code> 函数：</p>
+<pre><code class="language-sh">square = lambda(x) -&gt; x *2 end
+</code></pre>
+<p>然后调用了这个函数，传入参数 <code>3</code>，结果返回 <code>square(3)</code> 的值，也就是 <code>2*3=6</code>。</p>
+<p>有了 lambda 后，原来对于 seq 库依赖谓词函数来实现的能力都可以用 lambda 实现，例如：</p>
+<pre><code>map(a, lambda(x) -&gt; x + 1 end)
+</code></pre>
+<p>为集合 <code>a</code> 的每个元素加上 1。　或者过滤出偶数：</p>
+<pre><code>filter(a, lambda(x) -&gt; x%2 == 0　end)
+</code></pre>
+<p>或者拼接两个 list:</p>
+<pre><code>reduce(list2, lambda(list1, x) -&gt; seq.add(list1, x) end, list1)
+</code></pre>
+<p>所有高阶函数使用到函数的地方都可以用 lambda 替代。</p>
+<p>除此之外， lambda 还支持闭包捕获，可以从上下文中捕获变量使用：</p>
+<pre><code> AviatorEvaluator.defineFunction("test",
+        "lambda(x) -&gt; lambda(y) -&gt; lambda(z) -&gt; x + y + z end end end");
+ AviatorEvaluator.execute("test(4)(5)(6)", env);  // =&gt; 输出 15
+</code></pre>
+<p>这里使用了新的自定义函数的方式 <code>AviatorEvaluator.defineFunction(name, lambda)</code> ，定义了一个 test 函数，这个函数是一个三层嵌套的 lambda 函数：</p>
+<pre><code>lambda(x) -&gt; 
+    lambda(y) -&gt;
+        lambda(z) -&gt;
+            x + y + z 
+        end
+    end
+end"
+</code></pre>
+<p>可以看到，这里定义了三个嵌套的匿名函数，前两层匿名函数都是返回一个 lambda 函数作为返回值，在 aviator 4.0.0 里面，函数也是作为 first class 存在，可以作为参数、返回值使用。</p>
+<p>那么 <code>test(4)(5)(6)</code> 的求值顺序是</p>
+<ul>
+<li>test(4) 返回一个匿名函数 f1， f1 <strong>捕获</strong>了传入的参数 4</li>
+<li>f1(5) 返回另一个匿名函数 f2， f2 这个函数<strong>捕获</strong>了传入的参数 5</li>
+<li>f2(6) 将前两步传入的参数和现在的参数 6 累加 <code>4+5+6</code> ，得到 15 返回。</li>
+</ul>
+<p>这就是所谓闭包(closure)，匿名函数块从上下文中捕获变量并保存，在<strong>脱离当前上下文后还可以继续使用</strong>，有点类似 java 的匿名类。</p>
+<h3 id="section-75">闭包和赋值</h3>
+<p>被闭包捕获的变量，不允许后面再被赋值，这跟 java 匿名类使用到变量要求是 final 是一个道理，避免引入一些隐藏的 bug:</p>
+<pre><code>  String exp = "a = 1; b = lambda(x) -&gt; a+ x end ; a = 4 ; b(5)";
+  AviatorEvaluator.execute(exp);
+</code></pre>
+<p>上述的执行将报错：</p>
+<pre><code class="language-sh">Exception in thread "main" com.googlecode.aviator.exception.ExpressionRuntimeException: Can't assignment value to captured variable.The `a` is already captured by lambda.
+    at com.googlecode.aviator.utils.Env.put(Env.java:217)
+    at com.googlecode.aviator.utils.Env.put(Env.java:1)
+    at com.googlecode.aviator.runtime.type.AviatorJavaType.setValue(AviatorJavaType.java:268)
+    at Script_1548816270231_0/1269169234.execute0(Unknown Source)
+    at com.googlecode.aviator.ClassExpression.execute(ClassExpression.java:72)
+    at com.googlecode.aviator.AviatorEvaluatorInstance.execute(AviatorEvaluatorInstance.java:763)
+    at com.googlecode.aviator.AviatorEvaluator.execute(AviatorEvaluator.java:439)
+    at com.googlecode.aviator.AviatorEvaluator.execute(AviatorEvaluator.java:451)
+</code></pre>
+<p>因为 <code>a</code> 已经被闭包 <code>b</code> 捕获，不可以继续赋值为 4。</p>
+<h2 id="section-85">函数加载器</h2>
+<p>自定义函数可以通过 <code>AviatorEvaluator</code> 或者 <code>AviatorEvaluatorInstance</code> 的 <code>addFunction</code> 添加，也可以通过 classpath 下的 <code>aviator_functions.config</code> 配置文件来添加。</p>
+<p>从 4.0.0 开始，新增 <code>com.googlecode.aviator.FunctionLoader</code> 接口，可以自定义实现函数加载器：</p>
+<pre><code class="language-java">public interface FunctionLoader {
+
+  /**
+   * Invoked when function not found
+   *
+   * @param name function name
+   */
+  public AviatorFunction onFunctionNotFound(String name);
+}
+</code></pre>
+<p>当某个函数找不到的时候，将按照顺序从函数加载器中查找，找到即返回。自定义加载器需要注册到求值器对象：</p>
+<pre><code class="language-java">AviatorEvaluator.addFunctionLoader(loader);
+</code></pre>
+<p>取消注册通过 <code>removeFunctionLoader(loader)</code> 方法。</p>
+<p>默认提供的是 <code>ClassPathConfigFunctionLoader</code> 加载器，也就是从 classpath 的 <code>aviator_functions.config</code> 文件中加载。此外，还提供了一个从 spring 容器加载的实现，但是默认不注册，可以主动注册:</p>
+<pre><code class="language-java">    ApplicationContext ctx = new ClassPathXmlApplicationContext("context.xml");
+    SpringContextFunctionLoader loader = new SpringContextFunctionLoader(ctx);
+    AviatorEvaluator.addFunctionLoader(loader);
+</code></pre>
+<p>当函数找不到的时候，将从 spring 容器按照 function name 作为 bean name 来查找自定义函数实现。</p>
+<h2 id="section-106">新增选项</h2>
+<p>新增三个选项：</p>
+<ul>
+<li><code>Options.ENABLE_PROPERTY_SYNTAX_SUGAR</code>，是否启用属性访问的语法糖，例如 <code>a.b.c</code> 的变量访问是否走 commons-beanutils 反射访问，默认启用为 true。禁用后，这类变量将直接从 env 获取。</li>
+<li><code>Options.NIL_WHEN_PROPERTY_NOT_FOUND</code>，当启用属性语法糖的时候，如果调用反射失败，默认行为是抛出异常，通过启用这个选项，将直接返回 null，忽略异常。</li>
+<li><code>Options.DISABLE_ASSIGNMENT</code>，是否关闭赋值功能。当设置为 true 的时候，将禁止赋值。默认为 false。</li>
+<li><code>Options.USE_USER_ENV_AS_TOP_ENV_DIRECTLY</code> 选项，默认为 true，表示将直接使用用户的 env 作为 top 级别的 env 使用，兼容老版本的行为 #74 #94。从安全角度，如果没有依赖这个行为的，推荐设置为 false。</li>
+<li><code>Opitons.TRACE_EVAL</code> 跟踪运行，支持函数调用跟踪，默认不启用，该选项极大影响性能，仅推荐在测试 debug 使用。</li>
+</ul>
+<h2 id="section-120">其他</h2>
+<ol>
+<li><code>AviatorEvaulatorInstance</code> 和 <code>AviatorEvaulator</code> 新增方法 <code>isExpressionCached()</code> 和 <code>getExpressionCacheSize()</code> 分别用于判断表达式是否缓存编译结果，以及返回缓存的编译表达式总数。</li>
+<li>新增两个内置的特殊变量：</li>
+</ol>
+<ul>
+<li><code>#__env__</code> 表示运行环境的 env 上下文。</li>
+<li><code>#__instance__</code> 表示当前运行的求值器 AviatorEvaluatorInstance实例。</li>
+</ul>
+<ol>
+<li>新增内置函数参见<a href="https://github.com/killme2008/aviator/wiki/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0">内置函数列表</a>和 <a href="https://github.com/killme2008/aviator/releases/">release 说明</a>。</li>
+</ol></div>
+<p></p>
+</article></main></body></html>

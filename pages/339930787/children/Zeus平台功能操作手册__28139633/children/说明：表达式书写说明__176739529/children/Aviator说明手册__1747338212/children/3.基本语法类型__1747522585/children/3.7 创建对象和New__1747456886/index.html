@@ -1,0 +1,103 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.7 创建对象和New</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：表达式书写说明</a> / <a href="../../../../index.html">Aviator说明手册</a> / <a href="../../index.html">3.基本语法类型</a> / <a href="index.html">3.7 创建对象和New</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747456886">查看学城原文</a></p><article>
+<h1>3.7 创建对象和New</h1>
+<div><p>AviatorScript 支持多行表达式，表达式之间必须以分号 <code>;</code> 隔开，支持换行，我们前面已经见了很多例子了：</p>
+<pre><code class="language-javascript">## examples/statements.av
+
+let a = 1;
+let b = 2;
+c = a + b;
+</code></pre>
+<p><strong>整个脚本的返回结果默认是最后一个表达式的结果</strong>。但是这里需要注意的是，<strong>加上分号后，整个表达式的结果将固定为 nil</strong>，因此如果你执行上面的脚本，并打印结果，一定是 null，而不是 c 的值：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example;
+
+import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.Expression;
+import com.googlecode.aviator.Options;
+
+/**
+ * Run a script under examples folder.
+ *
+ * @author dennis(killme2008@gmail.com)
+ *
+ */
+public class RunScriptExample {
+
+  public static void main(final String[] args) throws Exception {
+    // You can try to test every script in examples folder by changing the file name.
+    Expression exp = AviatorEvaluator.getInstance().compileScript("examples/statements.av");
+
+    Object result = exp.execute();
+
+    System.out.println(result);
+  }
+
+}
+</code></pre>
+<p>其中 <code>exp.execute</code> 返回的 result 打印出来就是 null:</p>
+<pre><code>result: null
+</code></pre>
+<p>如果你想返回表达式的值，而不是为 nil，最后一个表达式不加分号即可:</p>
+<pre><code class="language-javascript">## examples/statements_result.av
+
+let a = 1;
+let b = 2;
+c = a + b
+</code></pre>
+<p>这时候再执行 <code>execute</code> 将返回表达式 <code>c = a +b</code> 的值，<strong>赋值语句的结果即为右值</strong>，也就是 3。</p>
+<p><strong>在 AviatorScript 中任何表达式都有一个值，加上分号后就是丢弃该值固定为 nil。</strong></p>
+<p>除了不加分号来返回之外，你也可以用 return 语句来指定返回：</p>
+<pre><code class="language-javascript">## examples/statements_return.av
+
+let a = 1;
+let b = 2;
+c = a + b;
+
+return c;
+</code></pre>
+<p>注意， return 语句就必须加上分号才是完整的一条语句，否则将报语法错误。</p>
+<p>return 也用于提前返回，结合<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/mcoghv">条件语句</a>可以做更复杂的逻辑判断：</p>
+<pre><code class="language-javascript">## examples/if_return.av
+
+if a &lt; b {
+  return "a is less than b.";
+}
+
+return a - b;
+</code></pre>
+<p>然后我们传入变量 a 和 b 分别来测试下：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example;
+
+import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.Expression;
+import com.googlecode.aviator.Options;
+
+/**
+ * Run a script under examples folder.
+ *
+ * @author dennis(killme2008@gmail.com)
+ *
+ */
+public class RunScriptExample {
+
+  public static void main(final String[] args) throws Exception {
+    // You can try to test every script in examples folder by changing the file name.
+    Expression exp = AviatorEvaluator.getInstance().compileScript("examples/if_return.av");
+
+    Object result = exp.execute(exp.newEnv("a", 9, "b", 1));
+
+    System.out.println("result: " + result);
+
+    result = exp.execute(exp.newEnv("a", 1, "b", 9));
+
+    System.out.println("result: " + result);
+  }
+
+}
+</code></pre>
+<p>分别执行不同的返回语句：</p>
+<pre><code>result: 8
+result: a is less than b.
+</code></pre>
+<p>注意到，这里我们用 <code>Expression#newEnv(key1, value1, key2, value2 ...)</code> 的方式来创建执行的的 context 环境，这是推荐的方式，性能会比直接构造一个 HashMap 略好。</p></div>
+<p></p>
+</article></main></body></html>

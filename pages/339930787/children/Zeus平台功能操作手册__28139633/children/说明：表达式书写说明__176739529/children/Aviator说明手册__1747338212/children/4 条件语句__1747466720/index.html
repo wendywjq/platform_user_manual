@@ -1,0 +1,55 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>4 条件语句</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">4 条件语句</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747466720">查看学城原文</a></p><article>
+<h1>4 条件语句</h1>
+<div><p>AviatorScript 中的条件语句和其他语言没有太大区别：</p>
+<pre><code class="language-javascript">if(true) {
+   println("in if body");
+}
+</code></pre>
+<p>上面的代码执行，将打印 <code>in if body</code> 。 if 接受一个布尔表达式，如果其值为 <code>true</code> 就执行后续的代码块。如果为 <code>false</code> ，可以带上 <code>else</code> 语句执行其中的代码块，代码块都是以大括号包起来：</p>
+<pre><code class="language-javascript">if(false) {
+   println("in if body");
+} else {
+   println("in else body");
+}
+</code></pre>
+<p><strong>请注意，代码块都必须用大括号包起来，哪怕是单行语句，这跟 java 是不一样的</strong>。</p>
+<p><code>if</code> 后面连着的表达式的括号是可以忽略，上面的例子可以改写成：</p>
+<pre><code class="language-javascript">if false {
+   println("in if body");
+} else {
+   println("in else body");
+}
+</code></pre>
+<p>连续的条件判断可以用复杂的</p>
+<pre><code class="language-javascript">if test1 {
+   ...
+} else {
+   if test2 {
+     ...
+   } else {
+     if test3 {
+       ...
+     } else ...
+   }
+}
+</code></pre>
+<p>嵌套结构，但是更应该直接使用 <code>elsif</code> 语句，类似 Java 中的 <code>else if</code> ，比如我们写一个猜数字的例子：</p>
+<pre><code class="language-javascript">## examples/if.av
+let a = rand(1100);
+
+if a &gt; 1000 {
+  println("a is greater than 1000.");
+} elsif a &gt; 100 {
+  println("a is greater than 100.");
+} elsif a &gt; 10 {
+   println("a is greater than 10.");
+} else {
+   println("a is less than 10 ");
+}
+
+println("a is " + a + ".");
+
+</code></pre>
+<p>比如上面的代码写生成一个 <code>[0, 1100)</code> 内的整数，然后通过一系列条件语句，判断 <code>a</code> 的范围，并打印相应的字符串，最后打印 <code>a</code> 的值是多少。同样 <code>elsif</code> 对应的判断语句的括号也是可以忽略的。</p></div>
+<p></p>
+</article></main></body></html>

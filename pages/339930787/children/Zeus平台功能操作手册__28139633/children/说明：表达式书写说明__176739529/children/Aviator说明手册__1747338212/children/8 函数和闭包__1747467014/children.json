@@ -1,0 +1,70 @@
+{
+  "parentId": "1747467014",
+  "parentTitle": "",
+  "children": [
+    {
+      "contentId": "1747428049",
+      "title": "8.1函数",
+      "type": "学城文档2.0",
+      "creator": "wangyaliang",
+      "createTime": 1688024376000,
+      "modifyTime": 1688024440000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "1747359722",
+      "title": "8.2 匿名函数和闭包",
+      "type": "学城文档2.0",
+      "creator": "wangyaliang",
+      "createTime": 1688024421000,
+      "modifyTime": 1688024485000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "1747600711",
+      "title": "8.3 自定义函数和调用Java方法",
+      "type": "学城文档2.0",
+      "creator": "wangyaliang",
+      "createTime": 1688024463000,
+      "modifyTime": 1688024526000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "1747514203",
+      "title": "8.4 函数和Runnable、Callable",
+      "type": "学城文档2.0",
+      "creator": "wangyaliang",
+      "createTime": 1688024490000,
+      "modifyTime": 1688024553000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    }
+  ]
+}

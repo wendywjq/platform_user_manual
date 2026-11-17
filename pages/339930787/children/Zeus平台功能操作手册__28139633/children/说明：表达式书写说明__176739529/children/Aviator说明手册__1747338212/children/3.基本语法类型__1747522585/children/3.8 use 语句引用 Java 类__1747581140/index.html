@@ -1,0 +1,93 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.8 use 语句引用 Java 类</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：表达式书写说明</a> / <a href="../../../../index.html">Aviator说明手册</a> / <a href="../../index.html">3.基本语法类型</a> / <a href="index.html">3.8 use 语句引用 Java 类</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747581140">查看学城原文</a></p><article>
+<h1>3.8 use 语句引用 Java 类</h1>
+<div><p>从 5.2 开始，aviatorscript 支持 use 语句，类似 java 里的 import 语句，可以导入 java 类到当前命名空间，减少在 new 或者 try...catch 等语句里写完整包名的累赘方式。 <code>use</code> 语句的使用方式多种，最简单的情况是导入单个 Java 类：</p>
+<pre><code class="language-javascript">## examples/new.av
+
+use java.util.Date;
+
+let d = new Date();
+
+p(type(d));
+p(d);
+</code></pre>
+<p><code>use 包名.类名</code> 就可以导入任意一个类到当前上下文。</p>
+<p>如果要导入某个包下面的任意类，可以用通配符 <code>*</code> ：</p>
+<pre><code class="language-javascript">## examples/use.av
+
+use java.util.*;
+
+let list = new ArrayList(10);
+
+seq.add(list, 1);
+seq.add(list, 2);
+
+p("list[0]=#{list[0]}");
+p("list[1]=#{list[1]}");
+
+let set = new HashSet();
+seq.add(set, "a");
+seq.add(set, "a");
+
+p("set type is: " + type(set));
+p("set is: #{set}");
+
+</code></pre>
+<p>我们把 <code>java.util</code> 包下的类都导入，因此可以直接 <code>new</code> 一个 ArrayList 或者 HashSet，并使用：</p>
+<pre><code>list[0]=1
+list[1]=2
+set type is: java.util.HashSet
+set is: [a]
+</code></pre>
+<p>如果你只是想引入包下的数个类，而不是全部，可以通过 <code>use 包名.{类1, 类2...}</code> 的方式，看一个更复杂的例子</p>
+<pre><code class="language-javascript">use java.util.concurrent.locks.{ReentrantLock, ReentrantReadWriteLock};
+use java.util.concurrent.CountDownLatch;
+
+let x = 0;
+let n = 10;
+
+let lk = new ReentrantLock();
+
+let latch = new CountDownLatch(n);
+
+for i in range(0, n) {
+  let t = new Thread(lambda() -&gt;
+                     lock(lk);
+                     x = x + 1;
+                     unlock(lk);
+                     countDown(latch);
+                     p("thread #{i} done");
+                     end);
+  start(t);
+}
+
+await(latch);
+p("x=#{x}");
+
+
+let lk = new ReentrantReadWriteLock();
+let wlk = writeLock(lk);
+lock(wlk);
+x = x + 1;
+unlock(wlk);
+
+p("x=#{x}");
+</code></pre>
+<p>我们使用 <code>ReentranLock</code> 来保护变量 <code>x</code> ，并且使用 <code>CountDownLatch</code> 来同步所有线程执行完成。接下来我们用 <code>ReentrantReadWriteLock</code> 读写锁来保护 <code>x</code> 。可以看到 <code>use java.util.concurrent.locks.{ReentrantLock, ReentrantReadWriteLock};</code> 这一行代码导入了两个 Lock 类。</p>
+<p>执行输出：</p>
+<pre><code>thread 4 done
+thread 5 done
+thread 2 done
+thread 0 done
+thread 3 done
+thread 1 done
+thread 6 done
+thread 7 done
+thread 8 done
+thread 9 done
+x=10
+x=11
+null
+
+</code></pre></div>
+<p></p>
+</article></main></body></html>

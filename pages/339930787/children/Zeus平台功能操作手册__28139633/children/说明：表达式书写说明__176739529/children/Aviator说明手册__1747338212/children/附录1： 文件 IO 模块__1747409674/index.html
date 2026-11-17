@@ -1,0 +1,84 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>附录1： 文件 IO 模块</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-7">创建 java.io.File 对象</a><a href="#section-12">写入文本</a><a href="#section-20">读取文本</a><a href="#section-25">Line sequence</a><a href="#section-39">查看目录下的文件</a><a href="#section-45">删除文件</a><a href="#section-52">创建 stream 和 writer</a><a href="#section-60">Resource</a><a href="#section-69">关闭资源</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">附录1： 文件 IO 模块</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747409674">查看学城原文</a></p><article>
+<h1>附录1： 文件 IO 模块</h1>
+<div><p>AviatorScript 提供了一个简单的文件 IO 模块实现，你可以直接 <code>require('io')</code> 进来使用：</p>
+<pre><code class="language-javascript">## examples/file_io.av
+
+let io = require('io');
+</code></pre>
+<h2 id="section-7">创建 java.io.File 对象</h2>
+<p>使用 <code>file(path)</code> 函数即可：</p>
+<pre><code class="language-javascript">let file = io.file("/tmp/aviator_test");
+</code></pre>
+<h2 id="section-12">写入文本</h2>
+<p>使用 <code>spit(file, content)</code> 函数可以写入文本到文件（完全覆盖）：</p>
+<pre><code class="language-javascript">## Write a string into file by spit
+io.spit(file, "Hello world\r\nAviator is great!");
+</code></pre>
+<p>spit 还可以设置写入的文件编码，使用三参数版本即可 <code>spit(file, content, charset)</code> 。 charset 是类似 <code>utf-8</code> 这样的字符串。</p>
+<h2 id="section-20">读取文本</h2>
+<p>读取文本可以用 <code>slurp(file)</code> 函数，完整读取整个文件的内容，并作为字符串返回：</p>
+<pre><code class="language-javascript">## Read fully from file by slurp
+let content = io.slurp(file);
+println("Content in file: "+ content);
+</code></pre>
+<h2 id="section-25">Line sequence</h2>
+<p>使用 <code>line_seq(file)</code> 可以将文件转成文本行组成的 Sequence 处理，比如可以用 for 循环迭代</p>
+<pre><code class="language-javascript">## Make text lines in file as a sequence
+let lines = io.line_seq(file);
+
+## Print lines by for-loop
+for line in lines {
+  println(line);
+}
+</code></pre>
+<p>也可以使用 seq 各种函数进行处理：</p>
+<pre><code class="language-javascript">## Manipulate lines like a collection
+let lines = io.line_seq(file);
+
+lines = map(lines, lambda(line) -&gt;
+   n = count(line);
+   line = line + ": " + n;
+   return line;
+end);
+
+for line in lines {
+  println(line);
+}
+</code></pre>
+<p>这里我们使用 map 函数为每个行的末尾加上了行的总字符数：</p>
+<pre><code>Hello world: 11
+Aviator is great!: 17
+</code></pre>
+<p><code>line_seq</code> 函数也是一个<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/yc4l93#ku01f">自定义 Sequence 的例子</a>。</p>
+<h2 id="section-39">查看目录下的文件</h2>
+<p>可以使用 <code>list_files</code> 函数获取目录下的文件列表，返回的是一个 <code>File</code> 数组：</p>
+<pre><code class="language-javascript">## list files
+println("Files in /tmp:");
+
+for file in io.list_files(io.file("/tmp")) {
+  println(file);
+}
+</code></pre>
+<h2 id="section-45">删除文件</h2>
+<p>使用 <code>delete</code> 函数来删除文件：</p>
+<pre><code class="language-javascript">## finally, delete the file.
+io.delete(file);
+println("exists: "+ io.exists(file));
+</code></pre>
+<p>判断文件是否存在使用 <code>exists</code> 函数，当存在的时候返回 true</p>
+<h2 id="section-52">创建 stream 和 writer</h2>
+<p>通过 <code>input_stream(file_or_url)</code> 或者 <code>output_stream(file)</code> 可以创建 InputStream 或者 OutputStream 对象，结合 <a href="https://www.yuque.com/boyan-avfmj/aviatorscript/xbdgg2#azo1K">JavaMethodReflectionFunctionMissing</a> 机制可以做一些复杂的文件读写。</p>
+<p>使用 <code>reader(file)</code> 和 <code>writer(file)</code>  可以创建 BufferedReader 和 BufferedWriter对象用于读写字符。</p>
+<h2 id="section-60">Resource</h2>
+<p><code>resource(name)</code> 函数等价于：</p>
+<pre><code class="language-java">Thread.currentThread().getContextClassLoader().getResource(name)
+</code></pre>
+<p>可以用于读取 classpath 下的资源文件，返回一个 URL，提供给 <code>input_stream(url)</code> 使用。</p>
+<p>更多函数说明参见源码 <a href="https://github.com/killme2008/aviator/blob/master/src/main/java/com/googlecode/aviator/runtime/module/IoModule.java">IoModule.java</a></p>
+<h2 id="section-69">关闭资源</h2>
+<p><code>close(Closable)</code> 用于关闭实现了 <code>Closeable</code> 接口的任何 IO 资源：</p>
+<pre><code class="language-javascript">io.close(reader);
+</code></pre></div>
+<p><br><br></p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/附录 1.1：使用 Java 自定义模块__1747409773/index.html">附录 1.1：使用 Java 自定义模块</a> <span class="status">已保存</span></li></ul></section></main></body></html>

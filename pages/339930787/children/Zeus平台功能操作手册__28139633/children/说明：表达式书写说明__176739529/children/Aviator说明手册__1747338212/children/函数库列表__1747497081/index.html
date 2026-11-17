@@ -1,0 +1,469 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>函数库列表</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-5"></a><a href="#section-6">系统函数</a><a href="#section-101">字符串函数</a><a href="#section-141">数学函数</a><a href="#section-187">Sequence 函数（集合处理）</a><a href="#section-341">模块加载</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">函数库列表</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747497081">查看学城原文</a></p><article>
+<h1>函数库列表</h1>
+<div><p>任何使用 5.x 版本的朋友，请升级到 <a href="https://github.com/killme2008/aviatorscript/releases/tag/aviator-5.2.6">5.2.6</a> 及以上版本。</p>
+<h2 id="section-5"></h2>
+<h2 id="section-6">系统函数</h2>
+<table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>assert(predicate, [msg])</td>
+<td>断言函数，当 predicate 的结果为 false 的时候抛出 AssertFailed 异常， msg 错误信息可选。</td>
+</tr>
+<tr>
+<td>sysdate()</td>
+<td>返回当前日期对象 java.util.Date</td>
+</tr>
+<tr>
+<td>rand()</td>
+<td>返回一个介于 [0, 1) 的随机数，结果为 double 类型</td>
+</tr>
+<tr>
+<td>rand(n)</td>
+<td>返回一个介于 [0, n) 的随机数，结果为 long 类型</td>
+</tr>
+<tr>
+<td>cmp(x, y)</td>
+<td>比较 x 和 y 大小，返回整数，0 表示相等， 1 表达式 x &gt; y，负数则 x &lt; y。</td>
+</tr>
+<tr>
+<td>print([out],obj)</td>
+<td>打印对象,如果指定 out 输出流，向 out 打印， 默认输出到标准输出</td>
+</tr>
+<tr>
+<td>println([out],obj)</td>
+<td></td>
+</tr>
+<tr>
+<td>或者</td>
+<td></td>
+</tr>
+<tr>
+<td>p([out], obj)</td>
+<td>与 print 类似,但是在输出后换行</td>
+</tr>
+<tr>
+<td>pst([out], e);</td>
+<td>等价于 e.printStackTrace()，打印异常堆栈，out 是可选的输出流，默认是标准错误输出</td>
+</tr>
+<tr>
+<td>now()</td>
+<td>返回 System.currentTimeMillis() 调用值</td>
+</tr>
+<tr>
+<td>long(v)</td>
+<td>将值转为 long 类型</td>
+</tr>
+<tr>
+<td>double(v)</td>
+<td>将值转为 double 类型</td>
+</tr>
+<tr>
+<td>boolean(v)</td>
+<td>将值的类型转为 boolean，除了 nil 和 false，其他都值都将转为布尔值 true。</td>
+</tr>
+<tr>
+<td>str(v)</td>
+<td>将值转为 string 类型，如果是 nil（或者 java null），会转成字符串 'null'</td>
+</tr>
+<tr>
+<td>bigint(x)</td>
+<td>将值转为 bigint 类型</td>
+</tr>
+<tr>
+<td>decimal(x)</td>
+<td>将值转为 decimal 类型</td>
+</tr>
+<tr>
+<td>identity(v)</td>
+<td>返回参数 v 自身，用于跟 seq 库的高阶函数配合使用。</td>
+</tr>
+<tr>
+<td>type(x)</td>
+<td>返回参数 x 的类型，结果为字符串，如 string, long, double, bigint, decimal, function 等。Java  类则返回完整类名。</td>
+</tr>
+<tr>
+<td>is_a(x, class)</td>
+<td>当 x 是类 class 的一个实例的时候，返回 true，例如 <code>is_a("a", String)</code> ，class 是类名。</td>
+</tr>
+<tr>
+<td>is_def(x)</td>
+<td>返回变量 x 是否已定义（包括定义为 nil），结果为布尔值</td>
+</tr>
+<tr>
+<td>undef(x)</td>
+<td>“遗忘”变量  x，如果变量 x 已经定义，将取消定义。</td>
+</tr>
+<tr>
+<td>range(start, end, [step])</td>
+<td>创建一个范围，start 到 end 之间的整数范围，不包括 end， step 指定递增或者递减步幅。</td>
+</tr>
+<tr>
+<td>tuple(x1, x2, ...)</td>
+<td>创建一个 Object 数组，元素即为传入的参数列表。</td>
+</tr>
+<tr>
+<td>eval(script, [bindings], [cached])</td>
+<td>对一段脚本文本 script 进行求值，等价于 AviatorEvaluator.execute(script, env, cached)</td>
+</tr>
+<tr>
+<td>comparator(pred)</td>
+<td>将一个谓词（返回布尔值）转化为 java.util.Comparator 对象，通常用于 sort 函数。</td>
+</tr>
+<tr>
+<td>max(x1, x2, x3, ...)</td>
+<td>取所有参数中的最大值，比较规则遵循逻辑运算符规则。</td>
+</tr>
+<tr>
+<td>min(x1, x2, x3, ...)</td>
+<td>取所有参数中的最小值，比较规则遵循逻辑运算符规则。</td>
+</tr>
+<tr>
+<td>constantly(x)</td>
+<td>用于生成一个函数，它对任意（个数）参数的调用结果 x。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-101">字符串函数</h2>
+<table>
+<thead>
+<tr>
+<th>date_to_string(date,format)</th>
+<th>将 Date 对象转化化特定格式的字符串,2.1.1 新增</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string_to_date(source,format)</td>
+<td>将特定格式的字符串转化为 Date 对 象,2.1.1 新增</td>
+</tr>
+<tr>
+<td>string.contains(s1,s2)</td>
+<td>判断 s1 是否包含 s2,返回 Boolean</td>
+</tr>
+<tr>
+<td>string.length(s)</td>
+<td>求字符串长度,返回 Long</td>
+</tr>
+<tr>
+<td>string.startsWith(s1,s2)</td>
+<td>s1 是否以 s2 开始,返回 Boolean</td>
+</tr>
+<tr>
+<td>string.endsWith(s1,s2)</td>
+<td>s1 是否以 s2 结尾,返回 Boolean</td>
+</tr>
+<tr>
+<td>string.substring(s,begin[,end])</td>
+<td>截取字符串 s,从 begin 到 end,如果忽略 end 的话,将从 begin 到结尾,与 java.util.String.substring 一样。</td>
+</tr>
+<tr>
+<td>string.indexOf(s1,s2)</td>
+<td>java 中的 s1.indexOf(s2),求 s2 在 s1 中 的起始索引位置,如果不存在为-1</td>
+</tr>
+<tr>
+<td>string.split(target,regex,[limit])</td>
+<td>Java 里的 String.split 方法一致,2.1.1 新增函数</td>
+</tr>
+<tr>
+<td>string.join(seq,seperator)</td>
+<td>将集合 seq 里的元素以 seperator 为间隔 连接起来形成字符串,2.1.1 新增函数</td>
+</tr>
+<tr>
+<td>string.replace_first(s,regex,replacement)</td>
+<td>Java 里的 String.replaceFirst 方法, 2.1.1 新增</td>
+</tr>
+<tr>
+<td>string.replace_all(s,regex,replacement)</td>
+<td>Java 里的 String.replaceAll 方法 , 2.1.1 新增</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-141">数学函数</h2>
+<table>
+<thead>
+<tr>
+<th>math.abs(d)</th>
+<th>求 d 的绝对值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>math.round(d)</td>
+<td>四舍五入</td>
+</tr>
+<tr>
+<td>math.floor(d)</td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td>math.ceil(d)</td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td>math.sqrt(d)</td>
+<td>求 d 的平方根</td>
+</tr>
+<tr>
+<td>math.pow(d1,d2)</td>
+<td>求 d1 的 d2 次方</td>
+</tr>
+<tr>
+<td>math.log(d)</td>
+<td>求 d 的自然对数</td>
+</tr>
+<tr>
+<td>math.log10(d)</td>
+<td>求 d 以 10 为底的对数</td>
+</tr>
+<tr>
+<td>math.sin(d)</td>
+<td>正弦函数</td>
+</tr>
+<tr>
+<td>math.cos(d)</td>
+<td>余弦函数</td>
+</tr>
+<tr>
+<td>math.tan(d)</td>
+<td>正切函数</td>
+</tr>
+<tr>
+<td>math.atan(d)</td>
+<td>反正切函数</td>
+</tr>
+<tr>
+<td>math.acos(d)</td>
+<td>反余弦函数</td>
+</tr>
+<tr>
+<td>math.asin(d)</td>
+<td>反正弦函数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-187">Sequence 函数（集合处理）</h2>
+<table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>repeat(n, x)</td>
+<td>返回一个 List，将元素 x 重复 n 次组合而成。</td>
+</tr>
+<tr>
+<td>repeatedly(n, f)</td>
+<td>返回一个 List，将函数 f 重复调用 n 次的结果组合而成。</td>
+</tr>
+<tr>
+<td>seq.array(clazz, e1, e2,e3, ...)</td>
+<td>创建一个指定 clazz 类型的数组，并添加参数 e1,e2,e3 ...到这个数组并返回。 clazz 可以是类似 java.lang.String 的类型，也可以是原生类型，如 int/long/float 等</td>
+</tr>
+<tr>
+<td>seq.array_of(clazz, size1, size2, ...sizes)</td>
+<td>创建 clazz 类型的一维或多维数组，维度大小为 sizes 指定。clazz 同 seq.array 定义。</td>
+</tr>
+<tr>
+<td>seq.list(p1, p2, p3, ...)</td>
+<td>创建一个 java.util.ArrayList 实例，添加参数到这个集合并返回。</td>
+</tr>
+<tr>
+<td>seq.set(p1, p2, p3, ...)</td>
+<td>创建一个 java.util.HashSet 实例，添加参数到这个集合并返回。</td>
+</tr>
+<tr>
+<td>seq.map(k1, v1, k2, v2, ...)</td>
+<td>创建一个 java.util.HashMap 实例，参数要求偶数个，类似 k1,v1 这样成对作为 key-value 存入 map，返回集合。</td>
+</tr>
+<tr>
+<td>seq.entry(key, value)</td>
+<td>创建 Map.Entry 对象，用于 map, filter 等函数</td>
+</tr>
+<tr>
+<td>seq.keys(m)</td>
+<td>返回 map 的 key 集合</td>
+</tr>
+<tr>
+<td>seq.vals(m)</td>
+<td>返回 map 的 value 集合</td>
+</tr>
+<tr>
+<td>into(to_seq, from_seq)</td>
+<td>用于 sequence 转换，将 from sequence 的元素使用 <code>seq.add</code> 函数逐一添加到了 to sequence 并返回最终的 to_seq</td>
+</tr>
+<tr>
+<td>seq.contains_key(map, key)</td>
+<td>当 map 中存在 key 的时候（可能为 null），返回 true。对于数组和链表，key 可以是 index，当 index 在有效范围[0..len-1]，返回 true，否则返回 false</td>
+</tr>
+<tr>
+<td>seq.add(coll, element)</td>
+<td></td>
+</tr>
+<tr>
+<td>seq.add(m, key, value)</td>
+<td>往集合 coll 添加元素，集合可以是 java.util.Collection，也可以是 java.util.Map（三参数版本）</td>
+</tr>
+<tr>
+<td>seq.add_all(seq1, seq2)</td>
+<td>将集合 seq2 的元素全部添加到 seq1， 5.3.3 版本新增函数</td>
+</tr>
+<tr>
+<td>seq.put(coll, key, value)</td>
+<td>类似 List.set(i, v)。用于设置 seq 在 key 位置的值为 value，seq 可以是 map ，数组或者 List。 map 就是键值对， 数组或者 List 的时候， key 为索引位置整数，value 即为想要放入该索引位置的值。</td>
+</tr>
+<tr>
+<td>seq.remove(coll, element)</td>
+<td>从集合或者 hash map 中删除元素或者 key</td>
+</tr>
+<tr>
+<td>seq.get(coll, element)</td>
+<td>从 list、数组或者 hash-map 获取对应的元素值，对于 list 和数组， element 为元素的索引位置（从 0 开始），对于 hash map 来说， element 为 key。</td>
+</tr>
+<tr>
+<td>map(seq,fun)</td>
+<td>将函数 fun 作用到集合 seq 每个元素上, 返回新元素组成的集合</td>
+</tr>
+<tr>
+<td>filter(seq,predicate)</td>
+<td>将谓词 predicate 作用在集合的每个元素 上,返回谓词为 true 的元素组成的集合</td>
+</tr>
+<tr>
+<td>count(seq)</td>
+<td>返回集合大小，seq 可以是数组，字符串，range ，List 等等</td>
+</tr>
+<tr>
+<td>is_empty(seq)</td>
+<td>等价于 count(seq) == 0，当集合为空或者 nil，返回 true</td>
+</tr>
+<tr>
+<td>distinct(seq)</td>
+<td>返回 seq 去重后的结果集合。</td>
+</tr>
+<tr>
+<td>is_distinct(seq)</td>
+<td>当 seq 没有重复元素的时候，返回 true，否则返回 false</td>
+</tr>
+<tr>
+<td>concat(seq1, seq2)</td>
+<td>将 seq1 和 seq2 “连接”，返回连接后的结果，复杂度 O(m+n)， m 和 n 分别是两个集合的长度。</td>
+</tr>
+<tr>
+<td>include(seq,element)</td>
+<td>判断 element 是否在集合 seq 中,返回 boolean 值，对于 java.uitl.Set 是 O(1) 时间复杂度，其他为 O(n)</td>
+</tr>
+<tr>
+<td>sort(seq, [comparator])</td>
+<td>排序集合,仅对数组和 List 有效,返回排序后的新集合，comparator 是一个 java.util.Comparator 实例，可选排序方式。</td>
+</tr>
+<tr>
+<td>reverse(seq)</td>
+<td>将集合元素逆序，返回新的集合。</td>
+</tr>
+<tr>
+<td>reduce(seq,fun,init)</td>
+<td>fun 接收两个参数,第一个是集合元素, 第二个是累积的函数,本函数用于将 fun 作用在结果值（初始值为 init 指定)和集合的每个元素上面，返回新的结果值；函数返回最终的结果值</td>
+</tr>
+<tr>
+<td>take_while(seq, pred)</td>
+<td>遍历集合 seq，对每个元素调用 pred(x)，返回 true则加入结果集合，最终返回收集的结果集合。也就是说从集合 seq 收集 pred 调用为 true 的元素。</td>
+</tr>
+<tr>
+<td>drop_while(seq, pred)</td>
+<td>与 take_while 相反，丢弃任何 pred(x) 为 true 的元素并返回最终的结果集合。</td>
+</tr>
+<tr>
+<td>group_by(seq, keyfn)</td>
+<td>对集合 seq 的元素按照 keyfn(x) 的调用结果做分类，返回最终映射 map。具体使用见<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/yc4l93#uCW1U">文档</a>。</td>
+</tr>
+<tr>
+<td>zipmap(keys, values)</td>
+<td>返回一个 HashMap，其中按照 keys 和 values 两个集合的顺序映射键值对。具体使用见<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/yc4l93#6UFhw">文档</a>。</td>
+</tr>
+<tr>
+<td>seq.every(seq, fun)</td>
+<td>fun 接收集合的每个元素作为唯一参数，返回 true 或 false。当集合里的每个元素调用 fun 后都返回 true 的时候，整个调用结果为 true，否则为 false。</td>
+</tr>
+<tr>
+<td>seq.not_any(seq, fun)</td>
+<td>fun 接收集合的每个元素作为唯一参数，返回 true 或 false。当集合里的每个元素调用 fun 后都返回 false 的时候，整个调用结果为 true，否则为 false。</td>
+</tr>
+<tr>
+<td>seq.some(seq, fun)</td>
+<td>fun 接收集合的每个元素作为唯一参数，返回 true 或 false。当集合里的只要有一个元素调用 fun 后返回 true 的时候，整个调用结果立即为该元素，否则为 nil。</td>
+</tr>
+<tr>
+<td>seq.eq(value)</td>
+<td>返回一个谓词,用来判断传入的参数是否跟 value 相等,用于 filter 函数,如filter(seq,seq.eq(3)) 过滤返回等于3 的元素组成的集合</td>
+</tr>
+<tr>
+<td>seq.neq(value)</td>
+<td>与 seq.eq 类似,返回判断不等于的谓词</td>
+</tr>
+<tr>
+<td>seq.gt(value)</td>
+<td>返回判断大于 value 的谓词</td>
+</tr>
+<tr>
+<td>seq.ge(value)</td>
+<td>返回判断大于等于 value 的谓词</td>
+</tr>
+<tr>
+<td>seq.lt(value)</td>
+<td>返回判断小于 value 的谓词</td>
+</tr>
+<tr>
+<td>seq.le(value)</td>
+<td>返回判断小于等于 value 的谓词</td>
+</tr>
+<tr>
+<td>seq.nil()</td>
+<td>返回判断是否为 nil 的谓词</td>
+</tr>
+<tr>
+<td>seq.exists()</td>
+<td>返回判断不为 nil 的谓词</td>
+</tr>
+<tr>
+<td>seq.and(p1, p2, p3, ...)</td>
+<td>组合多个谓词函数，返回一个新的谓词函数，当今仅当 p1、p2、p3 ...等所有函数都返回 true 的时候，新函数返回 true</td>
+</tr>
+<tr>
+<td>seq.or(p1, p2, p3, ...)</td>
+<td>组合多个谓词函数，返回一个新的谓词函数，当 p1, p2, p3... 其中一个返回 true 的时候，新函数立即返回 true，否则返回 false。</td>
+</tr>
+<tr>
+<td>seq.min(coll)</td>
+<td>返回集合中的最小元素，要求集合元素可比较（实现 Comprable 接口），比较规则遵循 aviator 规则。</td>
+</tr>
+<tr>
+<td>seq.max(coll)</td>
+<td>返回集合中的最大元素，要求集合元素可比较（实现 Comprable 接口），比较规则遵循 aviator 规则。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-341">模块加载</h2>
+<table>
+<thead>
+<tr>
+<th>load(path)</th>
+<th>加载 path 路径指定的模块，每次都将重新编译该模块文件并返回 exports</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>require(path)</td>
+<td>加载 path 路径指定的模块，如果已经有缓存，将直接返回结果，否则将编译并缓存 exports</td>
+</tr>
+</tbody>
+</table></div>
+<p></p>
+</article></main></body></html>

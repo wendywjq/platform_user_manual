@@ -1,0 +1,162 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>8.1函数</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">函数的定义和调用</a><a href="#section-18">函数返回值</a><a href="#section-44">函数重载</a><a href="#section-60">不定参数</a><a href="#section-73">Unpacking Arguments（参数解包）</a></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：表达式书写说明</a> / <a href="../../../../index.html">Aviator说明手册</a> / <a href="../../index.html">8 函数和闭包</a> / <a href="index.html">8.1函数</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747428049">查看学城原文</a></p><article>
+<h1>8.1函数</h1>
+<div><h2 id="section-3">函数的定义和调用</h2>
+<p>我们通过 <code>fn</code> 语法来定义一个命名函数：</p>
+<pre><code class="language-javascript">## examples/function.av
+
+fn add(x, y) {
+  return x + y;
+}
+
+three = add(1, 2);
+println(three);
+</code></pre>
+<p>我们定义了一个函数 <code>add</code> ，它接受两个参数 <code>x</code> 和 <code>y</code> ，返回两者相加的结果。注意到，你并不需要定义参数的类型以及返回值的类型，因为 AviatorScript 是动态类型系统，会根据你实际传入和返回的类型自动转换。所以我们也可以用字符串来调用 <code>add</code> ：</p>
+<pre><code class="language-javascript">## examples/function.av
+s = add('hello', ' world');
+println(s);
+</code></pre>
+<p>打印 <code>hello world</code> 。调用函数就是 <code>函数名(参数1，参数2....)</code> 的方式，这一点跟大多数编程语言保持一致。</p>
+<h2 id="section-18">函数返回值</h2>
+<p>函数的返回值，可以通过 <code>return</code> 语句来直接返回，它可以带一个返回值，也可以不带。比如我们限定 <code>add</code> 方法只允许执行数字：</p>
+<pre><code class="language-javascript">## examples/function_return.av
+
+fn add(x, y) {
+  if type(x) != 'long' || type(y) != 'long' {
+    throw "unsupported type";
+  }
+  x + y
+}
+
+println(add(1, 2));
+println(add('hello', ' world'));
+</code></pre>
+<p>如果 x 或者 y 不是 long，我们通过 <code>throw</code> 抛出一个异常（具体见<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/sikgal">异常处理</a>一节），因此这里将打印：</p>
+<pre><code>3
+Exception in thread "main" com.googlecode.aviator.exception.StandardError: unsupported type
+    at com.googlecode.aviator.runtime.function.internal.ThrowFunction.call(ThrowFunction.java:30)
+    at Script_1598449868044_2/1689843956.execute0(Unknown Source)
+    at com.googlecode.aviator.ClassExpression.executeDirectly(ClassExpression.java:65)
+    at Lambda_1598449868044_1.call(Unknown Source)
+    at Script_1598449868039_1/1590550415.execute0(Unknown Source)
+    at com.googlecode.aviator.ClassExpression.executeDirectly(ClassExpression.java:65)
+    at Lambda_1598449868039_0.call(Unknown Source)
+    at com.googlecode.aviator.RuntimeFunctionDelegator.call(RuntimeFunctionDelegator.java:63)
+    at Script_1598449868034_0/1338823963.execute0(Unknown Source)
+    at com.googlecode.aviator.ClassExpression.executeDirectly(ClassExpression.java:65)
+    at com.googlecode.aviator.BaseExpression.execute(BaseExpression.java:136)
+    at com.googlecode.aviator.Main.main(Main.java:42)
+</code></pre>
+<p>细心的朋友肯定注意到，这里 <code>x +y</code> 没有用到 <code>return</code> ，而是一个普通的表达式，并且没有加上分号 <code>;</code> 。AviatorScript 如果没有明确的 <code>return</code>  语句，<strong>函数默认返回最后一个表达式的值，在这个例子中就是 </strong><code>**x+y**</code> 的值。<strong>请注意，不能加上分号，如果加上， <code>x+y;</code> 的值是 <code>nil</code> </strong>。这个规则是向 rust 学习的。关于多行表达式的返回值请参考 <a href="https://www.yuque.com/boyan-avfmj/aviatorscript/sgdfkw">3.6 节</a>。</p>
+<p>这个例子我们也演示了函数的连续调用 <code>println(add(1, 2));</code> ，连续调用了 add 和 println，基本的规则是先对每个函数的参数求值，然后调用函数并返回结果，这里 <code>add(1, 2)</code> 的结果又作为 <code>println</code> 的参数继续执行。</p>
+<h2 id="section-44">函数重载</h2>
+<p>从 5.2 开始，aviatorscript 支持参数个数的函数重载，举个例子：</p>
+<pre><code class="language-javascript">## examples/function_overload.av
+
+fn join(s1) {
+  "#{s1}"
+}
+fn join(s1, s2) {
+  "#{s1}#{s2}"
+}
+
+fn join(s1, s2, s3) {
+ "#{s1}#{s2}#{s3}"
+}
+
+p(join("hello"));
+p(join("hello", " world"));
+p(join("hello", " world", ", aviator"));
+</code></pre>
+<p><code>join</code> 定义了三个版本的分支函数，分别接受 1 个、2 个和 3 个参数，返回拼接后的字符串，然后我们尝试测试了调用它们，输出：</p>
+<pre><code>hello
+hello world
+hello world, aviator
+null
+</code></pre>
+<p>同名的函数按照<strong>参数个数</strong>来重载，不支持类型重载，后面定义的相同参数的分支将覆盖原来的，比如我们继续给 join 重新定义一个参数的分支，让他返回 nil：</p>
+<pre><code class="language-javascript">## redefined join(s)
+fn join(s1) {
+  nil
+}
+
+p(join("hello"));
+p(join("hello", " world"));
+p(join("hello", " world", ", aviator"));
+</code></pre>
+<p>再次执行将输出：</p>
+<pre><code>null
+hello world
+hello world, aviator
+</code></pre>
+<p>单参数的分支将返回 nil 并打印为 null。</p>
+<h2 id="section-60">不定参数</h2>
+<p>同样， 从 5.2 版本开始，aviatorscript 也支持了不定参数个数的函数定义，跟 java 的要求类似，也要求可变参数只能出现在参数列表的最后一个位置，并且用 <code>&amp;</code> 作为前缀，比如我们定义一个使用间隔符拼接字符串的 join 函数：</p>
+<pre><code class="language-javascript">## examples/function_varargs.av
+
+fn join(sep, &amp;args) {
+  let s = "";
+  let is_first = true;
+  for arg in args {
+    if is_first {
+      s = s + arg;
+      is_first = false;
+    }else {
+      s = s + sep + arg;
+    }
+  }
+
+  return s;
+}
+
+p(join(" ", "a", "b", "c"));
+p(join(",", "a", "b", "c", "d"));
+p(join(",", "a"));
+
+</code></pre>
+<p>第一个参数是间隔符 <code>sep</code> ，第二个参数是可变的参数  <code>args</code> ，通过符号 <code>&amp;</code> 来表明它是一个可变参数，最终会将可变的参数收集成 List 并传入 <code>join</code>  函数，然后我们通过 <code>for</code> 循环遍历这些参数并做字符串拼接：</p>
+<pre><code>a b c
+a,b,c,d
+a
+</code></pre>
+<h2 id="section-73">Unpacking Arguments（参数解包）</h2>
+<p>很多时候，你想传入的参数可能是一个数组，而函数接受的却是拆开的一个一个的参数，这个时候，就可以用上 unpacking arguments，语法设计和 python 类似：</p>
+<pre><code class="language-javascript">## examples/unpacking_args.av
+
+fn add(a, b) {
+ a + b
+}
+
+let list = seq.list(1, 2);
+p(add(*list));
+
+</code></pre>
+<p><code>add</code> 函数接受两个参数 a 和 b，而 list 是一个链表，如果想调用 add，原始的方式是自己拆开 <code>add(list[0], list[1])</code> ，特别的不方便，通过 unpacking arguments 支持，只要给 list 前面加上 <code>*</code> 号，也就是 <code>*list</code> 就可以自动帮你“展开”。</p>
+<p>unpacking 可以发生在参数的任何位置：</p>
+<pre><code class="language-javascript">fn test(a, b, c, d) {
+  a * b + c * d
+}
+let a = tuple(1, 2);
+let list = seq.list(3, 4);
+
+p(test(*a, *list));
+</code></pre>
+<p>四个参数，通过两个 sequence 解开来填充。计算结果为 <code>1*2 + 3*4</code> 等于 <code>14</code> 。</p>
+<p>可变参数本质上也是数组，因此也可以用 unpacking arguments 的方式来调用：</p>
+<pre><code class="language-javascript">fn average(&amp;args) {
+    return sum(*args) / count(args);
+}
+
+fn sum(&amp;args) {
+    s = 0.0;
+    for arg in args {
+        s = s + arg;
+    }
+    return s;
+}
+
+p(average(1, 2, 3, 4));
+</code></pre>
+<p><code>sum</code> 接受一个可变参数数组，因此在 <code>average</code> 调用 sum 的时候，需要 unpacking，否则 sum 接收到的是一个数组组成的数组。上述结果为 <code>2.5</code> 。</p></div>
+<p></p>
+</article></main></body></html>
