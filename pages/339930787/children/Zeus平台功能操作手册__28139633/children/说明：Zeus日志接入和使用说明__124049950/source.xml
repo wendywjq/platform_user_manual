@@ -1,0 +1,227 @@
+<km-doc>
+<km-title nodeId="fc9afb63e2174af9ae3ccd1134d677a1">说明：Zeus日志接入和使用说明</km-title>
+<km-catalog style="none" nodeId="4ff6796da78c4bacb01ba23d861846b8" />
+<h1 nodeId="c576c14284854bf48d98a82acb0e0665">一、简介</h1>
+<p nodeId="6e8a5302e61c41139806e5426baf99de">Zeus日志记录了各业务方使用规则引擎做决策的详细数据，包括：场景内的数据、配置的规则、决策、优先级、因子、参数、决策理由、衍生参数等等相关信息；</p>
+<p nodeId="e473b585a0e1441e8cd19c04073dc693">业务方可使用日志做数据分析、异常排查和问题定位等</p>
+<h1 nodeId="967510dd154c4b509bf533a04b6d2379">二、服务方式</h1>
+<h3 nodeId="9a2c6ef0650a44c8a1ab87b5c9c23f01">1、web页面：单条、批量、聚合查询</h3>
+<ul nodeId="5a2c086f31eb40e4b10186f04db9c013">
+<li nodeId="259571bbfdfb4fbb86ae7fe66249163b">
+<p nodeId="52d26dea02f548e79142a51931948675"><strong>实时规则查询和异步规则查询分离</strong></p>
+<p nodeId="cebc87958a8346f4bbb1970e1afabee3">可通过日志查询-实时/离线查询实时规则和异步规则的执行明细数据</p>
+</li>
+<li nodeId="60c1f22d45584097b991184cfac02728">
+<p nodeId="5d516eaada0347bdb9af99fd8267cb9a"><strong>自定义查询字段</strong></p>
+<p nodeId="0ce140e50e3f4016a83f9024e7d293a0">在日志配置中自定义配置查询条件</p>
+</li>
+</ul>
+<ul nodeId="fef69913c6f140f1a86e86a9dd18c220">
+<li nodeId="7ad9f14646ba40c19c0eaedbd39d9b67">
+<p nodeId="241a708278f04090881837c8749d6277"><strong>明细数据单条查询</strong></p>
+<p nodeId="d35f2469dc0b4a44bfa4656cf39261af">可通过指定订单、账户、个人信息等条件查询近15天的明细数据，例如：userId、mobile、uuid等，见图片“1”</p>
+</li>
+<li nodeId="ca33a837abc347159c7b9b23ebe54904">
+<p nodeId="e3992fd1ad0e4cb4a4d2f42ffbb9a788"><strong>明细数据批量查询</strong></p>
+<p nodeId="5adaccd24ad6408c85c642e460632372">可通过指定场景、规则、是否命中、决策、action等条件查询近15天分箱数据（group by）,例如：指定场景按命中规则、生效规则group by，见图片“2”</p>
+</li>
+</ul>
+<p nodeId="d4d4667bc81b4458894c4ac549c08339"><img src="https://km.sankuai.com/api/file/cdn/124049950/127099133?contentType=2&amp;isDownload=false" name="image.png" width="1006" height="600" nodeId="7e94906b5ab147c193f8da44f88c0fea" /></p>
+<ul nodeId="398148acc79b42848faae45f610fda79">
+<li nodeId="253a38a124984999b2ae08d845c214a2">
+<p nodeId="73f0ba4c96b3440b85a4ea3fffa87d2b"><strong>聚合数据查询：</strong></p>
+<p nodeId="79336b8853d445f6bd9fd5adc551f700">可进行托拉拽规则、场景、规则、设备号、平台等条件查询近30天的数据量级和趋势，《Pivot》字段信息（<span color="rgb(245, 34, 45)">目前仅提供风控内部使用，外部业务方需求需评估，数据承载能力有限</span>）</p>
+</li>
+</ul>
+<p indent="1" nodeId="64df08e2544e42489f816d9bd9773743">入口：实时日志查询页面中---&gt;扩展功能---&gt;实时聚合分析</p>
+<p indent="1" nodeId="edd371d576cd477887acb835df400867"><img src="https://km.sankuai.com/api/file/cdn/124049950/127048974?contentType=2&amp;isDownload=false" name="image.png" width="563" height="214" nodeId="00a7f5dbc9f6402082ef07118c9bfc0e" /></p>
+<h3 nodeId="615ae713ae3b4f73a1d874f5de49fafa">2、hive表：全量数据查询</h3>
+<ul nodeId="d92efd4eb11b45118dec70aa0b0b60fd">
+<li nodeId="ccc99f0111a245f49ab8e9d51104554f">自定义保存时间：默认hive表保存时间为6个月，若有特殊要求：业务可在上线前同步Zeus侧；</li>
+<li nodeId="3f284dd4c0c6414c88e299aac24340f8">独立存储：为保证数据安全，每个接入业务方独立使用一张hive表，基于该表的业务定制化需求请通过ETL实现</li>
+<li nodeId="6b180e680c0e41e8818aa981104739fe">敏感数据加密：Zeus将对敏感数据进行统一加密，为便于业务使用，会提供解密函数</li>
+</ul>
+<p nodeId="a648446dd508439fae4e8692632138ac">      表单详情如下：</p>
+<km-collapse active="false" nodeId="23ac6b6fdbbc4194b9467a9b23198cc2">
+<km-title>通用业务方</km-title>
+<km-content>
+<table borderColor="#cccccc" responsive="false" nodeId="10647c0aeef943169c3e76077bb82372">
+<tr nodeId="1fcc976fbdea4e6c98d3aebd596e5da7">
+<th colwidth="[149]" nodeId="7a5546415ee94fa593c10d29627ab96e">
+<p nodeId="94b7f9ed3048415f8f244ddd1dca7cf2"><span font-size="14">字段英文名称</span></p>
+</th>
+<th colwidth="[113]" nodeId="24984e68ef0b450fa9ba2a499b4e31b8">
+<p nodeId="ced4da2cfa3843bead7435802011bffc"><span font-size="14">类型</span></p>
+</th>
+<th colwidth="[391]" nodeId="1b70be8ea1ec429f9e8858b845ab970b">
+<p nodeId="7bafb067827a4627b9ea2c5218b6be52"><span font-size="14">字段中文名称</span></p>
+</th>
+</tr>
+<tr nodeId="e859b23c7aea4566af8a4360df5ab427">
+<td colwidth="[149]" nodeId="18cbc585ae434fca80ffe36ed1563715">
+<p nodeId="42bdd18c81c44571942bac882826a182"><span font-size="14">requestId</span></p>
+</td>
+<td colwidth="[113]" nodeId="cb42197acc674cb6af1c68252b8d6d1c">
+<p nodeId="9f6067f361824a25b0256a7c37c07695"><span font-size="14">string</span></p>
+</td>
+<td colwidth="[391]" nodeId="6786579035c84a10bea84a9158c19194">
+<p nodeId="0abdfd190fca4a5dadeb32266e676d10"><span font-size="14">请求id                        </span></p>
+</td>
+</tr>
+<tr nodeId="c9a960f96ace4ec5b5dda37b0ad2c7c8">
+<td colwidth="[149]" nodeId="2e255aefabf94724a8d9b4dbf61a65c2">
+<p nodeId="c72f0433fc5e4accbaa53dc1883182f3"><span font-size="14">businessCode</span></p>
+</td>
+<td colwidth="[113]" nodeId="0648ff8068a9455c8736a9cacb6db31a">
+<p nodeId="0de9b24b0c1a4a559a037e776410316d"><span font-size="14">smallint</span></p>
+</td>
+<td colwidth="[391]" nodeId="3524c2a11be847fbafb8d5cd9e904044">
+<p nodeId="7a2eb6f16fcb4a2ea77a5998d283822b"><span font-size="14">业务id  </span></p>
+</td>
+</tr>
+<tr nodeId="07e4d8471c9a4f15aa2ea9b5f3634921">
+<td colwidth="[149]" nodeId="4c846c75ab1d4ab4a52e5f781108bd31">
+<p nodeId="09ee0f3a2cae4632ab3ac9d25b9f83b3"><span font-size="14">sceneId</span></p>
+</td>
+<td colwidth="[113]" nodeId="3ac074352cae4cc2a63b71bf8b234543">
+<p nodeId="c8ce7f8ae9f2486d9bd52811c0e33868"><span font-size="14">int</span></p>
+</td>
+<td colwidth="[391]" nodeId="f367144b80f94ec0900b8d7d51bcfd23">
+<p nodeId="04396e679da04a5a85b066a5c5ba5bc8"><span font-size="14">场景id   </span></p>
+</td>
+</tr>
+<tr nodeId="068b1fd281f047e9b7e8abec37098b6b">
+<td colwidth="[149]" nodeId="4846014a2b334442bc277adf0d12b9c0">
+<p nodeId="8ecde121dfec406f9a612e0b04c21255"><span font-size="14">hitRules</span></p>
+</td>
+<td colwidth="[113]" nodeId="2b71946a3c2f4d729427638598a82bf8">
+<p nodeId="b87fb108fe7c49999d165f12b59f631f"><span font-size="14">string</span></p>
+</td>
+<td colwidth="[391]" nodeId="577fc179e6d34480bf6119d2538f9b87">
+<p nodeId="e708ee0612064d529d7aaab46da127ea"><span font-size="14">命中的规则id，用逗号隔开</span></p>
+</td>
+</tr>
+<tr nodeId="9f823f11cfe4449cae0638dcbb11563b">
+<td colwidth="[149]" nodeId="3fecbcf9c04d4115bc93a77504947217">
+<p nodeId="2a37c901aed848388fc102fd91ad593e"><span font-size="14">decisionIds</span></p>
+</td>
+<td colwidth="[113]" nodeId="dd1ea2f9e7ad464aad4c5bbbee95e329">
+<p nodeId="78e9498afd6a4222ad67fb7e575192db"><span font-size="14">string</span></p>
+</td>
+<td colwidth="[391]" nodeId="4e5539f9ac284d9a99f6a4b184e8e900">
+<p nodeId="d01d35562650403bbe5c4213f6c1ace6"><span font-size="14">决策id列表，用逗号隔开 </span></p>
+</td>
+</tr>
+<tr nodeId="402b408363e14e95ba6b4ac066149073">
+<td colwidth="[149]" nodeId="6852d828e1e04e4db766a0da91a8731e">
+<p nodeId="d43a567d941542df848218e9533296bc"><span font-size="14">markedRuleIds</span></p>
+</td>
+<td colwidth="[113]" nodeId="089730cb74774a5ba31669de4ceda450">
+<p nodeId="2d7a73e62bf543958f3dc4bdeb677c12"><span font-size="14">string</span></p>
+</td>
+<td colwidth="[391]" nodeId="32b884a2188d46ac854b534643ffa158">
+<p nodeId="7d6bd1b6c45e4a709564676a7c06131f"><span font-size="14">标记规则，用逗号隔开 </span></p>
+</td>
+</tr>
+<tr nodeId="f3864d3ea82c41e092456b35105807aa">
+<td colwidth="[149]" nodeId="935a712eb73647ce9228ed83c35117e3">
+<p nodeId="f59bad29bf3b489685dbccc59b6b8df7"><span font-size="14">takenEffectRuleIds</span></p>
+</td>
+<td colwidth="[113]" nodeId="b0c21d80698b48e492fce008a4d79618">
+<p nodeId="371659ba42714f839c1c6bc6c8a737ed"><span font-size="14">string</span></p>
+</td>
+<td colwidth="[391]" nodeId="ec9415b9e54a45dabcd8dd883841a17c">
+<p nodeId="02d82769bdd746b785e4b7e5b8915f4a"><span font-size="14">生效规则</span></p>
+</td>
+</tr>
+<tr nodeId="ca7d5c96effe450c8e0808fe48e73303">
+<td colwidth="[149]" nodeId="dfaa3cd3a5cd462f9a298dd079e328b0">
+<p nodeId="d80e6bf39c4749ee8322075df2937ac8"><span font-size="14">paramContext</span></p>
+</td>
+<td colwidth="[113]" nodeId="6f7b9c481b8d4e39ba38edc760671edb">
+<p nodeId="fbfdc67c56df4294bbe7faf88188357d"><span font-size="14">string</span></p>
+</td>
+<td colwidth="[391]" nodeId="104676361b194b23b89a73c2629041d8">
+<p nodeId="30aa1768b0fa4e1395afd2e684e6a613"><span font-size="14">请求参数json</span></p>
+</td>
+</tr>
+<tr nodeId="e83cd788e40241308fc5a3993aedb84e">
+<td colwidth="[149]" nodeId="969ddbcedfa54a398d759fdf2a29dd8b">
+<p nodeId="de8c1e91c4fd49e9a4130125bb54a698"><span font-size="14">factorContext</span></p>
+</td>
+<td colwidth="[113]" nodeId="3b8f5af8e6f546a4936efe6523160ebc">
+<p nodeId="c3cafb4febb84fd7b47140a6af5302ae"><span font-size="14">string</span></p>
+</td>
+<td colwidth="[391]" nodeId="785faa332cc94c5cb7f0953cd187574d">
+<p nodeId="2490538860434b1f968b036c64aa0883"><span font-size="14">规则因子json</span></p>
+</td>
+</tr>
+<tr nodeId="55bca421503d48e89a0fb973477a392a">
+<td colwidth="[149]" nodeId="c0e3bf287b2748adaf3533778c212dd4">
+<p nodeId="26d34c6e616441a1b3a85ade9367f12f"><span font-size="14">extraContext</span></p>
+</td>
+<td colwidth="[113]" nodeId="19dfc6d8d82047c5a0ab33107bc9c001">
+<p nodeId="4bfeb88766494075882738382acd3a3e"><span font-size="14">string</span></p>
+</td>
+<td colwidth="[391]" nodeId="d168e5715ce2492589fca75e0a280b4c">
+<p nodeId="2969f2aad82746578ae8e227a9117f4f"><span font-size="14">其它信息json</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="2c4d93dc9af04f468413d9c7c1fe900b" />
+</km-content>
+</km-collapse>
+<km-collapse nodeId="0e48e6c6dda24fac95e7643add65338f">
+<km-title>风控业务方</km-title>
+<km-content>
+<table responsive="false" nodeId="902079d9bd984b378ac64403be2e81e2">
+<tr nodeId="66c2875c98724e70980a28753ed46744">
+<td rowspan="2" colwidth="[165]" bgColor="rgb(0, 58, 140)" nodeId="cfd9e55328124ba4b68bfad8227e550e">
+<p nodeId="3e328f4c2a62470d8593faeea30a4a40" />
+</td>
+<td rowspan="2" colwidth="[1068]" bgColor="rgb(0, 58, 140)" nodeId="c11b7ba01b324dc3ab7e12223816d5c3">
+<p nodeId="fa2ff519590f4fcaa2bfb64ddb3817e3"><span color="rgb(255, 255, 255)"><span font-size="14">字段/业务方</span></span></p>
+</td>
+<td nodeId="3e084e22-cc1c-40e1-b219-ca3874f1bbae">
+<p nodeId="f6559c55-37f3-4563-8b79-3ca0a5a61a01" />
+</td>
+<td nodeId="62059065-4235-4f88-82a0-bb37062f2279">
+<p nodeId="58acfb3f-aaf0-4650-bb0c-4b5db03961f4" />
+</td>
+</tr>
+<tr nodeId="46980ec7e7a841b0b6a07622a77bf826">
+
+</tr>
+<tr nodeId="f24b9fd69f814095bebeb220c69ad0a4">
+<td colwidth="[165]" nodeId="1cff375f30624aa28c2f9a82ed0d0b98">
+<p nodeId="79534b9e22f54545922ce053ab865441"><span font-size="14">固定字段（12）</span></p>
+</td>
+<td colwidth="[1068]" nodeId="dd3c34fb28ab4d53b2705ed9f899d426">
+<p nodeId="65568611e5a34c55b7fd7d74d66eae5c"><span font-size="14">requesteId、businessCode、sceneId 、subSceneIds、hitRules、decisionIds、markedRuleIds、takenEffectRuleIds、fingerprint、paramContext、factorContext、extraContext</span></p>
+</td>
+</tr>
+<tr nodeId="444ee305a7fd42efa0655d5733a24754">
+<td colwidth="[165]" nodeId="532762826b6342b9bf18051f13f6742f">
+<p nodeId="dc55648687cf46c383511a1f14a38a9c"><span font-size="14">额外增加字段（15）</span></p>
+</td>
+<td colwidth="[1068]" nodeId="bc47775c6ce7492e937c1fcb7b411922">
+<p nodeId="bceb69995cc84ae0b55c93eb92771eb0"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">userid</span></span><span font-size="14">、</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">uuid、mobile、mobilecity、mobileprovince、ip、ipsub、ipcity、ipprovince、action、imsi、platform、ch、</span></span><span font-size="14">partner</span></p>
+</td>
+<td nodeId="bca117cc-ec3e-48b3-9920-d533ed2eb32a">
+<p nodeId="8a75cb5b-de68-4a48-853c-2ed3e5b994fe" />
+</td>
+<td nodeId="19e0159c-9402-40b7-b6dd-9e8686074117">
+<p nodeId="eee92f73-e790-4eb4-ac99-fd2501cd0afd" />
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h1 nodeId="84e1fa1938114ad9a79ad3bfe5ae1255">三、使用说明</h1>
+<p nodeId="35bef6cdcca441468d931e5613e4009a">1、web页面：新接入业务方在开通账号后、<span color="rgb(245, 34, 45)">业务上线前</span>，在Zeus--&gt;数据统计--&gt;日志配置中配置需要的字段，配置后即可使用“实时日志查询服务”。 <a href="https://km.sankuai.com/page/62096766" title="说明：日志配置使用文档" nodeId="37bceda6b71b4d3a8f777a0672d1ff1e">说明：日志配置使用文档</a></p>
+<p nodeId="d355eee562a64637b415612f91769388"><a href="https://km.sankuai.com/page/62096766" nodeId="a9faa247a97e4b9c8a88fcfd3f9001f0"></a>2、hive表：在<span color="rgb(245, 34, 45)">业务上线前</span><span color="rgb(51, 51, 51)">通知Zeus侧，由RD配置hive表单信息和保存时长，配置后反馈业务表名。</span></p>
+<h1 nodeId="7bbaec9011ca414f9ad57de7151193bf"><span color="rgb(51, 51, 51)">四、常见Q&amp;A</span></h1>
+<p nodeId="1be4db3107194e58ae9f2005804a2bfe"><span color="rgb(51, 51, 51)">1、</span></p>
+<p nodeId="0456d3be0c6d4147a00ff7da0f5dd346" />
+<p nodeId="a2f3a90daa0b46c092390accc2fda3e5" />
+</km-doc>

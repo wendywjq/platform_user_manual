@@ -1,0 +1,467 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：Zeus权限说明</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、概要</a><a href="#section-6">二、权限说明</a><a href="#section-7">1、目前Zeus支持权限的控制范围</a><a href="#section-163">2、业务组（即groupkey）与父、子业务</a><a href="#section-171">3、数据共享</a><a href="#section-397">三、FAQ</a><a href="#section-398">Q1：如何确认自己的账号权限是父业务权限还是子业务权限</a><a href="#section-402">Q2：导航栏右上角落展示的是父业务还是子业务，例如：</a><a href="#section-405">Q3：目前支持读写权限分离么？即支持部分用户仅能查看搜索不能修改，支持部分用户既能查看搜索也能创建、修改？</a><a href="#section-408">Q4：什么情况需要一个groupkey对应多个父业务？</a><a href="#section-410">Q5：目前已经接入Zeus的父业务，需要创建子业务怎么操作？</a><a href="#section-457">Q6：支持业务X将规则111直接共享给业务Y下的子业务Y-a，而不共享给业务Y么？</a><a href="#section-460">Q7：父子业务下，静默期的时间怎么确认？</a><a href="#section-464">Q8：场景配置下的复制场景配置支持复制的范围是什么？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：Zeus权限说明</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/222572090">查看学城原文</a></p><article>
+<h1>说明：Zeus权限说明</h1>
+<div style="none"></div>
+<h1 id="section-3">一、概要</h1>
+<p>Zeus规则平台支持用户在平台操作过程中的权限进行管理，目前平台权限支持两层权限管理，即父业务权限和子业务权限；</p>
+<img src="assets/2136faf07977923d.svg" width="853" height="298" alt="流程图">
+<h1 id="section-6">二、权限说明</h1>
+<h3 id="section-7">1、目前Zeus支持权限的控制范围</h3>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">子业务间隔离</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">父业务间隔离</span></p>
+</th>
+<th>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">业务组（</span></span><span style="font-size:14px">groupkey</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">）隔离</span></span></p>
+</th>
+<th>
+<p><span style="font-size:14px">父子继承关系</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">场景</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">默认全部继承，支持选择继承</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">规则</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">默认全部继承，支持选择继承</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">规则组</span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">无继承，默认全部</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">因子工具</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">默认全部继承，支持选择继承</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">因子</span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">无继承，默认全部</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">参数</span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">无继承，默认全部</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">数据接口</span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">无继承，默认全部</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">日志</span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">无继承，默认全部</span></p>
+</td>
+</tr>
+</table>
+<h3 id="section-163">2、业务组（即groupkey）与父、子业务</h3>
+<ul>
+<li>业务组是业务方接入Zeus时确认的：未特殊说明的业务方默认为一个groupkey对应一个父业务；一个groupkey对应一个父业务或多个父业务，<span style="color:rgb(245, 35, 45)">业务组下的参数和数据接口会保持唯一性，</span><span style="color:rgb(0, 0, 0)">即同一</span>groupkey下的参数、数据接口名称不能重复；</li>
+<li>父业务和子业务是业务方接入Zeus时确认的：未特殊说明的业务方默认为父业务；</li>
+</ul>
+<p><img src="assets/fac6bb0ba2bc5718.png" width="1061" height="240" alt="image.png"></p>
+<h3 id="section-171">3、数据共享</h3>
+<ul>
+<li>支持同groupkey下的父业务与父业务、子业务与子业务之间的数据共享</li>
+</ul>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">对象</span></p>
+</th>
+<td>
+<p><span style="font-size:14px">普通因子</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">决策表因子</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计因子</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">名单库因子</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">因子工具</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则组</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">决策（决策理由、附加信息、衍生参数）</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计事件</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">场景配置</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">场景（普通+路由）</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">参数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">数据接口</span></p>
+</td>
+</tr>
+<tr>
+<th>
+<p><span style="font-size:14px">父业务与父业务是否支持共享</span></p>
+</th>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">Y</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">Y</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">Y</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 34, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">Y，支持跨groupkey共享</span></span></p>
+</td>
+</tr>
+<tr>
+<th>
+<p><span style="font-size:14px">子业务与子业务是否支持共享</span></p>
+</th>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">Y</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">N</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">N</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Y</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">N</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">N</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">N</span></p>
+</td>
+</tr>
+<tr>
+<th>
+<p><span style="font-size:14px">父业务与子业务是否支持共享</span></p>
+</th>
+<td colspan="13">
+<p><span style="font-size:14px">继承关系</span></p>
+</td>
+</tr>
+</table>
+<ul>
+<li>目标业务方即共享给的业务方，例如：在同一个groupkey下的业务方X将规则111共享给业务方Y，则业务方Y为目标业务方</li>
+</ul>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">对象</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">目标业务方可以查看/修改的信息</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">目标业务方不可以查看/修改的信息</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">因子</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">因子信息以及因子引用的参数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">因子引用的因子</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">规则</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则信息以及规则引用的参数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则引用的因子</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">因子工具</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">因子工具、因子工具引用的规则组、规则组中的规则信息以及规则引用的参数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则引用的因子</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">规则组</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则组、规则组中的规则信息以及规则引用的参数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则引用的因子</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">决策</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">决策信息、决策理由、附加信息和衍生参数以及附加信息和衍生参数引用的参数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">附加信息和衍生参数引用的因子</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">累计事件</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计事件信息</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">无</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-397">三、FAQ</h1>
+<h4 id="section-398">Q1：如何确认自己的账号权限是父业务权限还是子业务权限</h4>
+<p>A：在Zeus--&gt;权限--&gt;业务方管理中查看，例如：反作弊下有以下子业务</p>
+<p><img src="assets/d73618859ce202f1.png" width="432" height="230" alt="image.png"></p>
+<h4 id="section-402">Q2：导航栏右上角落展示的是父业务还是子业务，例如：<img src="assets/4cf317e33ff4b173.png" width="469" height="53" alt="image.png"></h4>
+<p>A：展示的为父业务，目前尚不支持子业务展示；</p>
+<h4 id="section-405">Q3：目前支持读写权限分离么？即支持部分用户仅能查看搜索不能修改，支持部分用户既能查看搜索也能创建、修改？</h4>
+<p>A：Zeus美团侧不支持（<a href="https://zeus.sankuai.com/scene_conf/search" title="https://zeus.sankuai.com/scene_conf/search">https://zeus.sankuai.com/scene_conf/search</a>），Zeus私有化侧支持（目前仅提供金融业务方使用）</p>
+<h4 id="section-408">Q4：什么情况需要一个groupkey对应多个父业务？</h4>
+<p>A：当业务比较复杂，在参数和数据接口层父业务间需要共享，但父业务间的配置策略需要独立权限管理时，可以一个groupkey对应多个父业务或者一个groupkey对应一个父业务+一个父业务对应多个子业务；</p>
+<h4 id="section-410">Q5：目前已经接入Zeus的父业务，需要创建子业务怎么操作？</h4>
+<p>A：联系Zeus值班/产品进行权限清洗，业务需要提供拆分的信息</p>
+<details>
+<summary>业务提供信息详情</summary>
+<div>
+<p>1、新增子业务信息</p>
+<ul>
+<li>子业务下普通用户MIS号list：</li>
+<li>子业务下负责人MIS号list：建议2个人以上，不超过5个人；（可添加业务组下用户、报警及审批通知人）</li>
+<li>父业务名称：ID+中文</li>
+</ul>
+<ul>
+<li>创建的子业务名称：<span style="color: ">建议在6个字节以内不限于中英文</span></li>
+</ul>
+<p>2、因子、规则、规则组、决策在父子业务下的共享关系；</p>
+<table>
+<tr>
+<td>
+<p><span style="font-size:14px">业务</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">业务线新建</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">终止依赖类型</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">ID</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">中文名</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">名称</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">现业务归属方</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">清洗后父业务归属</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">清洗后子业务归属</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">备注</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+</div>
+</details>
+<h4 id="section-457">Q6：支持业务X将规则111直接共享给业务Y下的子业务Y-a，而不共享给业务Y么？</h4>
+<p>A：<span>@王东</span>确认答案</p>
+<h4 id="section-460">Q7：父子业务下，静默期的时间怎么确认？</h4>
+<p>A：<span>@杜方宇</span>确认答案，什么是静默期 👉 <a href="../说明：Zeus静默期使用指南__28163548/index.html" title="https://km.sankuai.com/page/28163548">说明：Zeus静默期使用指南</a></p>
+<h4 id="section-464">Q8：场景配置下的复制场景配置支持复制的范围是什么？</h4>
+<p>A：支持父业务复制给子业务，子业务复制给父业务，不支持父业务复制给父业务</p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/业务组-业务-子业务说明__236855476/index.html">业务组-业务-子业务说明</a> <span class="status">已保存</span></li></ul></section></main></body></html>

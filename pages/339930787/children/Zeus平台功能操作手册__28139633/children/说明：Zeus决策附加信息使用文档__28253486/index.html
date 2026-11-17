@@ -1,0 +1,112 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：Zeus决策附加信息使用文档</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-24">三、操作说明</a><a href="#section-31">3.1.决策与附加信息模板配置（业务对接RD负责）</a><a href="#section-65">3.2.根据决策与附加信息模板实现代码（业务对接RD负责)</a><a href="#section-73">3.3.业务对接RD注意事项</a><a href="#section-79">3.4.编辑并使用附加信息(业务策略人员负责)</a><a href="#section-105">4.参考：技术方案</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：Zeus决策附加信息使用文档</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/28253486">查看学城原文</a></p><article>
+<h1>说明：Zeus决策附加信息使用文档</h1>
+<div style="none"></div>
+<h2 id="section-3">一、背景</h2>
+<p>业务调用zeus时会执行指定场景的规则并根据配置返回决策id，业务根据决策id去执行相应的操作，但是对于某些决策需求仅仅使用一个id并不能表示足够多的信息，因此通过增加可自由配置结构化的数据作为决策的附加信息返回给业务，这样可以方便业务在zeus配置信息更丰富的决策。可返回的信息包含常量和动态的变量（常量：固定值；动态变量：具有计算逻辑的结果值）。</p>
+<h2 id="section-5">二、名词解释</h2>
+<ul>
+<li><strong>决策：</strong>zeus执行完业务规则后返回的一个标识告诉业务方应该执行什么操作，可以包含附加信息也可以不包含</li>
+<li>
+<p><strong>附加信息模板：</strong>key-value型数据结构的模板，模板可由业务RD自由定制，zeus根据业务定制的模板生成配置表单，提供给策略人员编辑</p>
+<ul>
+<li>
+<p><strong>模板字段：</strong>一个模板包含一个或多个字段，模板字段的属性包括：key、字段类型（单个常量/多个常量/上下文表达式）、 变量类型等</p>
+<ul>
+<li>单个常量：返回一个常量值</li>
+<li>多个常量：返回多个常量值，如果常量是Integer类型，接口会返回List&lt;Integer&gt;以此类推</li>
+<li>上下文表达式：执行完规则后用当前上下文执行表达式，并将执行结果返回</li>
+</ul>
+</li>
+<li><strong>字段选项:</strong>  如果有需要可以为模板字段设置多个选项</li>
+</ul>
+</li>
+<li><strong>决策附加信息：</strong>key-value型数据，在决策所指定的附加信息模板中填充具体的数据后就是一条附加信息，一个附加信息只属于一个决策</li>
+</ul>
+<h2 id="section-24">三、操作说明</h2>
+<p></p>
+<p><span style="color:rgb(255, 0, 0)"><strong>zeus-client</strong></span><span style="color:rgb(255, 0, 0)">的版本需要升级到1.2.2</span></p>
+<p>以风控的一个决策发送报警邮件为例，需要邮件标题、收件人、邮件内容等字段，并且其中邮件内容需要使用上下文参数动态生成结果值，根据这个需求整个使用流程如下</p>
+<h3 id="section-31">3.1.决策与附加信息模板配置（业务对接RD负责）</h3>
+<ol>
+<li>
+<p>进入决策导航栏，创建决策：发送报警邮件，在是否包含附加信息中选择是，生成决策如下<br></p>
+<p><img src="assets/6dc0fbb1b1dc3f2c.png" width="361" height="250" alt="image2016-5-18 15:8:3.png"></p>
+</li>
+<li>此时还不能编辑附加信息，需要编辑模板，点击进入附加信息模板tab</li>
+<li>
+<p>添加邮件标题字段如下，并点击提交，字段key请使用英文，字段类型请看本文第2部分<br></p>
+<p><img src="assets/512ad99ebfafb950.png" width="265" height="250" alt="image2016-5-19 15:1:3.png"></p>
+</li>
+<li>
+<p>如果某个字段需要使用上下文参数写表达式，并且如果内容比较长需要生成多行的表单，比如邮件内容的配置方式如下<br></p>
+<p><img src="assets/854790ef76add1b1.png" width="292" height="250" alt="image2016-5-18 15:7:29.png"></p>
+</li>
+<li>
+<p>其它模板字段配置流程忽略，配置完成后在附加信息模板tab下可以看到整个模板的配置如下<br></p>
+<p><img src="assets/d26731bd39fb690c.png" width="1351" height="205" alt="image2016-5-19 15:0:36.png"></p>
+</li>
+<li>
+<p>如果对于某些字段有常用的选项，如mailTo字段可以添加常用联系人作为备选项，点击上图中的编辑/添加选项链接，即可进入字段编辑页面添加备选项，如添加收件人张三李四王五等人的邮箱如下：<br></p>
+<p><img src="assets/e916e3cd57d84df0.png" width="1361" height="221" alt="image2016-5-18 15:15:34.png"></p>
+</li>
+<li>
+<p>在上图的页面中返回上级，点击添加/编辑决策附加信息tab可以看到，zeus会根据模板配置自动生成附加信息配置表单如下：<br></p>
+<p><img src="assets/be7aa0f6b36983f8.png" width="320" height="250" alt="image2016-5-18 15:21:33.png"></p>
+</li>
+<li>至此附加信息模板配置已经完成，但还不能在线上使用，请RD继续看下一步</li>
+</ol>
+<h3 id="section-65">3.2.根据决策与附加信息模板实现代码（业务对接RD负责)</h3>
+<p>zeus在执行完规则后会根据场景配置返回相应的决策以及附加信息，决策附加信息是一个key-value型的数据结构（具体类的定义略），RD需要开发代码实现根据决策id执行决策流程，如果是一个包含附加信息的决策，需要根据3.1中定制的附加信息模板解析附加信息并利用附加信息执行决策，例如本例中执行发送邮件的伪代码示例如下</p>
+<pre><code>//线上和线下的id可能不一样
+if (decision.id == 37) {
+   	executeSendMailDecision(decisionExtraInfo);
+} 
+ 
+public void executeSendMailDecision(Map&lt;String, Object&gt; extraInfo)
+{
+	String title = extraInfo.getString('mailTitle');
+   	List&lt;String&gt; mailTo = extraInfo.getList('mailTo');
+   	String content = extraInfo.getString('content');
+   	try {
+    	sendMail(title, mailTo, content);
+   	} catch (Exception e) {
+		//handle exception
+ 	}
+}</code></pre>
+<p>在线下完成这段代码的开发和测试之后将代码上线，至此RD工作完成</p>
+<p>如果调用zeus的上下文中userid = 123, bankCard="4310"，一个返回结果的示例如下</p>
+<p><img src="assets/c947c4bfca3df7cb.png" width="367" height="109" alt="image2016-5-19 17:5:24.png"></p>
+<h3 id="section-73">3.3.业务对接RD注意事项</h3>
+<ul>
+<li>当场景配置中使用了某个模板，则不能：1.不能修改字段key，2.不能删，但是可以增加字段，所以需要在开发测试时尽量考虑清楚</li>
+<li>模板可以增加字段，增加字段后之前在线上配置的附加信息没有该字段会返回null，注意兼容（也可以编辑附加信息并加上）</li>
+<li>线上和线下决策id不同</li>
+<li>受传入参数的影响，表达式字段执行结果可能出错，这一点同因子和规则表达式</li>
+</ul>
+<h3 id="section-79">3.4.编辑并使用附加信息(业务策略人员负责)</h3>
+<p>在RD完成3.1和3.2的工作后，可由负责策略的策略人员或其他人员负责附加信息的配置，并在场景配置中使用附加信息</p>
+<ol>
+<li>
+<p>使用上述模板编辑一条附加信息<br></p>
+<p><img src="assets/4c6316e178c8dcb5.png" width="279" height="250" alt="image2016-5-18 15:42:45.png"></p>
+</li>
+<li>表达式字段需要测试，方法同因子和规则表达式</li>
+<li>
+<p>生成一条发送报警邮件决策的附加信息如下：<br></p>
+<p><img src="assets/b471caa26907b36e.png" width="760" height="250" alt="image2016-5-18 15:43:55.png"></p>
+</li>
+<li>
+<p>在场景配置中使用发送报警邮件的决策，并选择上图所配置的“用户银行卡被盗”这个附加信息，如下图所示<br></p>
+<p><img src="assets/9433df0ecaa32e91.png" width="625" height="175" alt="image2016-5-18 15:46:0.png"></p>
+</li>
+<li>表达式测试，如果附加信息所使用的模板含有字段是上下文表达式类型，则需要对这个附加信息相应的字段进行测试，<span style="color:rgb(255, 0, 0)">所有表达式字段测试完成后才能设置就绪，只有就绪状态的附加信息才能在线上使用</span></li>
+<li>策略人员所要做的工作就这么多</li>
+</ol>
+<p></p>
+<p>策略人员注意事项：</p>
+<ul>
+<li>不要改模板，模板由业务对接RD负责</li>
+</ul>
+<h2 id="section-105">4.参考：技术方案</h2>
+<p>对技术实现有兴趣可移步：<a href="https://km.sankuai.com/page/28162676" title="https://km.sankuai.com/page/28162676">决策附加信息设计方案</a></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/如何添加名单库__738891228/index.html">如何添加名单库</a> <span class="status">已保存</span></li></ul></section></main></body></html>

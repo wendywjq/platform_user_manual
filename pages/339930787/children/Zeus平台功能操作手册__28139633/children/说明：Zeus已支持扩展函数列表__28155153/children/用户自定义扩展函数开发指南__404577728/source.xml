@@ -1,0 +1,74 @@
+<km-doc>
+<km-title nodeId="112808836c114ca7a429211f5754a74f">用户自定义扩展函数开发指南</km-title>
+<p nodeId="65ac43f81cb04af6aabae2c400b7b683"><span color="#f5232d"><span font-size="24"><strong>用户自定义上传扩展函数会有安全风险问题，目前不支持自动化操作，如有需要请联系zeus值班同学！</strong></span></span></p>
+<h1 nodeId="45b8eead557d446d91b0641b80c6fc95">背景</h1>
+<p nodeId="cee2bc27277e4958bfb7b503dc5810ea"><span color=" ">内容安全业务存在一些复杂的处理逻辑，当前的表达式语言无法支持规则逻辑配置，通过写java代码来自定义扩展函数，实现最终规则逻辑的配置。</span></p>
+<h1 nodeId="d9f13dfde57b477ba4ac7417234f91a2">开发方法</h1>
+<ol nodeId="863a4644605e4b73831fb8b2af65e7dd">
+<li nodeId="819aa860e4d74903b235b26530b9a011">
+<p nodeId="4b495bba35b44a21879ebbd222f4a748">下载demo.zip文件夹</p>
+<km-attachment src="https://km.sankuai.com/api/file/cdn/404577728/404578235?contentType=2" name="function-demo.zip" size="7.32KB" nodeId="61ad00b13f9e437cb9898efbbf7a8a7f" />
+<p nodeId="163836c0e9e34a7f95e09f84db308bee" />
+</li>
+<li nodeId="3ce850cbe70846c9bd8a1b13530f03c2">
+<p nodeId="336bb6c043a841bbbde18b685d765086">解压缩文件到本地，内有一个demo用例MathSqrtFunction，<span color="rgb(245, 35, 45)">用自己的逻辑替换call()方法的内容，同时修改getName()</span></p>
+<pre language="Java" nodeId="25311036a04043d0944bdcf7a4d66d35"><code>public class MathSqrtFunction extends AbstractFunction {
+
+    /**
+     * 核心逻辑
+     * @param env  env是系统字段
+     * @param arg1 对应表达式中的入参，可支持多个
+     * @return AviatorObject，与Java中的类型一一对应
+     */
+    @Override
+    public AviatorObject call(Map&lt;String, Object&gt; env, AviatorObject arg1) {
+        /**
+         * 如果参数是数字类型，Number num = FunctionUtils.getNumberValue(arg1, env);
+         * 如果参数是字符串类型，String str = FunctionUtils.getStringValue(arg1, env);
+         */
+        Number num = FunctionUtils.getNumberValue(arg1, env);
+
+        return AviatorDouble.valueOf(Math.sqrt(num.doubleValue()));
+    }
+
+  	// 根据表达式中入参个数，选择对应的call方法来重写
+
+
+    @Override
+    public AviatorObject call(Map&lt;String, Object&gt; env, AviatorObject arg1, AviatorObject arg2) {
+        System.out.println("两个参数场景");
+        return null;
+    }
+
+    @Override
+    public AviatorObject call(Map&lt;String, Object&gt; env, AviatorObject arg1, AviatorObject arg2, AviatorObject arg3) {
+        System.out.println("三个参数场景");
+        return null;
+    }
+
+    @Override
+    public AviatorObject call(Map&lt;String, Object&gt; env, AviatorObject arg1, AviatorObject arg2, AviatorObject arg3, AviatorObject arg4) {
+        System.out.println("四个参数场景");
+        return null;
+    }
+  
+  	// 以此内推，可以支持java上限的参数个数
+
+    /**
+     * 返回一个函数名，在表达式中使用
+     * math.sqrt(10)
+     * @return
+     */
+    @Override
+    public String getName() {
+        return "math.sqrt";
+    }
+}</code></pre>
+<p nodeId="aa774b86562c41b187efc9f8c773a7f0" />
+</li>
+<li nodeId="773b5006f9014a9c821d0b914999ba55">表达式用例</li>
+</ol>
+<pre language="Java" nodeId="fbb03af0deed4368a64ce4add2d81c4f"><code>math.sqrt(10)</code></pre>
+<p nodeId="39a9a19410a44f94a0f28160e0c5f4c9" />
+<p nodeId="a9a4cf6c97f1479f8c3e080a4d3ee928">4. 将修改后的文件编译，打包即可。</p>
+</km-doc>

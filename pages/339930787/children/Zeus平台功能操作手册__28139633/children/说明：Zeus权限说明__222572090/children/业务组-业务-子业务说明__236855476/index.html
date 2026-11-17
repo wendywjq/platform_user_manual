@@ -1,0 +1,215 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>业务组-业务-子业务说明</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">obj_business_conf表中管理的实体</a><a href="#section-100">业务组-业务-子业务概念说明</a><a href="#section-102">业务组-业务</a><a href="#section-177">父业务-子业务</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：Zeus权限说明</a> / <a href="index.html">业务组-业务-子业务说明</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/236855476">查看学城原文</a></p><article>
+<h1>业务组-业务-子业务说明</h1>
+<div style="none"></div>
+<h3 id="section-3">obj_business_conf表中管理的实体</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">实体类型</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">obj_type</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">场景</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">4</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">因子</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">规则</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">3</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">标签</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">5</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">累计事件</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">6</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">决策理由</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">7</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">决策</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">8</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">参数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">0</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">累计</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">2</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">多极路由场景</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">9</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">因子工具</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">10</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">智能测试任务</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">11</span></p>
+</td>
+</tr>
+</table>
+<div class="note">
+<strong></strong>
+<div>
+<p>注：数据接口没有通过该表管理，默认业务群下都可以使用</p>
+</div>
+</div>
+<h3 id="section-100">业务组-业务-子业务概念说明</h3>
+<p>权限划分分为两个层级，groupKey-business（业务组-业务），business-subbusiness（父业务-子业务）</p>
+<h4 id="section-102">业务组-业务</h4>
+<p>该层主要规定了上表中各个实体最大的使用范围，只有在同一个groupKey下的实体才可以互相共享，比如在businessA下创建的rule1，可以共享到同一个groupKey的businessB下使用</p>
+<p><strong>支持共享的实体如下（在页面上就可以操作）</strong></p>
+<ul>
+<li>因子</li>
+<li>规则</li>
+<li>标签</li>
+<li>累计事件</li>
+<li>决策理由</li>
+<li>决策</li>
+<li>因子工具：不仅在obj_business_conf表中规定了哪些business可以使用，还在factor_tool表中extra_config字段细分了这其中哪些是使用业务，哪些是共享业务。样例：extra_config: [{"sharedBusinessIdList":"9","usedBusinessIdList":"9","type":2}]</li>
+<li>数据接口：没有通过obj_business_conf做权限管理，而是在fetcher_app中管理</li>
+</ul>
+<p><strong>不支持共享的实体如下</strong></p>
+<ul>
+<li>场景：无法共享。如果想要其他业务使用，只能复制数据</li>
+<li>参数：无需共享。默认同一个groupKey下面的各个business都是可见可用的</li>
+<li>多极路由：不支持共享</li>
+<li>智能测试任务：不支持共享</li>
+<li>累计：只要创建了就不能修改所属业务，否则可能会导致读写累计的area变化，共享对应的累计因子其累计也不会被共享</li>
+</ul>
+<p>共享的底层操作就是在obj_business_conf表中增加了一行数据，把一个实体配置到两个business中，比如，规则1000原来在反作弊业务（business=1）下，对应的表数据为</p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">obj_type</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">obj_id</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">business</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">3</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1000</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+</tr>
+</table>
+<p>共享到资金安全业务（business=2）后，对应的表数据为</p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">obj_type</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">obj_id</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">business</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">3</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1000</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">3</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1000</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">2</span></p>
+</td>
+</tr>
+</table>
+<h4 id="section-177">父业务-子业务</h4>
+<p>该层主要是为了隔离不同子业务之间的权限，使得每个子业务只能看到自己的规则而不能看到其他子业务的规则。基本原则是配置在父业务中的规则在所有子业务都可见，配置在某个子业务中的规则，只在当前子业务中可见，在其他子业务中不可见，举例如下：</p>
+<ul>
+<li>规则1属于父业务</li>
+<li>规则2属于子业务1</li>
+<li>规则3属于子业务2</li>
+</ul>
+<img src="assets/1d4fe10754a7adae.svg" width="496" height="266" alt="流程图">
+<p>假设A拥有父业务的权限，则A可以看到和使用所有规则（规则123）</p>
+<p>假设B拥有子业务1的权限，则B在自己的业务中只能看到规则1和规则2</p>
+<p>假设C拥有子业务1的权限，则C在自己的业务中只能看到规则1和规则3</p>
+<p>这样就起到了不同子业务之间实体可见性隔离的效果。</p>
+<p>需要说明的是，当前zeus只有<span style="color:rgb(245, 35, 45)">规则和场景</span>两种实体有父子业务的概念，也即上面的举例同样适用于场景，其他实体由于包含的业务逻辑不多，所以不支持，如果在其他实体中配置了子业务也不会有任何效果。</p>
+<p></p>
+</article></main></body></html>

@@ -1,0 +1,801 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：表达式书写说明</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-4">1.简介</a><a href="#section-6">2.特性</a><a href="#section-31">3. 语法手册</a><a href="#section-34">3.1 数据类型及运算</a><a href="#section-36">1） 数字</a><a href="#section-64">2） 字符串</a><a href="#section-71">3）布尔类型和逻辑运算 </a><a href="#section-73">4）变量类型</a><a href="#section-77">6）nil类型</a><a href="#section-81">3.2 操作符</a><a href="#section-82">1） 算术运算符</a><a href="#section-103">2）逻辑运算符</a><a href="#section-106">3）关系运算符</a><a href="#section-112">4）位运算符</a><a href="#section-115">5）匹配运算符</a><a href="#section-121">6）三元运算符</a><a href="#section-126">3.3 操作符列表</a><a href="#section-312">3.4 类型转换规则</a><a href="#section-337">3.5 函数</a><a href="#section-346">1）内置函数</a><a href="#section-662">2）扩展函数</a><a href="#section-665">3.6 条件语句</a><a href="#section-693">3.7 循环语句</a><a href="#section-694">1）for语句：遍历集合</a><a href="#section-718">2）continue/break/return</a><a href="#section-726">3）while语句(当前支持存在一定问题，正在解决中...)</a><a href="#section-748">附录：官方文档</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：表达式书写说明</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/176739529">查看学城原文</a></p><article>
+<h1>说明：表达式书写说明</h1>
+<div style="none"></div>
+<p></p>
+<h1 id="section-4">1.简介</h1>
+<p>表达式：在Zeus上规则、因子主要内容信息中使用，用于计算规则的执行结果</p>
+<h1 id="section-6"><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a>2.特性</h1>
+<ul>
+<li>支持大部分运算操作符，包括算术操作符、关系运算符、逻辑操作符、位运算符、正则匹配操作符(=~)、三元表达式?: ，支持操作符的优先级和括号强制优先级，具体请看后面的操作符列表。</li>
+</ul>
+<ul>
+<li>支持大整数和精度运算</li>
+</ul>
+<ul>
+<li>支持函数调用和自定义函数</li>
+</ul>
+<ul>
+<li>内置支持正则表达式匹配</li>
+</ul>
+<ul>
+<li>自动类型转换，当执行操作的时候，会自动判断操作数类型并做相应转换，无法转换即抛异常。</li>
+</ul>
+<ul>
+<li>支持传入变量，支持类似a.b.c的嵌套变量访问</li>
+<li>支持<span style="color:rgb(38, 38, 38)">if/elsif/else条件语句</span></li>
+<li>支持for/while 循环语句，以及 break / continue </li>
+<li>支持return 语句</li>
+</ul>
+<p>Aviator的限制：</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>不支持八进制数字字面量，仅支持十进制和十六进制数字字面量。</p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">Zeus上科学计数法的正确书写方式：目前可支持的方式4.5E13，4.5E-12，4.5e13，4.5e-12，因底层基础不支持！！！不支持4.5e+12，4.5E+12的书写方式。</span></p>
+</div>
+</div>
+<h1 id="section-31"><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a>3. 语法手册</h1>
+<h2 id="section-34"><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a>3.1 数据类型及运算</h2>
+<h4 id="section-36">1） 数字</h4>
+<p>（1）整数和算数运算</p>
+<ul>
+<li><span style="color:rgb(38, 38, 38)"> 没有 byte/short/int 等类型，统一整数类型都为 long，</span>支持的范围：-9223372036854774808~9223372036854774807。</li>
+</ul>
+<ul>
+<li> 整数也可以用十六进制表示，以 0x 或者 0X 开头的数字，比如 0xFF(255)、0xAB(171) 等等。</li>
+</ul>
+<p>  （2）大整数<span style="color:rgb(38, 38, 38)">(BigInt)    </span></p>
+<ul>
+<li>任何超过 long 范围的整数字面量，会自动提升为 BigInteger 对象（以下简称 BigInt)，例如<span style="color:rgb(38, 38, 38)">10223372036854774807远超过long</span>，自动提升为BigInt;</li>
+<li>任何数字以 N 字母结尾就自动变 BigInt，如<span>1000</span><span style="color:rgb(89, 89, 89)">N</span></li>
+<li><span style="color:rgb(38, 38, 38)">默认的 long 类型在计算后如果超过范围溢出后，不会自动提升为 BigInt，但是 BigInt 和 long 一起参与算术运算的时候，结果为 BigInt 类型</span></li>
+</ul>
+<p>  （3）浮点数</p>
+<ul>
+<li>仅支持 double 类型，也就是双精度 64 位，符合 IEEE754 规范的浮点数。所有的浮点数都被认为是 double 类型。浮点数的表示形式有两种：</li>
+</ul>
+<p>          ① 十进制的带小数点的数字，比如 1.34159265 ， 0.33333 等等。</p>
+<p>② 科学计数法表示，如 1e-2 ， 2E3 等等，大小写字母 e 皆可。</p>
+<ul>
+<li>浮点数的运算符跟整数一样，同样支持加减乘除，优先级也是一样。浮点数和浮点数的算术运算结果为浮点数，浮点数和整数的运算结果仍然为浮点数。</li>
+</ul>
+<p>   （4）高精度计算( Decimal)</p>
+<ul>
+<li>主要浮点数以 M 结尾就会识别类型为 deicmal，例如 1.34M 、 0.333M 或者科学计数法 2e-3M 等等。</li>
+<li>decimal 同样使用 +,-,*,/ 来做算术运算</li>
+</ul>
+<h4 id="section-64">2） 字符串</h4>
+<ul>
+<li><span style="color:rgb(38, 38, 38)">只要以单引号或者双引号括起来的连续字符就是一个完整的字符串对象</span>，如'hello world'，“hello world”，'a’，“a”</li>
+</ul>
+<ul>
+<li>字符串拼接可以用 + 号</li>
+<li>变量如果传入的是String或者Character也将转为String类型。 </li>
+</ul>
+<h4 id="section-71">3）布尔类型和逻辑运算 </h4>
+<p>Bool类型： 常量true和false，表示真值和假值。</p>
+<h4 id="section-73"><strong>4）变量类型</strong></h4>
+<p> 与Java的变量命名规则相同，变量的值由用户传入，如"a"、"<em>b"等</em></p>
+<h4 id="section-77">6）nil类型</h4>
+<p>常量nil,类似java中的null，但是nil比较特殊，nil不仅可以参与==、!=的比较，也可以参与&gt;、&gt;=、&lt;、&lt;=的比较，Aviator规定任何类型都大于nil除了nil本身，nil==nil返回true。用户传入的变量值如果为null，那么也将作为nil处理，nil打印为null。</p>
+<pre title="任何对象都比nil大除了nil本身。用户传入的变量如果为null，将自动以nil替代"><code>"nil == nil";  //true
+" 3&gt; nil";    //true
+" true!= nil";    //true
+" ' '&gt;nil ";  //true
+" a==nil ";   //true,a is null</code></pre>
+<h2 id="section-81">3.2 操作符</h2>
+<h4 id="section-82">1） 算术运算符</h4>
+<p>Aviator支持常见的算术运算符，包括+ - * / % 五个二元运算符，和一元运算符"-"。其中 - * / %和一元的"-"仅能作用于Number类型。</p>
+<p>"+"不仅能用于Number类型，还可以用于String的相加，或者字符串与其他对象的相加。Aviator规定，任何类型与String相加，结果为String。</p>
+<details>
+<summary>类型转换说明</summary>
+<div>
+<p>（1）当big int或者decimal和其他类型的数字做运算的时候，按照 long &lt; big int &lt; decimal &lt; double的规则做提升，也就是说运算的数字如果类型不一致，结果的类型为两者之间更“高”的类型。</p>
+<p>例如:</p>
+<ul>
+<li>1 + 3N， 结果为big int的4N</li>
+<li>1 + 3.1M，结果为decimal的4.1M</li>
+<li>1N + 3.1M，结果为decimal的4.1M</li>
+<li>1.0 + 3N，结果为double的4.0</li>
+<li>1.0 + 3.1M，结果为double的4.1</li>
+</ul>
+<p>（2）大数计算和精度</p>
+<p>"99999999999999999999999999999999+99999999999999999999999999999999"</p>
+<p>结果为类型big int的：</p>
+<p>199999999999999999999999999999998</p>
+<p>（3）字符串</p>
+<p>" 'hello '+3 ";  //字符串 hello 3</p>
+<p>" 'hello '+ unknow ";  //字符串 hello null</p>
+</div>
+</details>
+<h4 id="section-103"><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a>2）逻辑运算符</h4>
+<p>Avaitor的支持的逻辑运算符包括，一元否定运算符"!"，以及逻辑与的"&amp;&amp;"，逻辑或的"||"。逻辑运算符的操作数只能为Boolean。</p>
+<h4 id="section-106"><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a>3）关系运算符</h4>
+<p>Aviator支持的关系运算符包括"&lt;" "&lt;=" "&gt;" "&gt;=" 以及"=="和"!=" 。</p>
+<p>&amp;&amp;和||都执行短路规则。</p>
+<p>关系运算符可以作用于Number之间、String之间、Pattern之间、Boolean之间、变量之间以及其他类型与nil之间的关系比较，不同类型除了nil之外不能相互比较。</p>
+<p>Aviator规定任何对象都比nil大除了nil之外。</p>
+<h4 id="section-112"><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a>4）位运算符</h4>
+<p>Aviator支持所有的Java位运算符，包括"&amp;" "|" "^" "~" "&gt;&gt;" "&lt;&lt;" "&gt;&gt;&gt;"。</p>
+<h4 id="section-115"><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a>5）匹配运算符</h4>
+<p>匹配运算符"=~"用于String和Pattern的匹配，它的左操作数必须为String，右操作数必须为Pattern。匹配成功后，Pattern的分组将存于变量$num，num为分组索引。</p>
+<pre title="匹配email并提取用户名"><code>正则语法样例：email=~/([\w0-8]+)@\w+[\.\w+]+/ ? $1:'unknow'</code></pre>
+<p>email与正则表达式//([\\w0-8]+@\\w+[\\.\\w+]+)/通过=~操作符来匹配，结果为一个Boolean类型，因此可以用于三元表达式判断，匹配成功的时候返回$1，指代正则表达式的分组1，也就是用户名，否则返回unknown。这个例子将打印killme2008这个用户名。</p>
+<h4 id="section-121"><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a>6）三元运算符</h4>
+<p>Aviator没有提供if else语句，但是提供了三元运算符 "?:"，形式为 bool ? exp1: exp2。 其中bool必须为结果为Boolean类型的表达式，而exp1和exp2可以为任何合法的Aviator表达式，并且不要求exp1和exp2返回的结果类型一致。</p>
+<pre title="判断用户传入的数字是否是正整数，是的话打印yes"><code>"a&gt;0? 'yes':'no'"</code></pre>
+<h2 id="section-126"><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a>3.3 操作符列表</h2>
+<p>Aviator支持操作符的优先级，并且允许通过括号来强制优先级，下面是完整的操作符列表，按照优先级从高到低的顺序排列：</p>
+<table>
+<tr>
+<td>
+<p><span style="font-size:14px">序号</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">操作符</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">结合性</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">操作数限制</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">0</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">() [ ]</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">()用于函数调用，[ ]用于数组和java.util.List的元素访问，要求[indx]中的index必须为整型</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">! - ~</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从右到左</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">! 能用于Boolean,- 仅能用于Number,~仅能用于整数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">2</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">* / %</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Number之间</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">3</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">+ -</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">+ - 都能用于Number之间, + 还能用于String之间，或者String和其他对象</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">4</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">&lt;&lt; &gt;&gt; &gt;&gt;&gt;</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">仅能用于整数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">5</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">&lt; &lt;= &gt; &gt;=</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Number之间、String之间、Pattern之间、变量之间、其他类型与nil之间</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">6</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">== != =~</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">==和!=作用于Number之间、String之间、Pattern之间、变量之间、其他类型与nil之间以及String和java.util.Date之间，=~仅能作用于String和Pattern之间</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">7</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">&amp;</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">整数之间</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">8</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">^</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">整数之间</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">9</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">|</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">整数之间</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">10</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">&amp;&amp;</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Boolean之间，短路</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">11</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">||</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从左到右</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Boolean之间，短路</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">12</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">? :</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从右到左</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">第一个操作数的结果必须为Boolean，第二和第三操作数结果无限制</span></p>
+</td>
+</tr>
+</table>
+<h2 id="section-312"><a href="https://km.sankuai.com/page/28163535?action=edit" title="https://km.sankuai.com/page/28163535?action=edit">Aviator表达式简介</a>3.4 类型转换规则</h2>
+<ul>
+<li>当两个操作数都是Double或者都是Long的时候，各自按照Double或者Long的类型执行，数字运算溢出不会做自动类型提升。</li>
+</ul>
+<ul>
+<li>当两个操作数中某一个是Double的时候，无论另一个操作数字是什么类型都将被转换成Double，按照Double类型执行。</li>
+</ul>
+<ul>
+<li>当两个操作数分别是big int和long的时候，结果为big int。</li>
+</ul>
+<ul>
+<li>当两个操作数分别为decimal和long，结果为decimal。</li>
+</ul>
+<ul>
+<li>当两个操作数分别为decimal和big int，结果为decimal。</li>
+</ul>
+<ul>
+<li>简单来说，可以认为 long &lt; big int &lt; decimal &lt; double，当两个操作数类型不同的时候，结果的类型为两个类型中更高的一个。</li>
+</ul>
+<ul>
+<li>任何类型与String相加，结果为String</li>
+</ul>
+<ul>
+<li>没有规定的类型转换操作，除了未知的变量类型之间，都将抛出异常。</li>
+</ul>
+<ul>
+<li>当我们想表示一个变量还没有赋值的时候，需要用到 nil 这个特殊类型，它和 java 中的 null 作用一样，表示当前变量还没有赋值。nil 最常见的场景就是用于判断变量是否为 null。</li>
+</ul>
+<ul>
+<li>但是nil比较特殊，nil不仅可以参与==、!=的比较，也可以参与&gt;、&gt;=、&lt;、&lt;=的比较，Aviator规定任何类型都n大于nil除了nil本身，nil==nil返回true。用户传入的变量值如果为null，那么也将作为nil处理，nil打印为null。</li>
+</ul>
+<pre title="任何对象都比nil大除了nil本身。用户传入的变量如果为null，将自动以nil替代"><code>"nil == nil";  //true
+" 3&gt; nil";    //true
+" true!= nil";    //true
+" ' '&gt;nil ";  //true
+" a==nil ";   //true,a is null</code></pre>
+<p></p>
+<h2 id="section-337">3.5 函数</h2>
+<p>函数调用样例</p>
+<pre title="获取字符串的长度"><code>"string.length('hello')";</code></pre>
+<p>string.length('hello')是一个函数调用，string.length是一个函数,'hello'是调用的参数。</p>
+<p>函数可以嵌套调用</p>
+<pre title="判断e是否在'test'中"><code>"string.contains(\"test\",string.substring('hello',1,2))"</code></pre>
+<p>通过string.substring('hello',1,2)获取字符串'e'，然后通过函数string.contains判断e是否在'test'中</p>
+<h4 id="section-346">1）内置函数</h4>
+<table>
+<tr>
+<td>
+<p><span style="font-size:14px">函数名称</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">说明</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">sysdate()</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回当前日期对象java.util.Date</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">rand()</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回一个介于0-1的随机数，double类型</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">print([out],obj)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">打印对象，如果指定out，向out打印，否则输出到控制台</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">println([out],obj)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">与print类似，但是在输出后换行</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">now()</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回System.currentTimeMillis</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">long(v)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将值的类型转为long</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">double(v)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将值的类型转为double</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">str(v)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将值的类型转为string</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">date_to_string(date,format)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将Date对象转化化特定格式的字符串,2.1.1新增</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string_to_date(source,format)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将特定格式的字符串转化为Date对象,2.1.1新增</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string.contains(s1,s2)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">判断s1是否包含s2，返回Boolean</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string.length(s)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">求字符串长度,返回Long</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string.startsWith(s1,s2)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">s1是否以s2开始，返回Boolean</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string.endsWith(s1,s2)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">s1是否以s2结尾,返回Boolean</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string.substring(s,begin[,end])</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">截取字符串s，从begin到end，end如果忽略的话，将从begin到结尾，与java.util.String.substring一样。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string.indexOf(s1,s2)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">java中的s1.indexOf(s2)，求s2在s1中的起始索引位置，如果不存在为-1</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string.split(target,regex,[limit])</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Java里的String.split方法一致,2.1.1新增函数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string.join(seq,seperator)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将集合seq里的元素以seperator为间隔连接起来形成字符串,2.1.1新增函数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string.replace_first(s,regex,replacement)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Java里的String.replaceFirst 方法，2.1.1新增</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">string.replace_all(s,regex,replacement)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Java里的String.replaceAll方法 ，2.1.1新增</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">math.abs(d)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">求d的绝对值</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">math.sqrt(d)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">求d的平方根</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">math.round(d)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">求d四舍五入后的值，效果同java math.round，返回double</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">math.pow(d1,d2)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">求d1的d2次方</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">math.log(d)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">求d的自然对数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">math.log10(d)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">求d以10为底的对数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">math.sin(d)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">正弦函数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">math.cos(d)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">余弦函数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">math.tan(d)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">正切函数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">map(seq,fun)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将函数fun作用到集合seq每个元素上，返回新元素组成的集合</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">filter(seq,predicate)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将谓词predicate作用在集合的每个元素上，返回谓词为true的元素组成的集合</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">count(seq)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回集合大小</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">include(seq,element)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">判断element是否在集合seq中，返回boolean值</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">sort(seq)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">排序集合，仅对数组和List有效，返回排序后的新集合</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">reduce(seq,fun,init)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">fun接收两个参数，第一个是集合元素，第二个是累积的函数，本函数用于将fun作用在集合每个元素和初始值上面，返回最终的init值</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">seq.eq(value)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回一个谓词，用来判断传入的参数是否跟value相等,用于filter函数，如filter(seq,seq.eq(3)) 过滤返回等于3的元素组成的集合</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">seq.neq(value)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">与seq.eq类似，返回判断不等于的谓词</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="http://seq.gt/" title="seq.gt"><span style="font-size:14px">seq.gt</span></a><span style="font-size:14px">(value)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回判断大于value的谓词</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="http://seq.ge/" title="seq.ge"><span style="font-size:14px">seq.ge</span></a><span style="font-size:14px">(value)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回判断大于等于value的谓词</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="http://seq.lt/" title="seq.lt"><span style="font-size:14px">seq.lt</span></a><span style="font-size:14px">(value)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回判断小于value的谓词</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">seq.le(value)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回判断小于等于value的谓词</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">seq.nil()</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回判断是否为nil的谓词</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">seq.exists()</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回判断不为nil的谓词</span></p>
+</td>
+</tr>
+</table>
+<h4 id="section-662">2）扩展函数</h4>
+<p>除了内置函数，Zeus还开发了大量的扩展函数，扩展函数说明请参考：<a href="../说明：Zeus已支持扩展函数列表__28155153/index.html" title="https://km.sankuai.com/page/28155153">说明：Zeus已支持扩展函数列表</a></p>
+<h2 id="section-665">3.6 条件语句</h2>
+<p>Aviator中的条件语句和其他语言没有太大区别。if 接受一个布尔表达式，如果其值为 true 就执行后续的代码块。如果为 false ，可以带上 else 语句执行其中的代码块，代码块都是以大括号包起来.</p>
+<ul>
+<li><strong>如果表达式中使用到条件语句，需要在代码的第一行加上注释  </strong><em><strong>##exp-5 </strong></em></li>
+<li><strong>代码块都必须用大括号包起来，哪怕是单行语句</strong></li>
+</ul>
+<p>例如，创建规则，当参数userid大于10，返回true，否则返回false</p>
+<p><img src="assets/82637fed17dbcfcb.png" width="1078" height="186" alt="Screen Shot 2020-06-18 at 10.56.23 PM.png"></p>
+<p>if 后面连着的表达式的括号是可以忽略，上面的例子可以改写成：</p>
+<p><img src="assets/b6763dd478d90062.png" width="1070" height="166" alt="Screen Shot 2020-06-18 at 10.55.02 PM.png"></p>
+<ul>
+<li><strong>连续的条件判断可以用复杂的嵌套结构</strong></li>
+</ul>
+<p>例如：</p>
+<p><img src="assets/4530ea9b883eaa1e.png" width="1051" height="284" alt="Screen Shot 2020-06-19 at 9.47.53 AM.png"></p>
+<ul>
+<li><strong>连续的条件判断更应该直接使用 elsif 语句（与else if 的用法类似）</strong></li>
+</ul>
+<p>例如：</p>
+<p><img src="assets/7ddd43c5f703f3e0.png" width="1105" height="249" alt="Screen Shot 2020-06-23 at 1.20.19 PM.png"></p>
+<p></p>
+<h2 id="section-693">3.7 循环语句</h2>
+<h3 id="section-694"><strong>1）for语句：遍历集合</strong></h3>
+<p>使用for ... in range (start, end) 语句遍历[start, end) 区间的整数集合，在迭代过程中，将 i 绑定到集合中的每个元素上，然后执行 {...} 里的代码块。需要注意：</p>
+<ul>
+<li><strong>如果表达式中使用到for循环语句，需要在代码的第一行加上注释  </strong><em><strong>##exp-5 </strong></em></li>
+<li><span style="color:rgb(38, 38, 38)"><strong>大括号是必需的，不能因为代码块是单行语句而忽略</strong></span></li>
+</ul>
+<ul>
+<li><strong>在循环语句结尾的大括号后面需要加上分号</strong></li>
+<li><span style="color:rgb(245, 35, 45)"><strong>注意循环中使用到的变量需要使用let定义出来，包括来源于参数的变量，例如下面例子中的userid</strong></span></li>
+</ul>
+<p>例如：</p>
+<pre><code>##exp-5 
+let var_userid = userid;
+for i in range(0,10) {
+  var_userid = var_userid - 10;
+}
+return var_userid &gt; 0;</code></pre>
+<p></p>
+<ul>
+<li><strong>range 函数还可以接受第三个参数，表示递增的 step 大小（不传默认 step 就是 1），形如range(start, end, step)</strong></li>
+</ul>
+<h3 id="section-718"><strong>2）</strong><span style="color:rgb(38, 38, 38)">continue/break/return</span></h3>
+<ul>
+<li>如果你想在执行代码块中途跳过剩余代码，继续下个迭代，可以用 continue</li>
+</ul>
+<ul>
+<li>同样，如果想中途跳出迭代，你可以用 break</li>
+<li>return 有类似 break 的效果，也可以从循环中跳出，但是它会将整个脚本（或者函数）中断执行并返回，而不仅仅是跳出循环</li>
+</ul>
+<h3 id="section-726"><strong>3）</strong><span style="color:rgb(38, 38, 38)">while语句(当前支持存在一定问题，正在解决中...)</span></h3>
+<p>while 循环本质上是条件语句和循环的结合，当满足一定条件下，不停地执行一段代码块，直到条件变为否定：</p>
+<ul>
+<li><strong>如果表达式中使用到while循环语句，需要在代码的第一行加上注释  </strong><em><strong>##exp-5 </strong></em></li>
+<li><span style="color:rgb(38, 38, 38)"><strong>while 后面跟 if 一样跟着一个布尔表达式，括号同样可以省略，但是代码块必须用大括号包围起来</strong></span></li>
+<li><strong>在循环语句结尾的大括号后面需要加上分号</strong></li>
+</ul>
+<ul>
+<li><span style="color:rgb(38, 38, 38)"><strong>同样， while 也可以用 break 和 continue 语句</strong></span></li>
+</ul>
+<p>例如：</p>
+<pre><code>##exp-5 
+let var_userid = userid;
+while (i &lt; 10) {
+  var_userid = var_userid - 10;
+}
+return var_userid &gt; 0;</code></pre>
+<p></p>
+<h1 id="section-748">附录：官方文档</h1>
+<p>附件：<a href="https://km.sankuai.com/api/file/cdn/176739529/45918840395?contentType=0">aviator文档.zip</a>（118.96KB；需通过文枢下载）</p>
+<p>链接地址：<a href="https://www.yuque.com/boyan-avfmj/aviatorscript" title="https://www.yuque.com/boyan-avfmj/aviatorscript">https://www.yuque.com/boyan-avfmj/aviatorscript</a></p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/Aviator说明手册__1747338212/index.html">Aviator说明手册</a> <span class="status">已保存</span></li><li><a href="https://km.sankuai.com/collabpage/2710365121">Google Aviator表达式使用手册</a> <span class="pending">待后续保存</span></li><li><a href="https://km.sankuai.com/collabpage/1753200610">表达式书写FAQ</a> <span class="pending">待后续保存</span></li><li><a href="https://km.sankuai.com/collabpage/1215666973">累书写逻辑</a> <span class="pending">待后续保存</span></li></ul></section></main></body></html>

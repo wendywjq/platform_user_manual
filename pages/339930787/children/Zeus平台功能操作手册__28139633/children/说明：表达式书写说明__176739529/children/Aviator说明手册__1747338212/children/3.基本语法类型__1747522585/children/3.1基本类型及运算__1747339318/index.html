@@ -1,0 +1,290 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.1基本类型及运算</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-5">数字</a><a href="#section-7">整数和算术运算</a><a href="#section-36">大整数(BigInt)</a><a href="#section-51">浮点数</a><a href="#section-71">高精度计算(Decimal)</a><a href="#section-94">数字类型转换</a><a href="#section-110">字符串</a><a href="#section-141">转义</a><a href="#section-156">字符串插值(String Interpolation)</a><a href="#section-171">布尔类型和逻辑运算</a><a href="#section-195">逻辑运算和短路规则</a><a href="#section-228">三元运算符</a><a href="#section-252">正则表达式</a></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：表达式书写说明</a> / <a href="../../../../index.html">Aviator说明手册</a> / <a href="../../index.html">3.基本语法类型</a> / <a href="index.html">3.1基本类型及运算</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747339318">查看学城原文</a></p><article>
+<h1>3.1基本类型及运算</h1>
+<div><p>AviatorScript 支持常见的类型，如数字、布尔值、字符串等等，同时将大整数、BigDecimal、正则表达式也作为一种基本类型来支持。</p>
+<p>首先介绍下数字。</p>
+<h2 id="section-5">数字</h2>
+<p>数字包括整数和浮点数，AviatorScript 对 java 的类型做了缩减和扩展，同时保持了一致的运算符规则。</p>
+<h3 id="section-7">整数和算术运算</h3>
+<p>整数例如 -99、0、1、2、100……等等，对应的类型是 java 中的 long 类型。<strong>AviatorScript 中并没有 byte/short/int 等类型，统一整数类型都为 long</strong>，支持的范围也跟 java 语言一样：-9223372036854774808~9223372036854774807。</p>
+<p>整数也可以用十六进制表示，以 <code>0x</code> 或者 <code>0X</code> 开头的数字，比如 0xFF(255)、0xAB(171) 等等。</p>
+<p>整数可以参与所有的算术运算，比如加减乘除和取模等等。</p>
+<pre><code class="language-javascript">let a = 99;
+let b = 0xFF;
+let c = -99;
+
+println(a + b);
+println(a / b);
+println(a- b + c);
+println(a + b * c);
+println(a- (b - c));
+println(a/b * b + a % b);
+</code></pre>
+<p>加减乘除对应的运算符就是 <code>+,-,*,/</code> 这都比较好理解，取模运算符就是 <code>%</code> ，规则和语法和 java 是一样的。</p>
+<p><strong>需要注意，整数相除的结果仍然是整数，比如例子中的  </strong><code>**a/b**</code>  <strong>结果就是 0，遵循 java 的整数运算规则。</strong></p>
+<p>运算符之间的优先级如下：</p>
+<ul>
+<li>单目运算符 <code>-</code> 取负数</li>
+<li><code>*, /</code> </li>
+<li><code>+,-</code> </li>
+</ul>
+<p>整个规则也跟 java 的运算符优先级保持一致。你可以通过括号来强制指定优先级，比如例子中的 <code>a-(b-c)</code> 就是通过括号，强制先执行 <code>b-c</code> ，再后再被 a 减。</p>
+<p><strong>通常来说，复杂的算术表达式，从代码可读性和稳健角度，都推荐使用括号来强制指定优先级。</strong></p>
+<h3 id="section-36">大整数(BigInt)</h3>
+<p>对于超过 long 的整数， AviatorScript 还特别提供了大整数类型的支持，对应 <code>java.math.BigInteger</code>  类。任何超过 long 范围的整数<strong>字面量</strong>，会自动提升为 <code>BigInteger</code> 对象（以下简称 BigInt)，任何数字以 <code>N</code> 字母结尾就自动变 BigInt：</p>
+<pre><code class="language-javascript">## examples/bigint.av
+
+let a = 10223372036854774807;  ## Literal BigInteger
+let b = 1000N;  ## BigInteger
+let c = 1000; ## long type
+
+println(a);
+
+println(a + a);
+
+println(a * a);
+
+println(a + b + c);
+</code></pre>
+<p><code>10223372036854774807</code> 是一个远远超过 long 返回的数字，b 也是 BigInt 类型，因为它以 <code>N</code> 结尾，BigInt 的算术运算和一般整数没有什么两样，采用同样的算术运算符和规则，执行这段脚本将打印</p>
+<pre><code>10223372036854774807
+20446744073709549614
+104517335803944147014652834074681887249
+10223372036854776807
+
+</code></pre>
+<p>请注意，<strong>默认的 long 类型在计算后如果超过范围溢出后，不会自动提升为 BigInt，但是 BigInt 和 long 一起参与算术运算的时候，结果为 BigInt 类型。关于类型转换的规则，我们后面再详细介绍。</strong></p>
+<h3 id="section-51">浮点数</h3>
+<p>数字除了整数之外，AviatorScript 同样支持浮点数，但是仅支持 double 类型，也就是双精度 64 位，符合 IEEE754 规范的浮点数。传入的 java float 也将转换为 double 类型。所有的浮点数都被认为是 double 类型。浮点数的表示形式有两种：</p>
+<ol>
+<li>十进制的带小数点的数字，比如 <code>1.34159265</code> ， <code>0.33333</code> 等等。</li>
+<li>科学计数法表示，如 <code>1e-2</code> ， <code>2E3</code> 等等，大小写字母 <code>e</code> 皆可。</li>
+</ol>
+<p>看一个简单例子，牛顿法求平方根</p>
+<pre><code class="language-javascript">## examples/square_root.av
+
+let a = 2;
+let err = 1e-15;
+let root = a;
+
+while math.abs(a - root * root) &gt; err {
+  root = (a/root + root) / 2.0;
+}
+
+println("square root of 2 is: " + root);
+</code></pre>
+<p>这个例子稍微复杂了一点，因为我们用了后面才会讲到的 while 循环语句（参见条件语句），不过整体逻辑还是比较简单的，求 2 的平方根，我们通过不停计算 <code>(a/root + root)/2.0</code> 的值，看看是否在误差范围( <code>err</code> 指定）内，不在就继续迭代计算，否则就跳出循环打印结果：</p>
+<pre><code>square root of 2 is: 1.414213562373095
+</code></pre>
+<p>浮点数的运算符跟整数一样，同样支持加减乘除，优先级也是一样。<strong>浮点数和浮点数的算术运算结果为浮点数，浮点数和整数的运算结果仍然为浮点数。</strong></p>
+<h3 id="section-71">高精度计算(Decimal)</h3>
+<p>浮点数是无法用于需要精确运算的场景，比如货币运算或者物理公式运算等，这种情况下如果在 Java 里一般推荐使用 <code>BigDecimal</code> 类型，调用它的 add/sub 等方法来做算术运算。</p>
+<p>AviatorScript 将 <code>BigDecimal</code> 作为基本类型来支持（下文简称 decimal 类型），只要浮点数以 <code>M</code> 结尾就会识别类型为 deicmal，例如 <code>1.34M</code>  、 <code>0.333M</code>  或者科学计数法 <code>2e-3M</code> 等等。</p>
+<p>decimal 同样使用 <code>+,-,*,/</code> 来做算术运算， AviatorScript 重载了这些运算符的方法，自动转成 <code>BigDecimal</code> 类的各种运算方法。我们把求平方根的例子改成 decimal 运算</p>
+<pre><code class="language-javascript">## examples/bigdecimal.av
+
+let a = 2M;
+let err = 1e-15M;
+let root = a;
+
+while math.abs(a - root * root) &gt; err {
+  root = (a/root + root) / 2.0M;
+}
+
+println("square root of 2M is: " + root);
+</code></pre>
+<p>运算结果 <code>root</code> 的类型也是 <code>decimal</code> 。除了 double 以外的数字类型和 decimal 一起运算，结果为 decimal。任何有 double 参与的运算，结果都为 double。 </p>
+<p>默认运算精度是 <code>MathContext.DECIMAL128</code> ，你可以通过修改引擎配置项 <code>Options.MATH_CONTEXT</code> 来改变。</p>
+<p>如果你觉的为浮点数添加 <code>M</code> 后缀比较麻烦，希望所有浮点数都解析为 decimal ，可以开启 <code>Options.ALWAYS_PARSE_FLOATING_POINT_NUMBER_INTO_DECIMAL</code> 选项。</p>
+<h3 id="section-94">数字类型转换</h3>
+<p>数字类型在运算的时候，会遵循一定的类型转换规则：</p>
+<ul>
+<li>单一类型参与的运算，结果仍然为该类型，比如整数和整数相除仍然是整数，double 和 double 运算结果还是 double。</li>
+<li>多种类型参与的运算，按照下列顺序： <code>long -&gt; bigint -&gt; decimal -&gt; double</code>  自动提升，比如 long 和 bigint 运算结果为 bigint， long 和 decimal 运算结果为 decimal，任何类型和 double 一起运算结果为 double</li>
+</ul>
+<p>你可以通过 <code>long(x)</code> 将一个数字强制转化为 long，这个过程中可能丢失精度，也可以用 <code>double(x)</code> 将一个数字强转为 double 类型。</p>
+<pre><code class="language-javascript">## examples/double.av
+
+let a = 1;
+let b = 2;
+
+println("a/b is " + a/b);
+println("a/double(b) is " + a/double(b));
+
+</code></pre>
+<p>a 和 b 都是 long 类型，他们相除的结果仍然是整数， <code>1/2</code> 结果为 0，但是当使用 <code>double</code> 函数将 b 强制转为 double 类型，两者的结果就是浮点数了：</p>
+<pre><code>a/b is 0
+a/double(b) is 0.5
+</code></pre>
+<h2 id="section-110">字符串</h2>
+<p>在任何语言中，字符串都是最基本的类型，比如 java 里就是 String 类型。AviatorScript 中同样支持字符串，只要以单引号或者双引号括起来的连续字符就是一个完整的字符串对象，例如：</p>
+<ul>
+<li><code>"hello world"</code> </li>
+<li><code>'hello world'</code> </li>
+<li><code>"a"</code>  或者 <code>'a'</code> </li>
+</ul>
+<p>字符串可以直接通过 <code>println</code> 函数打印。</p>
+<p>字符串的长度可以通过 <code>string.length</code> 函数获取：</p>
+<pre><code class="language-javascript">## examples/string.av
+
+let a = "hello world";
+
+println(a);
+println(string.length(a));
+</code></pre>
+<p>打印：</p>
+<pre><code>hello world
+11
+</code></pre>
+<p>字符串拼接可以用 <code>+</code> 号（这又是一个运算符重载）：</p>
+<pre><code class="language-javascript">## examples/string.av
+
+let a = "hello world";
+let b = 'AviatorScript';
+
+println(a);
+println(string.length(a));
+println(a + ',' + b + 5);
+</code></pre>
+<p>字符串拼接 <code>a + ',' + b + 5</code>  包括了数字 5 和字符串 <code>','</code> ， 任何类型和字符串相加，都将拼接为字符串，这跟 java 的规则一致。因此上面最后一行代码将打印 <code>hello world,AviatorScript5</code> 。</p>
+<p>字符串还包括其他函数，如截取字符串 <code>substring</code>，都在 <code>string</code> 这个 namespace 下，具体见<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/ashevw">函数库列表</a>。</p>
+<h3 id="section-141">转义</h3>
+<p>同样，和其他语言类似，遇到特殊字符，AviatorScript 中的字符串也支持转义字符，和 java 语言一样，通过 <code>\</code> 来转义一个字符，比如我们想表示的字符串中有单引号，如果我们继续使用单引号来表示字符串，这时候就需要用到转义符：</p>
+<pre><code class="language-javascript">## examples/escape_string.av
+
+println('Dennis\'s car');
+println('AviatorScript is great.\r\nLet\'s try it!');
+</code></pre>
+<p>特殊字符，比如 <code>\r</code> 、 <code>\n</code> 、 <code>\t</code> 等也是同样支持。上述例子我们使用了换行 <code>\r\n</code> ，将打印：</p>
+<pre><code>Dennis's car
+AviatorScript is great.
+Let's try it!
+</code></pre>
+<p>当然，针对引号这个情况，这里你可以简单用双引号来表示字符串，就可以避免转义：</p>
+<pre><code class="language-javascript">println("Dennis 's car");
+</code></pre>
+<h3 id="section-156">字符串插值(String Interpolation)</h3>
+<p>字符串拼接可以用加法，比如</p>
+<pre><code class="language-javascript">let name = "aviator";
+let s = "hello," + name;
+</code></pre>
+<p>拼接后的字符串 s 就是 <code>hello,aviator</code> 。 <code>+</code> 加法对字符串拼接做了特别优化，内部会自动转化成 <code>StringBuilder</code> 来做拼接。但是对于更复杂的场景，字符串拼接的语法仍然显得过于丑陋和繁琐，因此 5.1.0 开始， AviatorScript 支持了字符串插值，一个例子：</p>
+<pre><code class="language-javascript">## examples/string_interpolation.av
+
+let name = "aviator";
+let a = 1;
+let b = 2;
+let s = "hello, #{name}, #{a} + #{b} = #{a + b}";
+p(s);
+</code></pre>
+<p>字符串中 <code>#{}</code> 括起来的表达式都将在当前上下文里自动执行求值，然后插入到最终的结果字符串，上面的例子将输出：</p>
+<pre><code>hello, aviator, 1 + 2 = 3
+</code></pre>
+<p>AviatorScript 内部做了大量优化，在编译模式复用 Expression 的情况下性能比使用加法拼接字符串更快。</p>
+<h2 id="section-171">布尔类型和逻辑运算</h2>
+<p>布尔类型用于表示真和假，它只有两个值 <code>true</code> 和 <code>false</code>  分别表示真值和假值。</p>
+<p>比较运算如大于、小于可以产生布尔值：</p>
+<pre><code class="language-javascript">## examples/boolean.av
+
+
+println("3 &gt; 1 is " + (3 &gt; 1));
+println("3 &gt;= 1 is " + (3 &gt;= 1));
+println("3 &gt;= 3 is " + (3 &gt;= 3));
+println("3 &lt; 1 is " + (3 &lt; 1));
+println("3 &lt;= 1 is " + (3 &lt;= 1));
+println("3 &lt;= 3 is " + (3 &lt;= 3));
+println("3 == 1 is " + (3 == 1));
+println("3 != 1 is " + (3 != 1));
+
+</code></pre>
+<p>输出：</p>
+<pre><code>3 &gt; 1 is true
+3 &gt;= 1 is true
+3 &gt;= 3 is true
+3 &lt; 1 is false
+3 &lt;= 1 is false
+3 &lt;= 3 is true
+3 == 1 is false
+3 != 1 is true
+</code></pre>
+<p>上面演示了所有的逻辑运算符：</p>
+<ul>
+<li><code>&gt;</code>  大于</li>
+<li><code>&gt;=</code> 大于等于</li>
+<li><code>&lt;</code> 小于</li>
+<li><code>&lt;=</code> 小于等于</li>
+<li><code>==</code> 等于</li>
+<li><code>!=</code>  不等于</li>
+</ul>
+<h3 id="section-195">逻辑运算和短路规则</h3>
+<p>布尔值可参于逻辑与、逻辑或、逻辑否等运算，假设 <code>x</code>  和 <code>y</code>  的返回结果是布尔值：</p>
+<ul>
+<li><code>x &amp;&amp; y</code>   表示<strong>并且</strong>的关系，x 为真，并且 y 为真的情况下，结果为 true，否则 false。</li>
+<li><code>x || y</code>   表示<strong>或者</strong>的关系， x 为真，或者 y 为真，结果就为 true，两者都为假值的时候结果为 false。</li>
+<li><code>!x</code> <strong>否定</strong>运算符，如果 x 为 true，则结果为 false，反之则为 true。</li>
+</ul>
+<p><code>&amp;&amp;</code> 和 <code>||</code> 都支持<strong>短路规则</strong>，</p>
+<ul>
+<li>如果 <code>x</code>  为假值， <code>x &amp;&amp; y</code>  直接返回 false， y 就不进行求值。</li>
+<li>如果 <code>x</code>  为真值， <code>x || y</code>  直接返回 true， y 也不进行求值。</li>
+</ul>
+<pre><code class="language-javascript">## examples/boolean.av
+
+let result = false &amp;&amp; println('not reachable');
+println(result);
+
+let result = true || println('not reachable');
+println(result);
+</code></pre>
+<p><code>println</code> 返回结果不是布尔值，如果参与执行逻辑运算会报错，但是由于短路规则， <code>println</code>  都不会执行，也就不会打印 <code>not reachable</code> ，直接返回 <code>false</code> 和 <code>true</code> 。</p>
+<h2 id="section-228">三元运算符</h2>
+<p>布尔值可用于三元表达式和条件语句作为判断，决定执行哪个分支代码。这里先介绍下三元表达式 <code>test ? stmt1: stmt2</code> ，当 <code>test</code> 的执行结果为 true 的时候，执行 <code>stmt1</code> ，反之则执行 <code>stmt2</code> ，结果即为 <code>stmt1</code>  或者 <code>stmt2</code> 的执行结果：</p>
+<pre><code class="language-javascript">## examples/ternary.av
+
+let a = 3;
+let b = 1;
+
+let c = a &gt; b ? println("a &gt; b") : println("a &lt;= b");
+
+println(c);
+</code></pre>
+<p>将打印：</p>
+<pre><code>a &gt; b
+null
+</code></pre>
+<p>可见，只执行了 <code>println("a &gt; b")</code> ，而 false 的分支确实没有执行。返回结果是 <code>println</code> 的返回结果 <code>null</code> 。</p>
+<p><strong>跟 java 不同的是 AviatorScript 允许两个分支返回的结果类型可以是不兼容的：</strong></p>
+<pre><code class="language-javascript">## examples/ternary.av
+let a = 3;
+let b = 1;
+
+let c = a &gt; b ? "a &gt; b" : 999;
+
+println(c);
+</code></pre>
+<p><code>a &gt; b ? "a &gt; b" : 999</code> 两个分支的结果分别是字符串和数字，这在 AviatorScript 中是完全可以的，这里将返回字符串 <code>a &gt; b</code> 。</p>
+<h2 id="section-252">正则表达式</h2>
+<p>AviatorScript 中正则表达式也是一等公民，作为基本类型来支持， <code>/</code>  括起来的正则表达式就是一个 <code>java.util.Pattern</code> 实例，例如 <code>/\d+/</code>  表示 1 个或者多个数字，<strong>正则表达式语法和  java 完全相同</strong>，但是对于需要转义的字符不需要连续的反斜杠 <code>\\</code> ，只要一个 <code>\</code> 即可，比如我们要匹配 .av 为结尾的文件，正则可以写成 <code>/^.*\.av$/</code> ，这里的 <code>\.</code> 来转义后缀里的 <code>.</code> 符号。</p>
+<p>正则表达式能参与的运算只有比较运算符和正则匹配运算符 <code>=~</code> :</p>
+<pre><code class="language-javascript">## examples/regexp.av
+
+let p = /^(.*)\.av$/;
+
+println(p == p); ## print true
+
+println("regexp.av" =~ p); ##print true
+
+println("$0=" + $0);
+println("$1=" + $1);
+
+</code></pre>
+<p>我们定义了一个正则表达式 p，用于匹配以 .av 结尾的文件名，匹配是用 <code>=~</code> 运算符，匹配运算符左侧是字符串，右侧是正则表达式，如果匹配成功，返回 true，否则返回 false。</p>
+<p>这里 <code>regexp.av</code> 是匹配成功，因此打印 <code>true</code> ， 如果匹配成功，同时 AviatorScript 会将正则中的匹配的分组放入 <code>$0</code> ， <code>$1</code> , <code>$2</code>  ... 的变量中，其中 <code>$0</code>  表示匹配的整个字符串，而 <code>$1</code> 表示第一个分组，以此类推。这里就是文件名，正则中用括号括起来的第一个分组 <code>(.*)</code> 。</p>
+<p>因此上面将打印：</p>
+<pre><code>true
+true
+$0=regexp.av
+$1=regexp
+</code></pre>
+<p>如果你不想自动捕获分组并放入美元符开头的变量，可以通过设置 <code>Options.PUT_CAPTURING_GROUPS_INTO_ENV</code> 为 false 来关闭此行为。</p></div>
+<p></p>
+</article></main></body></html>

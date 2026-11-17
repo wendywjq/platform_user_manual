@@ -1,0 +1,22 @@
+{
+  "parentId": "222572090",
+  "parentTitle": "",
+  "children": [
+    {
+      "contentId": "236855476",
+      "title": "业务组-业务-子业务说明",
+      "type": "学城文档2.0",
+      "creator": "langzhouhao",
+      "createTime": 1577079162000,
+      "modifyTime": 1577164871000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    }
+  ]
+}

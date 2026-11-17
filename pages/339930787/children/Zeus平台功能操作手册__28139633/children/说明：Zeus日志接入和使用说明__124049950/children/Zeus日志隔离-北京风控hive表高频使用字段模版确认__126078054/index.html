@@ -1,0 +1,2276 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zeus日志隔离-北京风控hive表高频使用字段模版确认</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-2">【背景】</a><a href="#section-6">1、要做什么？</a><a href="#section-8">2、为什么要做？</a><a href="#section-10">3、怎么做?</a><a href="#section-1709">4、最终模版</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：Zeus日志接入和使用说明</a> / <a href="index.html">Zeus日志隔离-北京风控hive表高频使用字段模版确认</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/126078054">查看学城原文</a></p><article>
+<h1>Zeus日志隔离-北京风控hive表高频使用字段模版确认</h1>
+<h1 id="section-2">【背景】</h1>
+<p>近期各业务方均有反馈日志延迟、敏感数据拆离、hive表查询慢等多种问题，zeus规则平台目前针对<strong>日志存储</strong>进行升级，从而提升查询效率，保证数据安全性；（升级方案<a href="https://km.sankuai.com/page/71140857" title="https://km.sankuai.com/page/71140857">日志隔离设计方案</a>）</p>
+<h1 id="section-6">1、要做什么？</h1>
+<p>北京、上海风控的各业务方确认后续从log.rc_zeus_request隔离的hive表中除通用字段模版隔离表外（通用字段“”），为便于PM使用并节约数据存储成本，会单独为风控业务方提供“额外字段+通用字段“模版的隔离表，现需各位PM确定“额外字段信息”</p>
+<h1 id="section-8">2、为什么要做？</h1>
+<p>考虑到按照通用字段模版风控数据量较大，在使用是从XX字段取数据耗时且自加工ETL拆分存储会产生较大数据存储成本，因此，为提升效率、便捷使用Zeus侧会为北上风控业务方提供单独一个统一的隔离表模“额外字段+通用字段”</p>
+<h1 id="section-10">3、怎么做?</h1>
+<p>下表为额外字段和北京风控各业务方，<span style="color:rgb(245, 34, 45)">大家可根据自己需求填写下表格，“1”代表选择需要的字段</span>，⚠️大家会共用一套模版，结合大家的反馈取通用需求字段作为最终的“额外字段模版”</p>
+<p><span style="color:#52c41a">​done</span></p>
+<table>
+<tr>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">字段/业务方</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">举例</span></span></p>
+</td>
+<td colspan="8" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">反作弊</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">反刷单</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">用户账户</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">用户账户（上海）</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">商户账户</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">验证中心</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">处罚中心</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">反作弊反刷单（上海）</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">流量反作弊（上海）</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">通用反作弊（上海）</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">运营平台</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">UGC上海</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">抵用券审批</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">语音平台</span></span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">租车</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">酒店</span></span></p>
+</td>
+<td style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">外卖</span></span></p>
+</td>
+<td style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">支付</span></span></p>
+</td>
+<td style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">团购</span></span></p>
+</td>
+<td style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">猫眼</span></span></p>
+</td>
+<td style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">租车</span></span></p>
+</td>
+<td style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">出行</span></span></p>
+</td>
+<td style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">其他</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">负责人</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td colspan="8">
+<p><span style="font-size:14px">yangyang22</span></p>
+</td>
+<td style="background-color:rgb(82, 196, 26)">
+<p><span style="font-size:14px">dengzhiming</span></p>
+</td>
+<td style="background-color:rgb(82, 196, 26)">
+<p><span style="font-size:14px">limengyao</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">wuhao16</span></p>
+</td>
+<td style="background-color:rgb(82, 196, 26)">
+<p><span style="font-size:14px">limengyao</span></p>
+</td>
+<td style="background-color:rgb(82, 196, 26)">
+<p><span style="font-size:14px">limengyao</span></p>
+</td>
+<td style="background-color:rgb(82, 196, 26)">
+<p><span style="font-size:14px">dengzhiming</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">weima</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">gaopengyang</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">weima</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">langzhouhao--暂无需求</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">xinlei.xu</span></p>
+</td>
+<td style="background-color:rgb(82, 196, 26)">
+<p><span style="font-size:14px">lvdonghui</span></p>
+</td>
+<td style="background-color:rgb(82, 196, 26)">
+<p><span style="font-size:14px">lirui15--暂无需求</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">lijing27</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">固定字段</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">requestId、businessCode、sceneId 、hitRules、decisionIds、markedRuleIds、takenEffectRuleIds、fingerprint、paramContext、factorContext、extraContext</span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">1</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+</tr>
+<tr>
+<td rowspan="27">
+<p><span style="font-size:14px">额外增加字段</span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">userId</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">1</span></span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">uuid</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">mobile</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">1</span></span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">ip</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">ipsub</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">buyer</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">action</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">1</span></span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">rcCampaignID</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">dealid</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">orderid</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">1</span></span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">bankCard</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">cardno</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">1</span></span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">bankMobile</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">bankcardIdentifyNoHash</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">ordercity</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">orderprovince</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">mobileprovince</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">imsi</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">imei</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">platform</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">mobilecity</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">ipcity</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">ipprovince</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">ch</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">paytype</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">marketingid</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">applyid</span></span></p>
+</td>
+<td style="background-color:rgb(170, 170, 170)">
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-1709">4、最终模版</h1>
+<p>1.22-1.28，历经一周的确认，最终模版如下：</p>
+<table>
+<tr>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">字段/业务方</span></span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">固定字段（12）</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">requesteId、businessCode、scenceId 、subSceneIds、hitRules、decisionIds、markedRuleds、takenEffectRuleIds、fingerprint、paramContext、factorContext、extraContext</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">额外增加字段（15）</span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">userid</span></span><span style="font-size:14px">、</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">uuid、mobile、mobilecity、mobileprovince、ip、ipsub、ipcity、ipprovince、action、imsi、imei、platform、ch、</span></span><span style="font-size:14px">partner</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p></p>
+</article></main></body></html>

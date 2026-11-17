@@ -1,0 +1,1793 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：Zeus已支持扩展函数列表</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：Zeus已支持扩展函数列表</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/28155153">查看学城原文</a></p><article>
+<h1>说明：Zeus已支持扩展函数列表</h1>
+<p><a href="https://km.sankuai.com/collabpage/1729530152" title="https://km.sankuai.com/collabpage/1729530152">Zeus函数梳理</a> -对部分函数进行了使用方式梳理，包含内置函数</p>
+<div class="note">
+<strong>注</strong>
+<div>
+<ul>
+<li><span style="color:rgb(0, 0, 0)">阅读本文前请确保了解</span><a href="https://km.sankuai.com/page/28163535" title="https://km.sankuai.com/page/28163535"><span style="color:rgb(25, 144, 255)">Aviator表达式引擎相关知识</span></a><span style="color:rgb(0, 0, 0)">，Aviator内置函数请参考</span><a href="https://km.sankuai.com/page/28163535#id-4.6%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0" title="https://km.sankuai.com/page/28163535#id-4.6%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0">Aviator表达式简介-内置函数</a>，下表是自定义的扩展函数</li>
+<li>合法的<a href="http://json.org/" title="json">json</a>字符串中不应包含\n  \t  \r 等非打印字符，否则json解析失败，将导致Aviator表达式执行出现异常</li>
+</ul>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">函数</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示例</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.toLowerCase(String key)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">字符串转换成小写</span></p>
+</td>
+<td>
+<p><span style="font-size:14px"> </span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.toUpperCase(String key)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">字符串转换成大写</span></p>
+</td>
+<td>
+<p><span style="font-size:14px"> </span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">double(</span></span><span style="font-size:14px">String key</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">)</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">字符串转换成整型</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">String key 数据格式由字符串转换为整型</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">existKey(String key)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">判断当前上下文中是否存在该字段key</span></p>
+</td>
+<td>
+<p><span style="font-size:14px"> existKey(dm)== false，表示无dm参数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">isMobileNumber(String key)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">是否是手机号t</span></p>
+</td>
+<td>
+<p><span style="font-size:14px"> </span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px"><del>isUnmatchedMobileBrand()</del></span></p>
+</td>
+<td>
+<p><span style="font-size:14px"><del>手机品牌不匹配</del></span></p>
+</td>
+<td>
+<p><span style="font-size:14px"><del>暂未开发</del></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.splitAndGetSlice(String key, String regex, Integer index)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string split分隔后，返回第index+1个元素, index从0开始, regx支持正则表达式</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.splitAndGetSlice('</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">adfdff|df|fdsfs|sss</span></span><span style="font-size:14px">', '|', 2) 结果为fdsfs。</span></p>
+<p><span style="font-size:14px">string.splitAndGetSlice('a},{b', '},{', 0) 结果为a。注意要转义特殊字符。</span></p>
+<p><span style="font-size:14px">参考因子</span><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">48486</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.hasInstalledApp(String base64AppString, int index)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">applist里是否安装某个app，index从1开始</span></p>
+</td>
+<td>
+<p><span style="font-size:14px"> </span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">splitAndContainStr</span></span><span style="font-size:14px">(String key, String regex, String str)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px"> 对key 以regex分隔，查看分隔后的list是否包含str</span></p>
+</td>
+<td>
+<p><a href="http://rc-zeus.sankuai.com/factor/edit?factor_id=844" title="http://rc-zeus.sankuai.com/factor/edit?factor_id=844"><span style="font-size:14px">http://rc-zeus.sankuai.com/factor/edit?factor_id=844</span></a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toListAndGetOne(String key, int index)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">对json转成list，并取出第index+1个元素index从0开始</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例见：</span><a href="https://zeus.sankuai.com/factor/edit?factor_id=27781" title="https://zeus.sankuai.com/factor/edit?factor_id=27781"><span style="font-size:14px">https://zeus.sankuai.com/factor/edit?factor_id=27781</span></a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">from_unixtime(long timestamp)</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">from_unixtime(long timestamp， String parttern)</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将long型unix timestamp转为String型。</span></p>
+<p><span style="font-size:14px">parttern可选："yyyy-MM-dd HH:mm:ss"或者"yyy/MM/dd "等，字母大小写严格区分的。y-年，M-月，d-日期，H-小时，m-分，s-秒。</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">from_unixtime(1219428234L); 结果为“2008-08-23 02:03:54”。</span></p>
+<p><span style="font-size:14px">from_unixtime(1219428234L,"yyyy-MM-dd");结果为“2008-08-23”。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">unix_timestamp(String time)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将String型日期转为long型unix timestamp。</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">unix_timestamp('2008-08-23 02:03:54');结果为1219428234。</span></p>
+<p><span style="font-size:14px">unix_timestamp('2008-08-23');结果为1219420800。</span></p>
+<p><span style="color:rgb(106, 135, 89)"><span style="font-size:14px"> </span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">md5(String plainText)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">生成字符串painText的md5哈希摘要</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">md5('abcdefgh')</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.equalsIgnoreCase(String originalStr, comparedStr)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">比较originalStr与comparedStr在不区分大小写的情况下的相等性</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.equalsIgnoreCase('abc', 'AbC') ，返回为true</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.getMatchPatternGroups(String input, String regExp, String groups)</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">获取正则匹配成功的捕获组的拼接</span></span><span style="font-size:14px">后的内容。</span></p>
+<p><span style="font-size:14px">input为要匹配的源字符串，regExp为正则表达式，groups</span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">为以英文逗号相间隔的多个捕获组</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"> </span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">getMatchPatternGroups(storage, '(\d+)(\d)(@\d+)', '1,3')</span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">表示storage匹配"(\d+)(\d)(@\d+)"选取第1和第3个捕获组的内容进行字符串拼接后返回</span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">例如:storage="1234@</span></span><a href="http://567.com/" title="567.com"><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">567.com</span></span></a><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">", 则返回结果为: "123@567"</span></span></p>
+<p><span style="color:rgb(245, 34, 45)"><span style="font-size:14px">注意：仅支持头次匹配，例如:storage="1234@</span></span><a href="http://567.com/" title="567.com1234@"><span style="color:rgb(245, 34, 45)"><span style="font-size:14px">567.com1234@</span></span></a><a href="http://567.com/" title="567.com"><span style="color:rgb(245, 34, 45)"><span style="font-size:14px">567.com</span></span></a><span style="font-size:14px">"，则返回结果依然为"123@567"</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">isValidImei(String key)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">key是否是合法的Imei</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">isValidImei('</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">490154203237518'</span></span><span style="font-size:14px">) 将返回true</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.getCharTypeChangeNumber(String key)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">字符串中字符变化的次数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">字符类型分为5种：中文、数字、大写字母、小写字母、其他。</span></p>
+<p><span style="font-size:14px">string.getCharTypeChangeNumber('')=0</span></p>
+<p><span style="font-size:14px">string.getCharTypeChangeNumber('a')=1</span></p>
+<p><span style="font-size:14px">string.getCharTypeChangeNumber('aBa')=3</span></p>
+<p><span style="font-size:14px">string.getCharTypeChangeNumber('aBBa')=3</span></p>
+<p><span style="font-size:14px"> </span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">gpsDistance(lat1, lng1, lat2, lng2)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">根据两点的经纬度，计算距离</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">gpsDistance(1.0, 1.0, 2.0, 2.0)=157402.0</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">array.contains(String array, String key)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">字符串型的数组array是否包含字符串key</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">字符串型的数组支持两种格式：以英文中括号包围或不以中括号包围。中间以英文逗号相间隔</span></p>
+<p><span style="font-size:14px">array.contains('[1, 2, 3]', '1') 返回true</span></p>
+<p><span style="font-size:14px">array.contains('1, 2, 3', '1') 也返回true</span></p>
+<p><span style="font-size:14px">注意：array.contains('["1","2"]','1') 返回 false</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">map.containsIntegerValue(String jsonMap, Integer value)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonMap作为json格式的Map是否包含以整型的value为值的情况</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">map.containsIntegerValue('{"key1" : 1, "key2" : 2}', 1)返回true</span></p>
+<p><span style="font-size:14px">map.containsIntegerValue('{"key1" : 1, "key2" : 2}', 3)返回false</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">math.round(double num)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">近似</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">math.round(1.4999)返回1</span></p>
+<p><span style="font-size:14px">math.round(1.8999)返回2</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.countSubString(String originalStr, String substr)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回originalStr中包含子字符串substr的次数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.countSubString('ababcdefab', 'ab')返回3</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">parseTimeToDay(String time)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将字符串型的time转化成'yyyy-MM-dd'（如：2016-08-25）格式的日期字符串</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">time的格式可以为以下几种（位代表字符）：</span></p>
+<ol>
+<li><span style="font-size:14px">10位整数，表示秒级别的时间戮</span></li>
+<li><span style="font-size:14px">13位整数，表示毫秒级别的时间戮</span></li>
+<li><span style="font-size:14px">10位的‘yyyy-MM-dd’格式的日期字符串</span></li>
+<li><span style="font-size:14px">19位的‘yyyy-MM-dd HH:mm:ss’格式的日期字符串</span></li>
+<li><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">28位的‘EEE MMM dd HH:mm:ss zzz yyyy’格式的日期字符串</span></span></li>
+</ol>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 51, 102)"><span style="font-size:14px">string.getFromJsonMap(String jsonMap, 'String key')</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 51, 102)"><span style="font-size:14px">从json字符串格式的map中取出指定的key对应的value</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 51, 102)"><span style="font-size:14px">string.getFromJsonMap('{"key1":"value1", "key2":"value2"}', 'key1') 返回"value1"</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">注: 此方法默认返回的是String类型,因此,如果value为整形或浮点型,就使用long()或double()函数进行强制类型转换,还需注意的是,返回值强转成double型后可能有精度误差</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">string.getFromJsonMap(extraContext, 'applyid')</span></span></p>
+<p><span style="font-size:14px">{ "extraContext": "{\"couponUserType\":1,\"applyid\":\"746601693\",\"mtCampaignType\":1,\"couponAmountType\":2,\"couponType\":1,\"activityName\":\"美食神券\"}" }</span></p>
+<p><span style="font-size:14px">执行结果：746601693</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.getJsonStringFromJsonMap(String jsonMap, String key)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从json字符串格式的map中取出指定的key对应的value, 并将value处理成JsonString</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 51, 102)"><span style="font-size:14px">string.getJsonStringFromJsonMap('{"key1":{\"innerKey\":\"innerValue\"}, "key2":"value2"}', 'key1') 返回"{\"innerKey\":\"innerValue\"}"</span></span></p>
+<p><span style="font-size:14px">多层时，内层用这个</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px"> </span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">string.substringIndex(String str, String separator, int index) </span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 51, 102)"><span style="font-size:14px"> </span></span></p>
+<p><span style="font-size:14px"> </span></p>
+<p><span style="color:rgb(0, 51, 102)"><span style="font-size:14px">返回字符串str中在第index个出现的分隔符separator之前的子串。如果index是一个正数，返回从最后的(从左边开始计数)分隔符到左边所有字符。如果index是负数，返回从最后的(从右边开始计数)分隔符到右边所有字符。</span></span></p>
+<p><span style="color:rgb(0, 51, 102)"><span style="font-size:14px">类似于mysql中的substring_index库函数</span></span></p>
+</td>
+<td>
+<p><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">string.substringIndex('a|b|c|d|e|f|g', '|', 3) 返回 'a|b|c'</span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">string.substringIndex('a|b|c|d|e|fg', '|', -3) 返回 'd|e|fg'</span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">string.substringIndex('a|b|c|d|e|fg', '|', 0) 返回 ''</span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">string.substringIndex('a|b|c|d|e|fg', '|', 6) 返回 'a|b|c|d|e|fg'</span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">string.substringIndex('a|b|c|d|e|fg', '|', -6) 返回 'a|b|c|d|e|fg'</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">getFirstNonNull(String arg1, String arg2, String arg3 ...)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回第一个不为null的参数的值，入参理论上不限个数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">getFirstNonNull(arg1, arg2, arg3)，如果arg1=null，arg2="arg2Value"，arg3=null，则返回为"arg2Value"（按照顺序，第一个不为null的是arg2，因此返回的是arg2的值"arg2Value"）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">getLongTimestamp(String formattedTime)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回字符串型时间格式的formattedTime的长整型时间戮（</span><span style="color:rgb(0, 51, 102)"><span style="font-size:14px">自1970 年1 月1 日（00:00:00 GMT）以来的秒数</span></span><span style="font-size:14px">），单位是秒</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">formattedTime的格式可以为以下几种（位代表字符）：</span></p>
+<ol>
+<li><span style="font-size:14px">10位整数，表示秒级别的时间戮</span></li>
+<li><span style="font-size:14px">13位整数，表示毫秒级别的时间戮</span></li>
+<li><span style="font-size:14px">10位的‘yyyy-MM-dd’格式的日期字符串</span></li>
+<li><span style="font-size:14px">19位的‘yyyy-MM-dd HH:mm:ss’格式的日期字符串</span></li>
+<li><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">28位的‘EEE MMM dd HH:mm:ss zzz yyyy’格式的日期字符串</span></span></li>
+</ol>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.combineToList(String combiningStr, String combinedList)</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 51, 102)"><span style="font-size:14px">将字符串combiningStr以前缀的方式添加到combineList列表的每个元素中，combineList为以英文逗号间隔的字符串</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 51, 102)"><span style="font-size:14px">string.combineToList('2', '1,2,3,4') 返回的结果为:"2_1,2_2,2_3,2_4",</span></span></p>
+<p><span style="color:rgb(0, 51, 102)"><span style="font-size:14px">默认是以"_"进行拼接</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.mergeList(String delimiter, String list1, String list2 ...)</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">将字符串用指定的分隔符进行合并并且去重</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">string.mergeList(',', 'a', 'b,c', 'd,e,f', 'a') </span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">表示用英文逗号对"a", "b,c"和"d,e,f"以及"a"进行合并并去重,</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">返回的结果为: "a,b,c,d,e,f"</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.charAt(String arg, int index)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回指定索引位置的字符串值，索引范围[0, length()-1]</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.charAt('1234', 0) 返回'1'</span></p>
+<p><span style="font-size:14px">string.charAt('1234', 2) 返回'3'</span></p>
+<p><span style="font-size:14px">string.charAt('1234', -1)返回nil</span></p>
+<p><span style="font-size:14px">string.charAt('1234', 5) 返回nil</span></p>
+<p><span style="font-size:14px">string.charAt('', 2) 返回 nil</span></p>
+<p><span style="font-size:14px">string.charAt(nil, 2) 返回 nil</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.compareTo(String s1, String s2)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">按照字典序比较两个字符串大小</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.compareTo('2015-12-12', '2015-12-12') 返回0</span></p>
+<p><span style="font-size:14px">string.compareTo('2015-12-12', '2015-12-13') 返回 小于0的数值</span></p>
+<p><span style="font-size:14px">string.compareTo('2015-12-12', '3') 返回小于0的数值</span></p>
+<p><span style="font-size:14px">string.compareTo('2015-12-12', '') 返回大于0的数值</span></p>
+<p><span style="font-size:14px">string.compareTo('2015-12-12', nil) 程序执行异常</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">string.splitAndMatchesCount(String key, String separator, String regex)</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">用separator分隔key， 一般会得到一个数组，然后计算数组元素与regex正则匹配的元素个数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.splitAndMatchesCount('123455-aaaa-bbb123', '-', '\\d+') 返回1</span></p>
+<p><span style="font-size:14px">string.splitAndMatchesCount('123455-aaaa-bbb123', null, '\\d+') 返回nil</span></p>
+<p><span style="font-size:14px">string.splitAndMatchesCount('123455-aaaa-bbb123', '', '\\d+') 返回nil</span></p>
+<p><span style="font-size:14px">string.splitAndMatchesCount('123455-aaaa-bbb123', '-', '^[a-z].*') 返回2</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">math.max(double arg1, double arg2, .....)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回所有参数中值最大的那个，返回值类型为double（最多支持10个输入参数）</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">math.max(1) 返回 1.0</span></p>
+<p><span style="font-size:14px">math.max(1.0, 3) 返回 3.0</span></p>
+<p><span style="font-size:14px">math.max(1.0, 3, 2, -4) 返回3.0</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">math.min(double arg1, double arg2, .....)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回所有参数中值最小的那个，返回值类型为double（最多支持10个输入参数）</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">math.min(1) 返回 1.0</span></p>
+<p><span style="font-size:14px">math.min(1.0, 3) 返回 1.0</span></p>
+<p><span style="font-size:14px">math.min(1.0, 3, 2, -4) 返回-4.0</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toListAndIndexesOf(String originalStr, String regx)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回jsonList中指定正则模式regx出现的所有索引位置，索引位置可能是零个，一个或者多个</span></p>
+<p><span style="font-size:14px">，返回值类型是jsonString</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toListAndIndexesOf("[1,2,3,4,1,2,3,4]", "2") 返回"[1,5]"</span></p>
+<p><span style="font-size:14px">jsonString.toListAndIndexesOf("[\"1\",\"2\"]", "\"2\"") 返回"[1]"</span></p>
+<p><span style="font-size:14px">jsonString.toListAndIndexesOf("[\"1\",\"2\"]", "2") 返回"[]"</span></p>
+<p><span style="font-size:14px">jsonString.toListAndIndexesOf("[{"bankCardNo":"123"},{"bankCardNo":"234"}]", "^\{.*123.*\}$") 返回"[0]"</span></p>
+<p><br></p>
+<p><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.getMatchesPatternMaxLengthStr</span></p>
+<p><span style="font-size:14px">Function(String input, String regExp)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">获取正则表达式匹配结果中最长字符串</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.getMatchesPatternMaxLengthStrFunction(inputStr, regStr)</span></p>
+<p><span style="font-size:14px">inputStr:待匹配内容</span></p>
+<p><span style="font-size:14px">regStr:正则表达式</span></p>
+<p><span style="font-size:14px">例子：</span></p>
+<p><span style="font-size:14px">输入： inputStr="1234蛋糕店123" regStr="\d+"</span></p>
+<p><span style="font-size:14px">输出："1234"</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">currentTime()</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">获取当前时间戳，精确到秒</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toListAndMaxValue(String originalStr, String field)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">该函数返回list中最大值元素，list中元素的数据类型是map，map根据指定字段来比较大小</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toListAndGetSize(String list)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回List中所有元素的个数，包括null元素</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toListAndGetNotNullSize(String list)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回List中所有非null元素个数</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toListAndCountSpecified(String list, String regx)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">返回List中指定元素个数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toListAndCountSpecified(list, reg)</span></p>
+<p><span style="font-size:14px">例子：</span></p>
+<p><span style="font-size:14px">输入：list = "[1,2,1,3]", reg = "1"</span></p>
+<p><span style="font-size:14px">输出：2</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">isListPartlyInclude(String listA, String listB)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">判断listA和listB是否部分包含。部分包含的规则如下：对于集合A和B，如果他们之间存在重叠的元素，那么A和B即为部分包含</span></p>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">isListPartlyInclude(listA, listB)</span></p>
+<p><span style="font-size:14px">1. 输入: listA = "[1,3,4]", listB = "[1,5,6]"  输出：true</span><br><span style="font-size:14px">2. 输入: listA = "[1,3,4]", listB = "[5,6]"  输出：false</span><br><span style="font-size:14px">3. 输入: listA = "[]", listB = "[5,6]"  输出：false</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">isListTypePartlyInclude(List listA, List listB)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">输入：字符串数组，比如["abc"]</span></p>
+<p><span style="font-size:14px">判断逻辑：判断输入的listB中的每个字符串是否被listA中的每一个元素所包含</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">isListTypePartlyInclude(List listA, List listB)</span></p>
+<p><span style="font-size:14px">1.输入：listA = ["abc"]，listB = ["ab"]，输出true</span></p>
+<p><span style="font-size:14px">2.输入：listA = ["abc"]，listB = ["bcd"]，输出false</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">isListCompletelyInclude(String listA, String listB)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">判断listA是否完全包含listB。完全包含的规则如下：对于集合A和B，如果B中的任意元素都在A中出现，则A包含B为true，否则A包含B为false。</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">isListCompletelyInclude(listA, listB)</span></p>
+<p><span style="font-size:14px">1.输入：listA = "[1,3,4]", listB = "[1, 1]" 输出：true</span></p>
+<p><span style="font-size:14px">2.输入：listA = "[1,3,4]", listB = "[1,2]" 输出：false</span></p>
+<p><span style="font-size:14px">3.输入：listA = "[1,3,4]", listB = "[1, null]" 输出：true</span></p>
+<p><span style="font-size:14px">4.输入：listA = "[]", listB = "[]" 输出：true</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">compareVersion(String v1, String v2, String style)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px"><strong>版本号比较函数</strong></span></p>
+<p><span style="font-size:14px"><u>返回结果为正数1，表示v1的版本号大于v2，为0表示版本号相同，为负数-1表示v1版本号小于v2</u></span></p>
+<p><span style="font-size:14px">style是版本的样式，例如版本号：9.3.1的style为V.V.V , 24_7.0的style为V_V.V , 60604的style为V0V0V , 631的style为V</span></p>
+<p><span style="font-size:14px">其中style必需按照最长样式来，如果无法确定版本号样式长度，则很有可能返回结果不符合预期</span><br><span style="font-size:14px">* 例如 compareVersion('25_7.1.2', '25_7.1.1', 'V_V.V') 会返回0, 因为按照style来进行分割子版本号，version1为[25, 7, 1], version2为[25, 7, 1]， 两者相等</span><br><span style="font-size:14px">* 两个版本号都需要与style格式相一致，不然也会出错返回nil</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="font-size:14px">因为nil小于任何非nil的对象，因此判断结果小于0时一定要对nil进行判断，如：</span></p>
+<p><span style="font-size:14px">compareVersion(version,  '1.2.3', 'V.V.V') == -1</span></p>
+<p><span style="font-size:14px">或者</span></p>
+<p><span style="font-size:14px">compareVersion(version,  '1.2.3', 'V.V.V') != nil &amp;&amp; compareVersion(version,  '1.2.3', 'V.V.V') &lt; 0</span></p>
+</div>
+</div>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">compareVersion('25_7.1.1', '24_7.1', 'V_V.V.V')  结果返回1</span></p>
+<p><span style="font-size:14px">compareVersion('24_7.0', '25_7.1', 'V_V.V')  结果返回-1</span></p>
+<p><span style="font-size:14px">compareVersion('25_7.1', '25_7.1', 'V_V.V')  结果返回0</span></p>
+<p></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.convertToBigDecimal(originStr)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将字符串转换为高精度类型(BigDecimal)，高精度类型是什么，参考：</span><a href="http://www.cnblogs.com/chenssy/archive/2012/09/09/2677279.html" title="http://www.cnblogs.com/chenssy/archive/2012/09/09/2677279.html"><span style="font-size:14px">http://www.cnblogs.com/chenssy/archive/2012/09/09/2677279.html</span></a></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.convertToBigDecimal(originStr)</span></p>
+<p><span style="font-size:14px">1.输入originStr="abc"，输出null</span></p>
+<p><span style="font-size:14px">2.输入originStr="1.16"，输出1.16</span></p>
+<p><span style="font-size:14px">3.输入originStr="0.312464345"，输出0.312464345</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toListAndMergeList(String listA, String listB)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">输入两个list，返回这两个list的并集，并且并集顺序与原list顺序一致（即：不需要重新排序）</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toListAndMergeList(listA, listB)</span></p>
+<p><span style="font-size:14px">1. 输入: listA = "[1,3,4]", listB = "[1,5,6]"  输出："[1,3,4,5,6]"</span><br><span style="font-size:14px">2. 输入: listA = "[1,3]", listB = "[2,3,5]"  输出："[1,3,2,5]"</span><br><span style="font-size:14px">3. 输入: listA = "[9,4,5]", listB = "[5,6]"  输出："[9,4,5,6]"</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toMapAndGetDifferenceMap(String mapA, String listB)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">输入一个map和一个list，删除map中有list中元素的key。</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toMapAndGetDifferenceMap(mapA, listB)</span></p>
+<p><span style="font-size:14px">1.输入：mapA = "{"1":1,"2":2,"3":3}", listB = "[1,2]"，输出："{"3":3}"</span></p>
+<p><span style="font-size:14px">2.输入：mapA = "{"1":1,"2":2,"3":3}", listB = "[4,5]"，输出："{"1":1,"2":2,"3":3}"</span></p>
+<p><span style="font-size:14px">3.输入：mapA = "{"1":1,"2":2,"3":3}", listB = "[1,2]"，输出："{"2":2,"3":3}"</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toMapAndMergeMap(String mapA, String mapB)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">输入两个map，返回这两个map的并集，map中值的情况以第二个map中的值为准。类似于HashMap.putAll语义</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.输入：mapA = "{"key1":1}", mapB = "{"key2":100,"key3":150}", 输出："{"key1":1,"key2":100,"key3":150}"</span></p>
+<p><span style="font-size:14px">2.输入：mapA = "{"key1":1}", mapB = "{"key1": 1000,"key2":100,"key3":150}", 输出："{"key1":1000,"key2":100,"key3":150}"</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">sha256(String str)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">进行sha256运算</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">入参为""或者null时返回null</span></p>
+<p><span style="font-size:14px">其他情况进行sha256运算</span></p>
+<p><span style="font-size:14px">例子：</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">输入：12345678901  </span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">输出：254aa248acb47dd654ca3ea53f48c2c26d641d23d7e2e93a1ec56258df7674c4</span></span><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">loop(String methodName, String str1,String str2, ......)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">循环执行某个函数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">methodName =&gt; 需要循环运行的函数名</span></p>
+<p><span style="font-size:14px">str1,str2... =&gt;  要进行运算的数组，</span><span><span style="font-size:14px">如果数组长度不一样，以最短的为准，如果数组内元素完全相同，可以用一个值替代</span></span></p>
+<p><span><span style="font-size:14px">返回值= 》数组</span></span></p>
+<p><span><span style="font-size:14px">示例一：</span></span></p>
+<p><span><span style="font-size:14px">输入=》loop("jsonString.toListAndGetSize", "[[1,2,3], [2,2,2,2,2], [1,1]]") </span></span></p>
+<p><span><span style="font-size:14px">返回=》[3,5,2]</span></span></p>
+<p><span><span style="font-size:14px">示例二：</span></span></p>
+<p><span style="font-size:14px">输入=》loop("math.max", "[1, 78, 18, 92, 36, 64, 83, 10]", "[7, 93, 60, 18, 48, 39, 83, 48]")</span></p>
+<p><span style="font-size:14px">返回=》[7.0,93.0,60.0,92.0,48.0,64.0,83.0,48.0]</span></p>
+<p><span style="font-size:14px">示例三：</span></p>
+<p><span style="font-size:14px">输入=》loop("math.max", "[1, 78, 18, 92, 36, 64, 83, 10]", 50)</span></p>
+<p><span style="font-size:14px">输出=》[50.0,78.0,50.0,92.0,50.0,64.0,83.0,50.0]</span></p>
+<p></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">jsonString.toTwoDimenListAndSubList(String </span></span><span style="font-size:14px">array, int startX, int endX, int startY, int endY</span><span><span style="font-size:14px">)</span></span></p>
+</td>
+<td>
+<p></p>
+<p><span style="font-size:14px">将json串转换成二维数组，并按照横坐标和纵坐标取出二维数组中的一部分</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">array =&gt; json格式的二维数组</span></p>
+<p><span style="font-size:14px">startX =&gt; 开始的横坐标，从0开始，包含startX</span></p>
+<p><span style="font-size:14px">endX =&gt; 结束的横坐标，从0开始，包含endX</span></p>
+<p><span style="font-size:14px">startY =&gt; 开始的纵坐标，从0开始，包含startY</span></p>
+<p><span style="font-size:14px">endY =&gt; 结束的纵坐标，从0开始，包含endY</span></p>
+<p><span style="font-size:14px">返回值：一个二维数组，如果截取的是一行或者一列，则返回一维数组</span></p>
+<p><span style="font-size:14px">示例一：</span></p>
+<p><span style="font-size:14px">输入=》jsonString.toTwoDimenListAndSubList(“</span></p>
+<p><span style="font-size:14px">[</span></p>
+<p><span style="font-size:14px">  ["a", "b", "c", "d", "e"],</span></p>
+<p><span style="font-size:14px">  ["1", "2", "3", "4", "5"],</span></p>
+<p><span style="font-size:14px">  ["A", "B", "C", "D", "E"]</span></p>
+<p><span style="font-size:14px">]</span></p>
+<p><span style="font-size:14px">”, 1, 4, 1, 2)</span></p>
+<p><span style="font-size:14px">输出=》</span></p>
+<p><span style="font-size:14px">[</span></p>
+<p><span style="font-size:14px">  ["2","3","4","5"],</span></p>
+<p><span style="font-size:14px">  ["B","C","D","E"]</span></p>
+<p><span style="font-size:14px">]</span></p>
+<p><span style="font-size:14px">示例二：</span></p>
+<p><span style="font-size:14px">输入=》jsonString.toTwoDimenListAndSubList("[[11,12,13,14,15,16,17], [21,22,23,24,25,26,27], [31,32,33,34,35,36,37], [41,42,43,44,45,46,47], [51,52,53,54,55,56,57]]", 1, 1, 1, 4)</span></p>
+<p><span style="font-size:14px">输出=》</span><span><span style="font-size:14px">[22,32,42,52]</span></span></p>
+<p></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.checkNull(String str, String defaultStr)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">当str不为空时，返回str本身，否则返回默认值</span></p>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">str——需要校验的参数</span></p>
+<p><span style="font-size:14px">defaultStr——默认值</span></p>
+<p></p>
+<p><span style="font-size:14px">当str或defaultStr不是String类型时，返回""</span></p>
+<p><span style="font-size:14px">当!(str==null || str=="" || str=="null" )时，返回str</span></p>
+<p><span style="font-size:14px">当(str==null || str=="" || str=="null" )&amp;&amp; defaultStr == null 时，返回“”</span></p>
+<p><span style="font-size:14px">当(str==null || str=="" || str=="null" )&amp;&amp; defaultStr != null 时，返回defaultStr</span></p>
+<p><span style="font-size:14px">示例一：</span></p>
+<p><span style="font-size:14px">输入=》checkNull("ab", "cd")</span></p>
+<p><span style="font-size:14px">输出=》"ab"</span></p>
+<p><span style="font-size:14px">示例二：</span></p>
+<p><span style="font-size:14px">输入=》checkNull("", "cd")</span></p>
+<p><span style="font-size:14px">输出=》"cd"</span></p>
+<p><span style="font-size:14px">示例三：</span></p>
+<p><span style="font-size:14px">输入=》checkNull("null", "cd")</span></p>
+<p><span style="font-size:14px">输出=》"cd"</span></p>
+<p><span style="font-size:14px">示例四：</span></p>
+<p><span style="font-size:14px">输入=》checkNull(null, "cd")</span></p>
+<p><span style="font-size:14px">输出=》"cd"</span></p>
+<p><span style="font-size:14px">示例五：</span></p>
+<p><span style="font-size:14px">输入=》checkNull("", null)</span></p>
+<p><span style="font-size:14px">输出=》""</span></p>
+<p><span style="font-size:14px">示例六：</span></p>
+<p><span style="font-size:14px">输入=》checkNull(null, null)</span></p>
+<p><span style="font-size:14px">输出=》""</span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>示例七：</em></span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>输入=》string.checkNull(1,"de")</em></span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>输出=》""</em></span></span><br><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>示例八:</em></span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>输入=》string.checkNull("bc", false)</em></span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>输出=》""</em></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.select(String jsonString, String condition, String option)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">实现</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">json数组的解析，输入一个json数组、查询条件、查询参数（可选），返回按元素遍历查询的结果；兼容查询到多个值的情况。查询条件支持大于/小于，等于/不等于操作。</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">1.function(json数组，查询条件，查询参数），返回查询到的参数值，多个以逗号分隔</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">（1）</span></span><span style="font-size:14px">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">function(</span></span><span style="font-size:14px">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00'</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> （2）</span></span><span style="font-size:14px">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">function(</span></span><span style="font-size:14px">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00,19.00'</span></p>
+<p><span style="font-size:14px">2.</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">function(json数组，查询条件），返回查询元素组成的数组</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">（1）</span></span><span style="font-size:14px">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">function(</span></span><span style="font-size:14px">reduceDetailInfoList,'reduceType==2') == '[{"reduceAmount":15.00,"reduceType":2}]'</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> （2）</span></span><span style="font-size:14px">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">function(</span></span><span style="font-size:14px">reduceDetailInfoList,'reduceType==2') == '[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2}]'</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">注：不支持正则表达式</span></p>
+<p><span style="font-size:14px">注：查询条件不需要写转义字符\</span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>示例一：</em></span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>输入=》</em></span></span><span style="font-size:14px">jsonString</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em> = </em></span></span><span style="font-size:14px">"[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="font-size:14px">condition = “reduceType==2”</span></p>
+<p><span style="font-size:14px">option = "reduceAmount"</span></p>
+<p><span style="font-size:14px">输出</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>=》</em></span></span><span style="font-size:14px">jsonString.select(jsonString, condtion, option) = “15.00”</span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>示例二:</em></span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>输入=》</em></span></span><span style="font-size:14px">jsonString</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em> = </em></span></span><span style="font-size:14px">"[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="font-size:14px">condition = “reduceType==2”</span></p>
+<p><span style="font-size:14px">输出</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>=》</em></span></span><span style="font-size:14px">jsonString.select(jsonString, condtion) = “[{"reduceAmount":15.00,"reduceType":2}]”</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.search(String jsonString, String condition, String option)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">用法与作用跟jsonString.select函数基本相同。</span></p>
+<p><span style="font-size:14px">区别：</span></p>
+<p><span style="font-size:14px">1.jsonString.select函数</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">查询条件（即第二个参数</span></span><span><span style="font-size:14px">condition</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">）支持大于/小于，等于/不等于操作，而</span></span><span style="font-size:14px">jsonString.search支持avaitor表达式，范围更广一点。</span></p>
+<p><span style="font-size:14px">2.jsonString.select函数的性能好于jsonString.search，如果jsonString.select够用建议用jsonString.select。</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">jsonString.findAndAccumulate(jsonStr, key1, key2)</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">jsonString.findAndAccumulate(jsonStr, key1, key2,key3)</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">根据key1、key2（、key3）找到json字符串中匹配到的数字类型的值并累加求和并返回</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例一：</span></p>
+<p><span style="font-size:14px">输入=》</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">jsonString.findAndAccumulate("</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><strong>{\"rewardInfos\":[{\"rewardId\":1,\"couponInfos\":[{\"reduce\":100,\"discount\":\"1\"},{\"reduce\":200,\"discount\":\"2\"}]},{\"rewardId\":2,\"couponInfos\":[{\"reduce\":300,\"discount\":\"0\"},{\"reduce\":400,\"discount\":\"4\"}]}]}"</strong></span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">, "rewardInfos", "rewardId")</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">输出=》3</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">示例二：</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">输入=》jsonString.findAndAccumulate("</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><strong>{\"rewardInfos\":[{\"rewardId\":1,\"couponInfos\":[{\"reduce\":100,\"discount\":\"1\"},{\"reduce\":200,\"discount\":\"2\"}]},{\"rewardId\":2,\"couponInfos\":[{\"reduce\":300,\"discount\":\"0\"},{\"reduce\":400,\"discount\":\"4\"}]}]}"</strong></span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">, "rewardInfos", "couponInfos", "reduce")</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">输出=》1000</span></span></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">jsonString.findAndOperateAny(userDefinedExp, variableName, jsonStr, key1, key2)</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">jsonString.findAndOperateAny(userDefinedExp, variableName, jsonStr, key1, key2, key3)</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">step1：根据key1、key2（、key3）找到json字符串中匹配到的值，匹配到的值可能有多个val1、val2....</span></p>
+<p><span style="font-size:14px">step2：用val1、val2...替换输入的表达式中的变量值，并执行此表达式</span></p>
+<p><span style="font-size:14px">step3：任意一个表达式执行结果为true，则返回true，否则返回false</span></p>
+<p></p>
+<p><span style="font-size:14px">参数：</span></p>
+<p><span style="font-size:14px">userDefinedExp：输入的表达式</span></p>
+<p><span style="font-size:14px">variableName：表达式中需要替换的变量名称</span></p>
+<p><span style="font-size:14px">jsonStr：输入的json字符串</span></p>
+<p><span style="font-size:14px">key1、key2（、key3）：json字符串中需要匹配的键</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例一：</span></p>
+<p><span style="font-size:14px">输入=》</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">jsonString.findAndOperateAny("val == \"nil\"", "val", "</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><strong>{\"rewardInfos\":[{\"rewardId\":1,\"couponInfos\":[{\"reduce\":100,\"discount\":\"\"},{\"reduce\":200,\"discount\":\"2\"}]},{\"rewardId\":2,\"couponInfos\":[{\"reduce\":300,\"discount\":\"0\"},{\"reduce\":400,\"discount\":\"4\"}]}]}"</strong></span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">, "rewardInfos", "couponInfos", "discount")</span></span></p>
+<p><span style="font-size:14px">输出=》true</span></p>
+<p><span style="font-size:14px">示例二：</span></p>
+<p><span style="font-size:14px">输入=》</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">jsonString.findAndOperateAny("val &gt; 1", "val", "</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><strong>{\"rewardInfos\":[{\"rewardId\":2,\"couponInfos\":[{\"reduce\":100,\"discount\":\"\"},{\"reduce\":200,\"discount\":\"2\"}]},{\"rewardId\":2,\"couponInfos\":[{\"reduce\":300,\"discount\":\"0\"},{\"reduce\":400,\"discount\":\"4\"}]}]}"</strong></span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">, "rewardInfos", "rewardId")</span></span></p>
+<p><span style="font-size:14px">输出=》true</span></p>
+<p><span style="font-size:14px">示例三：</span></p>
+<p><span style="font-size:14px">输入=》</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">jsonString.findAndOperateAny("val &lt; 100", "val", "</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><strong>{\"rewardInfos\":[{\"rewardId\":1,\"couponInfos\":[{\"reduce\":100,\"discount\":\"\"},{\"reduce\":200,\"discount\":\"2\"}]},{\"rewardId\":2,\"couponInfos\":[{\"reduce\":300,\"discount\":\"0\"},{\"reduce\":400,\"discount\":\"4\"}]}]}"</strong></span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">, "rewardInfos", "couponInfos", "reduce")</span></span></p>
+<p><span style="font-size:14px">输出=》false</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.splitToDouble(str, regx, [limit])</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">分割字符串，并将分割后的字符串数组强转为double类型，返回结果的数据类型为double数组。分割符同时支持正则匹配。</span></p>
+<p><span style="font-size:14px">参数：</span></p>
+<p><span style="font-size:14px">str：字符串</span></p>
+<p><span style="font-size:14px">regx: 正则分割符</span></p>
+<p><span style="font-size:14px">limit：可选，用于限制结果返回数量</span></p>
+<p><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">注：该函数无法单独使用，必须与reduce函数或者其他支持数组参数的函数配合使用</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例一：</span></p>
+<p><span style="font-size:14px">string.splitToDouble('1, 2, 3', ',')  返回数组 [1.0, 2.0, 3.0]</span></p>
+<p><span style="font-size:14px">示例二：</span></p>
+<p><span style="font-size:14px">string.splitToDouble('1,a   2,a   3', '\D+')  返回数组 [1.0, 2.0, 3.0]</span></p>
+<p><span style="font-size:14px">示例三：</span></p>
+<p><span style="font-size:14px">string.splitToDouble('1.0,2,3', ',')  返回数组 [1.0, 2.0, 3.0]</span></p>
+<p><span style="font-size:14px">示例四：</span></p>
+<p><span style="font-size:14px">string.splitToDouble('', ',')   执行异常</span></p>
+<p><span style="font-size:14px">示例五：</span></p>
+<p><span style="font-size:14px">string.splitToDouble('1, abc, 3', ',')   执行异常</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">reduce(seq, fun, init)</span></p>
+<p><span style="font-size:14px">(该函数为aviator内置函数，非zeus rd开发)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">接收两个参数,第一个是集合元素, 第二个是累积的函数,</span></p>
+<p><span style="font-size:14px">本函数用于将 fun 作用在结果值（初始值为 init 指定)和集合的每个元素上面，返回新的结果值；</span></p>
+<p><span style="font-size:14px">函数返回最终的结果值</span></p>
+<p><span style="font-size:14px">参数</span></p>
+<p><span style="font-size:14px">seq：数组</span></p>
+<p><span style="font-size:14px">func： 累积函数，+，-，*，/等等</span></p>
+<p><span style="font-size:14px">init：累积初始值，一般填0即可</span></p>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例一：</span></p>
+<p><span style="font-size:14px">reduce(string.splitToDouble('1, 2, 3', ','),  +， 0)   返回6.0</span></p>
+<p><span style="font-size:14px">示例二：</span></p>
+<p><span style="font-size:14px">reduce(string.splitToDouble('1, 2, 3', ','),  -， 0)   返回 -6.0</span></p>
+<p><span style="font-size:14px">示例三：</span></p>
+<p><span style="font-size:14px">reduce(string.splitToDouble('1, 2, 3', ','),  *， 0)   返回6.0</span></p>
+<p><span style="font-size:14px">示例四：</span></p>
+<p><span style="font-size:14px">reduce(string.splitToDouble('1, 2, 3', ','),  /， 6)   返回1.0</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">jsonString.toListAndGetMaxDate(String list)</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">输入一个日期的list，返回其中最大的日期。</span></p>
+<p><span style="font-size:14px">说明：</span></p>
+<p><span style="font-size:14px">日期格式为yyyy-MM-dd</span></p>
+<p><span style="font-size:14px">若输入的日期list中有日期的格式不符合规范，则会返回空值</span></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">jsonString.toListAndGetMaxDate(list)</span></span></p>
+<p><span style="font-size:14px">示例一：</span></p>
+<p><span style="font-size:14px">输入=》list = </span><span><span style="font-size:14px">"[\"2020-07-02\", \"2020-07-03\", \"2020-07-04\"]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》“2020-07-04”</span></span></p>
+<p><span style="font-size:14px">示例二：</span></p>
+<p><span style="font-size:14px">输入=》list =</span><span><span style="font-size:14px"> "[\"2000-01-10\", \"2030-07-01\", \"2021-12-01\"]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》"2030-07-01"</span></span></p>
+<p><span style="font-size:14px">示例三：</span></p>
+<p><span style="font-size:14px">输入=》list =</span><span><span style="font-size:14px"> "[\"2000-01-\", \"asdasda\"]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》nil</span></span></p>
+<p><span style="font-size:14px">示例四：</span></p>
+<p><span style="font-size:14px">输入=》list =</span><span><span style="font-size:14px"> "[]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》nil</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">jsonString.toListAndGetMinDate(String list)</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">输入一个日期的list，返回其中最小的日期。</span></p>
+<p><span style="font-size:14px">说明：</span></p>
+<p><span style="font-size:14px">日期格式为yyyy-MM-dd</span></p>
+<p><span style="font-size:14px">若输入的日期list中有日期的格式不符合规范，则会返回空值</span></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">jsonString.toListAndGetMinDate(list)</span></span></p>
+<p><span style="font-size:14px">示例一：</span></p>
+<p><span style="font-size:14px">输入=》list = </span><span><span style="font-size:14px">"[\"2020-07-02\", \"2020-07-03\", \"2020-07-04\"]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》“2020-07-02”</span></span></p>
+<p><span style="font-size:14px">示例二：</span></p>
+<p><span style="font-size:14px">输入=》list =</span><span><span style="font-size:14px"> "[\"2000-01-10\", \"2030-07-01\", \"2021-12-01\"]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》"2000-01-10"</span></span></p>
+<p><span style="font-size:14px">示例三：</span></p>
+<p><span style="font-size:14px">输入=》list =</span><span><span style="font-size:14px"> "[\"2000-01-\", \"asdasda\"]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》nil</span></span></p>
+<p><span style="font-size:14px">示例四：</span></p>
+<p><span style="font-size:14px">输入=》list =</span><span><span style="font-size:14px"> "[]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》nil</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">jsonString.toListAndCountDifferentDate(String list)</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">输入一个日期的list，返回所有不重复的日期的个数。</span></p>
+<p><span style="font-size:14px">说明：</span></p>
+<p><span style="font-size:14px">日期格式为yyyy-MM-dd</span></p>
+<p><span style="font-size:14px">若输入的日期list中有日期的格式不符合规范，则会返回空值</span></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">jsonString.toListAndCountDifferentDate(list)</span></span></p>
+<p><span style="font-size:14px">示例一：</span></p>
+<p><span style="font-size:14px">输入=》list =</span><span><span style="font-size:14px"> "[\"2020-07-02\", \"2020-07-02\", \"2020-07-02\", \"2020-07-03\", \"2020-07-03\", \"2020-07-04\"]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》3</span></span></p>
+<p><span style="font-size:14px">示例二：</span></p>
+<p><span style="font-size:14px">输入=》list =</span><span><span style="font-size:14px"> "[\"2000-01-10\", \"2000-01-10\", \"2020-12-01\"]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》2</span></span></p>
+<p><span style="font-size:14px">示例三：</span></p>
+<p><span style="font-size:14px">输入=》list =</span><span><span style="font-size:14px"> "[\"2000-01-\", \"asdasda\"]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》nil</span></span></p>
+<p><span style="font-size:14px">示例四：</span></p>
+<p><span style="font-size:14px">输入=》list =</span><span><span style="font-size:14px"> "[]"</span></span></p>
+<p><span><span style="font-size:14px">输出=》0</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.similarity(str1, str2)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">计算两个String的相似度，取值范围在0-1，越靠近1越相似</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.similarity(str1, str2)</span></p>
+<p><span style="font-size:14px">示例一：</span></p>
+<p><span style="font-size:14px">String str1 = "python get_community_card.py {HEX}";</span><br><span style="font-size:14px">String str2 = "python new_step0_get_order.py {NUM}";</span></p>
+<p><span style="font-size:14px">输出：0.4857142857142857</span></p>
+<p></p>
+<p><span style="font-size:14px">示例二：</span></p>
+<p><span style="font-size:14px">String str1 = "python get_community_card.py {HEX}";</span><br><span style="font-size:14px">String str2 = "python get_community_card.py {HEX}";</span></p>
+<p><span style="font-size:14px">输出： 1.0</span></p>
+<p></p>
+<p><span style="font-size:14px">示例三：</span></p>
+<p><span style="font-size:14px">String str1 = "python get_community_card.py {HEX}";</span><br><span style="font-size:14px">String str2 = "python get_community_card.py";</span></p>
+<p><span style="font-size:14px">输出： 0.8235294117647058. </span></p>
+<p></p>
+<p><span style="font-size:14px">示例四：</span></p>
+<p><span style="font-size:14px">String str1 = "python get_community_card.py";</span><br><span style="font-size:14px">String str2 = "python get_community_card.py {HEX}";</span></p>
+<p><span style="font-size:14px">输出： 0.8235294117647058. </span></p>
+<p></p>
+<p><span style="font-size:14px">示例五：</span></p>
+<p><span style="font-size:14px">String str1 = "python get_community_card.py {HEX}";</span><br><span style="font-size:14px">String str2 = "";</span></p>
+<p><span style="font-size:14px">输出： 0.0</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">getUnmatchBaseline(String appCommand, String realProcessname, String baseline, double simValue)</span></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">判断当前执行的命令，过去是否执行过（基线）；先根据appCommand相似度来判断是否是同一应用，如果是同一应用，再根据执行的processname判断过去是否执行过相同命令；baseline为过去执行过的命令和父进程的合集;</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例：</span></p>
+<p><span style="font-size:14px">输入：</span></p>
+<p><span style="font-size:14px">baseline: "{"python get_community_card.py {HEX}": ["ls,whoami", "grep", "grep,whoami"]}"</span><br><span style="font-size:14px">appCommand: "python get_community_card.py {HEX}"</span><br><span style="font-size:14px">realProcessname: "ls,pwd"</span><br><span style="font-size:14px">simValue: 1</span></p>
+<p><span style="font-size:14px">输出：</span></p>
+<p><span style="font-size:14px">["pwd"]</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">//支持传入多个数组（逐渐废弃，请使用66.financeArraySorter函数）</span></p>
+<p><span style="font-size:14px">financeArraySort(List&lt;Integer&gt; accessFlagList, </span></p>
+<p><span style="font-size:14px">                 List&lt;String&gt; factorList1, boolean isAsc,</span></p>
+<p><span style="font-size:14px">                 List&lt;String&gt; factorList2, boolean isAsc</span></p>
+<p><span style="font-size:14px">                 ...</span></p>
+<p><span style="font-size:14px">                )</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">金融数组排序专用：</span></p>
+<p><span style="font-size:14px">参见 </span><a href="https://km.sankuai.com/page/482965321" title="https://km.sankuai.com/page/482965321">zeus需求-金融数组排序</a></p>
+<p><span style="font-size:14px">accessFlagList: 参与排序的下标</span></p>
+<p><span style="font-size:14px">factorListn: 参与排序的list</span></p>
+<p><span style="font-size:14px">isAsc: 是否升序排序</span></p>
+<p><span style="font-size:14px">等价于order by factorList1 isAsc, factorList2 isAsc</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例：</span></p>
+<p><span style="font-size:14px">输入：</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">financeArraySort( </span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> toArray(1,1,1,1,1),</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> toArray(2 ,5,1 ,3,4), true,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> toArray("2.0","5.0","8.0","10.0","4.0"), false</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">)</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">输出：</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">[2,5,1,3,4]</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">表示先根据[2 ,5,1 ,3,4]升序排序，序号相等的再根据["2.0","5.0","8.0","10.0","4.0"]降序排序，最后输出排序序号</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">//支持传入多个数组</span></p>
+<p><span style="font-size:14px">financeArraySortWithNegative(List&lt;Integer&gt; accessFlagList, </span></p>
+<p><span style="font-size:14px">                 List&lt;String&gt; factorList1, boolean isAsc,</span></p>
+<p><span style="font-size:14px">                 List&lt;String&gt; factorList2, boolean isAsc</span></p>
+<p><span style="font-size:14px">                 ...</span></p>
+<p><span style="font-size:14px">                )</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">金融数组排序专用：</span></p>
+<p><span style="font-size:14px">功能同 65.financeArraySort 函数，特点 </span><span style="font-size:14px"><strong>支持负数参与排序</strong></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例：</span></p>
+<p><span style="font-size:14px">输入：</span></p>
+<p><span style="font-size:14px">financeArraySortWithNegative</span><span><span style="font-size:14px">( </span></span><br><span><span style="font-size:14px"> toArray(1,1,1,,1),</span></span><br><span><span style="font-size:14px"> toArray(-9999, 100, 0, 4), true</span></span><br><span><span style="font-size:14px">)</span></span></p>
+<p><span><span style="font-size:14px">输出：</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">[1,4,2,3]</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">map.get(Map&lt;String,Object&gt; map, String key)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从map中获取ke有对应的value</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例：</span></p>
+<p><span style="font-size:14px">map.get({"key":"value"}, "key") == "value"</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.containsIgnoreCase(str, searchStr)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">忽略大小写进行比较</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例：</span></p>
+<p><span style="font-size:14px">string.containsIgnoreCase("abcDEFGhi", "abcdef") = true</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">jsonArray.getKeyToList（String str，String key）</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从List&lt;Map&gt;中提取指定key的值</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">示例：</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>：</em></span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>输入=》</em></span></span><span style="font-size:14px">jsonString</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em> = </em></span></span><span style="font-size:14px">"[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="font-size:14px">key = "reduceAmount"</span></p>
+<p><span style="font-size:14px">输出</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>=》</em></span></span><span style="font-size:14px">[15.00,0.9]</span></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonArray.selectForList(String jsonString, String condition, String option)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">实现</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">json数组的解析，输入一个json数组、查询条件、查询参数（</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"><del>可选</del></span></span><span style="color:rgb(255, 77, 79)"><span style="font-size:14px">必填</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">），返回按元素遍历查询的结果；兼容查询到多个值的情况。查询条件支持大于/小于，等于/不等于操作，</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">多个查询条件用 &amp; 进行拼接</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">。</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">1.function(json数组，查询条件，查询参数），</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">返回查询到的参数值以string返回</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">（1）</span></span><span style="font-size:14px">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">function(</span></span><span style="font-size:14px">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00'</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> （2）</span></span><span style="font-size:14px">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">function(</span></span><span style="font-size:14px">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00,19.00'</span></p>
+<p><span style="font-size:14px"><del>2.</del></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"><del>function(json数组，查询条件），返回查询元素组成的数组</del></span></span><span style="color:rgb(255, 77, 79)"><span style="font-size:14px"><del>null</del></span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"><del>（1）</del></span></span><span style="font-size:14px"><del>"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</del></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"><del>function(</del></span></span><span style="font-size:14px"><del>reduceDetailInfoList,'reduceType==2') == '[{"reduceAmount":15.00,"reduceType":2}]'</del></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"><del> （2）</del></span></span><span style="font-size:14px"><del>"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</del></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"><del>function(</del></span></span><span style="font-size:14px"><del>reduceDetailInfoList,'reduceType==2') == '[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2}]'</del></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">注：不支持正则表达式</span></p>
+<p><span style="font-size:14px">注：查询条件不需要写转义字符\</span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>示例一：</em></span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>输入=》</em></span></span><span style="font-size:14px">jsonString</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em> = </em></span></span><span style="font-size:14px">"[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="font-size:14px">condition = “reduceType==2 &amp; reduceAmount &gt; 0.9”</span></p>
+<p><span style="font-size:14px">option = "reduceAmount"</span></p>
+<p><span style="font-size:14px">输出</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>=》</em></span></span><span style="font-size:14px">jsonString.selectForList(jsonString, condtion, option) = [15],</span></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">ip2oct(ip)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将ip转为八进制数</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">ip2dec</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将ip转为十进制数</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">getShellType(command, processname)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">获取shell类型</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>示例一：</em></span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>输入=》command  = </em></span></span><span><span style="font-size:14px">sh -i</span></span></p>
+<p><span style="font-size:14px">procesname = bash</span></p>
+<p><span style="font-size:14px">输出</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>=》</em></span></span><span><span style="font-size:14px">INTERACTIVE_SHELL</span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>示例二：</em></span></span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>输入=》command  = </em></span></span><span><span style="font-size:14px">sh ./deploy/run.sh</span></span></p>
+<p><span style="font-size:14px">procesname = sh</span></p>
+<p><span style="font-size:14px">输出</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><em>=》</em></span></span><span><span style="font-size:14px">NOT_SHELL</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">math.randomnumber(leftNumber, rightNumber)</span></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">生成随机数</span></span></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">输入是随机数的范围，输出是int</span></span><br><span><span style="font-size:14px">exp: math.randomnumber(100,888) =&gt; 输出100-888之间任意数字</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">jsonArrayPlus.selectForList(String jsonString, String condition, String option)</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">实现</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">json数组的解析，输入一个json数组、查询条件、查询参数（</span></span><span style="color:rgb(255, 77, 79)"><span style="font-size:14px">必填</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">），返回按元素遍历查询的结果；兼容查询到多个值的情况。查询条件支持大于/小于/</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">大于等于/小于等于</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">，等于/不等于操作，</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">支持array.contains和string.contains匹配，支持对数组进行格式转换</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">，</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">多个查询条件用 &amp;</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">，||(或） 进行拼接</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">。</span></span></p>
+<p><span style="font-size:14px">数组转换：</span></p>
+<ol>
+<li><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">string.length(参数):返回参数长度；</span></span></li>
+<li><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">long(参数):str转int；</span></span></li>
+<li>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">from_unixtime(long timestamp)/from_unixtime(long timestamp， String parttern)：将long型unix timestamp转为String型。</span></span></p>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">parttern可选："yyyy-MM-dd HH:mm:ss"或者"yyy/MM/dd "等，字母大小写严格区分的。y-年，M-月，d-日期，H-小时，m-分，s-秒。</span></span></p>
+</li>
+<li><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">unix_timestamp(String time)：str日期转long型unix timestamp</span></span></li>
+</ol>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">1.function(json数组，查询条件，查询参数），</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">返回查询到的参数值以string返回</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">（1）</span></span><span style="font-size:14px">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">function(</span></span><span style="font-size:14px">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00'</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> （2）</span></span><span style="font-size:14px">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">function(</span></span><span style="font-size:14px">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00,19.00'</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">注：支持正则表达式</span></p>
+<p><span style="font-size:14px">注：查询条件不需要写转义字符</span></p>
+<p><span style="font-size:14px">示例：</span></p>
+<p><span style="font-size:14px">函数逻辑：</span></p>
+<p><span style="font-size:14px">jsonArrayPlus.selectForList(char_info_compare, "pred_char_info &gt;= 0.8 || pred_char_info&lt;=0.3 &amp;&amp; status_ss==40 &amp;&amp; string.contains(</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">origin_poi_address</span></span><span style="font-size:14px"> ,'平顶山', "origin_poi_name" )</span></p>
+<p><span style="font-size:14px">输入=》</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">{</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "char_info_compare": [</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> {</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "origin_poi_address_len": 15,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "pred_poi_address": 0.03690036900368998,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "manage_status": 40,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "target_poi_name_len": 10,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "distance": 2.82733802537035,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "origin_poi_name": "七百韵达快递站点",</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "pred_char_info": 0.8195219123505976,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "levenshtein_poi_name": 1,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "target_char_info_len": 25,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "target_poi_address": "抚顺市望花区丹东路42号铝北小区22号楼望花区铝北小区",</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "pred_poi_name": 0.39603960396039606,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "origin_char_info_len": 20,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "target_poi_name": "欧景华庭韵达快递超市",</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "origin_poi_name_len": 8,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "target_poi_address_len": 27,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "levenshtein_poi_address": 1,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "user_id": 69855111,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "origin_char_info": "韵达快捷锁业",</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "origin_poi_address": "平顶山",</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "target_char_info": "韵达炒快递超市欧景华庭韵达快递超市NO289084",</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "levenshtein_char_info": 22,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "poi_id": 143120197890002,</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> "status": 40</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> }</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> ]</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">}</span></span></p>
+<p><span style="font-size:14px">输出=》jsonStringPlus.selectForList(jsonString, condtion, option) = </span><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">["七百韵达快递站点"]</span></span><span style="font-size:14px">,</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">isValidIP(String ip)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">检验ip地址是否合法（ipv4和ipv6均可使用）</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">jsonString.getListRemoveIntersection</span><span><span style="font-size:14px">(</span></span><span style="font-size:14px">List listA, List listB</span><span><span style="font-size:14px">)</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">输入：两个字符串数组，listA与listB</span></p>
+<p><span style="font-size:14px">输出：从listA中去除listA与listB的交集部分</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">jsonString.getListRemoveIntersection</span><span><span style="font-size:14px">(</span></span><span style="font-size:14px">List listA, List listB</span><span><span style="font-size:14px">)</span></span></p>
+<p><span style="font-size:14px">输入：</span></p>
+<p><span style="font-size:14px">A=["A05870000",</span><span style="color:rgb(56, 158, 13)"><span style="font-size:14px">"A03030001","A05303380"</span></span><span style="font-size:14px">,"A04721460","A01000000"]</span></p>
+<p><span style="font-size:14px">B=[</span><span style="color:rgb(56, 158, 13)"><span style="font-size:14px">"A03030001","A05303380"</span></span><span style="font-size:14px">,"M55740076","A0001204","A03030000"]</span></p>
+<p><span style="font-size:14px">输出：</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">[</span></span><span style="font-size:14px">"A05870000","A04721460","A01000000"</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">]</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">feature.acos(Double cos)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">反余弦函数</span></p>
+<p><span style="font-size:14px">输入:余弦值[-1,1]</span></p>
+<p><span style="font-size:14px">输出:弧度值[0,PI]</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">feature.norm_of_vector(String vector)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">向量的模</span></p>
+<p><span style="font-size:14px">输入为jsonstring格式的一维数组 [1.0,2,2.0]</span></p>
+<p><span style="font-size:14px">输出double值</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">feature.dot_product(String vector1, String vector2)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">向量点乘</span></p>
+<p><span style="font-size:14px">输入为两个jsonstring格式的一维数组 [1.0,2,2.0]</span></p>
+<p><span style="font-size:14px">输出double值</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">feature.matrix_multiplication(String matrix1, String matrix2)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">矩阵乘法</span></p>
+<p><span style="font-size:14px">输入为两个矩阵，尺寸为M x N和 N x P，输出相乘后的矩阵, 尺寸为M x P</span></p>
+<p><span style="font-size:14px">矩阵的格式为json格式的二维数组</span></p>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">feature.matrix_multiplication(matrix1, matrix2)</span></p>
+<p><span style="font-size:14px">输入：</span></p>
+<p><span style="font-size:14px">matrix1 = "[[1,1,1],[2,2,2],[3,3,3]]"</span><br><span style="font-size:14px">matrix2 = "[[1,1,1],[2,2,2],[3,3,3]]"</span></p>
+<p><span style="font-size:14px">输出：</span></p>
+<p><span style="font-size:14px">"[[6.0,6.0,6.0],[12.0,12.0,12.0],[18.0,18.0,18.0]]"</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.standardizeDate(String date)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将形如yy.M.d、yy.M.d H:m、yy年M月d日 的日期格式转化为yyyy-MM-dd的日期格式</span></p>
+<p><span style="font-size:14px">见：</span><a href="https://km.sankuai.com/page/1230349282" title="https://km.sankuai.com/page/1230349282">学城文档 1230349282（无权限读取标题）</a></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.standardizeDate(String date)</span></p>
+<p><span style="font-size:14px">输入：date="21.1.3" 输出："2021-01-03"</span></p>
+<p><span style="font-size:14px">输入：date="21年12月15日" 输出："2021-12-15"</span></p>
+<p><span style="font-size:14px">输入：date="2021.12.7 8:00" 输出："2021-12-07"</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.getWeekDay(String date)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">根据yyyy-MM-dd格式获取当天是星期几</span></p>
+<p><span style="font-size:14px">见：</span><a href="https://km.sankuai.com/page/1230349282" title="https://km.sankuai.com/page/1230349282">学城文档 1230349282（无权限读取标题）</a></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.getWeekDay(date)</span></p>
+<p><span style="font-size:14px">输入：date="2021-12-13" 输出：1</span></p>
+<p><span style="font-size:14px">输入：date="2021-12-14" 输出：2</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toMap(String jsonStr)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将json字符串转化为map</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.fromMap(Map map)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将map转化为json字符串</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.toList(String jsonStr)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将json字符串转化为list</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">jsonString.fromList(List list)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将List转化为json字符串</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">map.getAllKey(Map map)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">获取map的所有key list</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">map.getAllValue(Map map)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">获取map的所有value list</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.batchContains(String str, String patterns)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">判断 str 是否包含 patterns 里的一个子串</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">输入：str="aaabbb", patterns="aa,cc" 输出： true</span></p>
+<p><span style="font-size:14px">输入：str="aaabbb", patterns="ccc,ddd" 输出： false</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">IsIPInCIDRList(String ip, String cidrList)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">判断 IP 是否属于 cidrlist 中的CIDR</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">输入：ip="103.37.140.65", cidrList="[103.37.140.64/27,192.168.1.0/24]" </span></p>
+<p><span style="font-size:14px">输出： true</span></p>
+<p></p>
+<p><span style="font-size:14px">输入：ip="103.37.140.65", cidrList="103.37.140.64/27,192.168.1.0/24" </span></p>
+<p><span style="font-size:14px">输出： true</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">convertBase(String num, int src, int to)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">将 num 由 src进制转换为 to 进制</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">输入：num=</span><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">5  src=16  to=2</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">输出：0101</span></span></p>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">输入：num=</span></span><span style="font-size:14px">143253 src=10  to=16</span></p>
+<p><span style="font-size:14px">输出：</span><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">22F95</span></span></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">string.advanceRegex(String input, String regex, String flags)</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">使用正则高级配置flag，执行正则表达式regex，匹配输入文本input</span></p>
+<p><span style="font-size:14px">可选flag：</span></p>
+<p><span style="font-size:14px">CASE_INSENSITIVE：启用不区分大小写的匹配。默认情况下，大小写敏感。</span></p>
+<p><span style="font-size:14px">MULTILINE：启用多行模式。在此模式下，^和$可以匹配一行的开始和结束，而不仅仅是整个输入序列的开始和结束。</span></p>
+<p><span style="font-size:14px">DOTALL：启用dotall模式。在此模式下，.字符可以匹配任何字符，包括行终止符。</span></p>
+<p><span style="font-size:14px">UNICODE_CASE：启用Unicode感知的大小写折叠。当与CASE_INSENSITIVE标志一起使用时，它会启用Unicode感知的大小写折叠。</span></p>
+<p><span style="font-size:14px">CANON_EQ：启用规范等价性。当此标志指定时，两个字符将被认为匹配，如果且仅当它们的完全规范分解匹配。</span></p>
+<p><span style="font-size:14px">UNIX_LINES：启用Unix行模式。在此模式下，只有'\n'被认为是行终止符。</span></p>
+<p><span style="font-size:14px">LITERAL：启用模式的字面解析。即模式被视为字面字符串，不解析特殊字符。</span></p>
+<p><span style="font-size:14px">UNICODE_CHARACTER_CLASS：启用Unicode预定义字符类和POSIX字符类。</span></p>
+<p><span style="font-size:14px">COMMENTS：模式中允许空白和注释。</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">样例1：input = "Hello \n world", regex = "hello.*world", flags =  "DOTALL,CASE_INSENSITIVE"</span></p>
+<p><span style="font-size:14px">结果：true</span><img src="assets/104de27021aad0fa.png" width="519" height="64" alt="image.jpeg"><img src="assets/b99ca2c6b79100b8.png" width="389" height="204" alt="image.jpeg"></p>
+<p></p>
+<p><span style="font-size:14px">样例2：input = "Hello \n world", regex = "hello.*world", flags =  ""</span></p>
+<p><span style="font-size:14px">结果：false</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/用户自定义扩展函数开发指南__404577728/index.html">用户自定义扩展函数开发指南</a> <span class="status">已保存</span></li></ul></section></main></body></html>

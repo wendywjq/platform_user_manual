@@ -1,0 +1,227 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：Zeus日志接入和使用说明</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、简介</a><a href="#section-6">二、服务方式</a><a href="#section-7">1、web页面：单条、批量、聚合查询</a><a href="#section-37">2、hive表：全量数据查询</a><a href="#section-197">三、使用说明</a><a href="#section-205">四、常见Q&amp;A</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：Zeus日志接入和使用说明</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/124049950">查看学城原文</a></p><article>
+<h1>说明：Zeus日志接入和使用说明</h1>
+<div style="none"></div>
+<h1 id="section-3">一、简介</h1>
+<p>Zeus日志记录了各业务方使用规则引擎做决策的详细数据，包括：场景内的数据、配置的规则、决策、优先级、因子、参数、决策理由、衍生参数等等相关信息；</p>
+<p>业务方可使用日志做数据分析、异常排查和问题定位等</p>
+<h1 id="section-6">二、服务方式</h1>
+<h3 id="section-7">1、web页面：单条、批量、聚合查询</h3>
+<ul>
+<li>
+<p><strong>实时规则查询和异步规则查询分离</strong></p>
+<p>可通过日志查询-实时/离线查询实时规则和异步规则的执行明细数据</p>
+</li>
+<li>
+<p><strong>自定义查询字段</strong></p>
+<p>在日志配置中自定义配置查询条件</p>
+</li>
+</ul>
+<ul>
+<li>
+<p><strong>明细数据单条查询</strong></p>
+<p>可通过指定订单、账户、个人信息等条件查询近15天的明细数据，例如：userId、mobile、uuid等，见图片“1”</p>
+</li>
+<li>
+<p><strong>明细数据批量查询</strong></p>
+<p>可通过指定场景、规则、是否命中、决策、action等条件查询近15天分箱数据（group by）,例如：指定场景按命中规则、生效规则group by，见图片“2”</p>
+</li>
+</ul>
+<p><img src="assets/62033f7f1878c112.png" width="1006" height="600" alt="image.png"></p>
+<ul>
+<li>
+<p><strong>聚合数据查询：</strong></p>
+<p>可进行托拉拽规则、场景、规则、设备号、平台等条件查询近30天的数据量级和趋势，《Pivot》字段信息（<span style="color:rgb(245, 34, 45)">目前仅提供风控内部使用，外部业务方需求需评估，数据承载能力有限</span>）</p>
+</li>
+</ul>
+<p>入口：实时日志查询页面中---&gt;扩展功能---&gt;实时聚合分析</p>
+<p><img src="assets/169cbf7041b5eeec.png" width="563" height="214" alt="image.png"></p>
+<h3 id="section-37">2、hive表：全量数据查询</h3>
+<ul>
+<li>自定义保存时间：默认hive表保存时间为6个月，若有特殊要求：业务可在上线前同步Zeus侧；</li>
+<li>独立存储：为保证数据安全，每个接入业务方独立使用一张hive表，基于该表的业务定制化需求请通过ETL实现</li>
+<li>敏感数据加密：Zeus将对敏感数据进行统一加密，为便于业务使用，会提供解密函数</li>
+</ul>
+<p>      表单详情如下：</p>
+<details>
+<summary>通用业务方</summary>
+<div>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">字段英文名称</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">类型</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">字段中文名称</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">requestId</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">请求id                        </span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">businessCode</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">smallint</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">业务id  </span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">sceneId</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">int</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">场景id   </span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">hitRules</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">命中的规则id，用逗号隔开</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">decisionIds</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">决策id列表，用逗号隔开 </span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">markedRuleIds</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">标记规则，用逗号隔开 </span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">takenEffectRuleIds</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">生效规则</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">paramContext</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">请求参数json</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">factorContext</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则因子json</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">extraContext</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">string</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">其它信息json</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+</div>
+</details>
+<details>
+<summary>风控业务方</summary>
+<div>
+<table>
+<tr>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p></p>
+</td>
+<td rowspan="2" style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">字段/业务方</span></span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">固定字段（12）</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">requesteId、businessCode、sceneId 、subSceneIds、hitRules、decisionIds、markedRuleIds、takenEffectRuleIds、fingerprint、paramContext、factorContext、extraContext</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">额外增加字段（15）</span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">userid</span></span><span style="font-size:14px">、</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">uuid、mobile、mobilecity、mobileprovince、ip、ipsub、ipcity、ipprovince、action、imsi、platform、ch、</span></span><span style="font-size:14px">partner</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h1 id="section-197">三、使用说明</h1>
+<p>1、web页面：新接入业务方在开通账号后、<span style="color:rgb(245, 34, 45)">业务上线前</span>，在Zeus--&gt;数据统计--&gt;日志配置中配置需要的字段，配置后即可使用“实时日志查询服务”。 <a href="https://km.sankuai.com/page/62096766" title="https://km.sankuai.com/page/62096766">说明：日志配置使用文档</a></p>
+<p><a href="https://km.sankuai.com/page/62096766" title="https://km.sankuai.com/page/62096766">说明：日志配置使用文档</a>2、hive表：在<span style="color:rgb(245, 34, 45)">业务上线前</span><span style="color:rgb(51, 51, 51)">通知Zeus侧，由RD配置hive表单信息和保存时长，配置后反馈业务表名。</span></p>
+<h1 id="section-205"><span style="color:rgb(51, 51, 51)">四、常见Q&amp;A</span></h1>
+<p><span style="color:rgb(51, 51, 51)">1、</span></p>
+<p></p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/Zeus日志隔离-北京风控hive表高频使用字段模版确认__126078054/index.html">Zeus日志隔离-北京风控hive表高频使用字段模版确认</a> <span class="status">已保存</span></li><li><a href="children/Zeus日志数据汇总__156154117/index.html">Zeus日志数据汇总</a> <span class="status">已保存</span></li><li><a href="children/Zeus日志问题总结与规划__124085314/index.html">Zeus日志问题总结与规划</a> <span class="status">已保存</span></li></ul></section></main></body></html>

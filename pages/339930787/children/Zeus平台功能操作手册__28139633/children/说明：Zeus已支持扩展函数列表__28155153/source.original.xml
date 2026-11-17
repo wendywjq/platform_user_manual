@@ -1,0 +1,1793 @@
+<km-doc>
+<km-title nodeId="a0a545b2a42e4856ae54916bd35a3438">说明：Zeus已支持扩展函数列表</km-title>
+<p nodeId="49ba5e143e0a4378a834f3826777b5d2"><a href="https://km.sankuai.com/collabpage/1729530152" title="https://km.sankuai.com/collabpage/1729530152" autoUpdate="true" nodeId="5115eb81125149aea0fc773ac841292e">https://km.sankuai.com/collabpage/1729530152</a> -对部分函数进行了使用方式梳理，包含内置函数</p>
+<km-note type="warning" nodeId="4cb11abd6d67481eb2947b992cfa4cc3">
+<km-title>注</km-title>
+<km-content>
+<ul nodeId="d3f9a9e4d2094920ae7fc71211d0a14b">
+<li nodeId="e3d77d6d9d114b71bdac7e28ab82a35d"><span color="rgb(0, 0, 0)">阅读本文前请确保了解</span><a href="https://km.sankuai.com/page/28163535" title="Aviator表达式引擎相关知识" nodeId="60ee2f7ceada473d889c81cbcc2f1d1d"><span color="rgb(25, 144, 255)">Aviator表达式引擎相关知识</span></a><span color="rgb(0, 0, 0)">，Aviator内置函数请参考</span><a href="https://km.sankuai.com/page/28163535#id-4.6%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0" title="Aviator表达式简介-内置函数" nodeId="5de471dc8dbc46ebbf134aad3871c610">Aviator表达式简介-内置函数</a>，下表是自定义的扩展函数</li>
+<li nodeId="2ba6289e92724becbc90791916add609">合法的<a href="http://json.org/" title="json" nodeId="0d18bcc984eb4e7f92dc239754ddaf8f">json</a>字符串中不应包含\n  \t  \r 等非打印字符，否则json解析失败，将导致Aviator表达式执行出现异常</li>
+</ul>
+</km-content>
+</km-note>
+<table responsive="false" nodeId="ae29eb756b1e43d888b07d7a92c1ae45">
+<tr nodeId="7549f08896974c1bbb287a4e6bcba04c">
+<th colwidth="[55]" nodeId="724b74b8649345648943ea70b7332823">
+<p nodeId="44c5dd38153b4225a0065b4a5299c01d" />
+</th>
+<th colwidth="[454]" nodeId="f7dc2302a18741ddbd54756addb8e4e4">
+<p nodeId="0b15afafa0fc4f6b8f8b9b44b749c0b4"><span font-size="14">函数</span></p>
+</th>
+<th colwidth="[438]" nodeId="bf43e4b5e2204fa6883eb18fd4a770bd">
+<p nodeId="816e631231b948049dd5b911ecf04f84"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[541]" nodeId="ed4ff31630614ccd8e8307c644ceafd6">
+<p nodeId="2845cfa46d2f482d81c86057dd30630b"><span font-size="14">示例</span></p>
+</th>
+</tr>
+<tr nodeId="cc1c79a861a34d77ab3992904b1203e2">
+<td colwidth="[55]" numCell="true" nodeId="dff47d8be5b94230a2043488c7034f88">
+<p nodeId="142517f11cff47fdba8dee3fa88136db" />
+</td>
+<td colwidth="[454]" nodeId="c228df876d0e458b9a1e8ca3146ee588">
+<p nodeId="f771f08d597d46d2833e21c2d148c029"><span font-size="14">string.toLowerCase(String key)</span></p>
+</td>
+<td colwidth="[438]" nodeId="4602536f332a469da444a5cc1016b7ae">
+<p nodeId="5e120c51c2d54a1aa3ce491d1bb99542"><span font-size="14">字符串转换成小写</span></p>
+</td>
+<td colwidth="[541]" nodeId="65c1be88ea164aa8905be886c3d1d2fe">
+<p nodeId="b08e485c962449ba9dbb76d93f902988"><span font-size="14"> </span></p>
+</td>
+</tr>
+<tr nodeId="4cfbcc804c16444d91637799f0ac37bb">
+<td colwidth="[55]" numCell="true" nodeId="498049538b5c4c8485a5acee369da5fa">
+<p nodeId="55b05ae52ab24f3684aa141c070b6532" />
+</td>
+<td colwidth="[454]" nodeId="6dea81a130834196844d4c88fe46417d">
+<p nodeId="678cceeb3a41423f92a945c91c09a519"><span font-size="14">string.toUpperCase(String key)</span></p>
+</td>
+<td colwidth="[438]" nodeId="82ed5039262c42dab32f346ddaa0070a">
+<p nodeId="a401d51a616f4675b1988679d2c01ac8"><span font-size="14">字符串转换成大写</span></p>
+</td>
+<td colwidth="[541]" nodeId="7298ea18b63e48e9b6439c64ef6a4e66">
+<p nodeId="8af679f3ad004ede9f7a5d90a6843c17"><span font-size="14"> </span></p>
+</td>
+</tr>
+<tr nodeId="2a07206059c54ac8a37d8e698d19e0d8">
+<td colwidth="[55]" numCell="true" nodeId="42cc7f6e74d644d0980e5938f8e864ce">
+<p nodeId="0c722c024d9543d98c81d502522fcdd2" />
+</td>
+<td colwidth="[454]" nodeId="7c85f1fab1cb4b42aaecbccc76a4eafa">
+<p nodeId="183b12c9186548e18364099f1a728eea"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">double(</span></span><span font-size="14">String key</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">)</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="f9a419b4f033441ab4ea983a394e874f">
+<p nodeId="4f95e0ea0c0748a9ac114fa85594e7dd"><span font-size="14">字符串转换成整型</span></p>
+</td>
+<td colwidth="[541]" nodeId="87182b5a99344848b677c12df67c83aa">
+<p nodeId="9c829672d1df47929559badc459807d7"><span font-size="14">String key 数据格式由字符串转换为整型</span></p>
+</td>
+</tr>
+<tr nodeId="4520274c076a4db9852a61f02b62d921">
+<td colwidth="[55]" numCell="true" nodeId="11f7c7a99c5b4cf1a3993c059869877a">
+<p nodeId="c6ddd24000c24872974fff98e9da2c03" />
+</td>
+<td colwidth="[454]" nodeId="cb48f104755d4c0fa0497dd2901089c9">
+<p nodeId="f71e29f85d944e2f946dc67a7fd14d54"><span font-size="14">existKey(String key)</span></p>
+</td>
+<td colwidth="[438]" nodeId="27195134cfeb4160b64e11e3b1d90efe">
+<p nodeId="0663d7c07cb6457da77b95c109adf876"><span font-size="14">判断当前上下文中是否存在该字段key</span></p>
+</td>
+<td colwidth="[541]" nodeId="6f387803c54541988ec2e258b732ea11">
+<p nodeId="53dc18feaa574b188457b173552e1cf6"><span font-size="14"> existKey(dm)== false，表示无dm参数</span></p>
+</td>
+</tr>
+<tr nodeId="61581266180340ad95af428d20e2f941">
+<td colwidth="[55]" numCell="true" nodeId="b2aed4321beb4630847cfead305d800a">
+<p nodeId="5d2be59da3dc49b283586be65af35940" />
+</td>
+<td colwidth="[454]" nodeId="de1d1a47322d43a3b2087f469a2c5dc2">
+<p nodeId="987710e2bf0c406698c9b7803e8fd4a7"><span font-size="14">isMobileNumber(String key)</span></p>
+</td>
+<td colwidth="[438]" nodeId="510a4c5fdb5341729557b2fd818d9adb">
+<p nodeId="8d4a525e391a49c39ecb7c545f9c30d0"><span font-size="14">是否是手机号t</span></p>
+</td>
+<td colwidth="[541]" nodeId="944edb083f86433a91ccdb8f284c264c">
+<p nodeId="4afcbf806d5b4536a935e104d30f09f4"><span font-size="14"> </span></p>
+</td>
+</tr>
+<tr nodeId="a4c1e10bbf0f49be96f43a382474a8de">
+<td colwidth="[55]" numCell="true" nodeId="21be0b881cd14e5ea9277d88d4e6fbb0">
+<p nodeId="46ded658626e4dc1be8fb04986071cdc" />
+</td>
+<td colwidth="[454]" nodeId="6df35d043c284bb488fb8fa29db78d14">
+<p nodeId="017a1efd07164aa9a4db488c6f7ef7dd"><span font-size="14"><del>isUnmatchedMobileBrand()</del></span></p>
+</td>
+<td colwidth="[438]" nodeId="e6dc6b0007ad499bb3859d3c8723cf82">
+<p nodeId="1575ce1262e549eaabe4fbdd4c0e3759"><span font-size="14"><del>手机品牌不匹配</del></span></p>
+</td>
+<td colwidth="[541]" nodeId="f83b53dbf9094bf3a49911744dadd310">
+<p nodeId="f7df5c5854424ba9817292289de48ff8"><span font-size="14"><del>暂未开发</del></span></p>
+</td>
+</tr>
+<tr nodeId="cf8c8aeddc6c4cabb3a3ce6ab4a359b7">
+<td colwidth="[55]" numCell="true" nodeId="25a5165ed1f34832b2e0e65c70f3332b">
+<p nodeId="276e04aef38b4cdc87cf44491d6ae77d" />
+</td>
+<td colwidth="[454]" nodeId="21f71721aa86498f9acd2bc0efc77d8f">
+<p nodeId="73b47bde980a4153af7a15455cec1ca1"><span font-size="14">string.splitAndGetSlice(String key, String regex, Integer index)</span></p>
+</td>
+<td colwidth="[438]" nodeId="3f572397fdf14b1b86011cce4e73c431">
+<p nodeId="ae1392c50d75448f9b896b6e4032c239"><span font-size="14">string split分隔后，返回第index+1个元素, index从0开始, regx支持正则表达式</span></p>
+</td>
+<td colwidth="[541]" nodeId="ba9108b9de984f63827623d1bc6a0c33">
+<p nodeId="8662d3fdc116453a82a5fbb8f94050a1"><span font-size="14">string.splitAndGetSlice('</span><span color="rgb(0, 0, 0)"><span font-size="14">adfdff|df|fdsfs|sss</span></span><span font-size="14">', '|', 2) 结果为fdsfs。</span></p>
+<p nodeId="4579e8d3e7f6479a9fde1d8398a1e497"><span font-size="14">string.splitAndGetSlice('a},{b', '},{', 0) 结果为a。注意要转义特殊字符。</span></p>
+<p nodeId="ba23d09aea94427ab35a0bbbeae176a8"><span font-size="14">参考因子</span><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">48486</span></span></p>
+</td>
+</tr>
+<tr nodeId="c08f9136fee148b0b4048a0e4e25387c">
+<td colwidth="[55]" numCell="true" nodeId="1000a3d8291743efb0f6ce0968479d96">
+<p nodeId="5496972b5ca445d984a98b4507818a0a" />
+</td>
+<td colwidth="[454]" nodeId="234f0275b72446c598a28f6553fc10c9">
+<p nodeId="b568a98a71a64d86b66d54df2db96b00"><span font-size="14">string.hasInstalledApp(String base64AppString, int index)</span></p>
+</td>
+<td colwidth="[438]" nodeId="42ba8d852e444897a8ad0007bf2b05d0">
+<p nodeId="d0146141f6a548e9bd2595c62a304bdc"><span font-size="14">applist里是否安装某个app，index从1开始</span></p>
+</td>
+<td colwidth="[541]" nodeId="9607b2d6037647e88d108f5aea59eb06">
+<p nodeId="0eae33cd7f6d4cc890dd7e9482e388d1"><span font-size="14"> </span></p>
+</td>
+</tr>
+<tr nodeId="cdd38e2c438046cf853206425466dba9">
+<td colwidth="[55]" numCell="true" nodeId="4f0342dd346f444bb85b3a55dec6c05a">
+<p nodeId="cbdc347038d941cfa15ee237885dd9bd" />
+</td>
+<td colwidth="[454]" nodeId="80c73830684e47c3aa6dc02908a7dc1d">
+<p nodeId="58c29d1a681742ec98ab6eba32f42707"><span font-size="14">string.</span><span color="rgb(0, 0, 0)"><span font-size="14">splitAndContainStr</span></span><span font-size="14">(String key, String regex, String str)</span></p>
+</td>
+<td colwidth="[438]" nodeId="85adca6d79124fb092ecaa9703cbba75">
+<p nodeId="8da37ce7306b420faf20499fe728a748"><span font-size="14"> 对key 以regex分隔，查看分隔后的list是否包含str</span></p>
+</td>
+<td colwidth="[541]" nodeId="9a379ad047d9411f80eadf84d41b1b94">
+<p nodeId="3dee01465b85446c9eed0d3680b5c9a4"><a href="http://rc-zeus.sankuai.com/factor/edit?factor_id=844" title="http://rc-zeus.sankuai.com/factor/edit?factor_id=844" nodeId="9effb5f98d43478a9f2c00e0c68be1a9"><span font-size="14">http://rc-zeus.sankuai.com/factor/edit?factor_id=844</span></a></p>
+</td>
+</tr>
+<tr nodeId="9b27538c20664828b64dad76c6d6a115">
+<td colwidth="[55]" numCell="true" nodeId="e56044c3a99c4191b9a831bf009ae2d5">
+<p nodeId="1637cbf4d7914ffdb8fe81342e97ad42" />
+</td>
+<td colwidth="[454]" nodeId="c3d58575d9684ccea86053d33029b249">
+<p nodeId="24a1470f864046dd9e5f0de8c2b73aa8"><span font-size="14">jsonString.toListAndGetOne(String key, int index)</span></p>
+</td>
+<td colwidth="[438]" nodeId="6b0ef3323ce045d888caa6ae48389870">
+<p nodeId="9d4e1d7298654fdab4645f2d44af8620"><span font-size="14">对json转成list，并取出第index+1个元素index从0开始</span></p>
+</td>
+<td colwidth="[541]" nodeId="7fc3bd8356734a69acab3f2fc88b8535">
+<p nodeId="d33c98d3839b41a6bfa7839473e81d96"><span font-size="14">示例见：</span><a href="https://zeus.sankuai.com/factor/edit?factor_id=27781" title="https://zeus.sankuai.com/factor/edit?factor_id=27781" nodeId="888365e0d64f461d8b9f0331f325b465"><span font-size="14">https://zeus.sankuai.com/factor/edit?factor_id=27781</span></a></p>
+</td>
+</tr>
+<tr nodeId="4396ed293a1541dba05fdcd762b699c9">
+<td colwidth="[55]" numCell="true" nodeId="0a381ece4f7b44ae9a392a57eb56c69d">
+<p nodeId="fab7388364b44ed8990356e10581832e" />
+</td>
+<td colwidth="[454]" nodeId="a7e80dbeb55244f2a9403a43c35bfc00">
+<p nodeId="5bc7036fcffc48f69a58f3c811de6402"><span color="rgb(0, 0, 0)"><span font-size="14">from_unixtime(long timestamp)</span></span></p>
+<p nodeId="e505b4a9eebb4b1aa80f7137adec0368"><span color="rgb(0, 0, 0)"><span font-size="14">from_unixtime(long timestamp， String parttern)</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="1cb37f0f138243a4979fc06f229b48a5">
+<p nodeId="047255baff1e46f08b053d96ede64e8c"><span font-size="14">将long型unix timestamp转为String型。</span></p>
+<p nodeId="3db3de9556564b29947ffb717b97c8f3"><span font-size="14">parttern可选："yyyy-MM-dd HH:mm:ss"或者"yyy/MM/dd "等，字母大小写严格区分的。y-年，M-月，d-日期，H-小时，m-分，s-秒。</span></p>
+</td>
+<td colwidth="[541]" nodeId="cd9cd6e9cf374cc4b1b7b42586db691d">
+<p nodeId="42f385b91a0b4a9b8ffd812e2b1a7596"><span font-size="14">from_unixtime(1219428234L); 结果为“2008-08-23 02:03:54”。</span></p>
+<p nodeId="4d44c4a683b24077918c2c48a5f3407f"><span font-size="14">from_unixtime(1219428234L,"yyyy-MM-dd");结果为“2008-08-23”。</span></p>
+</td>
+</tr>
+<tr nodeId="76c1b4c199d746beaf50d18d7cb677ec">
+<td colwidth="[55]" numCell="true" nodeId="6c4195d65df6496a88bb245385ab597e">
+<p nodeId="4eecc696dd064febb0d11ad55f7436b5" />
+</td>
+<td colwidth="[454]" nodeId="7d59ffb4a6b74d9cbaedc7d061418823">
+<p nodeId="8c85a1e4b2474c23a28e433a859f6f45"><span font-size="14">unix_timestamp(String time)</span></p>
+</td>
+<td colwidth="[438]" nodeId="5c5eddc5d0204e53924aabc6b17801db">
+<p nodeId="4bc088d4c85342b6b188d7e95045f8c7"><span font-size="14">将String型日期转为long型unix timestamp。</span></p>
+</td>
+<td colwidth="[541]" nodeId="8227b35555884c41a54aacdc57c1ac08">
+<p nodeId="f77a66982a854560b429011ef128e7bd"><span font-size="14">unix_timestamp('2008-08-23 02:03:54');结果为1219428234。</span></p>
+<p nodeId="1cfc3ed4c51c4bed9a2a3b493a61756f"><span font-size="14">unix_timestamp('2008-08-23');结果为1219420800。</span></p>
+<p nodeId="6df4629cfdb140d5a51d027cc987b56c"><span color="rgb(106, 135, 89)"><span font-size="14"> </span></span></p>
+</td>
+</tr>
+<tr nodeId="d2af3a1fb1974e938d606c7202bfc036">
+<td colwidth="[55]" numCell="true" nodeId="d045e17bc70041089155c206b0738a25">
+<p nodeId="9362414ab1854a11bf7d2c43ef95e91d" />
+</td>
+<td colwidth="[454]" nodeId="068d9175f89a4cb8a6a0913d8dc64761">
+<p nodeId="409400123f9641629e582faa69acd292"><span font-size="14">md5(String plainText)</span></p>
+</td>
+<td colwidth="[438]" nodeId="ea18d35db34a472282e7ef5465074983">
+<p nodeId="82263601abaf405bb3c3d6b9da328736"><span font-size="14">生成字符串painText的md5哈希摘要</span></p>
+</td>
+<td colwidth="[541]" nodeId="7bde3ccb825047fb92a0f9e063e1d4ff">
+<p nodeId="d8a0538fd1e64a739db269099723edf2"><span font-size="14">md5('abcdefgh')</span></p>
+</td>
+</tr>
+<tr nodeId="ad91567e55db4be68e131ad8faab0518">
+<td colwidth="[55]" numCell="true" nodeId="4d449b5a43334213ae73eaa43d997d1e">
+<p nodeId="bd865166d24a4d68b7730d1bd8b643e4" />
+</td>
+<td colwidth="[454]" nodeId="591334b136fb41889c3be50a9af4a229">
+<p nodeId="46b603a231b34161829a796e66a50049"><span font-size="14">string.equalsIgnoreCase(String originalStr, comparedStr)</span></p>
+</td>
+<td colwidth="[438]" nodeId="2ae260baee764eabb4a4c4005e933535">
+<p nodeId="41695d8fe9fa4a328585f6fc44cb3c31"><span font-size="14">比较originalStr与comparedStr在不区分大小写的情况下的相等性</span></p>
+</td>
+<td colwidth="[541]" nodeId="52b04cb3193f4dbeaf2ceb914826cb33">
+<p nodeId="0e7bd1e0c4ab455eab9043be0c28a89c"><span font-size="14">string.equalsIgnoreCase('abc', 'AbC') ，返回为true</span></p>
+</td>
+</tr>
+<tr nodeId="e8aa40b1bc7244779e0a8ccdd0e09ae8">
+<td colwidth="[55]" numCell="true" nodeId="a9e6a287a46242229c9276d9f9d0c6ad">
+<p nodeId="3e0518b3528f4084af979513868c2876" />
+</td>
+<td colwidth="[454]" nodeId="5e1bc1491155412a8a4ec5e216f9fff6">
+<p nodeId="bb5f9186ffe44a3eb836832119d7e5e6"><span font-size="14">string.getMatchPatternGroups(String input, String regExp, String groups)</span></p>
+</td>
+<td colwidth="[438]" nodeId="73150cb4a4274d87a7d53fb1fac63805">
+<p nodeId="fd6f87ee59fc4d7eac3239862383c61c"><span color="rgb(0, 0, 0)"><span font-size="14">获取正则匹配成功的捕获组的拼接</span></span><span font-size="14">后的内容。</span></p>
+<p nodeId="38046cb62c9647099cfb8f80d56d3b35"><span font-size="14">input为要匹配的源字符串，regExp为正则表达式，groups</span></p>
+<p nodeId="115cc9ea41d34cdc8235e77c439f7771"><span color="rgb(0, 0, 0)"><span font-size="14">为以英文逗号相间隔的多个捕获组</span></span></p>
+<p nodeId="cf69a202866849fdb049d77eb61fa013"><span color="rgb(0, 0, 0)"><span font-size="14"> </span></span></p>
+</td>
+<td colwidth="[541]" nodeId="7eb6ad109a0a44a08ec2eacac9dcbe84">
+<p nodeId="b1ce6668fbb64a4499d1eb06b7da2268"><span color="rgb(0, 0, 0)"><span font-size="14">getMatchPatternGroups(storage, '(\d+)(\d)(@\d+)', '1,3')</span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14">表示storage匹配"(\d+)(\d)(@\d+)"选取第1和第3个捕获组的内容进行字符串拼接后返回</span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14">例如:storage="1234@</span></span><a href="http://567.com/" title="567.com" nodeId="5ee5b7f1fe3a45e78c9b4589690fc43a"><span color="rgb(0, 0, 0)"><span font-size="14">567.com</span></span></a><span color="rgb(0, 0, 0)"><span font-size="14">", 则返回结果为: "123@567"</span></span></p>
+<p nodeId="37358cf24652430ca94a0dc822c6742c"><span color="rgb(245, 34, 45)"><span font-size="14">注意：仅支持头次匹配，例如:storage="1234@</span></span><a href="http://567.com/" title="567.com1234@" nodeId="e2f558692e0d4e98abd21c7618b6f67b"><span color="rgb(245, 34, 45)"><span font-size="14">567.com1234@</span></span></a><a href="http://567.com/" title="567.com" nodeId="37fd8ea40f51435ba93f08aa94cdef0f"><span color="rgb(245, 34, 45)"><span font-size="14">567.com</span></span></a><span font-size="14">"，则返回结果依然为"123@567"</span></p>
+</td>
+</tr>
+<tr nodeId="5873396a041b401f94ec5e5399d8a22b">
+<td colwidth="[55]" numCell="true" nodeId="77868594eb014e0e8151beec57406084">
+<p nodeId="05683ab318b141b4a3991de53287e922" />
+</td>
+<td colwidth="[454]" nodeId="fdca577bf86244f78413c60128f1a807">
+<p nodeId="1ce4e083ca7c40a199feebc49617c5d8"><span font-size="14">isValidImei(String key)</span></p>
+</td>
+<td colwidth="[438]" nodeId="34f8dcb3ea134345980f0b32b84ebf75">
+<p nodeId="7a32d9dc872a47e99851f613ca5b96e2"><span font-size="14">key是否是合法的Imei</span></p>
+</td>
+<td colwidth="[541]" nodeId="c19fac229efd46c0920436e771ca5cd3">
+<p nodeId="9b00dd7a678b40e1b3f5fa3c51b53ffd"><span font-size="14">isValidImei('</span><span color="rgb(0, 0, 0)"><span font-size="14">490154203237518'</span></span><span font-size="14">) 将返回true</span></p>
+</td>
+</tr>
+<tr nodeId="dec49eb673f74425bb7372ead96e3cc8">
+<td colwidth="[55]" numCell="true" nodeId="ced78e9ca137471c833c57bc33ab5566">
+<p nodeId="0756555045104c7ba5c2d77f601c8772" />
+</td>
+<td colwidth="[454]" nodeId="ef92b2d7786e416297071f1d9421812f">
+<p nodeId="a77ce87127f74f0d98652de3ae4cb2ae"><span font-size="14">string.getCharTypeChangeNumber(String key)</span></p>
+</td>
+<td colwidth="[438]" nodeId="a35981d4e5e6451a9ccf2416cfbd9a15">
+<p nodeId="a1da33da14974bc2a1940d5ea3df37f6"><span font-size="14">字符串中字符变化的次数</span></p>
+</td>
+<td colwidth="[541]" nodeId="059131bc59e54d12a7815aee0f9d6c99">
+<p nodeId="a967b1f637c84bef9b3572bb0f7407de"><span font-size="14">字符类型分为5种：中文、数字、大写字母、小写字母、其他。</span></p>
+<p nodeId="d1d58ff679b945f3b174bb8ec9144fcb"><span font-size="14">string.getCharTypeChangeNumber('')=0</span></p>
+<p nodeId="e3ba5368d92c49039979895a08fd17ef"><span font-size="14">string.getCharTypeChangeNumber('a')=1</span></p>
+<p nodeId="21a1971b3bf94373b01d48d4cb7075b6"><span font-size="14">string.getCharTypeChangeNumber('aBa')=3</span></p>
+<p nodeId="22d20a7ea7684ee98d2f65efb9d65285"><span font-size="14">string.getCharTypeChangeNumber('aBBa')=3</span></p>
+<p nodeId="7a5702be6c354171acd44d867ec1008e"><span font-size="14"> </span></p>
+</td>
+</tr>
+<tr nodeId="e8bec19e851447f7ae4372e1c5872b9e">
+<td colwidth="[55]" numCell="true" nodeId="c7e79524a13c4b248eab2383651f7e49">
+<p nodeId="cdec5d3b2b1f4f8994e040fc6a7852d2" />
+</td>
+<td colwidth="[454]" nodeId="f81f2902c84f4a7c94cc162c2b3a3ef9">
+<p nodeId="4304fb5846ee469691ad16d2e1d7a5f9"><span font-size="14">gpsDistance(lat1, lng1, lat2, lng2)</span></p>
+</td>
+<td colwidth="[438]" nodeId="380e8ac905fe4444afd74c3f3b8a3585">
+<p nodeId="30705b39e1f7441a9660ca558c89d510"><span font-size="14">根据两点的经纬度，计算距离</span></p>
+</td>
+<td colwidth="[541]" nodeId="0c22b0c591164a2aa7c760fb52682ffe">
+<p nodeId="1f00651cd8f64a89a8ac58ac8e96d9c1"><span font-size="14">gpsDistance(1.0, 1.0, 2.0, 2.0)=157402.0</span></p>
+</td>
+</tr>
+<tr nodeId="b63d78bac36f4b85ba51f3964dd8a5ad">
+<td colwidth="[55]" numCell="true" nodeId="e32dcbbab6d74e708947bfe551409071">
+<p nodeId="176caf58d3a74b78b7f3b57e2f8639a5" />
+</td>
+<td colwidth="[454]" nodeId="45bbd04003954d8785f34aa22d11cdeb">
+<p nodeId="218d9d1a0c9a40b9861332cd966185da"><span font-size="14">array.contains(String array, String key)</span></p>
+</td>
+<td colwidth="[438]" nodeId="e8b7689a11e844f2b1af88a825e66429">
+<p nodeId="28e39dfecb554580a603bf216ac2dc5b"><span font-size="14">字符串型的数组array是否包含字符串key</span></p>
+</td>
+<td colwidth="[541]" nodeId="c57c0474fed74f42a64776b3fc8749c9">
+<p nodeId="4e897e788a6346e3b1e13a9674676d03"><span font-size="14">字符串型的数组支持两种格式：以英文中括号包围或不以中括号包围。中间以英文逗号相间隔</span></p>
+<p nodeId="c189981161544f00a7c2f33086097ac1"><span font-size="14">array.contains('[1, 2, 3]', '1') 返回true</span></p>
+<p nodeId="9f9daba488384f75b7e6317f6a846c5c"><span font-size="14">array.contains('1, 2, 3', '1') 也返回true</span></p>
+<p nodeId="4a179aef9db64ce58038009886fe2c0c"><span font-size="14">注意：array.contains('["1","2"]','1') 返回 false</span></p>
+</td>
+</tr>
+<tr nodeId="3d9674244f50460b82556c1c25ff4a8b">
+<td colwidth="[55]" numCell="true" nodeId="a9950ebb8f534bc5b0477b7db2b1c349">
+<p nodeId="5443d43972194f93a58b99abc6cf5e62" />
+</td>
+<td colwidth="[454]" nodeId="8fd2d173a4394fc3b4baa01e8ab02bb2">
+<p nodeId="3c54112631544765ba8e532fb805ea95"><span font-size="14">map.containsIntegerValue(String jsonMap, Integer value)</span></p>
+</td>
+<td colwidth="[438]" nodeId="d6eb4732c61f4a52a8caba41d15bad97">
+<p nodeId="5a95a3baaf7a4be6825a0b091e628f7c"><span font-size="14">jsonMap作为json格式的Map是否包含以整型的value为值的情况</span></p>
+</td>
+<td colwidth="[541]" nodeId="483c8dfb90754dd3af2b86d28cd9c462">
+<p nodeId="592cc9a928a442aaaf8c035cc4fd4540"><span font-size="14">map.containsIntegerValue('{"key1" : 1, "key2" : 2}', 1)返回true</span></p>
+<p nodeId="e25bd87c375f4ce69631745ce1943c0b"><span font-size="14">map.containsIntegerValue('{"key1" : 1, "key2" : 2}', 3)返回false</span></p>
+</td>
+</tr>
+<tr nodeId="d15507c6a96549468ac0d4c2b17eab96">
+<td colwidth="[55]" numCell="true" nodeId="1a0561e3204344bb9f7ac6d2beefd083">
+<p nodeId="fabbe6149a1945b28d50de0c72e7ad8b" />
+</td>
+<td colwidth="[454]" nodeId="9555bd1d8ffc4a319afb9af5a3342471">
+<p nodeId="55a1a2fa5d534548b11d6076ae7d119c"><span font-size="14">math.round(double num)</span></p>
+</td>
+<td colwidth="[438]" nodeId="080cb6e798c04b39b3ac90c51d7c467f">
+<p nodeId="639502f83e874d05a6fd0dbcf5341af7"><span font-size="14">近似</span></p>
+</td>
+<td colwidth="[541]" nodeId="07a9967cee6148b09155e2ed974f2969">
+<p nodeId="da1a587a9641492988954d079885893a"><span font-size="14">math.round(1.4999)返回1</span></p>
+<p nodeId="504cced0518a45c286a29e7117717a12"><span font-size="14">math.round(1.8999)返回2</span></p>
+</td>
+</tr>
+<tr nodeId="6e128058689a40c1a0cf68eb5d2927ac">
+<td colwidth="[55]" numCell="true" nodeId="721c6dd197ad4468a6418122323c62d1">
+<p nodeId="8e4b0071715e47e097884668395a3677" />
+</td>
+<td colwidth="[454]" nodeId="196c80248de24f4fb1091efd4db441cc">
+<p nodeId="9cf1a48484314b9d9a31da0e5cd5a695"><span font-size="14">string.countSubString(String originalStr, String substr)</span></p>
+</td>
+<td colwidth="[438]" nodeId="5e40ea15e8364704b2b893e7a6a43685">
+<p nodeId="708526de36db4e5d9e0e8e53586298ac"><span font-size="14">返回originalStr中包含子字符串substr的次数</span></p>
+</td>
+<td colwidth="[541]" nodeId="9733c61aa02747c1a3cc567a39df1937">
+<p nodeId="fff58e7189d1419297d679fd41142aa2"><span font-size="14">string.countSubString('ababcdefab', 'ab')返回3</span></p>
+</td>
+</tr>
+<tr nodeId="e8eab5139ef245efac77d668a139e1e6">
+<td colwidth="[55]" numCell="true" nodeId="c4147786dc734c36ac831ab415f9456e">
+<p nodeId="f40b98e73cd7499a94bbcbaa1765988c" />
+</td>
+<td colwidth="[454]" nodeId="72e6a75e76dd49118207c41fad37572f">
+<p nodeId="ffc9a9ab57a740fbb2da40c502bad1ba"><span font-size="14">parseTimeToDay(String time)</span></p>
+</td>
+<td colwidth="[438]" nodeId="9979fae157684976b6341fc50b787c0e">
+<p nodeId="3c2e95268acc4c4fa9004580110e38ec"><span font-size="14">将字符串型的time转化成'yyyy-MM-dd'（如：2016-08-25）格式的日期字符串</span></p>
+</td>
+<td colwidth="[541]" nodeId="f3cf1dc1bafe4715b34d99af0600a589">
+<p nodeId="247c82ee80e74db6be7dcfa4648b1828"><span font-size="14">time的格式可以为以下几种（位代表字符）：</span></p>
+<ol nodeId="fbbd935583694c10a9c6a3bbb31d974e">
+<li nodeId="fbbe8b5699cb4d64a8d9b628ea208055"><span font-size="14">10位整数，表示秒级别的时间戮</span></li>
+<li nodeId="74ec1293e0734410ad3062e356bc6f08"><span font-size="14">13位整数，表示毫秒级别的时间戮</span></li>
+<li nodeId="e622aafae99a468581fb5e7eb0af2200"><span font-size="14">10位的‘yyyy-MM-dd’格式的日期字符串</span></li>
+<li nodeId="cfdc9a75af644402b148ae2a53c78e49"><span font-size="14">19位的‘yyyy-MM-dd HH:mm:ss’格式的日期字符串</span></li>
+<li nodeId="8f4f7e734f5341318eefae5df28e3ba6"><span color="rgb(0, 0, 0)"><span font-size="14">28位的‘EEE MMM dd HH:mm:ss zzz yyyy’格式的日期字符串</span></span></li>
+</ol>
+</td>
+</tr>
+<tr nodeId="914314df5ca94e1baadeb4261815a523">
+<td colwidth="[55]" numCell="true" nodeId="ea0c3490fec845c38fed12966e7ff28e">
+<p nodeId="344b01d7e0564832a9263e5565a51721" />
+</td>
+<td colwidth="[454]" nodeId="fd89c85bbf5e43bfa94330b715882e90">
+<p nodeId="24a351514c9a452c811adc5ca771b402"><span color="rgb(0, 51, 102)"><span font-size="14">string.getFromJsonMap(String jsonMap, 'String key')</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="f0785cc04d3e47a0bf0307101348e8a1">
+<p nodeId="4415c13916c84e2fa054f550ce7c7260"><span color="rgb(0, 51, 102)"><span font-size="14">从json字符串格式的map中取出指定的key对应的value</span></span></p>
+</td>
+<td colwidth="[541]" nodeId="cc2f232fc4604afbabeb20f8d7849bde">
+<p nodeId="d1f765193f9d4c908e717d439887951f"><span color="rgb(0, 51, 102)"><span font-size="14">string.getFromJsonMap('{"key1":"value1", "key2":"value2"}', 'key1') 返回"value1"</span></span></p>
+<p nodeId="79ad03d9af66474ab025d87be920a1e3"><span color="rgb(0, 0, 0)"><span font-size="14">注: 此方法默认返回的是String类型,因此,如果value为整形或浮点型,就使用long()或double()函数进行强制类型转换,还需注意的是,返回值强转成double型后可能有精度误差</span></span></p>
+<p nodeId="e699ca683edc4c3bb2640c63de65a19c"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">string.getFromJsonMap(extraContext, 'applyid')</span></span></p>
+<p nodeId="692bb792a7b84ca687b91f1c26c56a6c"><span font-size="14">{ "extraContext": "{\"couponUserType\":1,\"applyid\":\"746601693\",\"mtCampaignType\":1,\"couponAmountType\":2,\"couponType\":1,\"activityName\":\"美食神券\"}" }</span></p>
+<p nodeId="ad292e72abfa4606ba38561411dfd004"><span font-size="14">执行结果：746601693</span></p>
+</td>
+</tr>
+<tr nodeId="24db60240f174cc4948b40b83cc3538a">
+<td colwidth="[55]" numCell="true" nodeId="aa08daf56f4d4a6484a529d9c0f56435">
+<p nodeId="abe143b1a5664573a20ff5a89edf9170" />
+</td>
+<td colwidth="[454]" nodeId="09c6d33c3c704085b3c66815d814e7e1">
+<p nodeId="a356d8c5b6414605b77a0d45b2f06415"><span font-size="14">string.getJsonStringFromJsonMap(String jsonMap, String key)</span></p>
+</td>
+<td colwidth="[438]" nodeId="ffe3f4f359a04c7b800284117cbf88ca">
+<p nodeId="403b625ea9a748e98fd0ecfbda4e0ccc"><span font-size="14">从json字符串格式的map中取出指定的key对应的value, 并将value处理成JsonString</span></p>
+</td>
+<td colwidth="[541]" nodeId="29398ce9f982449896d7445c7f6c6cd4">
+<p nodeId="e9b45791362a488caaa5681f9846d9b9"><span color="rgb(0, 51, 102)"><span font-size="14">string.getJsonStringFromJsonMap('{"key1":{\"innerKey\":\"innerValue\"}, "key2":"value2"}', 'key1') 返回"{\"innerKey\":\"innerValue\"}"</span></span></p>
+<p nodeId="932866ae363a466d957c1b6f09615cd0"><span font-size="14">多层时，内层用这个</span></p>
+</td>
+</tr>
+<tr nodeId="436b7d8e9893445da9045e794e4af45f">
+<td colwidth="[55]" numCell="true" nodeId="6ad9f54f9a8e41ea925ba61ade839663">
+<p nodeId="acfca67f72a94710a4722c7317db215d" />
+</td>
+<td colwidth="[454]" nodeId="9e1648941aaf4dbfb81db9e30d783a38">
+<p nodeId="6517c0b4148f4ba69721875805a14cae"><span font-size="14"> </span></p>
+<p nodeId="039f8960fd634911ad5ae0269885b0aa"><span color="rgb(0, 0, 0)"><span font-size="14">string.substringIndex(String str, String separator, int index) </span></span></p>
+</td>
+<td colwidth="[438]" nodeId="66bb38bc26994339a4c9e0cd6021e55b">
+<p nodeId="57be6042fd654df7ac1456ff19425d1c"><span color="rgb(0, 51, 102)"><span font-size="14"> </span></span></p>
+<p nodeId="e9ad231012094cea91b82a2c54be03aa"><span font-size="14"> </span></p>
+<p nodeId="e2b21a1ac6df480fa38fe19be30a069a"><span color="rgb(0, 51, 102)"><span font-size="14">返回字符串str中在第index个出现的分隔符separator之前的子串。如果index是一个正数，返回从最后的(从左边开始计数)分隔符到左边所有字符。如果index是负数，返回从最后的(从右边开始计数)分隔符到右边所有字符。</span></span></p>
+<p nodeId="3f436635fc004773b6eceb96c998ee81"><span color="rgb(0, 51, 102)"><span font-size="14">类似于mysql中的substring_index库函数</span></span></p>
+</td>
+<td colwidth="[541]" nodeId="81b7d2c27e1e4b58b03d5d32db683ddd">
+<p nodeId="30e8842bc95342cb8544d13f99ece6a1"><br /><span color="rgb(0, 0, 0)"><span font-size="14">string.substringIndex('a|b|c|d|e|f|g', '|', 3) 返回 'a|b|c'</span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14">string.substringIndex('a|b|c|d|e|fg', '|', -3) 返回 'd|e|fg'</span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14">string.substringIndex('a|b|c|d|e|fg', '|', 0) 返回 ''</span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14">string.substringIndex('a|b|c|d|e|fg', '|', 6) 返回 'a|b|c|d|e|fg'</span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14">string.substringIndex('a|b|c|d|e|fg', '|', -6) 返回 'a|b|c|d|e|fg'</span></span></p>
+</td>
+</tr>
+<tr nodeId="12489f69b3a14911bd8737f2c8ade07c">
+<td colwidth="[55]" numCell="true" nodeId="1a47cef0824c4880b5d81a83a7b21039">
+<p nodeId="37ed2849117b40b09e114ae2ae7f691e" />
+</td>
+<td colwidth="[454]" nodeId="771fcbdf431d456db88aabad6c12a9f3">
+<p nodeId="909d5d2a5dff4ca8849d8cccb229e1c6"><span font-size="14">getFirstNonNull(String arg1, String arg2, String arg3 ...)</span></p>
+</td>
+<td colwidth="[438]" nodeId="a832d8bf51304d85bd8d8097a77e33c5">
+<p nodeId="d0da296b8ad6473d900d79aa364e20f8"><span font-size="14">返回第一个不为null的参数的值，入参理论上不限个数</span></p>
+</td>
+<td colwidth="[541]" nodeId="caa32aebb9e243dba4212f521a48f536">
+<p nodeId="4815d0aeb1de4279b202da2f882feff5"><span font-size="14">getFirstNonNull(arg1, arg2, arg3)，如果arg1=null，arg2="arg2Value"，arg3=null，则返回为"arg2Value"（按照顺序，第一个不为null的是arg2，因此返回的是arg2的值"arg2Value"）</span></p>
+</td>
+</tr>
+<tr nodeId="4333a09b431a4f3a95eda86413c91fff">
+<td colwidth="[55]" numCell="true" nodeId="9cb32dcae78f4d38a94719edf6317e88">
+<p nodeId="13e72ff4910a4fcd8834e80b1af5212d" />
+</td>
+<td colwidth="[454]" nodeId="e641cb7b36754124a677bc594bf99325">
+<p nodeId="6baae9c2977e4d4383cb582da5fbcd96"><span font-size="14">getLongTimestamp(String formattedTime)</span></p>
+</td>
+<td colwidth="[438]" nodeId="e51e34ee01694ffd8f566785bf64573c">
+<p nodeId="574c5b60002b452c92a18559c4ea1dc8"><span font-size="14">返回字符串型时间格式的formattedTime的长整型时间戮（</span><span color="rgb(0, 51, 102)"><span font-size="14">自1970 年1 月1 日（00:00:00 GMT）以来的秒数</span></span><span font-size="14">），单位是秒</span></p>
+</td>
+<td colwidth="[541]" nodeId="5b14978ca2e846c8858b6cb559ecb8ab">
+<p nodeId="502f148ae0534a9eb9286f0477e6f083"><span font-size="14">formattedTime的格式可以为以下几种（位代表字符）：</span></p>
+<ol nodeId="62df5f0e6638438ea3557d74605d7f11">
+<li nodeId="715442ed25fa4624bccf5e05270fdf8a"><span font-size="14">10位整数，表示秒级别的时间戮</span></li>
+<li nodeId="b104c3f30e5d4c61aeb93ffbae8f2935"><span font-size="14">13位整数，表示毫秒级别的时间戮</span></li>
+<li nodeId="3b2a1b9b2cab46408472869e1731b64b"><span font-size="14">10位的‘yyyy-MM-dd’格式的日期字符串</span></li>
+<li nodeId="9e66b73785064465ad30a4b371464829"><span font-size="14">19位的‘yyyy-MM-dd HH:mm:ss’格式的日期字符串</span></li>
+<li nodeId="c8be9a046fbe4fa8bedafa3c828649cc"><span color="rgb(0, 0, 0)"><span font-size="14">28位的‘EEE MMM dd HH:mm:ss zzz yyyy’格式的日期字符串</span></span></li>
+</ol>
+</td>
+</tr>
+<tr nodeId="968d0d56cb7c4539ab0c20e175036741">
+<td colwidth="[55]" numCell="true" nodeId="959d331634c949f88323601a4f1437d3">
+<p nodeId="a260800088c341b3a5805d14b39011fc" />
+</td>
+<td colwidth="[454]" nodeId="3a2fdcf5ab414e1993ec823abe32d380">
+<p nodeId="21633255a1c34916a293c37619d1225d"><span font-size="14">string.combineToList(String combiningStr, String combinedList)</span></p>
+</td>
+<td colwidth="[438]" nodeId="6066f34ddf2946ab85f2b1e2b8d9d48e">
+<p nodeId="d5e46c75cfa24b119a5e47a18f25984c"><span color="rgb(0, 51, 102)"><span font-size="14">将字符串combiningStr以前缀的方式添加到combineList列表的每个元素中，combineList为以英文逗号间隔的字符串</span></span></p>
+</td>
+<td colwidth="[541]" nodeId="f2cff2a4b37f4e2c87e2430e8a29b640">
+<p nodeId="a7231589b7be4ab4877c2259610ff6be"><span color="rgb(0, 51, 102)"><span font-size="14">string.combineToList('2', '1,2,3,4') 返回的结果为:"2_1,2_2,2_3,2_4",</span></span></p>
+<p nodeId="d200e97741c54bc29df508fb39e524d1"><span color="rgb(0, 51, 102)"><span font-size="14">默认是以"_"进行拼接</span></span></p>
+</td>
+</tr>
+<tr nodeId="881914f60bd34cd185207d342bdb27ab">
+<td colwidth="[55]" numCell="true" nodeId="a07a023fb2894a889013d452e3b655a6">
+<p nodeId="2d50b16bcedf43d181b89118730a4173" />
+</td>
+<td colwidth="[454]" nodeId="909ff231371e49a4954916a95281f989">
+<p nodeId="c3aea87a15a34eb787632daf98996230"><span font-size="14">string.mergeList(String delimiter, String list1, String list2 ...)</span></p>
+</td>
+<td colwidth="[438]" nodeId="d80757dbaaae49e780763e7b0092e8a6">
+<p nodeId="8a9ba72d3cf54a9dba87ef0e4578fd6e"><span color="rgb(0, 0, 0)"><span font-size="14">将字符串用指定的分隔符进行合并并且去重</span></span></p>
+</td>
+<td colwidth="[541]" nodeId="2e5cf30150d645848fd3458ae84a6559">
+<p nodeId="d16d2827b4994f58a8b2196e6d2fd235"><span color="rgb(0, 0, 0)"><span font-size="14">string.mergeList(',', 'a', 'b,c', 'd,e,f', 'a') </span></span></p>
+<p nodeId="38c95856f9864d0a865cef151b7fc5dc"><span color="rgb(0, 0, 0)"><span font-size="14">表示用英文逗号对"a", "b,c"和"d,e,f"以及"a"进行合并并去重,</span></span></p>
+<p nodeId="e3b8b37713a144da93c68f23934846fe"><span color="rgb(0, 0, 0)"><span font-size="14">返回的结果为: "a,b,c,d,e,f"</span></span></p>
+</td>
+</tr>
+<tr nodeId="54f41a78a05749dc97703f08e2663648">
+<td colwidth="[55]" numCell="true" nodeId="6eb0e59340c443d8bf554d23db7ca44a">
+<p nodeId="5c3c7580a9e146b6bf508776b9a5270e" />
+</td>
+<td colwidth="[454]" nodeId="3a543f4722bf4b9da7849727a10a936d">
+<p nodeId="155098d6430c45eea32d60a9c12b1067"><span font-size="14">string.charAt(String arg, int index)</span></p>
+</td>
+<td colwidth="[438]" nodeId="12267c49474b4c5ea3408a131dd262ec">
+<p nodeId="ffd677664ae44318a7ba7d865a282f22"><span font-size="14">返回指定索引位置的字符串值，索引范围[0, length()-1]</span></p>
+</td>
+<td colwidth="[541]" nodeId="cf3e3ebdf6894c4389b4b51ed3a769af">
+<p nodeId="9b68e85f4f8e4dc286e72c98512510d3"><span font-size="14">string.charAt('1234', 0) 返回'1'</span></p>
+<p nodeId="274f8773065d41ebb1976c7ed4c42d7c"><span font-size="14">string.charAt('1234', 2) 返回'3'</span></p>
+<p nodeId="8209ffa5953a461490614a546e3fa93a"><span font-size="14">string.charAt('1234', -1)返回nil</span></p>
+<p nodeId="6252eb3ba38245d197114ffdb782294a"><span font-size="14">string.charAt('1234', 5) 返回nil</span></p>
+<p nodeId="e79252ddafde43e6827bec13bca6cb24"><span font-size="14">string.charAt('', 2) 返回 nil</span></p>
+<p nodeId="471c13cd104e4d8fad0172a93e082fe8"><span font-size="14">string.charAt(nil, 2) 返回 nil</span></p>
+</td>
+</tr>
+<tr nodeId="9c4927b8e5654726ae9cc140b5398044">
+<td colwidth="[55]" numCell="true" nodeId="9689988ee641467dbacc64fa9861598e">
+<p nodeId="dfcbbd72fc1a44f496b0ea6db4676468" />
+</td>
+<td colwidth="[454]" nodeId="ad29d0ce7b064652bbc88f3d3cddd726">
+<p nodeId="29d77e90f4b74f81999e37aa2a7ab3f6"><span font-size="14">string.compareTo(String s1, String s2)</span></p>
+</td>
+<td colwidth="[438]" nodeId="75e509f5abc347c99ae3b29816b77593">
+<p nodeId="d8b72955b351443cbe324931ce7cdefb"><span font-size="14">按照字典序比较两个字符串大小</span></p>
+</td>
+<td colwidth="[541]" nodeId="dab8e6e4e1d24a3fb151daaa3ffb59f9">
+<p nodeId="0d6128d751f74cbcac603e1940715724"><span font-size="14">string.compareTo('2015-12-12', '2015-12-12') 返回0</span></p>
+<p nodeId="8db4a49aec604a468e83932b6e35803c"><span font-size="14">string.compareTo('2015-12-12', '2015-12-13') 返回 小于0的数值</span></p>
+<p nodeId="df0e66d13ea44e95819c34c59edf5708"><span font-size="14">string.compareTo('2015-12-12', '3') 返回小于0的数值</span></p>
+<p nodeId="cae047fcdfa943fe94a70bffac6c325b"><span font-size="14">string.compareTo('2015-12-12', '') 返回大于0的数值</span></p>
+<p nodeId="5191229079e54bc3ad3d5e55849abb27"><span font-size="14">string.compareTo('2015-12-12', nil) 程序执行异常</span></p>
+</td>
+</tr>
+<tr nodeId="b77f2bf7db7d40fe80cdd02edd8bf75b">
+<td colwidth="[55]" numCell="true" nodeId="f4985a4de96847f2a5cc919eb893b1e3">
+<p nodeId="1fdb56aae6b24b30ac5e254ef02be995" />
+</td>
+<td colwidth="[454]" nodeId="3b36de3ffc9e4fa68520998d25fa4bd8">
+<p nodeId="2ff8b8d28cc34e5e9166f16812e6c839"><span color="rgb(0, 0, 0)"><span font-size="14">string.splitAndMatchesCount(String key, String separator, String regex)</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="f0fbe1fb6fd24374aa645c1111db121c">
+<p nodeId="07c3136b85654197a2dd93ba3b5a77c1"><span font-size="14">用separator分隔key， 一般会得到一个数组，然后计算数组元素与regex正则匹配的元素个数</span></p>
+</td>
+<td colwidth="[541]" nodeId="90db65e314df4193890ebf8e90469eee">
+<p nodeId="9b566bf15c634461983be89b90a70e5f"><span font-size="14">string.splitAndMatchesCount('123455-aaaa-bbb123', '-', '\\d+') 返回1</span></p>
+<p nodeId="16adbb18aef845088ec1476994567ef5"><span font-size="14">string.splitAndMatchesCount('123455-aaaa-bbb123', null, '\\d+') 返回nil</span></p>
+<p nodeId="e21a05dd68fe4b6a841635f922311339"><span font-size="14">string.splitAndMatchesCount('123455-aaaa-bbb123', '', '\\d+') 返回nil</span></p>
+<p nodeId="32e64d4002d04d8a99deadf181c90c17"><span font-size="14">string.splitAndMatchesCount('123455-aaaa-bbb123', '-', '^[a-z].*') 返回2</span></p>
+</td>
+</tr>
+<tr nodeId="d21773360e8a499a8048aeea825a85b3">
+<td colwidth="[55]" numCell="true" nodeId="6541492a7f3d44b6adfc036919ba7234">
+<p nodeId="4cc2a1b4fbc54ff5b52a5be4ce730733" />
+</td>
+<td colwidth="[454]" nodeId="8f4b820b5229429ca32158a694201e20">
+<p nodeId="4abd70c5108c426ebd4ed978801cae3a"><span font-size="14">math.max(double arg1, double arg2, .....)</span></p>
+</td>
+<td colwidth="[438]" nodeId="55f0931f3a844a79ac489d6a5c116973">
+<p nodeId="efc094b2d7d84baab372dd7d45129cfe"><span font-size="14">返回所有参数中值最大的那个，返回值类型为double（最多支持10个输入参数）</span></p>
+</td>
+<td colwidth="[541]" nodeId="ec0ed28f86ec4a3783cbc0e86af46085">
+<p nodeId="ed310c29f52c4b29b3c4c9f146ca38b9"><span font-size="14">math.max(1) 返回 1.0</span></p>
+<p nodeId="ac1f9af4e1604494a7ba0ed8fc35040a"><span font-size="14">math.max(1.0, 3) 返回 3.0</span></p>
+<p nodeId="e958e455bc99457ba84e994018dca5e2"><span font-size="14">math.max(1.0, 3, 2, -4) 返回3.0</span></p>
+</td>
+</tr>
+<tr nodeId="13c68e9216ab4cf6b2f9e4af400a6930">
+<td colwidth="[55]" numCell="true" nodeId="b2b87b4b209b412cb0f2d7bb6a838732">
+<p nodeId="fa12ca4550d1401c90a73ff34dc85318" />
+</td>
+<td colwidth="[454]" nodeId="57c8eab495ee462aa58b56f6fbb5fde8">
+<p nodeId="df52b43a570e40b180c7b094220df598"><span font-size="14">math.min(double arg1, double arg2, .....)</span></p>
+</td>
+<td colwidth="[438]" nodeId="5babc6881c7542b29bb9cab15c6dced7">
+<p nodeId="7af8c0dbd49f4b5b85b535f76d076086"><span font-size="14">返回所有参数中值最小的那个，返回值类型为double（最多支持10个输入参数）</span></p>
+</td>
+<td colwidth="[541]" nodeId="023c30b0fd784605a7bc38f270a0c998">
+<p nodeId="272b1efedb324fa489886698923394a4"><span font-size="14">math.min(1) 返回 1.0</span></p>
+<p nodeId="4f9ce29917464479a803ae200a423856"><span font-size="14">math.min(1.0, 3) 返回 1.0</span></p>
+<p nodeId="c4e21e42a56446bc888caabfd4562cfb"><span font-size="14">math.min(1.0, 3, 2, -4) 返回-4.0</span></p>
+</td>
+</tr>
+<tr nodeId="8f8b57b763664535a9502c462487c973">
+<td colwidth="[55]" numCell="true" nodeId="7a0fd125f38f4c12bf57156b8eff0eaa">
+<p nodeId="77222ede13cb43df9fedd1c4b14db7f9" />
+</td>
+<td colwidth="[454]" nodeId="d2002e53577a40019673e618f9e78f0c">
+<p nodeId="e3e9d7ede4a94abe9fffb65b6f11e144"><span font-size="14">jsonString.toListAndIndexesOf(String originalStr, String regx)</span></p>
+</td>
+<td colwidth="[438]" nodeId="5b6af2b4b8344b8f8888837af890e7c5">
+<p nodeId="e8a37bdfa7804cfd82d3d7d572e404df"><span font-size="14">返回jsonList中指定正则模式regx出现的所有索引位置，索引位置可能是零个，一个或者多个</span></p>
+<p nodeId="47c1845a4c0147ad8995efa21c9a98c2"><span font-size="14">，返回值类型是jsonString</span></p>
+</td>
+<td colwidth="[541]" nodeId="b120222f48e84f6e9c6a3ca3e2fc3f66">
+<p nodeId="8a4ac47edd4a4e619d9db858e644d7ba"><span font-size="14">jsonString.toListAndIndexesOf("[1,2,3,4,1,2,3,4]", "2") 返回"[1,5]"</span></p>
+<p nodeId="313be632339341e4b56bf73dd7f26f77"><span font-size="14">jsonString.toListAndIndexesOf("[\"1\",\"2\"]", "\"2\"") 返回"[1]"</span></p>
+<p nodeId="62c5330d7264403dbd26dad44158df0f"><span font-size="14">jsonString.toListAndIndexesOf("[\"1\",\"2\"]", "2") 返回"[]"</span></p>
+<p nodeId="6c745547e43547aeaf5e98196ac4852a"><span font-size="14">jsonString.toListAndIndexesOf("[{"bankCardNo":"123"},{"bankCardNo":"234"}]", "^\{.*123.*\}$") 返回"[0]"</span></p>
+<p nodeId="8addeb890bb14afe98a80b43008cce04"><br /></p>
+<p nodeId="86119c6296b94e448254d36df124c06c"><br /></p>
+</td>
+</tr>
+<tr nodeId="37ab07c0e98a43779485dca7b741608c">
+<td colwidth="[55]" numCell="true" nodeId="8046d6b2a5f743c2b768218ceee6a605">
+<p nodeId="94556f8bac404488a53ffc5c4deec923" />
+</td>
+<td colwidth="[454]" nodeId="e87d85bafe3243c8b3639cb656568ca9">
+<p nodeId="05eba6d46fb5468a82aa901ff91122f0"><span font-size="14">string.getMatchesPatternMaxLengthStr</span></p>
+<p nodeId="0c88db7463c0470ca8bdb1f7bd186c60"><span font-size="14">Function(String input, String regExp)</span></p>
+</td>
+<td colwidth="[438]" nodeId="18438ece0ef94a91a82adfd95be1052c">
+<p nodeId="fb4f21cbc9794e84aeeab89f2949f4bc"><span font-size="14">获取正则表达式匹配结果中最长字符串</span></p>
+</td>
+<td colwidth="[541]" nodeId="4f9adfab466749c8962d73c0d2f80183">
+<p nodeId="95475f25aa064093ac0148907b05bc8f"><span font-size="14">string.getMatchesPatternMaxLengthStrFunction(inputStr, regStr)</span></p>
+<p nodeId="de96936164614a23a8ec81d2ba5dbdad"><span font-size="14">inputStr:待匹配内容</span></p>
+<p nodeId="b713c4b83923426ebde22f43af697beb"><span font-size="14">regStr:正则表达式</span></p>
+<p nodeId="334a90188ead4bcf9372836b649414b5"><span font-size="14">例子：</span></p>
+<p nodeId="dd0d23950af843e781a149588a5c5958"><span font-size="14">输入： inputStr="1234蛋糕店123" regStr="\d+"</span></p>
+<p nodeId="b5b1e4dedce1476981322970b87462f3"><span font-size="14">输出："1234"</span></p>
+</td>
+</tr>
+<tr nodeId="f72ae6bc376747a2a91746dfebac46b5">
+<td colwidth="[55]" numCell="true" nodeId="e52713e9c9f743a59041fdf83e076256">
+<p nodeId="bc6812eb891046b292ff48ebe6c26b93" />
+</td>
+<td colwidth="[454]" nodeId="92b5fe25c9724d3b911f38111a9ab854">
+<p nodeId="8744f00d4e124ddb941d6b8434c9b5da"><span color="rgb(0, 0, 0)"><span font-size="14">currentTime()</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="1b741716685341f1b85d3df80925415c">
+<p nodeId="75017188b6364f10a62ef3a66f4bdca5"><span font-size="14">获取当前时间戳，精确到秒</span></p>
+</td>
+<td colwidth="[541]" nodeId="6f8916a3bad84b91917a3ca3d451c457">
+<p nodeId="7d5663cd809c4a0893b3b0f2c10f226c" />
+</td>
+</tr>
+<tr nodeId="63a9e891431c43a68d6dc750b3b38d43">
+<td colwidth="[55]" numCell="true" nodeId="3fec10493a2044abb0865c2fcd786319">
+<p nodeId="ddf349c1d6b0438fbeb094614fee216b" />
+</td>
+<td colwidth="[454]" nodeId="3373b84f9a1e45c58be0bdcacd25f3b4">
+<p nodeId="de2f8d51641c4b51bf80d0aed3a0e929"><span font-size="14">jsonString.toListAndMaxValue(String originalStr, String field)</span></p>
+</td>
+<td colwidth="[438]" nodeId="bff1993381bd4416b4bb953605eec2e8">
+<p nodeId="1cc89791b4d349a3926149854c2bde39"><span font-size="14">该函数返回list中最大值元素，list中元素的数据类型是map，map根据指定字段来比较大小</span></p>
+</td>
+<td colwidth="[541]" nodeId="a09196030595443d92795ba63c335bd4">
+<p nodeId="169d3e8fbc45441e818f1f1f9e75951d" />
+</td>
+</tr>
+<tr nodeId="705ac8424fda43bf81323b608e433e0a">
+<td colwidth="[55]" numCell="true" nodeId="d9cfafe0dd804ae9ba302c41d9b0f4d9">
+<p nodeId="a8a7b26b82ff43bb83b42bf12968c983" />
+</td>
+<td colwidth="[454]" nodeId="bc159e2916854729bf1ecb370a4679d6">
+<p nodeId="2b733fcbde8d4366b742bc719d95ca5a"><span font-size="14">jsonString.toListAndGetSize(String list)</span></p>
+</td>
+<td colwidth="[438]" nodeId="55f7f9e7dde44039be70e9f4d8c9a03d">
+<p nodeId="5fc3fba8d1b742cc9e2b1e35293890ed"><span font-size="14">返回List中所有元素的个数，包括null元素</span></p>
+</td>
+<td colwidth="[541]" nodeId="ef3cb954161f4374806a1230da90c29e">
+<p nodeId="73c492f8c3c44d1cabb31a98e4a3665a" />
+</td>
+</tr>
+<tr nodeId="915e3f05fd4d4d55af14691325de14c9">
+<td colwidth="[55]" numCell="true" nodeId="bb45ae7f91a84f0c95148033b22790c4">
+<p nodeId="e2bd5756f7214638a572b30d4d7fb06e" />
+</td>
+<td colwidth="[454]" nodeId="5351f6b7853445aa8358b2c01c7b49d8">
+<p nodeId="0c54e7761f7044098ef9bd045e81727e"><span font-size="14">jsonString.toListAndGetNotNullSize(String list)</span></p>
+</td>
+<td colwidth="[438]" nodeId="90408919aa5f4193bf4fb4d3c353478a">
+<p nodeId="41fa925974f64c71bcd82d82839a6915"><span font-size="14">返回List中所有非null元素个数</span></p>
+</td>
+<td colwidth="[541]" nodeId="a5937eba883949b892d1a1c8f9d83753">
+<p nodeId="12180394113247ee8bbdc0604e1ca744" />
+</td>
+</tr>
+<tr nodeId="cedcfb7a80ff4800a12982d78bb1da1c">
+<td colwidth="[55]" numCell="true" nodeId="7ba8319732b34998a349b225540bd399">
+<p nodeId="9dc2bd75621a4f96b9f1b69c0de855ff" />
+</td>
+<td colwidth="[454]" nodeId="566b49ce9f3a482895bd84228dbde6b9">
+<p nodeId="34f81a38655946d0a9fb95f1f035cc70"><span font-size="14">jsonString.toListAndCountSpecified(String list, String regx)</span></p>
+</td>
+<td colwidth="[438]" nodeId="9f60c00938074d27a6c7d665fab7fb98">
+<p nodeId="45bb914f3996454aa513cfc911aff327"><span font-size="14">返回List中指定元素个数</span></p>
+</td>
+<td colwidth="[541]" nodeId="ea57ea49bfe14e0bb41667893e580441">
+<p nodeId="049de6fb6b7e4fc1b17cbcf66d46d495"><span font-size="14">jsonString.toListAndCountSpecified(list, reg)</span></p>
+<p nodeId="a33ad5b02f8746259a2085dfabbef72f"><span font-size="14">例子：</span></p>
+<p nodeId="5931eb9fa933431eadc6848f9edb06e7"><span font-size="14">输入：list = "[1,2,1,3]", reg = "1"</span></p>
+<p nodeId="5662ed94ccf140dd80870224dfbfce7b"><span font-size="14">输出：2</span></p>
+</td>
+</tr>
+<tr nodeId="07ac4641293f446abd763db4ce96459e">
+<td colwidth="[55]" numCell="true" nodeId="e59b3a60cae5450cb9885b64201bcc1b">
+<p nodeId="def5c26261604215aa7f5f9b1f435f57" />
+</td>
+<td colwidth="[454]" nodeId="acbf227ea5ec4ad3bc7f516067c29e1c">
+<p nodeId="90bff1ca279e4586885d38387c6a4773"><span font-size="14">isListPartlyInclude(String listA, String listB)</span></p>
+</td>
+<td colwidth="[438]" nodeId="beffba6cc5844d7ba5b0cc350632b31e">
+<p nodeId="8dd5fda8b7234f59a0224195eb9126ae"><span font-size="14">判断listA和listB是否部分包含。部分包含的规则如下：对于集合A和B，如果他们之间存在重叠的元素，那么A和B即为部分包含</span></p>
+<p nodeId="26affbdcfcb5482c8548f5cf8abc7f46" />
+</td>
+<td colwidth="[541]" nodeId="135bac2156924de38cc00fa6936f8a83">
+<p nodeId="804eb4d183c54e54a8f3e16800c5ddce"><span font-size="14">isListPartlyInclude(listA, listB)</span></p>
+<p nodeId="0bf54c94320d40f788aba39b40bb286c"><span font-size="14">1. 输入: listA = "[1,3,4]", listB = "[1,5,6]"  输出：true</span><br /><span font-size="14">2. 输入: listA = "[1,3,4]", listB = "[5,6]"  输出：false</span><br /><span font-size="14">3. 输入: listA = "[]", listB = "[5,6]"  输出：false</span></p>
+</td>
+</tr>
+<tr nodeId="c43b536ed1f643cf8bc6ac7557b10502">
+<td colwidth="[55]" numCell="true" nodeId="9355ceb97bb74f8aafe29fb8a231c4fd">
+<p nodeId="24516f45eb154dd9b6751c9ba6a71d78" />
+</td>
+<td colwidth="[454]" nodeId="00a2f10442864fd0980c027879943316">
+<p nodeId="0869227a757140abbdce92b9645d0b34"><span font-size="14">isListTypePartlyInclude(List listA, List listB)</span></p>
+</td>
+<td colwidth="[438]" nodeId="a18a9d75fe554e85ba5667a3ee63d0ff">
+<p nodeId="827360e4c34d4c589d8087b080292ad8"><span font-size="14">输入：字符串数组，比如["abc"]</span></p>
+<p nodeId="29d0eb7053324f52b7cdfb32b4e7ac21"><span font-size="14">判断逻辑：判断输入的listB中的每个字符串是否被listA中的每一个元素所包含</span></p>
+</td>
+<td colwidth="[541]" nodeId="7b102aee9e154595b6722ebbb526ece8">
+<p nodeId="be9227a868a34de8b78713bde2669243"><span font-size="14">isListTypePartlyInclude(List listA, List listB)</span></p>
+<p nodeId="e00ecedce0f243439140120b19aa542f"><span font-size="14">1.输入：listA = ["abc"]，listB = ["ab"]，输出true</span></p>
+<p nodeId="666c1e4449e046b48b1e6d0b251d28e9"><span font-size="14">2.输入：listA = ["abc"]，listB = ["bcd"]，输出false</span></p>
+</td>
+</tr>
+<tr nodeId="ce8037bd487947c9b23f4fcd6f4cf130">
+<td colwidth="[55]" numCell="true" nodeId="bf1ab341678741b5aeade4fb42d93893">
+<p nodeId="d938a7f806264963b4ca1d6699d1c9c0" />
+</td>
+<td colwidth="[454]" nodeId="1a7f6db63b8c4f1ca2b4ab32f17164fc">
+<p nodeId="039dd6e853de4bed9c5f3c25c9a3e686"><span font-size="14">isListCompletelyInclude(String listA, String listB)</span></p>
+</td>
+<td colwidth="[438]" nodeId="1a2a1e01dc964296b326684676ec985f">
+<p nodeId="d632858391ed4613a75c2fff3de6e8fb"><span font-size="14">判断listA是否完全包含listB。完全包含的规则如下：对于集合A和B，如果B中的任意元素都在A中出现，则A包含B为true，否则A包含B为false。</span></p>
+</td>
+<td colwidth="[541]" nodeId="fa600db59ee94ddbb788205f2f91e551">
+<p nodeId="feef7ff0090f400481b724e68666103c"><span font-size="14">isListCompletelyInclude(listA, listB)</span></p>
+<p nodeId="8b124d4dbff74b58928087e6dab21339"><span font-size="14">1.输入：listA = "[1,3,4]", listB = "[1, 1]" 输出：true</span></p>
+<p nodeId="8385a466587b4dbd91925e21c9b41c8c"><span font-size="14">2.输入：listA = "[1,3,4]", listB = "[1,2]" 输出：false</span></p>
+<p nodeId="af1ab56a59a24e259fb1b64570347385"><span font-size="14">3.输入：listA = "[1,3,4]", listB = "[1, null]" 输出：true</span></p>
+<p nodeId="87a5f89475064a4e9ff328b1984a419c"><span font-size="14">4.输入：listA = "[]", listB = "[]" 输出：true</span></p>
+</td>
+</tr>
+<tr nodeId="7b49cfe742574d6d9dcefe5fce8919ca">
+<td colwidth="[55]" numCell="true" nodeId="628a0bf380af45f69127c941ad358a2d">
+<p nodeId="a3b2825a454545a081fb36dbe067389e" />
+</td>
+<td colwidth="[454]" nodeId="ae3217fb1c814487813dee894e626738">
+<p nodeId="eebb69df1784442f9166538d19e6ed13"><span font-size="14">compareVersion(String v1, String v2, String style)</span></p>
+</td>
+<td colwidth="[438]" nodeId="3cdb3053fff544bdb30cc38066e2fd8a">
+<p nodeId="565ae93828904a3e85585cab096b93ef"><span font-size="14"><strong>版本号比较函数</strong></span></p>
+<p nodeId="dd10d44d6f7842eeb11b73dc1b285e1d"><span font-size="14"><u>返回结果为正数1，表示v1的版本号大于v2，为0表示版本号相同，为负数-1表示v1版本号小于v2</u></span></p>
+<p nodeId="8032bf742a654c6fa89b6cb143aa8fe4"><span font-size="14">style是版本的样式，例如版本号：9.3.1的style为V.V.V , 24_7.0的style为V_V.V , 60604的style为V0V0V , 631的style为V</span></p>
+<p nodeId="ccad4bb11c3f4f3980476ac5a591b90b"><span font-size="14">其中style必需按照最长样式来，如果无法确定版本号样式长度，则很有可能返回结果不符合预期</span><br /><span font-size="14">* 例如 compareVersion('25_7.1.2', '25_7.1.1', 'V_V.V') 会返回0, 因为按照style来进行分割子版本号，version1为[25, 7, 1], version2为[25, 7, 1]， 两者相等</span><br /><span font-size="14">* 两个版本号都需要与style格式相一致，不然也会出错返回nil</span></p>
+<km-note type="note" hiddenTitle="true" nodeId="f7f6967bc4c7409483aa30ae09029265">
+<km-title></km-title>
+<km-content>
+<p nodeId="f803e6dbf1974ab8a5ae08b2653cf114"><span font-size="14">因为nil小于任何非nil的对象，因此判断结果小于0时一定要对nil进行判断，如：</span></p>
+<p nodeId="bf6876ad16b24b389dfa22aad4ed95fd"><span font-size="14">compareVersion(version,  '1.2.3', 'V.V.V') == -1</span></p>
+<p nodeId="1e6147237aa347f9ae775893b6b217c0"><span font-size="14">或者</span></p>
+<p nodeId="4f19a106446e43069f3e3f4cbf20273d"><span font-size="14">compareVersion(version,  '1.2.3', 'V.V.V') != nil &amp;&amp; compareVersion(version,  '1.2.3', 'V.V.V') &lt; 0</span></p>
+</km-content>
+</km-note>
+<p nodeId="d5a74582255f4077bab4621a8ee90142" />
+</td>
+<td colwidth="[541]" nodeId="b593e8fc4fa841359aeecf0df1f25581">
+<p nodeId="bd1fa243b3664231a0d91d487efdb44c"><span font-size="14">compareVersion('25_7.1.1', '24_7.1', 'V_V.V.V')  结果返回1</span></p>
+<p nodeId="76b1165b6861449fa9ed19fba23b5fa6"><span font-size="14">compareVersion('24_7.0', '25_7.1', 'V_V.V')  结果返回-1</span></p>
+<p nodeId="ba134a53f81c43e6bc2726f6498f9ca0"><span font-size="14">compareVersion('25_7.1', '25_7.1', 'V_V.V')  结果返回0</span></p>
+<p nodeId="d5122c7c2685409ba726a9ce9ce24128" />
+<p nodeId="9d84c023ec354db49dc5124beedf87d1" />
+</td>
+</tr>
+<tr nodeId="1cd6e24afa774c00bbbc8e3c0b72190c">
+<td colwidth="[55]" numCell="true" nodeId="183997c63ce840d8aa255b3ad08b8b04">
+<p nodeId="4541a622329641fa9d8ab6bb30258d89" />
+</td>
+<td colwidth="[454]" nodeId="2a52771f86c54a68b94a29782082870b">
+<p nodeId="5fe7f66be8aa47adaac863b88b772889"><span font-size="14">string.convertToBigDecimal(originStr)</span></p>
+</td>
+<td colwidth="[438]" nodeId="559e43b5bb3d4a71ac8eec51f5d5c874">
+<p nodeId="84369afb1c554201b483a740b2bb49db"><span font-size="14">将字符串转换为高精度类型(BigDecimal)，高精度类型是什么，参考：</span><a href="http://www.cnblogs.com/chenssy/archive/2012/09/09/2677279.html" title="http://www.cnblogs.com/chenssy/archive/2012/09/09/2677279.html" nodeId="9e31c6bbe46e475ea161afaebdb3ccb3"><span font-size="14">http://www.cnblogs.com/chenssy/archive/2012/09/09/2677279.html</span></a></p>
+</td>
+<td colwidth="[541]" nodeId="bf34be38fbdc47e7ac1a40b29f075332">
+<p nodeId="46f619a64bc94bfdaa23db2a2cc4e4c7"><span font-size="14">string.convertToBigDecimal(originStr)</span></p>
+<p nodeId="f2bee3c96ce246aab1372d46d45d75e9"><span font-size="14">1.输入originStr="abc"，输出null</span></p>
+<p nodeId="2b92f960866549c0bb0e73e2d4402ba1"><span font-size="14">2.输入originStr="1.16"，输出1.16</span></p>
+<p nodeId="7f384854da184a1f8953fc1a4420bdf8"><span font-size="14">3.输入originStr="0.312464345"，输出0.312464345</span></p>
+</td>
+</tr>
+<tr nodeId="a98a178ee2f145978c663f06cda34a5b">
+<td colwidth="[55]" numCell="true" nodeId="fe04b2bb8bfe4a75a7978f9e4a4ec850">
+<p nodeId="ffb717067ab14c7fbb95f9919441d46b" />
+</td>
+<td colwidth="[454]" nodeId="57d4ebf330f64ea7a75943f0297bdf5d">
+<p nodeId="86c041ac4ec748c384aa710de06bcc52"><span font-size="14">jsonString.toListAndMergeList(String listA, String listB)</span></p>
+</td>
+<td colwidth="[438]" nodeId="0fc66a5ecadd454d9c7e2cdc9cbc6d22">
+<p nodeId="d3249c03078d4d61883ffe674569a593"><span font-size="14">输入两个list，返回这两个list的并集，并且并集顺序与原list顺序一致（即：不需要重新排序）</span></p>
+</td>
+<td colwidth="[541]" nodeId="1f6900f9737547a9957de9aaef2d83e6">
+<p nodeId="a97f1633553b4ee39d92b025d1421d19"><span font-size="14">jsonString.toListAndMergeList(listA, listB)</span></p>
+<p nodeId="5f0b99ad5dd3408a8372ffbb01a220e6"><span font-size="14">1. 输入: listA = "[1,3,4]", listB = "[1,5,6]"  输出："[1,3,4,5,6]"</span><br /><span font-size="14">2. 输入: listA = "[1,3]", listB = "[2,3,5]"  输出："[1,3,2,5]"</span><br /><span font-size="14">3. 输入: listA = "[9,4,5]", listB = "[5,6]"  输出："[9,4,5,6]"</span></p>
+</td>
+</tr>
+<tr nodeId="68775d2a05774717aaf520a8bf864e12">
+<td colwidth="[55]" numCell="true" nodeId="176d970171ca4748a051643e9881031d">
+<p nodeId="fe80d18c2b0b4011919dd395f891e7ed" />
+</td>
+<td colwidth="[454]" nodeId="d63a6ebc5a514b9e818fd81bedf3e91a">
+<p nodeId="7fb1511c46684bc99abf728a25d0f29c"><span font-size="14">jsonString.toMapAndGetDifferenceMap(String mapA, String listB)</span></p>
+</td>
+<td colwidth="[438]" nodeId="d21cc094d0334dcf85ca99785f676c48">
+<p nodeId="15993250b19f4b04b86d87ab220322b0"><span font-size="14">输入一个map和一个list，删除map中有list中元素的key。</span></p>
+</td>
+<td colwidth="[541]" nodeId="b8053770c02748f6a80a72c9184362a5">
+<p nodeId="fffaa9de7776407a82bba35fd8100ef4"><span font-size="14">jsonString.toMapAndGetDifferenceMap(mapA, listB)</span></p>
+<p nodeId="3d86270c663d4c5f924b8a0d2d1ecbca"><span font-size="14">1.输入：mapA = "{"1":1,"2":2,"3":3}", listB = "[1,2]"，输出："{"3":3}"</span></p>
+<p nodeId="fa3870b2345b4ef189641323cec537ab"><span font-size="14">2.输入：mapA = "{"1":1,"2":2,"3":3}", listB = "[4,5]"，输出："{"1":1,"2":2,"3":3}"</span></p>
+<p nodeId="4c7c0d778ecd40cf9139403f40ffa371"><span font-size="14">3.输入：mapA = "{"1":1,"2":2,"3":3}", listB = "[1,2]"，输出："{"2":2,"3":3}"</span></p>
+</td>
+</tr>
+<tr nodeId="d8aa56a3f6de4c59a1cd3383665d1c1b">
+<td colwidth="[55]" numCell="true" nodeId="67cba6bce5084ecb821063fd5e1f3b1a">
+<p nodeId="4d77279e25af4364a96b01852ec0bf43" />
+</td>
+<td colwidth="[454]" nodeId="5581ee055d3d4175ba7848bb3b4788cb">
+<p nodeId="7961dc3925bb42278be3a9d6f9d61a9e"><span font-size="14">jsonString.toMapAndMergeMap(String mapA, String mapB)</span></p>
+</td>
+<td colwidth="[438]" nodeId="26a5f5fd7ca74eb1a87b9717ae828746">
+<p nodeId="4fccb0bd7ee5422193b46e30d4d4edf4"><span font-size="14">输入两个map，返回这两个map的并集，map中值的情况以第二个map中的值为准。类似于HashMap.putAll语义</span></p>
+</td>
+<td colwidth="[541]" nodeId="247ca762037645a4809eac5ab998eb38">
+<p nodeId="03a94716aa864778aefdbdfa3d7bdd73"><span font-size="14">1.输入：mapA = "{"key1":1}", mapB = "{"key2":100,"key3":150}", 输出："{"key1":1,"key2":100,"key3":150}"</span></p>
+<p nodeId="fa1142bc1ba2419d9581e2241b02f790"><span font-size="14">2.输入：mapA = "{"key1":1}", mapB = "{"key1": 1000,"key2":100,"key3":150}", 输出："{"key1":1000,"key2":100,"key3":150}"</span></p>
+</td>
+</tr>
+<tr nodeId="6b2446059d1f448196516a3c97a065b0">
+<td colwidth="[55]" numCell="true" nodeId="dae882f84ee24873b07c22789122808d">
+<p nodeId="4537e9b4602a4ec7833847ac99a3d699" />
+</td>
+<td colwidth="[454]" nodeId="2ecb9855e25a4a1a9d9ee2bb66ec3a1a">
+<p nodeId="2c1fc4a910624cceb4dc0a52a742ce51"><span font-size="14">sha256(String str)</span></p>
+</td>
+<td colwidth="[438]" nodeId="da8abe5636ba431fa70b95dfdc98926e">
+<p nodeId="91f4ee340dda4300bf11cf0367ff0d0c"><span font-size="14">进行sha256运算</span></p>
+</td>
+<td colwidth="[541]" nodeId="2359c9e95b4e48fcbf7d4adbc65e205c">
+<p nodeId="28621921e222418689f186a6014f2ec6"><span font-size="14">入参为""或者null时返回null</span></p>
+<p nodeId="a4b589ff699f4e0c90ec5f0db17ea925"><span font-size="14">其他情况进行sha256运算</span></p>
+<p nodeId="d61fb9b4873f443b9b0715647fc5d0bf"><span font-size="14">例子：</span></p>
+<p nodeId="9c81558628d946fbb026cb9ee49d33e6"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">输入：12345678901  </span></span></p>
+<p nodeId="80ea964a1f8845c3984baf9c1a9e9939"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">输出：254aa248acb47dd654ca3ea53f48c2c26d641d23d7e2e93a1ec56258df7674c4</span></span><br /></p>
+</td>
+</tr>
+<tr nodeId="9f4c69f4c33c49ec8909c275f4d3d3e5">
+<td colwidth="[55]" numCell="true" nodeId="2a13fb57561c499eae2d9930d8e9ec04">
+<p nodeId="139a433830dd411984d5ad40e1ac9038" />
+</td>
+<td colwidth="[454]" nodeId="09c7cb46112042ceb144092ec00805e7">
+<p nodeId="ec4e897b1c8d4d39a87108e6e6da8daa"><span font-size="14">loop(String methodName, String str1,String str2, ......)</span></p>
+</td>
+<td colwidth="[438]" nodeId="11e5fb3989314950bad7d628d907ddc1">
+<p nodeId="6dec8e1d51d041a7b1fc581efe50f32a"><span font-size="14">循环执行某个函数</span></p>
+</td>
+<td colwidth="[541]" nodeId="2510cfade46940e0a0b5b8764607fea2">
+<p nodeId="1a4ba3f1e15641969eac0b5974b3f5cb"><span font-size="14">methodName =&gt; 需要循环运行的函数名</span></p>
+<p nodeId="6372ffe4b1594a44a1e2e4141a37e0f7"><span font-size="14">str1,str2... =&gt;  要进行运算的数组，</span><span color=""><span font-size="14">如果数组长度不一样，以最短的为准，如果数组内元素完全相同，可以用一个值替代</span></span></p>
+<p nodeId="e7bc64d3212a42db8f9c453f87d007f5"><span color=""><span font-size="14">返回值= 》数组</span></span></p>
+<p nodeId="cac15291a8374ab8a38d4f17a139619b"><span color=""><span font-size="14">示例一：</span></span></p>
+<p nodeId="e640aae11faa4c4f9ff92694b0678885"><span color=""><span font-size="14">输入=》loop("jsonString.toListAndGetSize", "[[1,2,3], [2,2,2,2,2], [1,1]]") </span></span></p>
+<p nodeId="082983c0f1c0422db1308d61017660b9"><span color=""><span font-size="14">返回=》[3,5,2]</span></span></p>
+<p nodeId="5e04f07781c74434b4bae7fcebe0d160"><span color=""><span font-size="14">示例二：</span></span></p>
+<p nodeId="a9c5a21a8f4a46efb9cf8e2fe55989c2"><span font-size="14">输入=》loop("math.max", "[1, 78, 18, 92, 36, 64, 83, 10]", "[7, 93, 60, 18, 48, 39, 83, 48]")</span></p>
+<p nodeId="0028e7fbb8f44234930c5f7106613a98"><span font-size="14">返回=》[7.0,93.0,60.0,92.0,48.0,64.0,83.0,48.0]</span></p>
+<p nodeId="77a0cca93f2840a3b23cef307e6b42c3"><span font-size="14">示例三：</span></p>
+<p nodeId="c3421f5cfcbd41788c9976d29e7648ce"><span font-size="14">输入=》loop("math.max", "[1, 78, 18, 92, 36, 64, 83, 10]", 50)</span></p>
+<p nodeId="49842e6f3aa94d2a94bb658f85ab4343"><span font-size="14">输出=》[50.0,78.0,50.0,92.0,50.0,64.0,83.0,50.0]</span></p>
+<p nodeId="482fcca9acb74fc5b703c1c0120be65f" />
+<p nodeId="2a9ea759a9094148a5bbb1468d464b4f" />
+</td>
+</tr>
+<tr nodeId="3d030773cc8f4ab7a87351bad9edda8a">
+<td colwidth="[55]" numCell="true" nodeId="6077bd1ac35d472bb97f9436f2a508dd">
+<p nodeId="6178809d8b91458d8a6129eb968d9d9a" />
+</td>
+<td colwidth="[454]" nodeId="ec46066695d44ad4bcb3e37d14592388">
+<p nodeId="95b06f56303643bc89f270bc5e5239e8"><span color=""><span font-size="14">jsonString.toTwoDimenListAndSubList(String </span></span><span font-size="14">array, int startX, int endX, int startY, int endY</span><span color=""><span font-size="14">)</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="7a85e242eda94756b710a7aa89ca5f73">
+<p nodeId="d5d63f38e4a44588bd36ae0fe17ebb9f" />
+<p nodeId="2d11a7ff8361486ca7f85e59cc50233d"><span font-size="14">将json串转换成二维数组，并按照横坐标和纵坐标取出二维数组中的一部分</span></p>
+</td>
+<td colwidth="[541]" nodeId="188c8a8d733e40bd81b8918da137ed4e">
+<p nodeId="9f4aa26d05d148b08d4a851f688ac04b"><span font-size="14">array =&gt; json格式的二维数组</span></p>
+<p nodeId="3a2c42aa363b4e82a77c6c320cda2c89"><span font-size="14">startX =&gt; 开始的横坐标，从0开始，包含startX</span></p>
+<p nodeId="1a516c1ef4e942eaa13581989821acaf"><span font-size="14">endX =&gt; 结束的横坐标，从0开始，包含endX</span></p>
+<p nodeId="08831818cbf74e05898027e6f21606ad"><span font-size="14">startY =&gt; 开始的纵坐标，从0开始，包含startY</span></p>
+<p nodeId="09758c5cf9cf40e2a52a42baf8667091"><span font-size="14">endY =&gt; 结束的纵坐标，从0开始，包含endY</span></p>
+<p nodeId="8484d8a95652402bbd8984ccfdf0fa66"><span font-size="14">返回值：一个二维数组，如果截取的是一行或者一列，则返回一维数组</span></p>
+<p nodeId="921fbce0311e45639a9238ff004ee3d7"><span font-size="14">示例一：</span></p>
+<p nodeId="1939178c95754d07a26ef0241aeb0b0c"><span font-size="14">输入=》jsonString.toTwoDimenListAndSubList(“</span></p>
+<p nodeId="6e50e1037a0d4736b23dc3ace1e205a4"><span font-size="14">[</span></p>
+<p nodeId="75aecb46c5774391ba8d9943177abe1c"><span font-size="14">  ["a", "b", "c", "d", "e"],</span></p>
+<p nodeId="c39b10d2c36f4d469daef52bdcce548e"><span font-size="14">  ["1", "2", "3", "4", "5"],</span></p>
+<p nodeId="96b2849e6fa74a6ea99ce20dd8d9be5b"><span font-size="14">  ["A", "B", "C", "D", "E"]</span></p>
+<p nodeId="edd8ce859d6d40b4a99babc6f2095c62"><span font-size="14">]</span></p>
+<p nodeId="4067003a229f4313b99c2bb70501b72f"><span font-size="14">”, 1, 4, 1, 2)</span></p>
+<p nodeId="68d9e45edde34b12b96794c745254705"><span font-size="14">输出=》</span></p>
+<p nodeId="d0a1184fcc5d45b7b7324495a2c3f57a"><span font-size="14">[</span></p>
+<p nodeId="49e78f29fa5e46f3aad2b417422a13df"><span font-size="14">  ["2","3","4","5"],</span></p>
+<p nodeId="b7cb5ba5855d4bb79b6ab4e560668664"><span font-size="14">  ["B","C","D","E"]</span></p>
+<p nodeId="74597979c33648169c394c7043194e62"><span font-size="14">]</span></p>
+<p nodeId="f96b5ea0aed04e43be59fe86b25695fe"><span font-size="14">示例二：</span></p>
+<p nodeId="17ef033e12d14dea868cc26af841e7ce"><span font-size="14">输入=》jsonString.toTwoDimenListAndSubList("[[11,12,13,14,15,16,17], [21,22,23,24,25,26,27], [31,32,33,34,35,36,37], [41,42,43,44,45,46,47], [51,52,53,54,55,56,57]]", 1, 1, 1, 4)</span></p>
+<p nodeId="79558d9e2b8f44d99484b7fd037ac2ae"><span font-size="14">输出=》</span><span color=""><span font-size="14">[22,32,42,52]</span></span></p>
+<p nodeId="173e6f8c19cb433f8194b45aeeb7a2af" />
+<p nodeId="0fc08388bb034ba7be56a48ac26e3372" />
+</td>
+</tr>
+<tr nodeId="d24dd5496fdc4daea045ce786293196b">
+<td colwidth="[55]" numCell="true" nodeId="7b27451042bb456f8cdd785d0b57aaf0">
+<p nodeId="aa88c3a9345045a398f6bc1d9f45129d" />
+</td>
+<td colwidth="[454]" nodeId="5da25feb03dc46719755ceeee7808b59">
+<p nodeId="f96de7d3ae56459dbcc8dfb56b99e03a"><span font-size="14">string.checkNull(String str, String defaultStr)</span></p>
+</td>
+<td colwidth="[438]" nodeId="4744bb3f258c434aa9da97e04d0f74aa">
+<p nodeId="9773ff478c0a4b1d84ced233edd2c78a"><span font-size="14">当str不为空时，返回str本身，否则返回默认值</span></p>
+<p nodeId="400cd4518f9746ffa43fc8e21bac936d" />
+</td>
+<td colwidth="[541]" nodeId="37d76b2081d14abf8a7f9c9a66872e93">
+<p nodeId="4da8c81648f3425e9732140ad61cacee"><span font-size="14">str——需要校验的参数</span></p>
+<p nodeId="d6739ece2c5946feb775f737f0769e27"><span font-size="14">defaultStr——默认值</span></p>
+<p nodeId="f00d10717f1546cab873d256392c3a26" />
+<p nodeId="fa01cb394afa4656ae20977e9499a439"><span font-size="14">当str或defaultStr不是String类型时，返回""</span></p>
+<p nodeId="d14d2ebf443e41ae976cacc9158b1832"><span font-size="14">当!(str==null || str=="" || str=="null" )时，返回str</span></p>
+<p nodeId="c82bc752febe48debcf6ebba65571aef"><span font-size="14">当(str==null || str=="" || str=="null" )&amp;&amp; defaultStr == null 时，返回“”</span></p>
+<p nodeId="22036cc8b35f4319b26ed0043c296ca6"><span font-size="14">当(str==null || str=="" || str=="null" )&amp;&amp; defaultStr != null 时，返回defaultStr</span></p>
+<p nodeId="d937f84a9569491887513b35488c70b1"><span font-size="14">示例一：</span></p>
+<p nodeId="565148508fec46f48db39eeb8b213eb2"><span font-size="14">输入=》checkNull("ab", "cd")</span></p>
+<p nodeId="aa885fe9fdce446e8fd0c002e5eb5673"><span font-size="14">输出=》"ab"</span></p>
+<p nodeId="86a8542f3c614f8481c2aea6fdb601ac"><span font-size="14">示例二：</span></p>
+<p nodeId="3b785df724674f279f016369dd8ad343"><span font-size="14">输入=》checkNull("", "cd")</span></p>
+<p nodeId="8f75df9ecf6b41f6a72998d32dd1f504"><span font-size="14">输出=》"cd"</span></p>
+<p nodeId="cc5ac92fac7649c0acef91db358b2dc4"><span font-size="14">示例三：</span></p>
+<p nodeId="cdf18c04f944409d83ba0d8ab023e227"><span font-size="14">输入=》checkNull("null", "cd")</span></p>
+<p nodeId="fd09b083f13a4d9f88ee9df3cb72c17e"><span font-size="14">输出=》"cd"</span></p>
+<p nodeId="5e3429a051604a7a853114ff16026906"><span font-size="14">示例四：</span></p>
+<p nodeId="03088fd5746747999c2d1ca8d745f16a"><span font-size="14">输入=》checkNull(null, "cd")</span></p>
+<p nodeId="a82758632afc49a8a4474159fcacc2ec"><span font-size="14">输出=》"cd"</span></p>
+<p nodeId="19f6edded1ca4ce88911e5e8af6d3e1f"><span font-size="14">示例五：</span></p>
+<p nodeId="0ff78d0970214a338ea7ba801f27d2fd"><span font-size="14">输入=》checkNull("", null)</span></p>
+<p nodeId="d5cd1d2db9c24c99893e333b6829283c"><span font-size="14">输出=》""</span></p>
+<p nodeId="a8b8de25f68243ebb4f4f32c94f1d675"><span font-size="14">示例六：</span></p>
+<p nodeId="0040375a84d14c4abf468091be2ffc03"><span font-size="14">输入=》checkNull(null, null)</span></p>
+<p nodeId="314cc31768a142b29c73a33524526206"><span font-size="14">输出=》""</span></p>
+<p nodeId="10d2c7a12b7044e2971f9aeca0cd307d"><span color="rgb(0, 0, 0)"><span font-size="14"><em>示例七：</em></span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14"><em>输入=》string.checkNull(1,"de")</em></span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14"><em>输出=》""</em></span></span><br /><br /><span color="rgb(0, 0, 0)"><span font-size="14"><em>示例八:</em></span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14"><em>输入=》string.checkNull("bc", false)</em></span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14"><em>输出=》""</em></span></span></p>
+</td>
+</tr>
+<tr nodeId="dd5fa7cd0aa849f4a2b6fc0d1f153301">
+<td colwidth="[55]" numCell="true" nodeId="34b96631b0714ae5a881e86e6c34193c">
+<p nodeId="a85e93ff53c54e7b94097b0f8b533e1e" />
+</td>
+<td colwidth="[454]" nodeId="77c943b16ab64529802ce2880499529d">
+<p nodeId="e61d69fc0751422b99cbca51b8413988"><span font-size="14">jsonString.select(String jsonString, String condition, String option)</span></p>
+</td>
+<td colwidth="[438]" nodeId="b71e6935842649e1bd6feadbd92a0a10">
+<p nodeId="0a50c583eabd4d7c8497c98eaab37d8d"><span font-size="14">实现</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">json数组的解析，输入一个json数组、查询条件、查询参数（可选），返回按元素遍历查询的结果；兼容查询到多个值的情况。查询条件支持大于/小于，等于/不等于操作。</span></span></p>
+<p align="start" nodeId="8cf9c8e3486e497d9ea0d61c747b60b2"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">1.function(json数组，查询条件，查询参数），返回查询到的参数值，多个以逗号分隔</span></span></p>
+<p align="start" nodeId="2cc59bc0f0094f35936759031c1fb4c2"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">（1）</span></span><span font-size="14">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p align="start" nodeId="c21d7ecc125a4f91978364459745db58"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">function(</span></span><span font-size="14">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00'</span></p>
+<p align="start" nodeId="19aafbd1dc38455c9ee0d4f0ddda1827"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> （2）</span></span><span font-size="14">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p align="start" nodeId="170093ff4f8b47c8a5577a8ceace7f2d"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">function(</span></span><span font-size="14">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00,19.00'</span></p>
+<p align="start" nodeId="c68adc77499a43f5b19cf5531c680263"><span font-size="14">2.</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">function(json数组，查询条件），返回查询元素组成的数组</span></span></p>
+<p align="start" nodeId="bb2c94abe06647cca52fa6bc6a17e9f0"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">（1）</span></span><span font-size="14">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p align="start" nodeId="fc18d6610e494edca91373e3026ea8a0"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">function(</span></span><span font-size="14">reduceDetailInfoList,'reduceType==2') == '[{"reduceAmount":15.00,"reduceType":2}]'</span></p>
+<p align="start" nodeId="8184a9de998f49babf9fb1934895ba8c"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> （2）</span></span><span font-size="14">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p align="start" nodeId="e5fec7df1c1e4b98a59e5124dc746cc9"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">function(</span></span><span font-size="14">reduceDetailInfoList,'reduceType==2') == '[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2}]'</span></p>
+</td>
+<td colwidth="[541]" nodeId="b496b23832094dc1af7d50151f00db6e">
+<p nodeId="b1e236021a51495db6405a2d00182cc8"><span font-size="14">注：不支持正则表达式</span></p>
+<p nodeId="59ecb7253135417084fb2c72a4d5460d"><span font-size="14">注：查询条件不需要写转义字符\</span></p>
+<p nodeId="27f84fa142fe48f49d28911d8df8803f"><span color="rgb(0, 0, 0)"><span font-size="14"><em>示例一：</em></span></span></p>
+<p nodeId="0397243c4f4143f08d91bbf1092aa341"><span color="rgb(0, 0, 0)"><span font-size="14"><em>输入=》</em></span></span><span font-size="14">jsonString</span><span color="rgb(0, 0, 0)"><span font-size="14"><em> = </em></span></span><span font-size="14">"[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p nodeId="1d5f9755fb1944a0ba460fcb7e1d4e34"><span font-size="14">condition = “reduceType==2”</span></p>
+<p nodeId="5856ac95d30645a683c9250d09d9cb79"><span font-size="14">option = "reduceAmount"</span></p>
+<p nodeId="4936371232194d838801bf850fb27247"><span font-size="14">输出</span><span color="rgb(0, 0, 0)"><span font-size="14"><em>=》</em></span></span><span font-size="14">jsonString.select(jsonString, condtion, option) = “15.00”</span></p>
+<p nodeId="e5b02b52f1c244b1bbb22a28e0cb7b57"><span color="rgb(0, 0, 0)"><span font-size="14"><em>示例二:</em></span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14"><em>输入=》</em></span></span><span font-size="14">jsonString</span><span color="rgb(0, 0, 0)"><span font-size="14"><em> = </em></span></span><span font-size="14">"[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p nodeId="bb28c576d2cd449591bda5404aa56880"><span font-size="14">condition = “reduceType==2”</span></p>
+<p nodeId="8d05891a04c8427babec18f9089d596b"><span font-size="14">输出</span><span color="rgb(0, 0, 0)"><span font-size="14"><em>=》</em></span></span><span font-size="14">jsonString.select(jsonString, condtion) = “[{"reduceAmount":15.00,"reduceType":2}]”</span></p>
+</td>
+</tr>
+<tr nodeId="f4f24e93d7944a5a8d118faf5a5a0b65">
+<td colwidth="[55]" numCell="true" nodeId="e6b0708bda9d4a4f816062a3fb7d71a5">
+<p nodeId="9eebc7b3799241d999e424a6def0ba9a" />
+</td>
+<td colwidth="[454]" nodeId="d97442293d81420eb57005686b4f6b9c">
+<p nodeId="42f6a7f799ca49b490923636a5c234fb"><span font-size="14">jsonString.search(String jsonString, String condition, String option)</span></p>
+</td>
+<td colwidth="[438]" nodeId="5375a52acb334d33ab955b0e793e8398">
+<p nodeId="5085941b157d415f8c3f9e1ebbc92df8"><span font-size="14">用法与作用跟jsonString.select函数基本相同。</span></p>
+<p nodeId="839f4c4ab4ba40e3aa68bcabc4e62153"><span font-size="14">区别：</span></p>
+<p nodeId="3681b8c4a2d24e32be7da4e9dad989ab"><span font-size="14">1.jsonString.select函数</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">查询条件（即第二个参数</span></span><span color=""><span font-size="14">condition</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">）支持大于/小于，等于/不等于操作，而</span></span><span font-size="14">jsonString.search支持avaitor表达式，范围更广一点。</span></p>
+<p nodeId="2c95e1b9d3ff419da27988be028374d1"><span font-size="14">2.jsonString.select函数的性能好于jsonString.search，如果jsonString.select够用建议用jsonString.select。</span></p>
+</td>
+<td colwidth="[541]" nodeId="628e2648fc934b29ae2ede94791dff91">
+<p nodeId="d229314685264e8cacf9e824e2f62f51" />
+</td>
+</tr>
+<tr nodeId="60a8180832a54c1eb83280c794899bad">
+<td colwidth="[55]" numCell="true" nodeId="61e5e25c275645abac82c4b278931d1a">
+<p nodeId="c3d422e1f52346f090c050cd3f2f90fe" />
+</td>
+<td colwidth="[454]" nodeId="619e2005a3f04ec5b96bcc4b1c24a4a4">
+<p nodeId="f5273bc23ea340c59fc96cfd911325f6"><span color="rgb(0, 0, 0)"><span font-size="14">jsonString.findAndAccumulate(jsonStr, key1, key2)</span></span></p>
+<p nodeId="7c93b384a3b4425f931623a3d3d5fe9c"><span color="rgb(0, 0, 0)"><span font-size="14">jsonString.findAndAccumulate(jsonStr, key1, key2,key3)</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="41c6e576f84746a7a4f502dc986acc38">
+<p nodeId="12e6314764bd4fff8b408ae70374203a"><span font-size="14">根据key1、key2（、key3）找到json字符串中匹配到的数字类型的值并累加求和并返回</span></p>
+</td>
+<td colwidth="[541]" nodeId="4fa2fecf1fa44d9c9639f89765ab671c">
+<p nodeId="6300d1a6e4d042d79084dcfee89a98fc"><span font-size="14">示例一：</span></p>
+<p nodeId="fde0986b2659412597e4fe461118fb21"><span font-size="14">输入=》</span><span color="rgb(0, 0, 0)"><span font-size="14">jsonString.findAndAccumulate("</span></span><span color="rgb(0, 0, 0)"><span font-size="14"><strong>{\"rewardInfos\":[{\"rewardId\":1,\"couponInfos\":[{\"reduce\":100,\"discount\":\"1\"},{\"reduce\":200,\"discount\":\"2\"}]},{\"rewardId\":2,\"couponInfos\":[{\"reduce\":300,\"discount\":\"0\"},{\"reduce\":400,\"discount\":\"4\"}]}]}"</strong></span></span><span color="rgb(0, 0, 0)"><span font-size="14">, "rewardInfos", "rewardId")</span></span></p>
+<p nodeId="d5ba95c5283c413b8200ff3a9e0f8012"><span color="rgb(0, 0, 0)"><span font-size="14">输出=》3</span></span></p>
+<p nodeId="b959a1a2b90c4588b67a9f15aad4ed7c"><span color="rgb(0, 0, 0)"><span font-size="14">示例二：</span></span></p>
+<p nodeId="bb0b32af8ee94c5284f4b98ca966c94a"><span color="rgb(0, 0, 0)"><span font-size="14">输入=》jsonString.findAndAccumulate("</span></span><span color="rgb(0, 0, 0)"><span font-size="14"><strong>{\"rewardInfos\":[{\"rewardId\":1,\"couponInfos\":[{\"reduce\":100,\"discount\":\"1\"},{\"reduce\":200,\"discount\":\"2\"}]},{\"rewardId\":2,\"couponInfos\":[{\"reduce\":300,\"discount\":\"0\"},{\"reduce\":400,\"discount\":\"4\"}]}]}"</strong></span></span><span color="rgb(0, 0, 0)"><span font-size="14">, "rewardInfos", "couponInfos", "reduce")</span></span></p>
+<p nodeId="7d425cd1049346c28a80345e536e68a3"><span color="rgb(0, 0, 0)"><span font-size="14">输出=》1000</span></span></p>
+<p nodeId="ee286695587e45f5b56217068f280913" />
+</td>
+</tr>
+<tr nodeId="d3e2fe14f08041d59305927fedf11b23">
+<td colwidth="[55]" numCell="true" nodeId="f868639a112c42d79de7eed7895d8db6">
+<p nodeId="50bc1cc164174fadae30ec1cf5c7aa45" />
+</td>
+<td colwidth="[454]" nodeId="f218b6c3efd54fdc9420ca6b25e454ee">
+<p nodeId="a6b4d1a21f584b8c987762a44555293d"><span color="rgb(0, 0, 0)"><span font-size="14">jsonString.findAndOperateAny(userDefinedExp, variableName, jsonStr, key1, key2)</span></span></p>
+<p nodeId="3727d48b707b4ef5810f1088a26f05cb"><span color="rgb(0, 0, 0)"><span font-size="14">jsonString.findAndOperateAny(userDefinedExp, variableName, jsonStr, key1, key2, key3)</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="3b10bd0f5de44485aed87d1d1146cf94">
+<p nodeId="aca46391b2f04f63847252e3ef376265"><span font-size="14">step1：根据key1、key2（、key3）找到json字符串中匹配到的值，匹配到的值可能有多个val1、val2....</span></p>
+<p nodeId="cf912031646e4751be27b6bd1452e5c5"><span font-size="14">step2：用val1、val2...替换输入的表达式中的变量值，并执行此表达式</span></p>
+<p nodeId="94f0fe09a0db4321a3452dc7c581d2e8"><span font-size="14">step3：任意一个表达式执行结果为true，则返回true，否则返回false</span></p>
+<p nodeId="efcfc203ed364d35a857b42dd66fae75" />
+<p nodeId="22ecd83a90c64b3194b5906726b22df7"><span font-size="14">参数：</span></p>
+<p nodeId="08420e0003cf4bb0aebedb7c7911b043"><span font-size="14">userDefinedExp：输入的表达式</span></p>
+<p nodeId="d8d56103f6e7417e802edfaf803a65e6"><span font-size="14">variableName：表达式中需要替换的变量名称</span></p>
+<p nodeId="6c9fa19d2a6f41bfbacc139bc4ab296a"><span font-size="14">jsonStr：输入的json字符串</span></p>
+<p nodeId="8af7752473e04e6f86f0a1bd2713266c"><span font-size="14">key1、key2（、key3）：json字符串中需要匹配的键</span></p>
+</td>
+<td colwidth="[541]" nodeId="17446f583c9646dc836e0d87aa12ca52">
+<p nodeId="ac351bd371fd482d817b4b6eaf60677f"><span font-size="14">示例一：</span></p>
+<p nodeId="b685a8c9905047e4828dffbf71bc709c"><span font-size="14">输入=》</span><span color="rgb(0, 0, 0)"><span font-size="14">jsonString.findAndOperateAny("val == \"nil\"", "val", "</span></span><span color="rgb(0, 0, 0)"><span font-size="14"><strong>{\"rewardInfos\":[{\"rewardId\":1,\"couponInfos\":[{\"reduce\":100,\"discount\":\"\"},{\"reduce\":200,\"discount\":\"2\"}]},{\"rewardId\":2,\"couponInfos\":[{\"reduce\":300,\"discount\":\"0\"},{\"reduce\":400,\"discount\":\"4\"}]}]}"</strong></span></span><span color="rgb(0, 0, 0)"><span font-size="14">, "rewardInfos", "couponInfos", "discount")</span></span></p>
+<p nodeId="3e79b3baa4c147f495b583fed8b379e1"><span font-size="14">输出=》true</span></p>
+<p nodeId="d8e794628f66447798c3e07b9d014b07"><span font-size="14">示例二：</span></p>
+<p nodeId="dc9ad954b1fc4905b376c534127a4ff2"><span font-size="14">输入=》</span><span color="rgb(0, 0, 0)"><span font-size="14">jsonString.findAndOperateAny("val &gt; 1", "val", "</span></span><span color="rgb(0, 0, 0)"><span font-size="14"><strong>{\"rewardInfos\":[{\"rewardId\":2,\"couponInfos\":[{\"reduce\":100,\"discount\":\"\"},{\"reduce\":200,\"discount\":\"2\"}]},{\"rewardId\":2,\"couponInfos\":[{\"reduce\":300,\"discount\":\"0\"},{\"reduce\":400,\"discount\":\"4\"}]}]}"</strong></span></span><span color="rgb(0, 0, 0)"><span font-size="14">, "rewardInfos", "rewardId")</span></span></p>
+<p nodeId="2d1d51712fa74c728fcad1ed25e7d9bd"><span font-size="14">输出=》true</span></p>
+<p nodeId="1988042eaf674e71a6bcd40f370eb18c"><span font-size="14">示例三：</span></p>
+<p nodeId="9252542414bf4db78c543c172f116081"><span font-size="14">输入=》</span><span color="rgb(0, 0, 0)"><span font-size="14">jsonString.findAndOperateAny("val &lt; 100", "val", "</span></span><span color="rgb(0, 0, 0)"><span font-size="14"><strong>{\"rewardInfos\":[{\"rewardId\":1,\"couponInfos\":[{\"reduce\":100,\"discount\":\"\"},{\"reduce\":200,\"discount\":\"2\"}]},{\"rewardId\":2,\"couponInfos\":[{\"reduce\":300,\"discount\":\"0\"},{\"reduce\":400,\"discount\":\"4\"}]}]}"</strong></span></span><span color="rgb(0, 0, 0)"><span font-size="14">, "rewardInfos", "couponInfos", "reduce")</span></span></p>
+<p nodeId="663bf3bda61648efad39412471c7f3d0"><span font-size="14">输出=》false</span></p>
+</td>
+</tr>
+<tr nodeId="5677e60d81dc4d7c99ef11f6241c1dac">
+<td colwidth="[55]" numCell="true" nodeId="a2fba0268c1c46d19ee8df9c0cfda98a">
+<p nodeId="4f6d47adcb0d41549143608a35c67a24" />
+</td>
+<td colwidth="[454]" nodeId="5038101c9f074efd872e7f87a6ec4104">
+<p nodeId="2a40c919cd70493b8b254724b1134269"><span font-size="14">string.splitToDouble(str, regx, [limit])</span></p>
+</td>
+<td colwidth="[438]" nodeId="cc60b3c3026a42cea435fe073500b8cb">
+<p nodeId="07a84025e8f44726bbf11631b7ed7064"><span font-size="14">分割字符串，并将分割后的字符串数组强转为double类型，返回结果的数据类型为double数组。分割符同时支持正则匹配。</span></p>
+<p nodeId="bcd5b22bb6c74f01b928b80de571ee1e"><span font-size="14">参数：</span></p>
+<p nodeId="9036550d26934da9a014605768ab998c"><span font-size="14">str：字符串</span></p>
+<p nodeId="fac73600836e4a87aac157cb9848cb21"><span font-size="14">regx: 正则分割符</span></p>
+<p nodeId="a1b77a08189c4cd3981f958f304da5b1"><span font-size="14">limit：可选，用于限制结果返回数量</span></p>
+<p nodeId="84d4081917374ca7aff7379ef6f4af2f"><span color="rgb(250, 84, 29)"><span font-size="14">注：该函数无法单独使用，必须与reduce函数或者其他支持数组参数的函数配合使用</span></span></p>
+</td>
+<td colwidth="[541]" nodeId="8b60a85092054f9a99cc70493b502560">
+<p nodeId="43168a2534c94662b4ef7e6f87e90edc"><span font-size="14">示例一：</span></p>
+<p nodeId="064cdb4e6a21497e80fb226003519e6a"><span font-size="14">string.splitToDouble('1, 2, 3', ',')  返回数组 [1.0, 2.0, 3.0]</span></p>
+<p nodeId="90386eb30b4647c1b439290242b47aed"><span font-size="14">示例二：</span></p>
+<p nodeId="b5acd5b7c4d24efd9c8ca185bbdcd781"><span font-size="14">string.splitToDouble('1,a   2,a   3', '\D+')  返回数组 [1.0, 2.0, 3.0]</span></p>
+<p nodeId="94333e9af7eb4250ac612b8db0af3139"><span font-size="14">示例三：</span></p>
+<p nodeId="9089ef84a72a453fb53818dbc75641e8"><span font-size="14">string.splitToDouble('1.0,2,3', ',')  返回数组 [1.0, 2.0, 3.0]</span></p>
+<p nodeId="7c8d33748395456d981e60d6c5f79933"><span font-size="14">示例四：</span></p>
+<p nodeId="37e0c5643c284825bda1e209b2f8d510"><span font-size="14">string.splitToDouble('', ',')   执行异常</span></p>
+<p nodeId="4145341d6e99467cb1fdd1609d547ea1"><span font-size="14">示例五：</span></p>
+<p nodeId="ec6e9da9ffc54e23948b1353a2a57c2a"><span font-size="14">string.splitToDouble('1, abc, 3', ',')   执行异常</span></p>
+</td>
+</tr>
+<tr nodeId="bd3309dbeed84dc7bedb1201775f9aae">
+<td colwidth="[55]" numCell="true" nodeId="9531e51c15884c1685d1870ac3a8f1f2">
+<p nodeId="388eaff678c840528fbace08b0ad3ae6" />
+</td>
+<td colwidth="[454]" nodeId="9839e6c7f4644671b59251b596858ad0">
+<p nodeId="acfaaf0b20c94aa1aa13bd6c01ada65d"><span font-size="14">reduce(seq, fun, init)</span></p>
+<p nodeId="83e2c8ba8f7f4673b45180e8f8135d6e"><span font-size="14">(该函数为aviator内置函数，非zeus rd开发)</span></p>
+</td>
+<td colwidth="[438]" nodeId="6c935c171ad24124955aa0e8eaebcb47">
+<p nodeId="59e6d7c8ba3242f29520aea1f26afbc8"><span font-size="14">接收两个参数,第一个是集合元素, 第二个是累积的函数,</span></p>
+<p nodeId="a2c20d9e0fe148f2b5b35a48e99b8352"><span font-size="14">本函数用于将 fun 作用在结果值（初始值为 init 指定)和集合的每个元素上面，返回新的结果值；</span></p>
+<p nodeId="0bf346bcee1b405f97fad04a7dd2e852"><span font-size="14">函数返回最终的结果值</span></p>
+<p nodeId="5eaec90024834993b7091ac722d95305"><span font-size="14">参数</span></p>
+<p nodeId="f0a5fa5374a94abba7cac9c1288f1afa"><span font-size="14">seq：数组</span></p>
+<p nodeId="8154990988ce433191e91653017cfd1c"><span font-size="14">func： 累积函数，+，-，*，/等等</span></p>
+<p nodeId="3d438ff0021740a188c1d919087a6af7"><span font-size="14">init：累积初始值，一般填0即可</span></p>
+<p nodeId="3937ec4a5cc24f198099e248c598c3d2" />
+</td>
+<td colwidth="[541]" nodeId="87296926aae74b4aa342ee857dc15b64">
+<p nodeId="734d56fa59f24ccebc4dbe9412b2c174"><span font-size="14">示例一：</span></p>
+<p nodeId="0564037c00bd42de8d142d661d9bc7f6"><span font-size="14">reduce(string.splitToDouble('1, 2, 3', ','),  +， 0)   返回6.0</span></p>
+<p nodeId="b32d48a3bea54252a7d06ba74f3adfde"><span font-size="14">示例二：</span></p>
+<p nodeId="6fe9a12c341e400c81955b112a1805a5"><span font-size="14">reduce(string.splitToDouble('1, 2, 3', ','),  -， 0)   返回 -6.0</span></p>
+<p nodeId="855610f8ec0d4c7dbba70d035533b7b0"><span font-size="14">示例三：</span></p>
+<p nodeId="326663b2d5c14dc49280554cec6d5e0a"><span font-size="14">reduce(string.splitToDouble('1, 2, 3', ','),  *， 0)   返回6.0</span></p>
+<p nodeId="50537f16ec604eabb43dfc59f301450d"><span font-size="14">示例四：</span></p>
+<p nodeId="02a343c5b39d40c28ab9e99be42e9f43"><span font-size="14">reduce(string.splitToDouble('1, 2, 3', ','),  /， 6)   返回1.0</span></p>
+</td>
+</tr>
+<tr nodeId="ce52babf6d254ee1b17a8521bb5e633d">
+<td colwidth="[55]" numCell="true" nodeId="b06ad613b2b344f99971661fdea0ec6c">
+<p nodeId="f771b03a92bb407a832b2aa7ec9ee9a3" />
+</td>
+<td colwidth="[454]" nodeId="dcae1e13a97344ba927ba6a4ffb8f91f">
+<p nodeId="e27ad986c8c6429091332479738c9d72"><span color=""><span font-size="14">jsonString.toListAndGetMaxDate(String list)</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="ccbf079f6a2c4e5b8e7c800216499782">
+<p nodeId="a3cdea03c3bd4cee9b357554ccd7796a"><span font-size="14">输入一个日期的list，返回其中最大的日期。</span></p>
+<p nodeId="0d4e107b33df4472990f1ffa8332df52"><span font-size="14">说明：</span></p>
+<p nodeId="3841779b3dab43b2b54881a1817c083a"><span font-size="14">日期格式为yyyy-MM-dd</span></p>
+<p nodeId="2a40945fe713415cbc39a1933a2bd8d2"><span font-size="14">若输入的日期list中有日期的格式不符合规范，则会返回空值</span></p>
+</td>
+<td colwidth="[541]" nodeId="7b3dd7d07d92410a898f432da857e5ad">
+<p nodeId="4482548dcb0d46b78b3c913d9da1ff68"><span color=""><span font-size="14">jsonString.toListAndGetMaxDate(list)</span></span></p>
+<p nodeId="abb210cd20914ce9812c58e5ec3660bc"><span font-size="14">示例一：</span></p>
+<p nodeId="1710d0261b264440af6aa838fcf89e0c"><span font-size="14">输入=》list = </span><span color=""><span font-size="14">"[\"2020-07-02\", \"2020-07-03\", \"2020-07-04\"]"</span></span></p>
+<p nodeId="5dee1b3c7fea43e882cbb1a3384cec88"><span color=""><span font-size="14">输出=》“2020-07-04”</span></span></p>
+<p nodeId="8f6909e0113146a8a717f8c405883acc"><span font-size="14">示例二：</span></p>
+<p nodeId="50644f775d47403096a4b1fcbc4268c4"><span font-size="14">输入=》list =</span><span color=""><span font-size="14"> "[\"2000-01-10\", \"2030-07-01\", \"2021-12-01\"]"</span></span></p>
+<p nodeId="dac2122243724fc681130ad64ac06ae4"><span color=""><span font-size="14">输出=》"2030-07-01"</span></span></p>
+<p nodeId="619cd2779a004409925ad5dd2aefff5e"><span font-size="14">示例三：</span></p>
+<p nodeId="ae6b56c6569941d5a32b068abf0fd1b0"><span font-size="14">输入=》list =</span><span color=""><span font-size="14"> "[\"2000-01-\", \"asdasda\"]"</span></span></p>
+<p nodeId="c863408a0d77454da1fd702c18c73561"><span color=""><span font-size="14">输出=》nil</span></span></p>
+<p nodeId="f4b598b8cf8c47bca249c5f81c4a4770"><span font-size="14">示例四：</span></p>
+<p nodeId="c8f14ff888414446aa9ae9fee23ffa96"><span font-size="14">输入=》list =</span><span color=""><span font-size="14"> "[]"</span></span></p>
+<p nodeId="d04535e9215b46c784b2a810edc4fa53"><span color=""><span font-size="14">输出=》nil</span></span></p>
+</td>
+</tr>
+<tr nodeId="b9ff4523c67145b78f8291b81eb3d599">
+<td colwidth="[55]" numCell="true" nodeId="a20276e8be6d4d438040320a3d0e96e0">
+<p nodeId="bd1236304dc74ed593926596dcdc57fb" />
+</td>
+<td colwidth="[454]" nodeId="4f81f1751c6f4454b6bf6ae007939338">
+<p nodeId="1ca67ddb05bd487fae8d2fc3815cb662"><span color=""><span font-size="14">jsonString.toListAndGetMinDate(String list)</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="6df8dddd7d3946b3b3014735d6066a2a">
+<p nodeId="13c4bc3087ba4e109c5bd869556e84fe"><span font-size="14">输入一个日期的list，返回其中最小的日期。</span></p>
+<p nodeId="434bd4f0b73e4f87921e61b821aa74dd"><span font-size="14">说明：</span></p>
+<p nodeId="110e5c6b8ed94b46a3c9edd6a2e72c37"><span font-size="14">日期格式为yyyy-MM-dd</span></p>
+<p nodeId="656ed94adc9949c792ccc1106a9d18d1"><span font-size="14">若输入的日期list中有日期的格式不符合规范，则会返回空值</span></p>
+</td>
+<td colwidth="[541]" nodeId="7685a78239064c5b81b700dc6c5d74c6">
+<p nodeId="8134cb3c181340d582edaa205dd2e059"><span color=""><span font-size="14">jsonString.toListAndGetMinDate(list)</span></span></p>
+<p nodeId="446993e2fbf543b984ebc49a9aac16e6"><span font-size="14">示例一：</span></p>
+<p nodeId="0a6f6068b411414ea2cbf7f179d6f645"><span font-size="14">输入=》list = </span><span color=""><span font-size="14">"[\"2020-07-02\", \"2020-07-03\", \"2020-07-04\"]"</span></span></p>
+<p nodeId="146fb78a648f4021ab30f6fd443b24aa"><span color=""><span font-size="14">输出=》“2020-07-02”</span></span></p>
+<p nodeId="293f745ac348460eb67c8d4e6ec0c63c"><span font-size="14">示例二：</span></p>
+<p nodeId="61b0260a93ef48d0a73b62a698673571"><span font-size="14">输入=》list =</span><span color=""><span font-size="14"> "[\"2000-01-10\", \"2030-07-01\", \"2021-12-01\"]"</span></span></p>
+<p nodeId="709f5d8d00ce4db699f7c58211abc0c6"><span color=""><span font-size="14">输出=》"2000-01-10"</span></span></p>
+<p nodeId="6a8f0de04f7d425e9c90ec9d660ba85e"><span font-size="14">示例三：</span></p>
+<p nodeId="8840f4c127f84f74a5f2397d988ab3bb"><span font-size="14">输入=》list =</span><span color=""><span font-size="14"> "[\"2000-01-\", \"asdasda\"]"</span></span></p>
+<p nodeId="188d269a21bd414b8369bb5ac6b2098a"><span color=""><span font-size="14">输出=》nil</span></span></p>
+<p nodeId="b639ae9c42644f7b881e7d10ffe3857a"><span font-size="14">示例四：</span></p>
+<p nodeId="cc693f01d9554b47aa2dfb36f11bc9a2"><span font-size="14">输入=》list =</span><span color=""><span font-size="14"> "[]"</span></span></p>
+<p nodeId="a07f85b4896844f4bad5b067d56512a4"><span color=""><span font-size="14">输出=》nil</span></span></p>
+</td>
+</tr>
+<tr nodeId="722f47d15287416eb35b31483f90343e">
+<td colwidth="[55]" numCell="true" nodeId="c5997dd3271c4d0e981594d8ad383d2d">
+<p nodeId="9bcbe58315d44beb8fab1e43e2479ca4" />
+</td>
+<td colwidth="[454]" nodeId="f024a671b7674697b8545362276b5b02">
+<p nodeId="fedf180c459c4ea6b4524ef03419ed51"><span color=""><span font-size="14">jsonString.toListAndCountDifferentDate(String list)</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="70b76e3c7a4e48d0af4a857f650082dd">
+<p nodeId="2f7c059d54e14f59be09cd06671cecb1"><span font-size="14">输入一个日期的list，返回所有不重复的日期的个数。</span></p>
+<p nodeId="3e6ce736ca494cc18744a80c12fbd0ec"><span font-size="14">说明：</span></p>
+<p nodeId="09051203ffcb40478ac4b677ce641aeb"><span font-size="14">日期格式为yyyy-MM-dd</span></p>
+<p nodeId="7433c94d4b72494999e00b4e5afc52ee"><span font-size="14">若输入的日期list中有日期的格式不符合规范，则会返回空值</span></p>
+</td>
+<td colwidth="[541]" nodeId="8cddd5a26952405691e5b50d246a870f">
+<p nodeId="39702fa237f849e48b64c7354516fdf9"><span color=""><span font-size="14">jsonString.toListAndCountDifferentDate(list)</span></span></p>
+<p nodeId="ec9e360eba5b4d1b9754057a18b64008"><span font-size="14">示例一：</span></p>
+<p nodeId="f6d6396c65e242ba918ea2ed5fc9e449"><span font-size="14">输入=》list =</span><span color=""><span font-size="14"> "[\"2020-07-02\", \"2020-07-02\", \"2020-07-02\", \"2020-07-03\", \"2020-07-03\", \"2020-07-04\"]"</span></span></p>
+<p nodeId="99ab62a9867241e8868a71765afb3426"><span color=""><span font-size="14">输出=》3</span></span></p>
+<p nodeId="6959621f3c904503bcbc3bffdcb2a881"><span font-size="14">示例二：</span></p>
+<p nodeId="7b5bc0c7183046969e2d5db5cee9702b"><span font-size="14">输入=》list =</span><span color=""><span font-size="14"> "[\"2000-01-10\", \"2000-01-10\", \"2020-12-01\"]"</span></span></p>
+<p nodeId="da9b032aed384cd7bd97c543f680860a"><span color=""><span font-size="14">输出=》2</span></span></p>
+<p nodeId="e2d896d95d134c28a771766ab5c29398"><span font-size="14">示例三：</span></p>
+<p nodeId="2c6b00eaa3df4391952a983a4f6f56b3"><span font-size="14">输入=》list =</span><span color=""><span font-size="14"> "[\"2000-01-\", \"asdasda\"]"</span></span></p>
+<p nodeId="aafd29c0aec348dcb4a7f6b1d13df776"><span color=""><span font-size="14">输出=》nil</span></span></p>
+<p nodeId="18d3bb93ff3345cc9bdfd4a7da83f49f"><span font-size="14">示例四：</span></p>
+<p nodeId="ab7e96386c7046e584fca90b129e8f98"><span font-size="14">输入=》list =</span><span color=""><span font-size="14"> "[]"</span></span></p>
+<p nodeId="20af604bdcb043f4a3167fc460a47f3c"><span color=""><span font-size="14">输出=》0</span></span></p>
+</td>
+</tr>
+<tr nodeId="591285fe962c462a8ce15a2b1b1a6838">
+<td colwidth="[55]" numCell="true" nodeId="1bc370f038bb46fab0cfd3fdeb83ec3e">
+<p nodeId="87563ea81b194a32be941a2af8a78df6" />
+</td>
+<td colwidth="[454]" nodeId="2495fd16d978452f9c1526b1855f8a52">
+<p nodeId="12d66bd2261a4fa694a9f5b2618b4d70"><span font-size="14">string.similarity(str1, str2)</span></p>
+</td>
+<td colwidth="[438]" nodeId="5a1ea0a2afbc410abe61e63e38182ea1">
+<p nodeId="f022e42bf6334f2295066e5c6ce9d037"><span font-size="14">计算两个String的相似度，取值范围在0-1，越靠近1越相似</span></p>
+</td>
+<td colwidth="[541]" nodeId="7675f1c22ba04130b7373d5cd719f935">
+<p nodeId="8944219f21b248ccbc03c93a6d63597d"><span font-size="14">string.similarity(str1, str2)</span></p>
+<p nodeId="b2fa71e3f40f4c59b0c0679b0725311b"><span font-size="14">示例一：</span></p>
+<p nodeId="eaa46ca830ad4331a74aec0625ec7d84"><span font-size="14">String str1 = "python get_community_card.py {HEX}";</span><br /><span font-size="14">String str2 = "python new_step0_get_order.py {NUM}";</span></p>
+<p align="start" nodeId="1c5f107b189b49799e0d9c8a3cc51752"><span font-size="14">输出：0.4857142857142857</span></p>
+<p nodeId="cf2a837cf24f48a097f9d56d6b022322" />
+<p align="start" nodeId="9e56c35c290942c59b73e3e99a22177b"><span font-size="14">示例二：</span></p>
+<p align="start" nodeId="2808653105504394ade7f4b25989527e"><span font-size="14">String str1 = "python get_community_card.py {HEX}";</span><br /><span font-size="14">String str2 = "python get_community_card.py {HEX}";</span></p>
+<p align="start" nodeId="cf28f269a732453c99c1c2fe19ce91e8"><span font-size="14">输出： 1.0</span></p>
+<p nodeId="9ed5defde17e4672b5e5d3fb31ed636f" />
+<p align="start" nodeId="c7d486ec8f2a462c85afdcce762e172c"><span font-size="14">示例三：</span></p>
+<p align="start" nodeId="16dff0cd3b274d238e719879c486ce27"><span font-size="14">String str1 = "python get_community_card.py {HEX}";</span><br /><span font-size="14">String str2 = "python get_community_card.py";</span></p>
+<p align="start" nodeId="dc59b1e7e6c1408699930a8f65d7c9f6"><span font-size="14">输出： 0.8235294117647058. </span></p>
+<p align="start" nodeId="b5136523630d48819e34a827f1cc1e3f" />
+<p nodeId="163fcabffc7f406f8098002ae7f5eecd"><span font-size="14">示例四：</span></p>
+<p align="start" nodeId="e39d5a840fa34325b6fa6f7044968fe6"><span font-size="14">String str1 = "python get_community_card.py";</span><br /><span font-size="14">String str2 = "python get_community_card.py {HEX}";</span></p>
+<p align="start" nodeId="721684360cd443e2a71972a140966556"><span font-size="14">输出： 0.8235294117647058. </span></p>
+<p nodeId="f599832668934110a2c43d8b46e553b6" />
+<p align="start" nodeId="d0a6d6e641c14c10ac2fc3e89461d0ce"><span font-size="14">示例五：</span></p>
+<p align="start" nodeId="779e9af6f7214b4485dbff6ff1672c35"><span font-size="14">String str1 = "python get_community_card.py {HEX}";</span><br /><span font-size="14">String str2 = "";</span></p>
+<p align="start" nodeId="463f1ac2b76044f9a2c7bb0f223828a0"><span font-size="14">输出： 0.0</span></p>
+</td>
+</tr>
+<tr nodeId="02ec07cdce824edfa78b1b97f3b38547">
+<td colwidth="[55]" numCell="true" nodeId="6a4b6c58c22d41ce93eeb89698b48b61">
+<p nodeId="b5d80b68475e4beea5da9b47884d6f8b" />
+</td>
+<td colwidth="[454]" nodeId="3a39f232a5014280b4c67921553ce133">
+<p nodeId="36a361a7780f40f6a4055eddea35467d"><span font-size="14">getUnmatchBaseline(String appCommand, String realProcessname, String baseline, double simValue)</span></p>
+</td>
+<td colwidth="[438]" nodeId="ffe11f20e3e945d3b1dc1cc23c6d0739">
+<p nodeId="c43a1e656a7a4066bd0139488c71ec3d"><span color=""><span font-size="14">判断当前执行的命令，过去是否执行过（基线）；先根据appCommand相似度来判断是否是同一应用，如果是同一应用，再根据执行的processname判断过去是否执行过相同命令；baseline为过去执行过的命令和父进程的合集;</span></span></p>
+</td>
+<td colwidth="[541]" nodeId="d83c48c278a64c80b9a8495ba5966de6">
+<p nodeId="d9212ac592d646d48e4bb7ea4cdf3965"><span font-size="14">示例：</span></p>
+<p nodeId="7126342443e541988a2b1d0272dd4c7b"><span font-size="14">输入：</span></p>
+<p nodeId="37f5ea2c1925482fbf4881c497f6a55e"><span font-size="14">baseline: "{"python get_community_card.py {HEX}": ["ls,whoami", "grep", "grep,whoami"]}"</span><br /><span font-size="14">appCommand: "python get_community_card.py {HEX}"</span><br /><span font-size="14">realProcessname: "ls,pwd"</span><br /><span font-size="14">simValue: 1</span></p>
+<p nodeId="e51be0226f454934adfabcbb71086241"><span font-size="14">输出：</span></p>
+<p nodeId="42c9712d40154df5be95583dbdee9bc5"><span font-size="14">["pwd"]</span></p>
+</td>
+</tr>
+<tr nodeId="0dde296d52bc4c7dbc59f071a8d017b3">
+<td colwidth="[55]" numCell="true" nodeId="a300a20ca9ac4e57986cdf383215a2ce">
+<p nodeId="651b92b59188426cb2db1ce7a61be7e8" />
+</td>
+<td colwidth="[454]" nodeId="33a7e058c88a429fa4532e2577d9467a">
+<p nodeId="6c400f173bb14c489a1009c8f8f507da"><span font-size="14">//支持传入多个数组（逐渐废弃，请使用66.financeArraySorter函数）</span></p>
+<p nodeId="6d0ce4e7957e43ad9d03d0116a5b7a65"><span font-size="14">financeArraySort(List&lt;Integer&gt; accessFlagList, </span></p>
+<p nodeId="a3dee1d226054ba5b792a6d6581a7ae1"><span font-size="14">                 List&lt;String&gt; factorList1, boolean isAsc,</span></p>
+<p nodeId="88689d7277d342d2be7367c83a68bf23"><span font-size="14">                 List&lt;String&gt; factorList2, boolean isAsc</span></p>
+<p nodeId="f8327e7af9b5484c8dbc2d171ae08ca3"><span font-size="14">                 ...</span></p>
+<p nodeId="6d4420753da0469fb0f4374e530e5640"><span font-size="14">                )</span></p>
+</td>
+<td colwidth="[438]" nodeId="54be5c45330b49d1871e14c95d90fb2a">
+<p nodeId="a0cc7f3151394c7f8d1181e95b7b8f78"><span font-size="14">金融数组排序专用：</span></p>
+<p nodeId="66cd3ea5fa564b38ba9b645ddfe3143c"><span font-size="14">参见 </span><a href="https://km.sankuai.com/page/482965321" title="https://km.sankuai.com/page/482965321" autoUpdate="true" nodeId="a579474568c44a12a4b789c38ec299cd"><span font-size="14">https://km.sankuai.com/page/482965321</span></a></p>
+<p nodeId="b8957a2053ae494e97b592c3a102fe96"><span font-size="14">accessFlagList: 参与排序的下标</span></p>
+<p nodeId="ac85ede3418e4cecaeb82328c0873826"><span font-size="14">factorListn: 参与排序的list</span></p>
+<p nodeId="9d4b5ed75e1249ccae965963f73dfc51"><span font-size="14">isAsc: 是否升序排序</span></p>
+<p nodeId="007c4e3ccff74b72a3d0c3b71c75cb7b"><span font-size="14">等价于order by factorList1 isAsc, factorList2 isAsc</span></p>
+</td>
+<td colwidth="[541]" nodeId="29222c27a9654c2b991d50002d11426c">
+<p nodeId="232cc4116d0e4e119d8d4666b8ce4538"><span font-size="14">示例：</span></p>
+<p nodeId="3389da31eab74a7bb043e1a08dff8f6c"><span font-size="14">输入：</span></p>
+<p nodeId="1e5ff51b20694c8799dcd7424cb31225"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">financeArraySort( </span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> toArray(1,1,1,1,1),</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> toArray(2 ,5,1 ,3,4), true,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> toArray("2.0","5.0","8.0","10.0","4.0"), false</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">)</span></span></p>
+<p nodeId="4442779e39b84eef9ce945e08fa462d4"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">输出：</span></span></p>
+<p nodeId="a8dc915e40ff471c882a6f69cf0af12d"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">[2,5,1,3,4]</span></span></p>
+<p nodeId="f230aac7d93f497e91e5d2ee086eeae1"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">表示先根据[2 ,5,1 ,3,4]升序排序，序号相等的再根据["2.0","5.0","8.0","10.0","4.0"]降序排序，最后输出排序序号</span></span></p>
+</td>
+</tr>
+<tr nodeId="c2b345efff0144319046500b7ccbaafa">
+<td colwidth="[55]" numCell="true" nodeId="1bcd44e5713d45bab120eb906fe86230">
+<p nodeId="bba380fff9da4ef4b619cfc8e78c5e36" />
+</td>
+<td colwidth="[454]" nodeId="9da5034a083d40a381c08a7a426e57ba">
+<p nodeId="a91e2bc06b9d47de87e9a762f9366c8f"><span font-size="14">//支持传入多个数组</span></p>
+<p nodeId="8c705b803b474c86b6b19159b0113755"><span font-size="14">financeArraySortWithNegative(List&lt;Integer&gt; accessFlagList, </span></p>
+<p nodeId="a941f65eb2ee4d3998680624e18cacf3"><span font-size="14">                 List&lt;String&gt; factorList1, boolean isAsc,</span></p>
+<p nodeId="faadac45718744acbc419e3305cef3af"><span font-size="14">                 List&lt;String&gt; factorList2, boolean isAsc</span></p>
+<p nodeId="dedffab3425d41d0aa71fed43f02eb01"><span font-size="14">                 ...</span></p>
+<p nodeId="06c5681179104bc88e81d2e48252105c"><span font-size="14">                )</span></p>
+</td>
+<td colwidth="[438]" nodeId="1719ef9d7d7344588ca1473d16102d2f">
+<p nodeId="4b6c22c5bcbf4a7faf18c0c06ae660da"><span font-size="14">金融数组排序专用：</span></p>
+<p nodeId="92fe9d4b01924024996935608412eddf"><span font-size="14">功能同 65.financeArraySort 函数，特点 </span><span font-size="14"><strong>支持负数参与排序</strong></span></p>
+</td>
+<td colwidth="[541]" nodeId="7942a8b1b12c44988c6c1a627562e422">
+<p nodeId="3ce7aa7311414900a216d45af1afb67f"><span font-size="14">示例：</span></p>
+<p nodeId="639f826cbc1e467fba2cd49a9ac42bca"><span font-size="14">输入：</span></p>
+<p nodeId="138326a314e9428f87e27bb31aa3afd7"><span font-size="14">financeArraySortWithNegative</span><span color=""><span font-size="14">( </span></span><br /><span color=""><span font-size="14"> toArray(1,1,1,,1),</span></span><br /><span color=""><span font-size="14"> toArray(-9999, 100, 0, 4), true</span></span><br /><span color=""><span font-size="14">)</span></span></p>
+<p nodeId="fea7b8a69205423aa9742b853ac0f385"><span color=""><span font-size="14">输出：</span></span></p>
+<p nodeId="cc4314d573e14b80986c9fad2bb2f019"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">[1,4,2,3]</span></span></p>
+</td>
+</tr>
+<tr nodeId="c98248ab476546adba1e8710525f10db">
+<td colwidth="[55]" numCell="true" nodeId="4a5f06211e034775879f8db271a72748">
+<p nodeId="1f85ec641bff48e4abb798c166541b8d" />
+</td>
+<td colwidth="[454]" nodeId="6d734c4996574816a115d65a508dc361">
+<p nodeId="b4620af31546440ca7cf8a28198421e2"><span font-size="14">map.get(Map&lt;String,Object&gt; map, String key)</span></p>
+</td>
+<td colwidth="[438]" nodeId="d2c1288935984539a238d6759ff5fcd8">
+<p nodeId="41a7be9cb41a4357a0ca531110f77e03"><span font-size="14">从map中获取ke有对应的value</span></p>
+</td>
+<td colwidth="[541]" nodeId="f451c3375987411cb8eb28f90a8a851a">
+<p nodeId="2a5f5b3dd66a4c97be50741000188d42"><span font-size="14">示例：</span></p>
+<p nodeId="462bec758a424ae2b34f77b4041c96f6"><span font-size="14">map.get({"key":"value"}, "key") == "value"</span></p>
+</td>
+</tr>
+<tr nodeId="f778b219e0d74ba4a6bda4dc79b9a797">
+<td colwidth="[55]" numCell="true" nodeId="7569d77ac7874323879375e6a763b962">
+<p nodeId="6dfc92e976064c7bba98040e138ac5f9" />
+</td>
+<td colwidth="[454]" nodeId="9f9b52cb76ab45df8bf4f0c374c267c6">
+<p nodeId="2be371ae1a8f4848b7c0dc1897e96683"><span font-size="14">string.containsIgnoreCase(str, searchStr)</span></p>
+</td>
+<td colwidth="[438]" nodeId="f383f342d07c498e9115e3e6c32bd8ba">
+<p nodeId="f347bea834624961a26c908e75a370dd"><span font-size="14">忽略大小写进行比较</span></p>
+</td>
+<td colwidth="[541]" nodeId="5405b065929d411bb36bec8c8a30224e">
+<p nodeId="86c1919216004894b86b74bcd74f6e95"><span font-size="14">示例：</span></p>
+<p nodeId="50b3e9515df94de6b98c05664b88197f"><span font-size="14">string.containsIgnoreCase("abcDEFGhi", "abcdef") = true</span></p>
+</td>
+</tr>
+<tr nodeId="22b39dba5c144a92a313cc6f64bab83f">
+<td colwidth="[55]" numCell="true" nodeId="7338e1754ffc4593a0f317ea7ae4f55e">
+<p nodeId="37ff33f8a4f447c3844a9a7cb3dd12b5" />
+</td>
+<td colwidth="[454]" nodeId="a534cc3c54924283a07aa90972254a70">
+<p nodeId="ae258594523a4ca2a3cac8a2b5fb2366"><span color="rgb(0, 0, 0)"><span font-size="14">jsonArray.getKeyToList（String str，String key）</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="6e82d5fadaf3458aa92a0e4e58245dd5">
+<p nodeId="aef71188d59949ab998c7f652b90c58b"><span font-size="14">从List&lt;Map&gt;中提取指定key的值</span></p>
+</td>
+<td colwidth="[541]" nodeId="e6eded327d4f4c549a5786c3c4a68214">
+<p nodeId="28e0b3d1879c42efb26a36313d28fdd5"><span font-size="14">示例：</span><span color="rgb(0, 0, 0)"><span font-size="14"><em>：</em></span></span></p>
+<p nodeId="79bad30474114bcdad6d172de57ae8a8"><span color="rgb(0, 0, 0)"><span font-size="14"><em>输入=》</em></span></span><span font-size="14">jsonString</span><span color="rgb(0, 0, 0)"><span font-size="14"><em> = </em></span></span><span font-size="14">"[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p nodeId="cdc8b315c47246d491150f37372ecc6e"><span font-size="14">key = "reduceAmount"</span></p>
+<p nodeId="5b0a51ec2f7946da95718c6415b2b320"><span font-size="14">输出</span><span color="rgb(0, 0, 0)"><span font-size="14"><em>=》</em></span></span><span font-size="14">[15.00,0.9]</span></p>
+<p nodeId="49eaf7d4e63c45359cbe4852ac6eb6bb" />
+</td>
+</tr>
+<tr nodeId="dfd8aa7e8fbe4de9991ffcfb8a1eb64b">
+<td colwidth="[55]" numCell="true" nodeId="d489d08112a0408d95bbcd7bc0c79301">
+<p nodeId="ea6ff7d9eef2445fac724b55a9225c4f" />
+</td>
+<td colwidth="[454]" nodeId="55f3b37cbddc402182a7a8f4685183ea">
+<p nodeId="70b98536db214856a21c3b3156365ed2"><span font-size="14">jsonArray.selectForList(String jsonString, String condition, String option)</span></p>
+</td>
+<td colwidth="[438]" nodeId="fbc7b303a2b241e3896676de6638f448">
+<p nodeId="6b5543c3060d48e68201000ae4eca186"><span font-size="14">实现</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">json数组的解析，输入一个json数组、查询条件、查询参数（</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"><del>可选</del></span></span><span color="rgb(255, 77, 79)"><span font-size="14">必填</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">），返回按元素遍历查询的结果；兼容查询到多个值的情况。查询条件支持大于/小于，等于/不等于操作，</span></span><span color="rgb(245, 35, 45)"><span font-size="14">多个查询条件用 &amp; 进行拼接</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">。</span></span></p>
+<p align="start" nodeId="93dd1c16cea04d8e849074c700b6894f"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">1.function(json数组，查询条件，查询参数），</span></span><span color="rgb(245, 35, 45)"><span font-size="14">返回查询到的参数值以string返回</span></span></p>
+<p align="start" nodeId="50f40c6bba844610898ba476823ce881"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">（1）</span></span><span font-size="14">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p align="start" nodeId="bf30fa506b5f4a7395ed3ec93379380b"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">function(</span></span><span font-size="14">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00'</span></p>
+<p align="start" nodeId="54a0bd82412c4825bc168a964f258c62"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> （2）</span></span><span font-size="14">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p align="start" nodeId="65a7eb107ad84116b9549f85792a2446"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">function(</span></span><span font-size="14">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00,19.00'</span></p>
+<p align="start" nodeId="d35033056be940e4a2688b716a14f2be"><span font-size="14"><del>2.</del></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"><del>function(json数组，查询条件），返回查询元素组成的数组</del></span></span><span color="rgb(255, 77, 79)"><span font-size="14"><del>null</del></span></span></p>
+<p align="start" nodeId="aea939fdaf284e1f9b153873a7339539"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"><del>（1）</del></span></span><span font-size="14"><del>"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</del></span></p>
+<p align="start" nodeId="c7bd7b7f7a2646708170b23f735beb19"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"><del>function(</del></span></span><span font-size="14"><del>reduceDetailInfoList,'reduceType==2') == '[{"reduceAmount":15.00,"reduceType":2}]'</del></span></p>
+<p align="start" nodeId="49a6e331b43b4b77ba291bc1198ec95c"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"><del> （2）</del></span></span><span font-size="14"><del>"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</del></span></p>
+<p align="start" nodeId="50bec6e5c67b460894d6e826a8b52d74"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"><del>function(</del></span></span><span font-size="14"><del>reduceDetailInfoList,'reduceType==2') == '[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2}]'</del></span></p>
+</td>
+<td colwidth="[541]" nodeId="d364174395d842908b6045756a69ad23">
+<p nodeId="902c00caf4934533b8484eb7aa8ce867"><span font-size="14">注：不支持正则表达式</span></p>
+<p nodeId="ed67df4baada47608056b3cddb467b5f"><span font-size="14">注：查询条件不需要写转义字符\</span></p>
+<p nodeId="cf63a805001a48b9b88fd05e44ae9de5"><span color="rgb(0, 0, 0)"><span font-size="14"><em>示例一：</em></span></span></p>
+<p nodeId="b5e495ca44d04038afadd50811e33081"><span color="rgb(0, 0, 0)"><span font-size="14"><em>输入=》</em></span></span><span font-size="14">jsonString</span><span color="rgb(0, 0, 0)"><span font-size="14"><em> = </em></span></span><span font-size="14">"[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p nodeId="b1795a7a02c9460f9f6503295c9748a3"><span font-size="14">condition = “reduceType==2 &amp; reduceAmount &gt; 0.9”</span></p>
+<p nodeId="3f36a880823848309cf48d3fd1f06103"><span font-size="14">option = "reduceAmount"</span></p>
+<p nodeId="ab2aedac69614b64bbffc448577ed068"><span font-size="14">输出</span><span color="rgb(0, 0, 0)"><span font-size="14"><em>=》</em></span></span><span font-size="14">jsonString.selectForList(jsonString, condtion, option) = [15],</span></p>
+<p nodeId="7aad2a74200045f99a25b5bef239d39e" />
+</td>
+</tr>
+<tr nodeId="2c6302a2cc674ab8875300f81f3d7e7c">
+<td colwidth="[55]" numCell="true" nodeId="8bcaa9b835924710ab51939b2853eedd">
+<p nodeId="1dab0c7cfe3f4cd1b87564e87f5a738a" />
+</td>
+<td colwidth="[454]" nodeId="d4c0971272a5488ebe51160968075ef6">
+<p nodeId="02448105811b49cbaf8578dda668a722"><span font-size="14">ip2oct(ip)</span></p>
+</td>
+<td colwidth="[438]" nodeId="d108522515b5463aa66447fdd5d3ef2c">
+<p nodeId="e9c1b1b6f2fc40c7b1b673d311258615"><span font-size="14">将ip转为八进制数</span></p>
+</td>
+<td colwidth="[541]" nodeId="2f37d78b90804e11a92cb884fbdbb3f4">
+<p nodeId="4b454ba0c5594262a31f8a4cbfb4f4ea" />
+</td>
+</tr>
+<tr nodeId="514e82c058d1480f9b329b4a3842b999">
+<td colwidth="[55]" numCell="true" nodeId="4a223a92456f4f04b9d5b1d4b2a9458c">
+<p nodeId="c6df7804fb994e169ca1899dd09882d5" />
+</td>
+<td colwidth="[454]" nodeId="dd0768219d6b4eceb1c58de979104a46">
+<p nodeId="b689086cd448441db4015ea124bb2465"><span font-size="14">ip2dec</span></p>
+</td>
+<td colwidth="[438]" nodeId="f4ed42c301084a638871d822c1dea6eb">
+<p nodeId="2cbf8852ffaa436493d0210a86be1591"><span font-size="14">将ip转为十进制数</span></p>
+</td>
+<td colwidth="[541]" nodeId="defe94ca7f224c98ac9aca65bb6afa9d">
+<p nodeId="9c12dfde944d4d3381875b2dfea0c763" />
+</td>
+</tr>
+<tr nodeId="0cc929e9d9d54a299b977f30294928a1">
+<td colwidth="[55]" numCell="true" nodeId="57a0e5b68824476bae6aca80d212120a">
+<p nodeId="db35fd472a444df0b51611f179ddc73e" />
+</td>
+<td colwidth="[454]" nodeId="700df128b9014062b02c2ff75202c51e">
+<p nodeId="12af4c6a461e48bd80c0f74aa4886bea"><span font-size="14">getShellType(command, processname)</span></p>
+</td>
+<td colwidth="[438]" nodeId="468a4a975d864dcb9aaa646cf2cb468f">
+<p nodeId="5c97ca6ed3aa4508b6bc689909337cac"><span font-size="14">获取shell类型</span></p>
+</td>
+<td colwidth="[541]" nodeId="0996db50c0d0404b900453abbf8d5279">
+<p nodeId="5237f7945c60416aa04fd9c44956750f"><span color="rgb(0, 0, 0)"><span font-size="14"><em>示例一：</em></span></span></p>
+<p nodeId="f204f424e3d444f48c8665e5cb80def1"><span color="rgb(0, 0, 0)"><span font-size="14"><em>输入=》command  = </em></span></span><span color=""><span font-size="14">sh -i</span></span></p>
+<p nodeId="b20f848bc4d44790818becb8e0dc4da7"><span font-size="14">procesname = bash</span></p>
+<p nodeId="a2d51a9f1ef943a88a5bef09a8870a87"><span font-size="14">输出</span><span color="rgb(0, 0, 0)"><span font-size="14"><em>=》</em></span></span><span color=""><span font-size="14">INTERACTIVE_SHELL</span></span></p>
+<p nodeId="deed4104d1b94d1e85136454af27533a"><span color="rgb(0, 0, 0)"><span font-size="14"><em>示例二：</em></span></span></p>
+<p nodeId="d4236272f9dc4cf7a32dba05df44f5f4"><span color="rgb(0, 0, 0)"><span font-size="14"><em>输入=》command  = </em></span></span><span color=""><span font-size="14">sh ./deploy/run.sh</span></span></p>
+<p nodeId="b53e33079415455ca7b8aca2a5238e0f"><span font-size="14">procesname = sh</span></p>
+<p nodeId="9385be10e83c47edabdf0347489ae940"><span font-size="14">输出</span><span color="rgb(0, 0, 0)"><span font-size="14"><em>=》</em></span></span><span color=""><span font-size="14">NOT_SHELL</span></span></p>
+</td>
+</tr>
+<tr nodeId="eed33e1e68884466a27bc52e75452c07">
+<td colwidth="[55]" numCell="true" nodeId="c0a3e6789f5746d6b2a55eeda92e18b5">
+<p nodeId="c022d6e4b68b4fc5a36006d9c2fa5cbf" />
+</td>
+<td colwidth="[454]" nodeId="ee4b1f5bc5bc4e33a9d2f32bb5c45a38">
+<p nodeId="1c3ae1af7248429cb0b80a53b538df9b"><span font-size="14">math.randomnumber(leftNumber, rightNumber)</span></p>
+</td>
+<td colwidth="[438]" nodeId="4f19819756f0455eb4685c54f5c736d5">
+<p nodeId="ae9394b106484311bd6d4b634ce21465"><span color=""><span font-size="14">生成随机数</span></span></p>
+</td>
+<td colwidth="[541]" nodeId="3f50d2f5520b4fe0adef9637de3d9f69">
+<p nodeId="e35746f9c532462182ddd92f78071bc8"><span color=""><span font-size="14">输入是随机数的范围，输出是int</span></span><br /><span color=""><span font-size="14">exp: math.randomnumber(100,888) =&gt; 输出100-888之间任意数字</span></span></p>
+</td>
+</tr>
+<tr nodeId="aaff352f70e64602bee3b953ba2ff311">
+<td colwidth="[55]" numCell="true" nodeId="a91583adecd44d539aa0eaace9f3b313">
+<p nodeId="70232d98d4d44465bb1b8cdd6e942750" />
+</td>
+<td colwidth="[454]" nodeId="4c6c5a3442aa4f198dc3287b330b310f">
+<p nodeId="225ad6ffe9a246eda84c7a6ac4ccd73e"><span color=""><span font-size="14">jsonArrayPlus.selectForList(String jsonString, String condition, String option)</span></span></p>
+</td>
+<td colwidth="[438]" nodeId="cf30205f939e44c9b6ab1d81dbd0e4cc">
+<p align="start" nodeId="6471ff2fc8754e8a85436d635e5b9eb8"><span font-size="14">实现</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">json数组的解析，输入一个json数组、查询条件、查询参数（</span></span><span color="rgb(255, 77, 79)"><span font-size="14">必填</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">），返回按元素遍历查询的结果；兼容查询到多个值的情况。查询条件支持大于/小于/</span></span><span color="rgb(245, 35, 45)"><span font-size="14">大于等于/小于等于</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">，等于/不等于操作，</span></span><span color="rgb(245, 35, 45)"><span font-size="14">支持array.contains和string.contains匹配，支持对数组进行格式转换</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">，</span></span><span color="rgb(0, 0, 0)"><span font-size="14">多个查询条件用 &amp;</span></span><span color="rgb(245, 35, 45)"><span font-size="14">，||(或） 进行拼接</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">。</span></span></p>
+<p align="start" nodeId="0e8a9712be464857bce1fe388e76a17d"><span font-size="14">数组转换：</span></p>
+<ol nodeId="f4bc92b9ee0747e2a8c8e1eeac556dbd">
+<li nodeId="5c0324f0a6644b9ebed0977b7468d9d0"><span color="rgb(245, 35, 45)"><span font-size="14">string.length(参数):返回参数长度；</span></span></li>
+<li nodeId="ca98c4f768184bc58ea34f545502af2d"><span color="rgb(245, 35, 45)"><span font-size="14">long(参数):str转int；</span></span></li>
+<li nodeId="75af8f66b3e34ee39f3cd3477504193b">
+<p nodeId="86cd90242b5346e9b86ee93f545612ac"><span color="rgb(245, 35, 45)"><span font-size="14">from_unixtime(long timestamp)/from_unixtime(long timestamp， String parttern)：将long型unix timestamp转为String型。</span></span></p>
+<p align="start" nodeId="6c78bfb4645d446d896cfb5534f44e5d"><span color="rgb(245, 35, 45)"><span font-size="14">parttern可选："yyyy-MM-dd HH:mm:ss"或者"yyy/MM/dd "等，字母大小写严格区分的。y-年，M-月，d-日期，H-小时，m-分，s-秒。</span></span></p>
+</li>
+<li nodeId="728d2c1a6ed546b38bfdf58c1e37ed4d"><span color="rgb(245, 35, 45)"><span font-size="14">unix_timestamp(String time)：str日期转long型unix timestamp</span></span></li>
+</ol>
+<p align="start" nodeId="4b615521bdca4d51b9bb12749ab738d0"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">1.function(json数组，查询条件，查询参数），</span></span><span color="rgb(245, 35, 45)"><span font-size="14">返回查询到的参数值以string返回</span></span></p>
+<p align="start" nodeId="d4052fb6a4214fe692b8b77e78d91496"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">（1）</span></span><span font-size="14">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p align="start" nodeId="3e042495a47146f8a76cda24f2562de3"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">function(</span></span><span font-size="14">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00'</span></p>
+<p align="start" nodeId="28f3864b68304a52bbe10bdd5b3484bc"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> （2）</span></span><span font-size="14">"reduceDetailInfoList": "[{"reduceAmount":15.00,"reduceType":2},{"reduceAmount":19.00,"reduceType":2},{"reduceAmount":0.90,"reduceType":4}]"</span></p>
+<p align="start" nodeId="8998b079e2d04f3488c55bb725193340"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">function(</span></span><span font-size="14">reduceDetailInfoList,'reduceType==2','reduceAmount') == '15.00,19.00'</span></p>
+</td>
+<td colwidth="[541]" nodeId="030482016b65420494c2dc11db18be9d">
+<p nodeId="d343881102d6453fbb8e7773f03e4e25"><span font-size="14">注：支持正则表达式</span></p>
+<p align="start" nodeId="f53af0ee40df4b68b40518ce18bfe704"><span font-size="14">注：查询条件不需要写转义字符</span></p>
+<p align="start" nodeId="59e4e9aeaa4246888989266275f4e958"><span font-size="14">示例：</span></p>
+<p align="start" nodeId="ba3fdce85f8744ebbebbea7705a3ef49"><span font-size="14">函数逻辑：</span></p>
+<p align="start" nodeId="78ae3129347c4bf2abafe57761ecbd0c"><span font-size="14">jsonArrayPlus.selectForList(char_info_compare, "pred_char_info &gt;= 0.8 || pred_char_info&lt;=0.3 &amp;&amp; status_ss==40 &amp;&amp; string.contains(</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">origin_poi_address</span></span><span font-size="14"> ,'平顶山', "origin_poi_name" )</span></p>
+<p align="start" nodeId="baca494ee2954c9f9e45887f7af6a0c9"><span font-size="14">输入=》</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">{</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "char_info_compare": [</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> {</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "origin_poi_address_len": 15,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "pred_poi_address": 0.03690036900368998,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "manage_status": 40,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "target_poi_name_len": 10,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "distance": 2.82733802537035,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "origin_poi_name": "七百韵达快递站点",</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "pred_char_info": 0.8195219123505976,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "levenshtein_poi_name": 1,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "target_char_info_len": 25,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "target_poi_address": "抚顺市望花区丹东路42号铝北小区22号楼望花区铝北小区",</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "pred_poi_name": 0.39603960396039606,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "origin_char_info_len": 20,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "target_poi_name": "欧景华庭韵达快递超市",</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "origin_poi_name_len": 8,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "target_poi_address_len": 27,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "levenshtein_poi_address": 1,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "user_id": 69855111,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "origin_char_info": "韵达快捷锁业",</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "origin_poi_address": "平顶山",</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "target_char_info": "韵达炒快递超市欧景华庭韵达快递超市NO289084",</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "levenshtein_char_info": 22,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "poi_id": 143120197890002,</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> "status": 40</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> }</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> ]</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">}</span></span></p>
+<p align="start" nodeId="162c02afb2c340b4901b7699d6bca2eb"><span font-size="14">输出=》jsonStringPlus.selectForList(jsonString, condtion, option) = </span><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">["七百韵达快递站点"]</span></span><span font-size="14">,</span></p>
+</td>
+</tr>
+<tr nodeId="b865ac2a3b1e43fca209d243e1cffe25">
+<td colwidth="[55]" numCell="true" nodeId="30a4d71841ac4e208d4f2fd12d9c4ad4">
+<p nodeId="1af509f33b2f458eab12b163a860c89b" />
+</td>
+<td colwidth="[454]" nodeId="9bbfd0c2b2114221bc45b1495176679e">
+<p nodeId="97ddcfe01bae46108660e02f0f2f9b48"><span font-size="14">isValidIP(String ip)</span></p>
+</td>
+<td colwidth="[438]" nodeId="3c2daa3742c94a3f9d42fc2111d11eef">
+<p align="start" nodeId="5f0b09d9e276499d9e3544db072946fd"><span font-size="14">检验ip地址是否合法（ipv4和ipv6均可使用）</span></p>
+</td>
+<td colwidth="[541]" nodeId="3bf929deb52944d99284009dd2b7aada">
+<p nodeId="6a5a3e6dbec8448997847ba54993d786" />
+</td>
+</tr>
+<tr nodeId="c59f368bab624714b45408f5b2d36b7c">
+<td colwidth="[55]" numCell="true" nodeId="e443f70dcaac45ef8741ca0572886d37">
+<p nodeId="e9406010fcc74feeb3134c8e0a8b3c69" />
+</td>
+<td colwidth="[454]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="099e5efe48a04323ba689f8a51b28483">
+<p nodeId="50006337072d427fa6dfe937bf07f29e"><span font-size="14">jsonString.getListRemoveIntersection</span><span color=""><span font-size="14">(</span></span><span font-size="14">List listA, List listB</span><span color=""><span font-size="14">)</span></span></p>
+</td>
+<td colwidth="[438]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="db5817aa145b432f9727fbf89481e7c4">
+<p nodeId="a4436e387eeb4384892c75c1e1af0467"><span font-size="14">输入：两个字符串数组，listA与listB</span></p>
+<p nodeId="fea68507003b4ce6b489771bcf33bd4c"><span font-size="14">输出：从listA中去除listA与listB的交集部分</span></p>
+</td>
+<td colwidth="[541]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3f4ea5f57cfc4d438f8c0eb1dcc9685f">
+<p nodeId="24a4f185ba0f4003945cd3a46506db43"><span font-size="14">jsonString.getListRemoveIntersection</span><span color=""><span font-size="14">(</span></span><span font-size="14">List listA, List listB</span><span color=""><span font-size="14">)</span></span></p>
+<p nodeId="9c1b0d00546e4ffd9dbbdad9118935e0"><span font-size="14">输入：</span></p>
+<p nodeId="5bf54fc637a74f5ca0c5ffd1e1ba5bc2"><span font-size="14">A=["A05870000",</span><span color="rgb(56, 158, 13)"><span font-size="14">"A03030001","A05303380"</span></span><span font-size="14">,"A04721460","A01000000"]</span></p>
+<p align="start" nodeId="6454ff3b6cd94903b50cff8faebc72c8"><span font-size="14">B=[</span><span color="rgb(56, 158, 13)"><span font-size="14">"A03030001","A05303380"</span></span><span font-size="14">,"M55740076","A0001204","A03030000"]</span></p>
+<p align="start" nodeId="c72d0f2742174368b8a59a87562958d7"><span font-size="14">输出：</span><span color="rgb(0, 0, 0)"><span font-size="14">[</span></span><span font-size="14">"A05870000","A04721460","A01000000"</span><span color="rgb(0, 0, 0)"><span font-size="14">]</span></span></p>
+</td>
+</tr>
+<tr nodeId="fea2177d72ee453e81addffe09e175f6">
+<td colwidth="[55]" numCell="true" nodeId="73af46d0da3e434781e9fb1fc5a1ffbb">
+<p nodeId="ada85304c4534f3f8fb0ae0535fa0cca" />
+</td>
+<td colwidth="[454]" nodeId="0971ec09250f4283b2cad541b85f5bef">
+<p nodeId="a1ddc668fbf34fa38412c8234e97db15"><span font-size="14">feature.acos(Double cos)</span></p>
+</td>
+<td colwidth="[438]" nodeId="bcaf91ec323f496280c562b5cb5f1468">
+<p nodeId="a22fe6f01ad148ab8bdc9feff267c262"><span font-size="14">反余弦函数</span></p>
+<p nodeId="9a25d810a6d9478e98fc21996fe3d4a8"><span font-size="14">输入:余弦值[-1,1]</span></p>
+<p nodeId="ac6018c02f284b10b8217ccd393cdd6a"><span font-size="14">输出:弧度值[0,PI]</span></p>
+</td>
+<td colwidth="[541]" nodeId="c69b531294674043b66e8276e7a28b2d">
+<p nodeId="7edc9ad468334f35b9cda945625a6120" />
+</td>
+</tr>
+<tr nodeId="f236455b70be4f3bb0a64d55ff0cbf22">
+<td colwidth="[55]" numCell="true" nodeId="ede4e0cea01f41e2a4f2e38429c73c46">
+<p nodeId="8ee4a772e95a4b638b7271d2d6145a6c" />
+</td>
+<td colwidth="[454]" nodeId="33101367d4eb4c7aa176a63fb1286c34">
+<p nodeId="46a79153ebc74c28bd61578d60978b4e"><span font-size="14">feature.norm_of_vector(String vector)</span></p>
+</td>
+<td colwidth="[438]" nodeId="2055d11d141c4acd9a888b845966c228">
+<p nodeId="53ec46390258482a8a1b842bea923ceb"><span font-size="14">向量的模</span></p>
+<p nodeId="945eeaa738ab4893b67181342270994c"><span font-size="14">输入为jsonstring格式的一维数组 [1.0,2,2.0]</span></p>
+<p nodeId="99119f77a6194455be50a4d9f3a6f7c6"><span font-size="14">输出double值</span></p>
+</td>
+<td colwidth="[541]" nodeId="8db31da29e694f3785e4b2e71600cf04">
+<p nodeId="d8f6c429878e436ca7ddf38c8054aff2" />
+</td>
+</tr>
+<tr nodeId="cfc344cb7fe54dd49a6f358fcb881791">
+<td colwidth="[55]" numCell="true" nodeId="d6cab67f655440deb899faa094395660">
+<p nodeId="8c7835ebf259473189e26dd2d33fd40d" />
+</td>
+<td colwidth="[454]" nodeId="2d8ab231ad21488ea41dd8a1d1bec9ac">
+<p nodeId="491c577c45834504af2d53d5924b9cd2"><span font-size="14">feature.dot_product(String vector1, String vector2)</span></p>
+</td>
+<td colwidth="[438]" nodeId="3c885c4886924b1d9ca4b75a5ac16903">
+<p nodeId="9b1f2148e1c743efae261db6814a83a1"><span font-size="14">向量点乘</span></p>
+<p nodeId="14f7c337786c476d81ecd2c85d99d3b3"><span font-size="14">输入为两个jsonstring格式的一维数组 [1.0,2,2.0]</span></p>
+<p nodeId="4cfea972a774428cacaead959da665af"><span font-size="14">输出double值</span></p>
+</td>
+<td colwidth="[541]" nodeId="a648b576717b45c4b6f0f4f9edc7530e">
+<p nodeId="098f2e848005435a9cdac7d40c45a4e2" />
+</td>
+</tr>
+<tr nodeId="4e82832646dd40d09e86a93bc6c8825c">
+<td colwidth="[55]" numCell="true" nodeId="52db59d0bf174ed59cfc4caa331c82b7">
+<p nodeId="433d7cbb93874d1d9a09630a3e34186b" />
+</td>
+<td colwidth="[454]" nodeId="adf79e1255a44a789e41a9dc2e62529f">
+<p nodeId="dbdfc0a185244f98b19cb28c70368428"><span font-size="14">feature.matrix_multiplication(String matrix1, String matrix2)</span></p>
+</td>
+<td colwidth="[438]" nodeId="b6abbae784e149e085a69f6c27d87500">
+<p nodeId="57f44e57c098496798eb103d5f8b5fa6"><span font-size="14">矩阵乘法</span></p>
+<p nodeId="ba072ba7ff294f0f975be8cf9c597af0"><span font-size="14">输入为两个矩阵，尺寸为M x N和 N x P，输出相乘后的矩阵, 尺寸为M x P</span></p>
+<p nodeId="3ac02507b7894b8fb2ffce39e1b6783d"><span font-size="14">矩阵的格式为json格式的二维数组</span></p>
+<p nodeId="b60e15c0343e47dfb6d11e6e54e32f40" />
+</td>
+<td colwidth="[541]" nodeId="de1cde8e7e2845b9b3c31acaf5fee06c">
+<p nodeId="efb1588c4af446db859fab05bbafd78b"><span font-size="14">feature.matrix_multiplication(matrix1, matrix2)</span></p>
+<p nodeId="5ca28686deeb49c5a4d5ad1072ad296c"><span font-size="14">输入：</span></p>
+<p nodeId="cc848c5f82354325a7eea7e185ce1025"><span font-size="14">matrix1 = "[[1,1,1],[2,2,2],[3,3,3]]"</span><br /><span font-size="14">matrix2 = "[[1,1,1],[2,2,2],[3,3,3]]"</span></p>
+<p nodeId="32a30922f1a14af0bcfdd47c5c8922fd"><span font-size="14">输出：</span></p>
+<p nodeId="4c2144a022ac4922a23dc5f5efebbbad"><span font-size="14">"[[6.0,6.0,6.0],[12.0,12.0,12.0],[18.0,18.0,18.0]]"</span></p>
+</td>
+</tr>
+<tr nodeId="ac0c8060fbf64f8e90e286c5acb5fa20">
+<td colwidth="[55]" numCell="true" nodeId="494e2e05ec2d465c93a5d2f0f41438aa">
+<p nodeId="641c73907430400c86722cbfe33745d2" />
+</td>
+<td colwidth="[454]" nodeId="7afdae10098741d99a69340593692ef5">
+<p nodeId="93bb3a822e5a4d20af29bac074c180fd"><span font-size="14">string.standardizeDate(String date)</span></p>
+</td>
+<td colwidth="[438]" nodeId="665705a091b649e8896374a10a3c236a">
+<p nodeId="0345675f5b5a4e30a48a0e79ed693f67"><span font-size="14">将形如yy.M.d、yy.M.d H:m、yy年M月d日 的日期格式转化为yyyy-MM-dd的日期格式</span></p>
+<p nodeId="bdbf72b537aa49ebb4b5d14d5504202d"><span font-size="14">见：</span><a href="https://km.sankuai.com/page/1230349282" title="https://km.sankuai.com/page/1230349282" autoUpdate="true" nodeId="31117ef40db74ecbb133c53a946e9bef"><span font-size="14">https://km.sankuai.com/page/1230349282</span></a></p>
+</td>
+<td colwidth="[541]" nodeId="bddcdc4b34234f85b47c8967e3e1cd28">
+<p nodeId="168591d514df4e19acd44ed4a47ad3d5"><span font-size="14">string.standardizeDate(String date)</span></p>
+<p nodeId="63862bab55104a48bb333eba6339babb"><span font-size="14">输入：date="21.1.3" 输出："2021-01-03"</span></p>
+<p nodeId="a30a50d7485440fc926a926aff69b861"><span font-size="14">输入：date="21年12月15日" 输出："2021-12-15"</span></p>
+<p nodeId="4e445767b15f4174a6402f7773a41fa5"><span font-size="14">输入：date="2021.12.7 8:00" 输出："2021-12-07"</span></p>
+</td>
+</tr>
+<tr nodeId="e38edbb00f94434dbf3ee3c37ced01fd">
+<td colwidth="[55]" numCell="true" nodeId="ed85c84aab2c4a41bcc99afbf8f5cbb4">
+<p nodeId="1d78d4954b69476eb78bfc832d067024" />
+</td>
+<td colwidth="[454]" nodeId="5a4734ab7dc249d4a0561537dc83ba6f">
+<p nodeId="9fce39b24c7b402c8273d828f061c821"><span font-size="14">string.getWeekDay(String date)</span></p>
+</td>
+<td colwidth="[438]" nodeId="c7e285368dcf40e0bcf2b11bdaba449e">
+<p nodeId="e09dccce2e2d43d69dce5202f3cdae73"><span font-size="14">根据yyyy-MM-dd格式获取当天是星期几</span></p>
+<p nodeId="d147a3728cec409681966dfa6a1dc4c8"><span font-size="14">见：</span><a href="https://km.sankuai.com/page/1230349282" title="https://km.sankuai.com/page/1230349282" autoUpdate="true" nodeId="c35bdd300dcd46c8aeac3b00f79b968a"><span font-size="14">https://km.sankuai.com/page/1230349282</span></a></p>
+</td>
+<td colwidth="[541]" nodeId="3b5857637d18429bae1e93e4508ca07e">
+<p nodeId="6e9898cb50d9425d81fb5e0b71dea4e1"><span font-size="14">string.getWeekDay(date)</span></p>
+<p nodeId="72359b4d16f040d28f73c51c32092636"><span font-size="14">输入：date="2021-12-13" 输出：1</span></p>
+<p nodeId="07b15e2707ba48d1bce1c647e0d24705"><span font-size="14">输入：date="2021-12-14" 输出：2</span></p>
+</td>
+</tr>
+<tr nodeId="5213467d5c4a4abfa9600f79f8dc8d91">
+<td colwidth="[55]" numCell="true" nodeId="81118d519b5a4623b95887ae1bdc92a3">
+<p nodeId="7db10de368eb4e4e9cd2251d4f5ba197" />
+</td>
+<td colwidth="[454]" nodeId="c22efe16865342188853da32a2a3e9a5">
+<p nodeId="3d6b17c06e484c2ea09e28823b697647"><span font-size="14">jsonString.toMap(String jsonStr)</span></p>
+</td>
+<td colwidth="[438]" nodeId="3ac307988e654830820934530cefeba9">
+<p nodeId="c98d8f23b3444626b05f31be820d863d"><span font-size="14">将json字符串转化为map</span></p>
+</td>
+<td colwidth="[541]" nodeId="95563ddb5d5a4d6ca165cf1c854ee19c">
+<p nodeId="e7c98aa6ecc941748afd79fe55521174" />
+</td>
+</tr>
+<tr nodeId="e1ff78d24a874d14a0f6200fae43c8b2">
+<td colwidth="[55]" numCell="true" nodeId="ce0b0dd81956405a90e607fef131131e">
+<p nodeId="bf1fe0fe2e594d78811c16edc77ca2dd" />
+</td>
+<td colwidth="[454]" nodeId="a39c05fd4f234d9b9fd264129c93f417">
+<p nodeId="874c254d4bed4857b5e118c31a288f7e"><span font-size="14">jsonString.fromMap(Map map)</span></p>
+</td>
+<td colwidth="[438]" nodeId="c49bda091afd4c55a1a1d8dbcf3c17d7">
+<p nodeId="f0f82254c7ef4c939a85515cc58de480"><span font-size="14">将map转化为json字符串</span></p>
+</td>
+<td colwidth="[541]" nodeId="3d29131a873a46cdbfe805a94e20d024">
+<p nodeId="520acae1bbf844f391fbe9f268f5368a" />
+</td>
+</tr>
+<tr nodeId="fa0683dd3efb461a80a0c944b8aa7805">
+<td colwidth="[55]" numCell="true" nodeId="bc9cf88ca22a45638e959472a3fcd33a">
+<p nodeId="8ca16881566b4d559f66f0c74d340b59" />
+</td>
+<td colwidth="[454]" nodeId="e38e0bfa536640f28175e4d0c4a9feed">
+<p nodeId="8eb13d8dac7049ff85c31f7640d42bac"><span font-size="14">jsonString.toList(String jsonStr)</span></p>
+</td>
+<td colwidth="[438]" nodeId="d804a9b7322e45f58deffbfabe25ce6f">
+<p nodeId="42a8532642a348118f4f0d6602232fbc"><span font-size="14">将json字符串转化为list</span></p>
+</td>
+<td colwidth="[541]" nodeId="82b687ac5b67427c9e1f8266a2fec631">
+<p nodeId="e1b9f7f2e65e430da739eac2546423d9" />
+</td>
+</tr>
+<tr nodeId="c9298c0d790f4266a391fb2b02293b6a">
+<td colwidth="[55]" numCell="true" nodeId="252678ff7ecc492586720593e8b2b4c3">
+<p nodeId="2dcb199f53674d6596918edc54446438" />
+</td>
+<td colwidth="[454]" nodeId="c1f2fb5d3b1941aa907bb16e9abf11e8">
+<p nodeId="bfdf962c2ac242ee8af29d4adf6bf183"><span font-size="14">jsonString.fromList(List list)</span></p>
+</td>
+<td colwidth="[438]" nodeId="8e1e92b16da2430c9ff953f7fca4614c">
+<p nodeId="2a0f8a6ebb8a4c799e4eee47f33c15af"><span font-size="14">将List转化为json字符串</span></p>
+</td>
+<td colwidth="[541]" nodeId="be1e511b8eb2497f958e29705b84a735">
+<p nodeId="fabf0d8cd3014e02b907f7c2c7304516" />
+</td>
+</tr>
+<tr nodeId="bb4adba30cdc4bf7b65c67a971753508">
+<td colwidth="[55]" numCell="true" nodeId="5e50c96e819b4cecaeecc17c4d7dfaa9">
+<p nodeId="1d2449e6d80d4f86a34449407c422678" />
+</td>
+<td colwidth="[454]" nodeId="70fa738972cc490383fdda208808ecb2">
+<p nodeId="3c98b0128e3d4cac9f7223e8203a9a5b"><span font-size="14">map.getAllKey(Map map)</span></p>
+</td>
+<td colwidth="[438]" nodeId="b2692ad8859f41ecbf8deea5a7b4087f">
+<p nodeId="56d2626ef8ae4511a6c0c526ed63b0e3"><span font-size="14">获取map的所有key list</span></p>
+</td>
+<td colwidth="[541]" nodeId="a8f2360f80304bb686d0fb5219cf7a9c">
+<p nodeId="2a66abd005bc4d80a1d1c173e4e47b74" />
+</td>
+</tr>
+<tr nodeId="b5567881724c43be9fc892261bfef2dc">
+<td colwidth="[55]" numCell="true" nodeId="74cb9b464dfa4d34ba6a706b58294d8d">
+<p nodeId="c065f87bd3ce4c5bb24b802b7ec52bc3" />
+</td>
+<td colwidth="[454]" nodeId="78d582994e3a4994a2b93fd29bb61809">
+<p nodeId="774f728d9d2f4dd198541c68c89f8dd0"><span font-size="14">map.getAllValue(Map map)</span></p>
+</td>
+<td colwidth="[438]" nodeId="54e03f3e6b914093aea2e890e8292f0b">
+<p nodeId="bffcc91f6a694c3987949bab676a65ac"><span font-size="14">获取map的所有value list</span></p>
+</td>
+<td colwidth="[541]" nodeId="b212556257f94fc49b7523333ace0f90">
+<p nodeId="0c8de1ef82a84221a542db2bf87e54ea" />
+</td>
+</tr>
+<tr nodeId="f8f817d0d2b34cd4952d91d51e2ac3cb">
+<td colwidth="[55]" numCell="true" nodeId="26cdc1ff59884c1f9a553b2ee53f53bd">
+<p nodeId="286c8798e40a4a9e83208849306416fc" />
+</td>
+<td colwidth="[454]" nodeId="edb7a69c32ed40049d50c5639a2cb76a">
+<p nodeId="4e7af191457a4f20ae2dd6c9d26620cf"><span font-size="14">string.batchContains(String str, String patterns)</span></p>
+</td>
+<td colwidth="[438]" nodeId="6c134ceef5df404ca3679b04d58ed6da">
+<p nodeId="14c23094be454903afd880719185e702"><span font-size="14">判断 str 是否包含 patterns 里的一个子串</span></p>
+</td>
+<td colwidth="[541]" nodeId="71ec9893e1594866b3f6e990b50a4544">
+<p nodeId="1132e8f6b555481a95a984c546585d2b"><span font-size="14">输入：str="aaabbb", patterns="aa,cc" 输出： true</span></p>
+<p nodeId="850b36618f8e4c1b8f43e6e945cba7a5"><span font-size="14">输入：str="aaabbb", patterns="ccc,ddd" 输出： false</span></p>
+</td>
+</tr>
+<tr nodeId="03a75d057336482eb5a577720a1a6721">
+<td colwidth="[55]" numCell="true" nodeId="fa671ef07b5b438bb71605618c1f98f3">
+<p nodeId="44ca6a56ed8741d0b9e5792d4759a503" />
+</td>
+<td colwidth="[454]" nodeId="ce990610c14d46aab767326caa13f20c">
+<p nodeId="b99324439e0c4929b2f1a0b7aa47f50f"><span font-size="14">IsIPInCIDRList(String ip, String cidrList)</span></p>
+</td>
+<td colwidth="[438]" nodeId="e8a145bdd51343ea80c00ab027b5dd28">
+<p nodeId="ce042bed88fb44a5891fb74dc903e93b"><span font-size="14">判断 IP 是否属于 cidrlist 中的CIDR</span></p>
+</td>
+<td colwidth="[541]" nodeId="d0364c4cac7b4767be75144f6cca9b12">
+<p nodeId="49f0c570efbd42afab2a4a4c148673c2"><span font-size="14">输入：ip="103.37.140.65", cidrList="[103.37.140.64/27,192.168.1.0/24]" </span></p>
+<p nodeId="994fdb9e96fd467182b988af73a2a137"><span font-size="14">输出： true</span></p>
+<p nodeId="633c9b8d16fb4026adbc5f8b30886d50" />
+<p nodeId="4a19cbe8fb274462b7dad4a87aaf3a60"><span font-size="14">输入：ip="103.37.140.65", cidrList="103.37.140.64/27,192.168.1.0/24" </span></p>
+<p nodeId="80b19b3056e248d281d2acdcaf37e8a0"><span font-size="14">输出： true</span></p>
+</td>
+</tr>
+<tr nodeId="1f9eb630b8ef426195a693c7c01dd613">
+<td colwidth="[55]" numCell="true" nodeId="b2f191430fc04d8a977c10c2ea906be2">
+<p nodeId="d78d087ff4d14bd081382fa24224f1ca" />
+</td>
+<td colwidth="[454]" nodeId="1d3c7554226d4576989db42c4649a562">
+<p nodeId="1eeb44515a8841a2b46adecde237cf8f"><span font-size="14">convertBase(String num, int src, int to)</span></p>
+</td>
+<td colwidth="[438]" nodeId="77b9c2f175d74afb8078174a0d53be72">
+<p nodeId="b131d96852574cd9bbc33300934e110d"><span font-size="14">将 num 由 src进制转换为 to 进制</span></p>
+</td>
+<td colwidth="[541]" nodeId="90303c8ae00148d0ac98e3d84ecb6d50">
+<p nodeId="a03b648cea234374b2dc2599ef240516"><span font-size="14">输入：num=</span><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">5  src=16  to=2</span></span></p>
+<p nodeId="71dbfedcfe0b4db88387a55980fb9f4e"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">输出：0101</span></span></p>
+<p nodeId="929fcc38988d4b2b913afb80a68d1360" />
+<p nodeId="5315d65ed50f47e4a5420c67e54e1858"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">输入：num=</span></span><span font-size="14">143253 src=10  to=16</span></p>
+<p nodeId="727d0935171a47fdae5ab185e578618b"><span font-size="14">输出：</span><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">22F95</span></span></p>
+<p nodeId="e92e1df658214b43b958343dbe126076" />
+</td>
+</tr>
+<tr nodeId="0e284b350ca947bf9f901b860f651246">
+<td colwidth="[55]" numCell="true" nodeId="8e9344081c324b71a80e37d449dcd108">
+<p nodeId="9480b942d483492c8b7e30cd166621ed" />
+</td>
+<td colwidth="[454]" nodeId="ae986ff062094348b24e24995cb3ef14">
+<p nodeId="7ee94b051c02439dac49b944c3397caf"><span font-size="14">string.advanceRegex(String input, String regex, String flags)</span></p>
+</td>
+<td colwidth="[438]" nodeId="ea9406ca97bb41ecb6171be9ab39ea79">
+<p nodeId="439fe975bde1436e8c8b4e43bdf4a6a5"><span font-size="14">使用正则高级配置flag，执行正则表达式regex，匹配输入文本input</span></p>
+<p nodeId="9956ec58d6634a3799377f012135ca7e"><span font-size="14">可选flag：</span></p>
+<p nodeId="af6f52a3860646a483821ab1ec913655"><span font-size="14">CASE_INSENSITIVE：启用不区分大小写的匹配。默认情况下，大小写敏感。</span></p>
+<p nodeId="433752bc24bc4bf59afee830c12a0cac"><span font-size="14">MULTILINE：启用多行模式。在此模式下，^和$可以匹配一行的开始和结束，而不仅仅是整个输入序列的开始和结束。</span></p>
+<p nodeId="b49a56fdce4440a2aa289ed19fe33868"><span font-size="14">DOTALL：启用dotall模式。在此模式下，.字符可以匹配任何字符，包括行终止符。</span></p>
+<p nodeId="b1bb5cccc1b14f678d0574f89742cc2b"><span font-size="14">UNICODE_CASE：启用Unicode感知的大小写折叠。当与CASE_INSENSITIVE标志一起使用时，它会启用Unicode感知的大小写折叠。</span></p>
+<p nodeId="a091224866824df4af3fc04cf893523c"><span font-size="14">CANON_EQ：启用规范等价性。当此标志指定时，两个字符将被认为匹配，如果且仅当它们的完全规范分解匹配。</span></p>
+<p nodeId="895baf73587f4e8fad4634789bfd5b80"><span font-size="14">UNIX_LINES：启用Unix行模式。在此模式下，只有'\n'被认为是行终止符。</span></p>
+<p nodeId="da5fd2d14e4f4a94b72b68e8cb766a70"><span font-size="14">LITERAL：启用模式的字面解析。即模式被视为字面字符串，不解析特殊字符。</span></p>
+<p nodeId="1ceb830d898e4677bba4a52b5a1717c3"><span font-size="14">UNICODE_CHARACTER_CLASS：启用Unicode预定义字符类和POSIX字符类。</span></p>
+<p nodeId="19606f2d19c943249751139f6061f605"><span font-size="14">COMMENTS：模式中允许空白和注释。</span></p>
+</td>
+<td colwidth="[541]" nodeId="916249e0836a409b96353443e434d843">
+<p nodeId="e92227d471e148d58dd7fe5533b8d08a"><span font-size="14">样例1：input = "Hello \n world", regex = "hello.*world", flags =  "DOTALL,CASE_INSENSITIVE"</span></p>
+<p nodeId="ebd60bea45684f5d855108ac4dbb3653"><span font-size="14">结果：true</span><img src="https://km.sankuai.com/api/file/cdn/28155153/85542779313?contentType=1&amp;isNewContent=false" name="image.jpeg" width="519" height="64" nodeId="f6af0a791293478ab66e0e6c048b203b" /><img src="https://km.sankuai.com/api/file/cdn/28155153/85542062726?contentType=1&amp;isNewContent=false" name="image.jpeg" width="389" height="204" nodeId="56ae11237656450885cf4fe6ab5e61cc" /></p>
+<p nodeId="370e7119a9104c5f81bf4a576d902038" />
+<p nodeId="e92b8038dd724a8cb2edfecf862fe8bb"><span font-size="14">样例2：input = "Hello \n world", regex = "hello.*world", flags =  ""</span></p>
+<p nodeId="d4b19b054cc24373904f3d008a063f08"><span font-size="14">结果：false</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="e49e032750504218ae723174fbfcb8c1" />
+</km-doc>

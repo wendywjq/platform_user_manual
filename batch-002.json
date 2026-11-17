@@ -1,0 +1,251 @@
+{
+  "root_id": "28139633",
+  "saved_date": "2026-11-17",
+  "batch": 2,
+  "document_count": 20,
+  "cumulative_document_count": 40,
+  "traversal": "depth_first_in_api_order",
+  "documents": [
+    {
+      "id": "28253486",
+      "title": "说明：Zeus决策附加信息使用文档",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus决策附加信息使用文档__28253486",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/28253486",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 10,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "738891228",
+      "title": "如何添加名单库",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus决策附加信息使用文档__28253486/children/如何添加名单库__738891228",
+      "parent_id": "28253486",
+      "source": "https://km.sankuai.com/collabpage/738891228",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 7,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "222572090",
+      "title": "说明：Zeus权限说明",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus权限说明__222572090",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/222572090",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "236855476",
+      "title": "业务组-业务-子业务说明",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus权限说明__222572090/children/业务组-业务-子业务说明__236855476",
+      "parent_id": "222572090",
+      "source": "https://km.sankuai.com/collabpage/236855476",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "124049950",
+      "title": "说明：Zeus日志接入和使用说明",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus日志接入和使用说明__124049950",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/124049950",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 2,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "126078054",
+      "title": "Zeus日志隔离-北京风控hive表高频使用字段模版确认",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus日志接入和使用说明__124049950/children/Zeus日志隔离-北京风控hive表高频使用字段模版确认__126078054",
+      "parent_id": "124049950",
+      "source": "https://km.sankuai.com/collabpage/126078054",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "156154117",
+      "title": "Zeus日志数据汇总",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus日志接入和使用说明__124049950/children/Zeus日志数据汇总__156154117",
+      "parent_id": "124049950",
+      "source": "https://km.sankuai.com/collabpage/156154117",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "124085314",
+      "title": "Zeus日志问题总结与规划",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus日志接入和使用说明__124049950/children/Zeus日志问题总结与规划__124085314",
+      "parent_id": "124049950",
+      "source": "https://km.sankuai.com/collabpage/124085314",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "28155153",
+      "title": "说明：Zeus已支持扩展函数列表",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus已支持扩展函数列表__28155153",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/28155153",
+      "saved_date": "2026-11-17",
+      "conversion_note": "Removed one XML-invalid U+0008 control character; source.original.xml retains the original export.",
+      "local_images_and_diagrams": 2,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "404577728",
+      "title": "用户自定义扩展函数开发指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus已支持扩展函数列表__28155153/children/用户自定义扩展函数开发指南__404577728",
+      "parent_id": "28155153",
+      "source": "https://km.sankuai.com/collabpage/404577728",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "176739529",
+      "title": "说明：表达式书写说明",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/176739529",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747338212",
+      "title": "Aviator说明手册",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212",
+      "parent_id": "176739529",
+      "source": "https://km.sankuai.com/collabpage/1747338212",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747436166",
+      "title": "1. 介绍",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/1. 介绍__1747436166",
+      "parent_id": "1747338212",
+      "source": "https://km.sankuai.com/collabpage/1747436166",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747339010",
+      "title": "2. Hello World",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/2. Hello World__1747339010",
+      "parent_id": "1747338212",
+      "source": "https://km.sankuai.com/collabpage/1747339010",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747590034",
+      "title": "2.1编译和执行",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/2. Hello World__1747339010/children/2.1编译和执行__1747590034",
+      "parent_id": "1747339010",
+      "source": "https://km.sankuai.com/collabpage/1747590034",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747502919",
+      "title": "2.2解释运行",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/2. Hello World__1747339010/children/2.2解释运行__1747502919",
+      "parent_id": "1747339010",
+      "source": "https://km.sankuai.com/collabpage/1747502919",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747522585",
+      "title": "3.基本语法类型",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/3.基本语法类型__1747522585",
+      "parent_id": "1747338212",
+      "source": "https://km.sankuai.com/collabpage/1747522585",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747339318",
+      "title": "3.1基本类型及运算",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/3.基本语法类型__1747522585/children/3.1基本类型及运算__1747339318",
+      "parent_id": "1747522585",
+      "source": "https://km.sankuai.com/collabpage/1747339318",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747407624",
+      "title": "3.2运算符",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/3.基本语法类型__1747522585/children/3.2运算符__1747407624",
+      "parent_id": "1747522585",
+      "source": "https://km.sankuai.com/collabpage/1747407624",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747397718",
+      "title": "3.3注释",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/3.基本语法类型__1747522585/children/3.3注释__1747397718",
+      "parent_id": "1747522585",
+      "source": "https://km.sankuai.com/collabpage/1747397718",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    }
+  ],
+  "media": [],
+  "attachments": [
+    {
+      "document_id": "404577728",
+      "name": "function-demo.zip",
+      "url": "https://km.sankuai.com/api/file/cdn/404577728/404578235?contentType=2",
+      "size": "7.32KB",
+      "status": "link_only_requires_wenshu"
+    },
+    {
+      "document_id": "176739529",
+      "name": "aviator文档.zip",
+      "url": "https://km.sankuai.com/api/file/cdn/176739529/45918840395?contentType=0",
+      "size": "118.96KB",
+      "status": "link_only_requires_wenshu"
+    }
+  ],
+  "video_policy": "names_and_original_links_only",
+  "asset_errors": [],
+  "pause_after_batch": true
+}

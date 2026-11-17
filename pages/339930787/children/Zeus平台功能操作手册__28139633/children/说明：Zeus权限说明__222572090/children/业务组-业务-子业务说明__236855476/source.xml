@@ -1,0 +1,215 @@
+<km-doc>
+<km-title nodeId="8c5015e1e6ec4c9db4a515b6922395ce">业务组-业务-子业务说明</km-title>
+<km-catalog style="none" nodeId="37b9d43a56d243ccb8df92ef3f9024ac" />
+<h3 nodeId="3ff31216828945dd92847fe35510cb44">obj_business_conf表中管理的实体</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="9cc03b91a8314285915a2762c3e2151f">
+<tr nodeId="e6dea48c93724ff6ae24f36c31acf73e">
+<th colwidth="[188]" nodeId="07f3f7732475426eaa92c8025fd749f9">
+<p nodeId="f8091a508e29412d86699d40a20e8738"><span font-size="14">实体类型</span></p>
+</th>
+<th colwidth="[108]" nodeId="2ebae4624a594778b3129f51dcd5fc63">
+<p nodeId="42d235fc86ca43e38a257399309c7234"><span font-size="14">obj_type</span></p>
+</th>
+</tr>
+<tr nodeId="bede1be00f6840aa87b31eaccbb88faa">
+<td colwidth="[188]" nodeId="6b6f5d0af3dc4c44af03aa9bedc717e8">
+<p nodeId="c0473c088bda4df983f4edd6ce42f10d"><span font-size="14">场景</span></p>
+</td>
+<td colwidth="[108]" nodeId="043f435b42394554a83e7e816e6fef7d">
+<p nodeId="6473a4c06ce1407098217aac94cfc281"><span font-size="14">4</span></p>
+</td>
+</tr>
+<tr nodeId="cc763db045a449c795db6e406fae2579">
+<td colwidth="[188]" nodeId="fd35356318b6489688e2f22c9d98afcb">
+<p nodeId="030afd2861e94dcba3bced05cecefd70"><span font-size="14">因子</span></p>
+</td>
+<td colwidth="[108]" nodeId="85fdf624016c4b799532d94fae279f16">
+<p nodeId="ce36e46fcded4127b53f9c767af076c1"><span font-size="14">1</span></p>
+</td>
+</tr>
+<tr nodeId="a1bfbc1b84144cb09dea1fe793b0fb39">
+<td colwidth="[188]" nodeId="d00a60d2fff842be8b00694af41bc1d2">
+<p nodeId="95c8348323e042af94087390315e80c9"><span font-size="14">规则</span></p>
+</td>
+<td colwidth="[108]" nodeId="aca97bae20ef446c95a2a826bafb5981">
+<p nodeId="a7bad06bb88f46ad925b8c649ba5cd4d"><span font-size="14">3</span></p>
+</td>
+</tr>
+<tr nodeId="cfd97b1993824f27afe44869855148e1">
+<td colwidth="[188]" nodeId="fd439087bfef4b57bd532d94518894d6">
+<p nodeId="0c7fe12466bc4688a87cc39b6f85537b"><span font-size="14">标签</span></p>
+</td>
+<td colwidth="[108]" nodeId="04ce398b6a264b20b968c761e8f64a63">
+<p nodeId="24a55523f4984b55a946e7f89bbd950a"><span font-size="14">5</span></p>
+</td>
+</tr>
+<tr nodeId="60e298b9f5a549abb04e6afad34fc352">
+<td colwidth="[188]" nodeId="71c7331fe76641d69a983787b01e31ba">
+<p nodeId="5f6e4e98f9e9489eb6945c35811d6fd1"><span font-size="14">累计事件</span></p>
+</td>
+<td colwidth="[108]" nodeId="61f599768b5940d0906ade0b6686f120">
+<p nodeId="ac9337a541094c32b53eae0b0c17696c"><span font-size="14">6</span></p>
+</td>
+</tr>
+<tr nodeId="bc7433be25f04bdc9dc6e1c4f86e020d">
+<td colwidth="[188]" nodeId="39e7a7291abb496e83214d4968ffb81f">
+<p nodeId="b08bf3805b7048c5a0470fec31c68559"><span font-size="14">决策理由</span></p>
+</td>
+<td colwidth="[108]" nodeId="a54ff5252c074eefaa46bf3fc1ced652">
+<p nodeId="345cc6c2cf304a9dbc453b2a5ee1cdc4"><span font-size="14">7</span></p>
+</td>
+</tr>
+<tr nodeId="0801d198c3e04182ad0a26274cb57ba6">
+<td colwidth="[188]" nodeId="47ae1d38123a43ebaba3a500f139f7bb">
+<p nodeId="80fb1956e0884edcbc5a4fe3656c817a"><span font-size="14">决策</span></p>
+</td>
+<td colwidth="[108]" nodeId="c33712aa778843eea3084196c2756ab3">
+<p nodeId="cf1ef4c536e0469290a193dcfbce0027"><span font-size="14">8</span></p>
+</td>
+</tr>
+<tr nodeId="61d1ae4b3b014a4f9b96e21afeed38cc">
+<td colwidth="[188]" nodeId="51c4ee4d9fff405d9390bba89cb953d2">
+<p nodeId="a4b39e7e992d458f9bb1b156ad6541d6"><span font-size="14">参数</span></p>
+</td>
+<td colwidth="[108]" nodeId="9f30c639615544419cf7725218263665">
+<p nodeId="adf27595537442d686fc56b1f8018762"><span font-size="14">0</span></p>
+</td>
+</tr>
+<tr nodeId="2cb4dc9bfbbf4486a7661fd993479afe">
+<td colwidth="[188]" nodeId="c06d6b0a42a54163b71e12055207fa74">
+<p nodeId="08d92e0d6af84a0cb3810bd3b16efac2"><span font-size="14">累计</span></p>
+</td>
+<td colwidth="[108]" nodeId="3fe5ba12e17b42ed829dfb50eade6202">
+<p nodeId="cb65bd18b9bc4ea981995f44c0297d19"><span font-size="14">2</span></p>
+</td>
+</tr>
+<tr nodeId="b09aeada56584f85af185fe0993464af">
+<td colwidth="[188]" nodeId="ab611e82b1e84cde966efd4e76cccd84">
+<p nodeId="77524351b7ae4c8189396e60d6656fc0"><span font-size="14">多极路由场景</span></p>
+</td>
+<td colwidth="[108]" nodeId="553e18c8325c47e69dca772cb856a764">
+<p nodeId="982f1da6144348c9b27f614948ecfd82"><span font-size="14">9</span></p>
+</td>
+</tr>
+<tr nodeId="7e5c98047efa47d6bc5b7cafb6aff535">
+<td colwidth="[188]" nodeId="e9d731a0c7bc463780f61bf5a09b0281">
+<p nodeId="b4586f70e51c4ece9f74ba864ae7964f"><span font-size="14">因子工具</span></p>
+</td>
+<td colwidth="[108]" nodeId="31f36e52003944c4bb65248c28bee271">
+<p nodeId="a970ace4e7eb4f9484e3620552180fc5"><span font-size="14">10</span></p>
+</td>
+</tr>
+<tr nodeId="282810c54fb14918934653558aec1723">
+<td colwidth="[188]" nodeId="d5b32e59bc87468e8029263003ead02c">
+<p nodeId="e7688c3098d247fb98d14a2084b6518d"><span font-size="14">智能测试任务</span></p>
+</td>
+<td colwidth="[108]" nodeId="2b2956fd40c14058a1808710bebb0b60">
+<p nodeId="4fa774208d8c49fbb233d83461f06a05"><span font-size="14">11</span></p>
+</td>
+</tr>
+</table>
+<km-note type="info" hiddenTitle="true" nodeId="c217a23054f342f2a8132271b3418581">
+<km-title></km-title>
+<km-content>
+<p nodeId="d59909e0971f4dc39def3c98c6509b92">注：数据接口没有通过该表管理，默认业务群下都可以使用</p>
+</km-content>
+</km-note>
+<h3 nodeId="1a85ca1b521941039d233ee0693ef557">业务组-业务-子业务概念说明</h3>
+<p nodeId="98fcfe4d9a024f94a24521bf1e2c38a0">权限划分分为两个层级，groupKey-business（业务组-业务），business-subbusiness（父业务-子业务）</p>
+<h4 nodeId="5ecfaf7bed96445cb2afab22d4c23804">业务组-业务</h4>
+<p nodeId="c21703ce95fe4ea6811580177833e85b">该层主要规定了上表中各个实体最大的使用范围，只有在同一个groupKey下的实体才可以互相共享，比如在businessA下创建的rule1，可以共享到同一个groupKey的businessB下使用</p>
+<p nodeId="d1068c04523b4c70b82b12ddacd731e6"><strong>支持共享的实体如下（在页面上就可以操作）</strong></p>
+<ul nodeId="a3a204a9f21645d58e2e4b1db9cf3736">
+<li nodeId="c0c2d596de954e17b866c00335009411">因子</li>
+<li nodeId="3fbe142eb8c1493b8972cad5b2816870">规则</li>
+<li nodeId="41c3267e145a4e5fa12119cf0a0046f5">标签</li>
+<li nodeId="26b4afbadb7545baa0dc5e8e575eee68">累计事件</li>
+<li nodeId="bb0efb6ad2ad458082b38c5f9ccc506f">决策理由</li>
+<li nodeId="b90045ddd94f44a09a2835d53943a1d8">决策</li>
+<li nodeId="18f5c8e27961414f9d0cd514ab589b7e">因子工具：不仅在obj_business_conf表中规定了哪些business可以使用，还在factor_tool表中extra_config字段细分了这其中哪些是使用业务，哪些是共享业务。样例：extra_config: [{"sharedBusinessIdList":"9","usedBusinessIdList":"9","type":2}]</li>
+<li nodeId="014681fe9c3749478e080630b0456770">数据接口：没有通过obj_business_conf做权限管理，而是在fetcher_app中管理</li>
+</ul>
+<p nodeId="5291d7601a4441ad850a56adfd97b75a"><strong>不支持共享的实体如下</strong></p>
+<ul nodeId="bc3afbc0b9c0448f8ed1141ab227b898">
+<li nodeId="248750233378422591eb1a74df00631c">场景：无法共享。如果想要其他业务使用，只能复制数据</li>
+<li nodeId="a74af876bc6e4f58843c688fd3d0d7d1">参数：无需共享。默认同一个groupKey下面的各个business都是可见可用的</li>
+<li nodeId="73137c14c92d49f98efd74e52d8aae96">多极路由：不支持共享</li>
+<li nodeId="d2c11c1faf4549bfa3973f76841fb8fe">智能测试任务：不支持共享</li>
+<li nodeId="27ca45132311435597ad6fd6a3bb9766">累计：只要创建了就不能修改所属业务，否则可能会导致读写累计的area变化，共享对应的累计因子其累计也不会被共享</li>
+</ul>
+<p nodeId="07c30db81881422480ca2a4c77fb0dab">共享的底层操作就是在obj_business_conf表中增加了一行数据，把一个实体配置到两个business中，比如，规则1000原来在反作弊业务（business=1）下，对应的表数据为</p>
+<table borderColor="#cccccc" responsive="false" nodeId="8e24b1f0fe3b4b5193f30014e3816ff7">
+<tr nodeId="240829379a2c48c5847830ba22a46462">
+<th colwidth="[98]" nodeId="875bc5e535084fefbab8f1e15bd1e84e">
+<p nodeId="742723d486614bf9912f381abbd989c1"><span font-size="14">obj_type</span></p>
+</th>
+<th colwidth="[97]" nodeId="8af0a8624ca248d790f0a8c08ae977c6">
+<p nodeId="6d2d1b108c45420d968bb54cfe253e11"><span font-size="14">obj_id</span></p>
+</th>
+<th colwidth="[102]" nodeId="70922848a7ca4249b58963fa191faac4">
+<p nodeId="9528c5c0846a4ea7a98e0d14e7dff7a0"><span font-size="14">business</span></p>
+</th>
+</tr>
+<tr nodeId="e6d1573a179f4c98ad9198ccbee4bbac">
+<td colwidth="[98]" nodeId="110ef48f012343bbaebc5fdc52de7f8c">
+<p nodeId="a53194b0a1344a8986c48465c15dc1be"><span font-size="14">3</span></p>
+</td>
+<td colwidth="[97]" nodeId="29071d38adca4477989419eea5364154">
+<p nodeId="57e0a2b2eb4a4540b77b7412229bbe72"><span font-size="14">1000</span></p>
+</td>
+<td colwidth="[102]" nodeId="9848852b283e4c16a3d4d41fc6396085">
+<p nodeId="9cfc0f43b00c4da8adf77006b5a83b67"><span font-size="14">1</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="7afd38cee85146e6bc87af743678a733">共享到资金安全业务（business=2）后，对应的表数据为</p>
+<table responsive="false" nodeId="d589baa79f354218915105e88d743701">
+<tr nodeId="c952070bb94d46ea8233dac04396cedc">
+<th colwidth="[98]" nodeId="6ba9eaabfb714878889a477176d1822a">
+<p nodeId="6b43e40dfdf643da83be0e781a1a7c13"><span font-size="14">obj_type</span></p>
+</th>
+<th colwidth="[97]" nodeId="8293fffa34194883a1524f165728ad8d">
+<p nodeId="87664672ab3943b6be55efb0e0b00b45"><span font-size="14">obj_id</span></p>
+</th>
+<th colwidth="[102]" nodeId="f36b52ac5b484797a088bf3066bc735a">
+<p nodeId="1432f8ce61ea4cada29bb2e325b5677c"><span font-size="14">business</span></p>
+</th>
+</tr>
+<tr nodeId="e9fbcb58d55c47e08dd53cc8abd094f8">
+<td colwidth="[98]" nodeId="4eb67abccf9641d5957f95d9fe40ff43">
+<p nodeId="92d00afad1ef4551be13c38f3ad9dcf0"><span font-size="14">3</span></p>
+</td>
+<td colwidth="[97]" nodeId="b27f1056f2ed4711ba3d910cf6979c70">
+<p nodeId="5fcaf76990234b9694fbd9cb900ae5ff"><span font-size="14">1000</span></p>
+</td>
+<td colwidth="[102]" nodeId="3e33dae7f92b4795949db29300445186">
+<p nodeId="5ecbe9e22a954e90a4a067c56d2d81f2"><span font-size="14">1</span></p>
+</td>
+</tr>
+<tr nodeId="e29d8f737e40460ab85fb113855a3d80">
+<td colwidth="[98]" nodeId="a572720f0b6643309d88c1ec13f60760">
+<p nodeId="8d4bbfdbb85248229538dcfe5c44f708"><span font-size="14">3</span></p>
+</td>
+<td colwidth="[97]" nodeId="40ee07a4386747b0abd913ecca74bc95">
+<p nodeId="f8799a5068d9430c91d51b90da3f981f"><span font-size="14">1000</span></p>
+</td>
+<td colwidth="[102]" nodeId="3fa1a336807946e78f3cd4c9cccb7ccc">
+<p nodeId="5d5c30bb92c84179ac58025a75abdd49"><span font-size="14">2</span></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="4bafc7da4df64fee95144f0dc382a517">父业务-子业务</h4>
+<p nodeId="80fd4f261c854e3aa6cb7b8ddffcce5b">该层主要是为了隔离不同子业务之间的权限，使得每个子业务只能看到自己的规则而不能看到其他子业务的规则。基本原则是配置在父业务中的规则在所有子业务都可见，配置在某个子业务中的规则，只在当前子业务中可见，在其他子业务中不可见，举例如下：</p>
+<ul nodeId="af4811ca375642df8973803bf2eedc86">
+<li nodeId="cc4b1d534b1e46cca167a949f60267ff">规则1属于父业务</li>
+<li nodeId="e6d03633b29545caabb2fe6c120c780d">规则2属于子业务1</li>
+<li nodeId="1aa83cda901749ba8668d2f49cd62c44">规则3属于子业务2</li>
+</ul>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/236855476/237683337?contentType=0&amp;isNewContent=false" width="496" height="266" nodeId="5e24b846d16b4e7bb84ddce9ea7916e4" />
+<p nodeId="a07e6be252084d349947b6f5bdcac3c8">假设A拥有父业务的权限，则A可以看到和使用所有规则（规则123）</p>
+<p nodeId="a2c851a8df3d4c3f82b2dd9c0fe915dd">假设B拥有子业务1的权限，则B在自己的业务中只能看到规则1和规则2</p>
+<p nodeId="81ccb020a3694c99b73815caafa4cc22">假设C拥有子业务1的权限，则C在自己的业务中只能看到规则1和规则3</p>
+<p nodeId="58493fc450ac480ba79c04d170a5d66f">这样就起到了不同子业务之间实体可见性隔离的效果。</p>
+<p nodeId="7906db71175a4e47a503a29b2c13fadf">需要说明的是，当前zeus只有<span color="rgb(245, 35, 45)">规则和场景</span>两种实体有父子业务的概念，也即上面的举例同样适用于场景，其他实体由于包含的业务逻辑不多，所以不支持，如果在其他实体中配置了子业务也不会有任何效果。</p>
+<p nodeId="6f50874e782c4d0e9106a8eeda21be83" />
+</km-doc>

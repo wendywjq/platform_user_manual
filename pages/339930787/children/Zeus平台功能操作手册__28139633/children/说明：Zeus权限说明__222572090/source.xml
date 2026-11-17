@@ -1,0 +1,467 @@
+<km-doc>
+<km-title nodeId="90dec16b19a9434aa721bee827016bb6">说明：Zeus权限说明</km-title>
+<km-catalog style="none" nodeId="c55d18b3fbb64acca0b6e7e79826e88d" />
+<h1 nodeId="1f0a13fd0e7b4070807ca503002f28b0">一、概要</h1>
+<p nodeId="0e0ebb167b3d4660bb8a7ebd59594f52">Zeus规则平台支持用户在平台操作过程中的权限进行管理，目前平台权限支持两层权限管理，即父业务权限和子业务权限；</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/222572090/226236681?contentType=0&amp;isNewContent=false" width="853" height="298" nodeId="59a2b028cd2b4ca88813121f215e4d06" />
+<h1 nodeId="07c9df677c46483a8c8b205f824a6a5f">二、权限说明</h1>
+<h3 nodeId="06d93b2caba24e05ba699e16e69255c5">1、目前Zeus支持权限的控制范围</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="0a94f09d0d964c659d6525b73309880a">
+<tr nodeId="1e7202dc36a54cc9a0c65b70b14796f9">
+<th colwidth="[85]" nodeId="bb4f7615f70f4ae69870f7f9f6f8d0fa">
+<p nodeId="b3a27d4b98cd4a48bcd80d7390e80312" />
+</th>
+<th colwidth="[113]" nodeId="5e408704e8264f4ca32c7f027430730c">
+<p nodeId="a10307f490884454b8ae7777acb13633"><span font-size="14">子业务间隔离</span></p>
+</th>
+<th colwidth="[114]" nodeId="7fb3acc49cba4686b50a6145471feb4d">
+<p nodeId="4d7c3ebf7aae471e9479da7f19b93593"><span font-size="14">父业务间隔离</span></p>
+</th>
+<th colwidth="[193]" nodeId="ab5ff74d772543dc84b63a718a177bfc">
+<p nodeId="e4b126f69d8047b0b58baaae254dbda3"><span color="rgb(0, 0, 0)"><span font-size="14">业务组（</span></span><span font-size="14">groupkey</span><span color="rgb(0, 0, 0)"><span font-size="14">）隔离</span></span></p>
+</th>
+<th colwidth="[242]" nodeId="08960d3c5e81417dbd8c6e93f965e1b2">
+<p nodeId="6f7035ca5b4c406b9d0e7500ce93d831"><span font-size="14">父子继承关系</span></p>
+</th>
+</tr>
+<tr nodeId="59ac7111a23a4c9dbea56d16f70461ba">
+<td colwidth="[85]" nodeId="b0d08b5ba5334bb094a3534e7f8e5f1e">
+<p nodeId="2d013abdbc0d472d8d459adb54e720e9"><span font-size="14">场景</span></p>
+</td>
+<td colwidth="[113]" nodeId="c6c424f0fea14494b5a58fb16bad8a0e">
+<p nodeId="b9fceb4a27ce4d9296fb8d38e6a04e4b"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[114]" nodeId="438c9dabf20c44e984ebd0e9b255a8d8">
+<p nodeId="44c6a604feb54efe982a6fbea2f85fff"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[193]" nodeId="6c4de87694df412290cb92756bcf163e">
+<p nodeId="46306ca7ee8b44c6bea050f482454119"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[242]" nodeId="de37e2a1dd644d95849a77925a5b9ea2">
+<p nodeId="a2d35bebc85440ff8d2cdac8614f9e29"><span font-size="14">默认全部继承，支持选择继承</span></p>
+</td>
+</tr>
+<tr nodeId="bbe01c5aa8bb4fd9b95d011a0a3c675c">
+<td colwidth="[85]" nodeId="48d962a707bf4422aade276c4e9d8713">
+<p nodeId="62ce19a3359646a382ff9ab8a602e547"><span font-size="14">规则</span></p>
+</td>
+<td colwidth="[113]" nodeId="006411cf403543de9839f8429cf6ca7e">
+<p nodeId="d908bee74094438086e8af1df2213e71"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[114]" nodeId="574dd79187ce466ebdd85fa1f7a2e4ce">
+<p nodeId="f69bc0354a5f45f8bfa29b33cd6d53e9"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[193]" nodeId="88bde11e7ff64226a6bf6c7bca1289d5">
+<p nodeId="7a8f2e51ccf74260a04ead114da1ac97"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[242]" nodeId="f3a70dcbe4b144079321d86260311ade">
+<p nodeId="0981f8c65c474e36ada361e4130c4145"><span font-size="14">默认全部继承，支持选择继承</span></p>
+</td>
+</tr>
+<tr nodeId="52f06f343b9f45a2803debe7b01973f9">
+<td colwidth="[85]" nodeId="24786b5f851f43b98f52f4388657a8fa">
+<p nodeId="381d8c5de4a24b7b9c299ca855639002"><span font-size="14">规则组</span></p>
+</td>
+<td colwidth="[113]" nodeId="1fa54bcff21f4689b2f0e2420f15b056">
+<p nodeId="1c3d30958ae541c7b1199d16622243bd"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[114]" nodeId="054507695ccd436dba2f1893165bacaf">
+<p nodeId="719c897817444ee19a0352d18fb85272"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[193]" nodeId="6f470f6c1b0744259c4193dd5312a6cd">
+<p nodeId="1f5eadada9e4433e8a187f4cfb7ba8e7"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[242]" nodeId="4be271c667184a4ea37a37b3611dea29">
+<p nodeId="3174187886e74fd9ad04cc4c031e7f55"><span font-size="14">无继承，默认全部</span></p>
+</td>
+</tr>
+<tr nodeId="5adfd8aa565a4f9b8ea4767a5982db75">
+<td colwidth="[85]" nodeId="cd91eb0e221a4468ac9d73f210e8aeb4">
+<p nodeId="cf704a2086bf42a79331d140b97a4a3e"><span font-size="14">因子工具</span></p>
+</td>
+<td colwidth="[113]" nodeId="6af9536189134e6db77b70a7ae5d54f0">
+<p nodeId="6bc33c662c1043f68dd78be0d2a0d2da"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[114]" nodeId="0914e4fe60f3477b9cd312cae699fc0d">
+<p nodeId="4822e22c6ce346f3963cc6a1858c623a"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[193]" nodeId="66ee28e56cce4193a7c921715c9b1514">
+<p nodeId="e0c3b9efe1ee4fd6b3ff4a6ab5bcd237"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[242]" nodeId="e8327e9a0ec04484b843af32975e4992">
+<p nodeId="21a98a06969b47d3a96b6c8e506c2e82"><span font-size="14">默认全部继承，支持选择继承</span></p>
+</td>
+</tr>
+<tr nodeId="b9247ca1d50b40fcacb20bbb50aa5060">
+<td colwidth="[85]" nodeId="a0ae113cdd044684ba2fde1203cc81cd">
+<p nodeId="d951ef7b861e42e483aaa435aaca4805"><span font-size="14">因子</span></p>
+</td>
+<td colwidth="[113]" nodeId="40cdacd693444ad19e93fa11eb58a037">
+<p nodeId="c74e901b5436402d9ea705b3d1993f89"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[114]" nodeId="91a645286b0b4d49920204ead70f8ff0">
+<p nodeId="46f444b682064cc098e064bbd29407a2"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[193]" nodeId="7688cbdbee5e40229ba31b95858356ce">
+<p nodeId="cebc00002227492bb5cb69eda403ad7a"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[242]" nodeId="6c0719a580d9401e9018caedfe37e241">
+<p nodeId="3655e297de4142cd93e53ac131971696"><span font-size="14">无继承，默认全部</span></p>
+</td>
+</tr>
+<tr nodeId="b1195b0139094e429027ddca188ea310">
+<td colwidth="[85]" nodeId="d3e301cbe7d74e54a068d0f4d60ca59f">
+<p nodeId="58d874178f324932b7ffe24cecd186a8"><span font-size="14">参数</span></p>
+</td>
+<td colwidth="[113]" nodeId="619cd8fd674046ce9badc5fcffff1a55">
+<p nodeId="5eec64afcd6647de84ce17da335100de"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[114]" nodeId="3c94a4465d5c4a89a6f46099c2a591b9">
+<p nodeId="86dd29dbf1bc4729a1f1a99f12bdd6c7"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[193]" nodeId="a2a583016c93498bac0c26dc62025989">
+<p nodeId="c0d7f427abf1413eb92cad862f1b2b18"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[242]" nodeId="4eba23691b564e57988a165a44475701">
+<p nodeId="513d3bc414ae4db18464937da38ee602"><span font-size="14">无继承，默认全部</span></p>
+</td>
+</tr>
+<tr nodeId="6686f840aa934faeb66c5f3ca7ee111a">
+<td colwidth="[85]" nodeId="05654425331747c7bd488d9af28ee778">
+<p nodeId="ff46e765affc41c4b7b4c4ed9da7b273"><span font-size="14">数据接口</span></p>
+</td>
+<td colwidth="[113]" nodeId="64177159df7044fa8a4e0bfed1090d16">
+<p nodeId="7acb599862bc44cc849e9121883e4c5e"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[114]" nodeId="497fdb20b1d64b8dad8b1922ced400fb">
+<p nodeId="a9a6b8816e6d4f5794778a5c6c00af94"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[193]" nodeId="8442f2439db648978d07e3205e58c296">
+<p nodeId="19eaeb9de621444fb90a686775fcca77"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[242]" nodeId="e990bc5c74634c2f9715ad8e0630af57">
+<p nodeId="a1bf6c317ee44a44b46017b2427761f4"><span font-size="14">无继承，默认全部</span></p>
+</td>
+</tr>
+<tr nodeId="4f5e843934ba4979a46466b013feb1f6">
+<td colwidth="[85]" nodeId="4e8fd66241ea4764857203a9da8b208b">
+<p nodeId="416cbbbdc8b8477e99d53a7f2c37eae3"><span font-size="14">日志</span></p>
+</td>
+<td colwidth="[113]" nodeId="e363e56a96af49d3b3e7051e209cf421">
+<p nodeId="2e8f4f1734914135a0a5d6b6b3dee890"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[114]" nodeId="175563d9797647ba9b89160261e13543">
+<p nodeId="cc6e8b2f5176452bb876d685aca1fab0"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[193]" nodeId="82281b17df564fa2a4eb75b6694f7e46">
+<p nodeId="b6cb2b9636d541d28c679c9924d78427"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[242]" nodeId="93d082f3345049b8a27fb035a51d6f10">
+<p nodeId="9ea5c5f2b9dd4156b3a56b45cd011242"><span font-size="14">无继承，默认全部</span></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="e0991ffc841b4c1dbae37820b6a3d712">2、业务组（即groupkey）与父、子业务</h3>
+<ul nodeId="c3394bfd91344b1fa119782041e3c40f">
+<li nodeId="2516c3ea570d421ab92055b02abb24dd">业务组是业务方接入Zeus时确认的：未特殊说明的业务方默认为一个groupkey对应一个父业务；一个groupkey对应一个父业务或多个父业务，<span color="rgb(245, 35, 45)">业务组下的参数和数据接口会保持唯一性，</span><span color="rgb(0, 0, 0)">即同一</span>groupkey下的参数、数据接口名称不能重复；</li>
+<li nodeId="fe82fd4189fd4cf8990e6fbe01630b38">父业务和子业务是业务方接入Zeus时确认的：未特殊说明的业务方默认为父业务；</li>
+</ul>
+<p nodeId="46d8ee837d6847b4bcbd0ade80657e3e"><img src="https://km.sankuai.com/api/file/cdn/222572090/222877816?contentType=1&amp;isNewContent=false" name="image.png" width="1061" height="240" nodeId="570afe18f50648cfa3e9e7908cfda3e4" /></p>
+<h3 nodeId="f998acc5b1f944b48d67c01230566134">3、数据共享</h3>
+<ul nodeId="5e18b273dc7a4f9ea0c57942c8c890ea">
+<li nodeId="1f8ca58d6b1644718a9ac74886000fff">支持同groupkey下的父业务与父业务、子业务与子业务之间的数据共享</li>
+</ul>
+<table responsive="false" nodeId="ffbe6c23d8e54a07b22123b6aef74f4b">
+<tr nodeId="a637d1978a6a46f69d7e690ec8e30284">
+<th colwidth="[215]" nodeId="8128162c775a47f6b773177ab0602a1a">
+<p nodeId="f290829ebfce4f82bb046c4e96292d05"><span font-size="14">对象</span></p>
+</th>
+<td colwidth="[61]" nodeId="8ba9b8d79b604c69a16e5537084360f2">
+<p nodeId="d180f349926a43c88974a11ba503ae97"><span font-size="14">普通因子</span></p>
+</td>
+<td colwidth="[71]" nodeId="740bd610d8424f5290e91942577ba397">
+<p nodeId="a1b154db53f24cc7add7173bae7ceb1e"><span font-size="14">决策表因子</span></p>
+</td>
+<td colwidth="[57]" nodeId="9ea62f6746874f21ad117d90bd9d72b9">
+<p nodeId="3693df14c07042bb85cf30dd18691cf9"><span font-size="14">累计因子</span></p>
+</td>
+<td colwidth="[70]" nodeId="b5eb44da1b0c49cbbf0abb02eab67054">
+<p nodeId="23648a9de3854e2a8b3ba348a96a6bd5"><span font-size="14">名单库因子</span></p>
+</td>
+<td colwidth="[61]" nodeId="b4478476bf414bd5b0192e2d661be530">
+<p nodeId="63a360e96a404f41978bbf3647a6b155"><span font-size="14">因子工具</span></p>
+</td>
+<td colwidth="[55]" nodeId="61eb9235c95845308b5499595af54270">
+<p nodeId="1d0069470fa246f6ba605fda8f194c6e"><span font-size="14">规则</span></p>
+</td>
+<td colwidth="[64]" nodeId="7dc9fc421dba44eeb6f008cc7ca0a55c">
+<p nodeId="8aeca312afed4ba99a0eda922cce97fc"><span font-size="14">规则组</span></p>
+</td>
+<td colwidth="[152]" nodeId="f80a0f6dba5040c8be94bf74e3efbb26">
+<p nodeId="d663b5560c9148f7b573180c64a16ecd"><span font-size="14">决策（决策理由、附加信息、衍生参数）</span></p>
+</td>
+<td colwidth="[58]" nodeId="d5b7a23af4864181bec021ad47bb093d">
+<p nodeId="2dc0f44ad9f843b19a133a586db7dba7"><span font-size="14">累计事件</span></p>
+</td>
+<td colwidth="[59]" nodeId="d980989f2b70464aa151173f1e9a88c7">
+<p nodeId="53ebcab116a4403f8d0efa4f8d282ef9"><span font-size="14">场景配置</span></p>
+</td>
+<td colwidth="[108]" nodeId="3639a7ecd52e4ffd9b2dac0757bd9077">
+<p nodeId="f02c9a1d32b34b2fb324a0c02a81c8a5"><span font-size="14">场景（普通+路由）</span></p>
+</td>
+<td colwidth="[55]" nodeId="f8202a647e484ebfb75158364dfcf476">
+<p nodeId="2fdccb68ae164c34bab91ec0052f2a6a"><span font-size="14">参数</span></p>
+</td>
+<td colwidth="[174]" nodeId="f725ce20a56a42d48e9a29d3be6f392c">
+<p nodeId="1ab3b32614e24e28932e44d181da7a13"><span font-size="14">数据接口</span></p>
+</td>
+</tr>
+<tr nodeId="a8b2fd44dc4a406aba2ea2c3fe483770">
+<th colwidth="[215]" nodeId="97b21acb65344323a85272cd36e0fe61">
+<p nodeId="9faa0bbf79bf47fcb726d2c5c3c62e06"><span font-size="14">父业务与父业务是否支持共享</span></p>
+</th>
+<td colwidth="[61]" nodeId="52ced2db8b9346e8a4af7bde235fedfb">
+<p nodeId="aea197438ae54007973877b6c17e4d13"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[71]" nodeId="77a061dad9df452e920bf08c574e063e">
+<p nodeId="98409596db2f4268ad401b0b064720b9"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[57]" nodeId="63ec12b45e944cd0833ecfda0577e832">
+<p nodeId="d10073796f514c4db17d04829952b81d"><span color="rgb(0, 0, 0)"><span font-size="14">Y</span></span></p>
+</td>
+<td colwidth="[70]" nodeId="7c7348788cc148fd88be1ff3b9620612">
+<p nodeId="c877dba7852b462a8648d20e8cda35be"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[61]" nodeId="5f1d1fdfee594f9e812b4e4a80236559">
+<p nodeId="ad32373f9f3d4d4488ac1d237d1b57f0"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[55]" nodeId="b25f14c8276341c396d55f9bf1b02a91">
+<p nodeId="c13f310ee813405eb3216a67042b621e"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[64]" nodeId="610958a37bdb468a928a57714ddf8144">
+<p nodeId="496f3dcb73b848d6ac4234f3aa91c762"><span color="rgb(0, 0, 0)"><span font-size="14">Y</span></span></p>
+</td>
+<td colwidth="[152]" nodeId="0e96c7a97e5243c6bb250135c9d5e57b">
+<p nodeId="6934e14481564ecd9229e0c022090717"><span color="rgb(0, 0, 0)"><span font-size="14">Y</span></span></p>
+</td>
+<td colwidth="[58]" nodeId="a83349996f27414c84a0bb16f58e625f">
+<p nodeId="e0267c2385c246d9998978d364e7126f"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[59]" nodeId="d45fac7e1bf541f2b70b74886643bda0">
+<p nodeId="1b4839cddd7746629dd4fe52268f1075"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[108]" nodeId="f765d71517684c6e9dd2adba24c3346e">
+<p nodeId="6a9c0e7fdee947109c38dddf1b329d78"><span color="rgb(245, 34, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[55]" nodeId="44c9dbbe1ade407bb5efcca1ba293bb2">
+<p nodeId="d5a78a7a1be0407ab58845ca867629f1"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[174]" nodeId="d34ea5f29d05457cb27981608b1a1bb9">
+<p nodeId="d288cabf4d454fb7b6e12e87cfda1e25"><span color="rgb(245, 35, 45)"><span font-size="14">Y，支持跨groupkey共享</span></span></p>
+</td>
+</tr>
+<tr nodeId="992059ff58054f05953b40eedc35e74e">
+<th colwidth="[215]" nodeId="3e9896408aad4434a9aabcdb9c0f2fb1">
+<p nodeId="3e6950f3f9b840d482078d3c141824c1"><span font-size="14">子业务与子业务是否支持共享</span></p>
+</th>
+<td colwidth="[61]" nodeId="d77cf20fbd0c4a8d95a42ec30b8684fe">
+<p nodeId="d4a000dce50a448ba29b44692d253342"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[71]" nodeId="86d56797556f439ab8ef175f935d0ade">
+<p nodeId="b998270705da4b4da8784e36b8dc5ec6"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[57]" nodeId="67107a214d8f4d3dbedab07b13587cf5">
+<p nodeId="6d41330f0e27435f8d1fe0db8f9678b2"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[70]" nodeId="0943b9fe41de450da0057635118845a3">
+<p nodeId="9bce5960cdf14b2d888171afee90bc75"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[61]" nodeId="5b77eb57e5f74defb77d6cff4c341a9c">
+<p nodeId="52a802d3c96f4550a885d95c781746ba"><span color="rgb(0, 0, 0)"><span font-size="14">Y</span></span></p>
+</td>
+<td colwidth="[55]" nodeId="d974a17688cc4873820053e6143b55ea">
+<p nodeId="f5693886abc041699e16745cdba1f224"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[64]" nodeId="bac5466fcf41452cac5ee8f964e95382">
+<p nodeId="d10dc27eaa774333ad6baca3fd74eb46"><span color="rgb(245, 35, 45)"><span font-size="14">N</span></span></p>
+</td>
+<td colwidth="[152]" nodeId="a3b988f9ea7740d29867f6845ec2c769">
+<p nodeId="45710a73577e486f899a22a6c28d5bbc"><span font-size="14">N</span></p>
+</td>
+<td colwidth="[58]" nodeId="18019721098a4f388d62e08658f65804">
+<p nodeId="14d2b3faf34b497d8f3fc788bb92902f"><span font-size="14">N</span></p>
+</td>
+<td colwidth="[59]" nodeId="48b091615f4946289b0639443982bf62">
+<p nodeId="b65ff8a0b5c94062a5f4fa9786e02712"><span font-size="14">Y</span></p>
+</td>
+<td colwidth="[108]" nodeId="129ca00693944b01a37073247db6fc31">
+<p nodeId="039e84e284ae4a8e8fd74d07537ed7d4"><span font-size="14">N</span></p>
+</td>
+<td colwidth="[55]" nodeId="e66474d4c0d9456daf6790c61a1662be">
+<p nodeId="d2551f5d4a5d4a7c86a5ff4a6a100e6a"><span font-size="14">N</span></p>
+</td>
+<td colwidth="[174]" nodeId="33460e3f6bd2417bb918f358deedf985">
+<p nodeId="8cec8f4de5ca441aa438171668ff2fff"><span font-size="14">N</span></p>
+</td>
+</tr>
+<tr nodeId="374e772d3517498eb97a87d647ac2e9b">
+<th colwidth="[215]" nodeId="647d4f440aad478691d8e41e6d1e86b4">
+<p nodeId="886af71326a249c4a93942cf2fd02749"><span font-size="14">父业务与子业务是否支持共享</span></p>
+</th>
+<td colspan="13" colwidth="[61,71,57,70,61,55,64,152,58,59,108,55,174]" nodeId="9490b21caa4d4a5f90571900419ef0b6">
+<p nodeId="d817c58047bd4b3b82b6f9393f53e5e8"><span font-size="14">继承关系</span></p>
+</td>
+</tr>
+</table>
+<ul nodeId="5d1a270da46c485698d32bc3b18f6c67">
+<li nodeId="d1bfd58c8d0c48768bb1bd3623dcc372">目标业务方即共享给的业务方，例如：在同一个groupkey下的业务方X将规则111共享给业务方Y，则业务方Y为目标业务方</li>
+</ul>
+<table borderColor="#cccccc" responsive="false" nodeId="6c0d8cbc41b948e9a5c93eb43eb762c9">
+<tr nodeId="9af2f31b891e459ba609f47cbf92d739">
+<th colwidth="[99]" nodeId="3057d8ed6de94af3ae795f60f4c48f87">
+<p nodeId="5bc1871aa770427c9299c9bd5d39740c"><span font-size="14">对象</span></p>
+</th>
+<th colwidth="[276]" nodeId="212bb114a7064d4fa628d33166f6f520">
+<p nodeId="1269047f8e024572b8333c84869241b6"><span font-size="14">目标业务方可以查看/修改的信息</span></p>
+</th>
+<th colwidth="[281]" nodeId="1a5aecd5777e4dc39ddc63088fce6982">
+<p nodeId="af8e7f6068644f7e9972a41b15a191a8"><span font-size="14">目标业务方不可以查看/修改的信息</span></p>
+</th>
+</tr>
+<tr nodeId="7eb888a086184ef8a43e4e117055b226">
+<td colwidth="[99]" nodeId="c36465e89e6644e3b8555063bf154fc0">
+<p nodeId="f5592cf29ef24e539321a9056230cf09"><span font-size="14">因子</span></p>
+</td>
+<td colwidth="[276]" nodeId="523bc42f65a7477faaabe9445356ed5e">
+<p nodeId="1440682600d747e2bdf475c1f677fba5"><span font-size="14">因子信息以及因子引用的参数</span></p>
+</td>
+<td colwidth="[281]" nodeId="c57a0074293f4e09a2b3096114a1b704">
+<p nodeId="28abc788e1254c3e9be9e6a637ff6cb0"><span font-size="14">因子引用的因子</span></p>
+</td>
+</tr>
+<tr nodeId="20b888fad42a4b74960f6e8eab4dcb36">
+<td colwidth="[99]" nodeId="82ac17d971934d01b043c9ad3ba15f66">
+<p nodeId="359f933b2d1343fa914e3dff0d81ff16"><span font-size="14">规则</span></p>
+</td>
+<td colwidth="[276]" nodeId="d3908c9fda444136b5485010beaf04c7">
+<p nodeId="eb9ce87dedc74b6caa762c9567703105"><span font-size="14">规则信息以及规则引用的参数</span></p>
+</td>
+<td colwidth="[281]" nodeId="1e11ccef71dd4d919d8664433f028611">
+<p nodeId="3120ec94bcab4fde86e07dc1824414fa"><span font-size="14">规则引用的因子</span></p>
+</td>
+</tr>
+<tr nodeId="57b5e1b9d82a4f4787e8d2281f81ee6a">
+<td colwidth="[99]" nodeId="c0ab021784ae42e481c3f269ff880185">
+<p nodeId="bf9c71c3bbcf4467a1228425e5a77bfa"><span font-size="14">因子工具</span></p>
+</td>
+<td colwidth="[276]" nodeId="0d2ae7ec09b34b2882b949e1c193dacd">
+<p nodeId="ea4dcb4f1ecb4d168804b8e4e44e9765"><span font-size="14">因子工具、因子工具引用的规则组、规则组中的规则信息以及规则引用的参数</span></p>
+</td>
+<td colwidth="[281]" nodeId="261f7b116fa6492ea19722e1c28e20ef">
+<p nodeId="a0a4db77b505480fbbe6aab7cc5d4aa2"><span font-size="14">规则引用的因子</span></p>
+</td>
+</tr>
+<tr nodeId="4219f9d2a4bf41c589a5a478f39c6540">
+<td colwidth="[99]" nodeId="3871f1a9ffbe495796fc87066e033d03">
+<p nodeId="9e753cb696964dd8a83ad9ca953f0327"><span font-size="14">规则组</span></p>
+</td>
+<td colwidth="[276]" nodeId="aa48145105c440eaace09861c1179483">
+<p nodeId="51f766ca1fd44e4f860609181ee36f88"><span font-size="14">规则组、规则组中的规则信息以及规则引用的参数</span></p>
+</td>
+<td colwidth="[281]" nodeId="2b8eacb76e9f4102bf2fa64825b0a735">
+<p nodeId="38b9cdc2a4f44f35a7fa87248e60d1cd"><span font-size="14">规则引用的因子</span></p>
+</td>
+</tr>
+<tr nodeId="372ae95b531b45b7b6c4f2ad6adf20d9">
+<td colwidth="[99]" nodeId="9924bf8cf3034c6686a2366516955c48">
+<p nodeId="0a04cbe74a8a40f0aad10f4bce42d5dd"><span font-size="14">决策</span></p>
+</td>
+<td colwidth="[276]" nodeId="39fd66f2e7114817b7c437038769e469">
+<p nodeId="45961d9cae1e4950bdd2685aac2420b3"><span font-size="14">决策信息、决策理由、附加信息和衍生参数以及附加信息和衍生参数引用的参数</span></p>
+</td>
+<td colwidth="[281]" nodeId="8e6069bca4a54fa7bdea8708183054d6">
+<p nodeId="6a59b189397a41a4b25d99851f5eab51"><span font-size="14">附加信息和衍生参数引用的因子</span></p>
+</td>
+</tr>
+<tr nodeId="9367de6dca4b4b2ebb328701075f571d">
+<td colwidth="[99]" nodeId="ea909bc29fa246a9a7d0910a4c512e84">
+<p nodeId="bf78237476f448ab8fe5b08bbdec2bb9"><span font-size="14">累计事件</span></p>
+</td>
+<td colwidth="[276]" nodeId="62f8ed5e08194bf39ede66d31c3ac341">
+<p nodeId="7568d3fefec7479ba5f46728434aeb09"><span font-size="14">累计事件信息</span></p>
+</td>
+<td colwidth="[281]" nodeId="6e60b94534d446899175b22bd3a2063c">
+<p nodeId="0e4862ab6af84e63aacf402d83b39e74"><span font-size="14">无</span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="ed22fae9b282447396c405f99f429695">三、FAQ</h1>
+<h4 nodeId="9d6228cba6384dd6874302c1174875e7">Q1：如何确认自己的账号权限是父业务权限还是子业务权限</h4>
+<p nodeId="8493137b9fd443f6b9606d289ee37012">A：在Zeus--&gt;权限--&gt;业务方管理中查看，例如：反作弊下有以下子业务</p>
+<p nodeId="2dd8e3f2b2fe4fd6a561230f548003f1"><img src="https://km.sankuai.com/api/file/cdn/222572090/222713322?contentType=1&amp;isNewContent=true" name="image.png" width="432" height="230" nodeId="e858a3ce73cb45e48483746a2fb39d87" /></p>
+<h4 nodeId="e69391fddca74e7aa58d75b03d0257cb">Q2：导航栏右上角落展示的是父业务还是子业务，例如：<img src="https://km.sankuai.com/api/file/cdn/222572090/222731799?contentType=1&amp;isNewContent=true" name="image.png" width="469" height="53" nodeId="dd4592f7b02d4976a2593e91a9aff4a0" /></h4>
+<p nodeId="15640c55a39a47789c41ee6d22fa5c2e">A：展示的为父业务，目前尚不支持子业务展示；</p>
+<h4 nodeId="87871116616a41b0b93c5954fc92e131">Q3：目前支持读写权限分离么？即支持部分用户仅能查看搜索不能修改，支持部分用户既能查看搜索也能创建、修改？</h4>
+<p nodeId="f9d5f55c4e9b482a800368c7e23ba2b4">A：Zeus美团侧不支持（<a href="https://zeus.sankuai.com/scene_conf/search" title="https://zeus.sankuai.com/scene_conf/search" nodeId="03aabb5cb6814b949f1c105776b7cfb4">https://zeus.sankuai.com/scene_conf/search</a>），Zeus私有化侧支持（目前仅提供金融业务方使用）</p>
+<h4 nodeId="7abc60a0449e4378bd0fe47cf5166ba7">Q4：什么情况需要一个groupkey对应多个父业务？</h4>
+<p nodeId="8078ab62bedf463ab722b0784471f53c">A：当业务比较复杂，在参数和数据接口层父业务间需要共享，但父业务间的配置策略需要独立权限管理时，可以一个groupkey对应多个父业务或者一个groupkey对应一个父业务+一个父业务对应多个子业务；</p>
+<h4 nodeId="64219b383b4c447888bf949c04833910">Q5：目前已经接入Zeus的父业务，需要创建子业务怎么操作？</h4>
+<p nodeId="364148c0f4ac4e54ba8e6dbb49de4194">A：联系Zeus值班/产品进行权限清洗，业务需要提供拆分的信息</p>
+<km-collapse active="false" nodeId="e73cb283dccf4190a661eec8b0a18c10">
+<km-title>业务提供信息详情</km-title>
+<km-content>
+<p nodeId="d05ae5a44dd84f7b95c9d70d792136aa">1、新增子业务信息</p>
+<ul nodeId="78f7473fa3664f2bb9fa4e6ac09b1e43">
+<li nodeId="61d55abe6d09435c9e4d5ee3e26f3aea">子业务下普通用户MIS号list：</li>
+<li nodeId="8ce887ec432c48ef981570134b6d767a">子业务下负责人MIS号list：建议2个人以上，不超过5个人；（可添加业务组下用户、报警及审批通知人）</li>
+<li nodeId="86dd93f54dbb49c69a9e8ee4572b8738">父业务名称：ID+中文</li>
+</ul>
+<ul nodeId="6240a822be674ea1a4a7d6fc83d3eb5a">
+<li nodeId="18b4adc3ba0446809b03d1d8769713ca">创建的子业务名称：<span color=" ">建议在6个字节以内不限于中英文</span></li>
+</ul>
+<p nodeId="fcd101a946d74eefbe6b3b2b2042a4ee">2、因子、规则、规则组、决策在父子业务下的共享关系；</p>
+<table responsive="false" nodeId="1771a336c9a24d08ad11df554d4e1700">
+<tr nodeId="5a22c6bfbb6541bfa1d871ae02b73efb">
+<td colwidth="[61]" nodeId="6fd8e8d0a3a44507b2f05e66d090539d">
+<p nodeId="fa6ef118f86c4c8bad6d0e52c91dfcb9"><span font-size="14">业务</span></p>
+</td>
+<td colwidth="[97]" nodeId="5593f033418a44f79dfc599795db6102">
+<p nodeId="802450e596a545fb837fd356876406ec"><span font-size="14">业务线新建</span></p>
+</td>
+<td colwidth="[113]" nodeId="fd21f9694f6746caa32f12e8d59281bf">
+<p nodeId="d71b2b9b4a2a4fe3a7e12f0fd56c4ac4"><span font-size="14">终止依赖类型</span></p>
+</td>
+<td colwidth="[55]" nodeId="8fd9ccdf3369481ca58ac54f86411ca0">
+<p nodeId="a93eccb492ea41dd866a6a95aad911f5"><span font-size="14">ID</span></p>
+</td>
+<td colwidth="[74]" nodeId="9b0514c051f041988a3edb3e171e02d9">
+<p nodeId="0fdfdfbff017486384524b6532332f31"><span font-size="14">中文名</span></p>
+</td>
+<td colwidth="[57]" nodeId="3f17ff3fdcf441ce8196567c28339049">
+<p nodeId="f9cf1086033a4052b897024a4da4c98e"><span font-size="14">名称</span></p>
+</td>
+<td colwidth="[113]" nodeId="3b0c1ac320674ac5ad9f83170e43c2aa">
+<p nodeId="d629ff83ea4c41e1968dfbb8e0f92962"><span font-size="14">现业务归属方</span></p>
+</td>
+<td colwidth="[152]" nodeId="21f52848c9f74103bf8b47581a0fec19">
+<p nodeId="8f9c00287dd3433cb652beac92406063"><span font-size="14">清洗后父业务归属</span></p>
+</td>
+<td colwidth="[158]" nodeId="db06deb5776f4d4ab76a225f58191dd1">
+<p nodeId="2b289c397c7c4263bf2e4c29467cb021"><span font-size="14">清洗后子业务归属</span></p>
+</td>
+<td colwidth="[56]" nodeId="ecee409832a74c01bdcabe71f66438f8">
+<p nodeId="9370ab9b96f944ac849b5d88c38161ea"><span font-size="14">备注</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="49c956a7f8e84b07bd025b78d03e1202" />
+</km-content>
+</km-collapse>
+<h4 nodeId="f2d3a4e1bf5b44518fb2b27222ad167a">Q6：支持业务X将规则111直接共享给业务Y下的子业务Y-a，而不共享给业务Y么？</h4>
+<p nodeId="2d0934da97784a5fa31c44be350b1c39">A：<km-mention name="王东" uid="wangdong13" empId="" nodeId="288f25881d5f44a08f07fac3fc02fdb8" />确认答案</p>
+<h4 nodeId="624b4cef91234b69a90b1c41eaf2692a">Q7：父子业务下，静默期的时间怎么确认？</h4>
+<p nodeId="4086d7db653f4dcd9604a5a336be79be">A：<km-mention name="杜方宇" uid="dufangyu" empId="" nodeId="dd99a8a49c7b433cb6680ea27426bdeb" />确认答案，什么是静默期 👉 <a href="https://km.sankuai.com/page/28163548" title="https://km.sankuai.com/page/28163548" autoUpdate="true" nodeId="b4856d85d8de47b69c3be872462cdd2e">https://km.sankuai.com/page/28163548</a></p>
+<h4 nodeId="9f829aa8ca0a468da17841c6e7a11582">Q8：场景配置下的复制场景配置支持复制的范围是什么？</h4>
+<p nodeId="5b286af43a834cc7b7cb5133183cb69b">A：支持父业务复制给子业务，子业务复制给父业务，不支持父业务复制给父业务</p>
+<p nodeId="9d01a6e955b744e280580da75300cce1" />
+</km-doc>

@@ -1,0 +1,70 @@
+{
+  "parentId": "176739529",
+  "parentTitle": "",
+  "children": [
+    {
+      "contentId": "1747338212",
+      "title": "Aviator说明手册",
+      "type": "学城文档2.0",
+      "creator": "wangyaliang",
+      "createTime": 1688023278000,
+      "modifyTime": 1692599994000,
+      "isChildExist": true,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "2710365121",
+      "title": "Google Aviator表达式使用手册",
+      "type": "学城文档2.0",
+      "creator": "dengyanning",
+      "createTime": 1745743149000,
+      "modifyTime": 1746690913000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "1753200610",
+      "title": "表达式书写FAQ",
+      "type": "学城文档2.0",
+      "creator": "xiepengfei05",
+      "createTime": 1688383485000,
+      "modifyTime": 1688383643000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "1215666973",
+      "title": "累书写逻辑",
+      "type": "学城文档2.0",
+      "creator": "dusisi",
+      "createTime": 1635825879000,
+      "modifyTime": 1635833423000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    }
+  ]
+}

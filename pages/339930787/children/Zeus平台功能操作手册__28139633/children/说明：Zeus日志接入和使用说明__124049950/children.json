@@ -1,0 +1,54 @@
+{
+  "parentId": "124049950",
+  "parentTitle": "",
+  "children": [
+    {
+      "contentId": "126078054",
+      "title": "Zeus日志隔离-北京风控hive表高频使用字段模版确认",
+      "type": "学城文档2.0",
+      "creator": "dusisi",
+      "createTime": 1547808992000,
+      "modifyTime": 1565947417000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "156154117",
+      "title": "Zeus日志数据汇总",
+      "type": "学城文档2.0",
+      "creator": "lvxiaoqian",
+      "createTime": 1557825833000,
+      "modifyTime": 1577102020000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "124085314",
+      "title": "Zeus日志问题总结与规划",
+      "type": "学城文档2.0",
+      "creator": "dusisi",
+      "createTime": 1547117560000,
+      "modifyTime": 1548215901000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    }
+  ]
+}

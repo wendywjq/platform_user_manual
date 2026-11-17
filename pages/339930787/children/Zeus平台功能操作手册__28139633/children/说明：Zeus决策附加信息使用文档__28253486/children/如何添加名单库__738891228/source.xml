@@ -1,0 +1,141 @@
+<km-doc>
+<km-title nodeId="b7ecdeb5a12a4aa09d6e8dd26d991a6f">如何添加名单库</km-title>
+<km-catalog style="none" nodeId="ca9cfc5fe6bd40fdab1594debcc1093a" />
+<h1 nodeId="62dff65fb93a418f9536256de27e47e5">一、如何加入名单库</h1>
+<p nodeId="20acc23b1e1a4918ab3f89f3e2c4dace">当你希望请求命中一条规则后，同时需要加入到名单库，请按照此文档操作~~（写此文档的目的是防止我忘记，如果觉得写得不好，请别看，自己问zeus）</p>
+<table borderColor="#cccccc" responsive="false" nodeId="a685558290af4f1882f7f98e3f52b7d2">
+<tr nodeId="a1367927de854433a6927971646e45a2">
+<th colwidth="[161]" nodeId="e54b22fa8e664e9e9711a9a1a5f94396">
+<p nodeId="f27c84a36ad6456e99230b15ccce283e" />
+</th>
+<th colwidth="[270]" nodeId="cf428f41526747288b0ee3cea9fcdde3">
+<p nodeId="76eb9aee299f49e793113c7ff7ad44e6" />
+</th>
+<th colwidth="[73]" nodeId="fd9944fc01854578858a355176849dad">
+<p nodeId="a484229faf5d40f1a43ffef785840d40" />
+</th>
+</tr>
+<tr nodeId="a0388ff54f5d44f686eb6781d30e87e3">
+<td colwidth="[161]" nodeId="8c8cb9fa6c384278b6c3678fe25328d7">
+<p nodeId="d2bc5f99d6544ab5a4fd2265b76d7c65"><span font-size="14">找到决策：</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">67</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">加入名单库</span></span></p>
+</td>
+<td colwidth="[270]" nodeId="50ce22fd692f4e62bd76147f1813b850">
+<p nodeId="830ef2ec484d4b379a76da14150f384e"><img src="https://km.sankuai.com/api/file/cdn/738891228/738854660?contentType=1&amp;isNewContent=true" name="image.png" width="242" height="126" nodeId="fa916f5ec7b04f8ea630611621181722" /></p>
+</td>
+<td colwidth="[73]" nodeId="b377ffbf528748cb9f88b1ed139369d3">
+<p nodeId="4704ed4d641c4a35851a1c31cf7d5762" />
+</td>
+</tr>
+<tr nodeId="06d266db26b84070af8ef163834b991a">
+<td colwidth="[161]" nodeId="97b4e9569c8f4d128a5e1f6d3b538e5f">
+<p nodeId="1a929ba4814c4875afd1d43b7372f8a2" />
+</td>
+<td colwidth="[270]" nodeId="ba94c078287840d183abaecb617549d8">
+<p nodeId="8f3dfe5b813f49f69a4dc5147ffe0e09"><img src="https://km.sankuai.com/api/file/cdn/738891228/738964144?contentType=1&amp;isNewContent=true" name="image.png" width="242" height="128" nodeId="8ca9e1691551434a91ae2792aa0a2328" /></p>
+</td>
+<td colwidth="[73]" nodeId="faa04189b8ff4b3ba258edbf1fc6aac8">
+<p nodeId="9e4784d181554ef684b8b0f76d15d312" />
+</td>
+</tr>
+<tr nodeId="14a66e863a1d4300a637262fce1d676a">
+<td colwidth="[161]" nodeId="5a7f724c110d4b90a2715740f4a618e3">
+<p nodeId="3f33c9c3c65b42c5a5bf6df8812243be" />
+</td>
+<td colwidth="[270]" nodeId="0df609802a8b4fa9b0fdc2bfb0d9d477">
+<p nodeId="80865a51aec74316af56303c8d24447c"><img src="https://km.sankuai.com/api/file/cdn/738891228/738964186?contentType=1&amp;isNewContent=true" name="image.png" width="242" height="129" nodeId="e7f820e97a0743de8e789470240bc72a" /></p>
+</td>
+<td colwidth="[73]" nodeId="77e1b0ec01694e8abe870959806aad6d">
+<p nodeId="882a51d700c8409ebee82298a03953e3" />
+</td>
+</tr>
+<tr nodeId="c30ec24cc6444ce6a92906d6cac05f49">
+<td colwidth="[161]" nodeId="705466b6fb1940b9890a8a3a7fa9045b">
+<p nodeId="3422d33701c54f1ba83d225c70ffd6ff"><span font-size="14">关联对应的名单库</span></p>
+</td>
+<td colwidth="[270]" nodeId="fc6213bfb94f40ec854857a878244eaf">
+<p nodeId="80e1b13f399a4f3eb11d038e7854434b"><img src="https://km.sankuai.com/api/file/cdn/738891228/738903928?contentType=1&amp;isNewContent=true" name="image.png" width="242" height="236" nodeId="be6b8048fc8b46da80fdb46cc30e8f30" /></p>
+</td>
+<td colwidth="[73]" nodeId="1523bcd8c3994d1c843d7291ab1ac212">
+<p nodeId="05348e375f01466bbc7c143af92c15f9" />
+</td>
+</tr>
+<tr nodeId="877ce7d419214db585a4604484e6f51d">
+<td colwidth="[161]" nodeId="99c2af0d90544d0e80c0688f1f23ac41">
+<p nodeId="8f81284d57554d0d94428f9638f504e9" />
+</td>
+<td colwidth="[270]" nodeId="f6bcc784bfd142b4926973d8883e8fda">
+<p nodeId="de662b32c3644224a851254a7679ddf8"><img src="https://km.sankuai.com/api/file/cdn/738891228/738976365?contentType=1&amp;isNewContent=true" name="image.png" width="242" height="201" nodeId="5ce3c29c702144f4ac1c2f4bbbfc43bf" /></p>
+</td>
+<td colwidth="[73]" nodeId="1c85fda5edd64a3cad7cfb8f5ea132b8">
+<p nodeId="74af5ece5dd04a1f9089b8a3505bbb5a" />
+</td>
+</tr>
+</table>
+<p nodeId="6350c29df0cb4f14b7c9c2713b0c8143" />
+<p nodeId="cd77e8f6c4e7407daca4a61ec630bdd7">风险备注：</p>
+<ol nodeId="ec7c6d2aadd8418097efa02cf7a153dc">
+<li nodeId="93bb9d72f49c4f84a02c7fc0eef656e8">如果希望命中此规则时，既拦截又加入名单库，则需要一条规则配置两次，相同优先级，一个决策是拦截，一个决策是加入名单库</li>
+<li nodeId="0e58e2635b41403f9f152c891764caa1">在yoda里，加入名单库，只要是生效、灰度状态，无论优先级是什么，命中就会被加入名单。tataoine等业务方不确定</li>
+</ol>
+<h1 nodeId="e4f55d6858604dc58e957f116ec85639">二、如何查看加入到了哪个名单库</h1>
+<table borderColor="#cccccc" responsive="false" nodeId="08c55a61d46b4c64b572421a132c3f26">
+<tr nodeId="08224961b3d94be49457883b48529bbc">
+<th colwidth="[55]" nodeId="b3d3e79699fc4f1998ed977576684ff6">
+<p nodeId="c39d06619e3a4816beebd4ccbd7794c4" />
+</th>
+<th colwidth="[240]" nodeId="399727f237d243a68a7d8c2ea923727f">
+<p nodeId="46db76cf3b54407280d29806a0b5e41a" />
+</th>
+</tr>
+<tr nodeId="544d05513de04d29b6722bca9fac0a75">
+<td colwidth="[55]" numCell="true" nodeId="3f76e1a66e62420989e47c8f3ba26194">
+<p nodeId="99248b928c8742d4b08df713f2140b8e" />
+</td>
+<td colwidth="[240]" nodeId="d5222d513cbc42b1b2db9b947e596f4f">
+<p nodeId="3fe681a5073d4275a54a61cce89fa6ba"><img src="https://km.sankuai.com/api/file/cdn/738891228/815683787?contentType=1&amp;isNewContent=false" name="image.png" width="212" height="99" nodeId="9f8ff82e0ca6448082645916850a6869" /></p>
+</td>
+</tr>
+<tr nodeId="78b1e9522c7a46c0a8005468dc199b4f">
+<td colwidth="[55]" numCell="true" nodeId="9394f0f2f49142a9a84a97e8a62496c0">
+<p nodeId="b5edb7094ff24536830bf9745c51bd14" />
+</td>
+<td colwidth="[240]" nodeId="c43cea618ca94063aec08e500915aebe">
+<p nodeId="dd9efc627251479dab953c6a2e7e90eb"><a href="https://zeus.sankuai.com/data_zeus_static/#/decisionInfo?id=67" title="https://zeus.sankuai.com/data_zeus_static/#/decisionInfo?id=67" nodeId="f25c94c6a5d644a9806f355b04c6f3bf"><span font-size="14">https://zeus.sankuai.com/data_zeus_static/#/decisionInfo?id=67</span></a></p>
+</td>
+</tr>
+<tr nodeId="50b8d33c8a8844a8af9ead37dcba8843">
+<td colwidth="[55]" numCell="true" nodeId="5f9e17ac31eb4947ac9f010f14494be2">
+<p nodeId="af91ee64ab4345b38f23bff16923fd9d" />
+</td>
+<td colwidth="[240]" nodeId="a53dc01f8be947e9a7395814dba75548">
+<p nodeId="1483fb36bb6f43da84183577979fd0f7"><span font-size="14">搜索：4429</span></p>
+</td>
+</tr>
+<tr nodeId="52e2ab2d39b74a199c2a1c97e1fc4e53">
+<td colwidth="[55]" numCell="true" nodeId="3e7c3c6b19104a7aa8fb7f20a6388add">
+<p nodeId="cf2c0b1dfba04104834ea8ee41639544" />
+</td>
+<td colwidth="[240]" nodeId="e92611ae5d194fabbc103d63a7ad729f">
+<p nodeId="af0f167780d64f4cb7b2bea8cdb76458"><img src="https://km.sankuai.com/api/file/cdn/738891228/815547037?contentType=1&amp;isNewContent=false" name="image.png" width="212" height="71" nodeId="3cde21efa91548c48045eef053f85c43" /></p>
+</td>
+</tr>
+<tr nodeId="aef054012a1d4af4891264f14e339d1c">
+<td colwidth="[55]" numCell="true" nodeId="1f8d97e77e0c4411a7289f6d6e51d7e0">
+<p nodeId="36796d87166e42758f0213b0cf307738" />
+</td>
+<td colwidth="[240]" nodeId="18fcf8745919406187ae8b35ca6bccb7">
+<p nodeId="499037f5c4a243249cc3ad9b231191ee"><span font-size="14">名单库服务：</span></p>
+<p nodeId="65c077a3e08843e99409e63cf9c686c5"><a href="http://rc-skywalker.sankuai.com/risklist" title="http://rc-skywalker.sankuai.com/risklist" nodeId="df8cc07457a74182b1e21c2ecb671b4c"><span font-size="14">http://rc-skywalker.sankuai.com/risklist</span></a></p>
+</td>
+</tr>
+<tr nodeId="00821613fc204c1fae08b6eb090f2e07">
+<td colwidth="[55]" numCell="true" nodeId="2124e285586c42d8b5beb262ccd76b3f">
+<p nodeId="6247bda4da1c4ba6bf6ec4bcf8a79158" />
+</td>
+<td colwidth="[240]" nodeId="6d4644d6c4894eeca86a8b168594fdb3">
+<p nodeId="1faf4b349b444b0c8d4962ea2a8792a4"><span font-size="14">名单库日志</span><a href="https://km.sankuai.com/page/192474056" title="https://km.sankuai.com/page/192474056" autoUpdate="true" nodeId="fba333286c6d47bbb8d3a9925d4cccb5"><span font-size="14">https://km.sankuai.com/page/192474056</span></a></p>
+</td>
+</tr>
+</table>
+<p nodeId="3682e0463305435381ccb64b18f482d5" />
+</km-doc>

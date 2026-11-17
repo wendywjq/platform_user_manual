@@ -1,0 +1,112 @@
+<km-doc>
+<km-title nodeId="44312ea63bd440aa986577d0607bff96">说明：Zeus决策附加信息使用文档</km-title>
+<km-catalog style="none" nodeId="610622a9d7f143e9b12ca4a05d7cfe39" />
+<h2 nodeId="f3ad923c38ed4f9394b6fc36ec193f04">一、背景</h2>
+<p nodeId="15a5be97840842219f34471b0757344d">业务调用zeus时会执行指定场景的规则并根据配置返回决策id，业务根据决策id去执行相应的操作，但是对于某些决策需求仅仅使用一个id并不能表示足够多的信息，因此通过增加可自由配置结构化的数据作为决策的附加信息返回给业务，这样可以方便业务在zeus配置信息更丰富的决策。可返回的信息包含常量和动态的变量（常量：固定值；动态变量：具有计算逻辑的结果值）。</p>
+<h2 nodeId="01726bf11d5440dfa98587425e61d7c4">二、名词解释</h2>
+<ul nodeId="30a1c18f6e9b4435a56edc2e1ee33292">
+<li nodeId="ae4d1352539247f3b08255b4dc929844"><strong>决策：</strong>zeus执行完业务规则后返回的一个标识告诉业务方应该执行什么操作，可以包含附加信息也可以不包含</li>
+<li nodeId="49036d48ebd042328b8d160a502068c7">
+<p nodeId="7fb664e7a591433e8c1cef2aee9a6443"><strong>附加信息模板：</strong>key-value型数据结构的模板，模板可由业务RD自由定制，zeus根据业务定制的模板生成配置表单，提供给策略人员编辑</p>
+<ul nodeId="fc2cd39fff904f738c23733322526b21">
+<li nodeId="85375a4c46634abc9027d89bc10cd2a0">
+<p nodeId="40661556dad44c98a53a2ea12cdbfada"><strong>模板字段：</strong>一个模板包含一个或多个字段，模板字段的属性包括：key、字段类型（单个常量/多个常量/上下文表达式）、 变量类型等</p>
+<ul nodeId="29eae92e91ff4af09d092b60d6aa7ea6">
+<li nodeId="0333a4aa5415429d82ca767c233c32b3">单个常量：返回一个常量值</li>
+<li nodeId="bed5facacd8a453ba7c1005f1d1839e9">多个常量：返回多个常量值，如果常量是Integer类型，接口会返回List&lt;Integer&gt;以此类推</li>
+<li nodeId="a2961d16a7294b949cbeeba7864581ff">上下文表达式：执行完规则后用当前上下文执行表达式，并将执行结果返回</li>
+</ul>
+</li>
+<li nodeId="6565c06800c04a868e4a1651c4b1f96f"><strong>字段选项:</strong>  如果有需要可以为模板字段设置多个选项</li>
+</ul>
+</li>
+<li nodeId="2ade15636cdf431c9b092cc79086236d"><strong>决策附加信息：</strong>key-value型数据，在决策所指定的附加信息模板中填充具体的数据后就是一条附加信息，一个附加信息只属于一个决策</li>
+</ul>
+<h2 nodeId="a615aa1c2a3f4a4780d84747dfe10db7">三、操作说明</h2>
+<p nodeId="f086bae4209b49c4844b5e901ff5c592" />
+<p nodeId="22e19ccb7316451d934c2d357e5fd09f"><span color="rgb(255, 0, 0)"><strong>zeus-client</strong></span><span color="rgb(255, 0, 0)">的版本需要升级到1.2.2</span></p>
+<p nodeId="d38ea319eb98484b8b82f96535b786b4">以风控的一个决策发送报警邮件为例，需要邮件标题、收件人、邮件内容等字段，并且其中邮件内容需要使用上下文参数动态生成结果值，根据这个需求整个使用流程如下</p>
+<h3 nodeId="df324fc7565e49a9bf132bc7aeb656b7">3.1.决策与附加信息模板配置（业务对接RD负责）</h3>
+<ol nodeId="c7b231ceed3442a0987bcccf1881e9ff">
+<li nodeId="6615137528074d30828b27a452a919f5">
+<p nodeId="e6a0c8fc82c848fcaabbd51058fc3510">进入决策导航栏，创建决策：发送报警邮件，在是否包含附加信息中选择是，生成决策如下<br /></p>
+<p nodeId="070f8ac76237424e9a047f7e441b5e87"><img src="https://km.sankuai.com/api/file/28253486/28253367" name="image2016-5-18 15:8:3.png" width="361" height="250" nodeId="9b793836926645c0a20d2a0fbe158609" /></p>
+</li>
+<li nodeId="b07d66ae4e7f4a9bbe88aa8126194427">此时还不能编辑附加信息，需要编辑模板，点击进入附加信息模板tab</li>
+<li nodeId="985d4be18c7b42389b9f6e19599cea88">
+<p nodeId="633e95c09a6c4e8689b8ae49e552019e">添加邮件标题字段如下，并点击提交，字段key请使用英文，字段类型请看本文第2部分<br /></p>
+<p nodeId="9443fcaa1f0e4f7d93790b9dfc2cde11"><img src="https://km.sankuai.com/api/file/28253486/28253370" name="image2016-5-19 15:1:3.png" width="265" height="250" nodeId="f139287fceff46a2bea0c059b6c236b2" /></p>
+</li>
+<li nodeId="69e9c00e349748d08706e44f755e098f">
+<p nodeId="b18637bcf5fd4f3389095cdefadc013d">如果某个字段需要使用上下文参数写表达式，并且如果内容比较长需要生成多行的表单，比如邮件内容的配置方式如下<br /></p>
+<p nodeId="774dc3f52a374565aedd694bc2197643"><img src="https://km.sankuai.com/api/file/28253486/28253369" name="image2016-5-18 15:7:29.png" width="292" height="250" nodeId="e3cc0736974b4ff582832655e8bfe83a" /></p>
+</li>
+<li nodeId="b21724c50ae14f33ba3f8e8e61d53e27">
+<p nodeId="3d1a30fda5a94d139d801a962fa0a817">其它模板字段配置流程忽略，配置完成后在附加信息模板tab下可以看到整个模板的配置如下<br /></p>
+<p nodeId="138d525b97514ee09f314af1f885ef3d"><img src="https://km.sankuai.com/api/file/28253486/28253372" name="image2016-5-19 15:0:36.png" width="1351" height="205" nodeId="d97122743e5d48f2a5daf8bc5d3f034e" /></p>
+</li>
+<li nodeId="07050737c61543d088e4fc6bd2330c0f">
+<p nodeId="4a7ee62655f545bd9a97abac23c7bdcb">如果对于某些字段有常用的选项，如mailTo字段可以添加常用联系人作为备选项，点击上图中的编辑/添加选项链接，即可进入字段编辑页面添加备选项，如添加收件人张三李四王五等人的邮箱如下：<br /></p>
+<p nodeId="6c090bc9ef7c4f50b7cef60caffe4e90"><img src="https://km.sankuai.com/api/file/28253486/28261642" name="image2016-5-18 15:15:34.png" width="1361" height="221" nodeId="710b54e2e04a44e5811bffe560ce05fb" /></p>
+</li>
+<li nodeId="a217538b4ad745e4a6e0dc624e255370">
+<p nodeId="451ef6f14f2f446883a274560f87ae2f">在上图的页面中返回上级，点击添加/编辑决策附加信息tab可以看到，zeus会根据模板配置自动生成附加信息配置表单如下：<br /></p>
+<p nodeId="eec57229546d438c9a04b8d8eb6d20f2"><img src="https://km.sankuai.com/api/file/28253486/28253377" name="image2016-5-18 15:21:33.png" width="320" height="250" nodeId="6dc48c7c291b46bb93c6b3096846847c" /></p>
+</li>
+<li nodeId="7622b37ff5084ada9d73f931773c2efe">至此附加信息模板配置已经完成，但还不能在线上使用，请RD继续看下一步</li>
+</ol>
+<h3 nodeId="e06dd965255e4489900ef2a2a3d33483">3.2.根据决策与附加信息模板实现代码（业务对接RD负责)</h3>
+<p nodeId="f914782335b743fb91be5fec85afaa12">zeus在执行完规则后会根据场景配置返回相应的决策以及附加信息，决策附加信息是一个key-value型的数据结构（具体类的定义略），RD需要开发代码实现根据决策id执行决策流程，如果是一个包含附加信息的决策，需要根据3.1中定制的附加信息模板解析附加信息并利用附加信息执行决策，例如本例中执行发送邮件的伪代码示例如下</p>
+<pre language="java" nodeId="dece5d51d68f405b942db23e69b54e8c"><code>//线上和线下的id可能不一样
+if (decision.id == 37) {
+   	executeSendMailDecision(decisionExtraInfo);
+} 
+ 
+public void executeSendMailDecision(Map&lt;String, Object&gt; extraInfo)
+{
+	String title = extraInfo.getString('mailTitle');
+   	List&lt;String&gt; mailTo = extraInfo.getList('mailTo');
+   	String content = extraInfo.getString('content');
+   	try {
+    	sendMail(title, mailTo, content);
+   	} catch (Exception e) {
+		//handle exception
+ 	}
+}</code></pre>
+<p nodeId="4c668d9d8323417f851c1cd46423fc34">在线下完成这段代码的开发和测试之后将代码上线，至此RD工作完成</p>
+<p nodeId="8a1e0dc47e46481988d3a68b3f6b771d">如果调用zeus的上下文中userid = 123, bankCard="4310"，一个返回结果的示例如下</p>
+<p nodeId="d77e422907a540f7bed031952acb8237"><img src="https://km.sankuai.com/api/file/28253486/28253379" name="image2016-5-19 17:5:24.png" width="367" height="109" nodeId="25b7d2ffdfdf4792ae2924fcde46c843" /></p>
+<h3 nodeId="91d10c3f59e0493988bdba0ec316b4a9">3.3.业务对接RD注意事项</h3>
+<ul nodeId="c7f112d9268148978740a76d0c3c5dc4">
+<li nodeId="36e67ff3efe045f9930acfbff111172b">当场景配置中使用了某个模板，则不能：1.不能修改字段key，2.不能删，但是可以增加字段，所以需要在开发测试时尽量考虑清楚</li>
+<li nodeId="a95e6c4a2b374df0bb70281d69faedfc">模板可以增加字段，增加字段后之前在线上配置的附加信息没有该字段会返回null，注意兼容（也可以编辑附加信息并加上）</li>
+<li nodeId="4a71584eefd44dcaaaa44b99c9d111fc">线上和线下决策id不同</li>
+<li nodeId="ae74b2a6b17a4497858a1292b13b22dd">受传入参数的影响，表达式字段执行结果可能出错，这一点同因子和规则表达式</li>
+</ul>
+<h3 nodeId="7506fa4a2b664bb6bea7f796acca6794">3.4.编辑并使用附加信息(业务策略人员负责)</h3>
+<p nodeId="0d754e329e244cdab126d9fc746ace3d">在RD完成3.1和3.2的工作后，可由负责策略的策略人员或其他人员负责附加信息的配置，并在场景配置中使用附加信息</p>
+<ol nodeId="02516e8b8b724c6c9949355f47fb561b">
+<li nodeId="cf9106517dcd4ebe9db44bc73e7d36a0">
+<p nodeId="28489aabb19344b6bcf64d4ffce1640d">使用上述模板编辑一条附加信息<br /></p>
+<p nodeId="abf6c5c157d848b5a5591ce1a990d04a"><img src="https://km.sankuai.com/api/file/28253486/28253281" name="image2016-5-18 15:42:45.png" width="279" height="250" nodeId="db7bf4ce3a054e3195a7af6aa24721cd" /></p>
+</li>
+<li nodeId="cded987df3834f4fa61e07b9426ae107">表达式字段需要测试，方法同因子和规则表达式</li>
+<li nodeId="9a3148d8f505462c84b4df864d90ac60">
+<p nodeId="e96a2ae21292487398f0c2a0a5812650">生成一条发送报警邮件决策的附加信息如下：<br /></p>
+<p nodeId="d1250a6f339542bc99940672b84cddc8"><img src="https://km.sankuai.com/api/file/28253486/28253375" name="image2016-5-18 15:43:55.png" width="760" height="250" nodeId="23c62028c9bd4eda8c5ba727bd1e7dfa" /></p>
+</li>
+<li nodeId="557a942592bb4566b89b2b3e70a59ffb">
+<p nodeId="2dca7cd772cc40eca5fac33e6da9fa85">在场景配置中使用发送报警邮件的决策，并选择上图所配置的“用户银行卡被盗”这个附加信息，如下图所示<br /></p>
+<p nodeId="d7361c79dd5343079a25a23784025a7f"><img src="https://km.sankuai.com/api/file/28253486/28253373" name="image2016-5-18 15:46:0.png" width="625" height="175" nodeId="7ef1120f6ee844d5bc09b0749b27e970" /></p>
+</li>
+<li nodeId="f0de9aa465cc4a5392b4ececdb9f5793">表达式测试，如果附加信息所使用的模板含有字段是上下文表达式类型，则需要对这个附加信息相应的字段进行测试，<span color="rgb(255, 0, 0)">所有表达式字段测试完成后才能设置就绪，只有就绪状态的附加信息才能在线上使用</span></li>
+<li nodeId="64c9a0aa6a884eb18039f7f108d1a57d">策略人员所要做的工作就这么多</li>
+</ol>
+<p nodeId="241fdc8bd9a844849ca304434a1afec8" />
+<p nodeId="173092bcf69c4ee094f41fc8132dab4e">策略人员注意事项：</p>
+<ul nodeId="6a132c87974340bbaf1b895b6fbdd634">
+<li nodeId="7dcef31914384580a868f36b1c8a3d87">不要改模板，模板由业务对接RD负责</li>
+</ul>
+<h2 nodeId="7c6d96fd4f3242f59c92949e28f2762b">4.参考：技术方案</h2>
+<p nodeId="a3854aff14054079b9cd951a1c7407b0">对技术实现有兴趣可移步：<a href="https://km.sankuai.com/page/28162676" title="决策附加信息设计方案" nodeId="26bcd9412d474fa48a6d8bb2d587351e">决策附加信息设计方案</a></p>
+</km-doc>

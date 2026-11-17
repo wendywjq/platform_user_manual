@@ -1,0 +1,38 @@
+{
+  "parentId": "1747339010",
+  "parentTitle": "",
+  "children": [
+    {
+      "contentId": "1747590034",
+      "title": "2.1编译和执行",
+      "type": "学城文档2.0",
+      "creator": "wangyaliang",
+      "createTime": 1688023745000,
+      "modifyTime": 1688023808000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "1747502919",
+      "title": "2.2解释运行",
+      "type": "学城文档2.0",
+      "creator": "wangyaliang",
+      "createTime": 1688023776000,
+      "modifyTime": 1688023837000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    }
+  ]
+}

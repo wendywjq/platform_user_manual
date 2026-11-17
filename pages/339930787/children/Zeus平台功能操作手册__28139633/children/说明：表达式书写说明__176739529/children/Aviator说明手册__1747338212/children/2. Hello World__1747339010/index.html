@@ -1,0 +1,152 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2. Hello World</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-4">从 Java 中调用</a><a href="#section-41">aviator 命令行</a><a href="#section-43">安装和执行</a><a href="#section-75">命令行参数</a><a href="#section-88">升级和其他命令</a><a href="#section-101">2.1 编译和执行</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">2. Hello World</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747339010">查看学城原文</a></p><article>
+<h1>2. Hello World</h1>
+<div><p>AviatorScript 是一门寄生在 JVM  (Hosted on the JVM）上的语言，类似 clojure/scala/kotlin 等等。我们先从一个 hello world 例子开始。</p>
+<h2 id="section-4">从 Java 中调用</h2>
+<p>首先，在你的 java 项目里引用下 AviatorScript 的依赖：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.googlecode.aviator&lt;/groupId&gt;
+  &lt;artifactId&gt;aviator&lt;/artifactId&gt;
+  &lt;version&gt;{version}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>version 版本可以在<a href="https://search.maven.org/search?q=g:com.googlecode.aviator%20AND%20aviator"> maven 找到</a>，本指南编写的版本面向 5.0.0 及以上版本， 5.0 以下请参考老版本的<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/ra28g1">用户指南</a>。</p>
+<p>接下来编写你的第一个 AviatorScript 脚本，放到项目的根目录下的 <code>examples</code> 子目录</p>
+<pre><code class="language-javascript">## examples/hello.av
+
+println("hello, AviatorScript!");
+</code></pre>
+<p>其中 <code>## examples/hello.av</code> 是注释，说明例子所在的文件（后续的例子都将带上这个说明，你可以在 <a href="https://github.com/killme2008/aviator/tree/master/examples">examples</a> 目录找到所有的例子。
+这段代码非常简单，调用 <code>println</code> 函数，打印字符串 <code>hello, AviatorScript!</code> 。</p>
+<p>其次，编写一个类来运行测试脚本：</p>
+<pre><code class="language-java">import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.Expression;
+import com.googlecode.aviator.Options;
+
+/**
+ * Run a script under examples folder.
+ *
+ * @author dennis(killme2008@gmail.com)
+ *
+ */
+public class RunScriptExample {
+
+  public static void main(final String[] args) throws Exception {
+    // Compile the script into a Expression instance.
+    Expression exp = AviatorEvaluator.getInstance().compileScript("examples/hello.av");
+    // Run the exprssion.
+    exp.execute();
+
+  }
+
+}
+
+</code></pre>
+<p>其实你可以直接 clone aviator 的仓库 <a href="https://github.com/killme2008/aviator/">https://github.com/killme2008/aviator/</a> ，运行其中的 <a href="https://github.com/killme2008/aviator/blob/master/src/test/java/com/googlecode/aviator/example/RunScriptExample.java">RunScriptExample</a> 就可以测试 <code>examples</code>  目录下的所有例子。</p>
+<p>这段代码逻辑很简单：</p>
+<ol>
+<li>使用 <code>AviatorEvaluatorInstance#compileScript</code> 方法编译脚本到 <code>Expression</code> 对象</li>
+<li>调用 <code>Expression#execute()</code> 方法执行</li>
+</ol>
+<p>输出：</p>
+<pre><code>hello, AviatorScript!
+
+</code></pre>
+<p>其中两行是日志，打印的就是 <code>hello, AviatorScript!</code> </p>
+<p>这样就完成了一个你的第一个 AviatorScript 的编写、编译和执行。从 Java 中调用脚本还可以采用 Java 的 Scripting API，参见《<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/bds23b">附录2 Java Scripting API 支持</a>》。</p>
+<h2 id="section-41">aviator 命令行</h2>
+<p>AviatorScript 还提供了一个命令行工具，方便地直接执行脚本。</p>
+<h3 id="section-43">安装和执行</h3>
+<ol>
+<li>安装，请下载 <a href="https://raw.githubusercontent.com/killme2008/aviator/master/bin/aviator">aviator</a> 文件，保存到某个在系统 <code>PATH</code> 路径里的目录（比如 <code>~/bin</code> ）：</li>
+</ol>
+<pre><code class="language-bash">$ wget https://raw.githubusercontent.com/killme2008/aviator/master/bin/aviator
+--2020-04-26 21:41:04--  https://raw.githubusercontent.com/killme2008/aviator/master/bin/aviator
+Resolving localhost (localhost)... ::1, 127.0.0.1
+Connecting to localhost (localhost)|::1|:1081... failed: Connection refused.
+Connecting to localhost (localhost)|127.0.0.1|:1081... connected.
+Proxy request sent, awaiting response... 200 OK
+Length: 5289 (5.2K) [text/plain]
+Saving to: ‘aviator’
+</code></pre>
+<ol>
+<li>修改为可执行：</li>
+</ol>
+<pre><code class="language-bash">$ chmod u+x aviator
+</code></pre>
+<ol>
+<li>执行命令，会自动下载并安装 aviator jar 文件到 <code>~/.aviatorscript</code> 目录下：</li>
+</ol>
+<pre><code class="language-bash">$ aviator
+Downloading AviatorScript now...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   153  100   153    0     0     94      0  0:00:01  0:00:01 --:--:--    94
+100  505k  100  505k    0     0   199k      0  0:00:02  0:00:02 --:--:--  663k
+Usage: java com.googlecode.aviator.Main [file] [args]
+     : java com.googlecode.aviator.Main -e [script]
+     : java com.googlecode.aviator.Main -v
+</code></pre>
+<ol>
+<li>将下列脚本保存为文件  <code>hello.av</code> ：</li>
+</ol>
+<pre><code class="language-javascript">p('Hello, AviatorScript!');
+</code></pre>
+<ol>
+<li>执行脚本：</li>
+</ol>
+<pre><code class="language-bash">$ aviator hello.av
+Hello, AviatorScript!
+</code></pre>
+<ol>
+<li>也可以直接在命令行执行一段脚本，通过 <code>-e</code> 选项：</li>
+</ol>
+<pre><code class="language-bash">$ aviator -e "p('Hello, AviatorScript!');"
+Hello, AviatorScript!
+null
+
+</code></pre>
+<p>最后的 null 是整个表达式的执行结果。</p>
+<h3 id="section-75">命令行参数</h3>
+<p>在脚本中可以通过 <code>ARGV</code> 数组来访问到：</p>
+<pre><code class="language-javascript">p("ARGV count is: " + count(ARGV));
+
+for arg in ARGV {
+  p(arg);
+}
+
+p("ARGV[0] = "  + ARGV[0]);
+</code></pre>
+<p>保存为 <code>test.av</code> 并执行：</p>
+<pre><code class="language-bash">$ aviator test.av 1 2 3
+ARGV count is: 3
+1
+2
+3
+ARGV[0] = 1
+</code></pre>
+<p>我们传入了命令行参数 <code>1 2 3</code> ，因此 <code>count(ARGV)</code> 返回 3，通过 for 循环迭代了数组并打印，最终我们还单独打印了 <code>ARGV[0]</code> ，也就是第一个命令行参数。</p>
+<h3 id="section-88">升级和其他命令</h3>
+<p>可以通过 <code>upgrade</code> 来升级 AviatorScript:</p>
+<pre><code class="language-bash">$ aviator upgrade
+The script at /Users/boyan/bin/aviator will be upgraded to the latest stable version.
+Do you want to continue [Y/n]? Y
+
+Upgrading...
+/Users/boyan/bin/aviator: line 123: [darwin18: command not found
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   137  100   137    0     0     99      0  0:00:01  0:00:01 --:--:--    99
+100  5289  100  5289    0     0   2700      0  0:00:01  0:00:01 --:--:-- 5165k
+
+The self-install jar already exists at /Users/boyan/.aviatorscript/self-installs/aviator-5.0.0.jar.
+If you wish to re-download, delete it and rerun "/Users/boyan/bin/aviator self-install".
+</code></pre>
+<p>因为当前已经是最新版本，所以不会重新安装。</p>
+<p>安装文件在 <code>~/.aviatorscript/self-installs/</code> 下，可以删除重新执行 <code>aviator</code> 就会重新安装。</p>
+<p>查看版本通过 <code>-v</code> 选项：</p>
+<pre><code class="language-bash">$ aviator -v
+AviatorScript 5.0.0-RC3-SNAPSHOT
+</code></pre>
+<h2 id="section-101"><a href="https://www.yuque.com/boyan-avfmj/aviatorscript/fycwgt">2.1 编译和执行</a></h2></div>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/2.1编译和执行__1747590034/index.html">2.1编译和执行</a> <span class="status">已保存</span></li><li><a href="children/2.2解释运行__1747502919/index.html">2.2解释运行</a> <span class="status">已保存</span></li></ul></section></main></body></html>
