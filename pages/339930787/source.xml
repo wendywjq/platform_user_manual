@@ -1,0 +1,450 @@
+<km-doc>
+<km-title nodeId="bde7e0dd98564f9985e674075f23b958">01 Zeus帮助文档汇总</km-title>
+<km-catalog style="none" nodeId="4da1171d44674eb5918add7cafa9f987" />
+<h1 nodeId="7547669ed3c94af08124eca1f7b2c015">一、Zeus概念介绍（接入前）</h1>
+<h2 nodeId="f69e9f002f35422a95cad4e43c5b9405">1.1 Zeus平台是什么？</h2>
+<p align="start" nodeId="7a8d8e05e8f14180a188f018ac588e10">提供高效、安全、便捷的规则配置、管理，以及规则运行产生的数据，满足业务实时、离线、回溯等方面的规则效果分析需求的平台；</p>
+<ul nodeId="8435527664ca4f538ddd41b38287ab38">
+<li nodeId="0cb8569e95dd49a783e1bfe9f4d719dc"><strong>规则配置管理</strong>：可在后台进行高效、安全、便捷的规则配置、管理</li>
+<li nodeId="a298cd46a4bf42ed9c3557bb2bf3d224"><strong>规则引擎</strong>：提供高性能、高可用性的规则运行引擎</li>
+<li nodeId="62fb3c0626bc48168bf5c706a1050fd8"><strong>效果分析</strong>：利用规则运行产生的数据，满足业务实时、离线、回溯等方面的规则效果分析需求</li>
+</ul>
+<p nodeId="143f06f5b4cd4ad49685a76158e91d0c">能解决什么问题：<span color="rgb(245, 35, 45)"><strong><a href="https://km.sankuai.com/page/302759630" title="https://km.sankuai.com/page/302759630" autoUpdate="true" nodeId="e9d67815c2634f7a86c0442801dee97f"><span color="rgb(245, 35, 45)"><strong>https://km.sankuai.com/page/302759630</strong></span></a></strong></span><span color="rgb(0, 0, 0)"><strong>、</strong></span></p>
+<km-collapse active="false" nodeId="1f0af0d7fce14ff086a5d48d741b82bf">
+<km-title>文章介绍</km-title>
+<km-content>
+<p nodeId="9bd1e68586e64142bbde203c9485d369">规则引擎产品建设：<a href="https://mp.weixin.qq.com/s?__biz=MzI5MDc4MTM3Mg==&amp;mid=100001141&amp;idx=1&amp;sn=588cecd2575889531b827aea1e316037&amp;chksm=6c1be4a65b6c6db0bbf35166d118f3617cc6f27d97b8c1e387e24bc543f406124013503f97b2" title="https://mp.weixin.qq.com/s?__biz=MzI5MDc4MTM3Mg==&amp;mid=100001141&amp;idx=1&amp;sn=588cecd2575889531b827aea1e316037&amp;chksm=6c1be4a65b6c6db0bbf35166d118f3617cc6f27d97b8c1e387e24bc543f406124013503f97b2" nodeId="125beffe3f234b50b9f7bc5a5c61a030">https://mp.weixin.qq.com/s?__biz=MzI5MDc4MTM3Mg==&amp;mid=100001141&amp;idx=1&amp;sn=588cecd2575889531b827aea1e316037&amp;chksm=6c1be4a65b6c6db0bbf35166d118f3617cc6f27d97b8c1e387e24bc543f406124013503f97b2</a> </p>
+<p nodeId="3e564a382b3b4dfd81c61d7dad768b62">规则引擎技术架构：待补充</p>
+<p nodeId="4d9ad109dd07466999e8257ec48110d6">规则引擎性能优化：待补充</p>
+<p nodeId="df39c29306c0497384b7c6ae1e03e2de">规则引擎配置信息暴涨的处理手段：待补充</p>
+</km-content>
+</km-collapse>
+<h2 nodeId="8dc5ca57fa844925b5521cb5fcfaf5a5">1.2 Zeus如何使用？</h2>
+<p nodeId="55ada5cbe97b461abb369fc7b0932699"><img src="https://km.sankuai.com/api/file/cdn/339930787/548951171?contentType=1&amp;isNewContent=false" name="image.png" width="648" height="287" nodeId="263d1a2732744dc5896502f18fbc1e3b" /></p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/339930787/339902700?contentType=2" width="845" height="474" nodeId="67923f3417694dc4a48c0c14695b0564" />
+<p nodeId="17b609f4bafb4a5aa845db3961eab11b" />
+<ul nodeId="63412dfe1164480a98378a018f738db6">
+<li nodeId="f7d620632a2b4972b9b5cc18b47dc817"><strong>场景/scene：</strong>一组规则的集合体，便于专业人员的管理和配置，如反作弊中的促销活动、账户安全中的登录事件</li>
+<li nodeId="8951aeb452a5491c84301ba8e47d552b"><strong>规则/rule：</strong>规则的逻辑由逻辑表达式产生，规则执行的结果是命中/不命中，规则的表达式由规则因子组装而成（也只能由因子组装而成）</li>
+<li nodeId="d4cc09bd09c545a89ba71c8544812bef"><strong>决策/decision：</strong>命中规则后需要做的动作，如通过、拦截、冻结账号等，每一条scene_rule_conf配置产生一个决策；</li>
+<li nodeId="9ee1aa12861e43d4a259069c9a17aa88"><strong>因子/factor：</strong>组成规则的逻辑单元。一个因子可以被不同的规则使用，包含表达式型和扩展型、累计型</li>
+<li nodeId="20f78e75ce24426a8df9b31a46d42958">规则在场景中的状态：离线（场景中的流量不执行该规则）、标记（场景中的流量执行该规则但不返回决策给上游）和生效（场景中的流量执行该规则且返回决策给上游）</li>
+</ul>
+<p nodeId="bd8412c674e9446886b2757df94ab056"><img src="https://km.sankuai.com/api/file/cdn/339930787/548833228?contentType=1" name="image.png" width="878" height="100" nodeId="6fa503daf60b4843944b32bf287ad22c" /></p>
+<p nodeId="f211f7beba084aea9c82f82910571e98">更多详情见3.2系统操作手册（百宝箱）</p>
+<h1 nodeId="a180d9c7db884a4cbd61e80724a21e18">二、Zeus接入指南（接入中）</h1>
+<h2 nodeId="b15cd7b0c44b4767af790caa087602d3">2.1 接入流程</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/339930787/339903201?contentType=2" width="1219" height="461" nodeId="b11616aa3ce8404bbe76035b434d202d" />
+<h4 indent="1" nodeId="a85cfffa2d014728b7c28151b671b3f8">权限申请（web登录权限、appkey鉴权等权限）👉 <a href="https://km.sankuai.com/page/142311512" title="！！请看一下是否有你想问我的问题" nodeId="ec2571b2fc9241ff9c83e646498b612f">！！请看一下是否有你想问我的问题</a></h4>
+<h2 nodeId="d7ba009002f94ee89b011a9ba6fe13fd">2.2 接入实操</h2>
+<p nodeId="da341dc6cd924f1aa3162303f9abe041"><a href="https://km.sankuai.com/page/28155163" title="https://km.sankuai.com/page/28155163" autoUpdate="true" nodeId="f745d09db6c842c68e98743e62d4f6f8">https://km.sankuai.com/page/28155163</a></p>
+<table borderColor="#cccccc" responsive="false" nodeId="ebe16214cf2f453aafe323eb7f7e7fa2">
+<tr nodeId="8b3da6e911ba4e54bbe51aefb69876bd">
+<th colwidth="[170]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="c0579907f1f94853a3685bff56fad5bb">
+<p nodeId="c199af720fe24e06bdac70ed85c9c8c7"><span font-size="14">引擎类型</span></p>
+</th>
+<th colwidth="[236]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="c1fe22356a904c71bf3b21d155e273a9">
+<p nodeId="c7efa0bb8bd848d2b8e9d42453065e68"><span font-size="14">接入方式</span></p>
+</th>
+<th colwidth="[520]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="6c35e932ef6945b086d27800f56e08ce">
+<p nodeId="2e7b3073471d451893b63d787e8b91d5"><span font-size="14">文档</span></p>
+</th>
+</tr>
+<tr nodeId="51e9be4969e24b6b9f1d930b335d79f2">
+<td rowspan="2" colwidth="[170]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3e8a1a83489f4a08a38b1cd5ca59ee07">
+<p nodeId="c22fab1d974149838829811c6e369940"><span font-size="14">实时引擎</span></p>
+</td>
+<td colwidth="[236]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="606e3b66d00c40c8996dab071a0fdb97">
+<p nodeId="d874acf332c5433cb742818de54ea710"><span font-size="14">接口方式</span></p>
+</td>
+<td colwidth="[520]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4bf1571d3e0a4662afa0c8a58dbb8a12">
+<p nodeId="4719d166cb38454fb74b07ab0de03ad6"><span font-size="14">RPC（推荐）</span></p>
+<p nodeId="318fbae6350546fb8414ca46f5e125ba"><a href="https://km.sankuai.com/page/28253497" title="说明：Zeus在线服务RPC接入文档" autoUpdate="true" nodeId="bac912cd808d47dc9ee1a9dcd76cd338"><span font-size="14">说明：Zeus在线服务RPC接入文档</span></a></p>
+<p nodeId="c87b4f30fc2b4b098933da32d733634d"><a href="https://km.sankuai.com/page/28253485" title="说明：RPC接入DEMO" autoUpdate="true" nodeId="b1082f3838374ca1a2914e3f71ec9b0b"><span font-size="14">说明：RPC接入DEMO</span></a></p>
+<p nodeId="66f70fce0b7d4306b2941a8659779c5e"><span font-size="14">HTTP</span><br /><a href="https://km.sankuai.com/page/28253520" title="说明：Zeus在线服务HTTP接入文档" autoUpdate="true" nodeId="3a0f126c43704b42b28423b87e16c9b9"><span font-size="14">说明：Zeus在线服务HTTP接入文档</span></a></p>
+<p nodeId="72d7021a14184094ae8f854e0c9b856e"><a href="https://km.sankuai.com/page/28155174" title="说明：Zeus规则平台服务地址" nodeId="001635f2698a4d30aa05a6bbb7f317c5"><span font-size="14">说明：Zeus规则平台服务地址</span></a></p>
+</td>
+</tr>
+<tr nodeId="19587e4473f44b24aed7c20c897405a9">
+<td colwidth="[236]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="367a9f03029b4d9e8a7a9d4282159814">
+<p nodeId="ef47bae15f7448119a11ca18076c43f7"><span font-size="14">队列方式 Mafka</span></p>
+</td>
+<td colwidth="[520]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e049b177f3674c6bb518d2f3907b1065">
+<p nodeId="9eff4c565c1244c38b7871bd10c161ed"><a href="https://km.sankuai.com/page/28253550" title="说明：Zeus-Worker服务接入文档" autoUpdate="true" nodeId="2e2e85c875a644e2aaee9cd1b833935a"><span font-size="14">说明：Zeus-Worker服务接入文档</span></a></p>
+</td>
+</tr>
+<tr nodeId="3683b175dd534ae889dd421637438b1c">
+<td colwidth="[170]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="67f921137867480eb3ded73030dce46a">
+<p nodeId="5eb2e211a2cb4355b69d6c76c924692d"><span font-size="14">离线引擎</span></p>
+</td>
+<td colwidth="[236]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5d798b80c61847369530557777e5036d">
+<p nodeId="6048225821f842748e19597c90c23946"><span font-size="14">无需开发直接配置</span></p>
+</td>
+<td colwidth="[520]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d4cd92d87cbc473bbe38a068d7fc137c">
+<p nodeId="d3603e84ab6c4d648228af8676c12ed4"><a href="https://km.sankuai.com/page/450492639" title="https://km.sankuai.com/page/450492639" autoUpdate="true" nodeId="e80dbcd0f68845a6adcc481603acc5c1"><span font-size="14">https://km.sankuai.com/page/450492639</span></a></p>
+</td>
+</tr>
+<tr nodeId="f0e60f5f93e24c41a2f995e262127828">
+<td colwidth="[170]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c5651b57e5a64050b828d433cd5f003c">
+<p nodeId="cfd5c110082648a3b60f48634d2c5024"><span font-size="14">近线引擎</span></p>
+</td>
+<td colwidth="[236]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="123b4dffbc204f6c991987b61b47c15c">
+<p nodeId="a78a06acf8414bfdb78eb5fc3ada4435"><span font-size="14">Kafka</span></p>
+</td>
+<td colwidth="[520]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bd6af303d6754eeea6f9c0fc5d587d6a">
+<p nodeId="577c6e168fe2422abcb6c750cb505a9c"><span font-size="14">TODO</span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="fff673cef99d4b258f2dae54c12dce14">三、Zeus使用手册（接入后）</h1>
+<h2 nodeId="064b5c6e515e411da92f2cd0805f76a0">3.1 zeus-mis快速视频入门和功能介绍手册</h2>
+<p nodeId="442017e2bc4d4c4f85e5300f2b228762"><a href="https://km.sankuai.com/page/58438034" title="Zeus Quick Start" nodeId="a73d5271381a482db11ad166713983a0">Zeus Quick Start</a></p>
+<h2 nodeId="01061375fe144781bc4913abc3ded20c">3.2 系统操作指南 （百宝箱！！！）</h2>
+<p nodeId="83f1b034df2645dfb0e7fcb20b9a9678">🌿🌿🌿 <a href="https://km.sankuai.com/page/312485395" title="https://km.sankuai.com/page/312485395" autoUpdate="true" nodeId="9ad5d9d921a94de3877492fdf17d7298">https://km.sankuai.com/page/312485395</a></p>
+<p nodeId="261113967b9546658e02821163d24ac9">不会写表达式怎么办？👉可以看看这个<a href="https://km.sankuai.com/page/176739529" title="https://km.sankuai.com/page/176739529" autoUpdate="true" nodeId="12f1250f69794279a770415e8f8ed8c6">https://km.sankuai.com/page/176739529</a>（<span color="rgb(245, 35, 45)">补充有些常见逻辑书写方式</span>）     </p>
+<ul nodeId="e794d2dc387f4497b2a7d9643faa4912">
+<li nodeId="f49662ea0e4c49d0a2766731106d5026">线上：<a href="https://zeus.sankuai.com/" title="https://zeus.sankuai.com" nodeId="7786b054125d4f8eb3dc4c57de928dc9">https://zeus.sankuai.com</a> （必须使用https）</li>
+<li nodeId="0dd2854822d94c0dbb1deb2f99eb4ab2">线下：<a href="http://zeus.mis.rc.test.sankuai.com/" title="http://zeus.mis.rc.test.sankuai.com" nodeId="d3087790f2ea45c89b58e001a312c266">http://zeus.mis.rc.test.sankuai.com</a></li>
+</ul>
+<table borderColor="#cccccc" responsive="false" nodeId="fcde254b1a9f4d558537c3938e2aeddf">
+<tr nodeId="2754f9eaf60246d5990add4d8ec62dee">
+<th colwidth="[205]" nodeId="9f9151f813ee4cd68ef08203d2917ff7">
+<p nodeId="092ca83a5f634e38a692a0f6d16b2089" />
+</th>
+<th colwidth="[476]" nodeId="2f1fef3ecdc64d669749bd2bd59eede1">
+<p nodeId="9e02ae2669ed40d89cde957cf496f312"><span font-size="14">涉及功能</span></p>
+</th>
+<th colwidth="[739]" nodeId="c5ffb37d819b481ab9180b13f427fae6">
+<p nodeId="f20052b728254be99637fb26bcaac7d2"><span font-size="14">相关操作手册</span></p>
+</th>
+</tr>
+<tr nodeId="b6659d2ba33f427eb76cab071e343ed3">
+<td colwidth="[205]" nodeId="82f62f26a25c4eaaaf04504a20429dcc">
+<p nodeId="ac8916481d47458db2d45b3cdd8a0e80"><span font-size="14">策略变更-发布管理🔥🔥🔥🔥🔥</span></p>
+</td>
+<td colwidth="[476]" nodeId="ba5f0cdb550247918dfaaa4d979ec319">
+<p nodeId="d1f5d731999f464e980d8a19623d09f9"><span color=""><span font-size="14">发布管控是指对策略变更进行规范化的管控流程，变更管控的范围包括：</span></span><span font-size="14"><strong>策略上线（即将策略状态由标记/离线-&gt;生效）、下线（即将策略状态由生效-&gt;标记/离线）、线上变更（即变更生效态策略的规则/决策结果/决策附加信息/决策理由/衍生参数/优先级）</strong></span><span color=""><span font-size="14">，以上3种变更都需要用户走灰度发布过程，但对紧急变更保留空间负责人审批后直接上线的入口。</span></span></p>
+</td>
+<td colwidth="[739]" nodeId="14b24a7d75ee4a9c875731dec86620f2">
+<p nodeId="9045696d53d94b02b535d37a09e0331a"><a href="https://km.sankuai.com/page/1359152952" title="https://km.sankuai.com/page/1359152952" autoUpdate="true" nodeId="1bacbbbcaabc45ebaf08aa508ffd9040"><span font-size="14">https://km.sankuai.com/page/1359152952</span></a></p>
+</td>
+</tr>
+<tr nodeId="951a45e927b3404ea1a2dbecd79c2d1a">
+<td colwidth="[205]" nodeId="73416cf98c834230ba5fc07b198e8283">
+<p nodeId="cef06af75cf84065ab18f705ef1ec599"><span font-size="14">规则部署🔥🔥🔥🔥🔥</span></p>
+</td>
+<td colwidth="[476]" nodeId="743189140dfa4681b865fda03a8077f3">
+<ul nodeId="d4af85e7245f4d77ab0da9ad0386612e">
+<li nodeId="80618c2f71db4cbdb58e92206de1686f"><span font-size="14">配置的6大基础元素：</span></li>
+</ul>
+<p nodeId="763a6a98589a40c4b52f0869c8ece885"><span font-size="14">场景、规则、决策、因子、参数、场景配置</span></p>
+<ul nodeId="e10ae647a1a74530b90959026abd0d74">
+<li nodeId="e2b3335f732c46beaabb6aea068ca647"><span font-size="14">场景配置的核心内容：</span></li>
+</ul>
+<p nodeId="4be992004b9949c98e76c791efcbfb52"><span font-size="14">规则、决策、状态、优先级</span></p>
+<ul nodeId="e26860db64744db4a227df578b508cd5">
+<li nodeId="614573e1898a40169d04d68ce0a03293"><span font-size="14">策略运行的前置条件：</span></li>
+</ul>
+<p nodeId="5b377591a1b049058bc322fe9ed97f18"><span font-size="14">业务接入并提供请求数据、场景配置下有生效规则</span></p>
+</td>
+<td colwidth="[739]" nodeId="a1fcce0d19de4975b7be58f927dbdb2f">
+<p nodeId="c080b5b2a0c149cc9589e1cb462a04ef"><a href="https://km.sankuai.com/page/312476852" title="说明：创建/修改参数" autoUpdate="true" nodeId="e6707156399d4e1791fa3865d56e1752"><span font-size="14">说明：创建/修改参数</span></a></p>
+<p align="start" nodeId="c96654326bae4bde8bb9d1a8119588b1"><a href="https://km.sankuai.com/page/312512823" title="说明：创建/修改因子" autoUpdate="true" nodeId="d68fe99108b3447e986968253e5b54a8"><span font-size="14">说明：创建/修改因子</span></a></p>
+<p align="start" nodeId="89cbe89d921d4989b77d4593a0ddf3d3"><a href="https://km.sankuai.com/page/312585969" title="说明：创建/修改规则" autoUpdate="true" nodeId="4cbbc4bcc7cb49669baf9aa62f4d6697"><span font-size="14">说明：创建/修改规则</span></a></p>
+<p align="start" nodeId="35e96f1c928748108d54dafe061cb0d4"><a href="https://km.sankuai.com/page/312514906" title="说明：创建/修改决策" autoUpdate="true" nodeId="115dfa5ea8ad41fda6cbafb5843db8fe"><span font-size="14">说明：创建/修改决策</span></a></p>
+<p align="start" nodeId="b9df134fea0645f687a5c822c2a6f189"><a href="https://km.sankuai.com/page/220134551" title="说明：创建/修改场景" autoUpdate="true" nodeId="0a7ff85fea74492585de3096c4228d64"><span font-size="14">说明：创建/修改场景</span></a></p>
+<p align="start" nodeId="a0c2abbb18b449d1a110da5048f4fa97"><a href="https://km.sankuai.com/page/312490068" title="说明：添加场景配置" autoUpdate="true" nodeId="ea181ab522e1402ea5d37b4efde71d1e"><span font-size="14">说明：添加场景配置</span></a></p>
+<p align="start" nodeId="1d1785f6f0d34a79a17cb0d3f4246334"><a href="https://km.sankuai.com/page/312550078" title="说明：规则在场景中生效" autoUpdate="true" nodeId="775d284856544565b449b09840e3216f"><span font-size="14">说明：规则在场景中生效</span></a></p>
+</td>
+</tr>
+<tr nodeId="5692ddb7e7d14dabac9c7b0d74f97914">
+<td colwidth="[205]" nodeId="c2f2a7e92e2a451e9611443484726711">
+<p nodeId="144b75cd3581442eab8b4e056ccab9aa"><span font-size="14">规则验证🔥🔥</span></p>
+</td>
+<td colwidth="[476]" nodeId="bac761c070ea4499856971a9db4e832f">
+<ul nodeId="b82f2c0f778a47c682f6239fbfed2cfb">
+<li nodeId="cf051e419bbf42f0861ea5cc38065cd3"><span font-size="14">新建规则逻辑验证：</span></li>
+</ul>
+<p nodeId="24d927110fab47759de13574325b99c1"><span font-size="14">（1）标记-场景配置标记状态（仅执行规则逻辑但不会返回决策，做规则逻辑验证）</span></p>
+<p nodeId="bc52248b0de64f2b881e2944e0d538e1"><span font-size="14">（2）灰度-场景配置灰度状态（上线前的灰度，按照配置的分流比例执行规则逻辑且返回决策，但仅返回满足分流条件的部分请求）</span></p>
+<p nodeId="837029cdd261498a8b3cd555868ad465"><span font-size="14">（3）回溯-规则回溯（使用历史数据日志执行规则逻辑，不返回决策）</span></p>
+<ul nodeId="6a5f9345b53c48c08b5adc478bfb583a">
+<li nodeId="c6516d8716b745f78266036c0f53b53c"><span font-size="14">线上生效的规则需要修改时逻辑验证：</span></li>
+</ul>
+<p nodeId="b2f8a7bf214e4d45a8aab17c9ed74486"><span font-size="14">（1）双跑-策略演练</span></p>
+<p nodeId="fed45fb1abcc4e11bad7ecf88a8d9404"><span font-size="12"><em>*是否返回决策的含义：生产系统通过规则执行的决策结果进行最终的判断，不返回决策则原则上对生产系统不影响</em></span></p>
+</td>
+<td colwidth="[739]" nodeId="a3475484f8404f8fb24829cd1aeceae6">
+<p nodeId="bfe678b1c5d04ac4a834ff3ef6f6b093"><a href="https://km.sankuai.com/page/325217804" title="https://km.sankuai.com/page/325217804" autoUpdate="true" nodeId="4bdc2661458a41e1bc0280794e1db498"><span font-size="14">https://km.sankuai.com/page/325217804</span></a></p>
+<p nodeId="17a36716743d49568eb812bf6fa00c00"><a href="https://km.sankuai.com/page/492344975" title="https://km.sankuai.com/page/492344975" autoUpdate="true" nodeId="30f891469d3f4859a6b21f59f86ba33d"><span font-size="14">https://km.sankuai.com/page/492344975</span></a></p>
+<p nodeId="49643725369d42e691fce4f3d0d169e9"><a href="https://km.sankuai.com/page/28253556" title="https://km.sankuai.com/page/28253556" autoUpdate="true" nodeId="95e67e6cfbef4fefb5acbf69129b6cb9"><span font-size="14">https://km.sankuai.com/page/28253556</span></a></p>
+<p nodeId="66c966bea3fa4059a776168ad1ceeedd"><a href="https://km.sankuai.com/page/239430531" title="https://km.sankuai.com/page/239430531" autoUpdate="true" nodeId="5f74986e30814ae7841e267b2636fdf8"><span font-size="14">https://km.sankuai.com/page/239430531</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/532955971" title="https://km.sankuai.com/page/532955971" autoUpdate="true" nodeId="6224ddc6d4334f02ba62cc0b45dd23db"><span font-size="14">https://km.sankuai.com/page/532955971</span></a></p>
+</td>
+</tr>
+<tr nodeId="2861b0d3431f48c3bfa690477a0fd4d3">
+<td colwidth="[205]" nodeId="a9e45fc9a22e498eaeb86e4f37eaca64">
+<p nodeId="1da1a21f59a24213824a77a6348735f6"><span font-size="14">规则管理🔥🔥</span></p>
+</td>
+<td colwidth="[476]" nodeId="4973419267af46159e03cf23ab417fb0">
+<ul nodeId="f21ca5e679fd454f9476c94eb8286775">
+<li nodeId="9ba51835551b41748adceb515462d285"><span font-size="14">管理工具：</span></li>
+</ul>
+<p nodeId="8f59c3aaf0b44c6c90426a0f224658e2"><span font-size="14">（1）规则组：一堆规则集合，适用于本业务方内使用</span></p>
+<p nodeId="898ed66806bf49cf8908d0d304a6abd8"><span font-size="14"><del>（2）因子工具：规则组的打包成一个输出参数，适用于跨业务方使用</del></span></p>
+<p nodeId="a152958ce391434882c361a0e48ef3ff"><span font-size="14">（3）标签：可以给场景、规则、因子打标签并支持列表按标签查询</span></p>
+<p nodeId="86169806e60c42ff94c93f5c66a6e922"><span font-size="14">（4）无效规则自动化下线：无效规则在场景中离线</span></p>
+<ul nodeId="1c6504b174ba407689c10dc2e18ff57e">
+<li nodeId="67d16b33be6e42f2989ecdc70e64c26c"><span font-size="14">决策流-多级路由场景：</span></li>
+</ul>
+<p nodeId="bff105a6d0704bd4a8f751fbfc7182eb"><span font-size="14">多级路由：将多个普通场景串联起来，但不支持多级路由场景之间的串联。</span></p>
+</td>
+<td colwidth="[739]" nodeId="3feadc2d790048c5bf09f807772d1264">
+<p nodeId="281231309db24546a05cfdf4efdba0d8"><a href="https://km.sankuai.com/page/59203601" title="https://km.sankuai.com/page/59203601" autoUpdate="true" nodeId="15d0166a853a43719395f5cd42b49096"><span font-size="14">https://km.sankuai.com/page/59203601</span></a></p>
+<p nodeId="60af004e177940fca88572f0cb56adc9"><del><a href="https://km.sankuai.com/page/194006669" title="https://km.sankuai.com/page/194006669" autoUpdate="true" nodeId="2ad8ea007dac4b3fb6960a920e17306b"><span font-size="14"><del>https://km.sankuai.com/page/194006669</del></span></a></del></p>
+<p nodeId="a6517ec676e348279d48a8283aac5c11"><a href="https://km.sankuai.com/page/336731944" title="https://km.sankuai.com/page/336731944" autoUpdate="true" nodeId="9b2281475b0940ca8144cd477ae358a5"><span font-size="14">https://km.sankuai.com/page/336731944</span></a></p>
+<p nodeId="4bbb9cf6baf74e65879a3e4e4565307e"><a href="https://km.sankuai.com/page/107423301" title="https://km.sankuai.com/page/107423301" autoUpdate="true" nodeId="f2a4cc44c738429ea431ab3b5e3fb28c"><span font-size="14">https://km.sankuai.com/page/107423301</span></a><span font-size="14">（</span><a href="https://km.sankuai.com/page/197981906" title="https://km.sankuai.com/page/197981906" autoUpdate="true" nodeId="0d338fde33814969ab93da353ae0ab28"><span font-size="14">https://km.sankuai.com/page/197981906</span></a><span font-size="14">）</span></p>
+<p nodeId="f9148ee9f731421aa6938a2be4480370"><a href="https://km.sankuai.com/page/460439834" title="https://km.sankuai.com/page/460439834" autoUpdate="true" nodeId="6397ba87d210402c99a952344461d192"><span font-size="14">https://km.sankuai.com/page/460439834</span></a><span font-size="14">（功能合并在规则健康度中，待上线后更新）</span></p>
+</td>
+</tr>
+<tr nodeId="1dc8ec2dcd624842bb241138ed2eca37">
+<td colwidth="[205]" nodeId="205cdfed991d421b87e67e2da1e78bc6">
+<p nodeId="e7e02d975cce4a118641cd83b1d79c80"><span font-size="14">规则排查🔥🔥🔥🔥</span></p>
+</td>
+<td colwidth="[476]" nodeId="7ec1007fe0ff417889efd3c136da5e1c">
+<p nodeId="91079daab80e498ea6e41fc95d7be9f1"><span font-size="14">日志查询</span></p>
+<p nodeId="6ac85c4f8d144d468f12199c8bfeb57f"><span font-size="14">排查探针</span></p>
+<p nodeId="2224c72323f94de5b1760676c63d15e3"><span font-size="14">读累计、写累计查询</span></p>
+</td>
+<td colwidth="[739]" nodeId="60f261befdb04087882efcd4e96cc3da">
+<p nodeId="86f61fd0b49b49a99b7fdb016bf0925f"><a href="https://km.sankuai.com/page/124049950" title="https://km.sankuai.com/page/124049950" autoUpdate="true" nodeId="8a1f6824a7c04efdb78ecb97f5dfdd71"><span font-size="14">https://km.sankuai.com/page/124049950</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/62096766" title="https://km.sankuai.com/page/62096766" autoUpdate="true" nodeId="ddbd322da53745e5a348aa0a5ff482ff"><span font-size="14">https://km.sankuai.com/page/62096766</span></a></p>
+<p nodeId="0480d02fcc06468ba2d6ed68cefeae36"><a href="https://km.sankuai.com/page/251012364" title="https://km.sankuai.com/page/251012364" autoUpdate="true" nodeId="cbf408717cd640ed8bfc7a129ab239b7"><span font-size="14">https://km.sankuai.com/page/251012364</span></a></p>
+<p nodeId="a9c2f8a276cb40f8a883cd5257f04d98"><a href="https://km.sankuai.com/page/233320099" title="https://km.sankuai.com/page/233320099" autoUpdate="true" nodeId="c2e4190e809c4deba3776627524fa1eb"><span font-size="14">https://km.sankuai.com/page/233320099</span></a><span font-size="14">（读累计、写累计查询）</span></p>
+</td>
+</tr>
+<tr nodeId="ff272a3f75e1440788346a85b66d16e8">
+<td colwidth="[205]" nodeId="51d731a0706f4b9391ed42c3b8cf57fa">
+<p nodeId="e6c977928da44863801ab5c3103b2df7"><span font-size="14">权限管理🔥</span></p>
+</td>
+<td colwidth="[476]" nodeId="acfc82c91fab4f0094a4530302441925">
+<p nodeId="2d9e28a0d6ad4374880620bfa90477a9"><span font-size="14">业务方、父子权限</span></p>
+<p nodeId="0496280efb374ca5838fbc9338d0bec3"><span font-size="14">管理员与普通用户权限</span></p>
+</td>
+<td colwidth="[739]" nodeId="3e1ef3473f804f4a8fc3eeebf78265de">
+<p nodeId="48752bb52b6341e9bab5c06cf2467b28"><a href="https://km.sankuai.com/collabpage/2213713621" title="https://km.sankuai.com/collabpage/2213713621" autoUpdate="true" nodeId="8baaf068f1b04db799a3dfb5b91d06f1"><span font-size="14">https://km.sankuai.com/collabpage/2213713621</span></a></p>
+</td>
+</tr>
+<tr nodeId="24a6e003532f47e0a6566a03c5e5550e">
+<td colwidth="[205]" nodeId="a96a8a02bfe54b48a7ca996533d2a26a">
+<p nodeId="d55ae2eba29c4991b2c09e66f08d30f3"><span font-size="14">安全管理🔥</span></p>
+</td>
+<td colwidth="[476]" nodeId="9f7c7317046541df88e858ade6cd67f5">
+<p nodeId="622c40ec4baa45c7936b42062aaf0905"><span font-size="14">操作日志查询</span></p>
+<p nodeId="e90d174ed0fd421a9a59b91ab72de161"><span font-size="14">静默期</span></p>
+<p nodeId="370e770a31a841209f68181870e1cd0e"><span font-size="14">操作安全机制</span></p>
+<p nodeId="d3dbc65631874565923aa417fd0e89f9"><span font-size="14">规则/因子修改通知</span></p>
+<p nodeId="e06c111881ab49bc8d27e5ea455d6d09"><span font-size="14">熔断机制</span></p>
+</td>
+<td colwidth="[739]" nodeId="70b3ef8e53dd4050b0d54573a51e159c">
+<p nodeId="b91c3ca2aeac46339092686d65bf3a36"><a href="https://km.sankuai.com/page/339204372" title="https://km.sankuai.com/page/339204372" autoUpdate="true" nodeId="b42965a19af2493e82f8f9693a705579"><span font-size="14">https://km.sankuai.com/page/339204372</span></a></p>
+<p nodeId="029b1cf8eb7c49a2bf0c2a232ea0e930"><a href="https://km.sankuai.com/page/28163548" title="https://km.sankuai.com/page/28163548" autoUpdate="true" nodeId="541624787ba743379d50f87f805085fb"><span font-size="14">https://km.sankuai.com/page/28163548</span></a></p>
+<p nodeId="b5597220e8e44f99b64c01bdb189d234"><a href="https://km.sankuai.com/page/188083312" title="https://km.sankuai.com/page/188083312" autoUpdate="true" nodeId="f53a8b0ca77b4253aa3f21b05061fccb"><span font-size="14">https://km.sankuai.com/page/188083312</span></a></p>
+<p nodeId="965f0025479841a2956d7549dbc08b8c"><a href="https://km.sankuai.com/page/56487220" title="https://km.sankuai.com/page/56487220" autoUpdate="true" nodeId="7bd5d4dfb7ef4817b30a28e6cdc45b86"><span font-size="14">https://km.sankuai.com/page/56487220</span></a></p>
+<p nodeId="4105fb8460704340aaba1bfa058b1e27"><a href="https://km.sankuai.com/page/62939397" title="https://km.sankuai.com/page/62939397" autoUpdate="true" nodeId="d82abdb643a248109107aca58e80eec6"><span font-size="14">https://km.sankuai.com/page/62939397</span></a></p>
+</td>
+</tr>
+<tr nodeId="a77232fcdaaa4fc3b97ac1eb06b29597">
+<td colwidth="[205]" nodeId="c54a72532ccd474eab8fd919ac6e518e">
+<p nodeId="de0a925dc0a045bb94021761733eed0b"><span font-size="14">其他🔥</span></p>
+</td>
+<td colwidth="[476]" nodeId="07bf2136163d46f6baee2f4266523a6a">
+<ul nodeId="afe5ca0c49ae453d9adaf03a6be8aec6">
+<li nodeId="36e0d41fd2bd42cd9d15d11b61dada7e"><span font-size="14">数据补充：数据接口</span></li>
+<li nodeId="a7782b1568ad42f4a2190958e686bab7"><span font-size="14">配置关系查询：依赖关系查询</span></li>
+<li nodeId="7a7169ec3fb1482e8b030e16bfceb780"><span font-size="14">策略快速应用：累计因子线上回溯</span></li>
+<li nodeId="57068f7c7fa2484ab96772bf68c4a210">
+<p nodeId="2bedbb1675b6468d8dc09e2c2d6ab480"><span font-size="14">复杂逻辑实现</span></p>
+<p nodeId="8feec178588647fb8bcdfa0feef9f530"><span font-size="14">（1）扩展函数</span></p>
+<p nodeId="9420f24fe2a74fc2b0a2e7c32bb88aeb"><span font-size="14">（2）特殊逻辑实现（名单库、决策表、累计、tair因子）</span></p>
+</li>
+<li nodeId="27c8d5bea4c2432d9810fea04461d57d"><span font-size="14">决策理由、规则话术和客服备注</span></li>
+<li nodeId="250632cda52f4bffbaa7c65ac8b6c73d">
+<p nodeId="51f255061f6849cd8e9d9281a91930bf"><span font-size="14">复杂决策</span></p>
+<p nodeId="eac5a9797e6d41119743f86c772a74b0"><span font-size="14">（1）路由决策</span></p>
+<p nodeId="13166629547341a3bee37a4cdec1780d"><span font-size="14">（2）决策附加信息</span></p>
+</li>
+</ul>
+</td>
+<td colwidth="[739]" nodeId="07751463c30142a39a865277ffc69d24">
+<p nodeId="6b4b8e46b342477989822a960d560bd9"><span font-size="14">（数据接口）</span><a href="https://km.sankuai.com/page/182702174" title="https://km.sankuai.com/page/182702174" autoUpdate="true" nodeId="0294f13799074842a0022425dd40c4ce"><span font-size="14">https://km.sankuai.com/page/182702174</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/183045156" title="https://km.sankuai.com/page/183045156" autoUpdate="true" nodeId="78573829409a4ed2978a41e7308e68e6"><span font-size="14">https://km.sankuai.com/page/183045156</span></a></p>
+<p nodeId="e14238aab2c2497fb7410b5dd37bae9c"><a href="https://km.sankuai.com/page/183062932" title="https://km.sankuai.com/page/183062932" autoUpdate="true" nodeId="5c1c38b8d5654ea7847fe029f0c48630"><span font-size="14">https://km.sankuai.com/page/183062932</span></a></p>
+<p nodeId="aa041cd0b97246d9b984e23ee8857fd8"><a href="https://km.sankuai.com/page/248390725" title="说明：累计因子线上回溯https://km.sankuai.com/page/248390725" autoUpdate="true" nodeId="548353de5d014f2fa82a20fa93a76fc6"><span font-size="14">说明：累计因子线上回溯https://km.sankuai.com/page/248390725</span></a></p>
+<p nodeId="02fcf920244d41799e0c5e46d4480c11"><a href="https://km.sankuai.com/page/28155153" title="https://km.sankuai.com/page/28155153" autoUpdate="true" nodeId="958af8d7b3c74fbf97cc2d5b9b2c423f"><span font-size="14">https://km.sankuai.com/page/28155153</span></a></p>
+<p nodeId="114da7896e09456187c9ccc92564ae22"><a href="https://km.sankuai.com/page/339769403" title="https://km.sankuai.com/page/339769403" autoUpdate="true" nodeId="6d41597c6bfc421dbf9f2329e8b4cb9f"><span font-size="14">https://km.sankuai.com/page/339769403</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/73367657" title="https://km.sankuai.com/page/73367657" autoUpdate="true" nodeId="e748564167fb417890f8ca3f2259de43"><span font-size="14">https://km.sankuai.com/page/73367657</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/28261902" title="说明：累计使用文档" nodeId="5415e0ce240c43c981324e086a6df838"><span font-size="14">说明：累计使用文档</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/28364520" title="https://km.sankuai.com/page/28364520" autoUpdate="true" nodeId="586d26f1c750446687674991507f2e3a"><span font-size="14">https://km.sankuai.com/page/28364520</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/28234760" title="https://km.sankuai.com/page/28234760" autoUpdate="true" nodeId="0715bd6af1d549c2ac9996d2073f54a7"><span font-size="14">https://km.sankuai.com/page/28234760</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/233320099" title="https://km.sankuai.com/page/233320099" autoUpdate="true" nodeId="58599607e75b4865a139e32967c34b2a"><span font-size="14">https://km.sankuai.com/page/233320099</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/472805061" title="https://km.sankuai.com/page/472805061" autoUpdate="true" nodeId="4172eaba1f6641288e315504be7979d8"><span font-size="14">https://km.sankuai.com/page/472805061</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/212068218" title="https://km.sankuai.com/page/212068218" autoUpdate="true" nodeId="777528a76c2944e09009a0adb1c595f7"><span font-size="14">https://km.sankuai.com/page/212068218</span></a></p>
+<p nodeId="05d7a0aea52c457c89c0486b5d08de79"><a href="https://km.sankuai.com/page/304311873" title="https://km.sankuai.com/page/304311873" autoUpdate="true" nodeId="ef3b8d534f9d46d9a61b527a272d515c"><span font-size="14">https://km.sankuai.com/page/304311873</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/339630947" title="https://km.sankuai.com/page/339630947" autoUpdate="true" nodeId="2fcfa656185e4a1f8c3eef1d3c62c914"><span font-size="14">https://km.sankuai.com/page/339630947</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/192816768" title="https://km.sankuai.com/page/192816768" autoUpdate="true" nodeId="dde54fafe7e0475ca768c2e5359fafd4"><span font-size="14">https://km.sankuai.com/page/192816768</span></a></p>
+<p nodeId="8cf4906bf4c14bcca560de2e38d27f99"><a href="https://km.sankuai.com/page/28233963" title="https://km.sankuai.com/page/28233963" autoUpdate="true" nodeId="723cc5222ba748d49f087bd03fb07b57"><span font-size="14">https://km.sankuai.com/page/28233963</span></a></p>
+<p nodeId="4a166989a23a404f937f5518cdc661a0"><a href="https://km.sankuai.com/page/28253486" title="https://km.sankuai.com/page/28253486" autoUpdate="true" nodeId="8b5b85d6fb17411280524897b54c745f"><span font-size="14">https://km.sankuai.com/page/28253486</span></a></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="3b3dd5335038488882f9a68a833f078e">3.3 最佳实践样例</h2>
+<h3 nodeId="5d2becd48fef428092d3a16ae88536e3">3.3.1 <span color=""><strong>Aviator5 最佳实践:</strong></span></h3>
+<h4 nodeId="0119d07fe54b4cd484176a0c59dce485">(1) 业务背景：</h4>
+<p nodeId="d196aff369814a6bbbc3e104fb54d921">这个是在 Zeus 值班过程中保险业务方那边发过来的咨询以及配置类TT问题。链接在这里： <a href="https://tt.sankuai.com/ticket/detail?id=8110852" title="https://tt.sankuai.com/ticket/detail?id=8110852" nodeId="f3b71413415b434f9fd0dcb2ae503be9">https://tt.sankuai.com/ticket/detail?id=8110852</a> 对于单个复杂元素的提取，我参照 Zeus 可扩展函数进行了支持，业务方也进行了相应规则的配置。</p>
+<p nodeId="f20a38bcb92e42a0a87ba78515acbdad">但是他们这边必须传过来 <strong>整个元素的数组类型 </strong>来支持，这时候如果不使用 Aviator5 语法的话就不好解决了。具体业务详情如下：</p>
+<p nodeId="538c1ebc2a5c40a18fc623263c8a0db5"><a href="https://km.sankuai.com/page/509217143" title="https://km.sankuai.com/page/509217143" autoUpdate="true" nodeId="3d4022c599f0412ea11f59fd1f95d89f">https://km.sankuai.com/page/509217143</a></p>
+<p nodeId="20c7bb6f9d7c409c9036ac4e47be0e81">需要解析的数据如下所示：</p>
+<pre language="Java" isExpand="false" nodeId="dd20ea698eb641a2a1459bfb0e10bfdb"><code>
+{
+"materials": [{
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}]
+}</code></pre>
+<h4 nodeId="03cc56e63745433a9c9d63568a78ebf1">(2) 具体实现：</h4>
+<p nodeId="632327f56b304d27a2a6b978f5a1f1b8">以下只是帮助业务配置时，写的 Demo ，最终具体逻辑还待业务方自己拼写：</p>
+<pre language="Java" nodeId="7e9ab9ed6e3d4d13a26df8b429981336"><code>##exp-5
+let var_sum = seq.list(); // 要返回的字段定义要放在外层
+let var_list = materials_tmp;
+for var_x in var_list {
+					 let var_Score = double(string.getJsonStringFromJsonMap(var_x,"imageForgeryScore"));
+         
+           let var_tmp = jsonString.search(string.getJsonStringFromJsonMap(var_x,"topSimilarity"),"similarity !=nil","similarity");
+           let var_similarity = seq.get(sort(string.split(var_tmp,",")),0);
+           
+					seq.add(var_sum,var_similarity);
+}
+return var_sum;
+
+代码说明：
+##exp-5   //表示使用 Aviator5 语法
+var_xxxx  //表示临时变量，不是参数，也不是因子</code></pre>
+<p nodeId="dabd4add08694038a430a6738ab715c0"> Aviator5 语法详见： <a href="https://www.yuque.com/boyan-avfmj/aviatorscript/cpow90" title="AviatorScript 编程指南（5.0）" nodeId="88b4adf5c47a44ae99d788a5e443453f">AviatorScript 编程指南（5.0）</a></p>
+<h4 nodeId="fcb04e9874cd46ecb8ed0cf39f630cb9">(3) 总结</h4>
+<p nodeId="8bdd39015e0847bfb63c293c11263451">在这次解析这样比较复杂的参数时，由于涉及到很多逻辑，发现拓展函数有点招架不住。 试了很多的函数，方法都没有很好的解决。</p>
+<p nodeId="a8745610838640a3934a67ff98f2a4a9">Aviator5 对于这种情况支持比较好，很方便，以后这种情况可以考虑使用Aviator5的语法解决。同时也感谢 宇哥 的支持。😊</p>
+<h2 nodeId="3c028bbf0926453e8f3ebec588600f85">3.4 FQA</h2>
+<ul nodeId="5f1796d310d64b3b8a5c920fb59841ba">
+<li nodeId="3a89ccba826943289583a094d5813660"><a href="https://km.sankuai.com/page/28155148" title="Zeus FAQ" nodeId="7c9a0c7c3fb04f319366b893c20c2aa3">Zeus FAQ</a></li>
+<li nodeId="36c1fee0f1594d35a73b07990fd86548"><a href="https://km.sankuai.com/page/58348438" title="那些年为nil伤过的泪" nodeId="3cd0cc4bf76542c3984c294b687d40e5">那些年为nil伤过的泪</a></li>
+<li nodeId="6ebe09d454c440be8bfe0bdd6df152d3"><a href="https://km.sankuai.com/page/173335506" title="https://km.sankuai.com/page/173335506" autoUpdate="true" nodeId="da653bc6eee3414fa82ea2e2ff2ceddd">https://km.sankuai.com/page/173335506</a></li>
+<li nodeId="1933c2da5fd5443982900e0ef414f578"><a href="https://km.sankuai.com/page/157244366" title="https://km.sankuai.com/page/157244366" autoUpdate="true" nodeId="fe05f7e53c224f6684f3dd0ab6e87298">https://km.sankuai.com/page/157244366</a></li>
+</ul>
+<h5 align="start" nodeId="5ebb4a3e8a844eb5ab8258759507d2f0">Q1、Zeus能支持什么样的场景？</h5>
+<p align="start" nodeId="4ec6fc66ff884f71b58942141e141953">--A：常见的风控、营销、金融等有逻辑判断的决策流程，类似于复杂事件处理，具体业务可具体分析，通用示例见wikiXX</p>
+<h5 align="start" nodeId="1f52b6956fd04fc1bf85d73c5d32ba47">Q2、Zeus支持数据处理么？</h5>
+<p align="start" nodeId="471a8c83aeca434188f3f5e0e0fcbc4d">--A：简单的数据处理可以支持内置了数据处理函数，详情见<a href="https://km.sankuai.com/page/28155153" title="说明：Zeus已支持扩展函数列表" nodeId="ea0a72024a25458caef1fdaed91ddaca">说明：Zeus已支持扩展函数列表</a>（未在列表中的函数需要RD开发实现）。此外还包括累计事件数据的计算，但需要业务系统传输数据信息。</p>
+<h5 align="start" nodeId="c3a279d198fc407da5f988f4e0fce11e">Q3、<span color="rgba(0, 0, 0, 0.87)">Zeus支持业务方通过接口创建规则吗?</span></h5>
+<p align="start" nodeId="5e7dbbe18bdd49aa88d5ece7fef7e6b1"><span color="rgba(0, 0, 0, 0.87)">--A :不建议通过接口创建，目前有这种接口但未对外开放过，不清楚会不会有问题</span></p>
+<h5 align="start" nodeId="1c666defb4014cd5800950b4073c1855"><span color="rgba(0, 0, 0, 0.87)">Q4、Zeus规则配置页面对于运营人员来说还是太过于复杂</span></h5>
+<p align="start" nodeId="5eb1fd748edc4db7b1910a4109d4a655"><span color="rgba(0, 0, 0, 0.87)">--A：目前Zeus 在升级，目标是降低使用难度，会提供一些简单工具面向无编码基础的人</span></p>
+<h5 align="start" nodeId="0c1dcb7957f14b1b9d3155276228ce0d"><span color="rgba(0, 0, 0, 0.87)"><strong>Q5、新业务接入zeus Hive日志表需要提供的信息</strong></span></h5>
+<p align="start" nodeId="bdeab55141fe4e6996c3a8653e39f4e0"><span color="rgba(0, 0, 0, 0.87)">--A：一天请求量是多少和businessId</span></p>
+<h5 align="start" nodeId="44b425a256dc4644ad24c7fb055e6418"><span color="rgba(0, 0, 0, 0.87)"><strong>Q6、在Zeus上配置的因子、规则、规则组、场景等配置信息可以查询么？都支持哪些查询方式？</strong></span></h5>
+<p align="start" nodeId="78038672e2ce4064abde61a053fe2e59"><span color="rgba(0, 0, 0, 0.87)">--A：支持查询，</span></p>
+<ul nodeId="17b1b84df69a457f9acb8d82c3d0e9d5">
+<li nodeId="58185f1fa01f4ce8ac42af1a652e3b58"><span color="rgba(0, 0, 0, 0.87)">简单的单层依赖和引用关系可在规则、因子、场景配置中查看（例如：因子被哪些规则引用？），仅支持前端页面查询，不支持hive表、接口查询；</span></li>
+<li nodeId="104b4d363d1b4f31a936b10122e255e4"><span color="rgba(0, 0, 0, 0.87)">跨层级的依赖和引用关系可使用“依赖关系查询工具”查看（例如：场景依赖了哪些参数？），仅支持前端页面查询，不支持hive、接口表查询；</span></li>
+<li nodeId="e77673061d7e4c39b6ea89719fec7b62"><span color="rgba(0, 0, 0, 0.87)">规则/因子/场景/决策的ID和名称的匹配关系，仅支持前端页面查询，不支持hive表、接口查询；</span></li>
+<li nodeId="3f37cd0eeef6426f8fd6102731dc4c8c"><span color="rgba(0, 0, 0, 0.87)">用户操作日志，仅支持前端页面查询，不支持hive表、接口查询；</span></li>
+</ul>
+<h5 align="start" nodeId="ae4b44e123094c8fa77561fef497c9f4"><span color="rgba(0, 0, 0, 0.87)"><strong>Q7、Zeus支持的QPS大概多少？接口性能如何？</strong></span></h5>
+<p align="start" nodeId="d25369493cd7484198594f129decc296"><span color="rgba(0, 0, 0, 0.87)">--A：QPS概况：Zeus实时服务QPS约为25万/秒 ，离线服务吞吐率约500万/分钟；</span></p>
+<p align="start" nodeId="9125e6127be9454f945455a3da0674bc"><span color="rgba(0, 0, 0, 0.87)">         性能概况：因规则数量和复杂度不同，性能会有一些差异。提供高峰期获取决策接口响应时间作为参考：平均线20ms，90线30ms，999线为100ms，如对性能指标有特殊需求，可联系@Zeus进行沟通。</span></p>
+<p nodeId="c4819f9077d2480dae5d63b823430248"><br /></p>
+<p nodeId="31da315a7a3340af83334cead9b72f24" />
+</km-doc>
