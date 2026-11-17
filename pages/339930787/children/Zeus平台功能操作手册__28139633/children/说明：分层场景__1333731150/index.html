@@ -1,0 +1,1320 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：分层场景</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-91">一、背景</a><a href="#section-92">1.1 什么是分层场景</a><a href="#section-173">1.2 分层场景和其他场景的区别</a><a href="#section-198">二、名词解释</a><a href="#section-323">三、使用指南</a><a href="#section-338">3.1 管理列表</a><a href="#section-509">分层场景的版本与状态</a><a href="#section-511">如何上线一个新的分层版本</a><a href="#section-554">3.2 预览状态</a><a href="#section-655">3.3 新建与编辑</a><a href="#section-817">3.3.1 识别树</a><a href="#section-818">a ) 组件：策略节点</a><a href="#section-958">b ) 组件：路由条件</a><a href="#section-961">c ) 组件：决策加工</a><a href="#section-964">3.3.2 决策树</a><a href="#section-967">3.3.3 用例测试</a><a href="#section-1165">3.4 补偿执行</a><a href="#section-1168">3.5 日志排查</a><a href="#section-1308">3.6 规则组联动机制</a><a href="#section-1370">3.7 多人编辑限制</a><a href="#section-1401">3.8 搜索</a><a href="#section-1449">3.9 发布管控</a><a href="#section-1452">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：分层场景</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1333731150">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：分层场景</h1>
+<div style="none"></div>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:#000"><strong>我当前使用普通场景布控，但期望迁为分层场景布控？</strong></span></p>
+<p><span style="color:#000">策略同学需要做的：</span></p>
+<ol>
+<li>在当前空间下建设分层拓扑图。即策略节点和路由条件的编排模式，策略节点内容可为空。</li>
+<li>提供每个策略节点需要迁入的策略。</li>
+</ol>
+<p>完成以上两项后联系PM<span>@刘思淼</span>沟通对齐后续迁移计划，平台提供策略批量迁移。</p>
+</div>
+</div>
+<details>
+<summary>🌟<span style="color:#FF4A47">上线记录</span></summary>
+<div>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>时间</p>
+</th>
+<th>
+<p>上线内容</p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>0912</p>
+</td>
+<td>
+<div class="note">
+<strong></strong>
+<div>
+<p><strong>分层场景体验优化上线</strong></p>
+<ol>
+<li>解除分层编辑时间限制，</li>
+<li>节点支持交互式及批量输入</li>
+<li>支持节点复制</li>
+<li>策略搜索查询功能优化</li>
+</ol>
+</div>
+</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>0814</p>
+</td>
+<td>
+<div class="note">
+<strong><strong>分层场景上新啦！本次更新：规则组同步对齐普通场景/策略变更上线流程变化/支持列表视图查看策略 </strong>🎉</strong>
+<div>
+<p>🙋：<span style="color:rgb(127, 127, 127)">规则组被引用到分层场景后，不自动随规则组更新而更新。需要手动一键更新，新增策略还需要手动切换状态，太麻烦了而且容易出错。</span><br>🌟<strong>上新点一：规则组同步逻辑对齐普通场景同步逻辑</strong><br>基本同步逻辑：对于未在场景中特殊修改的配置，随规则组本体配置更新而更新。规则组新添加策略，将根据设定状态默认添加到分层场景中。<span style="font-size:12px">更多冲突处理逻辑参考：</span><span style="font-size:12px"><a href="../说明：规则组使用文档__59203601/index.html" title="https://km.sankuai.com/page/59203601">说明：规则组使用文档</a></span></p>
+<hr>
+<p>🙋：<span style="color:rgb(127, 127, 127)">现在分层场景生效策略修改需要进入变更环境，而变更环境自身存在很多使用不便的地方，上线一个分层场景非常困难。</span><br>🌟<strong>上新点二：分层场景新增版本管理概念，非生效策略直接基于使用中版本修改即可；生效策略修改基于未使用版本进行修改后，在变更环境进行版本切换。</strong></p>
+<table>
+<tr>
+<th>
+<p>版本升级</p>
+</th>
+<th>
+<p>版本上线</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>当需要变更生效策略时，前往版本升级（或对于历史版本）对于非使用版本进行修改<br><img src="assets/de98bf2d8d2f20d4.svg" width="290" height="184" alt="流程图"></p>
+</td>
+<td>
+<p>用户可切换任意一个非使用中的版本进行上线使用<br><img src="assets/4367004127f59ae2.svg" width="390" height="182" alt="流程图"></p>
+</td>
+</tr>
+</table>
+<hr>
+<p>🙋：<span style="color:rgb(127, 127, 127)">当前拓扑图的展示形式，整个场景中的策略被分散到各个节点中，没有全局视角查看单场景下有哪些策略，不像普通场景那样直观。</span><br>🌟<strong>上新三：支持列表视图/画布视图双视图切换查看场景下策略情况</strong><br><img src="assets/c7769f3abd6b7e92.png" width="724" height="362" alt="image.jpeg"></p>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<p></p>
+</div>
+</details>
+<h1 id="section-91">一、背景</h1>
+<h2 id="section-92">1.1 什么是分层场景</h2>
+<p>分层场景是为解决Zeus业务方在策略部署过程中存在的痛点（策略管理效率低、规则执行完成率低、复杂场景易超时问题、复杂体系难部署等）而提出新的规则部署方式。</p>
+<table>
+<tr>
+<th style="background-color:#0037A6;vertical-align:top">
+<p></p>
+</th>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">普通场景</span></span></p>
+</th>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">路由场景 与 多级路由</span></span></p>
+</th>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">分层场景</span></span></p>
+</th>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">画布</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">简介</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">最常用的规则集合实体，场景内规则并行执行，输出所有命中的生效规则对应的决策。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">复合的部署模式，由普通场景（子场景）与路由规则组合形成。请求根据路由条件依次去到多个场景中执行规则。最终在多个场景中都可查询到该条请求的日志。</span></p>
+<p><span style="font-size:14px">路由场景（普通路由）为单层：即1个根场景+n个同层的子场景。</span></p>
+<p><span style="color:#7F7F7F"><span style="font-size:14px"><em>多级路由支持多层：可通过一连串的路由规则，形成多层的场景树。（即将下线）</em></span></span></p>
+</td>
+<td style="background-color:rgb(252, 252, 202);vertical-align:top">
+<p><span style="font-size:14px">新的规则集合实体，对标过去</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">一个普通场景</span></span><span style="font-size:14px">，在场景内支持以层级关系+路由条件组织树状执行链路，使场景内策略达到分层执行的效果。因超时（或短路）未执行的链路将获得补偿。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">由一系列功能组件构成的数据处理流。支持以多个数据源组件作为起始，以多个决策类组件作为终止。</span></p>
+<p><span style="font-size:14px">当用户完成策略的配置之后，画布会自动生成一个flink任务用来执行用户所配置的逻辑。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">图例</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/8b3a9d953ee66140.png" width="207" height="159" alt="原文图片"></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/9a6c164a3f69dc74.png" width="250" height="116" alt="原文图片"></p>
+</td>
+<td style="background-color:rgb(252, 252, 202);vertical-align:top">
+<p><img src="assets/5dffae1b2e1d0637.png" width="1203.13" height="600" alt="image.jpeg"></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/cf82eba31ec35e7a.png" width="239" height="167" alt="原文图片"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">覆盖范围</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">实时、近线、离线</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">实时、（近线)</span></p>
+</td>
+<td style="background-color:rgb(252, 252, 202);vertical-align:top">
+<p><span style="font-size:14px">实时</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">近线</span></p>
+</td>
+</tr>
+</table>
+<h2 id="section-173">1.2 分层场景和其他场景的区别</h2>
+<table>
+<tr>
+<th style="background-color:#0037A6">
+<p><span style="color:#FFF"><strong>与普通场景的差异</strong></span></p>
+</th>
+<th style="background-color:#0037A6">
+<p><span style="color:#FFF"><strong>与多级路由的差异</strong></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ul>
+<li>图形化拖拉拽部署模式</li>
+<li>分层场景内可根据【层级】和【路由关系】依次执行不同复杂度的策略，通过【短路条件】可实现策略分层执行，以达到快速放行的效果（先通用&amp;简单，后定制&amp;复杂）。</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>分层场景在排查时更便捷，日志将在一个场景中查询到，不同于多级路由执行日志散落在各个子场景中。</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<ul>
+<li>分层场景支持决策合并，以及相关的单点测试、用例测试。</li>
+<li>分层场景可对超时、短路的情况进行补偿执行，使策略执行完成率达100%</li>
+</ul>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-198">二、名词解释</h1>
+<table>
+<tr>
+<th style="background-color:#0037A6">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">名词</span></span></p>
+</th>
+<th style="background-color:#0037A6">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">解释</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:13px"><strong>分层场景</strong></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">新的规则集合实体，对标过去一个普通场景，在场景内支持以层级关系+路由条件组织成树状的执行链路，使场景内策略达到分层执行的效果。因超时或（短路）未执行的链路将获得</span><span style="font-size:14px"><strong>补偿</strong></span><span style="font-size:14px">。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:13px"><strong>组件</strong></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">一个分层场景为一颗树，树由各个组件与连接关系构成，首期上线的基础组件包含</span><span style="font-size:14px"><strong>策略节点</strong></span><span style="font-size:14px">与</span><span style="font-size:14px"><strong>路由条件</strong></span><span style="font-size:14px">。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:13px"><strong>策略节点</strong></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">分层场景的根节点与末端。</span><span><span style="font-size:14px">规则/规则组的集合，部署操作类似普通场景，但仅归此分层场景所有，不支持跨分层场景共享。</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:13px"><strong><a href="https://km.sankuai.com/collabpage/1341421659" title="https://km.sankuai.com/collabpage/1341421659"><span style="font-size:13px"><strong>路由条件</strong></span></a></strong></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">连接不同层级的策略节点的组件。</span><span><span style="font-size:14px">请求满足分支上的路由条件才能执行对应的下游的策略，类似多级路由中多个路由规则的集成，但不在规则列表中维护，仅归此分层场景所有，不支持跨树共享。在路由条件组件中，可选择启用决策相关的</span></span><span><span style="font-size:14px"><strong>短路条件</strong></span></span><span><span style="font-size:14px">。</span></span><a href="https://km.sankuai.com/collabpage/1341421659" title="https://km.sankuai.com/collabpage/1341421659">分层场景：路由条件组件</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:13px"><strong><a href="children/分层场景：决策加工组件__1409924045/index.html" title="https://km.sankuai.com/collabpage/1409924045"><span style="font-size:13px"><strong>决策加工</strong></span></a></strong></span><span style="font-size:13px"><strong>/</strong></span><span style="font-size:13px"><strong><a href="https://km.sankuai.com/collabpage/2213144559" title="https://km.sankuai.com/collabpage/2213144559"><span style="font-size:13px">决策树</span></a></strong></span></p>
+</td>
+<td>
+<p><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">各策略节点执行输出的决策，都将汇总于决策加工组件/决策树进行统一加工</span></span><a href="children/分层场景：决策加工组件__1409924045/index.html" title="https://km.sankuai.com/collabpage/1409924045">分层场景：决策加工组件</a><a href="https://km.sankuai.com/collabpage/2213144559" title="https://km.sankuai.com/collabpage/2213144559">分层场景：决策树</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span style="font-size:13px"><strong>短路条件</strong></span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">「路由条件组件」中的一个配置项。如果开启短路条件，执行到该节点时会优先判断短路条件是否满足，满足则短路，不再往下路由。不满足则继续判断路由条件来决定是否向下个策略节点路由。</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:13px"><strong>引线</strong></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">连接各个组件的线，决定了请求的执行走向。在路由条件组件与下方策略节点的引线上，需要选择该条引线判断的是路由条件的哪个分支。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:13px"><a href="children/分层场景：补偿执行__1610062169/index.html" title="https://km.sankuai.com/collabpage/1610062169"><span style="font-size:13px"><strong>补偿执行</strong></span></a></span></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">策略分层执行的方式是将更重要能快速判断出结果的策略优先执行（类似名单/基础参数判断等），复杂且高耗时的规则后执行或不执行，因此在实时链路中就会存在一些未执行的策略，异步补偿就是将这部分本应执行完成，但因为分层未执行的部分在异步链路重新执行。</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span style="font-size:13px"><strong>用例测试</strong></span></span></p>
+</td>
+<td>
+<p><span><span style="font-size:14px">分层场景各个节点部署完成后，需要经过整体测试才能发布生效。用例测试就是使用构造的json/真实的request传参内容，来模拟执行分层场景，观察执行结果是否符合期望的输出。</span></span></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-323">三、使用指南</h1>
+<details>
+<summary><span style="color:rgb(56, 136, 255)">分层场景宣讲记录</span></summary>
+<div>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/1333731150/117168670618?contentType=1">video1721017296.mp4</a></figcaption></figure>
+<p></p>
+<p></p>
+</div>
+</details>
+<p><strong>分层场景中依旧需要使用规则和规则组实体来组成策略节点。因此在使用分层场景之前，依旧按当前方法配置好规则、决策与规则组，再将其引用到分层场景的各个策略节点中。</strong></p>
+<p>下面以一个分层场景的部署流程来分别介绍分层场景的各个功能模块：<br><img src="assets/d443059f07194c83.svg" width="655" height="327" alt="流程图"></p>
+<h2 id="section-338">3.1 管理列表</h2>
+<details>
+<summary><span style="color:#3888FF">展开查看功能详情</span></summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">功能模块</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">管理列表</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">菜单：策略部署-分层场景</span></p>
+<p><span style="font-size:15px">1.筛选/搜索说明</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:15px">列表项目</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:15px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">分层场景</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">输入id/名称，模糊搜索查找项目（同目前的普通场景列表）</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">规则/规则组</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">下拉可选规则/规则组，默认是规则。第2个下拉框可输入id/名称筛选出选项供点击。（同目前的普通场景列表）</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">MISID</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">支持对创建者/修改者/负责人 mis ID模糊搜索</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">时间</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">可根据创建/最后修改的时间范围来进行筛选（同目前的规则列表）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:15px">模式</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">对场景使用的模式进行筛选，详见：</span><span style="font-size:15px"><a href="https://km.sankuai.com/collabpage/1861016812" title="https://km.sankuai.com/collabpage/1861016812">说明：模式切换</a></span></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="font-size:15px">2.列表项目说明</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:15px">列表项目</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:15px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">分层场景ID</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">一个分层场景的唯一标识</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">场景名称</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">名称，点击后可进入该场景</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">当前生效版本的详情预览页</span></span><span style="font-size:15px">。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">场景备注</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">场景备注信息</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">版本</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">从v0开始递增，点击后抽屉展示详细版本信息。可查看历史版本的内容。</span></p>
+<p>升级：用户基于已有版本，主动点击「升级」进行升版操作，新升级出来的版本可以进行所有生效策略变更操作。<br>上线：用户可点击非使用中的版本「上线」，进入发布任务中对于分层场景版本进行切换上下线</p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">负责人</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">负责人：每个分层场景可以有一个负责人的misID，区别于创建人和最后修改。对该分层场景拥有</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">删除，可接收到分层场景每次迭代版本的通知</span></span><span style="font-size:15px">。除了创建者在创建时可以定义该场景的负责人以外，负责人的变更都只能由</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">空间管理员&amp;当前负责人</span></span><span style="font-size:15px">操作。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:15px">模式</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">详见：</span><span style="font-size:15px"><a href="https://km.sankuai.com/collabpage/1861016812" title="https://km.sankuai.com/collabpage/1861016812">说明：模式切换</a></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">创建</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">记录创建改的时间与提交者mis号</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">最后修改</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">该条记录最后一次修改的时间与提交者mis号</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">操作</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">修改信息：可修改场景名称、场景备注与负责人（支持多个，英文逗号隔开）</span><br>版本管理：可对版本上下线、升级进行操作</p>
+</td>
+</tr>
+</table>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/856aa2af71b4263e.png" width="1108.68" height="600" alt="image.jpeg"></p>
+<p><img src="assets/0221b7f20bb00c36.png" width="1111.48" height="600" alt="image.jpeg"></p>
+<p><img src="assets/9a8ed42a408e729f.png" width="1112.12" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h3 id="section-509">分层场景的版本与状态</h3>
+<img src="assets/65007d22d51846db.svg" width="390" height="372" alt="流程图">
+<h3 id="section-511">如何上线一个新的分层版本</h3>
+<table>
+<tr>
+<th>
+<p>Step1:打开版本管理抽屉</p>
+</th>
+<th>
+<p>Step2:点击需要切换到的版本数据行的「上线」</p>
+</th>
+<th>
+<p>Step3:创建发布任务</p>
+</th>
+<th>
+<p>Step4:完成发布任务配置，灰度上线</p>
+</th>
+<th>
+<p>Step5:完成发布，切换完成</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>入口：点击操作列-「版本管理」/ 版本列数字超链</p>
+</td>
+<td>
+<p>希望将由V0版本升至V1版本</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">注意：创建发布任务后将直接跳转Step4页面，并默认将点击切换的版本上线添加到变更内容中</span></p>
+</td>
+<td>
+<p>完成发布任务配置，并上线</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><img src="assets/a9184ff0744ea2c9.png" width="1205.65" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/efc3c17a4b9af49e.png" width="336" height="168" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/51c7ad31814f6565.png" width="1203.14" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/1bd2d7332a122912.png" width="1204" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/a9b7d5fde74a61f2.png" width="335" height="161" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p></p>
+<h2 id="section-554">3.2 预览状态</h2>
+<details>
+<summary><span style="color:#3888FF">展开查看功能详情</span></summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">功能模块</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">预览态</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1.路径：查看当前版本的分层场景的详情时/查看分层场景的历史版本</span></p>
+<p><span style="font-size:14px">2.说明</span></p>
+<ul>
+<li><span style="font-size:14px">与普通场景不同的是，分层场景有【编辑态】概念。策略必须在场景编辑态下部署好，选择保存到线上才会正式启用。历史版本和草稿中的编辑内容，</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">都不是真正在线上运行的分层场景</span></span><span style="font-size:14px">。</span></li>
+<li>
+<p><span style="font-size:14px">预览态下 树结构不可编辑，但允许点击节点，查看节点内的详细内容。</span></p>
+</li>
+<li>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">***历史版本的预览态，顶部没有删除和编辑按钮。</span></span></p>
+</li>
+</ul>
+<p><span style="font-size:14px">3.按钮：</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:14px">按钮</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">返回</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">回到上一页。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">退出</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">回到列表页。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">编辑</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">进入编辑态，优先判断有无其他人在编辑，有则弹窗提示xxx正在编辑，并拦截本次操作。</span></p>
+<p><span style="font-size:14px">若无他人在编辑，则会提示用户是在上一个草稿的基础上进行编辑，还是废弃原草稿，另起一个草稿。</span></p>
+<p><span style="font-size:14px">若当前编辑操作为新生效版本的第一次编辑，则直接进入编辑态，将作为首个草稿。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">删除</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">非负责人点击删除时，将有toast报错拦截删除动作。</span></p>
+<p><span style="font-size:14px">负责人操作时，将有二次确认弹窗。</span></p>
+</td>
+</tr>
+</table>
+<p><span style="font-size:14px">4.草稿介绍：</span></p>
+<ul>
+<li><span style="font-size:14px">对于所有操作用户来说，一个分层场景的同一版本仅会保存</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">一个公共草稿</span></span><span style="font-size:14px">。</span></li>
+</ul>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/68e086f813b81ade.png" width="1105.54" height="600" alt="image.jpeg"></p>
+<p><img src="assets/7d3433d219b30e6d.png" width="1105.9" height="600" alt="image.jpeg"><img src="assets/46b34064ac8aa306.png" width="1198.13" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h2 id="section-655">3.3 新建与编辑</h2>
+<details>
+<summary><span style="color:#3888FF">展开查看功能详情</span></summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">功能模块</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">新建/编辑态</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">菜单：策略部署-分层场景-新建</span></p>
+<p><span style="font-size:14px">点击新建分层场景，在弹窗中输入场景名称、场景备注与负责人。</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">点击确定将生成初始的生效版本V0，此时为一棵空树（无任何策略节点、路由），在列表中出现。用户可以点击预览，进入编辑。</span></span></p>
+<p><span style="font-size:14px">1.新建态页面布局</span></p>
+<details>
+<summary><span><span style="font-size:14px">页面布局</span></span></summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:14px">区域</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">页面顶部</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">从左至右：返回键，场景名称与id，一键更新，退出，保存草稿，用例测试</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">画布左侧</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">工具栏（收起键）</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">画布右侧</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">抽屉区，用来展示场景/各组件的详情信息。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">画布中间</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">树的主体主要放在中间预览，支持组件的拖拉拽删。</span></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<p><span style="font-size:14px">2.按钮说明</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:14px">按钮</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">返回（左箭头）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同退出，回到预览态。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">退出</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">退出编辑态，回到预览态。退出前会给弹窗二次确认「</span><span style="color:rgb(81, 196, 27)"><span style="font-size:14px">是否将当前编辑内容保存为草稿并退出？</span></span><span style="font-size:14px">」——取消/直接退出/保存并退出</span></p>
+<p><img src="assets/2bb6c09fb18d76cb.png" width="331" height="162" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">保存草稿</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">将当前编辑的内容存至草稿，覆盖原草稿。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">用例测试</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">进入用例测试页，进入前先校验是否分层场景无结构问题。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">快捷键-放大</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">将画布页面放大</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">快捷键-缩小</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">将画布页面缩小</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">快捷键-实际尺寸</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">将画布尺寸展示为实际大小</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">快捷键-适应屏幕</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">将画布尺寸适应屏幕展示</span></p>
+</td>
+</tr>
+</table>
+<p><span style="font-size:14px">3.从预览态进入编辑态时，会提示是否使用之前保存的草稿，还是另起一个草稿。</span></p>
+<p><img src="assets/34053dbd47f9f050.png" width="320" height="157" alt="image.jpeg"></p>
+<p><span style="font-size:14px">编辑态与草稿</span></p>
+<img src="assets/4a60b0bec1e99cdb.svg" width="344" height="223" alt="流程图">
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/151c2024215c04f7.png" width="649" height="352" alt="image.jpeg"></p>
+<p><img src="assets/fce2fa7deef27d4a.png" width="645" height="409" alt="image.jpeg"></p>
+<p><img src="assets/bea2ed7a1297a852.png" width="645" height="365" alt="image.jpeg"></p>
+<p></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h3 id="section-817">3.3.1 识别树</h3>
+<h4 id="section-818">a ) 组件：策略节点</h4>
+<details>
+<summary>展开</summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">功能模块</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">策略节点</span></p>
+<p><span style="font-size:14px">组件</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1.概念说明</span></p>
+<p><span style="font-size:14px">策略节点：分层场景的根节点与末端。</span><span><span style="font-size:14px">规则/规则组的集合，部署操作类似普通场景，但仅归此分层场景所有，不支持跨分层场景共享。</span></span></p>
+<p></p>
+<p><span style="font-size:14px">2.操作说明</span></p>
+<ul>
+<li>
+<p><span style="font-size:14px">拖拽：第一个拖进树的组件必须为策略节点。使用引线与上下层的路由条件组件相连。用例测试时，会检验有无断开的节点。成功在屏中拖拽出一个策略组件，将默认展开节点详情（右侧抽屉），在树中单击任意组件，右侧即切换为该组件的详情。</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">连线：策略节点组件上下各有一个空心圆，代表该节点可以连接1条线。【1进1出，上方只能与路由组件输出连接，下方只能与路由组件输入连接】鼠标点按组件下方的圆形，拖动到下方层组件上方圆形处即可建立连线。</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">清除：右键组件，点击删除后将该节点从分层场景中清除。对引线也可右键，点击删除即可删除策略节点之间的连线</span></p>
+</li>
+</ul>
+<p></p>
+<p><span style="font-size:14px">3.策略节点详情</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:14px">项</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="3" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">基本信息</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">名称</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">可编辑，在分层场景保存生效时真正生效。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">备注</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">可编辑，在分层场景保存生效时真正生效。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">其他说明</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">在组件左侧，有一个数字即为该组件在该分层场景中的编号ID，查询日志时可以根据ID定位到规则出自于哪个组件。</span></p>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">规则信息</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">添加规则</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">编辑态下有该按钮，点击后增加一张卡片，输入规则ID/名称选择规则（右侧详情按钮链接到当前选中规则的详情页），可编辑状态、决策等，也可点击删除，清除该规则配置卡片。</span></p>
+<p><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">1.普通场景中的一条规则决策配置在策略节点里对应1个卡片</span></span></p>
+<p><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">2.策略节点的卡片里没有优先级（层级和路由决定执行优先级）和衍生参数（仅在路由场景中才使用）</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">添加规则组</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">编辑态下有该按钮，点击后增加一张卡片，输入规则组ID/名称选择规则组（右侧详情按钮链接到当前选中规则组的详情页），可编辑组内规则的状态，可进行整组卡片的删除。</span></p>
+<p><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">1.普通场景中的一个规则组在策略节点里对应1个卡片，含有多条规则。</span></span></p>
+<p><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">2.在策略节点中引用规则组，</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">不可进行配置微调</span></span><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">，即规则组本体携带的规则配置将全部随规则组应用到具体节点中，用户</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">不可在节点中增/删规则，也不可编辑决策、附加信息等配置项</span></span><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">，只能选择该条配置的状态。对于组中不需要使用的规则，直接</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">置为离线</span></span><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">即可。</span></span></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="font-size:14px">4.其他</span></p>
+<p><span style="font-size:14px">点击用例测试的时候，若存在策略节点有卡片没有配置好（没选规则，没选决策），会提示某节点未ok，需要用户完善</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/72d17a860701edb6.png" width="649" height="371" alt="image.jpeg"></p>
+<p><span style="font-size:14px">添加单规则</span></p>
+<p><img src="assets/98e2a4f3577ff77a.png" width="649" height="374" alt="image.jpeg"></p>
+<p><span style="font-size:14px">添加规则组</span></p>
+<p><img src="assets/45374c78544a8e0f.png" width="649" height="380" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h4 id="section-958">b ) 组件：路由条件</h4>
+<p>详见<a href="https://km.sankuai.com/collabpage/1341421659" title="https://km.sankuai.com/collabpage/1341421659">分层场景：路由条件组件</a></p>
+<h4 id="section-961">c ) 组件：决策加工</h4>
+<p> 详见<a href="children/分层场景：决策加工组件__1409924045/index.html" title="https://km.sankuai.com/collabpage/1409924045">分层场景：决策加工组件</a>【仅3空间使用，其余空间已更新为决策树使用方式】</p>
+<h3 id="section-964">3.3.2 决策树</h3>
+<p>详见 <a href="https://km.sankuai.com/collabpage/2213144559" title="https://km.sankuai.com/collabpage/2213144559">分层场景：决策树</a></p>
+<h3 id="section-967">3.3.3 用例测试</h3>
+<details>
+<summary>展开</summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">功能模块</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">用例测试</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1.概念说明</span></p>
+<p><span><span style="font-size:14px"><strong>用例测试</strong></span></span><span><span style="font-size:14px">：分层场景各个节点部署完成后，需要经过整体测试才能发布生效。用例测试就是使用构造的json/真实的request传参内容，来模拟执行分层场景，观察执行结果是否符合期望的输出。</span></span></p>
+<p><span style="font-size:14px">如下图所示，分层场景在编辑态下，如果需要保存生效，必须用例测试是「已就绪」状态。需要下面3个条件都满足。</span></p>
+<ul>
+<li>
+<p><span style="font-size:14px">逻辑状态：树没有断开的节点，或末端缺少策略节点。</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">节点：策略节点——所有规则卡片都无必填未填情况；路由组件——短路和路由表达式都无语法逻辑问题，引用参数合法。</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">用例测试状态：有新的测试通过的记录。</span></p>
+</li>
+</ul>
+<p><span style="font-size:14px">前两个条件，在点击用例测试的时候会校验，必须满足才可进入用例测试。第三个条件需要在用例测试里产生新的通过记录。</span></p>
+<p></p>
+<p><span style="font-size:14px">2.用例测试页</span></p>
+<p><span style="font-size:14px">点击用例测试按钮，进入用例测试页。进入的同时会帮用户保存草稿。</span></p>
+<p><span style="font-size:14px">页面介绍：</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:14px">项</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">基本信息</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">分层场景</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">ID+名称</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">用例测试状态</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">未就绪/就绪</span></p>
+</td>
+</tr>
+<tr>
+<td rowspan="5" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">测试</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">Json</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">默认该模式，下方支持输入/粘贴Json</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">Request ID</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">选择该模式后，下方出现Request ID输入框</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">期望输出</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">在此处输入期望的决策ID结果，</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">字符串型，多个用英文逗号连接。 例如：6, 357, 21</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">一键测试</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击该按钮，将会弹窗告知本次的测试结果，支持查看本次请求在各个组件中的命中情况。</span><br><span style="font-size:14px">历史测试结果中增加一项测试记录。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">历史测试结果</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">测试用例：默认收起，点击展开详情会展示详细输入的json。</span></p>
+<p><span style="font-size:14px">查看报告：点击查看报告，进入报告详情页。</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="font-size:14px">3.测试报告</span></p>
+<p><span style="font-size:14px">测试报告页中，依旧以图形式展示策略体系。可以点击各个组件，查看各个组件规则命中、路由条件命中的结果或是决策加工的结果。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="font-size:14px">有蓝色定位icon的策略节点代表该请求经过的节点，可帮助用户快速定位。</span></p>
+</div>
+</div>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:14px">项</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">策略节点</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">决策输出总览：代表此节点命中输出的所有决策ID；</span></p>
+<p><span style="font-size:14px">命中规则/规则组：平铺命中的规则（生效与标记）。</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">注意：标记态无决策输出。</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">路由条件</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">对应的短路条件和分支条件下方会显示是否命中。</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="font-size:14px">4.生效场景到线上</span></p>
+<p><span style="font-size:14px">有通过测试的最新用例后，点击完成，将弹窗提示用户准备发布生效。</span></p>
+<p><span style="font-size:14px">此时测试状态为已就绪。</span></p>
+<p><span style="font-size:14px">用户点击【生效】后即可将当前的草稿内容发布上线成为</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">最新的生效版本</span></span><span style="font-size:14px">。</span></p>
+<p><span style="font-size:14px">若仍旧希望继续编辑，点击【继续编辑】或【x】则停留在用例测试页，状态变为未就绪，可选择回到编辑页继续修改内容，或是继续测试。</span></p>
+<p><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">若在没有通过的用例的情况下点击完成，则回到编辑页，继续编辑。</span></span></p>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<img src="assets/bd05256ec0878a59.svg" width="327" height="344" alt="流程图">
+<p><span style="font-size:14px">一键测试</span></p>
+<p><img src="assets/3ea8aae72ec6a647.png" width="649" height="244" alt="image.jpeg"></p>
+<p><img src="assets/a09a412d7d0ef736.png" width="649" height="205" alt="image.jpeg"></p>
+<p><span style="font-size:14px">查看测试报告</span></p>
+<p><img src="assets/aaea1ed4388d9bdb.png" width="649" height="362" alt="image.jpeg"></p>
+<p><span style="font-size:14px">历史测试结果</span></p>
+<p><img src="assets/8561d31d218a59f8.png" width="649" height="345" alt="image.jpeg"></p>
+<p><img src="assets/f9289d9b4a522500.png" width="649" height="302" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h2 id="section-1165">3.4 补偿执行</h2>
+<p>详见<a href="children/分层场景：补偿执行__1610062169/index.html" title="https://km.sankuai.com/collabpage/1610062169">分层场景：补偿执行</a></p>
+<h2 id="section-1168">3.5 日志排查</h2>
+<details>
+<summary>展开</summary>
+<div>
+<div class="note">
+<strong></strong>
+<div>
+<p>分层场景的实时链路日志与补偿链路日志，统一在"实时日志"入口查询。</p>
+</div>
+</div>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">日志查询</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">普通场景的日志</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">分层场景的日志</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">图例</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/c76074120da7df16.png" width="284" height="172" alt="原文图片"></p>
+<p><span style="font-size:13px">左图1</span></p>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/5cc01983b8f40326.png" width="234" height="239" alt="image.jpeg"><img src="assets/669d4bb3e4194de6.png" width="311" height="238" alt="image.jpeg"><img src="assets/b72ad7a18e1c5c6d.png" width="256" height="237" alt="image.jpeg"></p>
+<p><span style="font-size:13px">                              右图1                                                                   右图2                                                                     右图3</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">解读</span></p>
+</td>
+<td colspan="2">
+<p><span style="font-size:13px"><strong>1.为什么决策被框起来了？</strong></span></p>
+<p><span style="font-size:13px">决策展示：一个整体决策为独立一行。</span></p>
+<p><span style="font-size:13px">因为分层场景具备决策合并能力，组合模式下常输出拼接后的</span><span style="color:#FF4A47"><span style="font-size:13px">决策串</span></span><span style="font-size:13px">，一串将会被框起来代表是一个整体。框内部的每个决策由“，”或“｜”连接。</span></p>
+<p><span style="font-size:13px">若一串决策过长则展示上 会取到此行展示得下的最后一个符号，再换行。所以请留意一行是否是</span><span style="color:rgb(255, 74, 71)"><span style="font-size:13px">符号结尾</span></span><span style="font-size:13px">，是 则说明下一行此行的连续内容。</span></p>
+<p></p>
+<p><span style="font-size:13px"><strong>2.为什么[右图1]中已经有了一行组合决策，又单独有一行【加入K-V库】的决策？</strong></span></p>
+<p><span style="font-size:13px">加入K-V库是单个的【异步决策】，不参与合并，命中输出即会执行。</span></p>
+<p></p>
+<p><span style="font-size:13px"><strong>3.为什么右图中有些决策有尾缀【异补】二字？</strong></span></p>
+<p><span style="font-size:13px">补偿链路执行的所有决策都含有【异补】尾缀。注意：如</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:13px">果某决策在实时和异步补偿</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:13px">都有输出</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:13px">，就</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:13px">不展示尾缀</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:13px">；</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:13px">只在异步</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:13px">输出，才</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:13px">展示尾缀【异补】</span></span></p>
+<p></p>
+<p><span style="font-size:13px"><strong>4.为什么有的尾缀【异补】的决策是灰色的底纹？</strong></span></p>
+<p><span style="font-size:13px">由于补偿链路的【普通决策】并不会输出给下游，仅落日志做记录，所以展示为灰色，意味着这个决策zeus并不会吐出给调用方。【异步决策】例如写kv，不管在实时还是补偿链路中命中，都会输出执行，因此不会出现灰色底情况。</span></p>
+<p></p>
+<p><span style="font-size:13px"><strong>5.补偿决策栏的内容是什么含义？</strong></span></p>
+<p><span style="font-size:13px">分层场景通过</span><span style="font-size:13px"><a href="children/分层场景：决策加工组件__1409924045/index.html" title="https://km.sankuai.com/collabpage/1409924045#id-3.4%20%E8%A1%A5%E5%81%BF%E5%86%B3%E7%AD%96"><span style="font-size:13px">补偿决策配置</span></a></span><span style="font-size:13px">可以将补偿输出的【普通决策】转化为【异步决策】，然后输出给下游。此处展示的就是转化出来的决策。由于来自补偿链路，因此一定都带【异补】尾缀。</span></p>
+<p></p>
+<p><span style="font-size:13px"><strong>6.生效规则前的数字代表什么？</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:13px">在普通场景日志中</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:13px">展示规则优先级</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:13px">的标识，但在分层场景日志中（没有规则优先级概念）这个数字代表</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:13px">【分层场景内的组件ID】</span></span><span style="font-size:13px">；</span></p>
+<p></p>
+<p><span style="font-size:13px"><strong>7.规则尾部</strong></span><span style="color:rgb(245, 35, 45)"><span style="font-size:13px"><strong>【异补】后缀</strong></span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:13px"><strong>代表什么含义？</strong></span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:13px">代表这条规则在补偿链路中执行（并没有在实时链路中执行到）</span></span></p>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:13px"><strong>8.参数与因子有forworker后缀是什么含义？</strong></span></span></p>
+<p><span style="font-size:13px">【异步补偿中的生效/标记规则】与【实时链路中的标记规则】涉及到的参数、因子后增加</span><span style="color:rgb(245, 35, 45)"><span style="font-size:13px">forworker</span></span><span style="font-size:13px">后缀</span></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h2 id="section-1308">3.6 规则组联动机制</h2>
+<details>
+<summary>展开</summary>
+<div>
+<div class="note">
+<strong></strong>
+<div>
+<p>基于安全发布管理，规则组本体的联动与普通场景中有所区别，<span style="color:rgb(245, 35, 45)">变更不会直接同步到线上的分层场景。</span></p>
+</div>
+</div>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">说明</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">分层场景和普通场景的迭代流程不同：分层场景有草稿态，每次迭代需要发布上线。因此如果规则组联动直接生效到所有分层场景，风险敞口较大。</span></span></p>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">因此分层场景中规则组联动机制如下：</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">1.规则组本体变更</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">2.分层场景线上生效版本不变，依旧以过去添加规则组时的快照作为执行内容。</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">3.分层场景草稿编辑中，需要点击【一键更新】将</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">最新的规则组本体的内容</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">同步到此分层场景中，用例测试之后，发布生效。</span></span></p>
+</td>
+<td>
+<img src="assets/8db91f40073b6b37.svg" width="602" height="365" alt="流程图">
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1.编辑态下有【一键更新】按钮，点击后可将当前分层场景中的各个规则组更新至最新状态（与本体保持一致）。</span></p>
+<p><span style="font-size:14px">组中新增规则：状态默认【离线】</span></p>
+<p><span style="font-size:14px">组中变更规则：状态维持原状态</span></p>
+<p><span style="font-size:14px">组中删除规则：对应在分层场景的规则组中也被删去</span></p>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">2.在用户点击保存草稿/用例测试时，将会自动校验当前草稿中各个规则组是否已经更新完成。否则会提示用户进行【一键更新】后才允许进行用例测试。</span></span></p>
+</td>
+<td>
+<p><img src="assets/020d5f6986be6ea6.png" width="597" height="293" alt="image.jpeg"></p>
+<p><img src="assets/ced68aed7aec691a.png" width="593" height="301" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h2 id="section-1370">3.7 多人编辑限制</h2>
+<details>
+<summary>展开</summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">说明</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">分层场景迭代直接影响线上风控效果，因此不支持多人同时编辑避免内容冲突引发的风险问题：</span></p>
+<ol>
+<li><span><span style="font-size:14px">进入编辑态，系统将判断有无其他人在编辑，有则弹窗提示并拦截本次操作。用户可以根据提示信息找到对应的同学商量安排各自的操作时间。</span></span></li>
+<li><span style="font-size:14px">为防止用户编辑过程中忘记，当一位用户在分层场景编辑态下停留过长（超过3小时），将被自动踢出编辑态。此时将不再阻止其他人进入编辑。</span></li>
+<li><span style="font-size:14px">踢出编辑态的效果为所有操作按钮都被锁定，用户只能点击【退出】。</span></li>
+<li><span style="font-size:14px">用例测试页也属于编辑态。</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/edf3a6d70670f309.png" width="618" height="236" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h2 id="section-1401">3.8 搜索</h2>
+<details>
+<summary>展开</summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">说明</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">在分层场景的预览页&amp;编辑页，右上角按钮支持搜索。</span></p>
+<p><span style="font-size:14px">点击出现抽屉，输入搜索条件，点击搜索。</span></p>
+<p><span style="font-size:14px">搜索结果，会将符合的节点，打上</span><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">蓝色定位icon</span></span><span style="font-size:14px">，</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px"><u>节点内将仅展示符合搜索条件的相关策略。</u></span></span></p>
+<p><span style="font-size:14px">若希望恢复搜素前的全量展示内容，请点击右上角【搜索重置】</span></p>
+<p></p>
+<p><span style="font-size:14px">编辑态下的搜索功能使用流程相同，不做赘述。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="font-size:14px">注意：编辑态下，由于搜索内容都是从草稿中获取的，为保障用户可以搜索到最新编辑后的内容，点击搜索将自动触发保存草稿。</span></p>
+<p><span style="font-size:14px">若当前场景有组件未ready而导致无法保存，则会限制搜索的使用。</span></p>
+</div>
+</div>
+<p></p>
+</td>
+<td>
+<p><img src="assets/208673ba91777b36.png" width="1092" height="600" alt="image.jpeg"></p>
+<p><img src="assets/79e4dc8afaba6034.png" width="1149" height="600" alt="image.jpeg"></p>
+<p><img src="assets/2e44bfdd916921ae.png" width="1098" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h2 id="section-1449">3.9 发布管控</h2>
+<p>详见：<a href="https://km.sankuai.com/collabpage/2025859042" title="https://km.sankuai.com/collabpage/2025859042">分层场景发布管控说明</a></p>
+<h1 id="section-1452">四、FAQ</h1>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">问题</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140)">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">答</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">分层场景的配套周边功能当前支持情况？</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.分层场景的日志查询——已支持</span></p>
+<p><span style="font-size:14px">2.分层场景的规则组联动——已支持</span></p>
+<p><span style="font-size:14px">3.分层场景的熔断——已支持，详见：</span><a href="../说明：规则熔断__1091686902/index.html" title="https://km.sankuai.com/page/1091686902#id-3.3%E5%88%86%E5%B1%82%E5%9C%BA%E6%99%AF%E7%86%94%E6%96%AD%E9%85%8D%E7%BD%AE"><span style="font-size:14px">分层场景的规则熔断</span></a></p>
+<p><span style="font-size:14px">4.分层场景的排查探针——暂不支持</span></p>
+</td>
+</tr>
+</table>
+<div class="note">
+<strong>分层场景迭代预告🎉</strong>
+<div>
+<p>后续分层场景将升级决策加工组件为分层场景-决策树，并提供识别树/决策树模板能力帮助各位用户快速配置</p>
+<table>
+<tr>
+<th>
+<p>识别树</p>
+</th>
+<th>
+<p>决策树</p>
+</th>
+</tr>
+<tr>
+<td>
+<p><img src="assets/bd40bd0fd682d581.jpg" width="563" height="255" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/cd43ea8196621660.jpg" width="1091" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:22px">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/分层场景：补偿执行__1610062169/index.html">分层场景：补偿执行</a> <span class="status">已保存</span></li><li><a href="children/分层场景：决策加工组件__1409924045/index.html">分层场景：决策加工组件</a> <span class="status">已保存</span></li><li><a href="https://km.sankuai.com/collabpage/2213144559">分层场景：决策树</a> <span class="pending">待后续保存</span></li><li><a href="https://km.sankuai.com/collabpage/1341421659">分层场景：路由条件组件</a> <span class="pending">待后续保存</span></li><li><a href="https://km.sankuai.com/collabpage/2254837925">分层场景识别模板使用说明</a> <span class="pending">待后续保存</span></li></ul></section></main></body></html>

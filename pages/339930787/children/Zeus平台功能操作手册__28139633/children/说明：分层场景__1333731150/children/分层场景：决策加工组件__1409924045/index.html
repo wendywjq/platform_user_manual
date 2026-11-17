@@ -1,0 +1,331 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>分层场景：决策加工组件</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-8">一、背景</a><a href="#section-18">二、名词解释</a><a href="#section-51">三、使用指南</a><a href="#section-52">3.1 添加决策加工组件</a><a href="#section-77">3.2 决策加工逻辑</a><a href="#section-137">3.3 决策合并单点测试</a><a href="#section-166">3.4 补偿决策</a><a href="#section-247">3.5 用例测试与测试结果</a><a href="#section-297">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：分层场景</a> / <a href="index.html">分层场景：决策加工组件</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1409924045">查看学城原文</a></p><article>
+<h1>分层场景：决策加工组件</h1>
+<div style="none"></div>
+<div class="note">
+<strong>预期六月初，分层场景将升级决策加工组件为分层场景-决策树，支持复杂决策合并自定义编排，原决策加工组件将下线。</strong>
+<div>
+<p><img src="assets/ccedf006fc7fa2b2.jpg" width="785" height="429" alt="image.jpeg"></p>
+</div>
+</div>
+<h1 id="section-8">一、背景</h1>
+<p><span style="font-size:15px">当前决策输出的一些现状总结如下：</span></p>
+<ul>
+<li><span style="font-size:15px">Zeus现支持规则执行结果的实时返回，但对于一个请求下执行多条规则会返回多个决策，即决策list。业务侧需要自己进行决策信息的汇总、合并以及取唯一值。对于通过Tatooine接入Zeus的业务（交易、账户、UGC等），由Tatooine提供固定的决策合并服务。但对于这部分用户来说，决策汇总逻辑是黑盒的，都在研发的硬编码中，进而导致涉及决策异常的排查定位困难、时间长。</span></li>
+<li><span style="font-size:15px">对于部分策略团队（如账户），过去使用【规则优先级+组合决策】的模式，在想要调整最终输出决策时，不够灵活。比如难以解决验证决策的可验性再下发，难以解决不同风险域下决策优先级高低不同的问题。</span></li>
+<li><span style="font-size:15px">另外，在分层场景中，在补偿链路执行命中的拦截，已无法给实时链路输出，希望能转化为执行「踢出登录态」等异步动作对实时链路中放行的流量进行补偿处置。</span></li>
+</ul>
+<h1 id="section-18">二、名词解释</h1>
+<table>
+<tr>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:15px">名词</span></span></p>
+</th>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:15px">解释</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px"><a href="../../index.html" title="https://km.sankuai.com/page/1333731150"><strong>分层场景</strong></a></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">新的规则集合实体，对标过去一个普通场景，在场景内支持以层级关系+路由条件组织成树状的执行链路，使场景内策略达到分层执行的效果。因超时（或短路）未执行的链路将获得</span><span style="font-size:15px"><strong>补偿</strong></span><span style="font-size:15px">。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px"><strong>决策加工</strong></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">分层场景里的一种组件，各策略节点执行输出的决策，都将汇总于决策加工组件进行统一加工输出</span></p>
+<p><span style="font-size:15px">对整个分层场景各个节点输出的决策进行统一合并、过滤等处理。可在组件内选择加工模式、设置补偿决策（实时链路中因短路/超时未输出的普通决策，若在补偿链路命中，则可以转化为异步决策进行补偿输出）。</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-51">三、使用指南</h1>
+<h2 id="section-52">3.1 添加决策加工组件</h2>
+<table>
+<tr>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>进入分层场景编辑态</p>
+<p>拖动决策加工组件到画布空白区域，即可完成添加。</p>
+<p>添加完成后在画布左上角形成固定区域——决策加工区，可点击组件编辑详细内容（可根据需要拉宽）</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>一个分层场景至多使用1个决策加工组件，因此拖出去后工具栏中的决策加工组件消失。如果想弃用加工组件，可以右键决策加工区，点击删除。</p>
+</div>
+</div>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/b8d6cb34bcf731d7.png" width="289" height="150" alt="image.jpeg"><img src="assets/846aa003eeb43f07.png" width="283" height="156" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-77">3.2 决策加工逻辑</h2>
+<table>
+<tr>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p>组件详情中选择决策加工逻辑：单决策or组合决策</p>
+<p>合并依据：决策优先级</p>
+<p>合并对象：分层场景中的所有决策</p>
+<p>合并模式：单决策模式 / 组合模式</p>
+<p></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>平台给每个业务空间默认选择了1种合并模式。</p>
+</div>
+</div>
+<p>1.不启用：命中规则对应的决策全输出，返回调用方决策List和所有命中details</p>
+<p></p>
+<p>2.单决策模式：</p>
+<ul>
+<li>获取命中生效规则的决策</li>
+<li>去重</li>
+<li>取优先级最高优先级决策</li>
+<li>相同优先级随机取1个</li>
+<li>返回单决策和所有命中details</li>
+</ul>
+<div class="note">
+<strong></strong>
+<div>
+<p>适用于：交易安全、UGC营销、内容安全</p>
+</div>
+</div>
+<p></p>
+<p>3.组合模式：</p>
+<ul>
+<li>获取命中生效规则的决策</li>
+<li>组合决策拆分（如有配组合决策的话）</li>
+<li>Yoda可验证性过滤<sup id="6d7b26dc-6135-45d5-b259-fc1fe4c88679"></sup></li>
+<li>取优先级最高优先级决策</li>
+<li>相同优先级则都取</li>
+<li>决策拼接：<span style="color:rgb(0, 0, 0)">先按照同规则一组，将决策分好组，组内（即来自同规则）用“，”拼接，有重复则去除。组间（来自不同规则）用“｜”连接，若两组内容完全一致，则去重。</span></li>
+<li>返回拼接决策和所有命中details</li>
+</ul>
+<div class="note">
+<strong></strong>
+<div>
+<p>适用于：账户安全</p>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/59145dad7da96550.png" width="993" height="600" alt="image.jpeg"></p>
+<p>单决策模式 执行逻辑</p>
+<img src="assets/01a6434bd01c151c.svg" width="1246" height="556" alt="流程图">
+<p><blockquote>组合模式 执行逻辑</blockquote></p>
+<img src="assets/1b35099894447c0d.svg" width="1528" height="786" alt="流程图">
+</td>
+</tr>
+</table>
+<h2 id="section-137">3.3 决策合并单点测试</h2>
+<table>
+<tr>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p>为什么要进行单点测试？</p>
+<p>——对决策加工组件的能力进行mock，测试执行逻辑是否符合预期</p>
+<p>如何进行单点测试？</p>
+<p>——在逻辑测试中点击【决策加工逻辑测试】</p>
+<ul>
+<li>添加用例：模拟 场景命中的规则以及产出的<u>决策id</u>，可点击【+】添加多条</li>
+<li>期望输出：在普通决策和异步决策（<span style="color:rgb(255, 74, 71)">概念见</span><a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：决策__1608157813/index.html" title="https://km.sankuai.com/collabpage/1608157813#id-%E4%BA%8C%E3%80%81%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A">说明：决策</a>）中分别填入目标输出，多个请用英文“,”连接。若目标为空，则不需要填入。若为单决策模式，普通决策是单个决策ID；若为组合模式，普通决策请根据合并逻辑输入用 "," 或 "|" 连接的决策ID串。</li>
+<li>⚠️ 决策过滤：账户安全默认的组合模式下，实际会执行Yoda可验证性过滤，因此此处支持用户模拟需要过滤掉的决策list。用英文“,”连接决策id，这些决策将在合并前被剔除。剩下的决策才会参与合并。</li>
+<li>获取测试结果：点击获取测试结果，将告知本次模拟是否符合预期，测试是否成功。下方可以查看当前测试的实际输出结果。</li>
+</ul>
+</td>
+<td>
+<p><img src="assets/cae25abb0f1fb0eb.png" width="696" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-166">3.4 补偿决策</h2>
+<table>
+<tr>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><a href="../分层场景：补偿执行__1610062169/index.html" title="https://km.sankuai.com/collabpage/1610062169">分层场景：补偿执行</a><span style="color:rgba(0, 0, 0, 0.9)">中，命中的【普通决策】无法输出给调用方。因为实时链路中的普通决策结果已经实时下发了，补偿链路在异步执行完后再下发【普通决策】输出无意义。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">因此补偿链路中如果识别到了风险，产出的【普通决策】会期望能够以其他方式追加作用给下游。比如将【拦截】（普通决策）转化为【踢出登陆态】（异步决策）。——</span><span style="color:#FF4A47">此时【踢出登陆态】就是【拦截】的【补偿决策】</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>【例子】</p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">账户在【实时链路】中某条策略的决策配置【拦截】</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">（from</span>策略节点--规则配置<span style="color:rgba(0, 0, 0, 0.9)">）</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span>规则</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>决策</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>附加信息</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>状态</p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>盗号规则xxx</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>拦截</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>无</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>生效</p>
+</td>
+</tr>
+</table>
+<p><span style="color:rgba(0, 0, 0, 0.9)">但是因为超时没执行到，实时链路实际【放行】了。规则在补偿链路中执行产出了【拦截】，但已经无法给到下游。</span><br><span style="color:rgba(0, 0, 0, 0.9)">那么根据配置好的补偿决策【踢出登陆态】 进行执行：</span></p>
+<p>（from 决策加工组件--补偿配置）</p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span>普通决策</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>补偿决策</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>附加信息</p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>拦截</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>踢出登陆态</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>userid……</p>
+</td>
+</tr>
+</table>
+<p>效果上，风险用户整个旅程为：存在有风险的登陆操作，但是被放行，成功登陆。紧接着不久，就被异步踢出了登录态，阻止了后续的风险。</p>
+</div>
+</div>
+<p>根据上述介绍，结合几类决策特点可知，只有【普通决策】才会需要配置补偿；而只有【异步决策】才可作为【补偿决策】进行配置；</p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">配置方式：补偿决策-点击【增加】，在决策列下拉 选择此分层场景中的具体1个普通决策（或组合决策），为其配置对应的补偿决策（下拉选择一个异步决策）。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>在提交配置的时候会进行冲突校验。不允许各个普通决策（组合决策）配置的补偿有冲突。</p>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/d9737420f1c25a33.png" width="1262" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-247">3.5 用例测试与测试结果</h2>
+<table>
+<tr>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:#0037A6;vertical-align:top">
+<p><span style="color:#FFF"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【用例测试】</p>
+<p>当场景使用了决策加工组件，在用例测试时，会自动展示场景的决策合并模式：单决策模式/组合模式。（各自的合并逻辑见3.2）</p>
+<p>添加用例：可选择<span style="color:rgba(0, 0, 0, 0.9)">Json或RequestID</span></p>
+<ul>
+<li><span style="color:rgba(0, 0, 0, 0.9)">Json：执行时，默认根据输入Json中的参数值，实时地查询累计、名单，计算各类因子值。若输入Json中已给出相关因子值，则执行时直接取用该值，不进行现查询</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.9)">RequestID：根据输入Request ID，查询日志中的参数作为Json送入测试。若需复用日志中的因子结果，可选择【取日志中的参数与因子】，执行时将直接取用日志中的因子值</span></li>
+</ul>
+<p><span style="color:rgba(0, 0, 0, 0.9)">期望输出：将会分为普通决策和异步决策两部分，见3.2。</span></p>
+<p>若认为输出结果中 某类决策不存在，空着即可。</p>
+<p>点击【一键测试】，将会分别比对普通和异步是否符合用户预期。符合则提示通过。可以在提示弹窗&amp;历史测试结果中，点击【查看报告】，以图的视角预览整个场景的命中明细。</p>
+</td>
+<td>
+<p><img src="assets/61659ccb4f5b6c63.png" width="1136.33" height="600" alt="image.jpeg"></p>
+<p><img src="assets/017de0d64c4cb779.png" width="1189.41" height="600" alt="image.jpeg"></p>
+<p><img src="assets/6dadf32084867e3e.png" width="258" height="166" alt="image.jpeg"><img src="assets/96d61389fce0c801.png" width="270" height="163" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【测试结果】</p>
+<p>测试报告页中，依旧以图形式展示策略体系。可以点击各个组件，查看各个组件规则命中、路由条件命中的结果或是决策加工的结果。</p>
+<p>有蓝色定位icon的策略节点代表该请求经过的节点，可帮助用户快速定位。</p>
+<p>点击决策加工组件，右侧抽屉将展示各类决策、附加信息、决策理由的合并输出情况，也会展示合并前的原始list</p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:rgb(44, 62, 80)">线上版本中处于熔断态的规则配置，在用例测试时也会当作熔断态来执行（即标记，不输出决策），请知晓。</span></p>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/9b042e6b83304a19.png" width="1295" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-297">四、FAQ</h1>
+<table>
+<tr>
+<th style="background-color:#0037A6">
+<p><span style="color:#FFF">问题</span></p>
+</th>
+<th style="background-color:#0037A6">
+<p><span style="color:#FFF">答</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgb(0, 0, 0)">什么是</span><span style="color:rgb(255, 74, 71)">Yoda可验证过滤</span><span style="color:rgb(0, 0, 0)">，我的场景在决策合并时有这个步骤么？</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)">目前仅开放给3空间的分层场景，用于账户安全在输出各种验证方式后，统一在yoda进行过滤，排除掉当前设备/用户不支持的验证决策。</span></p>
+</td>
+</tr>
+</table>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:22px">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+<div>
+<p><p>Yoda可验证性过滤：目前仅开放给3空间的分层场景，用于账户安全在输出各种验证方式后，统一在yoda进行过滤，排除掉当前设备/用户不支持的验证决策。</p></p>
+</div>
+</article></main></body></html>

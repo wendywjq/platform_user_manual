@@ -1,0 +1,29 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：名单库因子过期时间</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">风险说明</a><a href="#section-17">名单库因子说明</a><a href="#section-22">名单的过期时间和名单库因子的过期时间区别</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：名单库因子过期时间</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1211214384">查看学城原文</a></p><article>
+<h1>说明：名单库因子过期时间</h1>
+<div style="none"></div>
+<h1 id="section-3">风险说明</h1>
+<p>名单库因子的过期时间为可选配置，<span style="color: ">默认为名单的过期时间</span>，名单的过期时间可以在skywalker平台查询。如果确实需要设置名单库因子的过期时间（<span style="color:rgb(245, 35, 45)"><strong>请慎重考虑！</strong></span>），请确认是否存在<span style="color: ">除了过期时间其他配置都一致的名单库因子。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color: ">如</span>果在一个请求中存在<span style="color: ">除了过期时间其他配置都一致</span>的名单库因子，<span style="color:rgb(245, 35, 45)"><strong>该因子的执行结果会相互覆盖，可能造成业务上的影响，需要自行承担！！！</strong></span></p>
+</div>
+</div>
+<h1 id="section-17">名单库因子说明</h1>
+<p>名单库因子实质上<span style="color:rgb(0, 0, 0)">是对名单库查询的封装</span><span style="color: ">的因子</span>，使用方法请参考文档<a href="../说明：名单库因子使用手册__339769403/index.html" title="https://km.sankuai.com/page/339769403">说明：名单库因子使用手册</a>。</p>
+<h1 id="section-22">名单的过期时间和名单库因子的过期时间区别</h1>
+<p>名单的过期时间和名单库因子的过期时间<span style="color:rgb(0, 0, 0)">不是同一个时间</span>。</p>
+<ul>
+<li>名单过期时间：名单库中名单的过期时间，意为该名单在该时间范围后过期，如果在过期时间后查询，名单库将不会返回过期数据。</li>
+<li>
+<p>名单库因子的过期时间：是指在zeus页面上配置的因子的过期时间，<span style="color:rgb(0, 0, 0)"><strong><u>如果设置了名单库因子的过期时间，那么对于名单数据的查询会以名单库因子的过期时间为准</u></strong></span><strong><u>。</u></strong>举例理解：</p>
+<ul>
+<li>如果<span style="color: "><strong><u>设置了名单库因子的过期时间为3600s</u></strong></span>，名单最近一次的更新时间为2021.8.5 15:00:00，名单<span style="color: "><strong><u>设置永不过期</u></strong></span>，在2021.8.5 16:00:00请求查询名单库，<span style="color: "><strong><u>根据过期时间3600s判断数据失效</u></strong></span>，名单库不会返回该名单库数据，如果在16:00之前请求数据，查询将返回该有效数据。</li>
+</ul>
+</li>
+</ul>
+<p>即<span style="color:rgb(245, 35, 45)"><strong>如果设置了名单库因子的过期时间，以名单库因子的过期时间为准</strong></span>。</p>
+<p></p>
+<p><br></p>
+<p></p>
+</article></main></body></html>

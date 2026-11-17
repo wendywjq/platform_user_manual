@@ -1,0 +1,420 @@
+<km-doc>
+<km-title nodeId="1dbacc05498d4b28b6c11c908be56c6b">说明：特征中心</km-title>
+<km-catalog style="none" nodeId="aa47087d150b4001a66e6e57776ff1de" />
+<h1 nodeId="5f8a68ad88f447a38362d5fe02c1b58d">一、背景</h1>
+<ul nodeId="773819e55b4148ca9447d1e49d12e4c2">
+<li nodeId="d80d85691a344951aaf940248f3dae63">内部：特征分散未实现统一管理且存在重复性建设问题，从而影响到自动策略生成以及对特征的深度挖掘（重点：缺少行为类特征的应用）</li>
+<li nodeId="c389474d9b4e441c9a1de7d43cabca70">外部：业务侧希望风控能够开放部分特征能力，底层的特征建设可以为应用层的数据服务提供更好的支撑</li>
+</ul>
+<h1 nodeId="512e8a9e81e042549ba37b7a3560bdf2">二、名词解释</h1>
+<h1 nodeId="c24b00ca43bf4633900f6c521b653c70">三、操作指南</h1>
+<h2 nodeId="a565b493702649fda0d5d58abaa0999b">1.用户操作流程说明</h2>
+<h4 nodeId="68e2bc391ab54181bcf9093cf815a12d">首先需要注册离线特征加工的所需的数据源</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="280fdd5b262f4f00a25903871dd5e497">
+<tr nodeId="ffab97e23115409d8d79bdf53027e96a">
+<th colwidth="[434]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="f5b009845e654c7bb57d2552b841f342">
+<p nodeId="2b586604de5141c4a74af66597219ca1"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[727]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="2b958e57ec6643528cc4f310fd77861c">
+<p nodeId="fd0f7af44ac14e71b1a950b26e5ce0c8"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="f750610f064243fa8725ef9e426c036b">
+<td colwidth="[434]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f67ae3541c074d2d88de281862fb76fd">
+<p nodeId="9a54939671234fde90a35d52b6812941"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="1bf9ef59942e43c0b674a8b540837139"><span font-size="14">Zeus--&gt;特征中心--&gt;数据源管理</span></p>
+<p nodeId="eeadb716ca144fe18303e7e2346be184"><span font-size="14"><strong>【查看】</strong></span></p>
+<ol nodeId="e26b6262d810428fb0b1cd2c5d8a7d27">
+<li nodeId="94689d70e87a4cd2964ce9c81722892b"><span font-size="14">进入默认展示所有注册好的数据源表</span></li>
+<li nodeId="63afffae15284ccb89311d9753fd0e36"><span font-size="14">支持通过查询区的名称和最后修改人misid查询复核条件的数据源表</span></li>
+<li nodeId="400e45df7bb444ec950bc4277aa22a7a"><span font-size="14">点击「数据源名称」，可以查看数据源信息；</span></li>
+</ol>
+<p nodeId="e2349f8acaa64cfd89cb3f99f60a025d" />
+<p nodeId="f50ade84bcf24d6183142e62ada61ca5" />
+<p nodeId="aa1d0b792eec4443837be09b27547490" />
+<p nodeId="e60181fc6f634412b77802dee411fe8b" />
+<p nodeId="9369682a1f6d4aba9d2c9d3eb95bca03" />
+<p nodeId="a3e9507228ab4dae8cd9b21bf79a074f" />
+<p nodeId="333a375a48c64fd9ada0345ccb69c9c7" />
+<p nodeId="406709215ee241df89c2cb60ea7411e9" />
+<p nodeId="fe2863912aa34653a2257967ead9df54" />
+<p nodeId="3cb692539f034e3d9602717fc8706b48" />
+<p nodeId="b480bd7eceb0431195638bf64d9121f0" />
+<p nodeId="715e0710e1dc423cb09dcc4ec558d065"><span font-size="14"><strong>【新建】</strong></span></p>
+<ol nodeId="81b42b433a1a48449794b91108c4153c">
+<li nodeId="3dc55b006e1e467389802fd54d68439b"><span font-size="14">点击右上角「新建数据源」按钮，跳出新建数据源弹框，</span></li>
+<li nodeId="caf457d18f27426db963ee618827bfa9"><span font-size="14">需要输入数据源中文名称、数据库名称、DSN后，数据源表下拉框可自动带出复核条件的数据源表，仅支持单选；</span></li>
+<li nodeId="e0a989e0a621403491dec101f7428489"><span font-size="14">需填写共享业务方，支持共享多个业务方</span></li>
+</ol>
+<p nodeId="fa0b262cfc65470494cd984785d691e9" />
+<p nodeId="4bcc68a7b37848cbb39dbba11ee5679e" />
+<p nodeId="2a7639b6e8074bf28139a95e0e4bd1b9" />
+<p nodeId="d0dc272993bd46b2a2ca08a7d0e023fb" />
+<p nodeId="5e874219d02149b7b0aadb448a169676" />
+<p nodeId="92d26742ba87419cb14e2d56151412fa" />
+<p nodeId="e6dbfd27c6ad44aab2c657f6d9be08b1" />
+<p nodeId="1879e03320404d22a9bee2231f39259b" />
+<p nodeId="8adb16b9cd8446e5839ea4e67a839f5b" />
+<p nodeId="d0f2f30f205c43418c214a383bc66678" />
+<p nodeId="0c4d9bde3e6a41f7ad86a25370c8ad34" />
+<p nodeId="dc5de644bfbe473ab22acbde416e9cf1" />
+<p nodeId="0bbd8e9d435b457b9269e52c20e7e15f" />
+<p nodeId="a64f699f9c1f4de8bee31aee708c2a03" />
+<p nodeId="af84d1b936344378853d81ec6cfb25fb" />
+<p nodeId="08923ba0e8af4fa2a45efe724fc6c3fc" />
+<p nodeId="1aaa1ace1e1d4785b8755305eb50253d" />
+<p nodeId="a3316ad5f2194c4d8d51379177c76b80" />
+<p nodeId="714be820e56c447ba1999e39fb69f28a"><span font-size="14"><strong>【修改】</strong></span></p>
+<ol nodeId="99fc04a9d0e44e3d9fd1b2d12c145add">
+<li nodeId="c550fcc07a164b569a8205ce69abaff4"><span font-size="14">所有的数据源表支持修改共享业务方，其他配置不可修改</span></li>
+</ol>
+<p nodeId="a51b19ef2832405e813d32455f75384a" />
+<p nodeId="968b3a9de120417ea46b2295b60341da" />
+<p nodeId="5be2ea3b6e8d479194d3fee22ca9e44a" />
+<p nodeId="991bc1dd6ba84420b8f5b50bd2058104" />
+<p nodeId="0aa3eaf5392d457e9aca75921c5f48ec" />
+<p nodeId="5e3e7236707c41c98e3cbafdf82dd52e" />
+<p nodeId="19fff1cdb2074a07a8d7762c4ee37ee2" />
+<p nodeId="634f9d19d6964c86b6065a4cddc3e879" />
+<p nodeId="ae8a3789f32741fe9394d8b334570cb4" />
+<p nodeId="afc9d2af49514648a7cdca95404e8ca9"><span font-size="14"><strong>【删除】</strong></span></p>
+<ol nodeId="20180a5744be4c769bd8be14a7660e8f">
+<li nodeId="ca4dbfcb2499446cbc970f9435d9aa61"><span font-size="14">已经注册好的数据源表如果没有配置特征计算逻辑，即引用次数=0，则该数据源表支持删除；</span></li>
+<li nodeId="b207e4718b9f417d8e5a9bf15ebcf137"><span font-size="14">如果引用次数&gt;0，则该数据源表不支持删除；</span></li>
+</ol>
+</td>
+<td colwidth="[727]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="64218618bb794fbc878a36ccb0888126">
+<p nodeId="e6695f20707b4556889b2c6d520e050b"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1188987743?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="263" nodeId="dd053c6d52bb42fba51c7ea610ecd78a" /></p>
+<p nodeId="cf31f71ecd034edd942931b7b1cd6863"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1188878239?contentType=1&amp;isNewContent=false" name="image.png" width="441" height="298" nodeId="15b9a40d7ae54d9ca6ca18dfdc43d5a4" /><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189002147?contentType=1&amp;isNewContent=false" name="image.png" width="446" height="363" nodeId="2b3043c9e4f24633a44f85ee6f1555e1" /></p>
+<p nodeId="4d335e0f07b847a0ade5fee18b397f73"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1188878200?contentType=1&amp;isNewContent=false" name="image.png" width="446" height="367" nodeId="ad26b297ed5d483fba43254049f3acaa" /></p>
+<p nodeId="f4a78d3efbd842d78ccf6c271c04b126"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189002165?contentType=1&amp;isNewContent=false" name="image.png" width="443" height="363" nodeId="b7d90792de0540d19e11d17814747665" /><img src="https://km.sankuai.com/api/file/cdn/1203498528/1188987773?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="124" nodeId="3c282f7597834216bf092ca706ca8527" /></p>
+<p nodeId="dd05e0fa54414beba3b28ce53784b66c" />
+<p nodeId="886d056026f24e5db368a3fc33a657d2"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189079604?contentType=1&amp;isNewContent=false" name="image.png" width="434" height="150" nodeId="5078e681096242b8b4cbb443b086909d" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="d7eb095cb854494ea4c27d21bb82aef9" />
+<h4 nodeId="927a2587b288455d893ce3e69536c7f8">利用数据源注册特征</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="d777a2cd8fb740959e2be24718e068b3">
+<tr nodeId="23efb19cfc724cc6b304d0fc9cc74c71">
+<th colwidth="[434]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="6ec050c33dc048a09690dc222f39c835">
+<p nodeId="88f0aa5ba9d749438f0e926014e403a8"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[727]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="57975f6bee7740fc87a5d0da6e1b9880">
+<p nodeId="1561397952fd4e82bdc990cd3eacf38c"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="64988e060ab341aea24832fc3424b501">
+<td colwidth="[434]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a6ef85a9672a41d3ae7b05153504b1ec">
+<p nodeId="843d6f6da4a6453f8c9c306a001a35c4"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="f4e278a566cb4f448ac1d7d177039ed8"><span font-size="14">Zeus--&gt;特征中心--&gt;特征管理</span></p>
+<p nodeId="463d083432704b008ed8fc836c90fc83"><span font-size="14"><strong>【查看】</strong></span></p>
+<ol nodeId="d7f14afd31764723ad1291280f67fdb3">
+<li nodeId="1cc0fe69ca1e4fb7a1fde8e68c008a4c"><span font-size="14">进入默认展示所有注册好的特征</span></li>
+<li nodeId="2528918cedf04b4cb67144be389250ac"><span font-size="14">支持通过查询区的名称、维度、特征状态、特征类型、注册方式、修改时间、最后修改人misid查询、标签等复核条件的数据源表</span></li>
+<li nodeId="5ce3a01430b741b79c177c32e5ce3b54"><span font-size="14">标签支持输入多个标签组合查询，当输入多个标签时，只要特征的标签满足查询条件中的一个标签，就能被筛选出来</span></li>
+<li nodeId="96f17da75ced47cd9cc618d635dbd78c"><span font-size="14">点击「特征名称」，可以查看特征注册信息；</span></li>
+<li nodeId="0d79ac17104e43d7996b2b3a8bff9a36"><span font-size="14">特征计算状态有：计算完成、计算失败、待计算</span></li>
+<li nodeId="31f8f1b0fde747f6a6e1d6f4916790c0"><span font-size="14">特征计算时间：计算完成/计算失败的特征都有计算时间</span></li>
+</ol>
+<p nodeId="e346cd33a7d34fc3a3c5b7b831af0ab8" />
+<p nodeId="83182256094c41ad9881b1a2df10cd5b" />
+<p nodeId="8a171ae513f441e68a66993698ac866d" />
+<p nodeId="6afd6b1fd1fb4805be46c7416eef2a48" />
+<p nodeId="56711855893846c1a142b0639be42fd4" />
+<p nodeId="b71266ec6f1f4b86b6af48a454d1215e"><span font-size="14"><strong>【新建】</strong></span></p>
+<ol nodeId="c8b710c0640b4780a7ae96bdf31cc1fd">
+<li nodeId="06b27b049ca04971af4838dbf6554600">
+<p nodeId="728241f1267d4cb68868c850e8fe05ac"><span font-size="14">点击右上角「新建特征」按钮，跳转至新建特征页面</span></p>
+<ol nodeId="c1847380f4d247a399aff77abae77275">
+<li nodeId="4c4801ee6e814c05b84862dc9bcf143c">
+<p nodeId="393bf74b89bb404ea8f1d69e4ef00260"><span font-size="14">新建特征支持「可视化注册」、「代码注册」、「直接注册」</span></p>
+<p nodeId="09c2579332004249a272842b621c6f21"><span font-size="14"><strong>「可视化注册」</strong></span></p>
+<p nodeId="fdd6ae2241f2400b8776ac65f58e9157"><span font-size="14">基本信息：必填栏位均需填写；</span></p>
+<p nodeId="f72bb9f28d4e4fb79cad669661a4dc3a"><span font-size="14">更新周期解释：即特征注册好之后计算周期。</span><span color="rgb(245, 35, 45)"><span font-size="14">更新周期默认1天，即每天计算一次；用户可以填其他数字，比如7，表示每7天算一次；填0，表示特征实时计算；也可以置空，即该特征只需要注册后计算一次，便不再重新计算。（特征中心一期上线后暂不支持实时计算，即使配置0，也不会实时计算）</span></span></p>
+<p nodeId="d474d6c3030d49158213a596a0277b8c"><span font-size="14">标签支持多选，需要现在策略管理-标签模块先配置好标签。</span></p>
+<p nodeId="c32bbf3e32ee4596a6ba1608cf430168"><span font-size="14">逻辑配置：</span></p>
+<p nodeId="444e7d895bae40aeb0fd5342ab07ada5"><span font-size="14">特征库/表：下拉可选之前注册的数据源；</span></p>
+<p nodeId="e1ffdc3e21be47c2a6ed79af231ee64b"><span font-size="14">特征维度：下拉可选上一步已经选好的数据源中的字段，支持多选，</span><span color="rgb(245, 35, 45)"><span font-size="14">但建议选维度字段在表中必然存在值（value）的字段，否则会出现特征计算成功后绑定维度失败的情况。</span></span></p>
+<p nodeId="be37e25771574cf28db5fccb9dfe0f48"><span font-size="14"><strong>计算逻辑：</strong></span></p>
+<p nodeId="6bb120e659e5459da8f8f5daf976e8a2"><span font-size="14">可通过页面点选的形式将计算逻辑写完整，支持count/sum/avg/min/max/stddev_samp/stddev_pop/var_pop/first/last内置函数</span></p>
+<p nodeId="5203dfa8641b4b5289fa9aa3d50dc083"><span font-size="14">Where条件：非必填，如果填写的话，直接写语句，无需“where”单词</span></p>
+<p nodeId="537fda796c834173a33708d4be5ce3eb"><span font-size="14">Group By：非必填，如果填写的话，直接写语句，无需“Group By”词组。</span><span color="rgb(245, 35, 45)"><span font-size="14">如果计算逻辑中使用了聚合函数，则必须填写Group By条件，否则会报错</span></span></p>
+<p nodeId="ed647de601004a9a94ad637829bdcb1f"><span font-size="14">Having条件：非必填，如果填写的话，直接写语句，无需“Having”单词</span></p>
+<p nodeId="9e74b37d92d04907b09b1d8792ce1176"><span font-size="14"><strong>计算形式：</strong></span></p>
+<p nodeId="625436dfb6cc4968b3da1e1979acd926"><span font-size="14">统一表示特征对象的统计时长一致，选择统一后，需要确定以哪个字段确定计算周期，计算周期天数，比如输入3天，而基本信息的更新周期为1天，表明这个特征每天计算一次，每次计算的都是近3天的数据base；</span></p>
+<p nodeId="6f7f29056f58468282124ade7f1f73b6"><span font-size="14">单一表示特征对象的特征计算时长是个性化的配置，比如时间2-时间1</span></p>
+<p nodeId="007b5a544323405a8a9f8de70a7d6851"><span font-size="14">上述必填配置配置完成后，必须点击生成sql进行语法校验，通过的会跳出生成的sql的页面，未通过的会报错。</span></p>
+</li>
+</ol>
+<p nodeId="31f3aecb6cb8451caa1dcd063d695707" />
+<p nodeId="9cc726b27d4e426c861918726724187b" />
+<p nodeId="68db6d745662462faa9eada40be3f0de" />
+<p nodeId="426e0938011a46d8bc57970c1a7e2674" />
+<p nodeId="e16aca0372ba474b8b4857c6a7520e90" />
+<p nodeId="92188b8e4ee84a7b8ee193f76872af7b" />
+<p nodeId="df382e9841ea444fa6d154ccefa2e9c7" />
+<p nodeId="77f5482942f74982b1d5b76f9f11e18a" />
+<p nodeId="624f5f237eee411cbd990a77e0b556c8" />
+<p nodeId="a57e365923bc47e3b30e68cfac8766ac" />
+<p nodeId="b132a118465d4604847eb3fafd6901ce" />
+</li>
+</ol>
+<p nodeId="8b58b5a19b3047e39d22206937b89882" />
+<p nodeId="aca278ca4d414ce8bb421e158931bdd7" />
+<p nodeId="843546976d4a45b19c30b06ea2c96f33" />
+<p nodeId="3ee0f4c748d54c4ba4362c8a22587ceb" />
+<p nodeId="23eaa8e978d44cd791a081be1c039319"><span font-size="14">           </span><span font-size="14"><strong> 「代码注册」</strong></span></p>
+<p nodeId="29f22e134049437d87efbf37feb4b367"><span font-size="14"><strong>        </strong></span><span font-size="14">     基本信息内容同可视化注册，逻辑配置模块需自行填写sql语句，系统会校验sql语法，但不校验逻辑是否合理</span></p>
+<p nodeId="1a5df77c973d4d3f8ce242189c9407b3" />
+<p nodeId="94cb3a1b986345ae8ee4e7e6aee68cd5" />
+<p nodeId="c8cc36a5efdd4e21b60513f6cd375ab9"><span font-size="14">            </span><span font-size="14"><strong>「直接注册」</strong></span></p>
+<p nodeId="67eaacad80ad4cb7a5278b9177d3bf61"><span font-size="14">             1. 支持单个注册也支持批量注册。</span></p>
+<p nodeId="34a05ae767f440c898addb35e621beed"><span font-size="14">             2. 逻辑配置模块可以先选择数据源表中的部分字段，选中后下方会有选好的特征字段配置，方便用户进行对特征字段进行属性配置</span></p>
+<p nodeId="2165b94205ee46e3913fbcf6f4032bd2" />
+<p nodeId="868aa218bcec4e79b047ee77d21ba83c" />
+<p nodeId="ddb379908f77474991dd0b2051fcbe5c" />
+<p nodeId="b3480886100c4ce4b81d0d4f17449136" />
+<p nodeId="dc80beab72e84dd1bf1f42202a2e1def" />
+<p nodeId="745c1f31dcf947eba1b0ba7e0daf5ebd" />
+<p nodeId="59593636c8fa406b9d9cc228b9f8cfce" />
+<p nodeId="063c84789773490895a8456332911985" />
+<p nodeId="81d0319ae7aa4d05877b448c74058763" />
+<p nodeId="8f56598a63a24dfdbd9d13347d19ba54" />
+<p nodeId="f3f0552c125b4bbb96f53282d6a746f9" />
+<p nodeId="6999ff9df2aa437488cbd41e8595690b" />
+<p nodeId="3fde9df9fec44b6196fa91efc740c4a6" />
+<p nodeId="422b73315abb47edaa68c4971adb14b9" />
+<p nodeId="c5a7fa2ec9ce4d8dbcaeb5327c663b0b" />
+<p nodeId="98555ae126ef41c1ad0cfc5ba62af039" />
+<p nodeId="2dccccf6914e4b3e8fa400541ae210f8"><span font-size="14"><strong>【修改】</strong></span></p>
+<ol nodeId="86f8fc35282a475d9128606cbcbfe149">
+<li nodeId="50d5ffeb0ad5415b8c546782e0ff3afa"><span font-size="14">点击特征名称，进入特征详情页</span></li>
+<li nodeId="2d90dcc40045426881f32c9345461c50"><span font-size="14">点击右上角编辑，进入特征修改页。基本信息和逻辑均可修改，但不可以变更注册方式</span></li>
+</ol>
+<p nodeId="c52e903457c44d09ad4953e64823f4c1" />
+<p nodeId="61f4ca5239ea4ae28d0b04b7f4cc108e" />
+<p nodeId="87bd5bdbcf2e4bcbb9bfb96a4f58315c" />
+<p nodeId="85cdfd9b787b4f46b8b64f7f738d06f4" />
+<p nodeId="2b353ed726cb4b51a6cbad64ed3e3929" />
+<p nodeId="311069527de64659afd6701f6cf7bc37" />
+<p nodeId="2042338c6f7a4aa08875d4c83e5b2830" />
+<p nodeId="849b57c04619482a810d21dcd0dbb304" />
+<p nodeId="20b78aed2445482981d09dcd7e6c8330" />
+<p nodeId="b93f9eedc66a4d2d8a01133ea76281f7" />
+<p nodeId="24771d207f5240e6851cfb58f15b89d9" />
+<p nodeId="28be146c758e40a2b9fbb13edfcbc951"><span font-size="14"><strong>【删除】</strong></span></p>
+<ol nodeId="f24e39977e054b7eb4359cad735a8bf1">
+<li nodeId="7d00ff903dc34597a80a83b0cc41bedd"><span font-size="14">对于特征状态为「新建」、「未就绪」「未就绪」的，可以进行删除</span></li>
+</ol>
+<p nodeId="7981dff5cf73487baa1f6e4cc0e47bd5"><span font-size="14"><strong>【状态说明】</strong></span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="074a62389a7d4f349b6572d656df4f80">
+<tr nodeId="258ebbda507345a4b3731ad744c2505b">
+<th colwidth="[58]" nodeId="1cb29edd924c4068816ec9e44b3e7ea0">
+<p nodeId="f966d60fdd264a40ab9be1ad26523392"><span font-size="14">状态</span></p>
+</th>
+<th colwidth="[160]" nodeId="6dd7373255254ad793e34bc5cbeb2a37">
+<p nodeId="1e459834828141b7a8f0f83a6c5d86df"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[194]" nodeId="b9f8fe0bc7c64ebfa76e5cecd26f678d">
+<p nodeId="a3c6bc8983da4b44a49bb34f90ec472e"><span font-size="14">可操作项</span></p>
+</th>
+</tr>
+<tr nodeId="79aa37d0c7e146b3953aed7dcaa4a3c8">
+<td colwidth="[58]" nodeId="18161946a5cf43038d4307e220c273a7">
+<p nodeId="462e3beb60f64050a0e9cb61b6cb74fb"><span font-size="14">新建</span></p>
+</td>
+<td colwidth="[160]" nodeId="f0c63d70cae644bd948237027d8caf15">
+<p nodeId="5b9db80dc55449f29fa9205c764545d5"><span font-size="14">新建特征并保存后的状态，特征不会计算</span></p>
+</td>
+<td colwidth="[194]" nodeId="e7112f042a1547488cdaadbf5a04b97e">
+<p nodeId="73b8e491c8544b9a8965ec9a2b9e3c75"><span font-size="14">删除</span></p>
+<p nodeId="5d6c933e13994cf28506bee6c5652fae"><span font-size="14">启用，启用之后变成就绪状态</span></p>
+<p nodeId="b4f90cf029bf4d4cbc4ef5ab3e252c30"><span font-size="14">编辑</span></p>
+</td>
+</tr>
+<tr nodeId="f4c649291a2b4e84b93946efcfe00c60">
+<td colwidth="[58]" nodeId="c70d93892d2949d8ac91e43735a67b95">
+<p nodeId="02840f99875d46feadfc9dc0f7663435"><span font-size="14">就绪</span></p>
+</td>
+<td colwidth="[160]" nodeId="0770a34a25764b3a95d65b33cf640975">
+<p nodeId="f9761bfbfda1424997d0322fdae85f0d"><span font-size="14">特征已经启用，会按照配置进行计算s</span></p>
+</td>
+<td colwidth="[194]" nodeId="3faed62fe1944f43b7671b8091886413">
+<p nodeId="3c892e7a9f114e03b66d59beea3176bf"><span font-size="14">删除</span></p>
+<p nodeId="8074b65bf51a4c21ad0b9769e445fb01"><span font-size="14">下线，下线之后便沉给</span></p>
+<p nodeId="69870683295345cda70a8fae0210397f"><span font-size="14">编辑</span></p>
+</td>
+</tr>
+<tr nodeId="01ad90aedefa47fb9123dba5c3e8fc76">
+<td colwidth="[58]" nodeId="04a247a56f0344398086c7102d5650e0">
+<p nodeId="a7045ff5b8124126a5566fca15f258dd"><span font-size="14">未就绪</span></p>
+</td>
+<td colwidth="[160]" nodeId="8be093ca0148436eb10b6bd32ea7b393">
+<p nodeId="3437dd5a18124cc2a617e9fe414e75c5"><span font-size="14">从就绪状态下线后的状态，特征不会计算</span></p>
+</td>
+<td colwidth="[194]" nodeId="912f5f489cba483c80a512172e754985">
+<p nodeId="e4af19f605fa4da486f36d28fc5e9512"><span font-size="14">删除</span></p>
+<p nodeId="bb18087e50e04c9aa6ec1c477cb9fab8"><span font-size="14">启用，启用之后变成就绪状态</span></p>
+<p nodeId="476cab9381d74deba9e755af8366cee4"><span font-size="14">编辑</span></p>
+</td>
+</tr>
+</table>
+</td>
+<td colwidth="[727]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="904d268a07cf4d108c671d660a397b9c">
+<p nodeId="8e88f72e093645988055832bad83e11f"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1388700113?contentType=1&amp;isNewContent=false" name="image.jpeg" width="704" height="284" nodeId="5ce983ab9dec4233bc3c05a3c2aa2634" /></p>
+<p nodeId="966727d1760243148efb60ea0e573335"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189108291?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="236" nodeId="da4fe61ceded47de8c76a5131cd804d3" /></p>
+<p nodeId="af6bd11838544639a5d2725ba3c7f72a"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189192767?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="298" nodeId="7ed312364a9e413f882581b706e4fc18" /></p>
+<p nodeId="cc85d0e0335741e8a983cf5d0139a234"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189270312?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="168" nodeId="e183786b3d0548c99e3b0d268bfda02f" /></p>
+<p nodeId="875bba80cefb447aa2cc993a3bffd642"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189227846?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="298" nodeId="b8496337f7904c1584cae2e2a23bd8cb" /></p>
+<p nodeId="1b11d9442082448b968bbd73197d17c3"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189381999?contentType=1" name="image.png" width="377" height="62" nodeId="58aaeb3663dc4ff7936c5d7dc98ddade" /></p>
+<p nodeId="d1f7a3b850e84fa3ab9f94d85e823a03"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189226768?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="250" nodeId="a4f3dcbac2354857be0ec60d020419ae" /></p>
+<p nodeId="7ee8d47988574321bc2f2ff141f94684"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189339321?contentType=1&amp;isNewContent=false" name="image.png" width="620" height="151" nodeId="f5f5f654e9b142d28b49af0b99bd6d43" /></p>
+<p nodeId="88f2c4b639e04f21b578b6b53edd8eff"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189352279?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="236" nodeId="2ebd5e13c74949c7bf8fa4bab4aa2656" /></p>
+<p nodeId="e134b0e02e164243935010000dc352ba"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189355058?contentType=1&amp;isNewContent=false" name="image.png" width="276" height="69" nodeId="fd6accc043834d44b0cc62c4d21d16ee" /></p>
+<p nodeId="bf61ba948688433188edfce30f024d40"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189493307?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="290" nodeId="9bf18bd48f554831927eb08f870b07b7" /></p>
+<p nodeId="f8f3bf114e1841b484886decd25277a9"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189432445?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="308" nodeId="a8ec8f9428744de2be1b4d8698d4f379" /></p>
+<p nodeId="dd67b453b64542d7b5492ebde9138299"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189493313?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="88" nodeId="ba2cee8a5d6f4f46aee089cae969a4b4" /></p>
+<p nodeId="bbd4c3113e5e483fa917a9cf5922ff6c"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189461238?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="147" nodeId="fae266ad0a954cd18dc5f3f2d54d78c4" /><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189461224?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="342" nodeId="2917b57c859942fbb903d02ef1ff043d" /></p>
+<p nodeId="1b818e4db8024b83b0ee8a8d347f882f"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1189472182?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="132" nodeId="080adffa7874459dbde18ceeb283c050" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="01712d756fda4bdbbf4ed4806c8a2933" />
+<h4 nodeId="1997e70e669b46e0b9e4f713cd960eb6">特征在zeus中应用</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="defafbefff3c432b88513bd1c948137c">
+<tr nodeId="a449b97d7b944032b916f7abc337aac4">
+<th colwidth="[432]" nodeId="2dd170c8162a4014b021a873bc4bf50d">
+<p nodeId="7bbf48fb16a94f70897ff99c2cc0e733"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[727]" nodeId="8b6b92329df242bcb4d1cae8285fa9b5">
+<p nodeId="a3c44fbe04064e1ea262ba256181046f"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="6e122edfc2094f59a38ef67cf0c0320f">
+<td colwidth="[432]" nodeId="61cd8bc9ccc842dba1cb8b75e2510fce">
+<ol nodeId="018c852263144fa8ad59081bb2a20562">
+<li nodeId="4673841c78e74000816bbc9b8a377a60"><span font-size="14">特征启用后会进行计算，同时自动注册一个同名参数到zeus中，同时注册对应的数据接口；</span></li>
+<li nodeId="c0f928a476fa496a8b12f3d99839f2d3"><span font-size="14">特征详情页会出现“数据接口”模块，点击数据接口，可超链接至zeus中数据接口编辑模块；</span></li>
+<li nodeId="5b5e62d020b14123bd48c8ee47832a52"><span font-size="14">为保证获取特征的准确性，需要用户修改输入映射配置。</span></li>
+<li nodeId="4b9b9f8ea0f54e68863dd56ddc0cb977"><span font-size="14">具体数据接口配置可参考</span><a href="https://km.sankuai.com/page/182702174" title="https://km.sankuai.com/page/182702174" autoUpdate="true" nodeId="e89c46c2f6c0484c9912137ddfcd23cc"><span font-size="14">https://km.sankuai.com/page/182702174</span></a></li>
+<li nodeId="4fbdf114f4c640a49ba71726ada242ee"><span font-size="14">当数据接口配置完成后，可在zeus规则配置中直接应用该特征</span></li>
+</ol>
+</td>
+<td colwidth="[727]" nodeId="5c39d14a06674b0fa28590d1156608fb">
+<p nodeId="6c90a06021c0429d92b14741428c335a"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1463233679?contentType=1&amp;isNewContent=false" name="image.jpeg" width="704" height="210" nodeId="08ebb670e445496c8c60e27eb77e2876" /></p>
+<p nodeId="e6498964eaf84a80a18cb6c779201e75"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1463138448?contentType=1&amp;isNewContent=false" name="image.jpeg" width="704" height="408" nodeId="20e6c99a116d46cf8ff6d08552a135f9" /></p>
+<p nodeId="35ff8fad2656421c91c634518c9c6059"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1463334436?contentType=1&amp;isNewContent=false" name="image.jpeg" width="704" height="149" nodeId="5e11db387448420e9352685008b36c75" /></p>
+<p nodeId="299abd9bf0514aa4af5aec9caed20730"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1463307164?contentType=1&amp;isNewContent=false" name="image.jpeg" width="704" height="52" nodeId="085d045d69d94168abeb11fd956da620" /></p>
+<p nodeId="96fd5d63ae9e44f39ca2f4d331e64865" />
+</td>
+</tr>
+</table>
+<h4 nodeId="a8f6c3c055f54ceb8c096ee0f5a39487">评估</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="7bf588ee1cd14852a4c74ee6815529a7">
+<tr nodeId="4bcd7fd3d0664c77acd2f4f9803b3dd9">
+<th colwidth="[431]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="b6f12cd1ef844538a3e32c08d7a529f1">
+<p nodeId="8c5e08c0efb84871a228562584d6abb8"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[899]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="62d2c62110f74c258d757199219f91e7">
+<p nodeId="abe76f8ffe8447c9a74bc92de4bbdd03"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="4c197f25800a4d3bb491aa2297596bb6">
+<td colwidth="[431]" nodeId="ea68dffbe09f450c8de6a9024fad2028">
+<p nodeId="a72ced8f7ecb4c7fb12cb81cec8dd010"><span font-size="14"><strong>数据源评估</strong></span></p>
+<p nodeId="2e8394045cbe4c2c9c7f07638075c3a1"><span font-size="14"><strong>【入口】</strong></span></p>
+<p nodeId="892108f6601c423693961e3518e74222"><span font-size="14">zeus-特征中心-数据源管理-数据源评估tab</span></p>
+<p nodeId="743befae88b641e6abdf8826a4df9e36"><span font-size="14"><strong>【新建】</strong></span></p>
+<ol nodeId="b6275c3e1bbc4ef596662a02ebbfd085">
+<li nodeId="2aff7be151ed46be80d66e76e325f40f"><span font-size="14">点击右上角「新建评估」，跳出评估配置弹框：</span></li>
+<li nodeId="78171fd91fa849639b23533f54536066"><span font-size="14">可以选择指定数据源表；</span></li>
+<li nodeId="0b6c5023abae46969481f86aeae9239c"><span font-size="14">选定数据源表后，可以对数据源表重的指定几个字段、或者全部字段进行评估数据质量；</span></li>
+<li nodeId="217d710b497e47d88857bafb3f9e71c0"><span font-size="14">时间：选定某时间的字段数据；</span></li>
+<li nodeId="be8028efa2304952ba78e3c1c9fb85cf"><span font-size="14">评估指标：具体可参考</span><a href="https://km.sankuai.com/page/1227050269" title="https://km.sankuai.com/page/1227050269" autoUpdate="true" nodeId="23a66ae0b556429ebb894254dd9c76b8"><span font-size="14">https://km.sankuai.com/page/1227050269</span></a><span font-size="14">，指标支持多选或全选；如果所选字段不符合指标的计算逻辑，即使选中了，也不会计算；</span></li>
+<li nodeId="b14357220dbc4b08a822a9a447a13db3"><span font-size="14">任务名称/任务备注：用户自定义输入，便于区分；</span></li>
+<li nodeId="530608891edb41d08a4b553d0164a2cc"><span font-size="14">点击确认则生成任务，在列表也展示</span></li>
+<li nodeId="56ab7067a3db49feb57919177baa245a"><span font-size="14">任务生成后不可删除、不可修改</span></li>
+<li nodeId="ed07825bfec84a92b6ce8f4df4c75d6d"><span font-size="14">任务状态为：待评估、评估中、评估完成。</span></li>
+<li nodeId="1cad4165e8f740fe99ea7e8842e48cd4"><span font-size="14">点击评估名称，可超链接至魔数查看评估结果；（魔数表名：</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">log.rc_zeus_feature_evaluation_result）</span></span></li>
+</ol>
+</td>
+<td colwidth="[899]" nodeId="a786a627a7374b3faac52b7ac265143a">
+<p nodeId="1b2550c0d4954ef58a0cbdb9486a3bc1"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1463963962?contentType=1&amp;isNewContent=false" name="image.jpeg" width="877" height="268" nodeId="c1c7300caf22402db8e30efc5f1ca1da" /></p>
+<p nodeId="907c3f2abb764485b2f6f51fad99acd1"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1464000374?contentType=1&amp;isNewContent=false" name="image.jpeg" width="400" height="282" nodeId="57e1b8fe8751490587bb18a1ffb46387" /><img src="https://km.sankuai.com/api/file/cdn/1203498528/1464088605?contentType=1&amp;isNewContent=false" name="image.jpeg" width="400" height="290" nodeId="52181e752abd4de2996dbf48fd57dcd5" /></p>
+<p nodeId="2ac90849d46e4e34bdd2c486023d51f2"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1464114017?contentType=1&amp;isNewContent=false" name="image.jpeg" width="400" height="352" nodeId="dea943a9fbb547eea1d9e36719905142" /><img src="https://km.sankuai.com/api/file/cdn/1203498528/1464130264?contentType=1&amp;isNewContent=false" name="image.jpeg" width="400" height="324" nodeId="90a8a8549994432ca8532826f070086f" /></p>
+</td>
+</tr>
+<tr nodeId="75feb8db33ef42dbb89145b80bb0c85c">
+<td colwidth="[431]" nodeId="bbfdcca6ceff4c16953668d85edd7544">
+<p nodeId="13137c886b45417091cebb1fded2fafb"><span font-size="14"><strong>特征评估</strong></span></p>
+<p nodeId="a955a65a0bc24cdca32941d6ca22b609"><span font-size="14"><strong>【入口】</strong></span></p>
+<p nodeId="e97c4ebdc6394824b0917d8ba375d244"><span font-size="14">zeus-特征中心-特征管理-特征详情页-评估按钮</span></p>
+<p nodeId="656d813ae3164c4eb0d78fb2a3df53cb"><span font-size="14"><strong>【新建】</strong></span></p>
+<ol nodeId="3aea761385fd4a96acf9a7be0065974b">
+<li nodeId="30d0d3156ac342178789d37e36a6e2f0"><span font-size="14">点击右上角「评估」，跳出评估配置弹框：</span></li>
+<li nodeId="ec7d27865e494454883256a79365ccd3"><span font-size="14">时间：选定某时间的字段数据；</span></li>
+<li nodeId="0a16a1bd7c6d4fd59bb6b98fa7a9454d"><span font-size="14">评估指标：具体可参考</span><a href="https://km.sankuai.com/page/1227050269" title="https://km.sankuai.com/page/1227050269" autoUpdate="true" nodeId="4142fe880b34480d8ada4076a2d2909e"><span font-size="14">https://km.sankuai.com/page/1227050269</span></a><span font-size="14">，指标支持多选或全选；如果所选字段不符合指标的计算逻辑，即使选中了，也不会计算；</span></li>
+<li nodeId="71be0fca87e64100ad4e16c3ddf3289e"><span font-size="14">任务备注：用户自定义输入，便于区分；</span></li>
+<li nodeId="040c0177da3e4b7ea7efbc2b785f76ea"><span font-size="14">点击确认则生成任务，在特征评估列表页展示和特征详情页的「评估信息」模块展示</span></li>
+<li nodeId="d97ac3fe5a754a2698ff7a52aed299c3"><span font-size="14">任务生成后不可删除、不可修改</span></li>
+<li nodeId="db4079440c84445cbae038d7c7a74623"><span font-size="14">任务状态为：待评估、评估中、评估完成。</span></li>
+<li nodeId="5590a202d28e4c7b9e0bd4f430181490"><span font-size="14">点击评估名称，可超链接至魔数查看评估结果（魔数表名：</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">log.rc_zeus_feature_evaluation_result）</span></span></li>
+</ol>
+</td>
+<td colwidth="[899]" nodeId="b0864e761a0f4a3791c0dcb40f65c75b">
+<p nodeId="2a07643ef4aa41c8b9b3567b881958c5"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1464067061?contentType=1&amp;isNewContent=false" name="image.jpeg" width="877" height="338" nodeId="2b8fe88ce8434bd2abca8678300da524" /></p>
+<p nodeId="b60c8ef60d2c4c8d86db4964b9a9af70"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1464315651?contentType=1&amp;isNewContent=false" name="image.jpeg" width="877" height="120" nodeId="87090860d9194b01ae266b17e84a263c" /></p>
+<p nodeId="0b6818f1fc5a4ddb87a93204c9356645"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1464315964?contentType=1&amp;isNewContent=false" name="image.jpeg" width="877" height="221" nodeId="b7f17007faff4433a12b9f9e3eb95dbd" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="f9fa94c9ee56455fb385df932dfefef2">特征回溯</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="f86bb28b62834607bdbeebb9e7be7346">
+<tr nodeId="4fb1df61344e4de7ae16284e68e36bf3">
+<th colwidth="[429]" nodeId="6c191208b6584a3a8ca4d816f85b3013">
+<p nodeId="d501f0e7986b4611a3982c62ecea7b5d"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[833]" nodeId="eeb40f4ac8ed4d57b515cc67cd092cc8">
+<p nodeId="36949492b0544d3f8a91a2db8e1bf087"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="35d5df1274994da6beea994c621ba30f">
+<td colwidth="[429]" nodeId="479d82ff40ad49e9b495c6b10caa2e51">
+<p nodeId="da5a43785d864d86b1c633173fdab25d"><span font-size="14"><strong>【入口】</strong></span></p>
+<p nodeId="acfc7d9ea43e42989a8f6511931c561b"><span font-size="14">zeus-特征中心-特征管理-特征详情页-回溯按钮</span></p>
+<p nodeId="d42f96c32c094cbc9742bc9e7ce300e2"><span font-size="14">zeus-特征中心-特征回溯-新建回溯</span></p>
+<p nodeId="3f7d5d08161c41558e02f1bfe6532f53"><span font-size="14"><strong>【新建】</strong></span></p>
+<ol nodeId="f468ea54783b44afaa2edebe0a20d097">
+<li nodeId="dd63de74deb545f2b8fbe97fb306d701"><span font-size="14">针对从特征详情页跳转的回溯配置模块，会自带特征字段，从「特征回溯」tab跳转的回溯配置模块，不会带特征字段：</span></li>
+<li nodeId="02da8afd817741e89ee9ce3668506946"><span font-size="14">时间：选定某时间的字段数据；</span></li>
+<li nodeId="2c76d37aaa4f4a9a8eaac576a99e1c39"><span color="rgb(245, 35, 45)"><span font-size="14">回溯任务会按照所选时间区间判断是否生成子任务，如果所选时间为指定的某一天，则生成一个任务；如果所选时间为某一段时间（N天），则用户配置一次，系统默认生成N个子任务，在用户所写的任务名称后面用序号区分。（目的在于防止回溯时间过长，因为某一天的数据问题，导致这段时间的回溯任务整体失败）</span></span></li>
+<li nodeId="4a23c99a97974fa387b3ebd3e2933e8b"><span font-size="14">任务备注：用户自定义输入，便于区分；</span></li>
+<li nodeId="6dfd829b2f774648b18bdec0133103bd"><span font-size="14">点击确认则生成任务，在【特征回溯】列表页可查看</span></li>
+<li nodeId="fae69893279b4be0b524c7ac9560da82"><span font-size="14">任务生成后不可删除、不可修改；</span></li>
+<li nodeId="1de1823f9ad64ad8a497e117847db114"><span font-size="14">针对刚生成的回溯任务且状态为待回溯的任务，有「终止」按钮，可终止回溯任务，「回溯中」的不可终止任务；</span></li>
+<li nodeId="be30c297e72f4cc790209b97070211a3"><span font-size="14">任务状态为：待回溯、回溯中、回溯完成、已终止。</span></li>
+<li nodeId="773cd535aba6459d902fab8c01f71031"><span font-size="14">点击任务名称，可超链接至魔数查看评估结果；（魔数表名：</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">log.rc_zeus_feature_replay_result）</span></span></li>
+</ol>
+</td>
+<td colwidth="[833]" nodeId="2a7b7938a1034f72a4f2645194a547c1">
+<p nodeId="5d0f945d7cd84829b3adf907b8798efa"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1464331310?contentType=1&amp;isNewContent=false" name="image.jpeg" width="811" height="351" nodeId="6e52999439534b329064391bdb745cfe" /></p>
+<p nodeId="40b51cc98f2849f99c2bc52ad94cfda2"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1464307746?contentType=1&amp;isNewContent=false" name="image.jpeg" width="811" height="352" nodeId="21a5ac8e38a64920985450526b440f66" /></p>
+<p nodeId="2c789143b6c949b89641a87e3f7026ea"><img src="https://km.sankuai.com/api/file/cdn/1203498528/1464422269?contentType=1&amp;isNewContent=false" name="image.jpeg" width="811" height="264" nodeId="83c38b0a6bb44c1aa2c675221408210d" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="2588d019e1264bf6829b22567f3361c5" />
+<h2 nodeId="3c9e16f32ccf490484c470e1ba197f5c">2.详细操作流程说明</h2>
+<p align="start" nodeId="23163b44534c4772b981f7ddaa98b356">规则熔断入口：Zeus--&gt;特征中心</p>
+<p align="start" nodeId="7302368fddbb46a690554f0da724e7fb">测试环境网址：<a href="https://zeus.mis.rc.test.sankuai.com/l2/#/featureManageList" title="https://zeus.mis.rc.test.sankuai.com/l2/#/featureManageList" nodeId="a121cc92c39145d3a38f2ef337149c6e">https://zeus.mis.rc.test.sankuai.com/l2/#/featureManageList</a><a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList" nodeId="a372fac55cac46c0af7c62eb017d31a5"></a></p>
+<p align="start" nodeId="cba6ef76c19646a19204d0bbd8557b3f">线上环境网址：<a href="https://zeus.sankuai.com/data_zeus_static/#/featureManageList" title="https://zeus.sankuai.com/data_zeus_static/#/featureManageList" nodeId="d47b8b0abd0d410aa24122d71d3b0aa6">https://zeus.sankuai.com/data_zeus_static/#/featureManageList</a></p>
+<p nodeId="603c1a4c687b4a95a639e07129899ad8" />
+<h2 nodeId="a52d843e36af4fcda0526e4c7c7d1521">3.特殊说明</h2>
+<ol nodeId="e5a922d9995541208580e7234f9aa0e4">
+<li nodeId="974fba08354c496e844dae2ccf72daf8">特征中心一期上线后仅支持<span color="rgb(245, 35, 45)">离线</span>特征注册和计算</li>
+<li nodeId="b26710cea7a54ab4bc1411d8accf4a9e">特征中心二期上线后与zeus打通，目前仅支持离线特征注册、计算、管理、应用</li>
+</ol>
+<p nodeId="d6e042bd74404baaadb7928b7a968d7e" />
+<h1 nodeId="d9a8c48dede9497fa1cb50746abc82f6">四、FAQ</h1>
+</km-doc>

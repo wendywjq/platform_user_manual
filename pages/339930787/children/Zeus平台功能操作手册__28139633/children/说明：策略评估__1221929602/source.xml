@@ -1,0 +1,23 @@
+<km-doc>
+<km-title nodeId="90b504b495c444e08133308fa16f54fe">说明：策略评估</km-title>
+<km-catalog style="none" nodeId="cf170b5bfef24ce68ea3dfd564484404" />
+<h1 nodeId="08dc30cb28b54c518134fbe94b8300e8">一、背景</h1>
+<p nodeId="073001ae2f934aa7a100d5cdaa1affd9"><span color=" ">2021年完成策略生命周期管理体系搭建，实现全业务策略生命周期的系统化管理，并辅助以线下人工核查优化评估逻辑，提升风控策略健康度，保障风控效果，提升用户体验。</span></p>
+<h1 nodeId="e2d7f0fd317942a5b00534d222e9bd18">二、名词解释</h1>
+<p nodeId="52dd5c3905c34e0487335ab94eea5820">策略评估：针对配置到zeus中的策略，支持用户利用实际流量进行策略评估，判断是否符合预期。</p>
+<h1 nodeId="103c86be6aac414ea33f5e74adb585e4">三、操作指南</h1>
+<h2 nodeId="171d5f602de0418bbb4aa6a57f358d46">1.用户操作流程说明</h2>
+<p nodeId="936539b0c8624248bbbfcff4965b6e30">详情请见子文档：</p>
+<p nodeId="d5168905133646df930f0c5833c98a38"><a href="https://km.sankuai.com/page/1226778279" title="https://km.sankuai.com/page/1226778279" autoUpdate="true" nodeId="ba573c72329f4234a9d70d32a2a42d99">https://km.sankuai.com/page/1226778279</a></p>
+<p nodeId="7bf178472cb24fbeb55c2186b8c8af2b"><a href="https://km.sankuai.com/page/1226565845" title="https://km.sankuai.com/page/1226565845" autoUpdate="true" nodeId="92ca62c6918e4675a861d7945c3f32b5">https://km.sankuai.com/page/1226565845</a></p>
+<p nodeId="b692016d76944573978caff4b519d93c"><a href="https://km.sankuai.com/page/1226555790" title="https://km.sankuai.com/page/1226555790" autoUpdate="true" nodeId="695927f5856c443b8ba6882fe6f7db4b">https://km.sankuai.com/page/1226555790</a></p>
+<p nodeId="b3923a95f37340ec9956881215f52b58" />
+<h2 nodeId="b4567147e97d46cc9b8eaca62b7dfea5">2.特殊说明</h2>
+<p nodeId="bb81b7071f1e454ea01bb0e4e30d34cb" />
+<h1 nodeId="b285c7b8b45740578a2e03ae5c9f3d0b">四、FAQ</h1>
+<h2 nodeId="241a1bd5af9f459b974a6c54dcef471a" />
+<p nodeId="77a9f4f16b3e4cf6bbd74a94e8d9f43e"><a href="http://data.sankuai.com/hetu/tableApply?refer=primary&amp;rType=rt" nodeId="c2b35083d43c4f74aa1c7e38fcf5371b"></a></p>
+<h1 nodeId="24a3ef93b74343f6888336f335eebc75" />
+<p nodeId="2020d984c94740d9ac784e5f3ef4bb30" />
+<p nodeId="8fbc5c4c844e4ec584eccf9215e656eb" />
+</km-doc>

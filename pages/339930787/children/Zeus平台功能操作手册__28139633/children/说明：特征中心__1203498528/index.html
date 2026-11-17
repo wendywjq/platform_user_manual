@@ -1,0 +1,420 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：特征中心</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-7">二、名词解释</a><a href="#section-8">三、操作指南</a><a href="#section-9">1.用户操作流程说明</a><a href="#section-10">首先需要注册离线特征加工的所需的数据源</a><a href="#section-113">利用数据源注册特征</a><a href="#section-365">特征在zeus中应用</a><a href="#section-398">评估</a><a href="#section-495">特征回溯</a><a href="#section-546">2.详细操作流程说明</a><a href="#section-554">3.特殊说明</a><a href="#section-560">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：特征中心</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1203498528">查看学城原文</a></p><article>
+<h1>说明：特征中心</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<ul>
+<li>内部：特征分散未实现统一管理且存在重复性建设问题，从而影响到自动策略生成以及对特征的深度挖掘（重点：缺少行为类特征的应用）</li>
+<li>外部：业务侧希望风控能够开放部分特征能力，底层的特征建设可以为应用层的数据服务提供更好的支撑</li>
+</ul>
+<h1 id="section-7">二、名词解释</h1>
+<h1 id="section-8">三、操作指南</h1>
+<h2 id="section-9">1.用户操作流程说明</h2>
+<h4 id="section-10">首先需要注册离线特征加工的所需的数据源</h4>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">Zeus--&gt;特征中心--&gt;数据源管理</span></p>
+<p><span style="font-size:14px"><strong>【查看】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">进入默认展示所有注册好的数据源表</span></li>
+<li><span style="font-size:14px">支持通过查询区的名称和最后修改人misid查询复核条件的数据源表</span></li>
+<li><span style="font-size:14px">点击「数据源名称」，可以查看数据源信息；</span></li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【新建】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「新建数据源」按钮，跳出新建数据源弹框，</span></li>
+<li><span style="font-size:14px">需要输入数据源中文名称、数据库名称、DSN后，数据源表下拉框可自动带出复核条件的数据源表，仅支持单选；</span></li>
+<li><span style="font-size:14px">需填写共享业务方，支持共享多个业务方</span></li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【修改】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">所有的数据源表支持修改共享业务方，其他配置不可修改</span></li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【删除】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">已经注册好的数据源表如果没有配置特征计算逻辑，即引用次数=0，则该数据源表支持删除；</span></li>
+<li><span style="font-size:14px">如果引用次数&gt;0，则该数据源表不支持删除；</span></li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/03372de89ffc63a9.png" width="699" height="263" alt="image.png"></p>
+<p><img src="assets/c8abde8886f03ead.png" width="441" height="298" alt="image.png"><img src="assets/120c76262f0018df.png" width="446" height="363" alt="image.png"></p>
+<p><img src="assets/f3843a6d70a92444.png" width="446" height="367" alt="image.png"></p>
+<p><img src="assets/ec2e609037917d37.png" width="443" height="363" alt="image.png"><img src="assets/b59a50d7623f2f26.png" width="699" height="124" alt="image.png"></p>
+<p></p>
+<p><img src="assets/26727e9371a122e0.png" width="434" height="150" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h4 id="section-113">利用数据源注册特征</h4>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">Zeus--&gt;特征中心--&gt;特征管理</span></p>
+<p><span style="font-size:14px"><strong>【查看】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">进入默认展示所有注册好的特征</span></li>
+<li><span style="font-size:14px">支持通过查询区的名称、维度、特征状态、特征类型、注册方式、修改时间、最后修改人misid查询、标签等复核条件的数据源表</span></li>
+<li><span style="font-size:14px">标签支持输入多个标签组合查询，当输入多个标签时，只要特征的标签满足查询条件中的一个标签，就能被筛选出来</span></li>
+<li><span style="font-size:14px">点击「特征名称」，可以查看特征注册信息；</span></li>
+<li><span style="font-size:14px">特征计算状态有：计算完成、计算失败、待计算</span></li>
+<li><span style="font-size:14px">特征计算时间：计算完成/计算失败的特征都有计算时间</span></li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【新建】</strong></span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">点击右上角「新建特征」按钮，跳转至新建特征页面</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">新建特征支持「可视化注册」、「代码注册」、「直接注册」</span></p>
+<p><span style="font-size:14px"><strong>「可视化注册」</strong></span></p>
+<p><span style="font-size:14px">基本信息：必填栏位均需填写；</span></p>
+<p><span style="font-size:14px">更新周期解释：即特征注册好之后计算周期。</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">更新周期默认1天，即每天计算一次；用户可以填其他数字，比如7，表示每7天算一次；填0，表示特征实时计算；也可以置空，即该特征只需要注册后计算一次，便不再重新计算。（特征中心一期上线后暂不支持实时计算，即使配置0，也不会实时计算）</span></span></p>
+<p><span style="font-size:14px">标签支持多选，需要现在策略管理-标签模块先配置好标签。</span></p>
+<p><span style="font-size:14px">逻辑配置：</span></p>
+<p><span style="font-size:14px">特征库/表：下拉可选之前注册的数据源；</span></p>
+<p><span style="font-size:14px">特征维度：下拉可选上一步已经选好的数据源中的字段，支持多选，</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">但建议选维度字段在表中必然存在值（value）的字段，否则会出现特征计算成功后绑定维度失败的情况。</span></span></p>
+<p><span style="font-size:14px"><strong>计算逻辑：</strong></span></p>
+<p><span style="font-size:14px">可通过页面点选的形式将计算逻辑写完整，支持count/sum/avg/min/max/stddev_samp/stddev_pop/var_pop/first/last内置函数</span></p>
+<p><span style="font-size:14px">Where条件：非必填，如果填写的话，直接写语句，无需“where”单词</span></p>
+<p><span style="font-size:14px">Group By：非必填，如果填写的话，直接写语句，无需“Group By”词组。</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">如果计算逻辑中使用了聚合函数，则必须填写Group By条件，否则会报错</span></span></p>
+<p><span style="font-size:14px">Having条件：非必填，如果填写的话，直接写语句，无需“Having”单词</span></p>
+<p><span style="font-size:14px"><strong>计算形式：</strong></span></p>
+<p><span style="font-size:14px">统一表示特征对象的统计时长一致，选择统一后，需要确定以哪个字段确定计算周期，计算周期天数，比如输入3天，而基本信息的更新周期为1天，表明这个特征每天计算一次，每次计算的都是近3天的数据base；</span></p>
+<p><span style="font-size:14px">单一表示特征对象的特征计算时长是个性化的配置，比如时间2-时间1</span></p>
+<p><span style="font-size:14px">上述必填配置配置完成后，必须点击生成sql进行语法校验，通过的会跳出生成的sql的页面，未通过的会报错。</span></p>
+</li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+</li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px">           </span><span style="font-size:14px"><strong> 「代码注册」</strong></span></p>
+<p><span style="font-size:14px"><strong>        </strong></span><span style="font-size:14px">     基本信息内容同可视化注册，逻辑配置模块需自行填写sql语句，系统会校验sql语法，但不校验逻辑是否合理</span></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px">            </span><span style="font-size:14px"><strong>「直接注册」</strong></span></p>
+<p><span style="font-size:14px">             1. 支持单个注册也支持批量注册。</span></p>
+<p><span style="font-size:14px">             2. 逻辑配置模块可以先选择数据源表中的部分字段，选中后下方会有选好的特征字段配置，方便用户进行对特征字段进行属性配置</span></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【修改】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击特征名称，进入特征详情页</span></li>
+<li><span style="font-size:14px">点击右上角编辑，进入特征修改页。基本信息和逻辑均可修改，但不可以变更注册方式</span></li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【删除】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">对于特征状态为「新建」、「未就绪」「未就绪」的，可以进行删除</span></li>
+</ol>
+<p><span style="font-size:14px"><strong>【状态说明】</strong></span></p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">状态</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">可操作项</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">新建</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">新建特征并保存后的状态，特征不会计算</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">删除</span></p>
+<p><span style="font-size:14px">启用，启用之后变成就绪状态</span></p>
+<p><span style="font-size:14px">编辑</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">就绪</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">特征已经启用，会按照配置进行计算s</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">删除</span></p>
+<p><span style="font-size:14px">下线，下线之后便沉给</span></p>
+<p><span style="font-size:14px">编辑</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">未就绪</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">从就绪状态下线后的状态，特征不会计算</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">删除</span></p>
+<p><span style="font-size:14px">启用，启用之后变成就绪状态</span></p>
+<p><span style="font-size:14px">编辑</span></p>
+</td>
+</tr>
+</table>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/7254fa524d7ae8eb.png" width="704" height="284" alt="image.jpeg"></p>
+<p><img src="assets/fb9d69bfaf8b1b5b.png" width="699" height="236" alt="image.png"></p>
+<p><img src="assets/c2402d71ca103cd2.png" width="699" height="298" alt="image.png"></p>
+<p><img src="assets/78510b58f15dafe8.png" width="699" height="168" alt="image.png"></p>
+<p><img src="assets/8139dfe086f9e860.png" width="699" height="298" alt="image.png"></p>
+<p><img src="assets/62338537ccd5348a.png" width="377" height="62" alt="image.png"></p>
+<p><img src="assets/9fae64bd4643642c.png" width="699" height="250" alt="image.png"></p>
+<p><img src="assets/7f8dab1570413bf1.png" width="620" height="151" alt="image.png"></p>
+<p><img src="assets/99126c570ad53cdd.png" width="699" height="236" alt="image.png"></p>
+<p><img src="assets/750aa7efa3ed0f0b.png" width="276" height="69" alt="image.png"></p>
+<p><img src="assets/35783d94ebd58b4b.png" width="699" height="290" alt="image.png"></p>
+<p><img src="assets/ee4e492fd81718f0.png" width="699" height="308" alt="image.png"></p>
+<p><img src="assets/407733a5efefe3f7.png" width="699" height="88" alt="image.png"></p>
+<p><img src="assets/6ca17cfd70748b64.png" width="699" height="147" alt="image.png"><img src="assets/d82f95dbcda0240b.png" width="699" height="342" alt="image.png"></p>
+<p><img src="assets/462b474e50de361a.png" width="699" height="132" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h4 id="section-365">特征在zeus中应用</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">特征启用后会进行计算，同时自动注册一个同名参数到zeus中，同时注册对应的数据接口；</span></li>
+<li><span style="font-size:14px">特征详情页会出现“数据接口”模块，点击数据接口，可超链接至zeus中数据接口编辑模块；</span></li>
+<li><span style="font-size:14px">为保证获取特征的准确性，需要用户修改输入映射配置。</span></li>
+<li><span style="font-size:14px">具体数据接口配置可参考</span><a href="../说明：外部数据应用到实时策略__182702174/index.html" title="https://km.sankuai.com/page/182702174">说明：外部数据应用到实时策略</a></li>
+<li><span style="font-size:14px">当数据接口配置完成后，可在zeus规则配置中直接应用该特征</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/6a234b64478407ab.png" width="704" height="210" alt="image.jpeg"></p>
+<p><img src="assets/991eb034ab3894e6.png" width="704" height="408" alt="image.jpeg"></p>
+<p><img src="assets/3c630a87ac704214.png" width="704" height="149" alt="image.jpeg"></p>
+<p><img src="assets/b3e6866eabb67d6b.png" width="704" height="52" alt="image.jpeg"></p>
+<p></p>
+</td>
+</tr>
+</table>
+<h4 id="section-398">评估</h4>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>数据源评估</strong></span></p>
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">zeus-特征中心-数据源管理-数据源评估tab</span></p>
+<p><span style="font-size:14px"><strong>【新建】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「新建评估」，跳出评估配置弹框：</span></li>
+<li><span style="font-size:14px">可以选择指定数据源表；</span></li>
+<li><span style="font-size:14px">选定数据源表后，可以对数据源表重的指定几个字段、或者全部字段进行评估数据质量；</span></li>
+<li><span style="font-size:14px">时间：选定某时间的字段数据；</span></li>
+<li><span style="font-size:14px">评估指标：具体可参考</span><a href="children/特征评估指标__1227050269/index.html" title="https://km.sankuai.com/page/1227050269">特征评估指标</a><span style="font-size:14px">，指标支持多选或全选；如果所选字段不符合指标的计算逻辑，即使选中了，也不会计算；</span></li>
+<li><span style="font-size:14px">任务名称/任务备注：用户自定义输入，便于区分；</span></li>
+<li><span style="font-size:14px">点击确认则生成任务，在列表也展示</span></li>
+<li><span style="font-size:14px">任务生成后不可删除、不可修改</span></li>
+<li><span style="font-size:14px">任务状态为：待评估、评估中、评估完成。</span></li>
+<li><span style="font-size:14px">点击评估名称，可超链接至魔数查看评估结果；（魔数表名：</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">log.rc_zeus_feature_evaluation_result）</span></span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/dae82463cf9964b9.png" width="877" height="268" alt="image.jpeg"></p>
+<p><img src="assets/a95c9f80a335e37f.png" width="400" height="282" alt="image.jpeg"><img src="assets/7c5aca397000171c.png" width="400" height="290" alt="image.jpeg"></p>
+<p><img src="assets/6ac18313de7ab9bc.png" width="400" height="352" alt="image.jpeg"><img src="assets/0bd1be7f6afb363a.png" width="400" height="324" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>特征评估</strong></span></p>
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">zeus-特征中心-特征管理-特征详情页-评估按钮</span></p>
+<p><span style="font-size:14px"><strong>【新建】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「评估」，跳出评估配置弹框：</span></li>
+<li><span style="font-size:14px">时间：选定某时间的字段数据；</span></li>
+<li><span style="font-size:14px">评估指标：具体可参考</span><a href="children/特征评估指标__1227050269/index.html" title="https://km.sankuai.com/page/1227050269">特征评估指标</a><span style="font-size:14px">，指标支持多选或全选；如果所选字段不符合指标的计算逻辑，即使选中了，也不会计算；</span></li>
+<li><span style="font-size:14px">任务备注：用户自定义输入，便于区分；</span></li>
+<li><span style="font-size:14px">点击确认则生成任务，在特征评估列表页展示和特征详情页的「评估信息」模块展示</span></li>
+<li><span style="font-size:14px">任务生成后不可删除、不可修改</span></li>
+<li><span style="font-size:14px">任务状态为：待评估、评估中、评估完成。</span></li>
+<li><span style="font-size:14px">点击评估名称，可超链接至魔数查看评估结果（魔数表名：</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">log.rc_zeus_feature_evaluation_result）</span></span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/39085cbf02d3aff4.png" width="877" height="338" alt="image.jpeg"></p>
+<p><img src="assets/a0cd5ab17128b18f.png" width="877" height="120" alt="image.jpeg"></p>
+<p><img src="assets/337fdf1ab3b8d66f.png" width="877" height="221" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-495">特征回溯</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">zeus-特征中心-特征管理-特征详情页-回溯按钮</span></p>
+<p><span style="font-size:14px">zeus-特征中心-特征回溯-新建回溯</span></p>
+<p><span style="font-size:14px"><strong>【新建】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">针对从特征详情页跳转的回溯配置模块，会自带特征字段，从「特征回溯」tab跳转的回溯配置模块，不会带特征字段：</span></li>
+<li><span style="font-size:14px">时间：选定某时间的字段数据；</span></li>
+<li><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">回溯任务会按照所选时间区间判断是否生成子任务，如果所选时间为指定的某一天，则生成一个任务；如果所选时间为某一段时间（N天），则用户配置一次，系统默认生成N个子任务，在用户所写的任务名称后面用序号区分。（目的在于防止回溯时间过长，因为某一天的数据问题，导致这段时间的回溯任务整体失败）</span></span></li>
+<li><span style="font-size:14px">任务备注：用户自定义输入，便于区分；</span></li>
+<li><span style="font-size:14px">点击确认则生成任务，在【特征回溯】列表页可查看</span></li>
+<li><span style="font-size:14px">任务生成后不可删除、不可修改；</span></li>
+<li><span style="font-size:14px">针对刚生成的回溯任务且状态为待回溯的任务，有「终止」按钮，可终止回溯任务，「回溯中」的不可终止任务；</span></li>
+<li><span style="font-size:14px">任务状态为：待回溯、回溯中、回溯完成、已终止。</span></li>
+<li><span style="font-size:14px">点击任务名称，可超链接至魔数查看评估结果；（魔数表名：</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">log.rc_zeus_feature_replay_result）</span></span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/4269fad4d562746d.png" width="811" height="351" alt="image.jpeg"></p>
+<p><img src="assets/ab110291be081535.png" width="811" height="352" alt="image.jpeg"></p>
+<p><img src="assets/53ff827cf787234d.png" width="811" height="264" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h2 id="section-546">2.详细操作流程说明</h2>
+<p>规则熔断入口：Zeus--&gt;特征中心</p>
+<p>测试环境网址：<a href="https://zeus.mis.rc.test.sankuai.com/l2/#/featureManageList" title="https://zeus.mis.rc.test.sankuai.com/l2/#/featureManageList">https://zeus.mis.rc.test.sankuai.com/l2/#/featureManageList</a><a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList"></a></p>
+<p>线上环境网址：<a href="https://zeus.sankuai.com/data_zeus_static/#/featureManageList" title="https://zeus.sankuai.com/data_zeus_static/#/featureManageList">https://zeus.sankuai.com/data_zeus_static/#/featureManageList</a></p>
+<p></p>
+<h2 id="section-554">3.特殊说明</h2>
+<ol>
+<li>特征中心一期上线后仅支持<span style="color:rgb(245, 35, 45)">离线</span>特征注册和计算</li>
+<li>特征中心二期上线后与zeus打通，目前仅支持离线特征注册、计算、管理、应用</li>
+</ol>
+<p></p>
+<h1 id="section-560">四、FAQ</h1>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/特征评估指标__1227050269/index.html">特征评估指标</a> <span class="status">已保存</span></li></ul></section></main></body></html>

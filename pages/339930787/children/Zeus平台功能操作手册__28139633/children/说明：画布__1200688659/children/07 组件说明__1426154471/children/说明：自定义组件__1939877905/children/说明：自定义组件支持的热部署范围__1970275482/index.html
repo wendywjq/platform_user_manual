@@ -1,0 +1,1486 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：自定义组件支持的热部署范围</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-2">一、名词释义</a><a href="#section-6">二、总体概览</a><a href="#section-18">三、支持热更新范围</a></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：画布</a> / <a href="../../../../index.html">07 组件说明</a> / <a href="../../index.html">说明：自定义组件</a> / <a href="index.html">说明：自定义组件支持的热部署范围</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1970275482">查看学城原文</a></p><article>
+<h1>说明：自定义组件支持的热部署范围</h1>
+<h1 id="section-2">一、名词释义</h1>
+<ul>
+<li>热部署：<span>即在自定义组件被画布引用，任务正在线上运行的时候更新升级自定义组件的内容，但不需要重新启动画布。</span></li>
+</ul>
+<h1 id="section-6">二、总体概览</h1>
+<img src="assets/9d74b83a4abb7fc6.svg" width="1056" height="478" alt="流程图">
+<p>原则：</p>
+<ul>
+<li>
+<p>修改组件类型、新增/删除组件、修改组件之间拓扑结构，均不支持热更新，需要重启任务使配置生效。</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>涉及到kafka topic变更的修改，不支持热更新，需要重启任务使配置生效。</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>涉及到组件核心执行逻辑修改的，不支持热更新</p>
+</li>
+</ul>
+<h1 id="section-18">三、支持热更新范围</h1>
+<ul>
+<li>热更新生效时效：<span>@葛磊</span>明确下</li>
+<li>各组件配置信息支持热更新的范围</li>
+</ul>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>组件类型</p>
+</th>
+<th colspan="2" style="background-color:rgb(246, 246, 246);vertical-align:middle">
+<p><span style="color:rgba(0, 0, 0, 0.87)">组件</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>名称</p>
+</th>
+<th>
+<p>是否支持热更新</p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="35">
+<p>数据源</p>
+</td>
+<td rowspan="12" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>Kafka</p>
+</td>
+<td rowspan="7" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p><span style="color:rgba(0, 0, 0, 0.87)">基本信息</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgba(0, 0, 0, 0.87)">名称</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgba(0, 0, 0, 0.87)">NameSpace</span></p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>Topic</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>时间纬度</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>时间纬度格式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>备注</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>日志类型</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="5" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>配置信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>参数名</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>别名</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>类型</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>备注</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>代码块</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="8" style="vertical-align:middle">
+<p>Kafka2</p>
+</td>
+<td rowspan="8" style="vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td>
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>Topic</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>Namespace</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>时间维度</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>时间维度格式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>水印时间</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>备注</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>向下游输出保留的字段</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="13" style="vertical-align:middle">
+<p>Mafka</p>
+</td>
+<td rowspan="13" style="vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td>
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>Topic</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.6)">NameSpace</span></p>
+</td>
+<td>
+<p><span style="color:#FF4A47">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.6)">subscribeGroup</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>消费组appKey</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>时间维度</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>时间维度格式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>水印时间</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>备注</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>日志类型</p>
+</td>
+<td>
+<p><span style="color:#FF4A47">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>是否配置set消费</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>消费起点</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>向下游输出保留的字段</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="2">
+<p>虚拟数据源</p>
+</td>
+<td>
+<p>基本信息</p>
+</td>
+<td>
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>参数信息</p>
+</td>
+<td>
+<p>中文名称、英文名称、类型、是否必填</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="51">
+<p>数据处理</p>
+</td>
+<td rowspan="3" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>select</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p></p>
+<p>配置信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>select</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>as</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="12" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>Groupby</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="11" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>配置信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>变量名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>计数类型</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>value</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>groupkey</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>聚合方式</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>时间窗口</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>时间滑动间隔</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>时间纬度</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>时间纬度格式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>剔除重复项</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>按何剔除</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="11" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>join</p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>join类型</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="9" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>配置信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>条件</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>左流时间维度</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>左流时间纬度格式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>右流时间维度</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>右流时间纬度格式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>聚合方式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>时间窗口</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>窗口步长</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>窗口大小</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="5" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p></p>
+<p></p>
+<p>Distinct</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="4" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>配置信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>key</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>时间纬度</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>时间纬度格式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>时间窗口</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="20" style="vertical-align:middle">
+<p>数据获取</p>
+</td>
+<td rowspan="2" style="vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td>
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>备注</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="18" style="vertical-align:middle">
+<p>配置信息</p>
+</td>
+<td>
+<p>英文名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>数据类型</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>存储类型</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(140, 7, 11)"><strong>缓存配置</strong></span></p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>结果类型</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(140, 7, 11)"><strong>限流量</strong></span></p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>超时时间</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>端口号</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>appkey</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>接口名</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>入参map</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>出参目标key</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.6)">squirrel类型</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>存储集群</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>查询方式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>Key表达式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>url</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>header</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="3">
+<p>逻辑判断</p>
+</td>
+<td rowspan="3" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>if...else</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>配置信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>rule</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>关系表达式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="4">
+<p>自定义</p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>代码组件</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>配置信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>代码块</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>规则集合</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>配置信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>规则/规则组</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="19">
+<p>数据输出</p>
+</td>
+<td rowspan="6" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>旁路输出</p>
+</td>
+<td rowspan="6" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>Topic</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>输出格式</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.6)">namespace</span></p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>消费组appKey</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>是否配置set输出</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="2">
+<p>虚拟输出</p>
+</td>
+<td>
+<p>基本信息</p>
+</td>
+<td>
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>参数信息</p>
+</td>
+<td>
+<p>中文名称、英文名称、类型</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="11" style="vertical-align:middle">
+<p>数据存储</p>
+</td>
+<td rowspan="2" style="vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td>
+<p>名称</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>备注</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="9" style="vertical-align:middle">
+<p>配置信息</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)">英文名称</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)">数据类型</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)">存储类</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 0, 0)">squirrel类型</span></p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>存储类型</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>key表达式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>field表达式</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>value值</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(140, 7, 11)"><strong>限流配置</strong></span></p>
+</td>
+<td>
+<p><span style="color:rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="4">
+<p>决策处置</p>
+</td>
+<td rowspan="4" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>决策信息</p>
+</td>
+<td rowspan="4" style="background-color:rgb(255, 255, 255);vertical-align:middle">
+<p>基本信息</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>决策</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+<p><span style="color:rgb(0, 186, 115)">（</span><span style="color:rgb(255, 74, 71)">kafka类决策不支持热更新，因为涉及注册topic</span><span style="color:rgb(0, 186, 115)">）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>附加信息</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+<p><span style="color:rgb(0, 186, 115)">（</span><span style="color:rgb(255, 74, 71)">kafka类决策附加信息不支持热更新，因为涉及注册topic</span><span style="color:rgb(0, 186, 115)">）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>决策理由</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>条件</p>
+</td>
+<td>
+<p><span style="color:rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+</table>
+</article></main></body></html>

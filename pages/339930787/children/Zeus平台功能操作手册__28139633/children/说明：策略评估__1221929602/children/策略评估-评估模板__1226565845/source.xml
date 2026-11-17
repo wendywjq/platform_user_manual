@@ -1,0 +1,87 @@
+<km-doc>
+<km-title nodeId="9ae07ba7e8bc41078425317332083d1a">策略评估-评估模板</km-title>
+<km-catalog style="none" nodeId="1cc2a224a3324890bbde0e59a59b6f74" />
+<h2 nodeId="95cf9e55d6d7491d87dd14d9cc849ac6">一、背景</h2>
+<p align="start" nodeId="9a893a590d3543c6a1b49ada1f66315f">相见策略评估的背景</p>
+<h2 align="start" nodeId="91172cdb18964966851e48b308baa3ec">二、名词解释</h2>
+<p align="start" nodeId="71a94b0f2b6a4d4789143de47f6ea9f7">评估模板：便于用户管理一批规则通用的评估逻辑，便于根据模板自动生成评估任务</p>
+<h2 align="start" nodeId="875348b4bdc2424181c7a776147b7f15">三、操作指南</h2>
+<h3 align="start" nodeId="7150872bd662400183998698fcfc4790">1.用户操作流程说明</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="faf59f425ffc4fc181485a068ac30c17">
+<tr nodeId="e94b1a85092846ec9e3da21adf1b74d0">
+<th colwidth="[620]" nodeId="98ae62d2fb7d49fe92c2c5b26446efc1">
+<p nodeId="6fa06bad0f89472bb008b2d7dc5fa689"><span font-size="14">说明</span></p>
+<p nodeId="8dc99001045244c092f8addb17db9dc7"><span font-size="14">入口：</span></p>
+<p nodeId="e96e15d5503e4bf388dad4e79c724ded"><span color=" "><span font-size="14">zeus--&gt;策略评估--&gt;评估模板--&gt;评估模板tab</span></span></p>
+</th>
+<th colwidth="[682]" nodeId="0a9a71bc9f7a402b8040e0ba060ad9fa">
+<p nodeId="e8a07a57a3d04e008f68fd4920150ab0"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="9e71023a0155448f875518b5b2033823">
+<td colwidth="[620]" nodeId="e59818d5617648da8b8072fa7ff14ec3">
+<p nodeId="f4c5bafe94614dc4acf85964b8430be2"><span color=" "><span font-size="14">新建：</span></span></p>
+<ol nodeId="61b00fe410ce4d88846178faa8d23ac3">
+<li nodeId="4832d82bc71f465c99e2bb3e23ff1c4d"><span font-size="14">点击右上角「新建模板」按钮，进入将新建模板页面</span></li>
+<li nodeId="2994dd6cc61a43ddb939888f91bd3c06">
+<p nodeId="7a89dee7b6ac40ef85a3b752bb93535a"><span font-size="14">基本信息模板：</span></p>
+<p nodeId="ec1bd57430aa4962be774b587bf9b34d"><span font-size="14">必须填写模板名，模板属性（标记模板、在线模板二选一，本期仅上线标记模板）；生效方式（自动、人工二选一，本期仅上线人工模板）</span></p>
+<p nodeId="ed09b6aa25824d108eb461d124aa63df"><span font-size="14"><strong>备注：</strong></span></p>
+<p nodeId="17628fa79e524bef9c5256fbfc613865"><span font-size="14"><strong>属性与规则状态挂钩，标记模板评估标记规则，在线模板评估生效规则；</strong></span></p>
+<p nodeId="60caf51b70a847b88d37583b7db8defb"><span font-size="14"><strong>生效方式表明使用该模板的评估任务完成且评估结果通过后，待评估的规则是自动生效还是人工生效，为避免生产问题，本期仅上线人工生效。</strong></span></p>
+</li>
+<li nodeId="25e79b92dd674ffeb795a8fc7f733a31"><span font-size="14">逻辑配置仅支持模板配置，支持左变量（指标）+操作符+右变量（阈值）的配置方式</span></li>
+<li nodeId="d130b4c23fac49a28bbd80ec879b1960"><span font-size="14">指标下拉选项为「评估指标tab」的默认指标和用户配置的自定义指标；</span></li>
+<li nodeId="a5b0ae762ed544b4bdfdde2ac773428b"><span font-size="14">操作符为&gt;/&gt;=/==/&lt;=/&lt;</span></li>
+<li nodeId="32fbc59fd8f7471dbef8338787fce5d1"><span font-size="14">阈值可以输入数字，支持输入两位小数；</span></li>
+<li nodeId="b2045695578d4252a658c886eeb0e9d6"><span font-size="14">每一行可以配置一个指标的判断逻辑，多行之间可以编辑「与/或/非」关系，用户配置复杂逻辑</span></li>
+<li nodeId="14a9f8d035844875accb0905dfca867d"><span font-size="14">逻辑预览支持用户查看自己所配逻辑是否符合预期</span></li>
+</ol>
+<p nodeId="fb676ec37a464da9a94eccefa307052c" />
+</td>
+<td colwidth="[682]" nodeId="04348262013440c1b3fc8cdbea13d86c">
+<p nodeId="42dbb6289c484e2da366fc0d567777e8"><img src="https://km.sankuai.com/api/file/cdn/1226565845/1392534530?contentType=1&amp;isNewContent=false" name="image.jpeg" width="660" height="336" nodeId="ff02ae09e98446d0b2d164f0cc955b80" /></p>
+<p nodeId="6a99066822074a7da18ee6fdce049be9"><img src="https://km.sankuai.com/api/file/cdn/1226565845/1392493761?contentType=1&amp;isNewContent=false" name="image.jpeg" width="660" height="326" nodeId="c7cc4083d1f7430cb2c7a5ef9ea9b511" /></p>
+<p nodeId="ae1254e00887469eafcb7f90f4c29756"><img src="https://km.sankuai.com/api/file/cdn/1226565845/1392577398?contentType=1&amp;isNewContent=false" name="image.jpeg" width="660" height="297" nodeId="1c5697f28344450f8314199552291069" /></p>
+<p nodeId="75501ff4b5454fef9fa80661d4c44bda"><img src="https://km.sankuai.com/api/file/cdn/1226565845/1392578102?contentType=1&amp;isNewContent=false" name="image.jpeg" width="660" height="218" nodeId="46a13814b9214227adf579afcd2a44dc" /></p>
+</td>
+</tr>
+<tr nodeId="ec439df16ca848bb92bc6e3e33abdf1b">
+<td colwidth="[620]" nodeId="98df0b6613c643dc9dcd317fc55cf11c">
+<p nodeId="a33e4d16f7214616bfa194c1149248c6"><span font-size="14">查看</span></p>
+<p nodeId="02240d11961c410cae536b7976fb7f6a"><span font-size="14">入口：评估模板tab点击模板名称进入「模板详情页」</span></p>
+<p nodeId="814aa7d124134939bf48266292d82d87"><span font-size="14">模板详情页支持查看模板基本信息、逻辑配置信息</span></p>
+</td>
+<td colwidth="[682]" nodeId="dfa65b1cdae64d7ca7dd982fc6d636a5">
+<p nodeId="fa1ec1d4d1f74a69b6c0d1cd123da7b4"><img src="https://km.sankuai.com/api/file/cdn/1226565845/1392723667?contentType=1&amp;isNewContent=false" name="image.jpeg" width="660" height="351" nodeId="e5982c69e8844910bd6aa94d36220f50" /></p>
+</td>
+</tr>
+<tr nodeId="87d45580a3994b359deab0d4c2768ca4">
+<td colwidth="[620]" nodeId="47b827192a9e44f594a5c8cb7992dcf5">
+<p nodeId="77d5ec5240e34a75a4939a02c5b8f2c1"><span font-size="14">修改</span></p>
+<p nodeId="905d83cbde7f469790c3bdcc00c9de0d"><span font-size="14">入口：评估模板tab点击模板名称进入「模板详情页」--右上角点击编辑进入模板修改页</span></p>
+<p nodeId="2f518c5e4fa843289c2a9a88adb9ff52"><span font-size="14">基本信息、逻辑配置均支持修改</span></p>
+</td>
+<td colwidth="[682]" nodeId="79ba11497ede4bd7bf7084138cb9627e">
+<p nodeId="f8eb86be66414b978225e0df1e707338"><img src="https://km.sankuai.com/api/file/cdn/1226565845/1392764090?contentType=1&amp;isNewContent=false" name="image.jpeg" width="660" height="370" nodeId="1a7abb68803a40708b9fb5a46f64d0b1" /></p>
+</td>
+</tr>
+<tr nodeId="53a083741a5444db8cac7d53f3b0e3d5">
+<td colwidth="[620]" nodeId="dd61ba2bb38f47859d3e5e193f8d8ebf">
+<p nodeId="c0003a72cdfe4833821c5ed45a4d8135"><span font-size="14">删除/上线/下线</span></p>
+<ol nodeId="0c5a0d6892bd41bd90ecf42a4aef99fb">
+<li nodeId="15a9ca77dfb04a92b295384073771092"><span font-size="14">删除：无论模板是否被任务使用，评估模板均可以被删除，因为在生成任务之后，模板中的内容已经被copy到任务中；</span></li>
+<li nodeId="b706742db03e48c1a03887304e489f6b"><span font-size="14">上线：模板配置完成后的状态为未就绪，需要用户上线模板，才可以在开启评估任务时进行选择该模板；</span></li>
+<li nodeId="63143dddce3b4c65b5eb58862f54ecfa"><span font-size="14">下线：就绪状态的模板可以进行下线，下线后状态为未就绪，此时不可以被评估任务选择和引用</span></li>
+</ol>
+</td>
+<td colwidth="[682]" nodeId="c6901ad579cc4a0786089b8a69526cd7">
+<p nodeId="b6cc79053ced4a20a80ab7393f954b0a"><img src="https://km.sankuai.com/api/file/cdn/1226565845/1392528065?contentType=1" name="image.jpeg" width="660" height="309" nodeId="eb1abe5ea7d94a59a61b49a0f8ffac9c" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="916ceedec78a432585aae9cd8169e1ff" />
+<h3 nodeId="4a4227e5bc71435f86df0980b7680c58">2.特殊说明</h3>
+<p align="start" nodeId="f7b749c621ef4ed4a9e747464008f160" />
+<h2 align="start" nodeId="ad8e373f0a8e4561a5daf19278469f83">四、FAQ</h2>
+</km-doc>

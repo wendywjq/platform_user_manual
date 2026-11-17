@@ -1,0 +1,41 @@
+<km-doc>
+<km-title nodeId="307b8c04ca864f06b7be38a6d9cb3567">说明：场景组件</km-title>
+<km-catalog style="none" nodeId="9f63c7db79b74a4d933ea059700738cc" />
+<h3 nodeId="863d12cb4ed74b20a4e18b90a374e4aa">一、背景</h3>
+<p align="start" nodeId="640a03088a914ff0890a524865f42ac5">对于一些策略布控，数据流需从实时转发，使用该组件可从实时场景将流量转发到画布</p>
+<h3 align="start" nodeId="8ddfea6caf14405e9ee555c750ce64fd">二、名词解释</h3>
+<p align="start" nodeId="2d644ba3bd264246a02408465491a092"><span color="">无​</span></p>
+<h3 align="start" nodeId="a452bf781a07426489ec22a746163fc8">三、操作指南</h3>
+<table responsive="false" nodeId="9f66cd83fda7419eab77f6c8dafbd060">
+<tr nodeId="ab8f4f7c0ca84ff7b056bc7d94a78c74">
+<th colwidth="[301]" verticalAlign="top" bgColor="rgb(244, 245, 247)" nodeId="3707294a2166445592956bce6ea56dbf">
+<p nodeId="2a20671c342d4d0fb29a657bedc1da73"><strong>操作说明</strong></p>
+</th>
+<th colwidth="[842]" verticalAlign="top" bgColor="rgb(244, 245, 247)" nodeId="cb353481d0d2451da039bc177c26ab67">
+<p nodeId="865f985bec3a4d9aadbc201fbe840ab6"><strong>页面</strong></p>
+</th>
+</tr>
+<tr nodeId="0140658ff0624782a942bc8b09cb334a">
+<td colwidth="[301]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a947bd0abef04c4fa042d12be0b6d339">
+<p align="start" nodeId="c03915eaa0994674a0b81243e5e3c8c0">【入口】</p>
+<ol nodeId="728e3d5589b441e8a1ffb3384dd83e7f">
+<li nodeId="b742ba8a1a054c16a3cffb1a7ddf8429">工具栏--&gt;数据源</li>
+</ol>
+<p nodeId="c0bf7f467f21428fa5beb4786bd85ac8">【配置说明】</p>
+<ol nodeId="c5a423cdf1c4440d9e04d50143001ae5">
+<li nodeId="4bd8c3d8c1a347f4bbbca03e1bba6797">名称：<span font-size="14">该组件名称，支持中英文，限定不超过10个字</span></li>
+<li nodeId="11f230bdc44243cb98e6c8fa87198584">
+<p nodeId="f144d9559aec49b5a2c49cd78a84435b"><span font-size="14">*场景id：输入</span><span font-size="14"><km-quote quoteId="2427050257--89d1240a-c3ab-4f75-bd6d-9d0384e41d79">实时场景id</km-quote></span></p>
+<p nodeId="315345cb3c48404f9edc0d9fdc56937d" />
+</li>
+</ol>
+</td>
+<td colwidth="[842]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="487ac5abd6a74899bfced2de7693b6a9">
+<p align="start" nodeId="2ba1fd29ba1546e3a78ad03d6e260e98"><img src="https://km.sankuai.com/api/file/cdn/2427050257/118039440007?contentType=1&amp;isNewContent=false" name="image.jpeg" width="819" height="290" nodeId="ee0548fe9fed425cbaea36cf4ed108c1" /></p>
+</td>
+</tr>
+</table>
+<h3 align="start" nodeId="1527ead44fd54057b886cc345b977d2c">四、FAQ</h3>
+<p nodeId="2cc6098f56184acf9eb29273ea1d70ba">待补充<br /></p>
+<p nodeId="3ad5dcbd0251451a86e82c4d73907673"><br /></p>
+</km-doc>

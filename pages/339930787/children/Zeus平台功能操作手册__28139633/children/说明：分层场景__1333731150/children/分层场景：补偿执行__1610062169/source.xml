@@ -1,0 +1,114 @@
+<km-doc>
+<km-title nodeId="ceaf5388c2454975b907b35ddca9ea4b">分层场景：补偿执行</km-title>
+<km-catalog style="none" nodeId="e333c5fb23814e5e8e6725fef1c1ec11" />
+<h1 nodeId="953d854fd53c451198f5dcb10c1b5ff5">一、背景</h1>
+<p nodeId="6b89c3f1ee5a4b7bb14d770dc0b2976d"><span font-size="15">策略分层执行的方式是将</span><span color="rgb(245, 35, 45)"><span font-size="15">更重要能快速判断出结果</span></span><span font-size="15">的策略</span><span color="rgb(245, 35, 45)"><span font-size="15">优先执行</span></span><span font-size="15">（类似黑白名单/基础参数判断等），</span><span color="rgb(245, 35, 45)"><span font-size="15">复杂且高耗时</span></span><span font-size="15">的规则</span><span color="rgb(245, 35, 45)"><span font-size="15">后执行或不执行</span></span><span font-size="15">，因此在实时链路中就会存在一些未执行的策略，异步补偿就是将这部分本应执行完成，但因为分层未执行的部分在异步链路重新执行。</span></p>
+<h1 nodeId="06b2406f71d24f0cad9243b21f760698">二、目的</h1>
+<ul nodeId="c4086beaf3ee4dd29b06540f4bb01efc">
+<li nodeId="2c67d692f60e441d8f866cefa9ba485e"><span font-size="15">风险补偿：在实时链路本应该执行完成，但因 超时 而未执行的部分，使全流量逻辑执行完成100%</span></li>
+<li nodeId="60cf40afdd7c4dd1a5ecd8ed0af541aa">
+<p align="start" nodeId="9ff02c508f4543c68fb1d422f0bd8015"><span font-size="15">养数据&amp;特征：在全流量逻辑执行完成100%后，相较于策略并行执行但策略分层根本就没有执行到的策略，重新执行，用于模型、名单等做基础特征数据的数据源。</span></p>
+</li>
+</ul>
+<h1 nodeId="a984250c9bf644279bedd0f167659b20">三、逻辑介绍</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1610062169/31427112010?contentType=0&amp;isNewContent=false" width="1016" height="435" nodeId="bfd7031a1d704ea6afb139432b75358e" />
+<h2 align="start" nodeId="831ddec4ff384fc3a457b131231242cb">3.1 流程说明</h2>
+<p nodeId="d6fedd9b6b3a437cbacd56d4d53e51da"><span font-size="15">以不同颜色的线来介绍分层场景中的几类情况。（一句话：目前只有蓝色链路会补偿）</span></p>
+<ul nodeId="ee1b52578fa54b2fa8ee2e1ef21fa0fb">
+<li nodeId="5f95833c1ccb445f86ee7dc2a15a6b82"><span font-size="15">红色：在</span><span color="rgb(245, 35, 45)"><span font-size="15">实时</span></span><span font-size="15">链路中</span><span color="rgb(245, 35, 45)"><span font-size="15">正常执行</span></span><span font-size="15">的部分；</span></li>
+<li nodeId="8bb25735275b47efb0e9c2639d600abc"><span font-size="15">黑色：</span><span color="rgb(245, 35, 45)"><span font-size="15">路由条件</span></span><span font-size="15">不满足的分支，在实时和异步补偿链路中</span><span color="rgb(245, 35, 45)"><span font-size="15">都不会</span></span><span font-size="15">执行。</span></li>
+<li nodeId="a4d86bacacc4430095abac9743619c78"><span font-size="15">绿色：</span><span color="rgb(245, 35, 45)"><span font-size="15">满足短路条件</span></span><span color="rgb(38, 38, 38)"><span font-size="15">而发生短路的分支</span></span><span font-size="15">，默认在实时链路中</span><span color="rgb(245, 35, 45)"><span font-size="15">不会</span></span><span font-size="15">执行。（用户可自定义该场景 需要对短路情况也进行补偿执行，见3.3）</span></li>
+<li nodeId="6b2d33af3228422da46e35992e1f4255"><span font-size="15">蓝色：执行</span><span color="rgb(245, 35, 45)"><span font-size="15">超时</span></span><span font-size="15">，未执行到</span><span color="rgb(245, 35, 45)"><span font-size="15">本应执行</span></span><span font-size="15">的部分。将在补偿链路（worker）中执行，补偿自动触发。</span></li>
+</ul>
+<p nodeId="164fbf59a3e84142863a31aababd23cb"><span font-size="15">补偿链路中，规则状态为标记/生效，都将在worker中执行；状态为离线的不执行。</span></p>
+<h2 nodeId="0fd013f4f9fe401ca995b87b351148b3">3.2 补偿的决策执行</h2>
+<p align="start" nodeId="d333e990c820448c80dfb1809adc82c0"><span font-size="15">补偿链路中，普通决策（拦截、通过、验证等）直接落库，无法返回给调用方；</span></p>
+<p nodeId="1a58cf6f66684f6e986274153361a45d"><span font-size="15">而异步决策（如写名单、写kv）还是会输出给Tatooine异步执行。</span></p>
+<km-note type="tip" hiddenTitle="true" nodeId="df2389f55504493883a1c02cfc27bff9">
+<km-title></km-title>
+<km-content>
+<p nodeId="97aa04a813024aefb703ba61fb65285d">普通决策、异步决策概念见：<a href="https://km.sankuai.com/collabpage/1608157813" title="https://km.sankuai.com/collabpage/1608157813" autoUpdate="true" nodeId="d63ffcaa9c744affb1440eb75c5e244e">https://km.sankuai.com/collabpage/1608157813</a></p>
+</km-content>
+</km-note>
+<km-note type="info" hiddenTitle="true" nodeId="5c9c98af239c496d805c554fe37cae68">
+<km-title></km-title>
+<km-content>
+<p nodeId="2fe9363cb0b041f3bde69dc696a89c47">通过补偿决策的设置，可以让补偿链路中命中的「普通决策」转化为「异步决策」再下发执行。配置方式见：<a href="https://km.sankuai.com/collabpage/1409924045#id-3.4%20%E8%A1%A5%E5%81%BF%E5%86%B3%E7%AD%96" title="https://km.sankuai.com/collabpage/1409924045#id-3.4%20%E8%A1%A5%E5%81%BF%E5%86%B3%E7%AD%96" autoUpdate="true" nodeId="7f26c6778fa043e887cf18b13aecc659">https://km.sankuai.com/collabpage/1409924045#id-3.4%20%E8%A1%A5%E5%81%BF%E5%86%B3%E7%AD%96</a></p>
+</km-content>
+</km-note>
+<p nodeId="df10480f9900433b83c531985c31ca5b"><span color=""><span font-size="15">补偿数据落库机制：补偿日志与实时日志入库链路和存储 与当前保持一致。</span></span></p>
+<h2 nodeId="ebbff1a0317b4c1b81961e00f691482f">3.3 开启短路补偿</h2>
+<table responsive="false" nodeId="01928649164946e08d7cc793bb47a772">
+<tr nodeId="c7682b858ea54f6096c3c4d1dfc1f57f">
+<th colwidth="[356]" nodeId="160946384d4f4e1599540d00de817233">
+<p nodeId="5b12186cbb554fa3aad99b29d518c895">描述</p>
+</th>
+<th colwidth="[743]" nodeId="f31e09efeb8848659cf29bac10c494cf">
+<p nodeId="683020d213e94c39994f2701f6ad5000">图</p>
+</th>
+</tr>
+<tr nodeId="9b56332d57bc4f3aafd610fff6b90852">
+<td colwidth="[356]" nodeId="4c3fe6bbeb9c40078cd2239051a83324">
+<p nodeId="90be53deb55b49ac9b758068c4ea20c0"><span color="rgba(0, 0, 0, 0.84)">系统默认 仅对执行超时的情况才进行补偿。可设置该场景在「短路条件」触发时也进行补偿。</span></p>
+</td>
+<td colwidth="[743]" nodeId="c0e1d25ea9884646ab30e45b25a9bd1a">
+<p nodeId="d5be64fdb2c24701a3fe582d2c41c7a1"><img src="https://km.sankuai.com/api/file/cdn/1610062169/45478067180?contentType=1" name="image.jpeg" width="700" height="218" nodeId="d0170428fbb34419a0b21d0f804bee96" /></p>
+</td>
+</tr>
+<tr nodeId="c02062bff90a4f8ea08434413a0101a6">
+<td colwidth="[356]" nodeId="ea94cf77fbe645b6b9f4f725d469d82a">
+<p nodeId="283cf73cb417414e86962bf47b2afdbe">点击修改信息，可以开启短路补偿的开关。</p>
+</td>
+<td colwidth="[743]" nodeId="becc2e85e53c4acf992e99d416acef9d">
+<p nodeId="a79220adbee84b1fb8ee625d0bb201b1"><img src="https://km.sankuai.com/api/file/cdn/1610062169/45477279120?contentType=1" name="image.jpeg" width="686" height="280" nodeId="72afc13edc5a497ba0734694e6792465" /></p>
+</td>
+</tr>
+<tr nodeId="0877e2a4c39c425cb0ced3f1e728fc44">
+<td colwidth="[356]" nodeId="b73714e367904588944bd2bc04abc659">
+<p nodeId="af0cba182f1349d093796d068f61ae01">列表页该列信息展示为【开启】代表该场景除了对超时会触发补偿执行外，<span color="#FF4A47">执行路由条件组件命中短路条件后，也会触发补偿。</span></p>
+</td>
+<td colwidth="[743]" nodeId="538df66e86bb45f083f23bccaefd3a71">
+<p nodeId="05fe68f18e0e498f8e5b40b6668aa428"><img src="https://km.sankuai.com/api/file/cdn/1610062169/45475096468?contentType=1" name="image.jpeg" width="688" height="244" nodeId="a05776c64a744fd68b4cb498a910a1ac" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="7459e52af80c4f339664b5e5476d7943"><span color="">四、FAQ</span></h1>
+<table responsive="false" nodeId="17fa4ec22f2f475c9df5292d0096f488">
+<tr nodeId="31fdf429f9124475b62a938295d1b32b">
+<th colwidth="[50]" nodeId="810ff2f65a3943479ae3e79e3f318533">
+<p nodeId="f8a2ad0e04b24c01963a4ec527de3cab" />
+</th>
+<th colwidth="[459]" nodeId="a15989481a24440d978367c3193be11e">
+<p nodeId="2d0bd422051248958daf1c00ce851f74">问题</p>
+</th>
+<th colwidth="[473]" nodeId="0404c47406ea4e688cd2fa3d003bb825">
+<p nodeId="5a3b7547ff1b4523aee1a53fd54a2133">答</p>
+</th>
+</tr>
+<tr nodeId="95e6e5fec0b74d88a04f1523ffbf6814">
+<td colwidth="[50]" numCell="true" nodeId="b4841cb4d0ab4c45a01772f383e61079">
+<p nodeId="69537acb56d444fab8a9111e64fdfbd0" />
+</td>
+<td colwidth="[459]" nodeId="63c02edbc31741c4a5aea3b944507048">
+<p nodeId="b273a2ee54444c0c9bc6730114018c51" />
+</td>
+<td colwidth="[473]" nodeId="4a3b7a652a8b4fd78fd9266a412147e2">
+<p nodeId="8cce9178a5ac4a84bdbf2a61c2486775" />
+</td>
+</tr>
+<tr nodeId="d2ab056a133e4bb09898c53e5f72e3c7">
+<td colwidth="[50]" numCell="true" nodeId="9b53555731bc41f5b3c501209efe6f69">
+<p nodeId="bb188289ec0044318185ed5fbfc00e72" />
+</td>
+<td colwidth="[459]" nodeId="56b7d4c41b12465790988daaf6f97660">
+<p nodeId="c8b258a1129c46ccbc46b1cc817dd044" />
+</td>
+<td colwidth="[473]" nodeId="695b16a316814cd09eda7f6ee4315cc4">
+<p nodeId="16f6234a5e6c4fc5a91a3165e84deb52" />
+</td>
+</tr>
+</table>
+<p nodeId="2dd291e7c7ee4544bda3c46916efdbf6" />
+<p nodeId="c9df29af75eb470b904efef1826ac03e"><span color="rgba(0, 0, 0, 0.87)"><span font-size="22">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+<p nodeId="929240217ab9400a92b9d44cd8834720" />
+</km-doc>

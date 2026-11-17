@@ -1,0 +1,1486 @@
+<km-doc>
+<km-title nodeId="ce6962896f78437cbf854c694ca2312f">说明：自定义组件支持的热部署范围</km-title>
+<h1 nodeId="da6a51bd3b50480e96d928995cdd0523">一、名词释义</h1>
+<ul nodeId="4d737ebe9b38454797b671c35ab3202f">
+<li nodeId="4930f87269d14cc581e95c5ec57b2432">热部署：<span color="">即在自定义组件被画布引用，任务正在线上运行的时候更新升级自定义组件的内容，但不需要重新启动画布。</span></li>
+</ul>
+<h1 nodeId="e5c64161315c40b6842ee5f5c15faac2">二、总体概览</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1970275482/71417697650?contentType=0&amp;isNewContent=false" width="1056" height="478" nodeId="3fc5cb6483164f45b8603773da57536c" />
+<p nodeId="f332bb56f7c644d49a7ca4d515dad4b0">原则：</p>
+<ul nodeId="d4cb3f94c7824b509c7ce30fd71675af">
+<li nodeId="aff13269d93e4777850f5339a268b878">
+<p align="start" nodeId="a90fdc0cbf7e49d2979a8aaa8c5d0870">修改组件类型、新增/删除组件、修改组件之间拓扑结构，均不支持热更新，需要重启任务使配置生效。</p>
+</li>
+</ul>
+<ul nodeId="a3a1279b2a2740dc8fdb57af4ce41f7e">
+<li nodeId="2e504dcc56cd4ff085feda54906baf73">
+<p align="start" nodeId="acc8a733cf0144f5950c9a3379b72b38">涉及到kafka topic变更的修改，不支持热更新，需要重启任务使配置生效。</p>
+</li>
+</ul>
+<ul nodeId="c6699a7a45ee4a9b97c06e1354099efb">
+<li nodeId="4dd68d0006fb41d18be394b01184b7af">
+<p align="start" nodeId="31ed3b63584d46f29c61f33f14af8088">涉及到组件核心执行逻辑修改的，不支持热更新</p>
+</li>
+</ul>
+<h1 nodeId="6d830068665f4a089d41893c305ae01a">三、支持热更新范围</h1>
+<ul nodeId="60d3a06362344e438f88b528a2910d0d">
+<li nodeId="2bf85a3172294f26ab685fc12004a541">热更新生效时效：<km-mention name="葛磊" uid="gelei05" empId="" nodeId="7a3b7716ec074dc1a5da98b0b09731ee" />明确下</li>
+<li nodeId="2567000e5b294d5fb4698a056bb4c302">各组件配置信息支持热更新的范围</li>
+</ul>
+<table borderColor="#cccccc" responsive="false" nodeId="64de957b8b7c4880bc19c4d6ab02b809">
+<tr nodeId="644e77f54f004b669163366671e3f0e9">
+<th colwidth="[50]" nodeId="3ae413b3a6fb43cfaa6a5bc204382e2b">
+<p nodeId="48a7142ea7694f8db1c7ddd749e86b08" />
+</th>
+<th colwidth="[90]" nodeId="a72e4d9e4cb14579841a4947370aba5b">
+<p nodeId="6835e1d6fbf44eb282981a608b67d1fa">组件类型</p>
+</th>
+<th colspan="2" colwidth="[108,96]" verticalAlign="middle" bgColor="rgb(246, 246, 246)" nodeId="58306ea695db449b80956f304be83397">
+<p align="center" nodeId="924c0404c25a42cc96fe6b61eff1bde4"><span color="rgba(0, 0, 0, 0.87)">组件</span></p>
+</th>
+<th colwidth="[211]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="b88c206fdbc94c0583f528a66c940159">
+<p align="center" nodeId="760f56365e694a73ac35ff8583c1bfd7">名称</p>
+</th>
+<th colwidth="[218]" nodeId="12a4793d8f3746668080490bc5c5b58e">
+<p nodeId="fa3682bff12f447b9b6bb0731fedf130">是否支持热更新</p>
+</th>
+</tr>
+<tr nodeId="be2039b575164103b11edd5e1ff4566f">
+<td colwidth="[50]" numCell="true" nodeId="9178d921bd2e4bdfa33598dde8f8c29e">
+<p nodeId="c46c1d83679140c3b09e0ec3a546830d" />
+</td>
+<td rowspan="35" colwidth="[90]" nodeId="69ae6ae33b7d4701bfe495b000c4fae9">
+<p nodeId="62cbe659dd5447968f207fc31f01bf18">数据源</p>
+</td>
+<td rowspan="12" colwidth="[108]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="b551be5aa91d4afebb4833cc4e00e985">
+<p align="start" nodeId="2c3090c0224149ce92b4f97a83a05ad2">Kafka</p>
+</td>
+<td rowspan="7" colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="f327f965efe3419291758691661fc5d1">
+<p align="start" nodeId="a1fde2c737a34dbfa82e0550ca63f724"><span color="rgba(0, 0, 0, 0.87)">基本信息</span></p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b9b34fba24cc445cbe28f6cf8fe03905">
+<p align="start" nodeId="4da1cb4356c8491d9a8094c1c7c3c851"><span color="rgba(0, 0, 0, 0.87)">名称</span></p>
+</td>
+<td colwidth="[218]" nodeId="ffa5404a3a4b43808ad9bd6b7dcc33cd">
+<p nodeId="f466889de87142049c3b6f7f54166ce5"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="f283e880041f4ba2b20f4a20d0bb9171">
+<td colwidth="[50]" numCell="true" nodeId="94b226cb169643b0a18175dbb161302e">
+<p nodeId="dcbf93464c0043cb84aa7d551b045b02" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3764b92653f343e6a52b49ef94a17ae1">
+<p align="start" nodeId="118a9f1cc0004461959190c582faacb5"><span color="rgba(0, 0, 0, 0.87)">NameSpace</span></p>
+</td>
+<td colwidth="[218]" nodeId="2694c763c3ca4b02975bd0462405e760">
+<p nodeId="ca42df64218d432d9630023aee6fec76"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="5f049ee3cdfe4b14b7a803102f7f841d">
+<td colwidth="[50]" numCell="true" nodeId="169dceae743045e4afea22876de3e922">
+<p nodeId="52b7d8ba865743db89c8f47dd3b3cbaa" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="01f67d62b7a54b77aadbdc9edcea11f3">
+<p align="start" nodeId="1c3d9ee8c79f41e3bea55e72d526ff4a">Topic</p>
+</td>
+<td colwidth="[218]" nodeId="c4315e98ef5243188e7cfd35e5081508">
+<p nodeId="70ea7d51fccc48ac968495cbe986a0be"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="f5fddf6501b647908343dc3758c94f08">
+<td colwidth="[50]" numCell="true" nodeId="89998300bdc64c83a07f0a0728aa2167">
+<p nodeId="744a6cebd5cd4d95b322b760b034e60b" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a0b4d80b89f5434cbc9312b2e22a74e8">
+<p align="start" nodeId="e6421e28998442978981e8c212163618">时间纬度</p>
+</td>
+<td colwidth="[218]" nodeId="3978e5dd25504f5ea07149db500cfb5b">
+<p nodeId="febe7a88ba0542f693d5b3c7db3444a1"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="cdeef0e8cdb44e45b9ba73c8e79aa5c6">
+<td colwidth="[50]" numCell="true" nodeId="59fbd613d29641a9b4025b44984c7d85">
+<p nodeId="ee2d039ff7444ef8b7624b7fce1e1a47" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cb81ae523c474d8f86abd6ee577d8f72">
+<p align="start" nodeId="f4db480d98404a2ea64ed2e1c2839c5c">时间纬度格式</p>
+</td>
+<td colwidth="[218]" nodeId="47add821c1cb4b90abc6fa4f5785d009">
+<p nodeId="6d6ae16afad34e95abcf17e70f3e7af6"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="2bd46173733940279afffa5a8eb441ad">
+<td colwidth="[50]" numCell="true" nodeId="58beef315dcb489489aba1d0799df3dc">
+<p nodeId="b86a5e77e4f84e5a93c663484af913e7" />
+</td>
+<td colwidth="[211]" nodeId="fb59b7ad686a4a39a69e4d5ee5753b6a">
+<p nodeId="02540cc0fa3740898df4e24eb62c7d7b">备注</p>
+</td>
+<td colwidth="[218]" nodeId="3cfe80032e3241c8a68b846a4f045c4e">
+<p nodeId="83b4961cb575437eac48ac9b7b969f20"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="b2836fe8e86d4949bfc03f77d8a3535c">
+<td colwidth="[50]" numCell="true" nodeId="74fdccd3acd3406ab1312509ce3f32ab">
+<p nodeId="c0070e50b43547cc9a5bfe945bdc3f31" />
+</td>
+<td colwidth="[211]" nodeId="a37091a5c6cc4618b065ea19c9aeea66">
+<p nodeId="aee927c4f0a4439d99cc9bec82227fef">日志类型</p>
+</td>
+<td colwidth="[218]" nodeId="d782aa935d4d4e2b8d7eae9cd4bdd679">
+<p nodeId="35173cb50c684005b4410a58515b60cf"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="ff7a74b16dcd45d4aab9fa005eb9e816">
+<td colwidth="[50]" numCell="true" nodeId="db48c8cff4f74960a9cd4ec42cd719f9">
+<p nodeId="f57ad3765b69438ca975e50832fedfa6" />
+</td>
+<td rowspan="5" colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="c309c92b982b4d4483e33a7958b5a07a">
+<p align="start" nodeId="791244a97faa4fdb87fb0fd7529744a3">配置信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="389768f5c4604ce3a0f3eba156447384">
+<p align="start" nodeId="a24faa629bc547ed918f9606f29d650a">参数名</p>
+</td>
+<td colwidth="[218]" nodeId="0468465f0d48423aadf775ac16f6898e">
+<p nodeId="383ae2d982934561b3caaaa1d206a31d"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="c570679df0db4535be989c848b4e2751">
+<td colwidth="[50]" numCell="true" nodeId="177ee102ccc64813961bc933cb369aed">
+<p nodeId="d5435cf22b404b08bb977c9089a46174" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0b1a7ab5f0214557a898953e47d04c52">
+<p align="start" nodeId="1466459e02ab4593b542433760a38e7a">别名</p>
+</td>
+<td colwidth="[218]" nodeId="753cbfd7744f4dc58b82f7475d7852a8">
+<p nodeId="c38b59ac8b314332854e64f5a4346c5b"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="ab3abf6ca2244d83a3da5fda750c99b0">
+<td colwidth="[50]" numCell="true" nodeId="8f926cf09a4442e5b056061394740fed">
+<p nodeId="f613593f85ef4530b07cdc2ef087e212" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0e41b4b55fdb4fd9a01b59b893b58e41">
+<p align="start" nodeId="1315194c560f4466b66cc4b418e2ffd4">类型</p>
+</td>
+<td colwidth="[218]" nodeId="d1af92a6046a4aad9bf01633e21afc84">
+<p nodeId="018a764cf19a463f82707822060fa375"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="372d63457c3743cb86d415bab0c36b9a">
+<td colwidth="[50]" numCell="true" nodeId="45021dff016d41bdb6808061d93ccb29">
+<p nodeId="0c137ed2566e4f398b0251ae90c64558" />
+</td>
+<td colwidth="[211]" nodeId="3fd14743ac9d4a45b055bdd1dad2cb68">
+<p nodeId="5f4a46e85c6c47a8886b208b19345320">备注</p>
+</td>
+<td colwidth="[218]" nodeId="b637cae84a7c4f70b7ee22ab8422f2d0">
+<p nodeId="658d66bdd6264fcc94a705666c0a32e8"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="c8cd629466b24572a85846b392fcff7c">
+<td colwidth="[50]" numCell="true" nodeId="9f32fc09e7704d2299c1886fc7e32f54">
+<p nodeId="5c68c2dc831b487abbca3a36e02553d5" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5f5d7654d180403eb844e09bf4eb5cf9">
+<p align="start" nodeId="68a23b71f5b44252bbc101cd7541d9e7">代码块</p>
+</td>
+<td colwidth="[218]" nodeId="dc44fc600dee4940943bba7e89af2a6f">
+<p nodeId="0a391ae4329a4876925c11a449f5da75"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="96e5fdb70eb24fb6be6c82854f3e1b40">
+<td colwidth="[50]" numCell="true" nodeId="71e973ea9e9340008e85f2d4a961c882">
+<p nodeId="fdf5498ec85843b381a677d640bc9dcd" />
+</td>
+<td rowspan="8" colwidth="[108]" verticalAlign="middle" nodeId="b44d9c6be99d4f7b992b3c543d13a800">
+<p nodeId="2bd6354a286343ecb273f6dcbe4a53d9">Kafka2</p>
+</td>
+<td rowspan="8" colwidth="[96]" verticalAlign="middle" nodeId="34c830edefbb4cc1a2eb0442ee0ae5bb">
+<p nodeId="0d1003ac3082429bad2a284611e7170a">基本信息</p>
+</td>
+<td colwidth="[211]" nodeId="2cb48cabb42b479fa2478469a7fab360">
+<p nodeId="d83fa31c19d6459a87f51ad655296d42">名称</p>
+</td>
+<td colwidth="[218]" nodeId="8501050b447847a587e0700012a3ea6d">
+<p nodeId="2b6f382885ba4559abe9f479090cff3f"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="b45252bf5bc24976adce70a4cf25c83f">
+<td colwidth="[50]" numCell="true" nodeId="e3212af7e45e492f940176dbf5c2d635">
+<p nodeId="95375d0fc6314a248c13dfe09cc23920" />
+</td>
+<td colwidth="[211]" nodeId="b6761a73145c4aac998da3184dcde67e">
+<p nodeId="58224dc4910b4b71b1267adab44b7986">Topic</p>
+</td>
+<td colwidth="[218]" nodeId="6dbf3095e767431fbca8dcd69dd30153">
+<p nodeId="2ab1b57a077f47658981b0e3186c3b4a"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="1069b4c9ddaa422aa3006c4cd7d6d6ba">
+<td colwidth="[50]" numCell="true" nodeId="41832b727aa14da7a8c56c09526fc8bd">
+<p nodeId="e784f847960e43f180c1c95c05261b75" />
+</td>
+<td colwidth="[211]" nodeId="3be8cd6bceb14c6281cbee809e3732ad">
+<p nodeId="74365fe54fb24a66a6322f556634ac85">Namespace</p>
+</td>
+<td colwidth="[218]" nodeId="d0787f670c514d36903b1d2cb5117354">
+<p nodeId="a32dcaa50a934b23a8094a014f192f7a"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="11e569aa78be4ad2adf61166b6a281ed">
+<td colwidth="[50]" numCell="true" nodeId="40800da35012430481ee70845989344b">
+<p nodeId="c4b4d12cf9194ec09d61bc9ba296e613" />
+</td>
+<td colwidth="[211]" nodeId="3d82ba3e5de74397934d1923d3191c76">
+<p nodeId="92f9270d91fa4743b15b65725877ef4a">时间维度</p>
+</td>
+<td colwidth="[218]" nodeId="5964f7cdfb6c48debd4fbe12d3eed77d">
+<p nodeId="51ae7eae4b944749b1e42c11382a0a32"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="16832d67f0c74294b255fb174a116eda">
+<td colwidth="[50]" numCell="true" nodeId="4bcd63d1e2634a06ae5f07dc9c646658">
+<p nodeId="2f227c7c8e01400e8949230f15447968" />
+</td>
+<td colwidth="[211]" nodeId="dff4cd220d6549aa83ffc86e08eade7e">
+<p nodeId="af2d6bb3894c4d00839e7758b4cd04d1">时间维度格式</p>
+</td>
+<td colwidth="[218]" nodeId="9514fc27276946459fd6ce24f6efcb8c">
+<p nodeId="ae7bf26bc9964097b6b459e20369b853"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="1d9208027e974bfda724cb7f90367453">
+<td colwidth="[50]" numCell="true" nodeId="92a4dd061a6046c486196e675de5f3bc">
+<p nodeId="82309a01610d408eafe288de9891bd94" />
+</td>
+<td colwidth="[211]" nodeId="24a5e9c609da4c58ae714db393e67882">
+<p nodeId="4559e2e612444e209a8fffc16aeff985">水印时间</p>
+</td>
+<td colwidth="[218]" nodeId="4f1a0b59e0a54eb182a5fec58ad937ea">
+<p nodeId="8d5ee2b99f2140a79b476b68beddca7b"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="8b991161018c431dafcd2de819bbf0d4">
+<td colwidth="[50]" numCell="true" nodeId="41e9f75fdad942ab8a66dbb61a6b8e38">
+<p nodeId="f33080a0f53d4f2bbfcf7f55fdc1e39d" />
+</td>
+<td colwidth="[211]" nodeId="704502635d5c470ebc331bddb9639837">
+<p nodeId="27cbef21066c4e20a4178e6756d87caf">备注</p>
+</td>
+<td colwidth="[218]" nodeId="376f67fb639045e8a8867214cb793e76">
+<p nodeId="c00e78c11e204c868b80cdaf90b21a00"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="d4701003dc1f4f17abe0f5efdb23c212">
+<td colwidth="[50]" numCell="true" nodeId="db10865128e34a6ea0b4a210a450ccbb">
+<p nodeId="9b8af5aebb674f5498fc66eaec4861e4" />
+</td>
+<td colwidth="[211]" nodeId="48d9cc12d04f467c992de9da754f313d">
+<p nodeId="d14a8f7c7886402a975eaf818a952b9a">向下游输出保留的字段</p>
+</td>
+<td colwidth="[218]" nodeId="6319aea7f74f4388b666aef2a53d1b19">
+<p nodeId="742f36223d8a4d0aa138826facd92077"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="b663a0ca446847d18683dded6628c1ee">
+<td colwidth="[50]" numCell="true" nodeId="94087194eee847578ca7b99e50ee7d52">
+<p nodeId="e89da6f46f7f44f7b052de9bed81aa24" />
+</td>
+<td rowspan="13" colwidth="[108]" verticalAlign="middle" nodeId="e83e3ca1065941d9994c8545f587188b">
+<p nodeId="071d69148a244ceb8d5e8bf90c54bfd5">Mafka</p>
+</td>
+<td rowspan="13" colwidth="[96]" verticalAlign="middle" nodeId="991bf2ebe3444eb8b5c0c7e4eff55768">
+<p nodeId="6662c8e38979441194883bd5b425ee72">基本信息</p>
+</td>
+<td colwidth="[211]" nodeId="9f68fd8c48474c22b9a0270fb8334b8d">
+<p nodeId="2e47d5088d844f639adce6255c227b5c">名称</p>
+</td>
+<td colwidth="[218]" nodeId="2c55f0f7337746f9a869358f9a6644a9">
+<p nodeId="87ff2c4ed6f749a0b363437d62348c59"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="e6c96235150d4bd4b0d9aa62b97a81fb">
+<td colwidth="[50]" numCell="true" nodeId="b999abd5a6734cf69ac6e66dde207b7b">
+<p nodeId="75c72ce6c036443980cc41089d351e74" />
+</td>
+<td colwidth="[211]" nodeId="ba0b19f080bf48d6b341b435c375b51c">
+<p nodeId="96da8c9354b64f1fb8660bafc67948c9">Topic</p>
+</td>
+<td colwidth="[218]" nodeId="8e8f8105866641e09b7cb19afbe20bc0">
+<p nodeId="257e15e6342345c7917d7cf35010183d"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="47da7e5ba601464da63b2c10324ac1b2">
+<td colwidth="[50]" numCell="true" nodeId="cc876d6833e645d1b8bc5aa40db37e1e">
+<p nodeId="2914466fc6e3463aa1986921e56886a5" />
+</td>
+<td colwidth="[211]" nodeId="92a7ffd785494c628f021cba9eedb835">
+<p nodeId="7d82f6b24a754fabbdb30c097383dfe4"><span color="rgba(0, 0, 0, 0.6)">NameSpace</span></p>
+</td>
+<td colwidth="[218]" nodeId="a226f07e3a7943cfa37c58bbe07e7e7f">
+<p nodeId="b7a4e9a7750f42e094d53305a2df9f69"><span color="#FF4A47">否</span></p>
+</td>
+</tr>
+<tr nodeId="e9f324830639487788e82610706501a5">
+<td colwidth="[50]" numCell="true" nodeId="3e6155b7c4fe4925a7fdd01038733316">
+<p nodeId="0e1d8ee2c41149c9a91d858c6aead228" />
+</td>
+<td colwidth="[211]" nodeId="62a806db28c147b4af5b24ca825806e7">
+<p nodeId="caa6a1cc96bb40c9bda05f66908c64f8"><span color="rgba(0, 0, 0, 0.6)">subscribeGroup</span></p>
+</td>
+<td colwidth="[218]" nodeId="6150c359111f4ed1821c794062f8e426">
+<p nodeId="1fca600f14f144ef912502018e49d5b6"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="a6c3cfebbbe248fa8ca000c6862bdfdf">
+<td colwidth="[50]" numCell="true" nodeId="db5ea79ef4d841d2954dc83f271d2832">
+<p nodeId="1ed929de22ce4986a636cb39d3a0b4b5" />
+</td>
+<td colwidth="[211]" nodeId="7b39755ccfab42a48c7658b17dd7d70e">
+<p nodeId="9914db6e4d43453a8ce2ad77d67947fc">消费组appKey</p>
+</td>
+<td colwidth="[218]" nodeId="885477f7e11f46dd821dc6be19894a2e">
+<p nodeId="f37026d9c1724c9598999c3a0cee49f0"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="9595dbdbd7604c30898e779a6f8db6f0">
+<td colwidth="[50]" numCell="true" nodeId="ccd1fc787d43458886c2315f57ff62d9">
+<p nodeId="ed92037445424d0e8184895eada8b192" />
+</td>
+<td colwidth="[211]" nodeId="3754c91bcc5d42b49dc03a833513ea7b">
+<p nodeId="73ec0feab59946039bd329df6198f8a0">时间维度</p>
+</td>
+<td colwidth="[218]" nodeId="2c2e1da805d34ac88f145c2a5b2e9779">
+<p nodeId="c61aec0577ac4a979502ab19d53b0a3f"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="1ee1781518d945f6a28eb2a1813d913b">
+<td colwidth="[50]" numCell="true" nodeId="b7aeab36a9b04ae684e0f94727711875">
+<p nodeId="431e11f808184f56b57c7b72ea0cbb31" />
+</td>
+<td colwidth="[211]" nodeId="482c05feb80f439392b6ee1992a145db">
+<p nodeId="e5bff062f8dc4277baafa5dd9c199678">时间维度格式</p>
+</td>
+<td colwidth="[218]" nodeId="968e74a1d66440b1a189fd11e314d5c6">
+<p nodeId="148867fab0ff41648fea1f6d7399e1b6"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="1905b71af3cf4aa8ace262ddbf4c6443">
+<td colwidth="[50]" numCell="true" nodeId="a0421f04b74342679367c9a0f588e9df">
+<p nodeId="400e75e72ef74a9bb85c935fb3b01a47" />
+</td>
+<td colwidth="[211]" nodeId="d1ca00db8f3f4b84af87b3dd749e73b2">
+<p nodeId="d16a186c77c84e88b8c4757858027240">水印时间</p>
+</td>
+<td colwidth="[218]" nodeId="2173364da3b14355a39798f481d49764">
+<p nodeId="7c4a45e1a40149349b5877c22ce764e4"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="b4b01cc355304393aa45227027d83f09">
+<td colwidth="[50]" numCell="true" nodeId="65c0cc22036b4ca8a0f2c8fd3943bc98">
+<p nodeId="a46c271dff3b4503bfafe5861d8759ce" />
+</td>
+<td colwidth="[211]" nodeId="b807e926f5604174bead830e53d140ae">
+<p nodeId="36664dcd4eed4d20a9d69355a0c75eb6">备注</p>
+</td>
+<td colwidth="[218]" nodeId="ae919bf59eb845d7829ce0d7d2313422">
+<p nodeId="c1181bd0b86a41599237e9e279af57f9"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="24177fcd7ae84d64a1fe009c1db2cc63">
+<td colwidth="[50]" numCell="true" nodeId="7fe77f369067416ebee4a63d83a040e5">
+<p nodeId="e94102ad8f644f4c989883d254dd2a0e" />
+</td>
+<td colwidth="[211]" nodeId="d64b13b5d92940ca92c5e30c40d94f44">
+<p nodeId="4b0dcd3b143d4b6fba3ce94d1c802f99">日志类型</p>
+</td>
+<td colwidth="[218]" nodeId="d5a449de8f5445d48e5bd3d072de7938">
+<p nodeId="af6070bcc9f04404bf0095c75b1aaf6d"><span color="#FF4A47">否</span></p>
+</td>
+</tr>
+<tr nodeId="6da6254022c24f7d86bb3cfaab3a560a">
+<td colwidth="[50]" numCell="true" nodeId="d6b74f8020474e8a8151d47469c910fd">
+<p nodeId="e16b0bb5242643d89788aeeb69be2769" />
+</td>
+<td colwidth="[211]" nodeId="624ff062a362412cb6c663f3f0841abd">
+<p nodeId="72996e5900f34012a5427d326d6e8dbb">是否配置set消费</p>
+</td>
+<td colwidth="[218]" nodeId="e5450fac001d414fbaf4cdffc6ea7d13">
+<p nodeId="58cba49c90c240f0b28e12bd9f155af7"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="a3d3b3b584f9464696f441e8eb440d23">
+<td colwidth="[50]" numCell="true" nodeId="49889665e27844fea6d1ec356df82e0f">
+<p nodeId="fee022f983e14301b3a06db6ea6367bc" />
+</td>
+<td colwidth="[211]" nodeId="c4140e1cb6cf4cb1a51ae906bdf8d981">
+<p nodeId="c89af9aa9f2b4c338f6b6a585a3dd500">消费起点</p>
+</td>
+<td colwidth="[218]" nodeId="c7f916da93304aa8ac23a3fb44d256bb">
+<p nodeId="835668b4260241529a7f2f482766e751"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="ab4e5dff646e403cb82fc31255dcbcc3">
+<td colwidth="[50]" numCell="true" nodeId="3f16a20b8f144c5698384ac67147c5b3">
+<p nodeId="0b55993b82624ddc83c8bfef954eefb9" />
+</td>
+<td colwidth="[211]" nodeId="98d6614c59fc4f528e58b24df303b4d3">
+<p nodeId="f43e36294fbd463f81361028cb71883c">向下游输出保留的字段</p>
+</td>
+<td colwidth="[218]" nodeId="bb745353c04b45d89bacdf212aa96869">
+<p nodeId="5ad0078bf4844efca575865bf9f20601"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="fd4c5b8ddab74e6e9e94d957611bbc13">
+<td colwidth="[50]" numCell="true" nodeId="beefe1e20252411197fe1404716b3b2d">
+<p nodeId="42447348795142c186485662bd8fd544" />
+</td>
+<td rowspan="2" colwidth="[108]" nodeId="06b08137465b4ebc82a86c71abbfaf1d">
+<p nodeId="77de40daecf745f990457dfdc6206eb3">虚拟数据源</p>
+</td>
+<td colwidth="[96]" nodeId="19a018bb1377498b8f84f552529df5c3">
+<p nodeId="fa8d830555ea4ed2b0ee7eb3bce98331">基本信息</p>
+</td>
+<td colwidth="[211]" nodeId="e180e6b3f688447f96549e0901513967">
+<p nodeId="6bf220875467460daf4ced5e013ee77c">名称</p>
+</td>
+<td colwidth="[218]" nodeId="b1494b4df521459db4cd06e7a669d2cd">
+<p nodeId="50bc5a3410894329a77428436331f253"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="ed87e6b92c0c4737b0801dd4b507c6a8">
+<td colwidth="[50]" numCell="true" nodeId="f5dcd2d5f43e4d94850c68e68f9e6cdd">
+<p nodeId="7aaa21c7298c4f10bcc60ea27e8850d0" />
+</td>
+<td colwidth="[96]" nodeId="a1b79efe0b5c467c82c71b561f3b3e0f">
+<p nodeId="bc0d7ff294804656b54b3123b0336a6b">参数信息</p>
+</td>
+<td colwidth="[211]" nodeId="bd8f39c365604545801170a8ad5de3b0">
+<p nodeId="6653876589dc4c7b9969ada1f4a42d38">中文名称、英文名称、类型、是否必填</p>
+</td>
+<td colwidth="[218]" nodeId="0f694d03dfd643f892950e8f64d26f2d">
+<p nodeId="584f0cf0a8d74411a69ca27a3735e251"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="a1ba783792ca4b65bcf53566f52bf6ce">
+<td colwidth="[50]" numCell="true" nodeId="a562a3f315ce42a2813f846fccff7264">
+<p nodeId="9cbc13abadf94945b0163cfe33c8d7dd" />
+</td>
+<td rowspan="51" colwidth="[90]" nodeId="06002144e18146a0afd685bdfd0ff84b">
+<p nodeId="4fcf204902624f5b8822dac9e41a663a">数据处理</p>
+</td>
+<td rowspan="3" colwidth="[108]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="5b14e7bba7164f2e88880e51c8688dc4">
+<p align="start" nodeId="e96996f2db094bdc9f8610e5f8630a9a">select</p>
+</td>
+<td colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="28153785658a4413ae457d9f796e7477">
+<p align="start" nodeId="9c3fb9cdd41443b480122b9be44ca138">基本信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6543d51476af4d828a0f541716aa35b3">
+<p align="start" nodeId="67a10e43571e4397b47db06f84e2f93f">名称</p>
+</td>
+<td colwidth="[218]" nodeId="9de51048c60045628fc2fd0c15756127">
+<p nodeId="a176d855bc814520b6724a2d52f081f1"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="713529dae7fc4c2da38607010d1de887">
+<td colwidth="[50]" numCell="true" nodeId="77b1b272bd97484c8b611359979af99f">
+<p nodeId="e908104bd9664555a23d43d935f83458" />
+</td>
+<td rowspan="2" colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="e490e4d0e5a2451392a292b62d200f2d">
+<p align="start" nodeId="e6c8f9d7d8244eea8c8bd722b8c35146" />
+<p align="start" nodeId="df013e1f8cde49a5b0d8042afeb00d2a">配置信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e8160394d4f8406080ec7436229fd162">
+<p align="start" nodeId="6127eb2e892b4b3381b837ed757426ce">select</p>
+</td>
+<td colwidth="[218]" nodeId="284209ef88164444869e14ff5b3e26cb">
+<p nodeId="adc8b913bd8743b688bad780b819fae4"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="469512c6c05c44a892792d12c4fc0db0">
+<td colwidth="[50]" numCell="true" nodeId="4b8951f881c6407ebfa750283ef53a23">
+<p nodeId="a6bac8dbc8d4452b8ddb4ff1b0587f6e" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9afa20f5c6a3408cb568c62f67e0e794">
+<p align="start" nodeId="0b2f88d2b2234056901da947cf95e989">as</p>
+</td>
+<td colwidth="[218]" nodeId="2b27518402e5455e9186c4553bbacfcd">
+<p nodeId="2377b66103e6435da4611bdfd39e5787"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="2bd14408d612427fb4953821b0d2040e">
+<td colwidth="[50]" numCell="true" nodeId="74fe5a259fb74d389ec1a118dda8d9eb">
+<p nodeId="6beda515a6654353a56d95753a25fa86" />
+</td>
+<td rowspan="12" colwidth="[108]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="0ce4d050ec334f7cb68c16f850d54d1d">
+<p align="start" nodeId="f1d52167124a4b04ac1238a5fba0e8e1">Groupby</p>
+</td>
+<td colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="3ac1df1b048c46ed8df5709ee2808e84">
+<p align="start" nodeId="63fce79e7473409f8ec5c2a98bccf004">基本信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="277a2a8eaa33410ab8a8c62a5d20e746">
+<p align="start" nodeId="182361f8358f44738518f0285ace2848">名称</p>
+</td>
+<td colwidth="[218]" nodeId="667236ac0f63465398f1e0c661cd6caa">
+<p nodeId="c47bd0ab60574cc08cec2f223bdee701"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="486bd35e8abd492cad0ff70c0b8741a3">
+<td colwidth="[50]" numCell="true" nodeId="1790ce511bd24c3596465fb38d263a2f">
+<p nodeId="0db0d9655269472e933be39017cba718" />
+</td>
+<td rowspan="11" colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="7609d890d5bf4f02a6888bc74c266d3b">
+<p align="start" nodeId="a6d3c23f611742f793cb7cd0dfb99f18">配置信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a4703b3984724265b01c371ea2efc16b">
+<p align="start" nodeId="b2731b4adfe54924add4bb0ba61f2f25">变量名称</p>
+</td>
+<td colwidth="[218]" nodeId="a7f47855072b4d77ae5dbe1dc504200d">
+<p nodeId="b273a81eacbf466e98855dccd46bf3d9"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="cdaf5b053fc24e78870006f7a908a9a8">
+<td colwidth="[50]" numCell="true" nodeId="25faca49351f4cbba921d7b6a5ce7d00">
+<p nodeId="132f25aaffc340bd894a7561d7308144" />
+</td>
+<td colwidth="[211]" nodeId="cdb716a5a29e458d8af6493cc1b6ae4d">
+<p nodeId="8707f0b7334b4356bd07dc003f5538db">计数类型</p>
+</td>
+<td colwidth="[218]" nodeId="13fb199c3e8949c19a10c8bf90089843">
+<p nodeId="d8de9fff56e04df4a06a8875a47b0cbf"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="8c658adfbc704526ab80c2e3fb29b841">
+<td colwidth="[50]" numCell="true" nodeId="c69d18b181ff46749b4e9bffe884c7ae">
+<p nodeId="ac43eb7addec488eb85c1bbdba845cf5" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="de8d3a74a1574859acf147fbbc7fe449">
+<p align="start" nodeId="83937df9df134453aa583942c64a46be">value</p>
+</td>
+<td colwidth="[218]" nodeId="5ce5f2e459214f8dbbe8cebd5c6d846b">
+<p nodeId="95c681822d2445ad8acb109bf34ca96f"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="9ec3a1f8553f48adbbc3ed9ada9dab1a">
+<td colwidth="[50]" numCell="true" nodeId="08e2b24b9ea44d0bb794e83ce03f6071">
+<p nodeId="beaf93942e47463c8f9e10c228506245" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fc6a116efa8f4f6a9e848522f9537dd2">
+<p align="start" nodeId="914d67d572c34b71947b4386f7396f30">groupkey</p>
+</td>
+<td colwidth="[218]" nodeId="d0385ac74a8f4945b74fc451398bc410">
+<p nodeId="af55e6a80f9646499963e218b7fbffb2"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="07a30e3c913e45629b934780a069c84d">
+<td colwidth="[50]" numCell="true" nodeId="e5b5e7d145af4151825023089384c3e9">
+<p nodeId="c55188d27c6a4aae9a7a04974d5dadca" />
+</td>
+<td colwidth="[211]" nodeId="89b742c7e3404f898d4b1aa7fa8f7b72">
+<p nodeId="2ec4b4220a94448dae0e8bf1205fba5c">聚合方式</p>
+</td>
+<td colwidth="[218]" nodeId="42b350e426ff42e1b1747159e67ebb28">
+<p nodeId="9cc3d960b87640efa3b442313a4456d9"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="1d27467e5bd44328abf90c78565656e9">
+<td colwidth="[50]" numCell="true" nodeId="9e4f9be3475f48b68e5ce6f9f767f5f4">
+<p nodeId="190bd7687d83461b841b6997842c77e0" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ae54a2343ebb4d16b399114da12515a5">
+<p align="start" nodeId="cb3f147d2da345309e63fc88542c9874">时间窗口</p>
+</td>
+<td colwidth="[218]" nodeId="847385fd8c8840dcbd1bb2b5bc9018d6">
+<p nodeId="5fe1a19891b647d7b97b11c1b4dac331"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="de5726cbecf14a4595b2877889d3486a">
+<td colwidth="[50]" numCell="true" nodeId="f9f69cc9c8354c27924c02f7211e73c4">
+<p nodeId="b6fdf192141b4592b68a6cd237bc1d82" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ad5c432a5ae74f94888cffc728ccd986">
+<p align="start" nodeId="e5e35ddc9f35410ab738508e6a0198cc">时间滑动间隔</p>
+</td>
+<td colwidth="[218]" nodeId="dc73bb99502945baa0d5bfce93c686c1">
+<p nodeId="f92d6def55e84b8b9037de6f7262abf5"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="c9b1341efa50478f945ebe7c4076b03f">
+<td colwidth="[50]" numCell="true" nodeId="70f3e9eee51d4ec281bc0880905e7ebe">
+<p nodeId="4c80fd8b08c245b79041c56d10808cf0" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="681f53b2865f4ad4949031d38d94ae5c">
+<p align="start" nodeId="d0a3e5cedb664ae0ba25e253117826ed">时间纬度</p>
+</td>
+<td colwidth="[218]" nodeId="c59892bce6ec493b9164c75bdfb62fe4">
+<p nodeId="ff0d44325e1b48e487f2646aedb51a47"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="f3170516b4124e06b35a4f973a1ea65b">
+<td colwidth="[50]" numCell="true" nodeId="0ddcf8f6404944ee8e69dba697d4a5e8">
+<p nodeId="99a5620103414166932e98d83d08f35c" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f8fc13e0d7974302b5c2c9ad6625e9bf">
+<p align="start" nodeId="c63dcf2c788c4cacb3eaa8dbbc84e980">时间纬度格式</p>
+</td>
+<td colwidth="[218]" nodeId="6cabbd8fa0004d918a043462f6ef12d6">
+<p nodeId="b979f21014154f1db2b6409c1d507c7d"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="a43fdbe2c8044b2d8b6198798206e8ba">
+<td colwidth="[50]" numCell="true" nodeId="499b4a1860bc44e18fe730dc33562af6">
+<p nodeId="835e0c325a1b4322bf747a85fe90cab1" />
+</td>
+<td colwidth="[211]" nodeId="91e6dfee2e98447c8acbed39b09a7d42">
+<p nodeId="49c9093e731f411b8c9f2e3f7aa0102e">剔除重复项</p>
+</td>
+<td colwidth="[218]" nodeId="6144381d43eb46f8ac1b321d3bec11f6">
+<p nodeId="fed06bd1b9264a7d8e0ca796897f52ae"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="dc73443c26d14d7c86490da4e51dc3f1">
+<td colwidth="[50]" numCell="true" nodeId="d81a8453e0d04b0ab174e538630d00c1">
+<p nodeId="2f3bc470f01143a3a94c068aba2da029" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9cd6315a95e843aaac2c5d9162b06e6f">
+<p align="start" nodeId="4501888452a34d7db4926b4a9cb50288">按何剔除</p>
+</td>
+<td colwidth="[218]" nodeId="47e68409dec448d69d6f57a0c15172df">
+<p nodeId="d23daf42c48f40399ecd038e8f87a353"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="045da529ab454638bef413db3bd7bfaf">
+<td colwidth="[50]" numCell="true" nodeId="7b486230ddc347b7a99388aee75a24a1">
+<p nodeId="c09c4baf07694ea6af47469630113334" />
+</td>
+<td rowspan="11" colwidth="[108]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="20fafb2fab9c4dddb6339fb5bfad0c75">
+<p align="start" nodeId="3f941918ba524f74ae5b0edafffb5b21" />
+<p align="start" nodeId="5daf197d5195411585d6488122b8ad6a" />
+<p align="start" nodeId="fad3854daffd43cd825173534be0aeb2" />
+<p nodeId="10fdfe6e8c2b4c3b84b3976aa0076735" />
+<p nodeId="a789e98a9c3c4ee88d49594efc435e18" />
+<p nodeId="d396a37f5a7246c6bfa612b768ad3ac1" />
+<p align="start" nodeId="e5ab70980ef84a33882d82d89b7a1487">join</p>
+</td>
+<td rowspan="2" colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="125244a97a4a4094b0118fd5cec19c1a">
+<p align="start" nodeId="da9bc918dce6433d80862e1d1e8fea1d">基本信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c6ceec388a53483fa1114da22b9be20f">
+<p align="start" nodeId="4bda4862e88644919d1a857a23ae4691">名称</p>
+</td>
+<td colwidth="[218]" nodeId="b4deeb7bd64a4c398b1d9b7a9acbd581">
+<p nodeId="e621b26c5113405b8b96984e2d86a032"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="9cb6f44ccd0c43b192314318a2228524">
+<td colwidth="[50]" numCell="true" nodeId="d6f62ee9d2074c8c8076488b87a83e73">
+<p nodeId="3236b4ea25b24282b77a20cd8c0b50cc" />
+</td>
+<td colwidth="[211]" nodeId="467283158c24458089b667316582b329">
+<p nodeId="876084bb29b94c5bb8e9b8f5a69613bf">join类型</p>
+</td>
+<td colwidth="[218]" nodeId="e6ce2438780f47018d542405bf60eae6">
+<p nodeId="2fb5834c092f4127bb5b6d3836e53149"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="2db3a09c6d4a4e6999f2ab74189c67af">
+<td colwidth="[50]" numCell="true" nodeId="c468225eae4245a6acbfa5ce71823c81">
+<p nodeId="c8f4e5cf82aa42b98d56420e41a59c55" />
+</td>
+<td rowspan="9" colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="d61ef2eb496c42dabbb2495d8049d339">
+<p align="start" nodeId="66875479646d4cc08d2f5b0472c45c77">配置信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="46dc38f061d74a07b44e9ff54cc4d091">
+<p align="start" nodeId="0bb7f645bace4a1eb1cb498b1d0f5794">条件</p>
+</td>
+<td colwidth="[218]" nodeId="3ecc2b4995a74373b332886b09ee022f">
+<p nodeId="172f540ccea640e985eb26b35964d9cd"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="10d7dbc474b94573b455f88f9af27781">
+<td colwidth="[50]" numCell="true" nodeId="e7ca86c61803433286444a3f9019cfe5">
+<p nodeId="d8ff53356cc844569618c34790b19b67" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d8852cb6036e479aa34309745b969def">
+<p align="start" nodeId="39d6b495e8174c26987a4b946cab2ecb">左流时间维度</p>
+</td>
+<td colwidth="[218]" nodeId="e61ead2edc494884baf57300e4e18605">
+<p nodeId="c2f0792517f64b1491646b4372289110"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="5d17dc2385a942b1845d5bdd75c1c62a">
+<td colwidth="[50]" numCell="true" nodeId="67b9b2532cc44805820def1412ab681a">
+<p nodeId="0092302e809347c08693bb3b9be7ffe2" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0ecdec2b555040399679982191cba679">
+<p align="start" nodeId="f13a0ff10cf24253afc39ffda9c9728a">左流时间纬度格式</p>
+</td>
+<td colwidth="[218]" nodeId="3dd861d305364bb891b30d885fd0611a">
+<p nodeId="f44baff302904e05b53323bcdce37b3a"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="5d17ae67ff694aa6b0f32eb51b375789">
+<td colwidth="[50]" numCell="true" nodeId="65928c75ba1d47b2a998f8ea8ccb0ab9">
+<p nodeId="86131c0eaef64b2fbc8e7e855d5c9eb4" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="54ffd94c919845e08e11134cad7d54e0">
+<p align="start" nodeId="c9e2b39ad43d4d6da9f49762430fbde8">右流时间维度</p>
+</td>
+<td colwidth="[218]" nodeId="5af7cc84c5414cff9b9c8f71c247869b">
+<p nodeId="7cd9e3acc1564a16811a0a509210946c"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="2dda528bf3524048b4cb166c46ece521">
+<td colwidth="[50]" numCell="true" nodeId="545d744d36cc4551b95a3f1509afe570">
+<p nodeId="f4578c3eab9f448a895f95b70af53022" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f4d8c9dec1424ee1a66006482985eea3">
+<p align="start" nodeId="1cda31414e3347aea162bd512be9264e">右流时间纬度格式</p>
+</td>
+<td colwidth="[218]" nodeId="ce1c991105364e6294b626c2698e8c69">
+<p nodeId="0c5401afe4734175baf26c01a5fe03f4"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="36effe07d9fa4cae8927ba37a4bb4e93">
+<td colwidth="[50]" numCell="true" nodeId="15e267dfd95b4a48ab1372153caadd46">
+<p nodeId="8b6a1d48f454417e88c60ed29d7bf7d9" />
+</td>
+<td colwidth="[211]" nodeId="a50306bf2a634fd8b74cc38065e75cb3">
+<p nodeId="32b72a00912744ed9f62d23f823015c8">聚合方式</p>
+</td>
+<td colwidth="[218]" nodeId="6885de74e53a43219f2aad91b5514a38">
+<p nodeId="a283a2d7e4674f86956cebced2e0c3f1"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="653c350027da4d6baa2eab744d46e031">
+<td colwidth="[50]" numCell="true" nodeId="461c096eb3304a2a904db7624c526215">
+<p nodeId="045d6543eda949ec9259df53c999826b" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ad6a77b3a8584aa4ab852bfe6d8d54f4">
+<p align="start" nodeId="0c2036a248754a30aed3909608ef30cb">时间窗口</p>
+</td>
+<td colwidth="[218]" nodeId="cd639055583147dc913252d67b0ac5d5">
+<p nodeId="46824625768f4e29b85718841cc7b48f"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="4951d37ffce1450d976a828e44f71898">
+<td colwidth="[50]" numCell="true" nodeId="391ab111a6734538a0cb4e156cec3f9b">
+<p nodeId="986939bc65c04f9ba1a4fba13ace0cca" />
+</td>
+<td colwidth="[211]" nodeId="cb75bf4b75fa41cea7d8257b4478f0ec">
+<p nodeId="8305c4b9caed47158f47eea45af485c7">窗口步长</p>
+</td>
+<td colwidth="[218]" nodeId="9f0ad499f61d4120b2f3454f06441ab9">
+<p nodeId="6439e176bf5743acb225b81bcf3814d7"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="3389078c51bc42e9a13aef3b4cfcb614">
+<td colwidth="[50]" numCell="true" nodeId="0fd89fd9e83444a2bd3e1796f7429486">
+<p nodeId="33f22217d2484782a432a5339625c3b1" />
+</td>
+<td colwidth="[211]" nodeId="977b44f5eec74c99b43c894e7642f31f">
+<p nodeId="cd22cc6a573840d8b936f71c8b0bcddd">窗口大小</p>
+</td>
+<td colwidth="[218]" nodeId="fa312d9abec249149f6eba1ecbbb1800">
+<p nodeId="65cff904730f422fa115b08c6db7087e"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="b2567b21503a4b998ddfb070fd700bf9">
+<td colwidth="[50]" numCell="true" nodeId="73614ccbdb6f4ffdac3407b62f3c9e0b">
+<p nodeId="528288d0799b43d78ca42d80fbf4ba71" />
+</td>
+<td rowspan="5" colwidth="[108]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="fb4a84ecbab844e798bc1c2cfd3803d5">
+<p align="start" nodeId="b5707fd67a08408aa5f568ab4e3c3010" />
+<p align="start" nodeId="7b528dbeba98410e98cc194da69b631f" />
+<p align="start" nodeId="3a5f4b6108b840b79f6adf0cf7bdfa19">Distinct</p>
+</td>
+<td colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="5a9fbb67c1aa4778acbcdf5c826e006c">
+<p align="start" nodeId="b1b260cb31e24f88af2e16703535725c">基本信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ffb955d7580d42688ef1fd23ff0648ac">
+<p align="start" nodeId="ac24e491039847d087c93304f8db4ef5">名称</p>
+</td>
+<td colwidth="[218]" nodeId="14f8f56a62e14d8dbddad3aa4aade0aa">
+<p nodeId="64160807b1c74a219447fce264c81836"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="0d9f9d43509d4b67b9ca2ba9c7ebb5b8">
+<td colwidth="[50]" numCell="true" nodeId="4df129a53ef24cc886bc31e0cac4f322">
+<p nodeId="8d69b8848df245adb54882f174f98f90" />
+</td>
+<td rowspan="4" colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="f4b730bb398a46bba029698160c252ac">
+<p align="start" nodeId="62561a79c727443e8340acc430b84150">配置信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="86b22fa01fe4422ea2e17e33fbcd3af9">
+<p align="start" nodeId="fa437d4f9f6f44f696adc30fefa17d7e">key</p>
+</td>
+<td colwidth="[218]" nodeId="d2e90f754677408396d6abf399781a4a">
+<p nodeId="fafa301ba35a489fbb6025cacf756419"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="c604a33011594aa9ba634d90d921aff7">
+<td colwidth="[50]" numCell="true" nodeId="bcba35828a354c298a829460a461bfbe">
+<p nodeId="f43941200fdf4451829f315033202392" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f961802a4df74e3d9ed36cae40efa2e0">
+<p align="start" nodeId="e06a647fe3ba4ca59164ada3eb536ad5">时间纬度</p>
+</td>
+<td colwidth="[218]" nodeId="675877b5d89844f7a228d0984f54a6c6">
+<p nodeId="4f02fca70e394ab7a1014098d285ab2f"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="788acd49dbe54e17a3faf0b5eedd97a2">
+<td colwidth="[50]" numCell="true" nodeId="96801f78961f4c1796c09eab794de658">
+<p nodeId="8e3ee9af6ad54f22aaf54ef2759a9cf4" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="572fbf3960e348679c0db711be0eafc3">
+<p align="start" nodeId="92e30873faba469a90961e386df462a8">时间纬度格式</p>
+</td>
+<td colwidth="[218]" nodeId="bd53c6df05204d61935e57fbf97edcb7">
+<p nodeId="e34bcf989f014660ae515bc427c76492"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="4c274a299fdb4f4bb07c06055112eb72">
+<td colwidth="[50]" numCell="true" nodeId="ae5c01f9c83a4a1e997653b13ffe7dda">
+<p nodeId="79a104cc01e64138a64788781f752fa5" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4507dcc6d78b47a4b3bba0c3553f4839">
+<p align="start" nodeId="acb83747e2844656b72424171a332e52">时间窗口</p>
+</td>
+<td colwidth="[218]" nodeId="4d78f820fba343e582c9fa6f592e8a79">
+<p nodeId="fe6b68e2ba304451b9379df15cb2a156"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="d4fcf1eb3a0545df85cc8551de1e9b12">
+<td colwidth="[50]" numCell="true" nodeId="71cd4f85d4e447f786b0e49452725471">
+<p nodeId="1eac1549598a422fb4ad3f13e9e0975b" />
+</td>
+<td rowspan="20" colwidth="[108]" verticalAlign="middle" nodeId="a758e64ae6504abeb465721bf851fe10">
+<p nodeId="4e02616a75994055b8daf740a8ebb5cb">数据获取</p>
+</td>
+<td rowspan="2" colwidth="[96]" verticalAlign="middle" nodeId="304bfd72cd0c48d9a56f29e8b606ce16">
+<p nodeId="0c5cc9334661415887027410a10d05db">基本信息</p>
+</td>
+<td colwidth="[211]" nodeId="9c712b1e4c514ba9b74429f5d069b863">
+<p nodeId="b0c8e4453dea471da22f8ec2cf9df711">名称</p>
+</td>
+<td colwidth="[218]" nodeId="be0d5f8dc1634238b3c632133a580e89">
+<p nodeId="a39ef2da0c2c47efa3d77e1d08783f1f"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="947e9c08ca2b49138033d970a8b88ffe">
+<td colwidth="[50]" numCell="true" nodeId="de50f535f38f4d8e9a240306c0976487">
+<p nodeId="927308167815436e9123e4f8577b5bab" />
+</td>
+<td colwidth="[211]" nodeId="a4b92493974040978000521c15347eea">
+<p nodeId="aae13fcafd324a87a9688091132b999b">备注</p>
+</td>
+<td colwidth="[218]" nodeId="19686e8fac5c4c8da6cbf86cf7d105f9">
+<p nodeId="b4040fefc3c2499ba197f05765c39de8"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="a4e4b6bcf44c4b2681df3b241a07e84b">
+<td colwidth="[50]" numCell="true" nodeId="e98cd4a083554c7092bbbe1e75d1f5ca">
+<p nodeId="31078ee33cce42eca033bb2d439d2d17" />
+</td>
+<td rowspan="18" colwidth="[96]" verticalAlign="middle" nodeId="2badac73e3e240d285ea8cea1ea69dcb">
+<p nodeId="5e5d7a7a8b524fa28c42568d0889ec82">配置信息</p>
+</td>
+<td colwidth="[211]" nodeId="320c52defc924bcd94bc24b22fcf8ebf">
+<p nodeId="d1015ea9841c4d62aecd2e450189d8f2">英文名称</p>
+</td>
+<td colwidth="[218]" nodeId="0eeb4b004bec4284aa2c31b17834d459">
+<p nodeId="0bbad022c99a4b859fe48c54e9aca046"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="513bcd9a065f433ea514930a8cd72e00">
+<td colwidth="[50]" numCell="true" nodeId="ddad93666cb74d5f8eea80e203b9d6d9">
+<p nodeId="ad2c196d91024257b7d1f195ffe1eb4f" />
+</td>
+<td colwidth="[211]" nodeId="910175da655548f38c22766ae4cf317a">
+<p nodeId="59c9bf7581504a808dd02b478e918bc3">数据类型</p>
+</td>
+<td colwidth="[218]" nodeId="bfd9402791674e8fb7a5e43128546cb6">
+<p nodeId="848502c5c473453a8ba76e14245e1504"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="ce6a3f0bb54949fd908587882cdcba0c">
+<td colwidth="[50]" numCell="true" nodeId="137e9ce055d54494838f424027a9db9f">
+<p nodeId="e3380907112544abb112e606021742d7" />
+</td>
+<td colwidth="[211]" nodeId="2148ee3d6a4d4f2a827541c6fd8ae8f1">
+<p nodeId="ca4119e7a3fc48eab8a54234323f64ec">存储类型</p>
+</td>
+<td colwidth="[218]" nodeId="55ace71c761f46efb3785fbcc916b941">
+<p nodeId="2112abad2b5a4fd6a79037481ca5438c"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="82fa3a677b854fdbab5eae65769b8360">
+<td colwidth="[50]" numCell="true" nodeId="27b86b9f2a0247b3ac39f8438f824c45">
+<p nodeId="da0d900c5e5244869d6b08d735bbf1ff" />
+</td>
+<td colwidth="[211]" nodeId="b132e775d39f40eaa38b924dc20ccd4a">
+<p nodeId="b3ddb023afa64e508ee15772614f86c0"><span color="rgb(140, 7, 11)"><strong>缓存配置</strong></span></p>
+</td>
+<td colwidth="[218]" nodeId="f266a5be661e4998ad914f6bdba49c46">
+<p nodeId="d8a7d7f686944234b1cc638e32b84f3d"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="6c092a2f8d764042831a7b58ef2b9063">
+<td colwidth="[50]" numCell="true" nodeId="d15d27474c60429b8100a9e6ecaa97be">
+<p nodeId="a378d098ed3248018d7748d49d540cb6" />
+</td>
+<td colwidth="[211]" nodeId="ccd721ede653402ab89c7e3dceb26f6b">
+<p nodeId="15a752adf2de445fa9026151ca979ee2">结果类型</p>
+</td>
+<td colwidth="[218]" nodeId="cceed3bb26fc4662b699bffab8593918">
+<p nodeId="97fa0a62e12e498bb77404d7ef63bd0c"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="888ba1c3da35439a8c71d4363e7cc13e">
+<td colwidth="[50]" numCell="true" nodeId="1d47c7af6a984e59b7cbaa7061f6a2f2">
+<p nodeId="1340cad82a4a47baa0ae29744a09d2a5" />
+</td>
+<td colwidth="[211]" nodeId="e86aaa2cd04149bd977bc89f4a49b27c">
+<p nodeId="1bf8a29b148447da8c63e26755671b69"><span color="rgb(140, 7, 11)"><strong>限流量</strong></span></p>
+</td>
+<td colwidth="[218]" nodeId="4604588df339400ba1a88dee32c1f8d9">
+<p nodeId="fb21ad20bfcf4ce7a31d9cc05987d8cf"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="a35e45aef47843ce8604250044e6f5ff">
+<td colwidth="[50]" numCell="true" nodeId="8efcdfb80cde48fbaa4fff1771a936cb">
+<p nodeId="5e345d37a8ea428990d1b16b6537b1a3" />
+</td>
+<td colwidth="[211]" nodeId="9247d1a8d43d48cd8434165fdfca3264">
+<p nodeId="7233c3405f8d4234af388c85c5bd51eb">超时时间</p>
+</td>
+<td colwidth="[218]" nodeId="b35d5e32d4da4774bbcb3d3978dd752a">
+<p nodeId="3068ce8d53c745cba64dc4d58410e0ee"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="88272b3bc391413ab80384acbd5501a2">
+<td colwidth="[50]" numCell="true" nodeId="d2a1ba8f2e1a43708faaa983288a1a3c">
+<p nodeId="8d7d198661d74a199b7180ef5c2f47a3" />
+</td>
+<td colwidth="[211]" nodeId="38bd81f0d96f4903bc99b2cb4be4fbf1">
+<p nodeId="82736e883c2849b78040f892cd634291">端口号</p>
+</td>
+<td colwidth="[218]" nodeId="bd7c48b20b9145d3a6c5a2e5af0f4be9">
+<p nodeId="86aed8358bde4bfe8344d99bf968f67c"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="93240eef9cd445249c40b23393c04ed3">
+<td colwidth="[50]" numCell="true" nodeId="615a1194179d455b9fe9feac955ce612">
+<p nodeId="0b15ff7afe464ddf92ba45a5d29442ce" />
+</td>
+<td colwidth="[211]" nodeId="448a04bba40344beb6a10e3ae9a8fe4b">
+<p nodeId="3d3a14fcc47a436b8192e064e67be042">appkey</p>
+</td>
+<td colwidth="[218]" nodeId="cc8703eee4604097aaafcf58a22a5da6">
+<p nodeId="01115d1218344357b85273579a016bf9"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="e6ae9cec19bf43e4953b67ac623d8e10">
+<td colwidth="[50]" numCell="true" nodeId="479885f58aa14291918102b73fd9ce87">
+<p nodeId="e0192d2ee6914a5bb2d92bbc87b673b3" />
+</td>
+<td colwidth="[211]" nodeId="2b13925c0ee94e81bf9060fc37176d2f">
+<p nodeId="a3a74f6d6a14433eabca76a30f5382ad">接口名</p>
+</td>
+<td colwidth="[218]" nodeId="f3b99662cf66405899299692132c4dea">
+<p nodeId="4495100a08114810b12a243c1c448928"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="cf5c724c5c9646ca8fbb31a7ba6007e0">
+<td colwidth="[50]" numCell="true" nodeId="32035e84f94a47cd86a1583e1f2771a9">
+<p nodeId="8f5dac235cc84f33a0ac5b9db6863d56" />
+</td>
+<td colwidth="[211]" nodeId="6bc9e48739284be19400840ca3de5de6">
+<p nodeId="722a1582a53744c09276ca0119541c94">入参map</p>
+</td>
+<td colwidth="[218]" nodeId="d32639360e5a435d91e9eb2b03d534c1">
+<p nodeId="840e099b5cf648e597165c95fdc71ea9"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="ad3a5bdc220840c0b64be023a8edc098">
+<td colwidth="[50]" numCell="true" nodeId="262daf70b8d64939b57f0b43abf40a70">
+<p nodeId="b44e325200604dee84d36d82c69fe56b" />
+</td>
+<td colwidth="[211]" nodeId="be7f40e708fc4c4b87c1f65fd7cda0dd">
+<p nodeId="5ea52369a969434ca048f1dacf22d25e">出参目标key</p>
+</td>
+<td colwidth="[218]" nodeId="9379f12e969147588ec016d6a35ee5ea">
+<p nodeId="7dbf1db07b2346fbbb4ae0ab87221050"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="8527083961284312a2db94c3a0e2a772">
+<td colwidth="[50]" numCell="true" nodeId="43f0811be030487bab30ecad4df7fb27">
+<p nodeId="1d3791edbdaf4a6abad1f2dc45ef9666" />
+</td>
+<td colwidth="[211]" nodeId="b909a22c95a3469ba566bb0f1ffc5376">
+<p nodeId="9cfcadad61a346b987dc7e439dafca11"><span color="rgba(0, 0, 0, 0.6)">squirrel类型</span></p>
+</td>
+<td colwidth="[218]" nodeId="95e3427c05d1446eaf2a002ec3ad7a64">
+<p nodeId="222ea96e52e241c5a2e82eb377f8507d"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="4743aac91740430a990aaacc1e19dbfd">
+<td colwidth="[50]" numCell="true" nodeId="6134699487eb4471a24a366f04af399d">
+<p nodeId="10efffa0db7544caa30d9ac308dab9f1" />
+</td>
+<td colwidth="[211]" nodeId="6a7f70fdc3304cccbaa102d4db44c31d">
+<p nodeId="5b06961ce036437ba3e34ecc883cc819">存储集群</p>
+</td>
+<td colwidth="[218]" nodeId="52bf7a83985c431f994e0840f7c46bf3">
+<p nodeId="f055f5efbbb440ca99640ceddbc6ef53"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="638a2a19d1334016a475dcc5b2878ade">
+<td colwidth="[50]" numCell="true" nodeId="d555861e833b45deb2fabf8f5749ab20">
+<p nodeId="63da7959a5b44e679242f78145e94083" />
+</td>
+<td colwidth="[211]" nodeId="61e11cd8ab4d40adb073420b663f48fa">
+<p nodeId="9a7d2391a324431eb1dd5a720528f594">查询方式</p>
+</td>
+<td colwidth="[218]" nodeId="b3b0cca4ebdb41d6ba0a778f92a0e48e">
+<p nodeId="9ba6e56c2b7f4038b551254638c60dc3"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="77785ab88dc24ccf8e3ccfe733e5cc80">
+<td colwidth="[50]" numCell="true" nodeId="1e14b48bf98944fd92b6759543520cfb">
+<p nodeId="1b82a88b39634e0fae014053c5dac6c7" />
+</td>
+<td colwidth="[211]" nodeId="e32d7681baf7420e930f960e02c243bd">
+<p nodeId="0f326c0953bc4eedb7504d694a471627">Key表达式</p>
+</td>
+<td colwidth="[218]" nodeId="5e8382213b0d45fc84df8ae275a08db5">
+<p nodeId="0bb46190aeb3403fbb4deb62070e9677"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="c6c1b985ad494bc7b252490be6e42c3f">
+<td colwidth="[50]" numCell="true" nodeId="2d228ad7796c4d50a717d9813a460df8">
+<p nodeId="67e17fed2b764f7fa6209ea28254993f" />
+</td>
+<td colwidth="[211]" nodeId="28e85b6b76e748bb83927df43ec38492">
+<p nodeId="e00fd75bcb4c4fe780cb339135960a51">url</p>
+</td>
+<td colwidth="[218]" nodeId="af89a8bad3344abe89f0820c9fbc89d0">
+<p nodeId="b8f1f61df2ec414f9899aaf09c2a3c53"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="054d28dc3d2c444ca3e4bc0a2354aca6">
+<td colwidth="[50]" numCell="true" nodeId="7789a27d7551407ea742296e3459b2f9">
+<p nodeId="0ed968e0762e4e55b9a3bed1f3123562" />
+</td>
+<td colwidth="[211]" nodeId="f8fdf691d9274953b9bed09e8c0ae067">
+<p nodeId="c2f58c21b9364326801539a1fe6c46f3">header</p>
+</td>
+<td colwidth="[218]" nodeId="d028f3d66c4c4187b49e26f1d1088ed3">
+<p nodeId="ba75c71156354455bff2bee709a03049"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="2a247eefd8d840fd92ba269536ea8b41">
+<td colwidth="[50]" numCell="true" nodeId="7bde230e3a9e4fe4b6fb6bdebc08f2e0">
+<p nodeId="6f20f71cd4d140cfb2ab011e7390b69c" />
+</td>
+<td rowspan="3" colwidth="[90]" nodeId="23f7b1a7d825448f80ec3a95686507b2">
+<p nodeId="91dd14e9515f44cf9c8c2073f9b59975">逻辑判断</p>
+</td>
+<td rowspan="3" colwidth="[108]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="9b626de4b7e44ab1afb1bca764d8fe58">
+<p align="start" nodeId="00b7154bde584b7eaf209ce474377617">if...else</p>
+</td>
+<td colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="a388ba0e1c2a45648773aae324d2cb3e">
+<p align="start" nodeId="7a250624b2aa415287d9e11cf53c0fc5">基本信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="410aa983db88433688cf22ac528a01fd">
+<p align="start" nodeId="d919f27722e74b2cbe3ff020340ece00">名称</p>
+</td>
+<td colwidth="[218]" nodeId="adafb0c02e6e40d89929be43536a11a5">
+<p nodeId="5a99f07e0afd4deab9a4f6aeedf95908"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="ef683fda0a5a4e589e75dbbd7030a875">
+<td colwidth="[50]" numCell="true" nodeId="e25c82bdf6de436d8ac0ae056a8b1f4b">
+<p nodeId="9534c52f820f496f896afc585f1e001f" />
+</td>
+<td rowspan="2" colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="0e93cf861f61405997769afdc1bd93c4">
+<p align="start" nodeId="61c3b5b0fed446d1bb6ec1ed9d7bd587">配置信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8b8250df6a8948cda5ee7286867878d2">
+<p align="start" nodeId="b6f65fcde6464947bf18fb6716a3e4b3">rule</p>
+</td>
+<td colwidth="[218]" nodeId="152bc92853f348fbb5ec7b2e3f85ff44">
+<p nodeId="0741b98dd9a74ebb908e4cf3a64a2749"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="5809b97aa80940609f100c13b4b32e9c">
+<td colwidth="[50]" numCell="true" nodeId="dd4fbd92e9f448f79474465a84fa6fe8">
+<p nodeId="6885523e376f41aa9cff7b8eb9b01dc9" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a9c5b8dc355b4d1d92d1307b16dafc55">
+<p align="start" nodeId="544bfaf2c9af41d0afefffed97668c65">关系表达式</p>
+</td>
+<td colwidth="[218]" nodeId="02a2fec1219a466691e350acdcea1cd4">
+<p nodeId="4c00ec97ade74381b282f571930b3642"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="d947c255405b4043b97ab13d936c0197">
+<td colwidth="[50]" numCell="true" nodeId="fb2a6f46759142d2b3bcb9d40f10da6c">
+<p nodeId="fcafd0176ceb4a4ca2141aa05e9f3a51" />
+</td>
+<td rowspan="4" colwidth="[90]" nodeId="a9c4e19e382d4934b4252a3212a9b304">
+<p nodeId="b2dbcf49cac14b2aa9fddc107c648c48">自定义</p>
+</td>
+<td rowspan="2" colwidth="[108]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="321aadfaa4fe4e4c92f85ec505af5008">
+<p align="start" nodeId="ef1e33bea7d04ec0a6877066cab38465">代码组件</p>
+</td>
+<td colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="95f9f984819844b58fd14aa0d28d2aa6">
+<p align="start" nodeId="f81133510d3f49618dd80a71d875b9e5">基本信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="68f3b0d7a3234d4c8bd606a242a96cf1">
+<p align="start" nodeId="587437360e654d44abfce39e5a899abc">名称</p>
+</td>
+<td colwidth="[218]" nodeId="4e504870eb2148759e52098607afa15a">
+<p nodeId="80ded82f731240a29ffb67c105d45ddc"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="166dd060fae54b9d84ed51a2415d387d">
+<td colwidth="[50]" numCell="true" nodeId="28d281f3b5564463939ce340357d8137">
+<p nodeId="f4b89e61098948f68235591484864eab" />
+</td>
+<td colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="0c2ca387ce8c4a53a79dd4ca7ee29f44">
+<p align="start" nodeId="4f4a2f52261d4fce95b9459400e4ab1c">配置信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dfb67a92a4244921b3bfd84e1a4a6a69">
+<p align="start" nodeId="f52367a509734ee5a800351309ccec02">代码块</p>
+</td>
+<td colwidth="[218]" nodeId="9fdeea8415d44d27baf3f33e111169da">
+<p nodeId="ece375fd2b0f4ef2887efe6871ec6411"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="ed581092ef9b4135a4516302193d6d65">
+<td colwidth="[50]" numCell="true" nodeId="27180ef2a7414b44ba1995ef24b88467">
+<p nodeId="fbe85ed246c146c0b4d70dda75cd90dc" />
+</td>
+<td rowspan="2" colwidth="[108]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="016f36d35a1b419e9f96021650c733f1">
+<p align="start" nodeId="60dd26e7a3594194b420b5cc60323e3c">规则集合</p>
+</td>
+<td colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="63cc0c54f56e42c7ab611a98fc443682">
+<p align="start" nodeId="b5f78139d55f4d3b9884cf8a0721811b">基本信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="912fc576c54847fa876d3f4aa571338a">
+<p align="start" nodeId="ebad48f8817b4ec2a4452ac19ad70f7f">名称</p>
+</td>
+<td colwidth="[218]" nodeId="3d36db14b968475f945bdbeee585a215">
+<p nodeId="b45b63f0426c4fe18e4118e787620624"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="be3f0227a7f54c1b90a76a64b8772f66">
+<td colwidth="[50]" numCell="true" nodeId="6ee4e3429d3649a1be8812a026e514b8">
+<p nodeId="795b0976f74a47f28a991fdf3188f2eb" />
+</td>
+<td colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="2cb10ff52eaa4d739094a28f1a965710">
+<p align="start" nodeId="9000d8dcffa549aca22be65e5b5fcc4d">配置信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="34957de5237a48e7ac0b300ee44387ca">
+<p align="start" nodeId="719311dd0bb845d6a6cf20ec4370c89f">规则/规则组</p>
+</td>
+<td colwidth="[218]" nodeId="9f7342419bbc44f281e93f4560fcd017">
+<p nodeId="74d3eef5e9d74fa2bf35656b204a4336"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="40e0189218914a119332b17220c38361">
+<td colwidth="[50]" numCell="true" nodeId="030f811806d941c69e93804b36536766">
+<p nodeId="f06551cbef4249ce9d50200d8708e2aa" />
+</td>
+<td rowspan="19" colwidth="[90]" nodeId="a2fc809b7830486aa09148ca5baa6287">
+<p nodeId="710960de591b4cc1b649d22e8dc01706">数据输出</p>
+</td>
+<td rowspan="6" colwidth="[108]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="43e95f06fa1e447ca2a82235c876b2b8">
+<p align="start" nodeId="53fc966f7fb54e038cf8cf2ca7fb655c">旁路输出</p>
+</td>
+<td rowspan="6" colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="cf88e383a2c1499b8fec6ead0caabb46">
+<p align="start" nodeId="24668ff2c2bc4b9eab904c710689d98b">基本信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f2fff457026e416bbee889ac3f872f7d">
+<p align="start" nodeId="55b21b62d2c1481ebf5fdce336513915">名称</p>
+</td>
+<td colwidth="[218]" nodeId="0d4979a87b044e3ba0e2fe49442d670c">
+<p nodeId="19ac2b2111034c56934acf5132256618"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="00387a8dd1004bd19a0b1208785209a0">
+<td colwidth="[50]" numCell="true" nodeId="9c7a97eabd7848e0b70cdad2ffbe30f7">
+<p nodeId="044cbbdd0db4402ea672a4c116cf981d" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6c52800ee61d4f9a9ae7fe232a0b6c91">
+<p align="start" nodeId="e89638c5730b4a719022802de6fd5ed4">Topic</p>
+</td>
+<td colwidth="[218]" nodeId="d34ef09bfa574e609afaad0f4d9da42e">
+<p nodeId="038e476b84df4328b9adce734278c246"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="1b9a4331e7c645b2b2e8dac6bf3d600c">
+<td colwidth="[50]" numCell="true" nodeId="b9aab8eac55a4bf3b7efac6196558e71">
+<p nodeId="36c9721d10f04e9cbcc8e49f9e6b771f" />
+</td>
+<td colwidth="[211]" nodeId="cacb48d79fd7404bb710aac45db255c6">
+<p nodeId="d580242bde224c159a0bf9c68050f760">输出格式</p>
+</td>
+<td colwidth="[218]" nodeId="50e5dabdf9694093990d2b2a4cc68948">
+<p nodeId="5a8ee914a29d4df1b809dcff94b3a3b3"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="914056fb2693485b888947cf7dbb6b92">
+<td colwidth="[50]" numCell="true" nodeId="e66220b447a4477b9e681470d2d89b81">
+<p nodeId="6f42abf5fd0a4f158eef4c155f9f1dbe" />
+</td>
+<td colwidth="[211]" nodeId="e8aadb3d4f0c4a4a9ddfb25616049442">
+<p nodeId="4b40a1f7de604f83900e1afc9c4ef3bb"><span color="rgba(0, 0, 0, 0.6)">namespace</span></p>
+</td>
+<td colwidth="[218]" nodeId="98e0ec13d93847dfaeae29e472dbf51e">
+<p nodeId="1124af6cb55643508aa4e6d684b16fa0"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="7098836b497241b7bf63407d14eac455">
+<td colwidth="[50]" numCell="true" nodeId="76192fd0713946da91792dd913db1c44">
+<p nodeId="4f83aae9bfe14bbd885efb8ef4a6d68c" />
+</td>
+<td colwidth="[211]" nodeId="f84750ffa6024f4d967610a489660f38">
+<p nodeId="4e97c0e687404a0dbc82f0ee8510189c">消费组appKey</p>
+</td>
+<td colwidth="[218]" nodeId="a33f7f29e5c141f6b0a886b641d06d9d">
+<p nodeId="30a0ff359a2f4190a6824e93b3d724e9"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="9e5106aaf3b94895b1e2e589514b9c9b">
+<td colwidth="[50]" numCell="true" nodeId="85dd9272ae87416cb284c9d060b84ad4">
+<p nodeId="047aef30a6de4ff4a8259819ddf854eb" />
+</td>
+<td colwidth="[211]" nodeId="967caf2f5c3d47d180ef603ae9b97b6c">
+<p nodeId="5b938bc0ae2244919e4721569288f17c">是否配置set输出</p>
+</td>
+<td colwidth="[218]" nodeId="83ad8f6a111b4addb1962f87ca14efcc">
+<p nodeId="65f36aab3a4d4e1cb9ac97ffe83d6717"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="d280a4162ad8444d80b4453a72d52a10">
+<td colwidth="[50]" numCell="true" nodeId="8b381723e4034c6090263ae6fc8de821">
+<p nodeId="87e9c6085dde46059930216588fe32d4" />
+</td>
+<td rowspan="2" colwidth="[108]" nodeId="dd6daa3674ca4b16ae81879c984f8afc">
+<p nodeId="d928eee7b76c426a9cbdd064ff56a14d">虚拟输出</p>
+</td>
+<td colwidth="[96]" nodeId="83970c02aea5491ab5ea9c11e1d846ed">
+<p nodeId="e5821ad1487e43e7982a293740babd97">基本信息</p>
+</td>
+<td colwidth="[211]" nodeId="523595a3e6c04f88913938545fea19bd">
+<p nodeId="18efe3191f32426eb4aac4f54ac68de0">名称</p>
+</td>
+<td colwidth="[218]" nodeId="3c8dea5297f243e3980c8dd7f1871265">
+<p nodeId="0d1c16d79bb347efae66d10984991aa5"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="061a534f93884cbfbeeaa583087965b5">
+<td colwidth="[50]" numCell="true" nodeId="b3434aa8955841818220776f1045ac9b">
+<p nodeId="2b39919e78a743bdbfa5bd184c984733" />
+</td>
+<td colwidth="[96]" nodeId="48a988b3d0d547c69771197bee96b116">
+<p nodeId="735a8886df4242f09afef561a9635114">参数信息</p>
+</td>
+<td colwidth="[211]" nodeId="ad817869c3e24b2b99a537a892d3d52b">
+<p nodeId="c6ac3565da2b4105b5e601246065644e">中文名称、英文名称、类型</p>
+</td>
+<td colwidth="[218]" nodeId="1ba464e7f9ba48a0a5d1251ff1d44719">
+<p nodeId="6836652b14fd4187866e4be0a0d2c33a"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="133d0cbc44ae4a519a9c482c6dc69dd0">
+<td colwidth="[50]" numCell="true" nodeId="9023775991b64eb8a7b925f50fee77a2">
+<p nodeId="3e6954a8c33948a0bc553dd4347e3a5b" />
+</td>
+<td rowspan="11" colwidth="[108]" verticalAlign="middle" nodeId="d5dca226247743f88314a5300c50156a">
+<p align="start" nodeId="79ae0ba5ca8f4685941857f045763e80">数据存储</p>
+</td>
+<td rowspan="2" colwidth="[96]" verticalAlign="middle" nodeId="64f3028e93ea49b1a81d6ac6355f8f65">
+<p nodeId="3437c1ca3d134a428f29e8650433f93a">基本信息</p>
+</td>
+<td colwidth="[211]" nodeId="643972dc8a0748be9560dc9bc6d8d672">
+<p nodeId="f51935b4253644e58402b2ef751c796a">名称</p>
+</td>
+<td colwidth="[218]" nodeId="6799e89c0d4a48bdb32d53d8eca0f055">
+<p nodeId="f77e002469e747928f9f9a17a4366369"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="2e8b0311667f4cb6b3e17040d03741ca">
+<td colwidth="[50]" numCell="true" nodeId="ce45e5aac4da4b3ab5b0a2fc93212abb">
+<p nodeId="b9edf856a1d94d06b39af57e40f5d7fe" />
+</td>
+<td colwidth="[211]" nodeId="da2611787e5d46ab87955a3026a071f4">
+<p nodeId="1de2a808aec946a99062b7949c82a749">备注</p>
+</td>
+<td colwidth="[218]" nodeId="d29da5b8ad654740957ffd6258db203e">
+<p nodeId="8ea2e0b493f546f2bda9c6347e59694f"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="6028deac15a14b7ca23d5ade6cf82a0e">
+<td colwidth="[50]" numCell="true" nodeId="f2a4c997b5d342c7bc40c789bc830279">
+<p nodeId="d41ad03b146a4eabb7ff8d1b986e9870" />
+</td>
+<td rowspan="9" colwidth="[96]" verticalAlign="middle" nodeId="dfc351d1db38479c8329b9f38d77983b">
+<p align="start" nodeId="6920eb1202e048a0ae2a5aa543ceb6f9">配置信息</p>
+</td>
+<td colwidth="[211]" nodeId="ab83f20c43514d848c7b1819f1c6dc1d">
+<p nodeId="6f485c7a1c2c4a18993bafa4bb74fa25"><span color="rgb(0, 0, 0)">英文名称</span></p>
+</td>
+<td colwidth="[218]" nodeId="e2b03db8bf5649c0afb11450765ebe26">
+<p nodeId="6407af16a04441a48948ca30a1b4cc51"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="8d20670dbef448d582e50ef8ab305fd2">
+<td colwidth="[50]" numCell="true" nodeId="be538479c3bc467fb97304e57486afa2">
+<p nodeId="071d12add85240198f389639b518a7aa" />
+</td>
+<td colwidth="[211]" nodeId="eafdf2dd6e134549a41d13979ba682ad">
+<p nodeId="026176e998a0403286b2610902f58dcf"><span color="rgb(0, 0, 0)">数据类型</span></p>
+</td>
+<td colwidth="[218]" nodeId="9d78f98d2a2b4dd8a1ebdb9b48af6aa7">
+<p nodeId="8c489ba6238e4375ba75d999afbda703"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="edeca25f3f4640739416c55ac84d24b7">
+<td colwidth="[50]" numCell="true" nodeId="5d423df2ee71420180e7c3e443c190e8">
+<p nodeId="81f0b8f85cf14f4ba2d9faa1cf16b793" />
+</td>
+<td colwidth="[211]" nodeId="8b86ab9e61934c879ad13d2c291af021">
+<p nodeId="38d1f8868aac4fba8ee613139296b8fb"><span color="rgb(0, 0, 0)">存储类</span></p>
+</td>
+<td colwidth="[218]" nodeId="7486ab0247f04b51a77b0d37931df6be">
+<p nodeId="1eaf0df1452241e68c703c8f16eab87c"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="32db05f28c9f493183aa08a42c24ed53">
+<td colwidth="[50]" numCell="true" nodeId="b8e4119cbd4f4a2289e23702c81ec728">
+<p nodeId="1e168d8940e543f7ab944f8c48f9b510" />
+</td>
+<td colwidth="[211]" nodeId="3bd0b7080c7b493597462530b42daa4b">
+<p nodeId="5c9956b9772f46dd94347a3945d06125"><span color="rgb(0, 0, 0)">squirrel类型</span></p>
+</td>
+<td colwidth="[218]" nodeId="ad091776eb1e4640853c3377e3b317a1">
+<p nodeId="e48afc4055794917a352faf8e256351c"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="89469b61bb5b4a15ad72dd32ba5dea33">
+<td colwidth="[50]" numCell="true" nodeId="8ce3a22a981e42f49387066d86b69313">
+<p nodeId="60f331fe6b214a489006ae5068ac0b97" />
+</td>
+<td colwidth="[211]" nodeId="9be63c408fd54917b1a087a2c9496936">
+<p nodeId="99f85c37832a4414bae796ff98e295d1">存储类型</p>
+</td>
+<td colwidth="[218]" nodeId="3abb04f8d10a4fc5a0af221a61ea95a8">
+<p nodeId="309c848013744a5883879217597b8aac"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="17e5c5795cb94b5b86bfc3b7ad76a959">
+<td colwidth="[50]" numCell="true" nodeId="d092afbe7edf4e1585c2f9f9fffd3a44">
+<p nodeId="993739eb52c7476f98980a578fd2bf08" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="50fd6cdcf7734284a4d42ea3cb0080d9">
+<p align="start" nodeId="ff76f004ed3e4a56973eee7dfc7ceffc">key表达式</p>
+</td>
+<td colwidth="[218]" nodeId="f187522be9054091bdf7c1f6b1656669">
+<p nodeId="2e7c36cee8c445eabf13d1e2ea37dbdd"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="c63e9d8d8f424183a07197c3a93c4aa5">
+<td colwidth="[50]" numCell="true" nodeId="57fe0a73cf4040a6a6e03d2698398e40">
+<p nodeId="71b8e19aa67246f8bdabc221facf8a1a" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1f1c2a59763a4644abc3ed8cc8dc2810">
+<p align="start" nodeId="0568eda54c3f4eb495da780ca89a6b81">field表达式</p>
+</td>
+<td colwidth="[218]" nodeId="f2ac38d89c0440a7b7ed6b4ccc8ffce5">
+<p nodeId="58ea5fb388324bf8b7e9e84cb27a07cf"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="45053baa7f044e3badf11a3b360da8fb">
+<td colwidth="[50]" numCell="true" nodeId="ff0dce0525af45fca63f42c50ee4570f">
+<p nodeId="31071649003d45f1a0dfb9fca61fe69f" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b830c16ac6194b0ebc798dbadcdcba2b">
+<p align="start" nodeId="5851755a1faf4edba1d08878afc9f9f1">value值</p>
+</td>
+<td colwidth="[218]" nodeId="d9876966a5034f7998673f6f6617c71d">
+<p nodeId="fa84ae38152a4200b6aac84c251923aa"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="d9040c50f8b84fd680096a8f09e54630">
+<td colwidth="[50]" numCell="true" nodeId="5661c25122c842b180c310eb8b1ed191">
+<p nodeId="94b2ada451294662bdacafdf45afd605" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0452b1e9367448fcb5b59c2991e1a55f">
+<p nodeId="8ef88ea7f52d4d24a9f3afbb49a8dab4"><span color="rgb(140, 7, 11)"><strong>限流配置</strong></span></p>
+</td>
+<td colwidth="[218]" nodeId="6c669f26decb487bb6f8aec01c522ebd">
+<p nodeId="800a01d1c9614c638efa8e4f2f76bf6f"><span color="rgb(255, 74, 71)">否</span></p>
+</td>
+</tr>
+<tr nodeId="feef2a3a9f61409d8b61122bf3c4a69a">
+<td colwidth="[50]" numCell="true" nodeId="1e142fac3a5d4cbfafe05606902af39c">
+<p nodeId="e4b6f4eec12d4bbb830aa30e28a0e8ee" />
+</td>
+<td rowspan="4" colwidth="[90]" nodeId="d0bcffc3bd9b42f58c0320abe2c9c890">
+<p nodeId="9a3f6d7deb8745f0a3664b0ea38b998b">决策处置</p>
+</td>
+<td rowspan="4" colwidth="[108]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="bdda58ce908547459171d5cd603efdbc">
+<p align="start" nodeId="178257e1a4074013aa3d6eb7079047f0">决策信息</p>
+</td>
+<td rowspan="4" colwidth="[96]" verticalAlign="middle" bgColor="rgb(255, 255, 255)" nodeId="181800fc4bcd4f27bba4e426dd9b8a3e">
+<p align="start" nodeId="2324821ea25e46b0a384a9fc8a781a13">基本信息</p>
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="df63fb50bcd94e9d80700cf79632aa2c">
+<p align="start" nodeId="d3a4e22cd5904c80b307f01266799bcc">决策</p>
+</td>
+<td colwidth="[218]" nodeId="c581239741b34228ba15e7d86a45bbec">
+<p nodeId="6e2f396e1bee4a7f88260c0aa404e8ba"><span color="rgb(0, 186, 115)">是</span></p>
+<p nodeId="598fc7cb9f6045b9994ca1fffcf83a79"><span color="rgb(0, 186, 115)">（</span><span color="rgb(255, 74, 71)">kafka类决策不支持热更新，因为涉及注册topic</span><span color="rgb(0, 186, 115)">）</span></p>
+</td>
+</tr>
+<tr nodeId="9497a2af6aba4bbb96690b05055244fa">
+<td colwidth="[50]" numCell="true" nodeId="fe028393339d4f2799aa36636d026d33">
+<p nodeId="440edbb67e0740619dd3ee16ba96ccd7" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d29ad158174043b0a07bbd2af33e5ad9">
+<p align="start" nodeId="74552ce5dce043f1be5a70f5725838b6">附加信息</p>
+</td>
+<td colwidth="[218]" nodeId="645c9a97286d4e1591af5c33f34a25f3">
+<p nodeId="71f8a3e26f6448e5a5ae84d70456d149"><span color="rgb(0, 186, 115)">是</span></p>
+<p nodeId="5b9b1abb329a405bba1c6dc2648c94b5"><span color="rgb(0, 186, 115)">（</span><span color="rgb(255, 74, 71)">kafka类决策附加信息不支持热更新，因为涉及注册topic</span><span color="rgb(0, 186, 115)">）</span></p>
+</td>
+</tr>
+<tr nodeId="aa8f6e946b42433090d747bc2835520e">
+<td colwidth="[50]" numCell="true" nodeId="070a1ac5e1aa4a569f3a1c8749c98f6f">
+<p nodeId="bd77c35777eb48b7b84458cbb6ba5318" />
+</td>
+<td colwidth="[211]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3d36ab4eaf334ad4a78ce177352bc6b8">
+<p align="start" nodeId="4e9082af0e764eb3b26d911ca5cf8d67">决策理由</p>
+</td>
+<td colwidth="[218]" nodeId="866732d96d32481c8d590539a61da7da">
+<p nodeId="95e4e0f6e9d743ca895b80e04769fda1"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+<tr nodeId="43a81dd0828c436f8c858d51795395c8">
+<td colwidth="[50]" numCell="true" nodeId="bd44254b28554614a2e4bf22ad0b7fcf">
+<p nodeId="15339476a924485db96823ac7401d023" />
+</td>
+<td colwidth="[211]" nodeId="1fb7f74e4dab433181f03edecf864403">
+<p nodeId="490d9b0f096e4c66936df2ed12324839">条件</p>
+</td>
+<td colwidth="[218]" nodeId="5adf33f9c68b42a798acf1c315fed251">
+<p nodeId="96445ebde8ba442ea85c0e043d918281"><span color="rgb(0, 186, 115)">是</span></p>
+</td>
+</tr>
+</table>
+</km-doc>

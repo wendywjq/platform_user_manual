@@ -1,0 +1,65 @@
+<km-doc>
+<km-title nodeId="cac29bf0d9ad455d9010dfb1d232a5d0">说明：全局变量</km-title>
+<km-catalog style="none" nodeId="557d775ea1ca4433b9aa6bb9801ea3e0" />
+<h1 nodeId="ec34bbcb697f4a31844185aacd3cbc35">一、背景</h1>
+<p nodeId="5f9fc31abaf6460d8666d48457b5eac3">生产者在自定义组件的逻辑编排时存在一些全局通用参数，需要使用的用户进行设定，这类信息可在自定义组件中设置成全局变量。使用者，在应用自定义组是会设定变量的具体值。</p>
+<h1 nodeId="d055f05fb7734d689ce6952130790311">二、名词解释</h1>
+<p nodeId="0e1c916219804326aee26f62de067e8e">无</p>
+<p nodeId="9d3ef7a09c3442a28a61232ea631b6ea" />
+<h1 nodeId="e39378123f6a4159b9a17ee665234055">三、操作详情</h1>
+<table responsive="false" nodeId="835243e9b8044f9397552777fce9e621">
+<tr nodeId="a8ab9722ee4a43a1ba4c066557c6f380">
+<th colwidth="[564]" nodeId="c522453eeff444c5a51acfd01bba58e0">
+<p nodeId="5c6f1bbf60884beea2c8a43348fa9b77">配置说明</p>
+</th>
+<th colwidth="[705]" nodeId="714f2374852546228ddf9194b82a7940">
+<p nodeId="0b67c0960cfd49efae05a4e6201a8cb3">截图</p>
+</th>
+</tr>
+<tr nodeId="2cbb22e7d9cc409281917e15c5b64c3f">
+<td colwidth="[564]" nodeId="09c1ad23ce4e4ab8af591443f2a2d2b4">
+<p nodeId="c804792b688144049f742895329a1e99">【全局变量设置】</p>
+<ol nodeId="7a2a827f9e934c6698dddb7fc24582b4">
+<li nodeId="32788970373344858b16937bf7671085">若画布中设置了全局变量，则点击全局变量按钮，平台自动解析已经设置的全局变量。若需要进行其他信息设置则点击编辑按钮，默认展示详情信息</li>
+<li nodeId="78fab18c6046490fa14a25962fdc7dc6">
+<p nodeId="e8fc4d5ba6874597871141de4ef2bba1">如何在自定义组件中设置全局变量？<br />在自定义组件中基础组件输入框内按照${XXX} 格式书写，自定义组件会将XXX识别为全局变量。</p>
+<ol nodeId="ee79e3392ecb4dc9bb46e0e8019f7e57">
+<li nodeId="09183997201645ed9e1ecb13e66a43ad"><em>建议用户以select组件进行全局变量集中设置，这样后续全局变量的管理和查询也方便</em>。比如select ${sceneid_b} as sceneid_b ,这样在后续若作更多逻辑判断可以直接使用sceneid_b这个参数。</li>
+<li nodeId="942f90b18e524c08a9667dbe4c63a116">当画布引用组件执行的时候，使用者设定sceneid_b=1154 则 自定义组件内部所有sceneid_b 都会替换成1154 </li>
+</ol>
+</li>
+<li nodeId="5caf8a56511b4b35bef99bc93cae4387">
+<p nodeId="bb7a34468fc041a299a74eaf5d748cd4">全局变量的英文名称、类型为平台自动解析。中文名称、填写方式、填写样式、是否可选和默认提示文案 为用户自定义。</p>
+<ol nodeId="f57b13034cb44496b810b275febe7162">
+<li nodeId="64376b0b36dd41daafadb8a5a5b97ef2">其中全局变量的中文名称 是<strong><u>使用者在画布中填写全局变量的标题，建议名称简明扼要，不要过5个中文</u></strong>。</li>
+<li nodeId="39eaeaf6bc8d450cad3c678a551de3f2">类型：支持整型、字符串、布尔型等<km-mention name="葛磊" uid="gelei05" empId="" nodeId="45c77525d1bf4744a4ebdb1a4f34d5f8" /><span color="rgb(255, 74, 71)">幸苦帮忙确认下</span></li>
+<li nodeId="834d7ee3af934992b379635f04630d19"><span color="rgba(0, 0, 0, 0.9)">填写方式：当前仅支持输入框，后续计划支持下拉框</span></li>
+<li nodeId="6ae3baed3c2e4c51aaad4e34082002d6"><span color="rgba(0, 0, 0, 0.9)">填写样式：输入框下，可支持短文本、长文本和表达式代码</span></li>
+<li nodeId="90002279eabb4c3e94a2955fb744f2c9"><span color="rgba(0, 0, 0, 0.9)">是否可选：默认否，都是必须填写；支持生产者设定可选</span></li>
+<li nodeId="8f7dd3b1a3044a8c960594ce255ab547"><span color="rgba(0, 0, 0, 0.9)">默认提示文案：即在使用者应用时，输入框内的默认提示文案是什么，为了降低沟通成本提示自定义组件的易用性，建议生产者在此处做好填写描述。</span></li>
+</ol>
+</li>
+</ol>
+<ol nodeId="db64ae9db71f4ea2b5ac5a2e775c6c0e">
+<li nodeId="d6b71b587db94576bfc28af90a04a77f">设置完成后点击保存，即可保存全局变量设置。<u>⚠️整个自定义组件保存才能完成整体的保存，因此不要忘记保存全局变量和自定义组件逻辑</u>，即页面右上角的保存</li>
+</ol>
+</td>
+<td colwidth="[705]" nodeId="90799a814c9c49569cf4ab9939901f9b">
+<ul nodeId="f5271b80f7604fe583d7807c83b0d508">
+<li nodeId="3d2f061d238b4d30b40b8f399fdd0553">若是用到全局变量，则全局变量的设置</li>
+</ul>
+<p nodeId="0bcc17a0c30645cca74e2682bd4fb079"><img src="https://km.sankuai.com/api/file/cdn/1939908382/71125139156?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="570.24" nodeId="b85066c0b4204799bceefbc02828a008" /></p>
+<p nodeId="1ae692c87a88465b8cb88bf755ef00f7"><img src="https://km.sankuai.com/api/file/cdn/1939908382/71119701912?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1345" height="600" nodeId="e08ec1299b1546b6bc52e19417067a21" /></p>
+<p nodeId="8115122d8b414591829b98101e5050a1"><img src="https://km.sankuai.com/api/file/cdn/1939908382/71121765080?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="586.17" nodeId="482cea1b961e4faea5f3ca78bf76d39c" /></p>
+<p nodeId="4ad8efdbc9d345309120eb36067a8c7f"><img src="https://km.sankuai.com/api/file/cdn/1939908382/71121984711?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="591.54" nodeId="0b1a892763fb4364be3ed1739fdbeb21" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="62626e2bb0ae41699379e3d707c295e4">四、FAQ</h1>
+<p nodeId="87f7d2c8603143b49db116c62620256a">Q1：已经发布的自定义组件，增加/删除全局变量怎么操作</p>
+<p nodeId="7697985f50204b378ebe98fc1a65000e">A：本期202311月版本，暂无法支持已经发布的自定义组件直接修改进行增加/删除全局变量。当前可实现逻辑为复制一个相同的自定义组件重新设定并在画布中替换引用。预计二期会以版本升级方式支持降低替换成本。但需要注意 增加全局变量若是必填信息 仍需要引用的画布进行设定才可使用，因此跟建议新建方式。<br />Q2：已经设置的全局变量类型/XX有问题，怎么调整</p>
+<p nodeId="baa38021a12b415697efa1bfc71d59db">A：<br />Q3：全局变量可以跨自定义组件使用么？<br />A：不可以，全局变量独属于设置的自定义组件，其含义和逻辑都只有在本自定义组件中生效。不同的自定义组件即使设置变量名称相同但处理逻辑也是不同的。</p>
+<p nodeId="f9bfd385b15d4a54804b903c9ff1e1e7">Q4：全局变量在画布中的填写信息可以支持表达式书写么？</p>
+<p nodeId="1a894dc44cac4ef4bc65e89efe93a8e6">A：本期202311月版本暂时不支持，二期迭代计划支持，敬请期待。</p>
+<p nodeId="17e9192b05544fe793dbe38ff81dd9ff" />
+</km-doc>

@@ -1,0 +1,591 @@
+<km-doc>
+<km-title nodeId="30c52bd19bcb4b7fbe280f64d2a70702">说明：自定义组件</km-title>
+<km-catalog style="none" nodeId="7a90b61afab346fe8c835d444a997ce9" />
+<h1 nodeId="c30154012d2948d69f503badd8172635">一、背景</h1>
+<p nodeId="67d139c82e7a4a83a3dfe40bd058d4de">近线在面向多风险域服务时，当前画布组件配置模式，对于不同业务方存在通用处理逻辑无法复用、编码式布控学习成本高、算法建模无法支持自主配置等问题，需提供快速、低代码、自主建模能力。</p>
+<p nodeId="925961dc46a94abb84852a6d42dd1094"><em>自定义组件可以解决以下问题</em>：</p>
+<p nodeId="5c0ae2ab14a34678ac4d6be6dda73d54">① 我的建模逻辑是一样的，但对应数据源不同，或者有部分细微的调整，不想维护多个画布，此时可以使用自定义组件中的子图，建模通用逻辑，在不同画布中生效，核心建模逻辑只需要维护一个子图即可</p>
+<p nodeId="fa96d0830462469b9748a05c19da2e91">②我的场景需要一套复杂的算法，目前都是研发撰写代码，因为复杂度较高我不会配置。每次都需要找研发提需求 响应周期不可控，我想自己直接使用结果。此时研发可以使用自定义组件中的模版，提供建设好的模版给策略使用。</p>
+<h1 nodeId="b7a9102fbeb344c8b66196b047878e8d">二、名词解释</h1>
+<ul nodeId="081ede5d12e04f948b58aa19b96b0b10">
+<li nodeId="86ecd60318254d8faf5a9933558db47b">基础组件：当前画布中的kafka、mafka、select 、join、Groupby等组件，研发通过代码实现的Flink上可抽象算子，是近线引擎上最基础的逻辑。</li>
+<li nodeId="f0e907f2a0a04f1cb71ebdd1ed2d8994">自定义组件：提供画布中基础组件的业务语意抽象，支持平台用户或研发可灵活、自定义封装组件，无需代码上线并在画布中使用。</li>
+<li nodeId="fbc95b087648407f93a3609d19714acc">全局变量：生产者在自定义组件的逻辑编排时存在一些全局通用参数，需要使用的用户进行设定，这类信息可在自定义组件中设置成全局变量。使用者，在应用自定义组是会设定变量的具体值。</li>
+<li nodeId="ce7d8f2dd74c43cab2b57d57697d2def">画布：近线引擎主要的布控逻辑工具，支持拖拉拽配置各种视图组件完成逻辑编排。</li>
+<li nodeId="9ef4ebc954934f1f9546152ed44804b0">模版：自定义组件中的一种类型，实现设置逻辑的<strong><u>复制</u></strong>，复杂逻辑的抽象，使用上不具备继承关系，类比实时-规则配置模版、累计配置模版；旨在降低画布的使用门槛；</li>
+<li nodeId="3521122ca6dc465db8f332e8c76e34dd">子图：自定义组件中的一种类型，实现设置逻辑的<strong><u>引用</u></strong>，逻辑的引用，同类逻辑的维护，使用上具备继承关系，类比实时-因子、规则、规则组；旨在降低画布运维成本，提升迭代效率；</li>
+<li nodeId="f0516edee9964134bc083e6c0f69f8af">虚拟数据源：构建自定义组件逻辑中的一种基础组件，虚拟代指数据输入节点，在自定义组件创建时便与生产者区分多数据流，在自定义组件应用时便与使用者在真实数据源与组件逻辑进行连线</li>
+<li nodeId="c13c35df61e14788be55d4d4584534ba">虚拟输出：构建自定义组件逻辑中的一种基础组件，虚拟代指输出节点，在自定义组件创建时便与生产者区分多输出，在自定义组件应用时便与使用者在真实数据源与组件逻辑进行连线</li>
+</ul>
+<h1 nodeId="1e261631c9e8448792021803fd7a78e3">三、逻辑说明</h1>
+<p nodeId="96e6cbee0e9548dbb5275c93dc881679">用户说明：</p>
+<table responsive="false" nodeId="0895659d4e674249a708521a0daa9f69">
+<tr nodeId="f6acc05370694816a98f242b98abf4f1">
+<th colwidth="[99]" nodeId="19d7f685c7424f2a8534ff5a23a2455a">
+<p nodeId="d5fce74807be4e249193441afa5d01ea">角色</p>
+</th>
+<th colwidth="[489]" nodeId="23f9b4b45149464fba522c1c0ea83ef7">
+<p nodeId="334dcbe62e4b40e18d26ddbf77aa4d92">要求</p>
+</th>
+<th colwidth="[162]" nodeId="abeac08a1a824e8db2947f68d8e5514f">
+<p nodeId="21a59a5bf4264680ac670ccb263d68cc">使用功能</p>
+</th>
+<th colwidth="[487]" nodeId="fc2e53aaa8bb413494413ef4e3901bd7">
+<p nodeId="97e99707281d472184f930ce90e08ea3">解决问题</p>
+</th>
+</tr>
+<tr nodeId="a28fe93f7231434c9dbe5de2d75b69dc">
+<td colwidth="[99]" nodeId="cd2ea64cd0ee47ae94ffad38d0cedff9">
+<p nodeId="042b1d87e02e43a585c3b3d70d7f0533">自定义组件<strong>生产者</strong></p>
+</td>
+<td colwidth="[489]" nodeId="7329b5a0928545988a06f9d578476965">
+<p nodeId="93b43afeb1f34e2b917790d236989d26">需要具备一些代码能力，包含但不限于数据结构、SQL、FlinkSQL等。</p>
+<p nodeId="78e139ad4e8d4f0090bbd7af538662a3">一般为具有工程/代码基础的策略、算法和研发</p>
+</td>
+<td colwidth="[162]" nodeId="7cd229fc62db4fefb04d4f247752153a">
+<p nodeId="6b1a2a3e129b47b1a10d510996d7f663">使用“自定义”功能，建设自定义组件</p>
+</td>
+<td colwidth="[487]" nodeId="6519784d60704a08994fb0ed73407bd6">
+<p nodeId="be92c87395944a518f3642c0d25a324c">风险域的通用复杂逻辑的快速复用，抽象业务语义组件，面向团队内其他成员，沉淀风险域模版、提升建模速度、降低画布使用门槛</p>
+</td>
+</tr>
+<tr nodeId="910740d0a5414c1fab399e9602817a97">
+<td colwidth="[99]" nodeId="4a98e41bf8ba4179963d0429df7a147e">
+<p nodeId="c67f8e9949ab4bbc8821e7089ed410ee">自定义组件<strong>使用者</strong></p>
+</td>
+<td colwidth="[489]" nodeId="e840a30bc8c845ec8ee8510cc03566ad">
+<p nodeId="32ec5b3264234862a63211ed1303e41e">需要理解业务语义和数据含义，了解基础的画布布控操作。对代码能力要求不高。一般为业务BP/弱代码能力的策略、产品</p>
+</td>
+<td colwidth="[162]" nodeId="41cce1565cd84619b967044b7f24dd82">
+<p nodeId="ccc6ecc422114e28be9a9f34804287f0">在画布中使用组件</p>
+</td>
+<td colwidth="[487]" nodeId="13fa2af897334eb584ac7292f18f9120">
+<p nodeId="ffe33b5a30244c8693e72771f6c93c3f">对于复杂逻辑不会写、无法自主建模。可以直接使用建设好的业务语义模版，无需进行复杂逻辑的撰写</p>
+</td>
+</tr>
+</table>
+<p nodeId="31de0229976b431f8528c19588247b78">自定义组件分类说明：</p>
+<table responsive="false" nodeId="a4c2c90e51d846fbb6bd4932498225c0">
+<tr nodeId="d4d486633d0140e3b6dbff1c22e2fb69">
+<th colwidth="[99]" nodeId="93d63720436942f5ae00f51240ea12d1">
+<p nodeId="2b3086ac6cb84ae9800a8e5674dbc037">分类</p>
+</th>
+<th colwidth="[279]" nodeId="e7278971a62944a38046a5bd36162f91">
+<p nodeId="a4e22f38eaf249b2aff9896e67084e4b">定义</p>
+</th>
+<th colwidth="[239]" nodeId="8275e76817644bd6b5278fa9427fd541">
+<p nodeId="4cd98bfc806e4c6fbf9d4ac6af958d30">一句话概括</p>
+</th>
+<th colwidth="[622]" nodeId="1318681e8bc045e380d289dec89a987e">
+<p nodeId="0c4520ed7bf54e7a9d636a3afb408156">适用场景</p>
+</th>
+</tr>
+<tr nodeId="836377018bc54ea28309c2f1628081ec">
+<td colwidth="[99]" nodeId="deb0c286266741f18401be2e0d935fad">
+<p nodeId="6a031842e69f4ce58da91adc218a367e">模版</p>
+</td>
+<td colwidth="[279]" nodeId="599822b0499b467ebf6f91a01d18ab94">
+<p nodeId="6af7075fd9a64150a17b0241afcc2611">实现设置逻辑的<strong><u>复制</u></strong>，复杂逻辑的抽象，使用上不具备继承关系，类比实时-规则配置模版、累计配置模版；旨在降低画布的使用门槛；</p>
+</td>
+<td rowspan="2" colwidth="[239]" nodeId="d1e343cad4154318ba77f7480a5feed4">
+<p nodeId="9b7d15d6c8dc4fb3bccc168e4509dc8c"><strong>核心区别在于使用者，是否需要感知生产逻辑。</strong><br />模版不展示生产逻辑，对于使用者仅需要简单的配置就可以使用，<u>无需关注生产逻辑</u></p>
+<p nodeId="dec85dd7af414f098319a194f638b988">子图展示生产逻辑，对于使用者操作是简单的配置，<u>但需要大量的解读生产逻辑工作</u></p>
+</td>
+<td colwidth="[622]" nodeId="8f860c040a4d4eecbd7e2edaa22d8b2a">
+<p nodeId="1b459849adee407c8f338869bd7c2056">（1）账户安全、流量反作弊、UGC反作弊的算法近线化建模，可抽象复杂算法模型，直接供策略使用模型结果</p>
+<p nodeId="4864c1eb4f0f47a58808b673c8598e60">（2）UGC反作弊的近线回扫策略布控，可抽象成回扫组件，简化布控复杂度</p>
+<p nodeId="e7435995cf7640c9977cb0805fd56fd9">（3）内容安全热度分层策略，可抽象热度分层组件，简化布控复杂度</p>
+</td>
+</tr>
+<tr nodeId="383fd30eb1ae4872980e73d50f27700c">
+<td colwidth="[99]" nodeId="2fae84021ae040eca746fc5ad7a1ffe2">
+<p nodeId="fd2a6ced26bd491ba2eadffbc6abd05f">子图</p>
+</td>
+<td colwidth="[279]" nodeId="c782462a0c484c66a64b26243aa0916d">
+<p nodeId="4b5db683d98f4c838c62903e6bcbcbd6">实现设置逻辑的<strong><u>引用</u></strong>，逻辑的引用，同类逻辑的维护，使用上具备继承关系，类比实时-因子、规则、规则组；旨在降低画布运维成本，提升迭代效率；</p>
+</td>
+<td colwidth="[622]" nodeId="d199c99acc354bb0b1b52aa5b7a4995d">
+<p nodeId="470b5d9e3fcf4e5c976893426a30cf83">（1）基础安全侧多数据源作业，不同的数据源，但建模逻辑是相同的。减少重复建模和运维迭代工作量</p>
+</td>
+</tr>
+</table>
+<h1 nodeId="8375890a2a544011af5bc5241797bfd0">四、操作指南</h1>
+<h2 nodeId="24756511138041a195bfcf5eb8d93876">4.1 全景图</h2>
+<ul nodeId="4a319410c5b345a7afc0fb5ce6c78b90">
+<li nodeId="f2266458d6e44ac293a138445a69af82">模版生产者👉👉</li>
+</ul>
+<p nodeId="e8b249fbd3704e1eaeba7858e46b0de9"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71552794167?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="145.91" nodeId="d6285e88311e440aae08d56ecaec6cda" /></p>
+<ul nodeId="6aa4944d02734fa08dffdc1e742e72c1">
+<li nodeId="806033cba1b746228001df07aaae7cef">子图生产者👉👉</li>
+</ul>
+<p nodeId="af0d089fe3d64df295b08ab87f2f7e1c"><span color="rgba(0, 0, 0, 0.5)">整体与模版相似，只是基础信息的类型上不同而以，但应用时的展示会有差异</span></p>
+<ul nodeId="b36e4ffb05824e07b40759e7f0aec966">
+<li nodeId="7159c642eb98441781b596006022108a">使用模版用户👉👉</li>
+</ul>
+<p nodeId="bdb106b586e9496290a0059059a274ce"><img src="https://km.sankuai.com/api/file/cdn/1939877905/73265537540?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="189.1" nodeId="390a95bc8b0244ab86512f1e0be53126" /></p>
+<ul nodeId="d645d6fc81e741f0a37fd906002c06ad">
+<li nodeId="1ac0b8e1007346a0a33713fa7a11a5c2">使用子图用户👉👉</li>
+</ul>
+<p nodeId="3cfc64a49f734ac0a3d6621eb90754c0"><img src="https://km.sankuai.com/api/file/cdn/1939877905/73387035521?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="413.22" nodeId="aac939f566da45c38b4af8edb91c4245" /></p>
+<h2 nodeId="682fd2d683114ff9ab80ffb54e32c71a">4.2 操作详情</h2>
+<h3 nodeId="a1da6caa8d534700894e7150b7846b84"><strong>4.2.1 创建自定义组件</strong></h3>
+<table responsive="false" nodeId="8180013673b7491c9a57ee58119ae048">
+<tr nodeId="41d0a1a9490a45c6963a303f98e66b15">
+<th colwidth="[564]" nodeId="1bdf207cf76e4d398bcae66346c197cd">
+<p nodeId="def2228b2e6a48d18f285414ea224c68">配置说明</p>
+</th>
+<th colwidth="[705]" nodeId="e5ab1b3e537d4997ac00beff54b80524">
+<p nodeId="6c3b4a2eaf2a4aa8a25528eed6ae3878">截图</p>
+</th>
+</tr>
+<tr nodeId="44d7b98a165a4bf7965ed224f95a5ea0">
+<td colwidth="[564]" nodeId="332829ab28d0496c8e50b1e65f80d321">
+<p nodeId="5af711c8cff04c1b884db7ec547858b2">【创建自定义组件】---入口</p>
+<p nodeId="a903c6d1aa524737a17cee9a93ee6e7e">策略部署--&gt;自定义组件--&gt;添加组件</p>
+</td>
+<td colwidth="[705]" nodeId="b18af4505f50441f964d72d920cde6ba">
+<p nodeId="69a68961b4714e93b15c5375c1e186cd"><img src="https://km.sankuai.com/api/file/cdn/1939877905/70845328435?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1339.22" height="600" nodeId="753f9bd6763941b688471687b625cf29" /></p>
+</td>
+</tr>
+<tr nodeId="206ab2583aa244e188f6aa1ba0487364">
+<td colwidth="[564]" nodeId="0e6b7e5f71be4a73ba6e00dbde95f2a2">
+<p nodeId="766e94e1e9c444e98d4ed3af8ad1ac84">【创建自定义组件】---新建组件</p>
+<p nodeId="fdc94288b170471c804bf1c948f473fb"><em>设定组件的基本信息，包含名称、连线定义等</em></p>
+<ol nodeId="f210288dc5e04376aa68d6e28a16b447">
+<li nodeId="560f535194504d70a68c0480e44c13ec">中文名称：支持中文、英文、数字和下划线输入，⚠️<strong><u>设定的中文名称会在画布中使用时显示，建议名称简明扼要，不要过5个中文</u></strong>。</li>
+<li nodeId="b508887dd75143908d2fef7040fafd40">英文名称：支持英文、数字和下划线大小写字母、下划线，为自定义组件的唯一key，平台上不允许重复</li>
+<li nodeId="53f0bb110ac1491784b02f76fd13c497">类型：逻辑子图、组件模版，具体区别见part三逻辑说明</li>
+<li nodeId="fb425e9b68214e29b32226e2472a8dc3">使用范围：本空间、全平台。目前仅可Zeus研发设置全平台组件，其他用户默认都是本空间可用组件</li>
+<li nodeId="7addc1fce26b48e889d64a773bb855f7">
+<p nodeId="d84d708577ef44bf8f743dcb011b69a5">连线定义：即该组件在画布中应用的连线方式，当前支持</p>
+<p nodeId="cb29ca46a3cc4cde9f295de1a2cdecfa">数据源：零进单出、零进双出</p>
+<p nodeId="b4dbd63f029e449e9da9ce2329b0d598">决策：单进零出、双进零出</p>
+<p nodeId="d1cb4c7be61244adba0ca9efd83ffe01">逻辑类：单进单出、单进双出、双进单出、双进双出</p>
+<p nodeId="cbcf5d24c87d450aa62035356c40d332"><em>若您的场景有需要更多连线的需求请联系@ZeusPM、@ZeusIT</em></p>
+</li>
+<li nodeId="002aeb0930414b6fb458dda90148d227">所在目录：默认自定义组件目录，为避免空间用户随意创建导致其他用户有较大理解成本，目前暂都集中在自定义组件目录下</li>
+<li nodeId="8cc3da462cee448795cd43646490e038">标签：在Zeus策略管理-标签管理中可设定自定义组件标签，此处就可选择对应设置的标签，若空间没有设定，此处标签数据为空。非必填</li>
+<li nodeId="a91da5bf8d344e32829a2337157a2a3a">组件说明：用于用户理解组件处理逻辑以及含义的理解，便于组件的继承和解读性，建议组件生产者详细描述。</li>
+</ol>
+</td>
+<td colwidth="[705]" nodeId="a9f4159af03f498383c8b2b8787629a5">
+<p nodeId="85d8dc059aa5463780f3f17148c43d74"><img src="https://km.sankuai.com/api/file/cdn/1939877905/70919223786?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1321.55" height="600" nodeId="5d88248aad304a9b86d8488acd4f6f2a" /></p>
+</td>
+</tr>
+<tr nodeId="e9ba2396a70a412c81118f8d67a2b3ec">
+<td colwidth="[564]" nodeId="09c1ad23ce4e4ab8af591443f2a2d2b4">
+<p nodeId="c804792b688144049f742895329a1e99">【创建自定义组件】---设置执行逻辑</p>
+<p nodeId="ca7206c1c87444d896144ab5e31524b2"><em>根据具体业务语义以及处理逻辑，配置自定义组件内部处理逻辑</em></p>
+<ol nodeId="db64ae9db71f4ea2b5ac5a2e775c6c0e">
+<li nodeId="b6693c11f86244b0855498742301636c">
+<p nodeId="cb4c67f7ad6944e6a3d28d02a3197ab9">几种特殊的组件</p>
+<ol nodeId="e8ca18e6f105426896edc5b64ae293cb">
+<li nodeId="7dbe912fbc2d48b29de1adb094a2e509">
+<p nodeId="7161cff88ed1419f858d2eb6182b9a8b">虚拟数据源：构建自定义组件逻辑中的一种基础组件，虚拟代指数据输入节点，在自定义组件创建时便与生产者区分多数据流，在自定义组件应用时便与使用者在真实数据源与组件逻辑进行连线。</p>
+<p nodeId="337bd76129ce40339f5abb2251a09870"><u>即若自定义组件中已经有kafka、Mafka了就不需要使用虚拟数据源了，若没有则需要使用</u></p>
+</li>
+<li nodeId="657a6f5f18274099b204ef29515a7449">
+<p nodeId="5e02a7bde90544d9bb9ea2a82ab2aa30">虚拟输出：构建自定义组件逻辑中的一种基础组件，虚拟代指输出节点，在自定义组件创建时便与生产者区分多输出，在自定义组件应用时便与使用者在真实数据源与组件逻辑进行连线</p>
+<p nodeId="a163bba0af924821801978f8ef396fc8"><u>即若自定义组件中已经有数据输出和决策处置了，包含旁路输出、数据存储、丢弃、决策就不需要使用虚拟输出了，若没有则需要使用</u></p>
+</li>
+</ol>
+<p nodeId="1148ca2238624db3928fa92696a409f1">比如：场景组件，对于原始的kafka是工程已知的，因此无需虚拟数据源，自定义组件自身就是一个数据源组件；累计组件，是一个累计模版，但基于哪些数据流进行累计，就需要设置虚拟数据源便于使用者在画布中配置自己的数据源。此时需要使用虚拟数据源用于在画布中连线的节点。</p>
+</li>
+<li nodeId="48dff1ea163e4c10878d4a76ce91fee4">
+<p nodeId="61d5e9fa520a4215af4464394e47edd6">全局变量</p>
+<ol nodeId="7a2a827f9e934c6698dddb7fc24582b4">
+<li nodeId="32788970373344858b16937bf7671085">若画布中设置了全局变量，则点击全局变量按钮，平台自动解析已经设置的全局变量。若需要进行其他信息设置则点击编辑按钮，默认展示详情信息</li>
+<li nodeId="78fab18c6046490fa14a25962fdc7dc6">
+<p nodeId="e8fc4d5ba6874597871141de4ef2bba1">如何在自定义组件中设置全局变量？<br />在自定义组件中基础组件输入框内按照${XXX} 格式书写，自定义组件会将XXX识别为全局变量。</p>
+<ol nodeId="ee79e3392ecb4dc9bb46e0e8019f7e57">
+<li nodeId="09183997201645ed9e1ecb13e66a43ad"><em>建议用户以select组件进行全局变量集中设置，这样后续全局变量的管理和查询也方便</em>。比如select ${sceneid_b} as sceneid_b ,这样在后续若作更多逻辑判断可以直接使用sceneid_b这个参数。</li>
+<li nodeId="942f90b18e524c08a9667dbe4c63a116">当画布引用组件执行的时候，使用者设定sceneid_b=1154 则 自定义组件内部所有sceneid_b 都会替换成1154 </li>
+</ol>
+</li>
+<li nodeId="5caf8a56511b4b35bef99bc93cae4387">
+<p nodeId="bb7a34468fc041a299a74eaf5d748cd4">全局变量的英文名称、类型为平台自动解析。中文名称、填写方式、填写样式、是否可选和默认提示文案 为用户自定义。</p>
+<ol nodeId="f57b13034cb44496b810b275febe7162">
+<li nodeId="64376b0b36dd41daafadb8a5a5b97ef2">其中全局变量的中文名称 是<strong><u>使用者在画布中填写全局变量的标题，建议名称简明扼要，不要过5个中文</u></strong>。</li>
+<li nodeId="39eaeaf6bc8d450cad3c678a551de3f2">类型：支持整型、字符串、布尔型等<km-mention name="葛磊" uid="gelei05" empId="" nodeId="45c77525d1bf4744a4ebdb1a4f34d5f8" /><span color="#FF4A47">幸苦帮忙确认下</span></li>
+<li nodeId="834d7ee3af934992b379635f04630d19"><span color="rgba(0, 0, 0, 0.9)">填写方式：当前仅支持输入框，后续计划支持下拉框</span></li>
+<li nodeId="6ae3baed3c2e4c51aaad4e34082002d6"><span color="rgba(0, 0, 0, 0.9)">填写样式：输入框下，可支持短文本、长文本和表达式代码</span></li>
+<li nodeId="90002279eabb4c3e94a2955fb744f2c9"><span color="rgba(0, 0, 0, 0.9)">是否可选：默认否，都是必须填写；支持生产者设定可选</span></li>
+<li nodeId="8f7dd3b1a3044a8c960594ce255ab547"><span color="rgba(0, 0, 0, 0.9)">默认提示文案：即在使用者应用时，输入框内的默认提示文案是什么，为了降低沟通成本提示自定义组件的易用性，建议生产者在此处做好填写描述。</span></li>
+</ol>
+</li>
+</ol>
+</li>
+<li nodeId="d6b71b587db94576bfc28af90a04a77f">设置完成后点击保存，即可保存全局变量设置。<u>⚠️整个自定义组件保存才能完成整体的保存，因此不要忘记保存全局变量和自定义组件逻辑</u>，即页面右上角的保存</li>
+</ol>
+</td>
+<td colwidth="[705]" nodeId="90799a814c9c49569cf4ab9939901f9b">
+<ul nodeId="2b8d25ca0e354028a216c424b1eb16e5">
+<li nodeId="c8d5b6e026fc416696b0d551391efa0b">设置逻辑空白页面<br /><img src="https://km.sankuai.com/api/file/cdn/1939877905/70932287190?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1741.19" height="600" nodeId="71e59888997f437a9240186e5be498c2" /></li>
+<li nodeId="d99071c877f146d5b4b929657647b5c3">场景组件-模版配置详情</li>
+</ul>
+<p nodeId="b219e8c2d1114d48a090b5deb5cb2120"><img src="https://km.sankuai.com/api/file/cdn/1939877905/70927863576?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1195.57" height="600" nodeId="2b72adcdecad4fe28708a51889b62143" /></p>
+<ul nodeId="f5271b80f7604fe583d7807c83b0d508">
+<li nodeId="3d2f061d238b4d30b40b8f399fdd0553">若是用到全局变量，则全局变量的设置</li>
+</ul>
+<p nodeId="0bcc17a0c30645cca74e2682bd4fb079"><img src="https://km.sankuai.com/api/file/cdn/1939877905/70934588932?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1472.45" height="600" nodeId="b85066c0b4204799bceefbc02828a008" /></p>
+<p nodeId="1ae692c87a88465b8cb88bf755ef00f7"><img src="https://km.sankuai.com/api/file/cdn/1939877905/70934593383?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1345.39" height="600" nodeId="e08ec1299b1546b6bc52e19417067a21" /></p>
+<p nodeId="8115122d8b414591829b98101e5050a1"><img src="https://km.sankuai.com/api/file/cdn/1939877905/70934886753?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1432.06" height="600" nodeId="482cea1b961e4faea5f3ca78bf76d39c" /></p>
+<p nodeId="4ad8efdbc9d345309120eb36067a8c7f"><img src="https://km.sankuai.com/api/file/cdn/1939877905/70931183510?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1419.6" height="600" nodeId="0b1a892763fb4364be3ed1739fdbeb21" /></p>
+</td>
+</tr>
+<tr nodeId="7fb269e32f684b42a4751c44321fd91f">
+<td colwidth="[564]" nodeId="6201bdfee03b4a51aa273018ddc6318e">
+<p nodeId="e9a10351a80e43e3a5e741a455d5851b">【创建自定义组件】---仿真测试</p>
+<p nodeId="10a5cbcc6b124031bcc38ed71fd4da57">自定义组件保存完成后，可以点击仿真测试进行逻辑验证</p>
+<ol nodeId="a36e983b89f54f29aee34c41c6c45313">
+<li nodeId="b5e77aa8c74f4d989b14ed73094d0f81">唤起仿真测试弹窗页面，若配置了全局变量则需要填写全局变量以及数据源/虚拟数据源的信息</li>
+<li nodeId="32b858127d0b4c2d8dd858bc081680e4">
+<p nodeId="04a59dfa1c4a4f47b2065c74ec9fbd62">填写完成后，可点击仅执行/保存并执行</p>
+<ol nodeId="362643a393fa4d3c80048d8bcafb5090">
+<li nodeId="6e89856052c04d06b3556f6d276b4301">仅执行：执行本次填写的测试用例，但不会保存</li>
+<li nodeId="bd8e6522ce3045598666b0e9af95c4fc">保存并执行：执行本次填写的测试用例，并保存为历史测试用例。便与调试/再次测试时 减少反复填写。最多可保存N条历史测试用例<km-mention name="葛磊" uid="gelei05" empId="" nodeId="42d92141309c425fa3feccec93320002" /><span color="#FF4A47">幸苦确认N为多少</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[705]" nodeId="4e4e0c46d90240c79f903618035c5c5e">
+<p nodeId="ad0028229c9747cba7c216fe97cc0026"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71040280096?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1243.47" height="600" nodeId="62949a8fe37a45249cded7812a508c51" /></p>
+</td>
+</tr>
+<tr nodeId="97ab7639d01c4ea5b42f4bd39223231f">
+<td colwidth="[564]" nodeId="bfdea52f56a34c398ecdf2a23ab31e11">
+<p nodeId="5442d5858ab94c43b1ce4b6bee373c71">【创建自定义组件】---仿真测试结果页面</p>
+<ol nodeId="e7153dda062342a8aede3484cc956882">
+<li nodeId="498c6532b1dc47f8b6f956d516e51777">自定义组件仿真测试结果查看，正常执行为绿色、没有执行为白色、执行异常为红色，非异常有警告为黄色</li>
+</ol>
+</td>
+<td colwidth="[705]" nodeId="b2c267ef6c9f4507bdb18c4cec234563">
+<p nodeId="89e504cea49040e18cc4995fe49c422e"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71089267079?contentType=1" name="image.jpeg" width="1379" height="600" nodeId="51302871b4f443289b5adf520de56ec5" /></p>
+</td>
+</tr>
+<tr nodeId="667a2d09b40b4341966d2955fc37425a">
+<td colwidth="[564]" nodeId="ccb2840c9ca44c6db8e9e0ed20ae9506">
+<p nodeId="536648c4981d46a1adbde0f401468124">【创建自定义组件】---自定义组件发布</p>
+<ol nodeId="012a656276bc4e5e9fb60f3afe920df1">
+<li nodeId="eb33bda591be4595932efd7b27a5bb00">自定义组件测试符合预期后，后进行状态变更--&gt;设置就绪--&gt;发布</li>
+<li nodeId="b11173d0ec8a4fb68806bcb7b523688c">只有发布的自定义组件才可以被画布使用，可在画布中搜索到</li>
+<li nodeId="aab4315085a348c9becc60538bd1ab11">发布成功后，在自定义组件列表中会展示组件信息</li>
+</ol>
+</td>
+<td colwidth="[705]" nodeId="d8ba9477d9864904978e5dd3f3111809">
+<p nodeId="3a9968a94b074dbeb0d3ab7a8ef25b2d"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71097010017?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="304.54" nodeId="e55c7082100847af980da5d813cc01cd" /></p>
+<p nodeId="e088e857d0664280979308889a8fdd49"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71100364296?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="372.13" nodeId="70bb048dc66348e89771edb4394b3a8c" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="bbe9b7e61d0140cdb9607a039b06327e"><strong>4.2.2 编辑自定义组件</strong></h3>
+<p nodeId="2d5d291e530d4da99b33affc887ace6c">⚠️ 编辑自定义组件平台限制逻辑</p>
+<ul nodeId="38421d8588ea4829986572e766ee8576">
+<li nodeId="10bc54ae101f443ba7c292b2bdb6687e">对没有发布（状态为-未就绪/就绪）的自定义组件可以随意编辑，平台不做限制；</li>
+<li nodeId="d6d7c96181fb4979a10331140ff80779">已经发布（状态为-生效中）但没有被画布引用的、已经发布且被画布引用，支持热部署类的修改（<a href="https://km.sankuai.com/collabpage/1970275482" title="https://km.sankuai.com/collabpage/1970275482" autoUpdate="true" nodeId="3f01d9aa91d9466995babb376aaa6108">https://km.sankuai.com/collabpage/1970275482</a>），对于重启类、增加必选的全局变量类修改平台限制不能修改，需要升级版本修改；</li>
+</ul>
+<table responsive="false" nodeId="bf3b8389f6a94b31a71b04fcda34349b">
+<tr nodeId="789997b0d89e40a1bdb98a15fbce657a">
+<th colwidth="[558]" nodeId="7ae450466e464302ae5d99ab7da29bae">
+<p nodeId="3f822eaeb30944f999c55d583823d3de">配置说明</p>
+</th>
+<th colwidth="[697]" nodeId="aca1c5c091f74ce5b0e6ea74ef52ea08">
+<p nodeId="4343e01492604684a3261e69d27c833c">截图</p>
+</th>
+</tr>
+<tr nodeId="295ce5ff17924d7a8cc90f2cb3132e57">
+<td colwidth="[558]" nodeId="47ff74b008504a25bbfe69b81d02ea74">
+<p nodeId="ccee3513bce44ba2908a55a568e6d66e">【编辑自定义组件-基本信息】--入口</p>
+<p nodeId="0768fefb796346e593568c6ce6fe3e2b">1.在自定义组件列表页面对应的“修改”</p>
+<p nodeId="45e2c39ab1b64b1a93e9f918e7ce0bd8">2.仅支持中文名称和组件说明两个信息的修改，<u>类型、连线、使用范围、所在目录等当前在复制阶段暂不支持用户修改</u></p>
+</td>
+<td colwidth="[697]" nodeId="3797a0e13c0d48aca4231e11a214c6e2">
+<p nodeId="39ca7117d8bf4ce58a4fd10ef4a2d907"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71548998536?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1395.96" height="600" nodeId="dc75aa6b87174cdd8dde001c647ee881" /></p>
+</td>
+</tr>
+<tr nodeId="a531ade7d4e84398ac751497613fcfa9">
+<td colwidth="[558]" nodeId="5eb5faff89b146ad9ad638d096aa241c">
+<p nodeId="ba9762d865704a74bb5e339cd249413b">【编辑自定义组件-逻辑信息】--入口</p>
+<ol nodeId="3954fdb11a284923bb8f7c07c346b5d9">
+<li nodeId="70f41bcef72348edafee959cef991e8b">自定义组件详情页面，点击编辑按钮</li>
+<li nodeId="edf395f23bda44f890780253b0de173b">
+<p nodeId="4c4fde27574749538499caa64fecf9f9">确认版本弹窗的选择：</p>
+<ol nodeId="db75aa3254fd4d24988554fd87fc2833">
+<li nodeId="f731e7b54ba842c0a03a22a35e595b69">若您想增删必填的全局变量，<u>请选择稳定版--&gt;知道了，在自定义组件列表页面中选择升级版本</u></li>
+<li nodeId="44436abdc22447b9902500fa3afb90a7">若是您想修改自定义组件的构图，比如增加、删除组件信息，<u>请选择稳定版--&gt;知道了，在自定义组件列表页面中选择升级版本</u></li>
+<li nodeId="282a20d4fd5d46ac81286324c5278b3b">若是你想仅修改已配置基础组件中的配置信息，且配置信息为以下说明中的“支持热部署的部分”<a href="https://km.sankuai.com/collabpage/1970275482" title="说明：自定义组件支持的热部署范围" autoUpdate="true" nodeId="bb088a8d4b404afcb0f5c0f449418e5b">说明：自定义组件支持的热部署范围</a>，<strong><u>请选择非稳定版本进行编辑。</u></strong></li>
+</ol>
+</li>
+</ol>
+<blockquote nodeId="be71e7de5a13475d93403ef131323461">
+<p nodeId="d6e3a8a1ce5646f584c2e4251638f6db">限制原理：画布和自定义组件是基于Flink上的任务执行的，若修改的信息会导致Flink任务重启，则平台会限制，引导用户以版本升级的方式进行调整。升级版本可以最小化任务重启导致的数据挤压等产生的服务异常情况。</p>
+</blockquote>
+</td>
+<td colwidth="[697]" nodeId="cdbd3ea9085345519a5585f9c696563b">
+<p nodeId="9c4214191b5c4aa7a3531da8f27a7c7d"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71549063688?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="513.98" nodeId="e258fd848f4c434c9157d531a2fad132" /></p>
+<p nodeId="c253cc18784e4a3589b55a52767e430a"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71545721609?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="493.68" nodeId="5205e0c4e770418b9f3fd8da09f22175" /></p>
+<p nodeId="f87923447d914fb0a1d4894f502604c5"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71541605655?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="543.43" nodeId="cb1fbba400714c74af57e5998c256ae9" /></p>
+</td>
+</tr>
+<tr nodeId="1f42a02ca9ae4b499ef44ba33fe2ad70">
+<td colwidth="[558]" nodeId="c7187cdecc004f509d2e13d927f32c76">
+<p nodeId="bdf9b390bc1d42bdad191b057bbfe7f8">【编辑自定义组件-逻辑信息】-逻辑修改</p>
+<p nodeId="eae1f25e8979438293d1171cced8308f">1.在对应组件的信息上进行修改，仿真测试</p>
+</td>
+<td colwidth="[697]" nodeId="86770efe1170445e925903c62ce75840">
+<p nodeId="df0a3e5681d64eb4b585c690af9804de"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71546878786?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="560.48" nodeId="32a67a332c824791a3017c0805906a85" /></p>
+</td>
+</tr>
+<tr nodeId="8f315aede9a44bf791aebe2b61700566">
+<td colwidth="[558]" nodeId="6ca563d5c54d4ee5a7c4c6b82f288d10">
+<p nodeId="70eb71c1d36c4c6a93a8c0d553098625">【编辑自定义组件-逻辑信息】-修改逻辑生效</p>
+<p nodeId="e6661c26f2dc497f800602923c45d90b">1.仿真测试验证修改的逻辑是符合预期的，此时点击发布即可</p>
+<p nodeId="eecb19ded7894851a7fc93df02aea207">**当前平台存在bug 若此时自定义组件状态为未就绪且发布按钮置灰，则需要手动点击设置就绪，就绪后发布按钮就可以点击了</p>
+<p nodeId="d8c06ab5ddde403396238dd9c5b2e508">2.发布成功后，页面会自动跳转至自定义组件列表页面</p>
+</td>
+<td colwidth="[697]" nodeId="ebe7d86da4ff410aae45cc3614338015">
+<p nodeId="a25498c31f354fa88cd375611a4dc2c0"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71546091809?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1381.09" height="600" nodeId="64fbc015cfb74d23b2375a74b15d1257" /></p>
+<p nodeId="a845fd3b869546f7ad1f2bc60f45d644"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71542587129?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="257.3" nodeId="cb2954d690ce4605810933c513b5297a" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="edfb503a247348ccbcea8583a7f975f0"><strong>4.2.3 删除自定义组件</strong></h3>
+<p nodeId="14319b5d3f224d66834c2105893a41cd">⚠️ 删除自定义组件平台限制逻辑</p>
+<ul nodeId="7e7289c5bbb840089507f0cd0427e5f5">
+<li nodeId="1679ba80692a4e2996b783f6df3601ea"><span color="rgba(0, 0, 0, 0.9)">对没有发布（状态为-未就绪/就绪）、已经发布（状态为-生效中）但没有被画布引用的的自定义组件可以随意删除；</span></li>
+<li nodeId="c1704eb051d849e5a4e15ef9eeaaaa29"><span color="rgba(0, 0, 0, 0.9)">已经发布且被画布引用，需要解除引用后方可删除；</span></li>
+</ul>
+<table responsive="false" nodeId="54334576efc74c4c92488c7a321f22e4">
+<tr nodeId="aa027dec97404094b3ba82dcf07dbb11">
+<th colwidth="[558]" nodeId="bc5012ad31374c499ed40ea621124f57">
+<p nodeId="3445f72cef6e4bb1960d3ccf22e24e96">配置说明</p>
+</th>
+<th colwidth="[697]" nodeId="2e7692efb28c49eba493047efd7fe812">
+<p nodeId="639088de21f347fcbefe081c67f01d4f">截图</p>
+</th>
+</tr>
+<tr nodeId="5b3b31c52c50478f8eaf03782bf146e0">
+<td colwidth="[558]" nodeId="82aabfd2254845869e97904cf48ea0ae">
+<p nodeId="c4d2d0a25cd9469688cc27f111ae6413">【删除自定义组件】--入口</p>
+<p nodeId="a36a21af7fcb4a0e8f2908b501fbc9a2">1.自定义组件列表页面点击删除</p>
+</td>
+<td colwidth="[697]" nodeId="30a2d3700a154ae9a6553a15c783c518">
+<p nodeId="2fb547d0f2184a2a94002ebddb058643"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71543229531?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="437.67" nodeId="77822899757f41f3ba32d5afccc1f08e" /></p>
+<p nodeId="4ca94b44388e4325adc8be0d5e5488f9"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71541639079?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="267.83" nodeId="7f2ee8eeed204bee890275fb4c811f23" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="c7915176ba1642829e766785de4bb824"><strong>4.2.3 复制自定义组件</strong></h3>
+<table responsive="false" nodeId="039a9b56a4e940eda710e53d2acff625">
+<tr nodeId="ea8bcd2dd1ed4b8982d9d4cf9e6f05b5">
+<th colwidth="[558]" nodeId="469388d77294448286468d1d09f92d2d">
+<p nodeId="9c2193da44f740768eb97db2d0740387">配置说明</p>
+</th>
+<th colwidth="[697]" nodeId="414527ce3c794b56a827f4a8d8044f9a">
+<p nodeId="8dd9cc7bf5f545b4b613b578f9232382">截图</p>
+</th>
+</tr>
+<tr nodeId="278b21eaea3d417eb189287c586e8d45">
+<td colwidth="[558]" nodeId="cfb9ca4b38fe470b93ec984d18e6148e">
+<p nodeId="51c37c4826a74d6d99e6c2818a3b3c1f">【复制​自定义组件】--入口</p>
+<p nodeId="3d459291c50e429496b80f49724a0392">1.自定义组件列表页面点击删除</p>
+</td>
+<td colwidth="[697]" nodeId="80f855ba00ff499a8a2f9cfdc2633d64">
+<p nodeId="0d4a40c2c31f45408412103e1ec980d4"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71546915829?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="431.44" nodeId="8e5827e28223414b8601768677363faa" /></p>
+</td>
+</tr>
+<tr nodeId="2a0d7b6873624930b7c0729d06825d8f">
+<td colwidth="[558]" nodeId="d88f4f600d444c9d95827e3b9011ff19">
+<p nodeId="f8647450acf5478891d9dae6754ec0a0">【复制自定义组件】-设置名称</p>
+<ol nodeId="d6ec521cc2004baba783f9a79829a02c">
+<li nodeId="0429fd5e55fb4a6683e8d5b17cc6163d">
+<p nodeId="94905aeee93c4f5b9eaee0e4201a414e"><em>设定组件的基本信息，包含名称、连线定义等</em></p>
+<ol nodeId="ef7dd1a4cedd4837b9b0eea1bcddb333">
+<li nodeId="ffd95860e56b4edd9fcbe03a0db8cc61">中文名称：支持中文、英文、数字和下划线输入，⚠️<strong><u>设定的中文名称会在画布中使用时显示，建议名称简明扼要，不要过5个中文</u></strong>。</li>
+<li nodeId="832a4ad6aa2b4c4498e98eefdff49004">英文名称：支持英文、数字和下划线大小写字母、下划线，为自定义组件的唯一key，平台上不允许重复</li>
+<li nodeId="5c18c35efdb0456eae366cb26f4af5d9">类型、连线、使用范围、所在目录等当前在复制阶段暂不支持用户修改</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[697]" nodeId="5b851e697798446cbb6de85e2eed57b5">
+<p nodeId="6f4a8a7fef9d4554bf2b73fdc4ffa44f"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71546277445?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="513.31" nodeId="f0f345f7159243599daa1d15d276499a" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="542b55d8876a4593a3110c0438fe7f32"><strong>4.2.4 画布中使用自定义组件-模版</strong></h3>
+<table responsive="false" nodeId="f7d10240605e42228f6ac2856b357a97">
+<tr nodeId="9954dba8021b4019baf18bcea6b544c7">
+<th colwidth="[558]" nodeId="a9bb03588cb64147a4c2461374b0563f">
+<p nodeId="270b9e5038c1493ca310d66a6e99f5d6">配置说明</p>
+</th>
+<th colwidth="[697]" nodeId="759356c7052e461fa36d5627a94744e5">
+<p nodeId="34f6744cf45a42ff89047b5e0d0af1e5">截图</p>
+</th>
+</tr>
+<tr nodeId="782e67dd81b4489fa4d891779469d9dd">
+<td colwidth="[558]" nodeId="bf65a6cc44de4f09b1e79c97fb25b73a">
+<p nodeId="57f37d79fc5b4418a61d9083290b9134">【使用模版】</p>
+<ol nodeId="0fbb516974d54b8f91b85f0d816944b9">
+<li nodeId="cd4dd5b10aa848a4b18330aceabd3e58">创建画布</li>
+<li nodeId="88f41dba1dac4601aa0afc9e77c533ee">
+<p nodeId="7b98c96adb7245f887f8625f62b8b0a5">画布中配置模版组件</p>
+<p nodeId="b184f931004c4f0fb6feabe6d9d92c69">在自定义组件目录中 找到需要使用的组件，拖拽至画布上，配置对应的信息</p>
+</li>
+<li nodeId="bc09a6b82530479f947fbc67f7ba2954">配置完成后可进行画布的仿真测试以及就绪、上线</li>
+</ol>
+</td>
+<td colwidth="[697]" nodeId="4b04d7b91fff474ebc4d01402a5ddb28">
+<ul nodeId="0a54318a83c44f99bc8cf09999617f66">
+<li nodeId="1afce71269734c1bbd70cb3784e6b02c">画布创建入口</li>
+</ul>
+<p nodeId="8f548739819047f69242a38ad6c096f3"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71104490003?contentType=1" name="image.jpeg" width="1399" height="509" nodeId="f971373dcc9b4f2b9bb37bb224746061" /></p>
+<ul nodeId="aa7eb6523b88430a8259a71a5c27174f">
+<li nodeId="232022f930a44b22b2e2267657f93fe2">画布中使用模版</li>
+</ul>
+<p nodeId="1975695c81c545bfa4d32592a6186197"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71102779367?contentType=1" name="image.jpeg" width="1399" height="511" nodeId="2fbd46a0cfdf455eaebf30f636af9cbe" /></p>
+</td>
+</tr>
+<tr nodeId="f271b4126cdb4077ac2cc0a5bee63dc0">
+<td colwidth="[558]" nodeId="b06103ed87004636ba8574e988ca87c5">
+<p nodeId="5ad1d8b40cde43b2bd57eeb57be6da04">【画布仿真测试】-模版</p>
+<p nodeId="bbb7b27f77574e889478c1251c7b6a15">与常规的画布仿真测试一样，模版也是一种组件，但不会展示具体内部执行逻辑</p>
+</td>
+<td colwidth="[697]" nodeId="c40e72b6e1b54c7d85d0d3c9524581a0">
+<p nodeId="c0568af1a4bc41a3bdb7980f6da38f97"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71119079742?contentType=1" name="image.jpeg" width="1399" height="552" nodeId="9a552fd194b74c278e7b7d2cf2e76a6b" /></p>
+</td>
+</tr>
+<tr nodeId="3b8449dc36d146548f09118e06b96798">
+<td colwidth="[558]" nodeId="22e1a471593d45ceb97c294c749a0319">
+<p nodeId="cde1b3dfc5474e9db9571125aac0dd09">【画布发布】-模版</p>
+<p nodeId="0202a99565524534b269cb762697099c">与常规的画布仿真测试一样，设置就绪后，点击上线</p>
+</td>
+<td colwidth="[697]" nodeId="07de803966f64187bf98a1903ab48b0b">
+<p nodeId="2f887714559047dc9189142b751d5b8e"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71549733563?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="502.75" nodeId="9389aa56c6b4462486ad269cb9868322" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="1dea5f8e277b4854b4923184cb6b0513"><strong>4.2.4 画布中使用自定义组件-子图</strong></h3>
+<table responsive="false" nodeId="273edf1c098e43c6a45a36670f59dc26">
+<tr nodeId="24b68d2751c8466c9c76b05346a84193">
+<th colwidth="[568]" nodeId="9b9408624d9a461e8b2de839f287fc34">
+<p nodeId="28f4c42ad75a4e8685d2c0eb28016e0e">配置说明</p>
+</th>
+<th colwidth="[697]" nodeId="538d28517b3a490485b327253986090b">
+<p nodeId="46ab6e2f4a204679bf4930d1a0842148">截图</p>
+</th>
+</tr>
+<tr nodeId="642cda8009f74e1c8ddd34e0c73dc8c8">
+<td colwidth="[568]" nodeId="6d899b32acc34c07a2291aed28f86a56">
+<p nodeId="03cc7d22499044558977f15fd6fbd0b4">【使用模版】</p>
+<ol nodeId="db07c039532e4c32be8f8bfff1e80fe3">
+<li nodeId="d0ad3d2eb9b149ebba1dda584cfdaf8a">创建画布</li>
+<li nodeId="d8c19de8741b41768aa0370be2c05c43">
+<p nodeId="9b8a1097c939491dbe572ad6f93348fe">画布中配置模版组件</p>
+<p nodeId="a9f0f50a90f0491cbce6328c1fecbcf5">在自定义组件目录中 找到需要使用的组件，拖拽至画布上，配置对应的信息</p>
+</li>
+<li nodeId="4706de5f9fe0421ea65099cc52844a59">配置完成后可进行画布的仿真测试以及就绪、上线</li>
+</ol>
+</td>
+<td colwidth="[697]" nodeId="ae9a8759f0d64e67bb86169845522865">
+<ul nodeId="74ceef660a2440a798af309fc1d5109e">
+<li nodeId="28153720fb2b4cb99f1b49153242d13f">画布创建入口</li>
+</ul>
+<p nodeId="73a4b7565b4941f1a061ec75bb943779"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71104490003?contentType=1" name="image.jpeg" width="1399" height="509" nodeId="6a3bb3b61b5845ffb2c6b493e09c7eed" /></p>
+<ul nodeId="a436699b3bb14752953ceb2d4a505373">
+<li nodeId="af1a326c9fc2410db3bb6ad29f4999ba">画布中使用子图</li>
+</ul>
+<p nodeId="f3fbef2745274026b43874e6e5ff222f"><img src="https://km.sankuai.com/api/file/cdn/1939877905/73263601142?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="449.1" nodeId="16d07037a2a6425bba388a3b4fd231a6" /></p>
+</td>
+</tr>
+<tr nodeId="cdfb527a447c4bf9a6b9c8c540db6eda">
+<td colwidth="[568]" nodeId="c6bcd46376614637a5d5fbd128e67462">
+<p nodeId="1fd5198fa67747858d14de9f1dce7284">【使用子图】</p>
+<ol nodeId="456a86755d7a45faabc68155aef9f9ef">
+<li nodeId="3e771494a6ff49efac04e04ca375fd76">
+<p nodeId="d41072699bc94a67a8d9f0c7a15bbb18">画布中配置模版组件</p>
+<p nodeId="4f0e0d481f2940eba52aa5e0769bcf9f">在自定义组件目录中 找到“子图”，拖拽至画布上，<u>⚠️当没有选择具体的子图时，是无法连线成功的</u>（因为不确定子图的输入输出是多少）</p>
+</li>
+<li nodeId="a2d3d5cf55ad4ce6963208685530a15c"><strong><u><span color="#FF4A47">当前因前端组件渲染问题，画布中仅支持一个子图可正常渲染。若拖拽多个子图则无法正常渲染（乱序）</span></u></strong></li>
+<li nodeId="bb0729469d5f4feb911a81b590ed0481">配置完成后可进行画布的仿真测试以及就绪、上线</li>
+</ol>
+</td>
+<td colwidth="[697]" nodeId="543d2af4462c4cd79909fe396fbed7f1">
+<ul nodeId="57b55c5030624bdf92c452aafcdef2a5">
+<li nodeId="cd6980b2133642ac94cf538b809efbc8">画布中使用子图</li>
+</ul>
+<p nodeId="96e30125be804738832126dcc0141c55"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71108865793?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="452.17" nodeId="1bfe5681fb5a45c986dbd2d73403335f" /></p>
+<p nodeId="255b666a59a842cdb66907086b50def9"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71112310551?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1078.16" height="600" nodeId="70a1b457c7fb4ef48705fe9df2cc73c1" /></p>
+</td>
+</tr>
+<tr nodeId="7af4b82c9dbb4279aa4e03e9c2b632f1">
+<td colwidth="[568]" nodeId="20f3c32c504d49bd9c61de40bdcbc0b5">
+<p nodeId="531ca18786a7486f8c768c6967deea86">【画布仿真测试】-子图</p>
+<p nodeId="3730f8eaa3c84b27a7d653982ee526fb">相较于常规的画布仿真测试，子图会展示其内部执行逻辑以及相关数据</p>
+</td>
+<td colwidth="[697]" nodeId="5ac0b62c5a364331b8b37e8fd3c35cbb">
+<p nodeId="dcb92efa00154bd9acd1ec6e5b64451f"><img src="https://km.sankuai.com/api/file/cdn/1939877905/71114849516?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1248.24" height="600" nodeId="60c44a26d5b742ccba2b3d69d34b0f7b" /></p>
+</td>
+</tr>
+<tr nodeId="bf72b2e303d343f888072f303633ddf6">
+<td colwidth="[568]" nodeId="77f7ac6469174e169d02bd66ead49ab6">
+<p nodeId="09776c5df1ad401a89ac1b69764a05ce">【画布发布】-模版</p>
+<p nodeId="6bb43dbb83bb4ddd9b7bb9fa7d4c2cb2">与常规的画布仿真测试一样，设置就绪后，点击上线</p>
+</td>
+<td colwidth="[697]" nodeId="dc8a30bf7b0c426a96a57eaaf66286f5">
+<p nodeId="92ec9856d5dd4a84a3a90b9acb63bf04" />
+</td>
+</tr>
+</table>
+<h3 nodeId="f723a8637cf3458a83a186cd56ea5330">4.2.3 全局变量</h3>
+<p nodeId="1e18f727b4c34ec7a48d0c89a4fb2be3"><a href="https://km.sankuai.com/collabpage/1939908382" title="https://km.sankuai.com/collabpage/1939908382" autoUpdate="true" nodeId="3e4c498e38384292bea54e4cafa7c6a7">https://km.sankuai.com/collabpage/1939908382</a></p>
+<h1 nodeId="0fd7fb2680d144a9af6f197ccbd6021e">五、示例</h1>
+<table responsive="false" nodeId="82d5b42a5b4b4e139309afb7d3eb5c7a">
+<tr nodeId="a6df4bf654684d0c8e9e422e7540c455">
+<th colwidth="[64]" nodeId="9b41dd2b512b4e13b49d27332f453dac">
+<p nodeId="015ea03f93ba4a50b4ca9b193cffe8e2">分类</p>
+</th>
+<th colwidth="[480]" nodeId="f15588c63fbd4b088d9327cad5f0fae0">
+<p nodeId="b9dcb31a0c3e40778c93d7571afc993d">模版</p>
+</th>
+<th colwidth="[499]" nodeId="8d78dcfc990a4aa9bf6e526c5aa4a621">
+<p nodeId="265de753a60e4b06bd1ead83229727cf">子图</p>
+</th>
+</tr>
+<tr nodeId="5413ca642fd14f8082d3da8b72e6a04d">
+<td colwidth="[64]" nodeId="ebc216d16ef049e5b12e06020eef4942">
+<p nodeId="5a5f48fbf3f544ae8a785ef8dcde6f29">使用方式</p>
+</td>
+<td colwidth="[480]" nodeId="eff3070062a04ea1a664ed6553472c20">
+<km-collapse active="false" nodeId="b1492b3938534f84b9b14b7483c7df65">
+<km-title></km-title>
+<km-content>
+<p nodeId="572807a730844ef387d89081d22a91e3" />
+</km-content>
+</km-collapse>
+<p nodeId="17ffa951ed8b448f98dede83395ba1f2" />
+</td>
+<td colwidth="[499]" nodeId="195966a002af4c17a5c865d2223dcba6">
+<p nodeId="fe65a75341354570b51c02fc8dd606c8" />
+</td>
+</tr>
+<tr nodeId="5b4696cd05424ac597c5e557ee689c18">
+<td colwidth="[64]" nodeId="8e80d7499bd144f48506db9ae7b65af1">
+<p nodeId="c08693ccd4c8441db6c36f36e2aee6ba">创建方式</p>
+</td>
+<td colwidth="[480]" nodeId="31609b68f3b74886a8b467dcf765fb84">
+<p nodeId="85ac2550ccb841269a77700b8ed874a8">XX模版 自定义组件链接</p>
+</td>
+<td colwidth="[499]" nodeId="91703b8a516a4b9d92f52fd7251c28a8">
+<p nodeId="09f7e34c78a8406cb32fad5ec6396f06">XX子图 自定义组件链接</p>
+</td>
+</tr>
+</table>
+<h1 nodeId="cc524e3078054113a36303e22e46a51e">六、FAQ</h1>
+<p nodeId="2d241272792341b2aaca7382a6c99cf9">Q1:我的自定义组件怎么都调试不通过，怎么办？</p>
+<p nodeId="b6e2988af229440ea1576187e1f9010c">A：提交tt工单给Zeus IT</p>
+<p nodeId="6538671b826540d8af472edf49cce63a">Q2:为什么子图在画布中最多只能使用一个</p>
+<p nodeId="02b4d71fadc6488abf6b16f1dacd0a1b">A：当前前端布局限制，导致画布中超过1个以上的子图 会渲染混乱，导致无法使用多个，前端工程师正在优化中。</p>
+<p nodeId="ae0862afca624d6aa5c9b470ec5c39ef">Q3:子图的执行日志在哪里查询？</p>
+<p nodeId="a15f2272ebaa4d6792c7c2af3c4ffdec">A：可在近线日志排查中查看，截止1月15日，存在无法查看子图计算过程信息的情况，预计1月20日功能上线可查看。</p>
+</km-doc>

@@ -1,0 +1,331 @@
+<km-doc>
+<km-title nodeId="63a86abb797d4fb4be4feea47dd729a1">分层场景：决策加工组件</km-title>
+<km-catalog style="none" nodeId="ab5360a06373421d8cbfb894aaa210d2" />
+<km-note type="tip" nodeId="c269a9ad69b148d9a6b77201a51b101f">
+<km-title>预期六月初，分层场景将升级决策加工组件为分层场景-决策树，支持复杂决策合并自定义编排，原决策加工组件将下线。</km-title>
+<km-content>
+<p nodeId="d1d63f62bab4468898fa0fdbd29e2920"><img src="https://km.sankuai.com/api/file/cdn/1409924045/99566485182?contentType=1&amp;isNewContent=false" name="image.jpeg" width="785" height="429" nodeId="87458f45f14749b5babe71f490f56c8b" /></p>
+</km-content>
+</km-note>
+<h1 nodeId="7f971da6290b4964b8e676f171400888">一、背景</h1>
+<p nodeId="9eb588e78ba74e3cb668c5f2a2416814"><span font-size="15">当前决策输出的一些现状总结如下：</span></p>
+<ul nodeId="39c1fa74d80944f3970e26688dbe8e54">
+<li nodeId="87aeda4b02b242828bffc005bf696ad1"><span font-size="15">Zeus现支持规则执行结果的实时返回，但对于一个请求下执行多条规则会返回多个决策，即决策list。业务侧需要自己进行决策信息的汇总、合并以及取唯一值。对于通过Tatooine接入Zeus的业务（交易、账户、UGC等），由Tatooine提供固定的决策合并服务。但对于这部分用户来说，决策汇总逻辑是黑盒的，都在研发的硬编码中，进而导致涉及决策异常的排查定位困难、时间长。</span></li>
+<li nodeId="b4f3f22dcbbc438584dc32c762487abb"><span font-size="15">对于部分策略团队（如账户），过去使用【规则优先级+组合决策】的模式，在想要调整最终输出决策时，不够灵活。比如难以解决验证决策的可验性再下发，难以解决不同风险域下决策优先级高低不同的问题。</span></li>
+<li nodeId="5aea997bba6946b991468f8d6d2b519c"><span font-size="15">另外，在分层场景中，在补偿链路执行命中的拦截，已无法给实时链路输出，希望能转化为执行「踢出登录态」等异步动作对实时链路中放行的流量进行补偿处置。</span></li>
+</ul>
+<h1 nodeId="f4c20b8f10e543899419530968c2948a">二、名词解释</h1>
+<table responsive="false" nodeId="b0c3769d06024a49bb69ec193fea3628">
+<tr nodeId="fa3ba03bb21248248f8f81484ae8410f">
+<th colwidth="[107]" verticalAlign="top" bgColor="#0037A6" nodeId="86faa9d7e2a74628a4647867518a859a">
+<p nodeId="0b941eb8b68c46948f78473dd13edd66"><span color="#FFF"><span font-size="15">名词</span></span></p>
+</th>
+<th colwidth="[915]" verticalAlign="top" bgColor="#0037A6" nodeId="0f54370681f8444688eb1a345eab2752">
+<p nodeId="99c62b04e7c949559bde9c6b51755d2d"><span color="#FFF"><span font-size="15">解释</span></span></p>
+</th>
+</tr>
+<tr nodeId="1064c4877bda4e4d9d2d471be2d0fee9">
+<td colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8f2390c2982347d3aeed15c58bc47b4e">
+<p align="start" nodeId="2f5650de601c407fa067240cfa3041eb"><span font-size="15"><a href="https://km.sankuai.com/page/1333731150" title="分层场景" nodeId="a3cccb6b791445a795af9aa10f746803"><strong>分层场景</strong></a></span></p>
+</td>
+<td colwidth="[915]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e120da74e9f14f8e96cb22e3b5d56ecc">
+<p align="start" nodeId="229f80a3a7044911969473dd765cfc6a"><span font-size="15">新的规则集合实体，对标过去一个普通场景，在场景内支持以层级关系+路由条件组织成树状的执行链路，使场景内策略达到分层执行的效果。因超时（或短路）未执行的链路将获得</span><span font-size="15"><strong>补偿</strong></span><span font-size="15">。</span></p>
+</td>
+</tr>
+<tr nodeId="aa3d0b74af8641768d7bd1c1c2d0f357">
+<td colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="eea069898b6c47cf8f156f0674bc5249">
+<p align="start" nodeId="75552b455ead4be891e4b1506ad2d133"><span font-size="15"><strong>决策加工</strong></span></p>
+</td>
+<td colwidth="[915]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2621f624c388450e84cd1b64f88a5b0b">
+<p align="start" nodeId="cac25bbde2f84df8b3b60ba05233c30c"><span font-size="15">分层场景里的一种组件，各策略节点执行输出的决策，都将汇总于决策加工组件进行统一加工输出</span></p>
+<p nodeId="60b8c845d86a48b7b6758c14edbd93e2"><span font-size="15">对整个分层场景各个节点输出的决策进行统一合并、过滤等处理。可在组件内选择加工模式、设置补偿决策（实时链路中因短路/超时未输出的普通决策，若在补偿链路命中，则可以转化为异步决策进行补偿输出）。</span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="293804a63bc24d3da16539491aa4810a">三、使用指南</h1>
+<h2 nodeId="5ebc1744b3714a638e233a0f8950ef20">3.1 添加决策加工组件</h2>
+<table responsive="false" nodeId="354e3f36b143419fb52f1ee74c920e1d">
+<tr nodeId="5258923792244d6798fdcd857649c7f7">
+<th colwidth="[631]" verticalAlign="top" bgColor="#0037A6" nodeId="aa648cee7303467cbfbb73b580e1a281">
+<p nodeId="303b3e498de34f939bb24a8935f150f8"><span color="#FFF"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[607]" verticalAlign="top" bgColor="#0037A6" nodeId="51149b36ec64481a87dd74602efe6e1f">
+<p nodeId="7cb70076725346e8a855651696d832e9"><span color="#FFF"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="c4d1d15b75e14ebbbb4b58eaccb116d5">
+<td colwidth="[631]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c88521ffe49543afa0df527f3fe22ed8">
+<p nodeId="6ac0cf6d01d34f0abeacaab5f1bc6f0c">进入分层场景编辑态</p>
+<p nodeId="906370b22a574515b530b8f2d4d15706">拖动决策加工组件到画布空白区域，即可完成添加。</p>
+<p nodeId="f19746e9b6c445a286da5dd80d2f7309">添加完成后在画布左上角形成固定区域——决策加工区，可点击组件编辑详细内容（可根据需要拉宽）</p>
+<km-note type="note" hiddenTitle="true" nodeId="cb8daa9e7961428a9eae43e304f3aad7">
+<km-title></km-title>
+<km-content>
+<p nodeId="938b6cb6b03043ce91d4ae03a0b2b651">一个分层场景至多使用1个决策加工组件，因此拖出去后工具栏中的决策加工组件消失。如果想弃用加工组件，可以右键决策加工区，点击删除。</p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[607]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6d002eb874264f5e8c0325765e068f53">
+<p nodeId="7ea96924008643e88e0522e8f692edd6"><img src="https://km.sankuai.com/api/file/cdn/1409924045/31328226607?contentType=1&amp;isNewContent=false" name="image.jpeg" width="289" height="150" nodeId="6686961e4ae34ef3baf1a40d34ee6626" /><img src="https://km.sankuai.com/api/file/cdn/1409924045/31330796882?contentType=1&amp;isNewContent=false" name="image.jpeg" width="283" height="156" nodeId="bdb8af673e3041ec8ea6bdaef064e998" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="a87e1d93784440c2b3546c15ce1c35ff">3.2 决策加工逻辑</h2>
+<table responsive="false" nodeId="c675520e17d449d69319b8ec4952af20">
+<tr nodeId="ee9c153270fa4f2d91069302ba944023">
+<th colwidth="[631]" verticalAlign="top" bgColor="#0037A6" nodeId="c0a52acb0803442d8feac8e46ebe0601">
+<p nodeId="6cacce87e9174c93ad54413d2b1cbdd2"><span color="#FFF"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[607]" verticalAlign="top" bgColor="#0037A6" nodeId="692de1de99f440eb9da5a4a9eabfb8b7">
+<p nodeId="4bbef6e4557049ec95d8c6341fb6f1af"><span color="#FFF"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="383dd1422a744bc8a76f44b35e5d0bc5">
+<td colwidth="[631]" nodeId="f2a9c16787e146eebe8d95ce4d75e217">
+<p nodeId="103a32e448094a6eb474bb2dc76ba552">组件详情中选择决策加工逻辑：单决策or组合决策</p>
+<p nodeId="e82b8fb83d2d4cf5981cecc69e6075e5">合并依据：决策优先级</p>
+<p nodeId="78568dce3bd94fdd9680783d334c745d">合并对象：分层场景中的所有决策</p>
+<p nodeId="ee58fa5dade04c43a36697bb7f7293a3">合并模式：单决策模式 / 组合模式</p>
+<p nodeId="814f0ccab3a44a1bb4eacc913bcd7945" />
+<km-note type="info" hiddenTitle="true" nodeId="91b4b62fce164619a3f1df93c1bff12f">
+<km-title></km-title>
+<km-content>
+<p nodeId="daadbb964e8148b38049716ad350fb19">平台给每个业务空间默认选择了1种合并模式。</p>
+</km-content>
+</km-note>
+<p nodeId="079f5e64b75041c19eeeb06688292e4e">1.不启用：命中规则对应的决策全输出，返回调用方决策List和所有命中details</p>
+<p nodeId="7845c16298c548829460f57146b42213" />
+<p nodeId="2e81254e5a544a7784da8e1c30a84357">2.单决策模式：</p>
+<ul nodeId="f6b23474b6814557be9f101a87f35dfc">
+<li nodeId="4ff92efaba364eb4aec6eef27c77c509">获取命中生效规则的决策</li>
+<li nodeId="90c2f18319eb462c8cf1cd6f8969ea30">去重</li>
+<li nodeId="aee3f309df3a4afdb753e2e322e5ae36">取优先级最高优先级决策</li>
+<li nodeId="49487c2ac4ad43a782d0eaea42161244">相同优先级随机取1个</li>
+<li nodeId="6416348b1fea45e19560b9b6ddb71e5f">返回单决策和所有命中details</li>
+</ul>
+<km-note type="info" hiddenTitle="true" nodeId="66aa953a6d844feeac579835efaecf95">
+<km-title></km-title>
+<km-content>
+<p nodeId="0050508f107b426a8ef4965b84972e7e">适用于：交易安全、UGC营销、内容安全</p>
+</km-content>
+</km-note>
+<p nodeId="edb4ddaea22c41bdb3a5e0ada6254394" />
+<p nodeId="862dceb3c9e24b4584f334d2cb21ba39">3.组合模式：</p>
+<ul nodeId="e2b7ffb6f2b542a0b319e5de92921d4e">
+<li nodeId="e4f1b4ccf70c4f21af34be6edadb5696">获取命中生效规则的决策</li>
+<li nodeId="0afbdcc2f3d848539def8fbdb6dde2ac">组合决策拆分（如有配组合决策的话）</li>
+<li nodeId="510231f7b6f643f38d2b9bee87388f0d">Yoda可验证性过滤<km-footnote id="6d7b26dc-6135-45d5-b259-fc1fe4c88679" annotate="" nodeId="d904f81844094abb88635dd746ea2a10" /></li>
+<li nodeId="8c0f2b137fa3451d98f96c75d627531e">取优先级最高优先级决策</li>
+<li nodeId="8b5e8a3b11ef4f93bae4ef49c8bf94c6">相同优先级则都取</li>
+<li nodeId="7bc8afbcaf8849879aefadfa4b12a77d">决策拼接：<span color="rgb(0, 0, 0)">先按照同规则一组，将决策分好组，组内（即来自同规则）用“，”拼接，有重复则去除。组间（来自不同规则）用“｜”连接，若两组内容完全一致，则去重。</span></li>
+<li nodeId="56b62a3886644d7893ffcfa4334aa632">返回拼接决策和所有命中details</li>
+</ul>
+<km-note type="info" hiddenTitle="true" nodeId="c05d9bd11484430caa8ba72e20b3f5f3">
+<km-title></km-title>
+<km-content>
+<p nodeId="3b0e715152e94273bf99c6e7802abdf8">适用于：账户安全</p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[607]" nodeId="15c51d39b18f4e4ba43f0ce56b28c6a7">
+<p nodeId="fdb1ed98b286409b826a9c9976f8e9c9"><img src="https://km.sankuai.com/api/file/cdn/1409924045/14374774262?contentType=1" name="image.jpeg" width="993" height="600" nodeId="25a59c0b4ee047a2b260c40e335ee188" /></p>
+<p nodeId="b79d6c52fc2448679def3a731e18a6ea">单决策模式 执行逻辑</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1409924045/31340824967?contentType=0&amp;isNewContent=false" width="1246" height="556" nodeId="3c0c210c98c147009558d51f2b5a3b24" />
+<p nodeId="45aa2547d57c433db7a3c7d63819c33b"><km-quote quoteId="1409924045--30f8ac3b-cd85-4bce-89c4-6e384b0f40b9">组合模式 执行逻辑</km-quote></p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1409924045/31339835656?contentType=0&amp;isNewContent=false" width="1528" height="786" nodeId="b859f443ddb045cc8f596e07a620ab3a" />
+</td>
+</tr>
+</table>
+<h2 nodeId="cd397deb6a44454a8e37d6e2c076763d">3.3 决策合并单点测试</h2>
+<table responsive="false" nodeId="2b9814145ea04bc28fa2182117ebadf6">
+<tr nodeId="782c466bd8f2401d9ed32233ae4a67ab">
+<th colwidth="[631]" verticalAlign="top" bgColor="#0037A6" nodeId="8241241156e042d280aa449be4be6239">
+<p nodeId="7215f822bdc34b3b9878eef5ae987023"><span color="#FFF"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[607]" verticalAlign="top" bgColor="#0037A6" nodeId="690c55d08b5e490ab50d33b738405c50">
+<p nodeId="b6f87669a3f646059b18cbf45060a1c3"><span color="#FFF"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="36b459ece5584800a6ee756702c6a59f">
+<td colwidth="[631]" nodeId="f493f2e0702b4cb8bfd9b0b56b3ac818">
+<p nodeId="04723807fa264baca34f0d8379559430">为什么要进行单点测试？</p>
+<p nodeId="b554f3fb8f144f4a9e36d1c2d24f88ae">——对决策加工组件的能力进行mock，测试执行逻辑是否符合预期</p>
+<p nodeId="bb87370cdf1b44dd81690fc141c3a6b8">如何进行单点测试？</p>
+<p nodeId="9bffdeea05e948cfba17b2fc0b112712">——在逻辑测试中点击【决策加工逻辑测试】</p>
+<ul nodeId="a6825874da0a45c4bb803bed59bc9213">
+<li nodeId="948d5deb9bc245b599aa03a87923e873">添加用例：模拟 场景命中的规则以及产出的<u>决策id</u>，可点击【+】添加多条</li>
+<li nodeId="148c7190ed924c33a7c594deecf201ae">期望输出：在普通决策和异步决策（<span color="rgb(255, 74, 71)">概念见</span><a href="https://km.sankuai.com/collabpage/1608157813#id-%E4%BA%8C%E3%80%81%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A" title="https://km.sankuai.com/collabpage/1608157813#id-%E4%BA%8C%E3%80%81%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A" autoUpdate="true" nodeId="65d94dfa11e640bf91c180106c5a88a4">https://km.sankuai.com/collabpage/1608157813#id-%E4%BA%8C%E3%80%81%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A</a>）中分别填入目标输出，多个请用英文“,”连接。若目标为空，则不需要填入。若为单决策模式，普通决策是单个决策ID；若为组合模式，普通决策请根据合并逻辑输入用 "," 或 "|" 连接的决策ID串。</li>
+<li nodeId="4c72a28bbb80431da55cf165c2276c66">⚠️ 决策过滤：账户安全默认的组合模式下，实际会执行Yoda可验证性过滤，因此此处支持用户模拟需要过滤掉的决策list。用英文“,”连接决策id，这些决策将在合并前被剔除。剩下的决策才会参与合并。</li>
+<li nodeId="70e7ea72130f49ea94deed1a3316c4f3">获取测试结果：点击获取测试结果，将告知本次模拟是否符合预期，测试是否成功。下方可以查看当前测试的实际输出结果。</li>
+</ul>
+</td>
+<td colwidth="[607]" nodeId="8eb78875491a42bc8a2c50f69a9ac2e8">
+<p nodeId="137c54a025bf4ceca00d72b852ad0abc"><img src="https://km.sankuai.com/api/file/cdn/1409924045/14384304629?contentType=1" name="image.jpeg" width="696" height="600" nodeId="8be2dd01ef9c4f7582a13e872b9cda6d" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="669cf4923f5644caa340dc1520b34294">3.4 补偿决策</h2>
+<table responsive="false" nodeId="6f96be12007749aaa54e8c4e983dedc6">
+<tr nodeId="30931ca995914a5487f9c1fe4d9bd629">
+<th colwidth="[693]" verticalAlign="top" bgColor="#0037A6" nodeId="6be01a8ea3224d44a84aea0475546675">
+<p nodeId="5b6c6b1a021640538cf5e45079b493c5"><span color="#FFF"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[607]" verticalAlign="top" bgColor="#0037A6" nodeId="fa964cac4f494faf9349132246302c10">
+<p nodeId="cf289530e62c4c399132a776693656b8"><span color="#FFF"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="54c9acbe1f2f4bed9580a21984e26f7a">
+<td colwidth="[693]" nodeId="48f60c9bcbe24e0cb8d1a4a1d20bc676">
+<p nodeId="0ad996a2de7c4e738da111ad887d6472"><a href="https://km.sankuai.com/collabpage/1610062169" title="https://km.sankuai.com/collabpage/1610062169" autoUpdate="true" nodeId="0bb1cb55bb914264abe9e20356514101">https://km.sankuai.com/collabpage/1610062169</a><span color="rgba(0, 0, 0, 0.9)">中，命中的【普通决策】无法输出给调用方。因为实时链路中的普通决策结果已经实时下发了，补偿链路在异步执行完后再下发【普通决策】输出无意义。</span></p>
+<p nodeId="4d62d85d3fa3498e85919687addb5ff6"><span color="rgba(0, 0, 0, 0.9)">因此补偿链路中如果识别到了风险，产出的【普通决策】会期望能够以其他方式追加作用给下游。比如将【拦截】（普通决策）转化为【踢出登陆态】（异步决策）。——</span><span color="#FF4A47">此时【踢出登陆态】就是【拦截】的【补偿决策】</span></p>
+<km-note type="info" hiddenTitle="true" nodeId="b0bba16bbb7048c18f4299d67e5b6586">
+<km-title></km-title>
+<km-content>
+<p nodeId="130e8be9301e49b197f1c4ee264ab2f1">【例子】</p>
+<p nodeId="facb076dcf014536ba1c8aca6b173765"><span color="rgba(0, 0, 0, 0.9)">账户在【实时链路】中某条策略的决策配置【拦截】</span></p>
+<p nodeId="d6df1223e7c149e1a422c4df580869e7"><span color="rgba(0, 0, 0, 0.9)">（from</span>策略节点--规则配置<span color="rgba(0, 0, 0, 0.9)">）</span></p>
+<table responsive="false" nodeId="8edd7112486a474896841dd1affbb3d9">
+<tr nodeId="9902538887284ed695317954f73314fa">
+<th colwidth="[108]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="8cfd220a60ab476fba4b27affa98f738">
+<p nodeId="5c31b93e9729449c920ace657058e092"><span color="">规则</span></p>
+</th>
+<th colwidth="[92]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="1f4eca1b1c914481ab46b692b0a12e65">
+<p nodeId="73707fc898f343a095ef128bc8d1e512">决策</p>
+</th>
+<th colwidth="[89]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="46bd569de830434183e43eca3d08e3e6">
+<p nodeId="100ae3971d5d4b9c8e2f4be3335e35ed">附加信息</p>
+</th>
+<th colwidth="[62]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="ce343cc1f629403bacfc7a61f39a7086">
+<p nodeId="ce6d24f5e8314fd0acd9ec2eede7aa95">状态</p>
+</th>
+</tr>
+<tr nodeId="b93502bbcd61425cb945f42b240c7427">
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fefafcc81b204567a0f05138adf99762">
+<p align="start" nodeId="b8016ef0bb604ffa812a06772c61f51d">盗号规则xxx</p>
+</td>
+<td colwidth="[92]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="827c6a6677ae49c8a08d1c596cf6a6ae">
+<p align="start" nodeId="cd71201ac67a4ad58ee17dbc5d72a613">拦截</p>
+</td>
+<td colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="afd63c1ee1ff4f50a0030e6159d3df3a">
+<p align="start" nodeId="4d75adaf871443288d40f779d6e7e5bc">无</p>
+</td>
+<td colwidth="[62]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4a6f23cfd80545ba8543794c98df0876">
+<p align="start" nodeId="b3ab7087f6a047408714a180882611f8">生效</p>
+</td>
+</tr>
+</table>
+<p nodeId="2d42de6bdbaa4901b609520abb6b68bb"><span color="rgba(0, 0, 0, 0.9)">但是因为超时没执行到，实时链路实际【放行】了。规则在补偿链路中执行产出了【拦截】，但已经无法给到下游。</span><br /><span color="rgba(0, 0, 0, 0.9)">那么根据配置好的补偿决策【踢出登陆态】 进行执行：</span></p>
+<p nodeId="c9fd0346a2244294835ce0dc7bc0cb3f">（from 决策加工组件--补偿配置）</p>
+<table responsive="false" nodeId="f08544e3c022416e9ad88fa31253bc4d">
+<tr nodeId="bdf1a9fc28244e85b553f42e5a4c73af">
+<th colwidth="[84]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="863b4542e0ac437589172dec36e8bb9a">
+<p nodeId="6a6c4001e97d4d9eaf42e4256c668c4e"><span color="">普通决策</span></p>
+</th>
+<th colwidth="[114]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="0c10e7cccba249ceae60fc46cd1826bc">
+<p nodeId="2a61adc9101a4eff8bcbcfe01da7c37d">补偿决策</p>
+</th>
+<th colwidth="[89]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="cb60f49872ef45d3b9276884ead380fd">
+<p nodeId="d151d7d7fd7d476ea392077b19c99007">附加信息</p>
+</th>
+</tr>
+<tr nodeId="c6ee2c4586ad44adb6b5f6c8bc98838d">
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ffc46bc5870b4ee9af1994c1dc1c408f">
+<p align="start" nodeId="362d739efa8d413eafc0e635cb97f114">拦截</p>
+</td>
+<td colwidth="[114]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5ca235968d34404eb1b09f40956619b7">
+<p align="start" nodeId="4e72411b664543f4944533b5a87c0c6f">踢出登陆态</p>
+</td>
+<td colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ab2be142c9714e95bc89842a025435d8">
+<p align="start" nodeId="348130590a9d45f4b6565714c946e9f6">userid……</p>
+</td>
+</tr>
+</table>
+<p nodeId="6f421dd75e634667b17e722376c96d72">效果上，风险用户整个旅程为：存在有风险的登陆操作，但是被放行，成功登陆。紧接着不久，就被异步踢出了登录态，阻止了后续的风险。</p>
+</km-content>
+</km-note>
+<p nodeId="a57266a48e354b9a97a92a5aed94da4c">根据上述介绍，结合几类决策特点可知，只有【普通决策】才会需要配置补偿；而只有【异步决策】才可作为【补偿决策】进行配置；</p>
+<p nodeId="e474fccfd06647339be28e4da7eda2da"><span color="rgba(0, 0, 0, 0.9)">配置方式：补偿决策-点击【增加】，在决策列下拉 选择此分层场景中的具体1个普通决策（或组合决策），为其配置对应的补偿决策（下拉选择一个异步决策）。</span></p>
+<km-note type="note" hiddenTitle="true" nodeId="69f299638ce74c8fb747dee0520d3373">
+<km-title></km-title>
+<km-content>
+<p nodeId="356c9f5dad634e1c9e6933070d586b2e">在提交配置的时候会进行冲突校验。不允许各个普通决策（组合决策）配置的补偿有冲突。</p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[607]" nodeId="a616ca2cdd444977ba8bbd55751bebcd">
+<p nodeId="d2082564044e4365929a83f05b10c055"><img src="https://km.sankuai.com/api/file/cdn/1409924045/14384235243?contentType=1" name="image.jpeg" width="1262" height="600" nodeId="18210caa55fc4384b46f71281cdb5ab9" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="c77fa78bced846ae9137fa479fce9c91">3.5 用例测试与测试结果</h2>
+<table responsive="false" nodeId="4cbcaa763ccb4087ae70616a535b3394">
+<tr nodeId="e210f3b30c3349869f377ca0fa448f70">
+<th colwidth="[631]" verticalAlign="top" bgColor="#0037A6" nodeId="24e8c836352b4ec79d5a5532d9f325b8">
+<p nodeId="c2fc7162fcbe4da392cf22fac9100830"><span color="#FFF"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[607]" verticalAlign="top" bgColor="#0037A6" nodeId="1ead259b1f744ae9a20c28602b600a78">
+<p nodeId="37d0ebe62f5640b4ae9dfc4afa7a1241"><span color="#FFF"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="37945533bf3042f2bcd3a93ae33497e3">
+<td colwidth="[631]" nodeId="ce8a8fdbb17d4111a0270e5623b936cb">
+<p nodeId="795c796751274ee89a8854038da4250a">【用例测试】</p>
+<p nodeId="ab3c6596e048470d9f05d2189437282f">当场景使用了决策加工组件，在用例测试时，会自动展示场景的决策合并模式：单决策模式/组合模式。（各自的合并逻辑见3.2）</p>
+<p nodeId="e34e3c47590f49bea2023e637b9e6c4c">添加用例：可选择<span color="rgba(0, 0, 0, 0.9)">Json或RequestID</span></p>
+<ul nodeId="0825a458ccc14cb5b7401e97848cadaa">
+<li nodeId="2307ef06c02b474b908e66b0852117b3"><span color="rgba(0, 0, 0, 0.9)">Json：执行时，默认根据输入Json中的参数值，实时地查询累计、名单，计算各类因子值。若输入Json中已给出相关因子值，则执行时直接取用该值，不进行现查询</span></li>
+<li nodeId="31aeaba46a9449e0b8b5e7f68dcc71c3"><span color="rgba(0, 0, 0, 0.9)">RequestID：根据输入Request ID，查询日志中的参数作为Json送入测试。若需复用日志中的因子结果，可选择【取日志中的参数与因子】，执行时将直接取用日志中的因子值</span></li>
+</ul>
+<p nodeId="c6972a81bac34a70a16bdd0644993051"><span color="rgba(0, 0, 0, 0.9)">期望输出：将会分为普通决策和异步决策两部分，见3.2。</span></p>
+<p nodeId="0dfcec4f06864c85b8df95bd3fdd626e">若认为输出结果中 某类决策不存在，空着即可。</p>
+<p nodeId="6805edec37db454bb57816dc13097531">点击【一键测试】，将会分别比对普通和异步是否符合用户预期。符合则提示通过。可以在提示弹窗&amp;历史测试结果中，点击【查看报告】，以图的视角预览整个场景的命中明细。</p>
+</td>
+<td colwidth="[607]" nodeId="f902dbab7d2c44b791fc5ae6dd67b3cf">
+<p nodeId="534f6573a9864acb9913847a30351144"><img src="https://km.sankuai.com/api/file/cdn/1409924045/31434881448?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1136.33" height="600" nodeId="86d96630857c41e4bf32c3b7df2d3315" /></p>
+<p nodeId="0fe0476a0ba5412da6530c63c2e06804"><img src="https://km.sankuai.com/api/file/cdn/1409924045/31434881455?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1189.41" height="600" nodeId="f966763e99544146931bba05fc588a63" /></p>
+<p nodeId="e598374ffe1b4575972efa50fad3840c"><img src="https://km.sankuai.com/api/file/cdn/1409924045/15215447305?contentType=1" name="image.jpeg" width="258" height="166" nodeId="2203e3dc665b4c7982b8e83caef8338a" /><img src="https://km.sankuai.com/api/file/cdn/1409924045/15214837536?contentType=1" name="image.jpeg" width="270" height="163" nodeId="5a977fa356fb4c169d5487557b5e860b" /></p>
+</td>
+</tr>
+<tr nodeId="9d72ee41a0224cc4a2cebcc434c5fa72">
+<td colwidth="[631]" nodeId="059fcad973c146519dc771a4679199a0">
+<p nodeId="d3082ef038c140a6b8e737b0c67278f3">【测试结果】</p>
+<p nodeId="b6261cd347bf44db998994239a0e91d6">测试报告页中，依旧以图形式展示策略体系。可以点击各个组件，查看各个组件规则命中、路由条件命中的结果或是决策加工的结果。</p>
+<p nodeId="6165edd23e0140359cfb3e94b58a0f57">有蓝色定位icon的策略节点代表该请求经过的节点，可帮助用户快速定位。</p>
+<p nodeId="fa1c17fe57db41a5841b103eacf46fd1">点击决策加工组件，右侧抽屉将展示各类决策、附加信息、决策理由的合并输出情况，也会展示合并前的原始list</p>
+<km-note type="note" hiddenTitle="true" nodeId="0e6abe7effe74fea8b4c32c91cc6499d">
+<km-title></km-title>
+<km-content>
+<p nodeId="15ce87d3a3564a4ab0d49174800d5d4d"><span color="rgb(44, 62, 80)">线上版本中处于熔断态的规则配置，在用例测试时也会当作熔断态来执行（即标记，不输出决策），请知晓。</span></p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[607]" nodeId="60e53c4c6db9413db5534df4e6be2931">
+<p nodeId="51fa69e809b04fc69bcfe6649e23b41b"><img src="https://km.sankuai.com/api/file/cdn/1409924045/15217394500?contentType=1" name="image.jpeg" width="1295" height="600" nodeId="c6565496e116453987d83f82a4ec0622" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="4aaf09d6450f4153a199e9a8d2fffbab" />
+<h1 nodeId="434c2ac3b4484245930808241c1a8db1">四、FAQ</h1>
+<table responsive="false" nodeId="c8b453fdd09646ac8a8e210d62337b74">
+<tr nodeId="4dbf9ebdc2c34be19a30fe167264874c">
+<th colwidth="[561]" bgColor="#0037A6" nodeId="23c6b314cd1f47b4b6c7875ac1b185aa">
+<p nodeId="d67e47fa603442ba93af0353e7a94d0c"><span color="#FFF">问题</span></p>
+</th>
+<th colwidth="[724]" bgColor="#0037A6" nodeId="9a26769322864dbb9fa41938d9509e96">
+<p nodeId="a2086baefd3e44c099ad1fbd35c7b58e"><span color="#FFF">答</span></p>
+</th>
+</tr>
+<tr nodeId="8c9b726014234accbb98cf5e5be40b2e">
+<td colwidth="[561]" nodeId="c43e7fb099f54b7ab1d219b6cbd7bbe0">
+<p nodeId="e002c4f65c9c4c5a96ca1df927caa7fd"><span color="rgb(0, 0, 0)">什么是</span><span color="rgb(255, 74, 71)">Yoda可验证过滤</span><span color="rgb(0, 0, 0)">，我的场景在决策合并时有这个步骤么？</span></p>
+</td>
+<td colwidth="[724]" nodeId="0806174429454859825ddcdfbfc2c3a1">
+<p nodeId="01c1b9399b1e4397bc9769eb2723f30c"><span color="rgb(0, 0, 0)">目前仅开放给3空间的分层场景，用于账户安全在输出各种验证方式后，统一在yoda进行过滤，排除掉当前设备/用户不支持的验证决策。</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="19c86cfc92864edf8b6d171ae34b267d"><span color="rgba(0, 0, 0, 0.87)"><span font-size="22">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+<km-footnote-list nodeId="a6158987001e40c4a7d2e51f93f49dbf">
+<km-footnote-item footnoteNodeId="d904f81844094abb88635dd746ea2a10" nodeId="106a02da0af74942b2dbcf94c4de6570"><p nodeId="c1cdb0206f8048ef853c56fd530fc986">Yoda可验证性过滤：目前仅开放给3空间的分层场景，用于账户安全在输出各种验证方式后，统一在yoda进行过滤，排除掉当前设备/用户不支持的验证决策。</p></km-footnote-item>
+</km-footnote-list>
+</km-doc>

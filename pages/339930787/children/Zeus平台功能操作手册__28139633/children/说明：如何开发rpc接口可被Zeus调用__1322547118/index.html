@@ -1,0 +1,161 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：如何开发rpc接口可被Zeus调用</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-7">三、操作说明</a><a href="#section-8">1.系统对接架构</a><a href="#section-20">2.对接步骤</a><a href="#section-24">2.1 OCTO鉴权配置</a><a href="#section-34">2.2 POM与OCTO</a><a href="#section-46">2.3 数据服务实现</a><a href="#section-52">数据结构说明</a><a href="#section-64">接口说明</a><a href="#section-71">2.4 例子</a><a href="#section-79">注意事项</a><a href="#section-84">3.风控系统兼容</a><a href="#section-91">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：如何开发rpc接口可被Zeus调用</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1322547118">查看学城原文</a></p><article>
+<h1>说明：如何开发rpc接口可被Zeus调用</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>Zeus支持在运行时获取业务接口数据，即业务通过通用接口与zeus交互，zeus在运行时根据规则的依赖，调用通用接口获取数据，本文档主要介绍业务侧RD如何开发对接Zeus的接口。</p>
+<h1 id="section-5">二、名词解释</h1>
+<p>无</p>
+<h1 id="section-7">三、操作说明</h1>
+<h2 id="section-8">1.系统对接架构</h2>
+<p><img src="assets/d4babca42d523e94.png" width="337" height="228" alt="image2017-3-31 10:14:19.png"></p>
+<p>在对接前先了解一下整个对接的系统架构，各模块解释：</p>
+<ul>
+<li>业务层：与zeus对接的各个业务应用，在调用zeus规则引擎时传入场景id + 基本上下文参数，并处理zeus返回的决策</li>
+<li>引擎层：使用业务传入的上下文，运行业务指定场景配置的规则，并在运行时按需调用数据层获取业务数据</li>
+<li>
+<p>数据层：</p>
+<ul>
+<li>ZeusFetcherService.Iface：业务层接口（octo或pigeon），作为规则引擎与数据服务通信的统一接口（接口详情见下文）</li>
+<li>DataService：业务的数据服务，通过ZeusFetcherService与规则引擎通信，实现获取各种数据的功能</li>
+</ul>
+</li>
+</ul>
+<h2 id="section-20">2.对接步骤</h2>
+<p>业务层请移步对接文档：<a href="https://km.sankuai.com/page/28253497" title="https://km.sankuai.com/page/28253497">说明：Zeus在线服务OCTO接入文档</a></p>
+<p>下面会以getCityByIp为例子辅助说明各个步骤</p>
+<h3 id="section-24">2.1 OCTO鉴权配置</h3>
+<p>业务方需要增加<span style="color:rgb(245, 35, 45)"><strong>com.sankuai.rc.zeus</strong></span>鉴权</p>
+<p></p>
+<p>这里，使用近线引擎的业务方需要添加如下鉴权: </p>
+<p>      线上实际调用<span style="color:rgba(0, 0, 0, 0.87)">com.sankuai.zeus.nearline,</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">      画布测试及仿真测试 com.sankuai.zeus.nearline.rpc</span></p>
+<h3 id="section-34">2.2 POM与OCTO</h3>
+<p>pom依赖</p>
+<p><span style="color:rgb(245, 34, 45)">注意：</span>zeus-thrift0.9.2 jar包请使用最新版本，老版本可能存在鉴权问题。链接：<a href="http://maven.sankuai.com/artifact/com.meituan.rc.zeus/zeus-thrift0.9.2" title="zeus-thrift0.9.2版本列表">zeus-thrift0.9.2版本列表</a></p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.meituan.rc.zeus&lt;/groupId&gt;
+    &lt;!--如果使用0.9.2版本thrift，artifactId设置为zeus-thrift0.9.2--&gt;
+    &lt;artifactId&gt;zeus-thrift&lt;/artifactId&gt;
+    &lt;version&gt;1.1-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>octo配置，和octo基本用法相同</p>
+<p>octo的publisher配置如下，需要注意的是如果返回字段值需要返回null要<span style="color:rgb(0, 0, 0)">将</span>serializeNullStringAsBlank设为true</p>
+<pre><code>&lt;bean id="zeusFetcherServicePublisher" class="com.meituan.service.mobile.mtthrift.proxy.ThriftServerPublisher"
+     init-method="publish" destroy-method="destroy"&gt;
+   &lt;property name="serviceInterface" value="com.meituan.rc.zeus.thrift.fetcher.ZeusFetcherService"/&gt; &lt;!-- 接口类 --&gt;
+   &lt;property name="serviceImpl" ref="zeusFetcherServiceImpl"/&gt; &lt;!-- 实现类 --&gt;
+   &lt;property name="appKey" value="com.sankuai.rc.tatooine.fetcher"/&gt;  &lt;!-- 本地 appkey --&gt;
+   &lt;property name="port" value="9222"/&gt; &lt;!-- Server 监听端口 --&gt;
+   &lt;property name="serializeNullStringAsBlank" value="true"/&gt; &lt;!-- 建议设置为true --&gt;
+&lt;/bean&gt;</code></pre>
+<h3 id="section-46">2.3 数据服务实现</h3>
+<p>上述zeus-thrift中对应的idl文件如下，通过提供该接口与zeus进行数据通信，上海侧Pigeon对接移步：<a href="https://km.sankuai.com/page/28364538" title="https://km.sankuai.com/page/28364538">上海侧Pigeon数据对接注意事项</a> <span style="color:rgb(245, 35, 45)">无需自己生成 使用zeus-thrift包内即可</span></p>
+<pre><code>struct FetchRequest {
+    1: string requestId
+    2: string methodName  //当前请求的Fetcher
+    3: map&lt;string, string&gt; context //thrift不支持object, zeus的基本类型都是可以和string互相转换的，所以可以直接用string来传输上下文
+    4: set&lt;string&gt; targetKeys
+}
+
+struct FetchResult {
+    1: map&lt;string, string&gt; resultMap
+    2: string errMsg
+}
+
+service ZeusFetcherService {
+    bool isAlive()
+    FetchResult query(FetchRequest request)
+}</code></pre>
+<h4 id="section-52"><strong>数据结构说明</strong></h4>
+<p>FetchRequest：获取数据请求</p>
+<ul>
+<li>requestId：请求id，建议在日志中记录，可在zeus日志查询中使用</li>
+<li>methodName：获取数据的方法名</li>
+<li>context：请求上下文，用于传递方法的参数，值类型是string，是因为string可与zeus上的任意类型转换</li>
+<li>targetKeys：当前请求获取的字段，支持一个方法按需批量返回指定的字段</li>
+</ul>
+<p>FetchResult：获取数据的结果</p>
+<ul>
+<li>resultMap：使用key-value的形式将数据返回，其中key与targetKeys对应，resultMap中的value如果希望是null，需要在octo的publisher中将serializeNullStringAsBlank设为true</li>
+<li>errMsg：可选，业务可以返回错误信息</li>
+</ul>
+<h4 id="section-64"><strong>接口说明</strong></h4>
+<p>isAlive : 方便zeus检测服务是否在线，返回true即可</p>
+<p>query：</p>
+<ul>
+<li>输入：FetchRequest</li>
+<li>返回：FetchResult</li>
+</ul>
+<h3 id="section-71">2.4 <span style="color:rgb(0, 0, 0)">例子</span></h3>
+<p><span style="color:rgb(0, 0, 0)">伪代码实现ZeusFetcherService，其中包含getCityByIp和</span>getUserInfoByUserId<span style="color:rgb(0, 0, 0)">两个method</span></p>
+<p>伪代码示例如下：</p>
+<pre><code> public class ZeusFetcherServiceImpl implements ZeusFetcherService.Iface {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(ZeusFetcherServiceImpl.class);
+
+    @Override
+    public boolean isAlive() throws TException {
+        //主要用于检测是否在线
+        return true;
+    }
+
+    @Override
+    public FetchResult query(FetchRequest request) throws TException {
+        if (!this.isValidMethod(request.getMethodName())) {
+            FetchResult result = new FetchResult(Maps.&lt;String, String&gt;newHashMap());
+            // 可选：错误信息，在测试时出现问题可在后台页面观察到
+            result.setErrMsg("method not found");
+            return result;
+        }
+		//当前要获取的字段
+		Set&lt;String&gt; targetKeys = request.getTargetKeys();
+		//请求上下文
+   		Map&lt;String, String&gt; context = request.getContext();
+		//methodName对应在zeus后台注册的数据接口
+		String methodName = request.getMethodName();
+        Map&lt;String, String&gt; resultMap = Maps.newHashMap();
+        if (methodName.equals("getCityByIp")) {
+           	resultMap = getCityByIp(targetKeys, context);
+        } else if (methodName.equals("getUserInfoByUserId")) {
+           	resultMap = getUserInfoByUserId(context);
+        } else if (other method ...) {
+			resultMap = ....
+		}
+        // 建议记录requestId和methodName，可与zeus日志查询关联
+        LOGGER.info("success requestId:{}, method:{}", request.getRequestId(), request.getMethodName());
+        return new FetchResult(resultMap);
+    }
+
+	private Map&lt;String, String&gt; getCityByIp(Set&lt;String&gt; targetKeys, Map&lt;String, String&gt; context) {
+		Map&lt;String, String&gt; resultMap = Maps.newHashMap();
+		String ip = MapUtils.getString(context, "ip");
+		// 可根据targetKeys按需获取相应的数据
+ 		if (targetKeys.contains("cityName")) {
+        	resultMap.put("cityName", getCityNameByIp(ip));
+        }
+        if (targetKeys.equals("cityId")) {
+        	resultMap.put("cityId", getCityIdByIp(ip));
+    	}
+		return resultMap;
+	}
+ 
+    private Map&lt;String, String&gt; getUserInfoByUserId(Map&lt;String, String&gt; context) {
+		Map&lt;String, String&gt; resultMap = Maps.newHashMap();
+		String userid = MapUtils.getString(context, "userid");
+		resultMap.put("userName", getUserNameByUserId(userId));
+		resultMap.put("email", getEmailByUserId(userId));
+		return resultMap;
+	}
+}</code></pre>
+<h4 id="section-79">注意事项</h4>
+<p><strong>实现服务的输入上下文是map&lt;string, string&gt;，返回结果也是map&lt;string, string&gt;类型，因此数据服务的实现方需要自行考虑将输入的string转换成自己所需的类型，然后统一返回string类型给Zeus，Zeus会根据配置界面上返回字段映射的参数的类型自动进行强制类型转换</strong></p>
+<p><br></p>
+<h2 id="section-84">3.风控系统兼容</h2>
+<p>新对接系统无需关心</p>
+<p>北京上海风控系统历史实现方式不同，请移步：</p>
+<p>上海：<a href="https://km.sankuai.com/page/28364538" title="https://km.sankuai.com/page/28364538">上海侧Pigeon数据对接注意事项</a></p>
+<p>北京：<a href="https://km.sankuai.com/page/28364529" title="https://km.sankuai.com/page/28364529">taooine fetcher开发使用文档</a></p>
+<h1 id="section-91">四、FAQ</h1>
+<p> --待补充--</p>
+<p></p>
+</article></main></body></html>

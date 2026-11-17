@@ -1,0 +1,87 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>策略评估-评估模板</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-7">三、操作指南</a><a href="#section-8">1.用户操作流程说明</a><a href="#section-103">2.特殊说明</a><a href="#section-105">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：策略评估</a> / <a href="index.html">策略评估-评估模板</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1226565845">查看学城原文</a></p><article>
+<h1>策略评估-评估模板</h1>
+<div style="none"></div>
+<h2 id="section-3">一、背景</h2>
+<p>相见策略评估的背景</p>
+<h2 id="section-5">二、名词解释</h2>
+<p>评估模板：便于用户管理一批规则通用的评估逻辑，便于根据模板自动生成评估任务</p>
+<h2 id="section-7">三、操作指南</h2>
+<h3 id="section-8">1.用户操作流程说明</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+<p><span style="font-size:14px">入口：</span></p>
+<p><span style="color: "><span style="font-size:14px">zeus--&gt;策略评估--&gt;评估模板--&gt;评估模板tab</span></span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="color: "><span style="font-size:14px">新建：</span></span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「新建模板」按钮，进入将新建模板页面</span></li>
+<li>
+<p><span style="font-size:14px">基本信息模板：</span></p>
+<p><span style="font-size:14px">必须填写模板名，模板属性（标记模板、在线模板二选一，本期仅上线标记模板）；生效方式（自动、人工二选一，本期仅上线人工模板）</span></p>
+<p><span style="font-size:14px"><strong>备注：</strong></span></p>
+<p><span style="font-size:14px"><strong>属性与规则状态挂钩，标记模板评估标记规则，在线模板评估生效规则；</strong></span></p>
+<p><span style="font-size:14px"><strong>生效方式表明使用该模板的评估任务完成且评估结果通过后，待评估的规则是自动生效还是人工生效，为避免生产问题，本期仅上线人工生效。</strong></span></p>
+</li>
+<li><span style="font-size:14px">逻辑配置仅支持模板配置，支持左变量（指标）+操作符+右变量（阈值）的配置方式</span></li>
+<li><span style="font-size:14px">指标下拉选项为「评估指标tab」的默认指标和用户配置的自定义指标；</span></li>
+<li><span style="font-size:14px">操作符为&gt;/&gt;=/==/&lt;=/&lt;</span></li>
+<li><span style="font-size:14px">阈值可以输入数字，支持输入两位小数；</span></li>
+<li><span style="font-size:14px">每一行可以配置一个指标的判断逻辑，多行之间可以编辑「与/或/非」关系，用户配置复杂逻辑</span></li>
+<li><span style="font-size:14px">逻辑预览支持用户查看自己所配逻辑是否符合预期</span></li>
+</ol>
+<p></p>
+</td>
+<td>
+<p><img src="assets/9ef34dc3ed16085a.png" width="660" height="336" alt="image.jpeg"></p>
+<p><img src="assets/f8cb2c55722893ea.png" width="660" height="326" alt="image.jpeg"></p>
+<p><img src="assets/e555577cd432594c.png" width="660" height="297" alt="image.jpeg"></p>
+<p><img src="assets/d1e04e2c576896d8.png" width="660" height="218" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">查看</span></p>
+<p><span style="font-size:14px">入口：评估模板tab点击模板名称进入「模板详情页」</span></p>
+<p><span style="font-size:14px">模板详情页支持查看模板基本信息、逻辑配置信息</span></p>
+</td>
+<td>
+<p><img src="assets/1d1afe294dbcd7f2.png" width="660" height="351" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">修改</span></p>
+<p><span style="font-size:14px">入口：评估模板tab点击模板名称进入「模板详情页」--右上角点击编辑进入模板修改页</span></p>
+<p><span style="font-size:14px">基本信息、逻辑配置均支持修改</span></p>
+</td>
+<td>
+<p><img src="assets/4ab7dcd6ac6fa039.png" width="660" height="370" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">删除/上线/下线</span></p>
+<ol>
+<li><span style="font-size:14px">删除：无论模板是否被任务使用，评估模板均可以被删除，因为在生成任务之后，模板中的内容已经被copy到任务中；</span></li>
+<li><span style="font-size:14px">上线：模板配置完成后的状态为未就绪，需要用户上线模板，才可以在开启评估任务时进行选择该模板；</span></li>
+<li><span style="font-size:14px">下线：就绪状态的模板可以进行下线，下线后状态为未就绪，此时不可以被评估任务选择和引用</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/771701010359a0c8.png" width="660" height="309" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h3 id="section-103">2.特殊说明</h3>
+<p></p>
+<h2 id="section-105">四、FAQ</h2>
+</article></main></body></html>

@@ -1,0 +1,89 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：Zeus耗时分析功能说明</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-2">一、背景</a><a href="#section-6">二、数据覆盖范围</a><a href="#section-8">三、名词解释</a><a href="#section-27">四、功能说明</a><a href="#section-31">4.1 数据筛选逻辑</a><a href="#section-46">4.2 事件耗时</a><a href="#section-61">4.3 场景耗时分析</a><a href="#section-74">4.4 数据接口耗时分析</a><a href="#section-85">4.5 标记转生效耗时提示</a><a href="#section-90">4.6 请求超时日志标签</a><a href="#section-96">五、问题反馈</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：Zeus耗时分析功能说明</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1287004297">查看学城原文</a></p><article>
+<h1>说明：Zeus耗时分析功能说明</h1>
+<h1 id="section-2">一、背景</h1>
+<p>策略执行链路超时是导致策略异常的原因之一，超时的原因主要有：路由逻辑复杂、规则逻辑冗余、fetcher超时，为使策略、产研对策略运行链路的耗时有更直观的感知，故建设事件、场景、规则维度的耗时分析能力，从而提升耗时问题定位效率、辅助策略进行规则治理、统一上下游对超时定义的口径。 </p>
+<p>项目PRD：<a href="https://km.sankuai.com/page/1227913388" title="https://km.sankuai.com/page/1227913388">学城文档 1227913388（无权限读取标题）</a></p>
+<h1 id="section-6">二、数据覆盖范围</h1>
+<p>本期仅覆盖通过Tatooine-&gt;Zeus的路径耗时分析数据，而外部系统直接调Zeus的耗时监控不在本期范围内（二期会接入这部分能力）。</p>
+<h1 id="section-8">三、名词解释</h1>
+<p>Partner ：即业务方，来定义一个业务在特定场景下的接入标识，<a href="https://km.sankuai.com/page/28122598#id-platform-%E5%B9%B3%E5%8F%B0" title="https://km.sankuai.com/page/28122598#id-platform-%E5%B9%B3%E5%8F%B0">说明：风控常用代码表</a>、<a href="https://rc-yoda.sankuai.com/#/parameterDetail?name=partner&amp;message=%E4%B8%9A%E5%8A%A1%E6%96%B9" title=" yoda-partner列表"> yoda-partner列表</a></p>
+<p>Appkey：调用方接口标识。</p>
+<p>事件：Tatooine事件在策略团队侧被定义为业务活动中用户的风险行为节点，在技术侧被定义为两类接口（同步&amp;异步），<span style="color: ">即业务在业务流程中针对需要进行风控判定的节点，调用对应的事件接口，从而获取风控决策。</span><a href="https://km.sankuai.com/page/1292077011" title="https://km.sankuai.com/page/1292077011">Tatooine事件的理解</a></p>
+<p>调用量：在选定时间区间内事件/场景/规则的总请求次数。</p>
+<p>超时量：在选定时间区间内事件/场景 超过耗时要求的请求量。</p>
+<p>超时率：超时量/调用量。</p>
+<p>耗时要求：在业务接入时，由Partner+Appkey+事件定义一条SLA要求（包含耗时要求），SLA的定义说明可参考：<a href="https://km.sankuai.com/page/1287292014" title="https://km.sankuai.com/page/1287292014">学城文档 1287292014（无权限读取标题）</a>、 <a href="https://km.sankuai.com/page/1272870013" title="https://km.sankuai.com/page/1272870013">06 风控服务SLA（Service-level agreement）</a></p>
+<p>TP999：在用户选择时间范围内，在所有请求中，耗时按照从小到大的顺序排列，排位比在99.9%的请求耗时。</p>
+<p>平均耗时：在选定时间区间内，所有请求的耗时加总取平均。</p>
+<p>最长耗时：选定时间区间内，所有请求中耗时最长的请求耗时。</p>
+<p>TT调Zeus失败量：requestid维度，tatooine调zeus失败的请求量。</p>
+<p>TT调Zeus失败率：requestid维度，tatooine调zeus失败的请求量/tatooine调zeus的总请求量。</p>
+<h1 id="section-27">四、功能说明</h1>
+<p><span style="color:rgb(245, 35, 45)">功能入口：Zeus-&gt;监控中心-&gt;耗时分析</span></p>
+<p>在Zeus中增加【监控中心】菜单，用于耗时情况监测与分析。通过条件筛选可筛选出特定条件下的事件、场景（包含普通场景、普通路由场景、多级路由场景）、规则、数据接口的耗时情况，从而监测耗时情况是否符合预期/分析超时case的具体耗时原因。</p>
+<h2 id="section-31">4.1 数据筛选逻辑</h2>
+<div class="note">
+<strong></strong>
+<div>
+<p>由于耗时指标的计算底层依赖大量的数据计算及关联，为提升加载速度，在数据查询时对筛选条件做了限制。</p>
+</div>
+</div>
+<ol>
+<li>Partner、Appkey、事件，用户需至少选择一个进行查询（因为在未定义Partner+Appkey+事件的组合非常多，将会造成数据难以加载），系统默认展示Partner值最大的耗时情况。</li>
+<li>事件的耗时情况是上游系统能感知和衡量是否超时的系统粒度，场景的耗时要求根据上游对事件耗时要求-20ms来定义，因此在逻辑筛选场景时需选定场景所在的事件。</li>
+<li>筛选规则、数据接口时，需筛选规则所在的场景。</li>
+<li>筛选时间支持近15天的数据查询，首页默认展示近1h的数据。</li>
+<li>
+<p>支持各个表单的翻页，及在本页按照数字指标正序/倒序排列，默认按照超时率从大到小排列。</p>
+<p>*以为账户风控-69注册事件为例</p>
+</li>
+</ol>
+<p><img src="assets/a3a605c9fe492e6d.png" width="916" height="470" alt="image.jpeg"></p>
+<h2 id="section-46">4.2 事件耗时</h2>
+<div class="note">
+<strong></strong>
+<div>
+<p>由于zeus暂无维护事件与business的映射关系，在没有选定事件时，事件默列表全部空间的耗时情况。</p>
+</div>
+</div>
+<ol>
+<li>事件耗时列表中展示Partner+Appkey+事件组合的调用量、超时量、超时率、耗时要求、平均耗时、最长耗时、TT调Zeus失败量、TT调Zeus失败率。在每条耗时数据后都可点击“详情”查看事件维度的耗时监控。</li>
+<li>事件耗时分析分别展示事件的基本信息，及调用量、超时量、TT调Zeus失败量、超时率、TT调Zeus失败率、TP999、平均耗时、最长耗时、耗时要求的监控图。</li>
+<li>监控默认展示近1h的耗时情况，用户最多可选择近15天的耗时情况。</li>
+<li>单个请求的日志详情用户可点击进入“日志查询”查看。</li>
+</ol>
+<p><img src="assets/fa72204c2e769985.png" width="778" height="412" alt="image.jpeg"></p>
+<p><img src="assets/ae154324b21b860f.png" width="772" height="151" alt="image.jpeg"></p>
+<p></p>
+<h2 id="section-61">4.3 场景耗时分析</h2>
+<p>在进行场景耗时分析时用户需先选择场景所绑定的事件，场景选择前用户需选择场景类型（普通场景、普通路由、多级路由）再通过输入场景ID/名称的方式查看场景的耗时情况。</p>
+<ul>
+<li>普通场景：展示场景的调用量、超时量、超时率、耗时要求、平均耗时、最长耗时，以及场景下规则的耗时情况。、</li>
+<li>普通路由、多级路由：展示路由场景下的路由规则（如果有多个路由规则则所有路由平铺罗列）、子场景及子场景下的规则的耗时情况。</li>
+<li>场景可点击“详情”查看整个场景的耗时监控，规则不支持耗时监控的查看（规则的耗时和场景强关联，且无规则维度的耗时要求的定义）。</li>
+</ul>
+<p></p>
+<p><img src="assets/d1df97adcea0ca1a.png" width="860" height="93" alt="image.jpeg"></p>
+<p><img src="assets/9d71567331943d68.png" width="857" height="249" alt="image.jpeg"></p>
+<p><img src="assets/dae2eaa65b0ee65a.png" width="855" height="200" alt="image.jpeg"></p>
+<h2 id="section-74">4.4 数据接口耗时分析</h2>
+<p>数据接口耗时表单展示筛选条件下（最多到场景）所引用到的数据接口的耗时情况。展示数据接口的调用量、超时量、超时率、耗时要求、平均耗时、最长耗时，且用户可点击“详情”查看接口维度的耗时监控。</p>
+<p><img src="assets/9bdee7ea2a24b6c8.png" width="1057" height="259" alt="image.jpeg"></p>
+<p></p>
+<p>耗时监控包含：接口调用量、超时量、超时率、平均耗时、最长耗时、耗时要求的耗时监控。</p>
+<p><img src="assets/4a02303729230a43.png" width="834" height="439" alt="image.jpeg"></p>
+<p><img src="assets/b6ea86b6c56bfb67.png" width="818" height="364" alt="image.jpeg"></p>
+<p></p>
+<h2 id="section-85">4.5 标记转生效耗时提示</h2>
+<p>对标记规则转生效前，将有弹窗提示标记规则近一周的平均耗时和场景的耗时要求进行对比，提示用户规则上线后对耗时的影响。</p>
+<p><img src="assets/5fd4e055c6a73e9e.png" width="444" height="217" alt="image.jpeg"></p>
+<p></p>
+<h2 id="section-90">4.6 请求超时日志标签</h2>
+<p>在日志查询中增加“请求超时”标签，且在日志详情中增加“异常信息”模块，当请求超时时则在异常信息中可查看事件、场景、数据接口的具体耗时及耗时要求。</p>
+<p><img src="assets/5096b4465d2c6550.png" width="555" height="207" alt="image.jpeg"></p>
+<p></p>
+<p></p>
+<h1 id="section-96">五、问题反馈</h1>
+<p>对数据口径、功能使用等如有疑问，请联系：产品<span>@金丽丹</span> 研发<span>@王雅靓</span></p>
+<p></p>
+</article></main></body></html>

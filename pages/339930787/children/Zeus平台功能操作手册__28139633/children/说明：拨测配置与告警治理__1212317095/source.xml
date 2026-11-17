@@ -1,0 +1,391 @@
+<km-doc>
+<km-title nodeId="098796e5520c4d6d820b27281b440b27">说明：拨测配置与告警治理</km-title>
+<km-catalog style="none" nodeId="8feb01739d704bf1b99eed0ef8be40a9" />
+<h1 nodeId="2846e38db13f47488bf725cdd4c9a4f9">一、背景</h1>
+<p nodeId="e8c7fccca16944aab6fe9060b3dbdffa"><span color=" ">Zeus平台的近线引擎稳定性和可用性直接影响公司入侵发现及时性和有效性。</span></p>
+<p align="start" nodeId="e05b8f9ffa25454593ef11c07e82f737">但从<a href="https://km.sankuai.com/page/874957799" title="已迁移作业-故障汇总" autoUpdate="true" nodeId="fd0e9731adc6474bad95fdb4437f50f7">已迁移作业-故障汇总</a>可知作业异常case频发，6月至今（07-06）共 11 起异常case，其中 2 起事故直接导致漏报，因此迫切需要正向建设Zeus作业稳定性、及告警有效性。</p>
+<p nodeId="fefaa2aeb4f34e10a94f8f2b240badd7">拨测直接向近线引擎输入kafka写入数据。在生产环境进行实际数据处理（但是不会触发真实报警）。命中规则结果会进行统计。用于长期监测规则的有效性。</p>
+<p nodeId="577bb484544f4c61b2f469005c8f3133"><span color="rgb(250, 84, 29)">由于拨测为近线引擎（基础安全方向）个性化功能，因此只在130-反入侵下展示，其他业务方需要使用的话需要先联系PM</span><km-mention name="丁婷婷" uid="dingtingting04" empId="" nodeId="d50b284af0f147e78ec1a3c48bd3bfdb" /><span color="rgb(250, 84, 29)">和RD</span><km-mention name="高大亮" uid="gaodaliang" empId="" nodeId="2f77e1d4542643a4a04febbf610e4da6" /></p>
+<p nodeId="93a81e885b5f43e496afe93e65ecfea5" />
+<h1 nodeId="41bf59f2a6ef468f94cbad6c34f33da6">二、名词解释</h1>
+<p nodeId="d5c1158bd0824306920063b668f0d036">拨测：<span color="rgba(0, 0, 0, 0.87)">用户自定义流量调用场景规则获取决策，判断结果是否满足用户诉求的任务配置</span></p>
+<h1 nodeId="a25a2b1b6e33488ea4c19ec3e2b26f1d">三、操作指南</h1>
+<h2 nodeId="3c04b2589aa7424bb445c7dd9344e94c">1.用户操作流程说明</h2>
+<ol nodeId="bddb65df3ff145c7ae8a784aa6aa10ab">
+<li nodeId="35fa74e33e914a30aa2dfdc0941f36c7">
+<p nodeId="90186550b0fa4d7c83381162a8ffb370">拨测配置</p>
+<table borderColor="#cccccc" responsive="false" nodeId="28a6c83e25b440e7ad90026ee165abb9">
+<tr nodeId="5b5b012f4b71410ab96340e2ea97a69c">
+<th colwidth="[434]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="af31a75b699e4a55bdb6af3a33b75d50">
+<p nodeId="877063f5ab7340dcb0cc9ee8ede66131"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[729]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="5f7876d244f748f08c58f8d49049a972">
+<p nodeId="48ec2f6a2a9746dcb72be325190d937a"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="88cb361568014f9abb93ef2e37504736">
+<td colwidth="[434]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="92584aa5d47648c99a1a361878bd4c60">
+<p nodeId="fddda59d220a43548b04378da1ac1e1c"><span font-size="14"><strong>【入口】</strong></span></p>
+<ol nodeId="d1731ad313e6467fa704a694ac7046d2">
+<li nodeId="9511b13e442f4be9952a7de3c81bcddc">
+<p align="start" nodeId="6ea8123c97f043dd8a0a0f201e636e97"><span font-size="14">Zeus--&gt;策略排查--&gt;拨测设置</span></p>
+</li>
+<li nodeId="a9ff99486a92455fa431d165e2acad13"><span font-size="14">Zeus--&gt;规则--&gt;规则详情--&gt;拨测配置</span></li>
+</ol>
+<p nodeId="fa1a997f742741adbbfd89fe42d68bf3"><span font-size="14"><strong>【配置-单条配置1】</strong></span></p>
+<p nodeId="6d08bc152b77499e93150a6812a40cd9"><span font-size="14">从规则详情页跳转配置（从规则详情页跳转拨测配置只能针对单条规则配置）</span></p>
+<ol nodeId="6c60e85fc5a2487398bcc36ad951b15c">
+<li nodeId="c1c684eaadad40eeaddc3e181f425829"><span font-size="14">点击规则详情页右上角的「拨测配置」按钮，跳转拨测配置详情页；</span></li>
+<li nodeId="af86f0fcecaa434b837c93081e0981f4">
+<p nodeId="953b668ecff64faa9a8373e21a088c85"><span font-size="14">基本信息模块：</span></p>
+<ol nodeId="cc3babb87ef44bc9be328f168c3323e4">
+<li nodeId="2d8cb16289e94744b56e5a1596776d01"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>拨测规则</strong></span></span><span font-size="14">：系统自动带出需要配置拨测的「规则ID-名称」，可修改调整切换成其他规则，必填；一旦选择，不能修改。</span></li>
+<li nodeId="7db0ecb119264f898f4a113278219aee"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>拨测场景</strong></span></span><span font-size="14">：需要用户下拉选择，即确定此次配置的拨测任务是要过哪个场景，下拉选项为该规则在该业务空间下添加的所有场景，必填；一旦选择，不能修改。</span></li>
+<li nodeId="45daa33517da48a0b48134b37895ac91"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>产品线</strong></span></span><span font-size="14">：下拉选项，用户自行选择，选项内容含：webids、hids、rasp、nids、edr、sysmon、dns、dbaudit、蜜罐；必填；产品线用于统计拨测的准确率的BI大盘和报表分析。一旦选择，不能修改。</span></li>
+<li nodeId="9a5253b0035f44ea8bc9f644ebae094c"><span color="#fa541d"><span font-size="14"><strong>拨测类型</strong></span></span><span font-size="14">：下拉选项，可选 全链路、半链路。</span></li>
+<li nodeId="5198d29b4784406e9895f30e7b337a41"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>任务名称</strong></span></span><span font-size="14">：当用户选中规则、场景、产品线后，系统会自动拼接任务名称并展示，拼接逻辑为「autotest_产品线_场景id_规则中文名」，支持用户在此基础上进行修改任务名称，（</span><span color="rgb(48, 84, 235)"><span font-size="14">备注：但是用户如果修改过一次任务名称后，重新选择产品线或者拨测场景或拨测规则，任务名称不会随之拼接，需要用户手工修改。</span></span><span font-size="14">）必填；</span></li>
+<li nodeId="a14caf5de0d843948f17c3b70aa89008"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>任务状态</strong></span></span><span font-size="14">：running/debug 二选一，系统默认running，必填；用户选择debug状态，则数据不会进行报表统计。建议新建拨测使用debug状态。</span></li>
+<li nodeId="2840ce88be214fcb9fea6d6c8cddce94"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>超时判断</strong></span></span><span font-size="14">：支持用户输入超时时间标准，支持秒/分/时三个级别的，必填；</span></li>
+<li nodeId="25b30e44b27a4c3ebe7de91d52f862f8"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>告警配置</strong></span></span><span font-size="14">：支持用户设定任务告警阈值，基准为拨测任务</span><span color=" "><span font-size="14">近24小时的拨测成功率</span></span><span font-size="14">，用户可以定义任务成功率在什么区间进行告警，非必填；填写内容如&lt;0.9，表示拨测成功率小于90%则进行报警。</span></li>
+<li nodeId="e7774d8e43b04a9888845c5a4b63c8bb"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>告警接收人</strong></span></span><span font-size="14">：接收大象告警通知的用户，直接填misid，可以填多个，非必填；填写多个是请用英文逗号分割。</span></li>
+</ol>
+</li>
+<li nodeId="1ec422a97d3242d3a5dc4947be84d8ba">
+<p nodeId="b6628969037e44ccb5f794b27dbfd377"><span font-size="14">逻辑配置模块：</span></p>
+<p nodeId="415cb3efa7194042aae6ad7ad69b5e9e"><span font-size="14">当选择半链路拨测时：</span></p>
+<ol nodeId="411097ef50c246ad97d7433c5b0d1b55">
+<li nodeId="6a2124cc6d8c407581d5e650a59023f4"><span font-size="14">Kafka：下拉选择kafka topic，先输入再点选，下拉选项为有权限的topic，如果发现下拉选项里没有想要的topic，需要在zeus平台上注册该数据源；必填。而且需要申请mt-ids-zeus项目组对该数据源的写入权限。如何申请请参考FAQ。</span></li>
+<li nodeId="dab486ef5e0d47feab3ab61da1703f65"><span font-size="14">数据类型：单选，选项为new log、log、snappy，必填，选择数据类型后，系统会自动将content部分转成所选的数据类型，必填</span></li>
+<li nodeId="2730fbfe65d2494eb1b21947e425bafa"><span font-size="14">content：用户填写topic内容，必填。无论用户选择什么数据格式，都请填写JSON数据格式。系统会自动进行转换后进行发送。</span></li>
+</ol>
+<p nodeId="db33ce7ffcf94a208461eb8749090b77"><span font-size="14">当选择全链路拨测时：</span></p>
+<ol nodeId="a7b1343546d74722855563558e80da26">
+<li nodeId="faebf733422f4f089c534359b31ee5c0"><span font-size="14">主机名：下拉选择主机名</span></li>
+<li nodeId="cb2589ad8b3d42c69937ea9e07af502e"><span font-size="14">数据类型：默认命令</span></li>
+<li nodeId="1b729daef7914ea3a693c52188981826"><span font-size="14">content：用户填写内容，必填。</span></li>
+</ol>
+</li>
+<li nodeId="ea4db3bdeb514b15b7ac2ece9371284d"><span font-size="14">操作：支持添加数据和删除数据</span></li>
+<li nodeId="7ce4337f92c743f3abc511b8a58292d6"><span color="rgb(250, 84, 29)"><span font-size="14">注意</span></span><span font-size="14">：如果</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">一个拨测任务下如果配置了多个数据源，表明这个拨测需要几个数据源同时操才能触发，此时，这些数据源会同步发送。需用户注意</span></span></li>
+</ol>
+<p nodeId="f4e1ac1381a84ef8bb90b190e048d9a2" />
+<p nodeId="f3bdd533c9ee4eb1b0e1a382276d9e50" />
+<p nodeId="fedaeaac6e89485c9c5a0ac3472fdc0d" />
+<p nodeId="fb5c3383aa3b4bff95b584df2500b22f" />
+<p nodeId="4e4bb56a864342049236d5ce91977f45" />
+<p nodeId="580d7d7a1ec641beb42eb0f5eafd5715" />
+<p nodeId="d3ac9108308f49c2a09ca0918fa86c4d" />
+<p nodeId="f359401a43234f57a0092718f1d56d77" />
+<p nodeId="d819b2f9a0aa4b90bf50f978aa7ea948" />
+<p nodeId="29afffd76d4843a3a9bfa19dbc364455" />
+<p nodeId="32f6a666d83949c7b6627e4e49de453c" />
+<p nodeId="edaaecb758bb42ebb6d40d49c4ab87a7" />
+<p nodeId="cad0ee7067964b9d884ae069d54ccaca" />
+<p nodeId="9d74dbb8fad1433abbb3be93c1c550c8" />
+<p nodeId="68f1e59be15842a0b2adaf004001ebf1" />
+<p nodeId="d8322beded4640038befa69d48befc11" />
+<p nodeId="8df2fbaadcc94cccac68fa895a85f818" />
+<p nodeId="be64ef73b9674e06b8c0fff3e3402bea" />
+<p nodeId="a8d03c12d4cc4750b8b13d4f425df3c8" />
+<p nodeId="21534ff66067428d908f1e577fc1275c" />
+<p nodeId="7f241669d9594c429c30069031f0b7a6" />
+<p nodeId="d22b0bb4cd6d41a0ba9815aacc9ff834" />
+<p nodeId="0a105ef25f464431a88ce665d644daf7" />
+<p nodeId="7cda10eda0d346c48922ebfa67e0e1bd" />
+<p nodeId="a1bfe830c81c43d493b2d3f8f07a90c4" />
+<p nodeId="a13e4794acb54e9cae85db0e299e57af" />
+<p nodeId="1b73a72246cb45399823f6c46abfc4b5" />
+<p nodeId="867cec2d101e454c96259fe937a129ae" />
+<p nodeId="bbb2c8f76d4f42a0b36af89c40d7a61a"><span font-size="14"><strong>【配置-单条配置2】</strong></span></p>
+<p nodeId="140e36884bf04513b8e9930e033dda0b"><span font-size="14">从拨测配置tab跳转配置</span></p>
+<ol nodeId="13638b84994443648f7b8324b5bd565a">
+<li nodeId="5bb597862e6b427db27586c06bb66c67"><span font-size="14">点击右上角「拨测配置」按钮，跳转拨测配置页面</span></li>
+<li nodeId="0dbacda587b34af7b9ec6f454cb608ef"><span font-size="14">拨测配置页面内容同</span><span font-size="14"><strong>【配置-单条配置1】</strong></span><span font-size="14">，只是该页面不会自动带出规则信息，需要用户手工输入，其余配置一致；</span></li>
+<li nodeId="331fbba06b9746f7aa2631906c56ce0b"><span font-size="14">同样区分半链路拨测和全链路拨测</span></li>
+</ol>
+<p nodeId="2858444592144754afff0aae7cdbbcf2" />
+<p nodeId="ec0a06dfafb7478eaa512d78a717771e" />
+<p nodeId="ed17902c0cb44e90bd69e57c50bc95fc" />
+<p nodeId="d935bb5126374404be3733cd5431a520" />
+<p nodeId="cb60fbc2487f42e696ad30528f71d174" />
+<p nodeId="13292497a6ee49e48335ba6bf4534636" />
+<p nodeId="b6eb4b1eff034cffbc99f43a823c4c09" />
+<p nodeId="680e5f29b7c347f4bdf20c7c8f8add3b" />
+<p nodeId="9f7977b3eca24418b008c3f0e52f486a" />
+<p nodeId="99a5920dabcd4a8cb90e088ec4020a2d" />
+<p nodeId="cbd8c062f8524f47978704225cb624f2" />
+<p nodeId="96682e96f5ab4957a78715a2cf292d04" />
+<p nodeId="3e3a4ef0d88a4e39af64d71367af9323" />
+<p nodeId="c0d303adea5746af96225e3e53c905e0" />
+<p nodeId="653fd240abf7410ca17d287769283975" />
+<p nodeId="22dde7a347544ce8a4b005c1d6b61ceb" />
+<p nodeId="d528a1f6479446f5ab996fdf37e08aa4" />
+<p nodeId="99d5e07947a74207b61debe7328c6303" />
+<p nodeId="8c6c2b7980ec41abadd6cdc4b609ef08" />
+<p nodeId="38f325f23dd64222ab8366052e0d92da" />
+<p nodeId="5d043d8feb234c18bb80c50d3507bc1c" />
+<p nodeId="810df06366634dfb8ed32d45051d7c35" />
+<p nodeId="7a7ae29632684e558a2025f0ca96a4f8" />
+<p nodeId="bebeb00adbc144dab6ffd0223c3b182e" />
+<p nodeId="80caba0399f649368b52fc3f1d67c433" />
+<p nodeId="dd76fe7f7ea44896826d87f228bb3c47" />
+<p nodeId="68814cfad60e415fb9e086a98b32825a" />
+<p nodeId="7482aaf633d0493b9843a8840311555b" />
+<p nodeId="2f7466dcbaa24595989b33548ac4ec86" />
+<p nodeId="b9e0d40d197a43c8a50b2f6c48ae6dfc" />
+<p nodeId="9715431c3a834bbc9c6ed9b5ce30fcfa"><span font-size="14"><strong>【配置-批量配置】</strong></span></p>
+<p nodeId="0786c37478f7431bb4fdf0e0d02a1e85"><span font-size="14">从拨测配置tab跳转配置（批量拨测配置支持对同一个场景下的规则）</span></p>
+<ol nodeId="c05bd00dc801410c907b5c47f10fade6">
+<li nodeId="0274ce95913c4ec2b281e0dfe7746045"><span font-size="14">点击右上角「批量拨测配置」按钮，跳转批量配置页面</span></li>
+<li nodeId="8ae2a163d29e4ff28bf6630ef0fa784c">
+<p nodeId="f3e1d3313a064790b57b626e804ea091"><span font-size="14">基本信息模块：</span></p>
+<ol nodeId="94e984441809411587762534e3c321e9">
+<li nodeId="5739b83357aa49fd97ec03ba4479d81a"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>拨测场景</strong></span></span><span font-size="14">：先key字段，支持模糊匹配该businessid下的场景，可以对一个场景下的多条规则同时配置拨测，必填；</span></li>
+<li nodeId="c0ce76cd50c74318871d283b8d46ca6b"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>产品线</strong></span></span><span font-size="14">：即确认需要批量配置的是哪个产品线，一次批量配置只能配置一个产品线的，产品线下拉选项，用户自行选择，选项内容含：webids、hids、rasp、nids、edr、sysmon、dns、dbaudit、蜜罐；必填；</span></li>
+<li nodeId="f141089c599b40e1b808e5841461a3d5"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>任务状态</strong></span></span><span font-size="14">：running/debug 二选一，系统默认running，必填；</span></li>
+<li nodeId="560fecae64994cf5bcef3dbbb19bb236"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>超时判断</strong></span></span><span font-size="14">：支持用户输入超时时间标准，支持秒/分/时三个级别的，必填；</span></li>
+<li nodeId="a97e9e43b23c4a20843768967ddf111c"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>告警配置</strong></span></span><span font-size="14">：支持用户设定任务告警阈值，基准为拨测任务</span><span color=" "><span font-size="14">近24小时的拨测成功率</span></span><span font-size="14">，用户可以定义任务成功率在什么区间进行告警，非必填；</span></li>
+<li nodeId="6b75496ffa46434b9535ea3aa013d1c9"><span color="rgb(250, 84, 29)"><span font-size="14"><strong>告警接收人</strong></span></span><span font-size="14">：接收大象告警通知的用户，直接填misid，可以填多个，非必填；</span></li>
+</ol>
+</li>
+<li nodeId="76f9feb5fa014706a84692a676580956">
+<p nodeId="deb4e8925d60479b84010b166430a881"><span font-size="14">逻辑配置：</span></p>
+<ol nodeId="acb5665d89084ac8b2dd5df6ad4a5787">
+<li nodeId="c2b244bfb5ad4443b4d61357451fe349"><span font-size="14">规则：可下拉选择所选场景下的规则，一行只能选择一条规则，选定规则后，会自动带出该规则在指定场景的状态；</span></li>
+<li nodeId="5e8115f05d9149f48f63c6ae359940e9"><span font-size="14">任务名称：当用户选中规则、场景、产品线后，系统会自动拼接任务名称并展示，拼接逻辑为「autotest_产品线_场景id_规则中文名」，支持用户在此基础上进行修改任务名称，（</span><span color="rgb(48, 84, 235)"><span font-size="14">备注：但是用户如果修改过一次任务名称后，重新选择产品线或者拨测场景或拨测规则，任务名称不会随之拼接，需要用户手工修改。</span></span><span font-size="14">）必填；</span></li>
+<li nodeId="3fe6629826f6454d8aba07b53bd34561"><span font-size="14">Kafka：下拉选择kafka topic，先输入再点选，下拉选项为有权限的topic，如果发现下拉选项里没有想要的topic，需要先申请权限；必填</span></li>
+<li nodeId="ff7ea8bde45d44699fd78ae27dcdedf3"><span font-size="14">数据类型：单选，选项为new log、log、snappy，必填，选择数据类型后，系统会自动将content部分转成所选的数据类型，必填</span></li>
+<li nodeId="6000a51ade1f4c0099ff0de4b0247140"><span font-size="14">content：用户填写topic内容，必填</span></li>
+<li nodeId="e3d36c5936334883925b96245fc4b96c">
+<p nodeId="233e83342a2a45efa400a5381c996f8b"><span font-size="14">操作：支持添加数据和删除数据</span></p>
+<p nodeId="00d211b7fa5a44a09468508f7c7159ab"><span color="rgb(250, 84, 29)"><span font-size="14">注意</span></span><span font-size="14">：</span></p>
+<ol nodeId="1f3904ec292b4dd39bd9a864b8223709">
+<li nodeId="eae92ecd02c94ca891eac176fafbd15f"><span font-size="14">批量配置拨测任务页面，支持对一条规则配置多个数据源，也支持多条规则配置不同的数据源。</span></li>
+<li nodeId="f3e848352a6249548b2188af2a980bde"><span font-size="14">批量拨测配置时，任务生成维度为规则，如果逻辑配置模块，选了N条不一样的规则，最终生成的任务为N个任务，如果对1条规则配置了M行数据配置，最终生成的任务为1个</span></li>
+</ol>
+</li>
+</ol>
+<p nodeId="127456fc92024ad9bfba9c7d0f0d038f" />
+</li>
+</ol>
+<p nodeId="dd1a5a4854a343fea0a608a43c0081c5" />
+<p nodeId="44967bd148b14a5cba6bd9c9ae068c26" />
+<p nodeId="e951168f76c144d2bdce835593a71b2f" />
+<p nodeId="bef220fbc4904de7ae572e0d158eceda" />
+<p nodeId="9dff423fead84ce8ac016623ca07a840" />
+<p nodeId="fb480209d47546f4897ca9afe6b7ebbf" />
+<p nodeId="fea5ca89c9754a73badfb44ccc1a7aec" />
+<p nodeId="0425165bef3c44428ffdb21bb56287cd" />
+<p nodeId="57163e034b7e49f4bc823777b8b0dcca" />
+<p nodeId="c2fe0e2adad243018e1ccebf09093ed4" />
+<p nodeId="da3c08f977394422bb56625a34cf125a" />
+<p nodeId="5918f51dbd5c467c89b6c674bf03b8b8" />
+<p nodeId="cc41caa731ab49bdbbe3b90aefce9184"><span font-size="14"><strong>【修改/删除】仅支持任务维度修改/删除</strong></span></p>
+<ol nodeId="0cb43cf2963646a4b1576215c188ca3f">
+<li nodeId="d556fe2184074325b0570b978d2f1fa9"><span font-size="14">点击进入拨测配置tab，点击列表项的「任务名称」，直接跳转到指定任务详情页；</span></li>
+<li nodeId="eb9c7dfe51044bea83b022fd8448d51a">
+<p nodeId="13770668d736485b909ef09d4c8133ef"><span font-size="14">点击任务详情页的「编辑」按钮，跳转至拨测任务修改页面，仅支持修改任务状态、超时判断、告警配置、告警接收人、拨测逻辑配置模块。</span></p>
+<p nodeId="a585d5ef2e80413f811bce8bc3cd75ef" />
+</li>
+</ol>
+<p nodeId="aa22460809a849ad8007131a65dc5bec" />
+<p nodeId="4f335d7a4986419f8a88c48c355d0332" />
+<p nodeId="0293796bf9934215b1b6fc30d57d3364" />
+<p nodeId="5ea332f30c614a12ae71d46f055d27ea" />
+<p nodeId="96e3eea57a514f6ba587a98df1f16d61" />
+<p nodeId="24436713083f433cbee13d78e23ba933" />
+<p nodeId="bf15492a61a246c6b536b5d8701f2d33" />
+<p nodeId="bc4aec0d57054c67b5e97913c76e8d70" />
+<p nodeId="64cd42e079b447b7889fbd0e392c42cc" />
+<p nodeId="d0da23bf4a16497091e0b2c2c5e21dec" />
+<p nodeId="bb4e871c262844fd94c2293f85dc6f8e" />
+<p nodeId="4e2023de19244751ae6ac27d16854100" />
+<p nodeId="da5eede098b64234bdc14dca1d30c6f2" />
+<p nodeId="020f62c3fd2b46039c335ced168256d8" />
+<p nodeId="db5e1b842c764f7cb8d6c9efd13ffac5" />
+<p nodeId="089b22b09dbb4613b141705985e6484c" />
+<p nodeId="dcddf0087c264ece835853ba6928bc43" />
+<p nodeId="68a6978e1eea4364965bf28e6dc5f4f8" />
+<p nodeId="6388627ed6874a5fb017affeaadfc5f8" />
+<p nodeId="0c49c5e707da4c4fbcbda8dbaf83ba83" />
+<p nodeId="475642ca9bbc48fe8913854f67e94a41" />
+<p nodeId="377e57165c1541f48cfe7650feb52a9b" />
+<p nodeId="d2636163c0704894b1dbda28b69da1ac" />
+<p nodeId="c01eabbe60b4476eaecf77df79494a9d" />
+<p nodeId="f20d7a51306549c3a137f0e022386ad2" />
+<p nodeId="aad74bce34184fbcbd259b7c1fd94704" />
+<p nodeId="484775ff89be4b74b4c5c49b081854d5"><span font-size="14"><strong>【修改任务状态】</strong></span></p>
+<p nodeId="a25a8661dbb646cb93051a9f85fec50a"><span font-size="14">在任务列表页可以快速修改任务状态</span></p>
+<ol nodeId="e80695198f2649c9958060d68fbdba06">
+<li nodeId="1db43432d60e429f9127522014aff8ef"><span font-size="14">点击操作列的「编辑」按钮，可以直接修改任务状态，选定后点击保存则状态切换成功；</span></li>
+<li nodeId="2337da35e3664330ac0b678ede3b5ff6"><span font-size="14">只有状态=down的任务可以删除，其余不可删除</span></li>
+</ol>
+<p nodeId="c086aa6779494023816a1f6422a904da" />
+<p nodeId="68e7a4a6840a4589a09c430726bf7420" />
+<p nodeId="03911977c3a24615a945458464c2e250" />
+<p nodeId="9b77cc45b3414b4eb183ecf18fa5c318" />
+<p nodeId="4a7a5d8f46cb4225ba3cb474f787ab87"><span font-size="14"><strong>【拨测任务成功率查看】</strong></span></p>
+<ol nodeId="81587113de3e44d69becabdb4e558a5d">
+<li nodeId="3a58a051e9b148bab2220226b5076ad6">
+<p nodeId="f049b3703de945f3a922789f1ee3e85a"><span font-size="14">拨测状态：一条规则可以配置多个拨测，在规则场景页面（即规则维度），展示的拨测状态为这条规则配置的所有拨测任务的汇总状态，</span><span color=" "><span font-size="14">共计四个状态，优先级：Running</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> &gt; </span></span><span color=" "><span font-size="14">Debug</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> &gt; </span></span><span color=" "><span font-size="14">Down</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> &gt; None</span></span></p>
+<ol nodeId="e73640b8f97c43ec9b79e5c89d382f27">
+<li nodeId="b0b4381534c44cc090bf82e9f132e951"><span font-size="14">None：表示该规则没有配置任何一条任务；</span></li>
+<li nodeId="4498af1594024fdb8e4eca3c8a7c1819"><span font-size="14">Down：表示该规则配置过拨测任务但当前所有任务均为Down状态；</span></li>
+<li nodeId="3e1f293e934e42e09cac7111e0e8fe23"><span font-size="14">Debug：表示该规则配置过拨测任务但当前任务状态没有Running状态的；</span></li>
+<li nodeId="c832620b0e36457badd10253a7ca0200"><span font-size="14">Running：表示该规则配置过拨测任务且当前任务状态有Running状态的；</span></li>
+<li nodeId="e293be4468884eee99d6508d610fd30a"><span font-size="14">任务维度则展示该任务的状态，只有</span><span color=" "><span font-size="14">Running</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"> 、</span></span><span color=" "><span font-size="14">Debug</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">、 </span></span><span color=" "><span font-size="14">Down</span></span></li>
+</ol>
+</li>
+<li nodeId="7a9f6d1896e34fa991345a36ed163e93">
+<p nodeId="36352a0e03e04907967c7553a3556d29"><span font-size="14">拨测成功率：计算公式为：</span><span color=" "><span font-size="14">RUNNING 拨测用例成功数 /  RUNNING 拨测用例总数</span></span></p>
+<ol nodeId="66ca841df6564f28ac43a0e849d7350c">
+<li nodeId="54f31268844f447eb8952b4b4ee45a04"><span color=" "><span font-size="14">规则维度：成功率=该规则在该场景下统计时点所有状态=running的任务过去24h的sucess的用例数/该规则在该场景下统计时点所有状态=running的任务24h的用例数</span></span></li>
+<li nodeId="90af706078fb4ee081f12e96382905fe"><span color=" "><span font-size="14">任务维度：成功率=统计时点状态=running的任务过去24h的sucess的用例数/统计时点状态=running的任务24h的用例数</span></span></li>
+</ol>
+</li>
+</ol>
+<p nodeId="aa5bda88f55f4d1396af4fefb1e1100d"><br /></p>
+</td>
+<td colwidth="[729]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="464f9198e2eb4453b67244555c010be3">
+<p nodeId="1b457c754db143c6831f13f52747e77c" />
+<p nodeId="13543bf6126d49c5a0588ef9332a275a" />
+<p nodeId="f8b9092927c547089b261611ed1ddacc" />
+<p nodeId="60e38c5d71da47bc9f1087fc3a30d2f1"><span font-size="14"><strong>【配置-单条配置1】</strong></span></p>
+<p nodeId="7e5bfaaa2dba46908a327c7bd3d68b40"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1266841731?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="366" nodeId="fdb516554a174081a7343a5eb9f1e40f" /></p>
+<p nodeId="78fa3dad39cd4582b12d14451520a6a6"><span font-size="14">半链路拨测配置：</span></p>
+<p nodeId="fd55df4ab5ce4d36bb0186ed00ddaf5b"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1266679983?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="364" nodeId="e310d0d7abe84903ad2a055d0eec8b93" /></p>
+<p nodeId="a513e061106d413489fe84130d40c813" />
+<p nodeId="9b1d3c87aedd4b3aad7d51b2a69b9e19"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1266846904?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="340" nodeId="cae67a78c14a4ea9a2cbe762c828d484" /></p>
+<p nodeId="12d03c44faaf4f14b31c700f168045b9"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1266934912?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="371" nodeId="243a28cb7a4240848ba2fcbe4986e3a9" /></p>
+<p nodeId="3536309777864de6b688a5766e0ce040"><span font-size="14">全链路拨测配置：</span></p>
+<p nodeId="e8e3fe0876e744b181820accfaf558c7"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1412702806?contentType=1&amp;isNewContent=false" name="image.jpeg" width="707" height="367" nodeId="64f4a9aca34f4e08896a293f874bf84f" /></p>
+<p nodeId="569abb75716c46199aacfdd03a373444"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1412828171?contentType=1&amp;isNewContent=false" name="image.jpeg" width="707" height="371" nodeId="2ac16219bfea4ac4a1645e111c02c6ab" /></p>
+<p nodeId="24a5c3bf291d4f50951a10b6f244d30a"><span font-size="14"><strong>【配置-单条配置2】</strong></span></p>
+<p nodeId="ae02a78ad1044aee86eca130582bb2f8"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267342266?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="341" nodeId="5052268348b148fc9772f2bc7700feea" /></p>
+<p nodeId="33879e19bc53456ba0acbb7a47749c73"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267362075?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="337" nodeId="83b93351096c45ad8a2aeb98f7a65ba4" /></p>
+<p nodeId="23e87654f6224c8fb6560b32d8451046"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267372487?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="344" nodeId="0cfb923af9ca406b9301cc727154261e" /></p>
+<p nodeId="eac71319663c40e39eec65d1a166397a" />
+<p nodeId="f47e2691b03946e7ac268ba727d1854b" />
+<p nodeId="74ce2b6cd6364bc08e8fbb1e1acf509a"><span font-size="14"><strong>【配置-批量配置】</strong></span></p>
+<p nodeId="521c4fa171ec4a4b9737e9cb970ca101"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267513243?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="341" nodeId="bbfbd6229ae3479d8594e7f1c316bd5f" /></p>
+<p nodeId="06f9887b80a6406e883fb78f9c9895e7"><span font-size="14">半链路拨测批量配置</span></p>
+<p nodeId="f533cf00860f4b18be106c834d9e1347"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1266469641?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="352" nodeId="163b5ed0c5ad4ed68c764b9523567ce5" /></p>
+<p nodeId="45132bb7abd84c748cdb9e5cdf0deb9f"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267517594?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="369" nodeId="dee303d30708429c9d23c1ce934c35fc" /></p>
+<p nodeId="fd25797cc78e4e05b1a67ad2aa624d74"><span font-size="14">全链路拨测批量配置</span></p>
+<p nodeId="936c788bd0304b76a91c937e22cb422e"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1412703517?contentType=1&amp;isNewContent=false" name="image.jpeg" width="707" height="360" nodeId="93b2d7a1fbd343faaeb9955629481769" /></p>
+<p nodeId="5ce77798f6484aa8a10c81df27825d9f" />
+<p nodeId="15e8eb9f663e4f4bb5e894c0c40a78a5" />
+<p nodeId="2017eea7bc6b442692a18ec39659177f"><span font-size="14"><strong>【修改/删除】</strong></span></p>
+<p nodeId="710926da79dc46648c15b37e0565d3d2"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267625109?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="340" nodeId="ecc4326b901549eda0942aba20ade9e6" /></p>
+<p nodeId="7018a9efc535417dad6cf44a4ff2838e"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267769834?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="306" nodeId="ecbc0a73a5244468afbc358785a42da4" /></p>
+<p nodeId="b89af7a56c5d4dccbc5727b05fcd4b63"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267593151?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="359" nodeId="5f1c1fe1a67e44ef9e0ee261b745669f" /></p>
+<p nodeId="50f18ff6b8634227bea2087ff5a1aa33"><span font-size="14"><strong>【修改任务状态】</strong></span></p>
+<p nodeId="d4e5a9758823450889a92e633ed692e9"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267945317?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="131" nodeId="fa416bd881a945488b3c721532a7f6fb" /></p>
+<p nodeId="c6913264b0714c8a9426a18cb9f740cf"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267818743?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="66" nodeId="bbb763068c9b4e668f3dadc13a7fe4ee" /></p>
+<p nodeId="ebb2cd5c0da84f81a2b10263a2c1e9ee" />
+<p nodeId="072d255fe76445958320c02eb464d81b"><span font-size="14"><strong>【拨测任务查看】</strong></span></p>
+<p nodeId="e589e6b81da8403c85b8ada54919c765"><span font-size="14"><strong>规则维度</strong></span></p>
+<p nodeId="f80e3344d5da4c2589917e7ab1be4e44"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267983358?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="299" nodeId="5197aeeba4784fefb685c42a412bf7d5" /></p>
+<p nodeId="c9d1e8d5593940679851fd3e7a33a7c3"><span font-size="14"><strong>任务维度</strong></span></p>
+<p nodeId="c62bf372e9cd4caab7f02b5187265825"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267983364?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="302" nodeId="9ecd575184304516a4e9c133ccbf2680" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="bef2ddc52c3c41fdbfa0121fc37564f1" />
+</li>
+<li nodeId="79b9f6f9cc9b420aa29dfd7ba6f61e3e">告警治理（主要为运维，非配置页）</li>
+</ol>
+<table borderColor="#cccccc" responsive="false" nodeId="89e78653148d4474a2215337cf0556b1">
+<tr nodeId="d63e8680007a4dfbac931907c459f707">
+<th colwidth="[434]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="902751002cb54744be8714070cafb4bc">
+<p nodeId="32924f8bf0e7405b91e4a51b6a846c83"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[727]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="8be26375391b4a6faef11fa59d9978ff">
+<p nodeId="a1ebfb00605c4f61b0c762a6a4903440"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="2e07230d60de4a1884698b151215671c">
+<td colwidth="[434]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="285d6fa0f8e445528cd36aa9d4636b88">
+<p nodeId="4900d32370904127961a92f3b5631832"><span font-size="14"><strong>【入口】</strong></span></p>
+<ol nodeId="f45a351d16ee4c79a1e2ce39a7a61a2e">
+<li nodeId="7c1bb8d2aa5d49a19395e6c72e4b6dda">
+<p align="start" nodeId="e0d1ef894c9b4db9b140a67c18d8205f"><span font-size="14">Zeus--&gt;策略排查--&gt;告警治理</span></p>
+<p nodeId="006399ef673f4b94ad60d0b4a27e74d0" />
+</li>
+</ol>
+<p nodeId="4084912216154aeaa371626177c01dcf"><span font-size="14"><strong>【操作】</strong></span></p>
+<ol nodeId="487789b90e8142d5b2ce3cc1a997addb">
+<li nodeId="8b6860174e6c4207b30cb6409b483013">
+<p nodeId="3d470e7110824aecb407c763ca8dcaf0"><span font-size="14">待治理：</span></p>
+<ol nodeId="144261a9b0904b5aaa38e2b1df615b70">
+<li nodeId="f11b82dedcfe4c9d8075339ea9eeaea0"><span font-size="14">待治理查询区可以通过筛选指标分类和指标名称，精准定位所需要治理的告警</span></li>
+<li nodeId="e3915a40dd1d4818ab03b171c176835a"><span font-size="14">治理：可以通过点击操作列的治理按钮，进行治理+填写告警原因，便于后续分析，也可以通过将鼠标hover告警内容上，悬浮展示具体告警内容，并在快速解决模块点击操作项，即可对告警进行治理</span></li>
+</ol>
+</li>
+</ol>
+<p nodeId="48759c93de3b4bc4bf48c7b3b95f50f2" />
+<p nodeId="9377490c706c41ba9444341a45bb7098" />
+<p nodeId="1cd72bae6ddb4ed494952666fad5354f" />
+<p nodeId="359c1c90cde84c95a7c3690290f1d42e" />
+<p nodeId="e643c923a3c74128ae1427a619b1c773" />
+<p nodeId="ad21b91df2244a008f5f15bd0a63703d" />
+<p nodeId="bc77a946ded04eb78b3a9621464aadc5" />
+<p nodeId="8214c4a54ae148b687cee96caff154da" />
+<p nodeId="5ea47fb44240481598a5e10134e3ecfe" />
+<p nodeId="61cab151c1014c3c82cbc4c1c57fb715" />
+<p nodeId="f7f406428c944a48896dc4cd31ec3528" />
+<p nodeId="ed317b255cd34575878568f2a17034fd" />
+<p nodeId="1d912ecc59a64ce4afb33011c4973f10" />
+<ol nodeId="6e7846beb3804c119b6bd1b882e7507d">
+<li nodeId="1b1ce85cabf94f85808a0eeb13e82705">
+<p nodeId="a87224ac2f6a44c6a1b64eebb2577329"><span font-size="14">已治理：</span></p>
+<ol nodeId="49a45d5070684f4ba4eaf208937a9415">
+<li nodeId="4752b1835692479ca81d9e5fa191c44b"><span font-size="14">所有已治理的告警均会从未治理转到已治理模块；</span></li>
+<li nodeId="f2e0be36fb6545fc83725cf3e2bd338b"><span font-size="14">已治理的查询区比未治理多了「处理方式」和「misid」</span></li>
+<li nodeId="466233c069a2400fbe133e72f0914d4a">
+<p nodeId="e0fe2ab07c6948dca3f6090065f482e6"><span font-size="14">列表项比未治理多了告警原因、处理方式、告警跟进人和跟进事件、时效</span></p>
+<ol nodeId="35bb8dc888344852adfef7c777942397">
+<li nodeId="82eaf09b8d324f66a3738dc3a0125aec"><span font-size="14">告警原因为用户在告警治理时所填写的告警原因，如果用户选择快速解决，则无告警原因</span></li>
+<li nodeId="89a36e2bc04b42ccb0abb2f1564cce48"><span font-size="14">处理方式为用户在告警治理时所选择的处理方式</span></li>
+<li nodeId="07b53d6d10644d61b3005279f5440cc5"><span font-size="14">告警跟进人为进行告警治理的用户的misid和进行告警治理的时间</span></li>
+<li nodeId="1076769a649846af866b73230a0152d1"><span font-size="14">时效：为告警报出到被治理的时间，精确到小时，四舍五入计算</span></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[727]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9590c237f6684dc8a09bf711a45d819e">
+<p nodeId="986eaf7e5954431eb8af99bc8c2450a4"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267962043?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="278" nodeId="1c94a6979ffc424ea8142a41d7008ee6" /></p>
+<p nodeId="3007a1fcbc78487ebe55e8ca123708a3"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267962049?contentType=1&amp;isNewContent=false" name="image.png" width="300" height="173" nodeId="b5a29c4f28e2465c907bc7a02178a4f7" /><br /><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267967684?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="278" nodeId="710d9e74432a4f5a8253f387c9827cdb" /></p>
+<p nodeId="3167297f4f9249c09ec1a5de63808cbe"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1267984896?contentType=1&amp;isNewContent=false" name="image.png" width="699" height="260" nodeId="63baf05e31d54cdb8f42fef580624fa5" /></p>
+<p nodeId="83a80852a9634c2e8f336b6081f3a1ac" />
+<p nodeId="43a105be119f487a96d2a334fec9dc99" />
+<p nodeId="104eaf960ad74c20b8da664b06ba2420" />
+</td>
+</tr>
+</table>
+<p nodeId="3e3d2833a8ad40fc9be2ac0e581de423" />
+<h2 nodeId="46056c32edc748e7a9354e19e230fefb">2.特殊说明</h2>
+<h3 nodeId="441211b756b74199bbe264b206f3ad03">拨测中涉及可变时间的情况：</h3>
+<p nodeId="fe5cc1375ba145b3b158461ffaac879c">部分拨测需要传入的数据中要求时间可变（比如说规则中有自动过滤过期数据的逻辑）。此时，需要使用另外的格式。</p>
+<p nodeId="fe9632b3335f4a07a260068c693cdd6a">内容中支持的时间格式为</p>
+<p align="start" nodeId="efd6289d18f748eb9721427bc6cf124d"><span color=" ">#DIAL#{时间格式 MINUS 时间段}#DIAL#</span></p>
+<p align="start" nodeId="3eff4ae59b8c4357bacdb11274157bf2"><span color=" ">简单例子如下</span></p>
+<p align="start" nodeId="1955f05143064dc5b7468a9ee08da532"><span color=" ">#DIAL#{yyyy-MM-dd HH:mm:ss MINUS 1d}#DIAL#</span></p>
+<p align="start" nodeId="4e08aadd0ecc4ac680a05f8cb7de09f3"><span color=" ">注意，时间段目前只支持m(分钟) h(小时) d(天)</span></p>
+<p align="start" nodeId="9e4b2e55fcfd4898bc70cb6c7ebe4199"><span color=" ">时间格式可以填写java joda支持的时间格式。</span></p>
+<p nodeId="21b598b989c64e3d93f7079264762d34">其他拨测支持的时间格式参考</p>
+<p nodeId="8f7ed17fb0944e5795e3dbb8a2037c0a"><a href="https://km.sankuai.com/page/1216432275" title="https://km.sankuai.com/page/1216432275" autoUpdate="true" nodeId="bb745f8d5167438f8a191ed6e8b954de">https://km.sankuai.com/page/1216432275</a></p>
+<h1 nodeId="9d6dda5798cc42d9a78a7e6770e63802">四、FAQ</h1>
+<h2 nodeId="324d9fdf2bcf4ed58043c522bc0676b0">如何kafka写入申请权限</h2>
+<p nodeId="05db50e8a2c74c9688c7f808b2a1fdcc"><a href="http://data.sankuai.com/hetu/tableApply?refer=primary&amp;rType=rt" title="http://data.sankuai.com/hetu/tableApply?refer=primary&amp;rType=rt" nodeId="5c34ae7833c04664911930c508eede1d">http://data.sankuai.com/hetu/tableApply?refer=primary&amp;rType=rt</a></p>
+<p nodeId="16107b42fe044ccdb62719f8c82708c8"><img src="https://km.sankuai.com/api/file/cdn/1212317095/1297936778?contentType=1&amp;isNewContent=false" name="image.png" width="1601" height="528" nodeId="813669a3d6bd42028602ee89e32450aa" /></p>
+<p nodeId="55d5b573680445d298505218e6e52940">输入kafka topic名称，并申请写入权限。申请权限需要kafka负责人进行审批</p>
+<p nodeId="a0c4129e0a3a4ce484da2325a97f55f2" />
+<h1 nodeId="44594998df85495a9c4e2bf8bb3b865d">拨测目标</h1>
+<p nodeId="399e5c86c25742a6b80c33095f248a4b" />
+<p nodeId="7fb3775e904543efb354dea49fe3c223"><span color="rgb(9, 109, 217)"><strong>各产品线的场景覆盖率达90%，以场景维度计算（场景中有一条规则配置拨测即算该场景已）配置拨测。目前近线引擎所有场景如下，尚未配置拨测的场景如下</strong></span></p>
+<p nodeId="9355836dd7d843cf84f933d0133b7854" />
+<p nodeId="8f37787831f64031bcacb8f9b8263b7a" />
+</km-doc>

@@ -1,0 +1,98 @@
+<km-doc>
+<km-title nodeId="e00f76a0d2264b9c8c91fb6a212bdea0">（旧版）说明：添加话术（客服备注、客服建议）</km-title>
+<km-catalog style="none" nodeId="19552883e20045a6b28329056376070d" />
+<h2 nodeId="d3a6bdaebd384810b5736e5e7712fa22">⚠️注：（本功能已迁移zeus，请见<a href="https://km.sankuai.com/page/1302283710" title="https://km.sankuai.com/page/1302283710" autoUpdate="true" nodeId="2906cf351f184fc0b3506d058cb3d5c0">https://km.sankuai.com/page/1302283710</a>）</h2>
+<h1 nodeId="3eb4ca2208e948f5adecff74f9b5ecc9">一、背景</h1>
+<p nodeId="83bae063b9a2460bbaa63fb96aef1ece">目前的Zeus侧的话术配置是研发hardcode实现，每次增加开发、上线；</p>
+<h1 nodeId="7ae8a9fad5a84da48fa0cb0e751ebf9b">二、操作详情</h1>
+<h2 nodeId="e72d42354e674617af6551ad015e47cd">1.用户操作流程概述</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/192816768/192961103?contentType=0&amp;isNewContent=true" width="737" height="358" nodeId="446b16f359c14ce4a38884dd5956b8bf" />
+<h2 nodeId="78f1504aa5a54016b8809fdff34c0227">2.详细操作流程</h2>
+<h3 nodeId="7b3b36cc70214188a65701a33bb61ada">Step1:入口</h3>
+<p nodeId="23d1ab0a44b643da8a1b9ea60f88f198">客服备注配置：<a href="http://rc-skywalker.sankuai.com/explaination_conf/remark_index" title="http://rc-skywalker.sankuai.com/explaination_conf/remark_index" nodeId="74ad87985d0440e3a1f4c576db1c0d5b">http://rc-skywalker.sankuai.com/explaination_conf/remark_index</a></p>
+<p nodeId="a728d5b11073471bae7d49d076d046ae">客服建议配置：<a href="http://rc-skywalker.sankuai.com/explaination_conf/advice_index" title="http://rc-skywalker.sankuai.com/explaination_conf/advice_index" nodeId="cbc168f71b2543e9b9220db7c91a9286">http://rc-skywalker.sankuai.com/explaination_conf/advice_index</a></p>
+<p nodeId="50ffe716e397406c8856604217827645"><img src="https://km.sankuai.com/api/file/cdn/192816768/192616101?contentType=1&amp;isNewContent=true" name="image.png" width="1324" height="385" nodeId="3d6637a6605d4cec94f5c1988e856476" /></p>
+<h3 nodeId="7b1762f75d5a42309fdd2a9874100240">Step2:添加话术</h3>
+<p nodeId="206fbde62d5649abb951d24913fd1865">点击新增--&gt;填写客服备注--&gt;提交</p>
+<p nodeId="7612d9523a5a4a5c9f2f195f8501c90d"><img src="https://km.sankuai.com/api/file/cdn/192816768/192961707?contentType=1&amp;isNewContent=true" name="image.png" width="594" height="232" nodeId="a1987d6753d54e23931c37ac9d056bee" /><img src="https://km.sankuai.com/api/file/cdn/192816768/192947874?contentType=1&amp;isNewContent=true" name="image.png" width="592" height="234" nodeId="271bd954e8cc43d5be0b877c139390df" /></p>
+<h1 nodeId="a5abaea5ae1249ca9f1eea901340470f">三、FAQ</h1>
+<h4 nodeId="1d9e417bc0b84449a628b49cce068991">Q1:提示没有权限怎么办？</h4>
+<p nodeId="90cd5250af494640b2c588e15d79a506">--A：发送邮件开通权限，详情见：<a href="https://km.sankuai.com/page/142311512#id-1%E3%80%81%E6%9D%83%E9%99%90%E7%94%B3%E8%AF%B7-1" title="https://km.sankuai.com/page/142311512#id-1、权限申请-1" nodeId="db9491fef18b47aa8bcdbf1590dda7a0">https://km.sankuai.com/page/142311512#id-1、权限申请-1</a></p>
+<h4 nodeId="b7a4ad2c7be74dd2bd5a6459d671a221">Q2:客服备注填写错误怎么办？</h4>
+<p nodeId="24e1a223388440748aaa7ba45ee8be3e">--A：目前因客服备注修改会影响太平洋侧展示，前端页面暂不支持修改和删除，可大象联系SkywalkerRD进行处理</p>
+<h4 nodeId="5d1bee6d80bd4819bfbab65740a9178b">Q3:还做了哪些客服备注相关优化？</h4>
+<p nodeId="12d3df4aa6a34797876dfea7258888bd">--A：优化了规则配置客服备注的操作方式，由下拉框，改成了模糊搜索。用户可在客服备注列表页面中查看有哪些备选项，在规则中模糊搜索选定配置</p>
+<h4 nodeId="44edf85b0c3e49358f967a0867e03c4b">Q4:客服备注、客服建议、话术间是什么关系？</h4>
+<p nodeId="81c885c22880452ea809227af9e8c8fe">--A：见下表格</p>
+<table responsive="false" nodeId="835100b647304048afa1224b738870a2">
+<tr nodeId="b53699d186234fd08e5f8ea544831f23">
+<th colwidth="[164]" nodeId="5f15188278264afd98f2c1b10a9ef787">
+<p nodeId="d4e18ae19ee34178ba46f91a49a7d801"><span font-size="14">类型</span></p>
+</th>
+<th colwidth="[114]" nodeId="372fc2765dc64f149bac62d3bcafba97">
+<p nodeId="e3f584047dca488abfa85b304c3bdcbc"><span font-size="14">在哪里创建</span></p>
+</th>
+<th colwidth="[179]" nodeId="f5c057898f7b4ce98f9f33b4b14359c1">
+<p nodeId="eb9dbb444d5440ae92f0cfcc6b84266f"><span font-size="14">在哪里使用</span></p>
+</th>
+<th colwidth="[195]" nodeId="7c35998b94774ef19f4d64666f645103">
+<p nodeId="77320e851dcd4afe8310ef9605756ea0"><span font-size="14">同太平洋页面字段对应关系</span></p>
+</th>
+<th colwidth="[418]" nodeId="d1bb52afc990400785685ec810819d65">
+<p nodeId="6c5da19d8c0e46c7859250382a4e5ba7"><span font-size="14">含义/特点</span></p>
+</th>
+</tr>
+<tr nodeId="2bad6969ade44700b4ae2b9f8129e9cc">
+<td colwidth="[164]" nodeId="d916d3ac384c492fac8f866aa7cbda1d">
+<p nodeId="81d0dc20b725424dba08c9cca35f3fd4"><span font-size="14">客服备注</span></p>
+</td>
+<td colwidth="[114]" nodeId="1f02a50f07f74e7c8be846e1cae4831d">
+<p nodeId="f68acc314d604e09b06b24fa7f4ad274"><span font-size="14">Skywalker</span></p>
+</td>
+<td colwidth="[179]" nodeId="a1fb3b06800d4ee48cef712d87b9f085">
+<p nodeId="68c38bc348104cde9a1556fbbb459cc8"><span font-size="14">Zeus-规则、太平洋系统</span></p>
+</td>
+<td colwidth="[195]" nodeId="84bcdcd6a9e14866ad10ab7a5cddff83">
+<p nodeId="76c54cf4df924c548ca59b392770993e"><span font-size="14">风控拦原因</span></p>
+</td>
+<td colwidth="[418]" nodeId="c103fc9232a04aff8e0b1820935877f9">
+<p nodeId="c0d30d5150224459ba70e7d82a1bcf7e"><span font-size="14">面向PM，同规则绑定</span></p>
+</td>
+</tr>
+<tr nodeId="7f1a1ebd85c94c2f9869bbafd2ebbf65">
+<td colwidth="[164]" nodeId="a1085aa7c57e4798868bdc183bf0eec6">
+<p nodeId="c79ac6bedd9d4871a058b65872f0fa1c"><span font-size="14">客服建议</span></p>
+</td>
+<td colwidth="[114]" nodeId="90fb84482cb64feead916a8acc3cef70">
+<p nodeId="1b9a8387098c450d994fa90b3f78cb9b"><span font-size="14">Skywalker</span></p>
+</td>
+<td colwidth="[179]" nodeId="0cb916295d0c4b8d8d4ba4c37f59199d">
+<p nodeId="b1cff64461f54657a613be4f4a8e8e9d"><span font-size="14">Zeus-规则、太平洋系统</span></p>
+</td>
+<td colwidth="[195]" nodeId="fdb5096f152f403885db74dbb56d0d20">
+<p nodeId="27cbf2bfb8f549c0b75ce0c84e4c8782"><span font-size="14">客服话术</span></p>
+</td>
+<td colwidth="[418]" nodeId="4917020ca53a42ae974165f87649dfb7">
+<p nodeId="9cff28e92ec444c59d313cab209c8c16"><span font-size="14">面向运营，同规则绑定</span></p>
+</td>
+</tr>
+<tr nodeId="d63e74b46ee345dba9201d2b4e157f05">
+<td colwidth="[164]" nodeId="1ddfd1879cdc4145b0ad51afe8e1e72b">
+<p nodeId="b7fc562f124f4db1968b765621207454"><span font-size="14">话术</span></p>
+</td>
+<td colwidth="[114]" nodeId="a5e3bc2938dc40d7a04e4d7f8891c175">
+<p nodeId="73264663ebaa4531833aa3b1dc55623d"><span font-size="14">Skywalker</span></p>
+</td>
+<td colwidth="[179]" nodeId="1d51e84649524d6ea45fb0baa037be4b">
+<p nodeId="a8b991d39ac049e99bd9d498b3f5ae16"><span font-size="14">太平洋系统</span></p>
+</td>
+<td colwidth="[195]" nodeId="265352c0a3d948f3af6b79bee66ffa82">
+<p nodeId="3a2a5969e3d64df689c05ce87fa9ee88"><span font-size="14">给客服建议</span></p>
+</td>
+<td colwidth="[418]" nodeId="7676eb001b7e44718da984c7a132d0ca">
+<p nodeId="271cacc9f1af4306b1e548c88afedcf7"><span font-size="14">面向客服</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="1183ac96955b4b41be1b15294b501407" />
+</km-doc>

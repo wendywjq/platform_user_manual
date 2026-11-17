@@ -1,0 +1,262 @@
+<km-doc>
+<km-title nodeId="cb4ae6705e71425ea8345e91dd486f77">常见问题答疑</km-title>
+<p nodeId="270688becd3c48ccb3502c8fdee5262a">202305</p>
+<table responsive="false" nodeId="b40bec106deb475bb385b00a4750d4cc">
+<tr nodeId="e11696eead8d4cf3b03391e379dc80c2">
+<th colwidth="[50]" nodeId="81aa32b9cfeb4fc68501eea6e92dba10">
+<p nodeId="07946cd1a829482faa6f5e475ab22c38" />
+</th>
+<th colwidth="[103]" nodeId="f3ec7399ae5f44d3aac4f47fac03f028">
+<p nodeId="68371dca6f094d8ea2f7bacc0002a9c5">问题提出人</p>
+<p nodeId="13310a354da84d27ba8b0d43df83984b">（mis号）</p>
+</th>
+<th colwidth="[118]" nodeId="36e50f26eb694ba5af295b64c32f7cdf">
+<p nodeId="23a723d424a54da5b7f58f14b459118c">问题提出日期</p>
+</th>
+<th colwidth="[274]" nodeId="f367649f025b4e158a965f5550a8d130">
+<p nodeId="d4770ff4e42645a38d9d707e424e462f">问题内容</p>
+</th>
+<th colwidth="[104]" nodeId="2eda09247e1946dab6c550a20280cbce">
+<p nodeId="cbccfebb2fa4480dbd7795384b68eb1f">问题回答人</p>
+<p nodeId="97c240de888e4d5b8f9b8992b66a88a6">（mis号）</p>
+</th>
+<th colwidth="[124]" nodeId="38294f0a000c4d848cc85f2d5a974135">
+<p nodeId="7f4da58f8c3c43ab8303aca955a245c7">问题回答日期</p>
+</th>
+<th colwidth="[373]" nodeId="ce585be01e304a70954d00d30363f282">
+<p nodeId="bc7569b6e2ca4686843fa173f40329c3">问题回答</p>
+</th>
+</tr>
+<tr nodeId="5263df354af946bfac6218bd2304edb7">
+<td colwidth="[50]" numCell="true" nodeId="848def7f9ff547c5b45b186d7cf2ec82">
+<p nodeId="c52b9a43527842f597cc276fbc1c16c7" />
+</td>
+<td colwidth="[103]" nodeId="c999b73e5c5342799a5c93d8bce62f1c">
+<p nodeId="a5ee022fefcf4b608ed7d4ea52b62fba"><span color="rgba(0, 0, 0, 0.54)">libin94</span></p>
+</td>
+<td colwidth="[118]" nodeId="c9906fe43cd7402e9ba04df1d8c9a3df">
+<p nodeId="c7708adf9c6140cd9a914cfd42b9eb1a">20230526</p>
+</td>
+<td colwidth="[274]" nodeId="fdd584f5fcbc4c9fb60af1b20df188ca">
+<p nodeId="8564d9f07fd043098a2f1e5e44b44621">近线决策输出，输出到哪里？</p>
+</td>
+<td colwidth="[104]" nodeId="b05b4af3ed9c4dcc88fa2b5470481cca">
+<p nodeId="19cf720fd6f6483fb6d5db126e4382e7">jiangtao</p>
+</td>
+<td colwidth="[124]" nodeId="6cf53cb9238f41b7832541a9981b6cb8">
+<p nodeId="2f27d0a2b3bb4dbfa39e100974f96b0f">20230526</p>
+</td>
+<td colwidth="[373]" nodeId="393ee23cb45444878ce4c52684622a29">
+<p nodeId="cacb482fb21346968cdaaa69765ce719" />
+</td>
+</tr>
+<tr nodeId="d6e4d41cf852424ab645b92c341db187">
+<td colwidth="[50]" numCell="true" nodeId="4f000f789c3946179889ed30200f40bc">
+<p nodeId="029e65d06e594e989820a1cf42eceef8" />
+</td>
+<td colwidth="[103]" nodeId="550b983d45e04a2ea6d7adc147916acf">
+<p nodeId="30f77eea08284000a2f4ac1767fd7f7d"><span color="rgba(0, 0, 0, 0.54)">libin94</span></p>
+</td>
+<td colwidth="[118]" nodeId="29a91d02d05840b4b9c5dd5b7264755a">
+<p nodeId="d0676a10c0da4d0591e0ab1dfdd02ce9">20230526</p>
+</td>
+<td colwidth="[274]" nodeId="c224c49abc8c4da7bde663a828b209e1">
+<p nodeId="7967a97710864903b1c63384446bbc97">我现在想在测试环境模拟下 规则、决策 配置策略demo 需要做什么准备？</p>
+</td>
+<td colwidth="[104]" nodeId="f6602d7357f84811bc4ec02e1e914848">
+<p nodeId="2080bd491d9b40a99c0713e113b19479">jiangtao</p>
+</td>
+<td colwidth="[124]" nodeId="26dfc7662e7643abb78962c13200a766">
+<p nodeId="8edf6e7048444a2cbc637142a600f822">20230526</p>
+</td>
+<td colwidth="[373]" nodeId="4c5052e0ea17419795b388b8a1ed0446">
+<p nodeId="14cd54f47e5e47f882e32c64476bf4f8">1.business空间下，策略部署下确认是否开通画布菜单，若是没有开通 请联系<km-mention name="杜思思" uid="dusisi" empId="" nodeId="fc37e041389e4959b49edf6a53139121" /><km-mention name="姜涛" uid="jiangtao59" empId="" nodeId="aa22d4b3b1c844aebd36a0d226dfd1a6" /></p>
+<p nodeId="683570d0d89b4d3e8c14f62a960d8dd7">2.已经开通画布菜单的用户，....</p>
+</td>
+</tr>
+<tr nodeId="766b0e8eea334c9d9301ec9abadbca96">
+<td colwidth="[50]" numCell="true" nodeId="d8c8b48490e349a4b32300347e36de47">
+<p nodeId="16318491fdcd4b939be7b97e596c78dd" />
+</td>
+<td colwidth="[103]" nodeId="bc1614b61a134e2389093d3c239f6927">
+<p nodeId="eb84b910c1294525a1c57ef13e302897" />
+</td>
+<td colwidth="[118]" nodeId="fd41e05bcac343b4bd5904935b3252ce">
+<p nodeId="bf8a658e190c4bea89312606bfc2aa4a" />
+</td>
+<td colwidth="[274]" nodeId="6bd21563ec97407a816e868a7d2aa9a0">
+<p nodeId="7d256f1041cc4bacbe3197bb495e334e" />
+</td>
+<td colwidth="[104]" nodeId="e052724f4691432ca8a0d1be27887d3b">
+<p nodeId="bd63076b4634443c80d6a4017504741f" />
+</td>
+<td colwidth="[124]" nodeId="5563d21104da4785aa8317b17ba1f2f3">
+<p nodeId="a5af8da0c6974a3fae79323259e8f456" />
+</td>
+<td colwidth="[373]" nodeId="d0aa5273b115436388bf63f4c8543d0b">
+<p nodeId="b1f4bda7595d435b91a095be24f43c5b" />
+</td>
+</tr>
+<tr nodeId="fc4984e33ac0422db1f57e75b6296d14">
+<td colwidth="[50]" numCell="true" nodeId="35248597520d4652993488f211f0c1f7">
+<p nodeId="08b95d0f95744e0698bf2783ce10ba8e" />
+</td>
+<td colwidth="[103]" nodeId="92953bc0001f456eb5c9eb10872a9c8e">
+<p nodeId="ed094aad7d1b4c07b9ded0eba74ea6bb" />
+</td>
+<td colwidth="[118]" nodeId="4a148caeefb1443695389b21c6c07819">
+<p nodeId="d10a54ca0c4f4291a9dfdfc24fed2a55" />
+</td>
+<td colwidth="[274]" nodeId="a738005030ad44139964ae874208142b">
+<p nodeId="17d0b3d3d870455688084998f0bd34bb" />
+</td>
+<td colwidth="[104]" nodeId="065c7830223842f3b220b147448f018a">
+<p nodeId="517734a9052a49d98046c5ae40113f1a" />
+</td>
+<td colwidth="[124]" nodeId="43657b0909744555ba0523894bce34dc">
+<p nodeId="55790968e2b8423abb07545257f07301" />
+</td>
+<td colwidth="[373]" nodeId="913fbfd0cd9d453ba9f62cf7136d5752">
+<p nodeId="620bb2ff446c438ba68a8f0ea917825f" />
+</td>
+</tr>
+<tr nodeId="104b6aa043904f1eb569c145b488126d">
+<td colwidth="[50]" numCell="true" nodeId="888b5bdc43324b369f772a867678a7a3">
+<p nodeId="18d13b6e664943e4bb5d3eb0cf85ce99" />
+</td>
+<td colwidth="[103]" nodeId="ee2b36b166b949f99a9fcf007d5b745f">
+<p nodeId="1f30200831954cf28030cf7017fc7cf6" />
+</td>
+<td colwidth="[118]" nodeId="d344de7fe3bd45c4b5c344f52eeb298d">
+<p nodeId="93fb9f8bcf8b43e9bfefa239244f3804" />
+</td>
+<td colwidth="[274]" nodeId="5eb6309e21b741328c30ea2852a6584a">
+<p nodeId="e95084aab6904dee8700676f5e564c6c" />
+</td>
+<td colwidth="[104]" nodeId="86178db3b2c34bce80bbf235172a2f9a">
+<p nodeId="0f375d5805fa4e4bbede061a3479b6bf" />
+</td>
+<td colwidth="[124]" nodeId="e5e8ecde124041579fb77ae4731bbc78">
+<p nodeId="219bda0f48774f3bb4022a4c10179200" />
+</td>
+<td colwidth="[373]" nodeId="b4aeaa11c9db413085e145275816e293">
+<p nodeId="996cc822d1fc4101a72f9b392f50430d" />
+</td>
+</tr>
+<tr nodeId="30899a5705594f2ca0587fbe3572159d">
+<td colwidth="[50]" numCell="true" nodeId="9ac553f0dbff43ce87d623833076b219">
+<p nodeId="afba889f7d694eb38431f70fdc6926fa" />
+</td>
+<td colwidth="[103]" nodeId="65064b4af28145cfaefcae90dd7839aa">
+<p nodeId="05ca835182944c17b9d8b1527ca76e04" />
+</td>
+<td colwidth="[118]" nodeId="490d9886257e4781b74f74b9ce92629b">
+<p nodeId="c35c292df2b747109c24973a029fe097" />
+</td>
+<td colwidth="[274]" nodeId="46e8776e04d84ba9a18ec981dfc54ce1">
+<p nodeId="12ce73b907e14b648098ea68a2b93402" />
+</td>
+<td colwidth="[104]" nodeId="90f74184decf44158eaa2fd23885087d">
+<p nodeId="e3cf238da52244258c2affe4f1a14ee5" />
+</td>
+<td colwidth="[124]" nodeId="b0bc77af8c23414eb27705b4720ba19a">
+<p nodeId="f2c74cfa7e844ce0a2753048d531742f" />
+</td>
+<td colwidth="[373]" nodeId="6f20f77c48b34be7a69bbe01b42a26c4">
+<p nodeId="44db29ab29a94d5b8177189d83db1dff" />
+</td>
+</tr>
+<tr nodeId="2543c5947a2f4439aadca2a2c9d139c0">
+<td colwidth="[50]" numCell="true" nodeId="039fa1a113714024aace0682a72fda15">
+<p nodeId="4f4937aa8d36496aa734f1f10d1f6081" />
+</td>
+<td colwidth="[103]" nodeId="b1b9e030a4e54078bdef5cc498d558ee">
+<p nodeId="7bac30b00d5d48d48739d2ce5114732c" />
+</td>
+<td colwidth="[118]" nodeId="1a96df469e7e4efa9373c3feeb53c3d6">
+<p nodeId="c5d6bb2ed3724706a8fab6335953355d" />
+</td>
+<td colwidth="[274]" nodeId="ac95b8c1c2634a87986509a7fd09aa01">
+<p nodeId="b130ae4dfd704336bfd3b930fd7f04c9" />
+</td>
+<td colwidth="[104]" nodeId="e37f86160f3244edabda978fb629623d">
+<p nodeId="313d8d80f8114444a075895375c67def" />
+</td>
+<td colwidth="[124]" nodeId="79fb5d2ecb8e4b2caedd7a3278f414d8">
+<p nodeId="437e17ce1d464978999b56953e0d1012" />
+</td>
+<td colwidth="[373]" nodeId="0bbfa6736e754ea28005422d79e962af">
+<p nodeId="a525cd5446bd4dcba5a46348918188f9" />
+</td>
+</tr>
+<tr nodeId="4eb466fb2fde42f4bbb9fe42ee2b82c0">
+<td colwidth="[50]" numCell="true" nodeId="4b21ccebf99f4f31a100f417d38253c8">
+<p nodeId="e0266cdecc3e45c38b0dedc714c47713" />
+</td>
+<td colwidth="[103]" nodeId="6ff50c901b3d4881b5ce13e1dea9f79e">
+<p nodeId="4864ecacb4294f8caac7e15380593386" />
+</td>
+<td colwidth="[118]" nodeId="b04e000787884ff391c25d09e068a52a">
+<p nodeId="f9dfc56f0c624164891ec31a1851260e" />
+</td>
+<td colwidth="[274]" nodeId="fe62c678363943f4868ff31bf386f6b8">
+<p nodeId="000328306d3a4bd7918d8e5481d659e9" />
+</td>
+<td colwidth="[104]" nodeId="a1f80130af3b4fb9914710e823cc0ebc">
+<p nodeId="9fd8fba102894eabbc6587d2958af3a8" />
+</td>
+<td colwidth="[124]" nodeId="55a5e2c4cc454ffcafa0ca916aa5bda9">
+<p nodeId="d10024a1e19f424292b63d79a5b39022" />
+</td>
+<td colwidth="[373]" nodeId="f7c4d4d5c8fb4f898e1174c1e07dbca2">
+<p nodeId="06c453ac7bb34ce1bdaca07b05d76561" />
+</td>
+</tr>
+<tr nodeId="8a81c1252cdb44d1b244ec1013fe1f38">
+<td colwidth="[50]" numCell="true" nodeId="e8b8e49904b141529a1062e8d4176be1">
+<p nodeId="11d9a27d6fb447f687ca3d3f67d23219" />
+</td>
+<td colwidth="[103]" nodeId="a00e994c59864c1f9eed39b31083a5c4">
+<p nodeId="a969e74b26fe4f649e7fc2f202e7f2cc" />
+</td>
+<td colwidth="[118]" nodeId="e8e14568984b4529ac8771170d1ca5f0">
+<p nodeId="310995ef7c414ffcbceeb5cad7864b47" />
+</td>
+<td colwidth="[274]" nodeId="04e9b780fffe4fc686d9bc52c56cca21">
+<p nodeId="a773060ba34d4598b3c115d718dc62c9" />
+</td>
+<td colwidth="[104]" nodeId="18dee7a9ea5347bba41f68369c5e6d40">
+<p nodeId="8c34d11b60794f9393073c18b9fd618c" />
+</td>
+<td colwidth="[124]" nodeId="c2cce819586c4b18922adce10b74742a">
+<p nodeId="653da60fee814d9cbe7187e3c5b3c30b" />
+</td>
+<td colwidth="[373]" nodeId="67cd58641d7e492781dbba8b34b9dbfc">
+<p nodeId="77d039cdc8ae4ba18d25fa5cdb38beaa" />
+</td>
+</tr>
+<tr nodeId="1233d4c7ae0947cba79eb6a0ed1d5b94">
+<td colwidth="[50]" numCell="true" nodeId="e5cd014eae654fe5909daa41bf547d9e">
+<p nodeId="3cce40a5dbf14e41ae56a2a344032f53" />
+</td>
+<td colwidth="[103]" nodeId="06175cda038e421db1358ccc37124922">
+<p nodeId="b18f116929d2473eb1d92c0680b41c19" />
+</td>
+<td colwidth="[118]" nodeId="f475fb6f165641e5b34aff79d007e0cc">
+<p nodeId="446611ede160407da49ee4613f206f9d" />
+</td>
+<td colwidth="[274]" nodeId="d4f8b53ba50f49d8ac3e61cd779015af">
+<p nodeId="e06153626cd84fb8b3beda49c79ae9c7" />
+</td>
+<td colwidth="[104]" nodeId="eb2ed6dbc3034e678cf8603f0a31422d">
+<p nodeId="17dbc1e7c9bd4e49aed94f80e407665c" />
+</td>
+<td colwidth="[124]" nodeId="f8d987ebdf10491eb668fd70b4f8fb3b">
+<p nodeId="1da515653fd540589a391b5a29da90d4" />
+</td>
+<td colwidth="[373]" nodeId="1dc38f6cae704bb3b1a254fde52b3eea">
+<p nodeId="eba52148039c4ac99f81936aff8d8c90" />
+</td>
+</tr>
+</table>
+</km-doc>

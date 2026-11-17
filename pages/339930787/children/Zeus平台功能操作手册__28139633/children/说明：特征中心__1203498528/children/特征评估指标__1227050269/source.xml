@@ -1,0 +1,215 @@
+<km-doc>
+<km-title nodeId="cec8436d1fa24ef58ad2884e52b3c247">特征评估指标</km-title>
+<table borderColor="#cccccc" responsive="false" nodeId="1510d939bfc24bfb92fc9b5f31d7aff0">
+<tr nodeId="094afcad8f344560aa4c1a5d0a600bae">
+<th colwidth="[112]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="cfbe5d68d0934fb0a1839b49e7f86828">
+<p nodeId="9d4d41da561649bc833becd26237bc30"><span font-size="13">指标名</span></p>
+</th>
+<th colwidth="[573]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="7eb06c1b86eb4a62813b58a54cda1038">
+<p nodeId="22273e8e1fe4483c90b2b48827c00fc9"><span font-size="13">指标计算逻辑</span></p>
+</th>
+<th colwidth="[109]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="8fab37d723604d56ba9396f0a49460df">
+<p nodeId="d70cbeca7d5c48989998d8111be2fde9"><span font-size="13">指标类别</span></p>
+</th>
+<th colwidth="[126]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="397b9337565044a0a492ea46b5bc0125">
+<p nodeId="1440d91b2c314541926eb59980b9e803"><span font-size="13">指标适用特征类型</span></p>
+</th>
+</tr>
+<tr nodeId="499ae2e789df437198b2734294be4b1d">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="96896cbf1b4545efabf794fecc85fea5">
+<p nodeId="53dbf53ba9304848b9b47a257aa77483"><span font-size="13">总量</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2539d915127e47b795d49ad80136b2eb">
+<p nodeId="a817233e039a40cdb05ac41e8c95505e"><span font-size="14">即统计一个特征总的数量。此处指满足条件的统计总数。</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2c52d0b0c6a64bf5adb5b1cbc857be35">
+<p nodeId="4da69e3cbb734c32ae9ab90f44587dbe"><span font-size="13">统计类</span></p>
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0ec6f98839d349db9c3dc0602cc222dd">
+<p nodeId="da816d1dad0a4048a9127bf2c5dbf4af"><span font-size="13">all</span></p>
+</td>
+</tr>
+<tr nodeId="7a8bf5aa75f84cbd9f5e0954c46c4b8a">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7f45e4b55c8d411086b645cc27e24a5c">
+<p nodeId="06b080fdc9764c9c9d735746c1ce9b42"><span font-size="13">类别统计</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c07eb388078f451bb8addff68243d729">
+<p nodeId="146be6d609cf4091bb47d49aeb9c1f0b"><span font-size="14">统计一个特征计算结果共计几种类别。举例：性别特征只有男、女两个值，类别就是2。</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6f00c7b6add84fa79d307ad4c1594546">
+<p nodeId="c650f5645b9b47878fa1dbdb32b02add"><span font-size="13">统计类</span></p>
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1cf70c71aab94667969058ba48973ce3">
+<p nodeId="d3b8c509b5844210a073f677e3c040e3"><span font-size="13">all</span></p>
+</td>
+</tr>
+<tr nodeId="a900f00cc3044b5bbdeacef2222062f7">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="31e7a715710a43c2823502e2d3cee1b9">
+<p nodeId="51114fe56b3c4e04b92c8449fde41899"><span font-size="13">非空统计总量</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="569fbdef8d6a40cfad43b712f69a71fd">
+<p nodeId="b87048915b62483791911c7b20d87461"><span font-size="14">统计总数时，排除了特征计算结果为空的情况。</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2dfbeb4950654af7a7b78e11f00b9784">
+<p nodeId="c8ac223efa4544c2b655ca031d20cd57"><span font-size="13">统计类</span></p>
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="94c144b11dc14c44954024e10d3b348b">
+<p nodeId="98ef3301fcf04120bb3f3fe671809204"><span font-size="13">all</span></p>
+</td>
+</tr>
+<tr nodeId="9b4728d45a694390bfeb9a566c565e12">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e7eea4a44285477e837297bf4135decc">
+<p nodeId="9094a0ae0c494684950714fd0598cb9f"><span font-size="13">缺失率</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="29af29b4f11b478b81888592a3620c68">
+<p nodeId="7ca1bd93ecfd40f3a8caf5f07e9ac39f"><span font-size="14">计算特征值为空的特征总数/该特征的总数</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b605093e19c84ff887eebc55af838e99">
+<p nodeId="047a3ed254584276b597ba11683d5751"><span font-size="13">统计类+计算</span></p>
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f33e69f35fca41b4a6deea4ab15ce71a">
+<p nodeId="29088f75cdb140bf8ac610f3aa33b7ec"><span font-size="13">all</span></p>
+</td>
+</tr>
+<tr nodeId="0a8d4f4cb8fe43f58f6739365dc38629">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f208ff11a4894a5a833c9196e02e5e91">
+<p nodeId="e8e7ea614e7e41bb84d6a592b7b316e9"><span font-size="13">单一度</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="012bee39913d44669d98ed6bd9d0e438">
+<p nodeId="a9a480d4428e488da7824b2c75e67a86"><span font-size="14">计算一个特征中特征值总量最大的特征值的总数/该特征的总数。举例：年龄特征：18岁的100个，19岁的40个，20岁的10个，单一度就是66.67%</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="98157ec2989c43e4b60a1449deea8e1e">
+<p nodeId="0311a7753f724202931708e81ad53ca3"><span font-size="13">统计类+计算</span></p>
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6875de479a004b7d94e9da5e4942a7e2">
+<p nodeId="9d50beae5ac845108b8f565dac5430a3"><span font-size="13">all</span></p>
+</td>
+</tr>
+<tr nodeId="f8b329fd096844e698321bc37ddcb6e8">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2e27c5700fe2458e870d6e13eb633896">
+<p nodeId="aa3af28f7e214c119079a9073d2be514"><span font-size="13">均值</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="168463fd896b422092ef302bd9ea5c59">
+<p nodeId="c6503af00dee436eb71efe3ae8573fbb"><span font-size="14">返回一个特征的特征值的均值</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="71ac1850ac8e4177ad6286a82374e380">
+<p nodeId="2d939d176cfd4284b9ac5b09579419d5" />
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="289c5aa042f24ec3ad447bf2397fa73f">
+<p nodeId="e985f8daa195446da28ea1fdc13970af"><span font-size="13">数值型</span></p>
+</td>
+</tr>
+<tr nodeId="564a928178554fc89cbd493607006011">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="233c97076040432d81040d9371ce928f">
+<p nodeId="a161d1cea6f147b9bfc90f15bad6c901"><span font-size="13">中位数</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4592bad161494e6f8965357d17fe4bfe">
+<p nodeId="d102b508d83d464c808c03726f9b93d2"><span font-size="14">返回一个特征的特征值的中位数</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="08fdeb8e1d4d479186dbce07ca55cd44">
+<p nodeId="6d911651560e4ac98805830cba1a04ed" />
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1c1950017ee34a7383f9e581fd45a5c8">
+<p nodeId="a3c098bda9a443e8817a2243d8b65fd5"><span font-size="13">数值型</span></p>
+</td>
+</tr>
+<tr nodeId="1a58687187ca415aae8f6258790dfb2e">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7b3c1422f97d4c1f9333069b785cf17c">
+<p nodeId="d812f97c63dd46cfab6012e23985d95a"><span font-size="13">众数</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3b91f38688af48e4826ea177e142949d">
+<p nodeId="dddbd1e0923640d19de65daa51776d61"><span font-size="14">返回一个特征的特征值中出现次数最多的数据值</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="db6b55bb5bfe4522881ca64335752cdd">
+<p nodeId="23c2f11510274ef48b891c743c69cc70" />
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="aded58a388884f529ed6281273a5f0ab">
+<p nodeId="32bc1c4c788d45f78bb3f994e6df90aa"><span font-size="13">数值型</span></p>
+</td>
+</tr>
+<tr nodeId="b25b68d906644ca59cdbc6ebba07e21c">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="daedbe304d144b2bb1b5d9f27e372dcc">
+<p nodeId="2ca1278c58154e6ab32fad82842babb2"><span font-size="13">方差</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8b762c653bfe413791f683e12b3b551a">
+<p nodeId="63ebbba7a41b4944b16afb4294c06181"><span font-size="14">返回一个特征的</span><span color="rgb(77, 77, 77)"><span font-size="14">各个数据值与平均数之差的平方的平均数</span></span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c6caac244e4e49479ebd61da2b9b5535">
+<p nodeId="72ba4b79b19e4dc786241f2d06a320b0" />
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f20fefddb90f469897c36d563ed35ab0">
+<p nodeId="6b45beef4f2f4a0988426a55f25d68a1"><span font-size="13">数值型</span></p>
+</td>
+</tr>
+<tr nodeId="f3c2e58bce934ad4a4408797373df2f8">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a408cbcec3ae4dd2ad9d634f05d069fb">
+<p nodeId="fc150d8008f84023b51592557cfb0847"><span font-size="13">标准差</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="edf445c35c6746ee888a97a73b393348">
+<p nodeId="5a0d5a661d27478daee9ade11573428d"><span font-size="14">返回特征的方差开根号</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0c65d2c1398f43a189c73233a9bf6edd">
+<p nodeId="de80312430654f789c6660ddec555cfd" />
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="222988b1914f41cb810a08df26a10574">
+<p nodeId="5a8576e1a8384ed38855b01354b275c3"><span font-size="13">数值型</span></p>
+</td>
+</tr>
+<tr nodeId="614eea8804f343d3bd1568950e021c90">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2efa38646ca9401e94135e63baac6997">
+<p nodeId="f9f165fb1fcf49598474680e7a6134e8"><span font-size="13">最小值</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5a860e818b2a465db77305559e8292a8">
+<p nodeId="b689e201cb104c6487c6a00f39b88599"><span font-size="14">返回一个特征的特征值中最小的特征值。</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0fe22637e4374e44bc4c789428c73f72">
+<p nodeId="ce1f1a888435448bbc0173ea651d7970" />
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d2f28a633d3643589d4d04861d2c58bd">
+<p nodeId="b0e9f09c606240c0bea723c7b9b611b2"><span font-size="13">数值型</span></p>
+</td>
+</tr>
+<tr nodeId="cf5a23ce62114c79a443dd2878364816">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="031c28a3e226456aaf1fe58bb4a4e7f1">
+<p nodeId="81fca048cbee453bb469429cd0a0117a"><span font-size="13">最大值</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9a5df344ef8a4032aa047b5c092a3d04">
+<p nodeId="9ab92866ed1849ef837f16c94ba2286e"><span font-size="14">返回一个特征的特征值中最大的特征值。</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c19565de7c344fcf9a2cc8a96c3a0be0">
+<p nodeId="97476ab7e05a43a1ba83bf8a1e4aeaf6" />
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a93aa2fe51494df788a4462fb27fe107">
+<p nodeId="6f454b834ca847a28c6b1d77b7ed99be"><span font-size="13">数值型</span></p>
+</td>
+</tr>
+<tr nodeId="7235ee498d0142ea8dc1188b16861821">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="986794a84b8848a1b64d89f494775b83">
+<p nodeId="e17f9907c57e40b2b8f12172fcb7f872"><span font-size="13">四分位距</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6e1423db44474b32b205b1e85d833a80">
+<p nodeId="3711cb5a114a4796a4a83c5a722cf027"><span color="rgb(77, 77, 77)"><span font-size="14">将一组数从小到大排序，分成四等份。每等份之间的数叫做</span></span><span font-size="14">四分位数</span><span color="rgb(77, 77, 77)"><span font-size="14">，依次记作Q1、Q2、Q3。</span></span><br /><span color="rgb(77, 77, 77)"><span font-size="14">四分位距=Q3-Q1</span></span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f778ddd17f2c47fea659977f43dce08e">
+<p nodeId="b9ce943eb824478b8c727abb1fff976d" />
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cc5e530e9405413e80dee56cf578d650">
+<p nodeId="761c5ece9da848f0945a011cd3974ddb"><span font-size="13">数值型</span></p>
+</td>
+</tr>
+<tr nodeId="b97a002643ef4d2e859860ac1b687ec7">
+<td colwidth="[112]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b7610d4a732b4d86aa9a19d3ca292d8b">
+<p nodeId="54aa9add406b4101b8df85ccbd5755f3"><span font-size="13">离散系数</span></p>
+</td>
+<td colwidth="[573]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8f4ccf1ca68942ae9e680eaf8f9c45d4">
+<p nodeId="f6684bcba79a4d9fa9d58b43606d5515"><span font-size="13">标准差/均值</span></p>
+</td>
+<td colwidth="[109]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="58b55d9de4f0411494cf190576c7b9a5">
+<p nodeId="fffedb9f4b53456fa9a2b0e1ccc26bd7"><span font-size="13">计算型</span></p>
+</td>
+<td colwidth="[126]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="06044cf7363e44d0ab183e41c8737d5a">
+<p nodeId="e6a0488255e64de291dc3411cc196c05"><span font-size="13">数值型</span></p>
+</td>
+</tr>
+</table>
+</km-doc>

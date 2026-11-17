@@ -1,0 +1,19 @@
+<km-doc>
+<km-title nodeId="09adafb097aa432c9a3badba27bfcd73">画布拨测配置临时方案</km-title>
+<p nodeId="bb4e805afe3a477691c141d50ee4155f"><span color="#f5232d">目前画布拨测不支持GroupBy时间窗口。</span></p>
+<p nodeId="d568b868d79d4d5faef6bf3d2f1f2483" />
+<p nodeId="c7b9177615884968b39e0e23d928d203">请参考 <a href="https://zeus.sankuai.com/data_zeus_static/#/dialTest/detail?id=179" title="https://zeus.sankuai.com/data_zeus_static/#/dialTest/detail?id=179" nodeId="5944a0c1d4d34f8d963c1323948ef7ce">https://zeus.sankuai.com/data_zeus_static/#/dialTest/detail?id=179</a> 进行配置。</p>
+<p nodeId="4146485fc2cb4190988cd51067f2301e">配置的规则选择 </p>
+<p nodeId="bafa0c6333c64308894b242eb260a7f3">64881-画布8拨测规则</p>
+<p nodeId="a0a8ba4501894374a05d5712a6d43c9e">配置的场景选择</p>
+<p nodeId="4e79172f615441e3b23a156ce4203ce3"><span color="rgb(44, 62, 80)">12471-画布拨测专用场景</span></p>
+<p nodeId="bd66febf1ba24d51945b73319aa299b7"><span color="rgb(44, 62, 80)">其他正常填写。填写完成后联系</span><km-mention name="高大亮" uid="gaodaliang" empId="" nodeId="a6b7f3323a7d4b53b76c64036e48cd39" /></p>
+<p nodeId="e819075deb6f420baa1e5f40335271f4"><span color="rgb(44, 62, 80)">提供以下信息</span></p>
+<ul nodeId="6c264b1718534d9d8648da2fa6eea84e">
+<li nodeId="56c7b69d7d91408a98604e1b4f952339">预期命中的画布作业ID</li>
+<li nodeId="1c6b72276b614531978a61ae3af5f72c">预期命中画布作业中的金丝雀报警或者旁路输出。</li>
+</ul>
+<p nodeId="5fa75ecd51814cec8bf73a54cf8eaf0a"><br /></p>
+<p nodeId="e7e11b55711b451f8a570e634291483b" />
+<p nodeId="fc927dd21cb345d084dcb6ade99af455" />
+</km-doc>

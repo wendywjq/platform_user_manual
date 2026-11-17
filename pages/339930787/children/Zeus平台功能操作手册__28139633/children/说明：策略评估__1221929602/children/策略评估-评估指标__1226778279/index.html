@@ -1,0 +1,145 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>策略评估-评估指标</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-9">三、操作指南</a><a href="#section-10">1.用户操作流程说明</a><a href="#section-11">系统默认指标</a><a href="#section-76">自定义指标</a><a href="#section-149">2.特殊说明</a><a href="#section-151">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：策略评估</a> / <a href="index.html">策略评估-评估指标</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1226778279">查看学城原文</a></p><article>
+<h1>策略评估-评估指标</h1>
+<div style="none"></div>
+<h2 id="section-3">一、背景</h2>
+<p>相见策略评估的背景</p>
+<h2 id="section-5">二、名词解释</h2>
+<p>评估指标：</p>
+<p>默认指标：如果生成评估任务，无论业务方是否配置，系统都会默认计算</p>
+<p>自定义指标：用户用系统指定的运算符，自定义配置的指标</p>
+<h2 id="section-9">三、操作指南</h2>
+<h3 id="section-10">1.用户操作流程说明</h3>
+<h5 id="section-11">系统默认指标</h5>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：</span></p>
+<p><span style="color: "><span style="font-size:14px">zeus--&gt;策略评估--&gt;评估模板--&gt;评估指标tab</span></span></p>
+<p></p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">指标名</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">指标说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">待评估规则的命中量</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">getAssessRuleIdCount</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">以请求（request_id）维度进行不去重统计待评估的规则的命中量</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">场景调用量</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">totalRequestCount</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">以请求（request_id）维度进行不去重统计待评估规则所在场景的流量</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">待评估规则命中率</span></span><br><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">getAssessRuleHitRate</span></span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">getAssessRuleIdCount/totalRequestCount</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:14px">待评估规则命中量/场景调用量</span></span></p>
+</td>
+</tr>
+</table>
+</td>
+<td>
+<p><img src="assets/eada9530da73d67a.png" width="534" height="207" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h5 id="section-76">自定义指标</h5>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">计数</span></p>
+<ol>
+<li><span style="font-size:14px">以请求（request_id）维度进行计数，不去重</span></li>
+<li><span style="font-size:14px">可以计数指定规则的命中量，前提是计算该指标的评估任务所过的场景中有该规则，不区分这个规则是标记状态还是生效状态</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/a08acc713ce3524e.png" width="539" height="490" alt="image.jpeg"></p>
+<p><img src="assets/703939773964b345.png" width="539" height="219" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">加法/减法/乘法/除法/取余</span></p>
+<ol>
+<li><span style="font-size:14px">针对这5种计算方法，会带出两个输入框，输入框为下拉选项，选项为已经有的指标</span></li>
+<li><span style="font-size:14px">针对除法，四舍五入保留两位小数；</span></li>
+</ol>
+<p></p>
+</td>
+<td>
+<p><img src="assets/39c2c1bf3d251888.png" width="539" height="354" alt="image.jpeg"></p>
+<p><img src="assets/54a8c49af0a4bcc0.png" width="539" height="361" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">命中其一累加/命中其一的待评估规则</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">上述两种算子类似于sql中计数时 where条件的in语法</span></p>
+<p><span style="font-size:14px">select count(*) from table where column_name1 in (condition1, condition2.....)</span></p>
+<p><span style="font-size:14px">区别在于：</span></p>
+<p><span style="font-size:14px">命中其一累加：仅以请求（request_id）维度，统计命中后面条件中的规则的数量</span></p>
+<p><span style="font-size:14px">命中其一的待评估规则：仅以请求（request_id）维度，统计命中后面条件中的规则且命中待评估规则的数量</span></p>
+</li>
+<li><span style="font-size:14px">支持选择规则/规则组，可以多选规则id/规则组id</span></li>
+<li><span style="font-size:14px">如果选择规则id，后面仅支持多选规则id；</span></li>
+<li><span style="font-size:14px">如果选择规则组id，近支持多选规则组id，实际计算时，会统计规则组里管理的所有规则id</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/f847f66db266acae.png" width="539" height="294" alt="image.jpeg"></p>
+<p><img src="assets/30b24d70bdd9cbe2.png" width="539" height="311" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-149">2.特殊说明</h3>
+<p></p>
+<h2 id="section-151">四、FAQ</h2>
+<p></p>
+</article></main></body></html>

@@ -1,0 +1,114 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>分层场景：补偿执行</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-18">二、目的</a><a href="#section-25">三、逻辑介绍</a><a href="#section-27">3.1 流程说明</a><a href="#section-67">3.2 补偿的决策执行</a><a href="#section-85">3.3 开启短路补偿</a><a href="#section-112">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：分层场景</a> / <a href="index.html">分层场景：补偿执行</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1610062169">查看学城原文</a></p><article>
+<h1>分层场景：补偿执行</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p><span style="font-size:15px">策略分层执行的方式是将</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">更重要能快速判断出结果</span></span><span style="font-size:15px">的策略</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">优先执行</span></span><span style="font-size:15px">（类似黑白名单/基础参数判断等），</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">复杂且高耗时</span></span><span style="font-size:15px">的规则</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">后执行或不执行</span></span><span style="font-size:15px">，因此在实时链路中就会存在一些未执行的策略，异步补偿就是将这部分本应执行完成，但因为分层未执行的部分在异步链路重新执行。</span></p>
+<h1 id="section-18">二、目的</h1>
+<ul>
+<li><span style="font-size:15px">风险补偿：在实时链路本应该执行完成，但因 超时 而未执行的部分，使全流量逻辑执行完成100%</span></li>
+<li>
+<p><span style="font-size:15px">养数据&amp;特征：在全流量逻辑执行完成100%后，相较于策略并行执行但策略分层根本就没有执行到的策略，重新执行，用于模型、名单等做基础特征数据的数据源。</span></p>
+</li>
+</ul>
+<h1 id="section-25">三、逻辑介绍</h1>
+<img src="assets/1939e41620f7133b.svg" width="1016" height="435" alt="流程图">
+<h2 id="section-27">3.1 流程说明</h2>
+<p><span style="font-size:15px">以不同颜色的线来介绍分层场景中的几类情况。（一句话：目前只有蓝色链路会补偿）</span></p>
+<ul>
+<li><span style="font-size:15px">红色：在</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">实时</span></span><span style="font-size:15px">链路中</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">正常执行</span></span><span style="font-size:15px">的部分；</span></li>
+<li><span style="font-size:15px">黑色：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">路由条件</span></span><span style="font-size:15px">不满足的分支，在实时和异步补偿链路中</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">都不会</span></span><span style="font-size:15px">执行。</span></li>
+<li><span style="font-size:15px">绿色：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">满足短路条件</span></span><span style="color:rgb(38, 38, 38)"><span style="font-size:15px">而发生短路的分支</span></span><span style="font-size:15px">，默认在实时链路中</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">不会</span></span><span style="font-size:15px">执行。（用户可自定义该场景 需要对短路情况也进行补偿执行，见3.3）</span></li>
+<li><span style="font-size:15px">蓝色：执行</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">超时</span></span><span style="font-size:15px">，未执行到</span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">本应执行</span></span><span style="font-size:15px">的部分。将在补偿链路（worker）中执行，补偿自动触发。</span></li>
+</ul>
+<p><span style="font-size:15px">补偿链路中，规则状态为标记/生效，都将在worker中执行；状态为离线的不执行。</span></p>
+<h2 id="section-67">3.2 补偿的决策执行</h2>
+<p><span style="font-size:15px">补偿链路中，普通决策（拦截、通过、验证等）直接落库，无法返回给调用方；</span></p>
+<p><span style="font-size:15px">而异步决策（如写名单、写kv）还是会输出给Tatooine异步执行。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>普通决策、异步决策概念见：<a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：决策__1608157813/index.html" title="https://km.sankuai.com/collabpage/1608157813">说明：决策</a></p>
+</div>
+</div>
+<div class="note">
+<strong></strong>
+<div>
+<p>通过补偿决策的设置，可以让补偿链路中命中的「普通决策」转化为「异步决策」再下发执行。配置方式见：<a href="../分层场景：决策加工组件__1409924045/index.html" title="https://km.sankuai.com/collabpage/1409924045#id-3.4%20%E8%A1%A5%E5%81%BF%E5%86%B3%E7%AD%96">分层场景：决策加工组件</a></p>
+</div>
+</div>
+<p><span><span style="font-size:15px">补偿数据落库机制：补偿日志与实时日志入库链路和存储 与当前保持一致。</span></span></p>
+<h2 id="section-85">3.3 开启短路补偿</h2>
+<table>
+<tr>
+<th>
+<p>描述</p>
+</th>
+<th>
+<p>图</p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)">系统默认 仅对执行超时的情况才进行补偿。可设置该场景在「短路条件」触发时也进行补偿。</span></p>
+</td>
+<td>
+<p><img src="assets/f9e38aab08449e0c.png" width="700" height="218" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>点击修改信息，可以开启短路补偿的开关。</p>
+</td>
+<td>
+<p><img src="assets/d4e8d79e23ffb6c2.png" width="686" height="280" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>列表页该列信息展示为【开启】代表该场景除了对超时会触发补偿执行外，<span style="color:#FF4A47">执行路由条件组件命中短路条件后，也会触发补偿。</span></p>
+</td>
+<td>
+<p><img src="assets/b6aa4d9537933d12.png" width="688" height="244" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-112"><span>四、FAQ</span></h1>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>问题</p>
+</th>
+<th>
+<p>答</p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:22px">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+<p></p>
+</article></main></body></html>

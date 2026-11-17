@@ -1,0 +1,298 @@
+{
+  "root_id": "28139633",
+  "saved_date": "2026-11-17",
+  "batch": 10,
+  "document_count": 25,
+  "cumulative_document_count": 205,
+  "traversal": "depth_first_in_api_order",
+  "documents": [
+    {
+      "id": "1939877905",
+      "title": "说明：自定义组件",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/07 组件说明__1426154471/children/说明：自定义组件__1939877905",
+      "parent_id": "1426154471",
+      "source": "https://km.sankuai.com/collabpage/1939877905",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 35,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1970275482",
+      "title": "说明：自定义组件支持的热部署范围",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/07 组件说明__1426154471/children/说明：自定义组件__1939877905/children/说明：自定义组件支持的热部署范围__1970275482",
+      "parent_id": "1939877905",
+      "source": "https://km.sankuai.com/collabpage/1970275482",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "2038478833",
+      "title": "自定义组件最佳实践",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/07 组件说明__1426154471/children/说明：自定义组件__1939877905/children/自定义组件最佳实践__2038478833",
+      "parent_id": "1939877905",
+      "source": "https://km.sankuai.com/collabpage/2038478833",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 10,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1939908382",
+      "title": "说明：全局变量",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/07 组件说明__1426154471/children/说明：全局变量__1939908382",
+      "parent_id": "1426154471",
+      "source": "https://km.sankuai.com/collabpage/1939908382",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "2427050257",
+      "title": "说明：场景组件",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/07 组件说明__1426154471/children/说明：场景组件__2427050257",
+      "parent_id": "1426154471",
+      "source": "https://km.sankuai.com/collabpage/2427050257",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "2427210003",
+      "title": "说明：画布-子图组件",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/07 组件说明__1426154471/children/说明：画布-子图组件__2427210003",
+      "parent_id": "1426154471",
+      "source": "https://km.sankuai.com/collabpage/2427210003",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "2038566912",
+      "title": "08 安全生产",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/08 安全生产__2038566912",
+      "parent_id": "1200688659",
+      "source": "https://km.sankuai.com/collabpage/2038566912",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1699204066",
+      "title": "常见问题答疑",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/常见问题答疑__1699204066",
+      "parent_id": "1200688659",
+      "source": "https://km.sankuai.com/collabpage/1699204066",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1203498528",
+      "title": "说明：特征中心",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：特征中心__1203498528",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1203498528",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 38,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1227050269",
+      "title": "特征评估指标",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：特征中心__1203498528/children/特征评估指标__1227050269",
+      "parent_id": "1203498528",
+      "source": "https://km.sankuai.com/collabpage/1227050269",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1211214384",
+      "title": "说明：名单库因子过期时间",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：名单库因子过期时间__1211214384",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1211214384",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1212317095",
+      "title": "说明：拨测配置与告警治理",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：拨测配置与告警治理__1212317095",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1212317095",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 25,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1224468385",
+      "title": "画布拨测配置临时方案",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：拨测配置与告警治理__1212317095/children/画布拨测配置临时方案__1224468385",
+      "parent_id": "1212317095",
+      "source": "https://km.sankuai.com/collabpage/1224468385",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1221929602",
+      "title": "说明：策略评估",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：策略评估__1221929602",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1221929602",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1226778279",
+      "title": "策略评估-评估指标",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：策略评估__1221929602/children/策略评估-评估指标__1226778279",
+      "parent_id": "1221929602",
+      "source": "https://km.sankuai.com/collabpage/1226778279",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 7,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1226565845",
+      "title": "策略评估-评估模板",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：策略评估__1221929602/children/策略评估-评估模板__1226565845",
+      "parent_id": "1221929602",
+      "source": "https://km.sankuai.com/collabpage/1226565845",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 7,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1226555790",
+      "title": "策略评估-评估任务",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：策略评估__1221929602/children/策略评估-评估任务__1226555790",
+      "parent_id": "1221929602",
+      "source": "https://km.sankuai.com/collabpage/1226555790",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 7,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1287004297",
+      "title": "说明：Zeus耗时分析功能说明",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus耗时分析功能说明__1287004297",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1287004297",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 11,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1302283710",
+      "title": "说明：话术管理",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：话术管理__1302283710",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1302283710",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 17,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "192816768",
+      "title": "（旧版）说明：添加话术（客服备注、客服建议）",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：话术管理__1302283710/children/（旧版）说明：添加话术（客服备注、客服建议）__192816768",
+      "parent_id": "1302283710",
+      "source": "https://km.sankuai.com/collabpage/192816768",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "339630947",
+      "title": "（旧版）说明：在规则中添加风控话术和客服话术",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：话术管理__1302283710/children/（旧版）说明：在规则中添加风控话术和客服话术__339630947",
+      "parent_id": "1302283710",
+      "source": "https://km.sankuai.com/collabpage/339630947",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 9,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1322547118",
+      "title": "说明：如何开发rpc接口可被Zeus调用",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：如何开发rpc接口可被Zeus调用__1322547118",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1322547118",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1333731150",
+      "title": "说明：分层场景",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：分层场景__1333731150",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1333731150",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 48,
+      "remote_images": 0,
+      "diagrams": 7
+    },
+    {
+      "id": "1610062169",
+      "title": "分层场景：补偿执行",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：分层场景__1333731150/children/分层场景：补偿执行__1610062169",
+      "parent_id": "1333731150",
+      "source": "https://km.sankuai.com/collabpage/1610062169",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "1409924045",
+      "title": "分层场景：决策加工组件",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：分层场景__1333731150/children/分层场景：决策加工组件__1409924045",
+      "parent_id": "1333731150",
+      "source": "https://km.sankuai.com/collabpage/1409924045",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 13,
+      "remote_images": 0,
+      "diagrams": 2
+    }
+  ],
+  "media": [
+    {
+      "document_id": "1333731150",
+      "type": "video",
+      "name": "video1721017296.mp4",
+      "url": "https://km.sankuai.com/api/file/cdn/1333731150/117168670618?contentType=1",
+      "status": "remote_only"
+    }
+  ],
+  "attachments": [],
+  "video_policy": "names_and_original_links_only",
+  "asset_errors": [],
+  "pause_after_batch": true
+}

@@ -1,0 +1,73 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>策略评估-评估任务</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-9">三、操作指南</a><a href="#section-10">1.用户操作流程说明</a><a href="#section-89">2.特殊说明</a><a href="#section-100">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：策略评估</a> / <a href="index.html">策略评估-评估任务</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1226555790">查看学城原文</a></p><article>
+<h1>策略评估-评估任务</h1>
+<div style="none"></div>
+<h2 id="section-3">一、背景</h2>
+<p>相见策略评估的背景</p>
+<h2 id="section-5">二、名词解释</h2>
+<p>评估任务：在指定时间段内对指定场景规则，利用日志计算指标并判断是否符合预期的任务</p>
+<p><strong>一期仅支持自动生成标记评估任务。</strong></p>
+<h2 id="section-9">三、操作指南</h2>
+<h3 id="section-10">1.用户操作流程说明</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">任务生成</span></p>
+<ol>
+<li><span style="font-size:14px">添加场景配置时，可选择该规则在该场景下是否开启评估。</span></li>
+<li><span style="font-size:14px">选择「否」，无需选择模板，也不会开启评估任务；</span></li>
+<li><span style="font-size:14px">选择「是」，跳出「评估模板」下拉选项，可选择已经就绪的模板，点击提交后，自动生成评估任务</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/f863b774ff5f6e80.png" width="719" height="262" alt="image.jpeg"></p>
+<p><img src="assets/00e569f6a96d5626.png" width="719" height="272" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">评估任务查看</span></p>
+<p><span style="color: "><span style="font-size:14px">zeus--&gt;策略评估--&gt;评估任务--&gt;自动任务tab</span></span></p>
+<ol>
+<li><span style="font-size:14px">系统自动生成的评估任务会在该页面展示。</span></li>
+<li><span style="font-size:14px">任务ID支持点击，超链接至任务去详情页；</span></li>
+<li><span style="font-size:14px">评估模板支持点击，超链接至模板详情页；</span></li>
+<li><span style="font-size:14px">规则支持点击，超链接至规则详情页；</span></li>
+<li><span style="font-size:14px">场景支持点击，超链接至场景规则配置；</span></li>
+<li><span style="font-size:14px">状态有评估中、评估完成；</span></li>
+<li>
+<p><span style="font-size:14px">评估结果有通过、不通过；</span></p>
+<p></p>
+</li>
+<li><span style="font-size:14px">针对评估中的，没有评估结果；评估完成的，结果可以是通过、不通过</span></li>
+<li><span style="font-size:14px">针对评估结果不通过的任务/评估结果通过但是模板是人工属性的任务，规则状态为「标记」，需要进行人工操作；</span></li>
+<li><span style="font-size:14px">评估结果通过但是模板是人工属性的任务，在1）任务详情页人工操作可以生效或灰度，2）大象通知里确认上线，3）原场景规则配置里进行生效或灰度；</span></li>
+<li><span style="font-size:14px">评估结果不通过的任务，可以强制上线或者发起运营复核</span></li>
+<li><span style="font-size:14px">运营复核配置请参考</span><a href="https://km.sankuai.com/page/1227436889" title="https://km.sankuai.com/page/1227436889">学城文档 1227436889（无权限读取标题）</a></li>
+</ol>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">注意：目前仅对businessid=1的业务配置了运营复核场景，如果其他业务空间的用户也想使用运营复核功能，请联系平台产品</span></span><span>@丁婷婷</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">（zeus侧） </span></span><span>@姚珍珍</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">（运营侧）</span></span></p>
+</td>
+<td>
+<p><img src="assets/8f86ec5d378132a8.png" width="719" height="262" alt="image.jpeg"></p>
+<p><img src="assets/bf247ed559343f40.png" width="719" height="371" alt="image.jpeg"></p>
+<p><img src="assets/310941cd1edbbc56.png" width="300" height="126" alt="image.jpeg"><img src="assets/7e846ac1dc9c9960.png" width="300" height="203" alt="image.jpeg"></p>
+<p><img src="assets/8d6babe44fbd55b7.png" width="400" height="324" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-89">2.特殊说明</h3>
+<ol>
+<li>
+<p><strong>一期仅支持自动生成标记评估任务。</strong></p>
+</li>
+<li><span style="color:rgb(245, 35, 45)">注意：目前仅对businessid=1的业务配置了运营复核场景，如果其他业务空间的用户也想使用运营复核功能，请联系平台产品</span><span>@丁婷婷</span><span style="color:rgb(245, 35, 45)">（zeus侧） </span><span>@姚珍珍</span><span style="color:rgb(245, 35, 45)">（运营侧）</span></li>
+</ol>
+<h2 id="section-100">四、FAQ</h2>
+</article></main></body></html>

@@ -1,0 +1,312 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：话术管理</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-13">二、名词解释</a><a href="#section-124">三、操作指南</a><a href="#section-127">3.1 话术的增删改查</a><a href="#section-128">（1）风控话术</a><a href="#section-204">（2）客服话术</a><a href="#section-268">（3）映射话术</a><a href="#section-354">3.2 在规则中使用话术</a><a href="#section-359">（1）新建规则</a><a href="#section-368">（2）编辑规则</a><a href="#section-381">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：话术管理</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1302283710">查看学城原文</a></p><article>
+<h1>说明：话术管理</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<ul>
+<li>
+<p>Zeus上的话术功能过去在skywalker上，只能新增，不能删除，<span style="color:rgba(0, 0, 0, 0.87)">不知道引用到了哪些规则，</span>无法管理。</p>
+</li>
+<li>
+<p>目前的话术配置是多个业务方的数据混合在一起，在选择配置的话术时也能看到其他业务线的话术数据（下拉几百条），容易造成干扰，需要进行业务线隔离。</p>
+</li>
+</ul>
+<p><span style="color:rgba(0, 0, 0, 0.87)">综上，难以维护话术的使用，话术容易出现错配、漏配。从而导致下游客诉的升级。因此，决定将话术迁移至zeus，并升级管理功能，进行空间隔离。</span></p>
+<p></p>
+<h1 id="section-13">二、名词解释</h1>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">定义</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">skywalker上的名称</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">在哪里配置给规则</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">最终在哪被消费</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">在太平洋页面的字段名</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">在哪里创建、管理</span></span></p>
+</th>
+<th>
+<p><span style="font-size:14px">补充信息</span></p>
+</th>
+</tr>
+<tr>
+<th style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span><span style="font-size:14px">风控话术</span></span></p>
+</th>
+<td>
+<p><span style="font-size:14px">一般是该风控规则逻辑的文字表述。</span><span><span style="font-size:14px">即风控命中原因。</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span><span style="font-size:14px">客服备注</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">Zeus</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">太平洋系统</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">拦截原因</span></p>
+</td>
+<td style="background-color:rgb(252, 252, 202);vertical-align:top">
+<p><span style="font-size:14px">Zeus-话术管理-风控话术tab</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1个风控话术只能被1个映射话术【关联】。</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span><span style="font-size:14px">映射话术</span></span></p>
+</th>
+<td>
+<p><span style="font-size:14px">风控话术的补充说明，用于给客服同学传递进一步的指示建议。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span><span style="font-size:14px">映射话术</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">Zeus，随风控话术</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">太平洋系统</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">给客服建议</span></p>
+</td>
+<td style="background-color:rgb(252, 252, 202);vertical-align:top">
+<p><span style="font-size:14px">Zeus-话术管理-映射话术tab</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1个映射话术可【关联】多个风控话术。</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span><span style="font-size:14px">客服话术</span></span></p>
+</th>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span><span style="font-size:14px">客服建议</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">Zeus</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">太平洋系统</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">客服话术</span></p>
+</td>
+<td style="background-color:rgb(252, 252, 202);vertical-align:top">
+<p><span style="font-size:14px">Zeus-话术管理-客服话术tab</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">-</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-124">三、操作指南</h1>
+<p>入口：Zeus菜单-配置中心-话术管理</p>
+<img src="assets/81d2f5c391f3a7cc.svg" width="512" height="312" alt="流程图">
+<h2 id="section-127">3.1 话术的增删改查</h2>
+<h3 id="section-128">（1）风控话术</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">入口</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">配置中心--&gt;话术管理-风控话术tab</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1.页面展示信息：按三类话术分为三个tab，每个tab下有一个话术列表（包含分页器，10条/页），支持按不同字段排序。</span></p>
+<p><span style="font-size:14px">2.操作按钮</span></p>
+<p><span style="font-size:14px">（1）筛选/查询：支持话术内容（模糊查询）、话术ID（模糊查询）、关联映射话术ID、最后修改/创建者misID、创建/修改时间（模糊查询）</span></p>
+<p><span style="font-size:14px">（2）【新增话术】：出现弹窗，默认类型为</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">【风控话术】</span></span><span style="font-size:14px">，提交时校验内容不为空。</span></p>
+<p><span style="font-size:14px">（3）【</span><span><span style="font-size:14px">编辑】：按钮入口在鼠标hover到话术内容上，点击icon出现二次确认弹窗，确认后进入编辑态，可编辑话术内容；</span></span></p>
+<p><span><span style="font-size:14px">（4）【删除】包含二次确认弹窗</span></span></p>
+<ul>
+<li>
+<p><span><span style="font-size:14px">有引用量不可直接删除： “</span></span><span style="font-size:14px">话术已被规则使用，无法删除。若需删除，请前往规则编辑，解除使用此话术。</span><span><span style="font-size:14px">”</span></span></p>
+</li>
+<li>
+<p><span><span style="font-size:14px">无引用量时二次提示： “</span></span><span style="font-size:14px">确认删除此话术吗？删除将会通知话术的创建者。”</span></p>
+</li>
+</ul>
+<p><span><span style="font-size:14px">（5）【被引用量】：点击出弹窗，可查看被哪些规则使用。点击规则名称可跳转到规则详情页。</span></span></p>
+<p><span><span style="font-size:14px">（6）【关联映射话术ID】：点击跳转到关联的映射话术详情页。</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/f79a2136b28614dc.png" width="770" height="431" alt="image.jpeg"></p>
+<p><span style="font-size:14px">新增话术</span></p>
+<p><img src="assets/5d79688d853e1fb2.png" width="657" height="397" alt="image.jpeg"></p>
+<p><span style="font-size:14px">编辑话术</span></p>
+<p><img src="assets/dd4d6720661216a2.png" width="325" height="195" alt="image.jpeg"><img src="assets/603c37459310db7e.png" width="331" height="197" alt="image.jpeg"><img src="assets/643d32a5d0cc78ea.png" width="616" height="320" alt="image.jpeg"></p>
+<p><span style="font-size:14px">删除话术</span></p>
+<p><img src="assets/53ffcd36dfdb16e4.png" width="344" height="174" alt="image.jpeg"><img src="assets/0f258b96558d6de7.png" width="357" height="174" alt="image.jpeg"></p>
+<p><span style="font-size:14px">查看引用</span></p>
+<p><img src="assets/22e87553cdd99efb.png" width="659" height="393" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-204">（2）客服话术</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">入口</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">配置中心--&gt;话术管理-客服话术tab</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1.页面展示信息：按三类话术分为三个tab，每个tab下有一个话术列表（包含分页器，10条/页），支持按不同字段排序。</span></p>
+<p><span style="font-size:14px">2.操作按钮</span></p>
+<p><span style="font-size:14px">（1）筛选/查询：支持话术内容（模糊查询）、话术ID（模糊查询）、最后修改/创建者misID、创建/修改时间（模糊查询）</span></p>
+<p><span style="font-size:14px">（2）【新增话术】：出现弹窗，默认类型为</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">【客服话术】</span></span><span style="font-size:14px">，提交时校验内容不为空。</span></p>
+<p><span style="font-size:14px">（3）【</span><span><span style="font-size:14px">编辑】：按钮入口在鼠标hover到话术内容上，点击icon出现二次确认弹窗，确认后进入编辑态，可编辑话术内容；</span></span></p>
+<p><span><span style="font-size:14px">（4）【删除】包含二次确认弹窗</span></span></p>
+<ul>
+<li>
+<p><span><span style="font-size:14px">有引用量不可直接删除： “</span></span><span style="font-size:14px">话术已被规则使用，无法删除。若需删除，请前往规则编辑，解除使用此话术。</span><span><span style="font-size:14px">”</span></span></p>
+</li>
+<li>
+<p><span><span style="font-size:14px">无引用量时二次提示： “</span></span><span style="font-size:14px">确认删除此话术吗？删除将会通知话术的创建者。”</span></p>
+</li>
+</ul>
+<p><span><span style="font-size:14px">（5）【被引用量】：点击出弹窗，可查看被哪些规则使用。点击规则名称可跳转到规则详情页。</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/044386e9180410f4.png" width="632" height="354" alt="image.jpeg"></p>
+<p><span style="font-size:14px">新增话术</span></p>
+<p><img src="assets/5846ee011880a73b.png" width="640" height="384" alt="image.jpeg"></p>
+<p><span style="font-size:14px">编辑话术（同风控话术）</span></p>
+<p><span style="font-size:14px">删除话术（同风控话术）</span></p>
+<p><span style="font-size:14px">查看引用（同风控话术）</span></p>
+</td>
+</tr>
+</table>
+<h3 id="section-268">（3）映射话术</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">入口</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">配置中心--&gt;话术管理-映射话术tab</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1.页面展示信息：按三类话术分为三个tab，每个tab下有一个话术列表（包含分页器，10条/页），支持按不同字段排序。</span></p>
+<p><span style="font-size:14px">2.操作按钮</span></p>
+<p><span style="font-size:14px">（1）筛选/查询：支持话术内容（模糊查询）、话术ID（模糊查询）、最后修改/创建者misID、创建/修改时间（模糊查询）</span></p>
+<p><span style="font-size:14px">（2）【新增话术】：</span><span><span style="font-size:14px">进入新页面，默认类型为</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">【映射话术】</span></span><span><span style="font-size:14px">，下方关联风控话术的添加方式为</span></span><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">「点击新增按钮，出现一行内容，输入框输入内容下拉选择，展示当前该空间下的风控话术ID+内容，点击选中一条后内容被添加到框中，再点保存即完成添加，在下方生成一条记录。</span></span><span><span style="font-size:14px">列表点击</span></span><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">删除关联</span></span><span><span style="font-size:14px">即删去此风控话术的关联。</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">新增关联风控话术，点击保存时，如果该风控话术已关联过其他映射，则保存失败，提示「无法配置，该风控话术已绑定其他映射话术。」</span></span><span style="font-size:14px">。</span></p>
+<p><span><span style="font-size:14px">（3）【详情】：点击后出现话术详情弹窗，内容为话术ID、类型（映射话术）、内容以及关联风控话术的列表。点击按钮【编辑】，出现弹窗确认，确认后进入编辑态，也可通过进入外部的话术列表的【编辑】直接进入编辑态；</span></span></p>
+<p><span style="font-size:14px">（4）</span><span><span style="font-size:14px">【编辑】：点击后出现确认弹窗，文案「话术内容/关联关系更新后，引用该话术的规则中（含生效规则）的话术内容也将相应发生变更。是否进行编辑？」确认后进入编辑页面，内容逻辑同新增弹窗，仅多展示一项该映射话术的ID，点击【确认修改】时，完成修改；</span></span></p>
+<p><span><span style="font-size:14px">（5）【删除】包含二次确认弹窗</span></span></p>
+<ul>
+<li>
+<p><span><span style="font-size:14px">有关联风控话术时（引用量也可能为0）不可直接删除。</span></span></p>
+</li>
+<li>
+<p><span><span style="font-size:14px">无关联风控话术时（引用量=0）二次确认弹窗 “</span></span><span style="font-size:14px">确认删除此话术吗？删除将会通知话术的创建者。”</span></p>
+</li>
+</ul>
+<p><span><span style="font-size:14px">（6）【被引用量】：值含义为该映射话术关联的风控话术，各自被规则使用量的总和。点击出弹窗，展示该映射话术的ID、类型、内容。以及可查看被哪些风控话术关联，对应的被哪些规则使用。规则名称点击可跳转到规则详情页。</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/82720940e05e0d0f.png" width="786" height="443" alt="image.jpeg"></p>
+<p><span style="font-size:14px">新增话术</span></p>
+<p><img src="assets/e2d66d0d532be982.png" width="786" height="311" alt="image.jpeg"></p>
+<p><span style="font-size:14px">编辑话术</span></p>
+<p><img src="assets/aca1e8e55b5eb946.png" width="1587" height="587" alt="image.jpeg"></p>
+<p><span style="font-size:14px">删除话术</span></p>
+<p><img src="assets/a405432577d580bb.png" width="344" height="174" alt="image.jpeg"><img src="assets/262befbf424a07c0.png" width="357" height="174" alt="image.jpeg"></p>
+<p><span style="font-size:14px">查看引用</span></p>
+<p><img src="assets/dce14433d4f526d8.png" width="786" height="475" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h2 id="section-354">3.2 在规则中使用话术</h2>
+<div class="note">
+<strong></strong>
+<div>
+<p>本部分 与之前功能保持一致，但在话术下拉框中，将仅展示本空间下的话术选项。</p>
+</div>
+</div>
+<h3 id="section-359"><strong>（1）新建规则</strong></h3>
+<p>新建规则时，进入添加规则属性信息页面，在此页面的最后一项 <span style="color:rgb(245, 35, 45)">添加话术</span> 处，<span style="color:rgb(245, 35, 45)">在风控话术后面的选择框中选择创建的风控话术（原skywalker中的客服备注）</span>，<span style="color:rgb(245, 35, 45)">在客服话术后面的选择框中选择创建的客服话术（原skywalker中的客服建议）</span><span style="color:rgb(0, 0, 0)">，点击 </span><span style="color:rgb(245, 35, 45)">完成</span><span style="color:rgb(0, 0, 0)">，就完成了</span>在创建规则的过程中添加话术和客服备注；</p>
+<h3 id="section-368"><strong>（2）编辑规则</strong></h3>
+<p>同添加规则入口一样，进入规则编辑页面，即可按照上述流程对规则进行修改。<span style="color:rgb(245, 35, 45)">不需要修改规则的逻辑信息和测试，</span>直接点击 <span style="color:rgb(245, 35, 45)">下一步 </span>跳到 规则的 <span style="color:rgb(245, 35, 45)">属性信息</span> 修改页面，在此页面的最后一项 <span style="color:rgb(245, 35, 45)">添加话术</span> 处，<span style="color:rgb(245, 35, 45)">在风控话术后面的选择框中选择创建的风控话术（原skywalker中的客服备注）</span>，<span style="color:rgb(245, 35, 45)">在客服话术后面的选择框中选择创建的客服话术（原skywalker中的客服建议）</span><span style="color:rgb(0, 0, 0)">，点击 </span><span style="color:rgb(245, 35, 45)">完成</span><span style="color:rgb(0, 0, 0)">，就完成了</span>在修改规则的过程中添加话术和客服备注；</p>
+<p></p>
+<h1 id="section-381">四、FAQ</h1>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">问题</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">回答</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">备注</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">话术按照空间隔离，但规则可以跨空间共享。那规则共享到新空间后，其配置的话术将会如何？</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则共享到新空间，其在原空间携带的话术</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">不会一同共享</span></span><span style="font-size:14px">，而是需要用户在新空间为该规则选择新空间下的话术。如果需要和旧空间的话术内容保持一致，</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">只能选择手动新增一条话术</span></span><span style="font-size:14px">，为其配上。</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/（旧版）说明：添加话术（客服备注、客服建议）__192816768/index.html">（旧版）说明：添加话术（客服备注、客服建议）</a> <span class="status">已保存</span></li><li><a href="children/（旧版）说明：在规则中添加风控话术和客服话术__339630947/index.html">（旧版）说明：在规则中添加风控话术和客服话术</a> <span class="status">已保存</span></li></ul></section></main></body></html>

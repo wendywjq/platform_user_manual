@@ -1,0 +1,73 @@
+<km-doc>
+<km-title nodeId="6facc06995dc481fb6b8f4d752eaaff2">策略评估-评估任务</km-title>
+<km-catalog style="none" nodeId="893164b04d1842ff9520356c6a342977" />
+<h2 nodeId="c060f5768776487a8a547cf87a1a287c">一、背景</h2>
+<p align="start" nodeId="c15e27dda08c400a8e69642bb1a636e9">相见策略评估的背景</p>
+<h2 align="start" nodeId="179dc67229fe485ba0dd273dc040a29d">二、名词解释</h2>
+<p align="start" nodeId="3287f103f7844c88bd29147d3f4f203b">评估任务：在指定时间段内对指定场景规则，利用日志计算指标并判断是否符合预期的任务</p>
+<p nodeId="73530e3f402a434c995ba49d54141027"><strong>一期仅支持自动生成标记评估任务。</strong></p>
+<h2 align="start" nodeId="daa625d6320342209b345cead8e8a01d">三、操作指南</h2>
+<h3 align="start" nodeId="0203c86b01324252937d49092bbe48c7">1.用户操作流程说明</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="17fdd9092dd64d6f87a4047cd0714eca">
+<tr nodeId="4110a01f22f44f0cbf6f5bb2ba8390d9">
+<th colwidth="[603]" nodeId="65a56eaca7c64c14aedb8581700809d3">
+<p nodeId="93d65e4614b74d53a4164a35661d7ba9"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[741]" nodeId="d23943fee8a64edc8e2571d2352bc848">
+<p nodeId="ad9d7bbc8cb0405c92ab2e1038b705d3"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="a8cc8263377c480d8a4dc4197a78cb7e">
+<td colwidth="[603]" nodeId="ea58c93eb12e42d684bd1d40e593dd3c">
+<p nodeId="0b7a5d599b66404c9cbd3d40af816a32"><span font-size="14">任务生成</span></p>
+<ol nodeId="652ce1cbca3b43b5ab7e5942014709e9">
+<li nodeId="32f1da92423c413bb0ae7e672f4ab431"><span font-size="14">添加场景配置时，可选择该规则在该场景下是否开启评估。</span></li>
+<li nodeId="fae33b00b23d44d497be0b3b50a674f8"><span font-size="14">选择「否」，无需选择模板，也不会开启评估任务；</span></li>
+<li nodeId="e24a481ca8c648f1b412c51ba61bc5ce"><span font-size="14">选择「是」，跳出「评估模板」下拉选项，可选择已经就绪的模板，点击提交后，自动生成评估任务</span></li>
+</ol>
+</td>
+<td colwidth="[741]" nodeId="e7884cc13ce94df89702ca4114edecb2">
+<p nodeId="13c47da3dcde4c8a971372c214014481"><img src="https://km.sankuai.com/api/file/cdn/1226555790/1392882770?contentType=1&amp;isNewContent=false" name="image.jpeg" width="719" height="262" nodeId="a5cfa843975545f28a69a5711b624265" /></p>
+<p nodeId="14877641585b4cb481607d313acc6e9c"><img src="https://km.sankuai.com/api/file/cdn/1226555790/1392866889?contentType=1&amp;isNewContent=false" name="image.jpeg" width="719" height="272" nodeId="df860768c61748d08abb8da69652a7ce" /></p>
+</td>
+</tr>
+<tr nodeId="989ecc6ff9b648ee89d42ed07b2d2a5f">
+<td colwidth="[603]" nodeId="71e77d121ab84a6092a7d790eda8e64f">
+<p nodeId="d75b4dfc1d384bd1983191f02a9c163d"><span font-size="14">评估任务查看</span></p>
+<p nodeId="e2e15bc9bfad4ffa88f4adca7d69c88f"><span color=" "><span font-size="14">zeus--&gt;策略评估--&gt;评估任务--&gt;自动任务tab</span></span></p>
+<ol nodeId="31cc974049014fd295d337929b516ebe">
+<li nodeId="8606aa2aa36747fbbdb50d9dc00027f6"><span font-size="14">系统自动生成的评估任务会在该页面展示。</span></li>
+<li nodeId="5bb465eb73e64bffa684acdf8fafdce8"><span font-size="14">任务ID支持点击，超链接至任务去详情页；</span></li>
+<li nodeId="3580578ec5d54bcf9a6fec5b94a952d1"><span font-size="14">评估模板支持点击，超链接至模板详情页；</span></li>
+<li nodeId="051bff51b32e442cb30cac8c50dddf40"><span font-size="14">规则支持点击，超链接至规则详情页；</span></li>
+<li nodeId="3246121928a042a589e354e19da3a8a9"><span font-size="14">场景支持点击，超链接至场景规则配置；</span></li>
+<li nodeId="983c079998694066af1d4b98be477605"><span font-size="14">状态有评估中、评估完成；</span></li>
+<li nodeId="6b68c8b6d0bf4403a9882627d9128012">
+<p nodeId="6f62249a79494097a92637f9066894c3"><span font-size="14">评估结果有通过、不通过；</span></p>
+<p nodeId="e71f6be3130548ebb0b446c34c534796" />
+</li>
+<li nodeId="67c69a0ab8984f17b08e6d6c04f82ced"><span font-size="14">针对评估中的，没有评估结果；评估完成的，结果可以是通过、不通过</span></li>
+<li nodeId="efd860ca4e3543b0927aff5de0dc3098"><span font-size="14">针对评估结果不通过的任务/评估结果通过但是模板是人工属性的任务，规则状态为「标记」，需要进行人工操作；</span></li>
+<li nodeId="0ab55530c1b449a0acdb17d9cd1a0410"><span font-size="14">评估结果通过但是模板是人工属性的任务，在1）任务详情页人工操作可以生效或灰度，2）大象通知里确认上线，3）原场景规则配置里进行生效或灰度；</span></li>
+<li nodeId="d69088ba65974945aa8945c9e124b462"><span font-size="14">评估结果不通过的任务，可以强制上线或者发起运营复核</span></li>
+<li nodeId="58ea77b42cda4cb8baefc94073bba017"><span font-size="14">运营复核配置请参考</span><a href="https://km.sankuai.com/page/1227436889" title="https://km.sankuai.com/page/1227436889" autoUpdate="true" nodeId="2ad014f6f35c4bd988200ddf544d5b8d"><span font-size="14">https://km.sankuai.com/page/1227436889</span></a></li>
+</ol>
+<p nodeId="6bf27bcb0cd34acdb6798417f4f42fac"><span color="rgb(245, 35, 45)"><span font-size="14">注意：目前仅对businessid=1的业务配置了运营复核场景，如果其他业务空间的用户也想使用运营复核功能，请联系平台产品</span></span><km-mention name="丁婷婷" uid="dingtingting04" empId="" nodeId="c7b43686cb5d4f4a94afd5395fe2d6ea" /><span color="rgb(245, 35, 45)"><span font-size="14">（zeus侧） </span></span><km-mention name="姚珍珍" uid="yaozhenzhen" empId="" nodeId="49608ba330f94b488c145d0d7b009c7a" /><span color="rgb(245, 35, 45)"><span font-size="14">（运营侧）</span></span></p>
+</td>
+<td colwidth="[741]" nodeId="acc7c987d3ce4933b4857679f05fcfd6">
+<p nodeId="418469f492b144b1ac8bff393432c909"><img src="https://km.sankuai.com/api/file/cdn/1226555790/1393030675?contentType=1&amp;isNewContent=false" name="image.jpeg" width="719" height="262" nodeId="ab80619f045649918339ccd70c508225" /></p>
+<p nodeId="7b31c06b961747f3ab58c128ce09407b"><img src="https://km.sankuai.com/api/file/cdn/1226555790/1392940976?contentType=1&amp;isNewContent=false" name="image.jpeg" width="719" height="371" nodeId="3e1719c582fe44b9aefd2d52fb2f390e" /></p>
+<p nodeId="3fa3b26a71324e0c85d0440604cf09bf"><img src="https://km.sankuai.com/api/file/cdn/1226555790/1392931516?contentType=1&amp;isNewContent=false" name="image.jpeg" width="300" height="126" nodeId="6fd96044861d42a28061cb61484f5965" /><img src="https://km.sankuai.com/api/file/cdn/1226555790/1393011753?contentType=1&amp;isNewContent=false" name="image.jpeg" width="300" height="203" nodeId="63e19357d24541ffa773f73016c5dafb" /></p>
+<p nodeId="5bcf7233a7b0463da345804fbb3a4ef8"><img src="https://km.sankuai.com/api/file/cdn/1226555790/1392967584?contentType=1&amp;isNewContent=false" name="image.jpeg" width="400" height="324" nodeId="c91fecb23be847a1a8a9b38dc6868ed1" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="64ab91f2e27b46d1a5e913ffef53f1f3">2.特殊说明</h3>
+<ol nodeId="8f69aa3a973f4cd387acc67eec0afa27">
+<li nodeId="00aeb3a13963434cb3c9c5f4e4625f05">
+<p align="start" nodeId="9784bce5d2504eeb825aac5d51d9cdee"><strong>一期仅支持自动生成标记评估任务。</strong></p>
+</li>
+<li nodeId="48db8a2543ec4cbcb27669d302abc3de"><span color="rgb(245, 35, 45)">注意：目前仅对businessid=1的业务配置了运营复核场景，如果其他业务空间的用户也想使用运营复核功能，请联系平台产品</span><km-mention name="丁婷婷" uid="dingtingting04" empId="" nodeId="1671d430dda94fed87081be0c7966149" /><span color="rgb(245, 35, 45)">（zeus侧） </span><km-mention name="姚珍珍" uid="yaozhenzhen" empId="" nodeId="8f12770f89564e72ad958f10bcd23d25" /><span color="rgb(245, 35, 45)">（运营侧）</span></li>
+</ol>
+<h2 align="start" nodeId="73fc2607415a44359f290e173874cc84">四、FAQ</h2>
+</km-doc>

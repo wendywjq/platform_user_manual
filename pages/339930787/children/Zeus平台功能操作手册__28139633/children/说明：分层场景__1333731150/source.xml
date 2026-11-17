@@ -1,0 +1,1320 @@
+<km-doc>
+<km-title nodeId="f16217c4196d4d4a9aebdc6f89ea3036">说明：分层场景</km-title>
+<km-catalog style="none" nodeId="a5bf85cec9554f249df2342c42b38d9c" />
+<km-note type="warning" hiddenTitle="true" nodeId="cd8d8f00dc0d43c8a163755eecdd4b09">
+<km-title></km-title>
+<km-content>
+<p nodeId="17295dca76ce464190cde721bef439e7"><span color="#000"><strong>我当前使用普通场景布控，但期望迁为分层场景布控？</strong></span></p>
+<p nodeId="9aa8a82582124e2b8be25759b77615e0"><span color="#000">策略同学需要做的：</span></p>
+<ol nodeId="fba5a859cd9b462daa50b5bd302295a0">
+<li nodeId="fc048a630d234cf98efcaa1e888c1d28">在当前空间下建设分层拓扑图。即策略节点和路由条件的编排模式，策略节点内容可为空。</li>
+<li nodeId="82063852afcd4333ac145d38c8e3f4e2">提供每个策略节点需要迁入的策略。</li>
+</ol>
+<p nodeId="8c4904098f1041f2a103df28618357e2">完成以上两项后联系PM<km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="cd4035b1236243aa99921fcdf3a256a9" />沟通对齐后续迁移计划，平台提供策略批量迁移。</p>
+</km-content>
+</km-note>
+<km-collapse active="false" nodeId="b472bc1e36ad4d4aa2b91a3fb9d869e5">
+<km-title>🌟<span color="#FF4A47">上线记录</span></km-title>
+<km-content>
+<table responsive="false" nodeId="09605a680df9485097b2b316fa2518a0">
+<tr nodeId="0d58a7b7289b4479b52f7daba1b7bfe2">
+<th colwidth="[50]" nodeId="77b1bab94c9f4d55a86ebfae7c3d78fb">
+<p nodeId="e4a44ed7c00342c3a6455f9bc75ff51d" />
+</th>
+<th colwidth="[159]" nodeId="385599fe08284c519ccc6e462711ea88">
+<p nodeId="dcad9dd3cb5b4d99aa32ad401facb949">时间</p>
+</th>
+<th colwidth="[1502]" nodeId="0a6516ca2d1e414692457befcfc6f095">
+<p nodeId="bf94118d953c49d7823e76515a7502ef">上线内容</p>
+</th>
+</tr>
+<tr nodeId="a754da56e0bd438289648edf275dbb29">
+<td colwidth="[50]" numCell="true" nodeId="f5575b6ffa44420d87ef22077585d34c">
+<p nodeId="03e28e331f22410aaaeb203bd951e445" />
+</td>
+<td colwidth="[159]" nodeId="97270f6b8f7a473d929b6a1c3e11fd11">
+<p nodeId="443e4490fa79482ca8bddef367a0a33a">0912</p>
+</td>
+<td colwidth="[1502]" nodeId="f4b3be53619a460f8ab95a313227ce6e">
+<km-note type="tip" hiddenTitle="true" nodeId="4657287409f74290abddd03ad2664920">
+<km-title></km-title>
+<km-content>
+<p nodeId="b51130a7666d460d897d3770a5632633"><strong>分层场景体验优化上线</strong></p>
+<ol nodeId="5f07d4948fdd4b1cb9edd92aadb13449">
+<li nodeId="0a29274590724b1e86605c04329491a6">解除分层编辑时间限制，</li>
+<li nodeId="ab5fedfd139a43218d32c9153d5df58f">节点支持交互式及批量输入</li>
+<li nodeId="2575e571b9c84313861b91977cd4996e">支持节点复制</li>
+<li nodeId="2393f61ee914496c9da2fd2a2b6e2222">策略搜索查询功能优化</li>
+</ol>
+</km-content>
+</km-note>
+<p nodeId="5c17c2c4791945c9bace0227f15b9f98" />
+</td>
+</tr>
+<tr nodeId="ca27f0f5ba3241e0b8fdd9e59de07115">
+<td colwidth="[50]" numCell="true" nodeId="b42a3c43e2ea4d05b967805d154e64e7">
+<p nodeId="faea011b86ef46ffb1e47bf70c59633f" />
+</td>
+<td colwidth="[159]" nodeId="39f243bff2674658848abe4327bdf049">
+<p nodeId="dab272a61c094b999fe25159e496c431">0814</p>
+</td>
+<td colwidth="[1502]" nodeId="2788be29f03946f5b1967d42ba3489f6">
+<km-note type="tip" nodeId="68a7eddfa1ff49f4b16717665c32af6e">
+<km-title><strong>分层场景上新啦！本次更新：规则组同步对齐普通场景/策略变更上线流程变化/支持列表视图查看策略 </strong>🎉</km-title>
+<km-content>
+<p nodeId="80d553e1965045e7ae8fb017b69868bf">🙋：<span color="rgb(127, 127, 127)">规则组被引用到分层场景后，不自动随规则组更新而更新。需要手动一键更新，新增策略还需要手动切换状态，太麻烦了而且容易出错。</span><br />🌟<strong>上新点一：规则组同步逻辑对齐普通场景同步逻辑</strong><br />基本同步逻辑：对于未在场景中特殊修改的配置，随规则组本体配置更新而更新。规则组新添加策略，将根据设定状态默认添加到分层场景中。<span font-size="12">更多冲突处理逻辑参考：</span><span font-size="12"><a href="https://km.sankuai.com/page/59203601" title="说明：规则组使用文档" autoUpdate="true" nodeId="5297ccfd1fae4df2900983c1857c7d67">说明：规则组使用文档</a></span></p>
+<hr nodeId="ec64f8f057ca49afb0efd69fe38f222b" />
+<p nodeId="04314333bd2d421b8137566e95669434">🙋：<span color="rgb(127, 127, 127)">现在分层场景生效策略修改需要进入变更环境，而变更环境自身存在很多使用不便的地方，上线一个分层场景非常困难。</span><br />🌟<strong>上新点二：分层场景新增版本管理概念，非生效策略直接基于使用中版本修改即可；生效策略修改基于未使用版本进行修改后，在变更环境进行版本切换。</strong></p>
+<table responsive="false" nodeId="ba768010f8d640638bfb11c38c1181a7">
+<tr nodeId="8f91cbd457064b28bb608929ac72f91f">
+<th colwidth="[583]" nodeId="cd18151d79f0496586e3074b397288c8">
+<p nodeId="c938aeff87dc4b9e947f706cdda50b2e">版本升级</p>
+</th>
+<th colwidth="[645]" nodeId="a590b55027ab4dd5b9ef46cf8901080e">
+<p nodeId="a39b551579f14d0b979239c533363897">版本上线</p>
+</th>
+</tr>
+<tr nodeId="bc554c3640b1439ca3494abfb4ce6f76">
+<td colwidth="[583]" nodeId="86a48086166744b5b1578d100eaa0b3c">
+<p nodeId="f50d6c66d2f1468c9ea6281dfd906766">当需要变更生效策略时，前往版本升级（或对于历史版本）对于非使用版本进行修改<br /><km-drawio src="https://km.sankuai.com/api/file/cdn/1333731150/117275856107?contentType=0&amp;isNewContent=false" width="290" height="184" nodeId="a09f69c2b52242c38221be73f328423b" /></p>
+</td>
+<td colwidth="[645]" nodeId="63883bae65f747bbb172dc3ce7b8b51c">
+<p nodeId="045d029c8dbe4cc48ed32ef436cc6dd1">用户可切换任意一个非使用中的版本进行上线使用<br /><km-drawio src="https://km.sankuai.com/api/file/cdn/1333731150/117277757625?contentType=0&amp;isNewContent=false" width="390" height="182" nodeId="e6c8677235b745feb42f484259f91bc7" /></p>
+</td>
+</tr>
+</table>
+<hr nodeId="c74032873d3743caa376838e7278841c" />
+<p nodeId="cab6c0eead1f43f9b0d0da9bdc0c4bc6">🙋：<span color="rgb(127, 127, 127)">当前拓扑图的展示形式，整个场景中的策略被分散到各个节点中，没有全局视角查看单场景下有哪些策略，不像普通场景那样直观。</span><br />🌟<strong>上新三：支持列表视图/画布视图双视图切换查看场景下策略情况</strong><br /><img src="https://km.sankuai.com/api/file/cdn/1333731150/117275088046?contentType=1&amp;isNewContent=false" name="image.jpeg" width="724" height="362" nodeId="2202895b99974b0191648807e2d8c19a" /></p>
+</km-content>
+</km-note>
+</td>
+</tr>
+</table>
+<p nodeId="2e11440ae2b34ee6ae90028e42f3633b" />
+</km-content>
+</km-collapse>
+<h1 nodeId="0a7a0d22c6314714ba1d08c8140bb4e9">一、背景</h1>
+<h2 nodeId="251af2de9d124a49a5e0fd7ed39a59c8">1.1 什么是分层场景</h2>
+<p align="start" nodeId="b12c123069ac4c7c9a97cafeecaf1504">分层场景是为解决Zeus业务方在策略部署过程中存在的痛点（策略管理效率低、规则执行完成率低、复杂场景易超时问题、复杂体系难部署等）而提出新的规则部署方式。</p>
+<table responsive="false" nodeId="081a10339deb470385f5d9e0c726cad8">
+<tr nodeId="7288fd19ff724032bc7a1d1c0f6ab2e4">
+<th colwidth="[86]" verticalAlign="top" bgColor="#0037A6" nodeId="baccea5325be41f7a281d7c0264bccf0">
+<p nodeId="dc04d4a38fd74093bc91cb32a02b5aa1" />
+</th>
+<th colwidth="[229]" verticalAlign="top" bgColor="#0037A6" nodeId="b1b0782ae3a948be9617ff2684fb1685">
+<p nodeId="32c1df256ae84ac3b1098354eb38588b"><span color="rgb(255, 255, 255)"><span font-size="14">普通场景</span></span></p>
+</th>
+<th colwidth="[286]" verticalAlign="top" bgColor="#0037A6" nodeId="7a5f4d6b82a045ceac2ecc8252503c23">
+<p nodeId="b4803c2b36a74690870b5d72dfde787a"><span color="rgb(255, 255, 255)"><span font-size="14">路由场景 与 多级路由</span></span></p>
+</th>
+<th colwidth="[273]" verticalAlign="top" bgColor="#0037A6" nodeId="cd087555a2c64c7685a3c3849eca15ba">
+<p nodeId="6652dccc9e72428c9c7fe024970be870"><span color="rgb(255, 255, 255)"><span font-size="14">分层场景</span></span></p>
+</th>
+<th colwidth="[261]" verticalAlign="top" bgColor="#0037A6" nodeId="dfecce8b90704876b17b9576bb972fc6">
+<p nodeId="eb9a84d4138445968e58124691896dcc"><span color="rgb(255, 255, 255)"><span font-size="14">画布</span></span></p>
+</th>
+</tr>
+<tr nodeId="cc9ce624c1864dedad4d3b326fededb4">
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d23861cc8b08493baee0c73960b56c1d">
+<p align="start" nodeId="5d705db9da2749f4ab609289c3d89ef9"><span font-size="14">简介</span></p>
+</td>
+<td colwidth="[229]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ae5d0256bcb54ede8b1e378e1e3dd505">
+<p align="start" nodeId="5826cde099de4e47acc9c6359b550674"><span font-size="14">最常用的规则集合实体，场景内规则并行执行，输出所有命中的生效规则对应的决策。</span></p>
+</td>
+<td colwidth="[286]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="47d583d64c2c491989501c20eb01626a">
+<p align="start" nodeId="11ad09437f9f40a2b1fd9fce9b109c46"><span font-size="14">复合的部署模式，由普通场景（子场景）与路由规则组合形成。请求根据路由条件依次去到多个场景中执行规则。最终在多个场景中都可查询到该条请求的日志。</span></p>
+<p align="start" nodeId="622eb29cf61f44ceb06e1f4574781ad7"><span font-size="14">路由场景（普通路由）为单层：即1个根场景+n个同层的子场景。</span></p>
+<p align="start" nodeId="543d22c72072438aa43994fc263f3fe2"><span color="#7F7F7F"><span font-size="14"><em>多级路由支持多层：可通过一连串的路由规则，形成多层的场景树。（即将下线）</em></span></span></p>
+</td>
+<td colwidth="[273]" verticalAlign="top" bgColor="rgb(252, 252, 202)" nodeId="7a4eba87ebdd4334908b9e10cb3f3689">
+<p align="start" nodeId="86f1b245439a48cc9bdd84f81b74ac01"><span font-size="14">新的规则集合实体，对标过去</span><span color="rgb(245, 35, 45)"><span font-size="14">一个普通场景</span></span><span font-size="14">，在场景内支持以层级关系+路由条件组织树状执行链路，使场景内策略达到分层执行的效果。因超时（或短路）未执行的链路将获得补偿。</span></p>
+</td>
+<td colwidth="[261]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8cbccf1eb45f48b8aa03ce2911321caa">
+<p align="start" nodeId="02a2498719084a4293040be7a2dd2472"><span font-size="14">由一系列功能组件构成的数据处理流。支持以多个数据源组件作为起始，以多个决策类组件作为终止。</span></p>
+<p align="start" nodeId="38d321d18fff4122ba7ac25ca812de44"><span font-size="14">当用户完成策略的配置之后，画布会自动生成一个flink任务用来执行用户所配置的逻辑。</span></p>
+</td>
+</tr>
+<tr nodeId="10fd34b68bfd4c0184f98e8267c77c69">
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fb394896c8de4c908c820782a1580c99">
+<p align="start" nodeId="76d20d15eff044d294855aac10a226de"><span font-size="14">图例</span></p>
+</td>
+<td colwidth="[229]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e929eea85c414dc5aeac961520811ae0">
+<p align="start" nodeId="6a0c67b7dc8f4090b04270bba712c044"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2380180511?contentType=1" name="" width="207" height="159" nodeId="7593264d4dc840bdabc42af497c248f3" /></p>
+</td>
+<td colwidth="[286]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bf6172aa296d457bb7023f75b7930f89">
+<p align="start" nodeId="b7372b5d2d754127a6e650a190665dc8"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2380424439?contentType=1" name="" width="250" height="116" nodeId="40514bd700e64c79bb1320324e352475" /></p>
+</td>
+<td colwidth="[273]" verticalAlign="top" bgColor="rgb(252, 252, 202)" nodeId="4fbbaa9b06f749a5822a7c2422bacc64">
+<p align="start" nodeId="9f97b40f7c35442abdd9e6127569cb6e"><img src="https://km.sankuai.com/api/file/cdn/1333731150/142129382274?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1203.13" height="600" nodeId="8b0c7c1052e34dcfa7b30cb86f262df6" /></p>
+</td>
+<td colwidth="[261]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a7dfc23d12fc492998b39825c8ad74b7">
+<p align="start" nodeId="29b10373c53c4faeabae93d0d4e79387"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2380427632?contentType=1" name="" width="239" height="167" nodeId="5da0efbb72714e1f8c56b13f9a0ed9e3" /></p>
+</td>
+</tr>
+<tr nodeId="6e938c6bfc664aaf8aa7b17e94dbd7e4">
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2e51a2e4767748619891ede4751a322c">
+<p align="start" nodeId="980a7e0499d144b09335f80637f43533"><span font-size="14">覆盖范围</span></p>
+</td>
+<td colwidth="[229]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a09d0f54ed6b401990e261a1989aeef5">
+<p align="start" nodeId="300539af02f74631a6f5a0a339b52e97"><span font-size="14">实时、近线、离线</span></p>
+</td>
+<td colwidth="[286]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d851ee1fbdd3442b9e01da4b43fd7240">
+<p align="start" nodeId="70eccc147b16462fa527b28490413d68"><span font-size="14">实时、（近线)</span></p>
+</td>
+<td colwidth="[273]" verticalAlign="top" bgColor="rgb(252, 252, 202)" nodeId="d16997eae8aa4bdaaa46bdb6ae6b381d">
+<p align="start" nodeId="985c26e74c4641cb820699f059d90f3b"><span font-size="14">实时</span></p>
+</td>
+<td colwidth="[261]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2e7698e50c3e425fa4fbfffd8eec767f">
+<p align="start" nodeId="e3debf7caab44042912f0c47dab95ae2"><span font-size="14">近线</span></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="55772d223d6140b3b0d2d63f4e133e6d">1.2 分层场景和其他场景的区别</h2>
+<table responsive="false" nodeId="40d3796e04834777afa57337c1797c4d">
+<tr nodeId="bc1cc36e9fe4490f9b455fc172c66de4">
+<th colwidth="[545]" bgColor="#0037A6" nodeId="198b83ea8b4e45d6abf1f9abaf8965c4">
+<p nodeId="e210ab85697c40ba93fa6eb05477190c"><span color="#FFF"><strong>与普通场景的差异</strong></span></p>
+</th>
+<th colwidth="[571]" bgColor="#0037A6" nodeId="ad002657d210444c9fa4c2af040937ce">
+<p nodeId="beff277e7e524eda94e9102a8ea8d98e"><span color="#FFF"><strong>与多级路由的差异</strong></span></p>
+</th>
+</tr>
+<tr nodeId="71fc88e6abaa48cf9f0375202534de4c">
+<td colwidth="[545]" nodeId="1308e6ace5f3441d9211e4dd0df1499a">
+<ul nodeId="18717d5cdbf14c4c93943a9a48b6a347">
+<li nodeId="0b60a44d9015404382260bc33a7c44b7">图形化拖拉拽部署模式</li>
+<li nodeId="16c00ab2abd2433f9ace325af55f925d">分层场景内可根据【层级】和【路由关系】依次执行不同复杂度的策略，通过【短路条件】可实现策略分层执行，以达到快速放行的效果（先通用&amp;简单，后定制&amp;复杂）。</li>
+</ul>
+</td>
+<td colwidth="[571]" nodeId="99cc64983fd14403b2d9d4f444e9e2ae">
+<ul nodeId="f885f170847e4a7fb3f031a0bfc89133">
+<li nodeId="0c61cb341ab34f81887dae8b27ce07e0">分层场景在排查时更便捷，日志将在一个场景中查询到，不同于多级路由执行日志散落在各个子场景中。</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="70a77ca870b64f7aa27247b7271c0286">
+<td colspan="2" colwidth="[545,571]" nodeId="d052a44cbdc0489ca7fe0e63166f6a19">
+<ul nodeId="971d7b5bb331440ea4e2005296e5ef03">
+<li nodeId="1d2609c63c7b46dd8ce1db4f2c575f77">分层场景支持决策合并，以及相关的单点测试、用例测试。</li>
+<li nodeId="b7507d29cf864bb88783559aea326923">分层场景可对超时、短路的情况进行补偿执行，使策略执行完成率达100%</li>
+</ul>
+</td>
+</tr>
+</table>
+<p nodeId="a15a77242908457b9b8291214f21dfd7" />
+<h1 nodeId="777455afad74420ea6123b10b8ec2e45">二、名词解释</h1>
+<table responsive="false" nodeId="afae860a9d744802a7518b50f36b0e76">
+<tr nodeId="0d1c2a11b773493fb507f543b8e0e6de">
+<th colwidth="[149]" bgColor="#0037A6" nodeId="0b5db393022d45c9b634d8921186d974">
+<p nodeId="d9cd15689321430b8d3d85ccf43b93ee"><span color="rgb(255, 255, 255)"><span font-size="14">名词</span></span></p>
+</th>
+<th colwidth="[915]" bgColor="#0037A6" nodeId="a3b0f46b0fb64674a19b4c7ca3a3e4b8">
+<p nodeId="2d886ec4180b4064875e7a0b6dd4d923"><span color="rgb(255, 255, 255)"><span font-size="14">解释</span></span></p>
+</th>
+</tr>
+<tr nodeId="049ad3ddb1ad41bdbc8b7db721da2b8c">
+<td colwidth="[149]" nodeId="355cd69b3c1a4d55b777a9c5bdf2c189">
+<p align="center" nodeId="34ea709838014a0890cf837ba0902d21"><span font-size="13"><strong>分层场景</strong></span></p>
+</td>
+<td colwidth="[915]" nodeId="77dbcb4243d64785962df7b1f44b10b0">
+<p nodeId="03caec7be52142d78fd5de31141c344c"><span font-size="14">新的规则集合实体，对标过去一个普通场景，在场景内支持以层级关系+路由条件组织成树状的执行链路，使场景内策略达到分层执行的效果。因超时或（短路）未执行的链路将获得</span><span font-size="14"><strong>补偿</strong></span><span font-size="14">。</span></p>
+</td>
+</tr>
+<tr nodeId="356ae07dae27419b9d05d365019f341e">
+<td colwidth="[149]" nodeId="23b5df1dc75b43b589dc101a2fcbb0c5">
+<p align="center" nodeId="94360eaa71964da28c519c44c1d05a5e"><span font-size="13"><strong>组件</strong></span></p>
+</td>
+<td colwidth="[915]" nodeId="bed613b07c774c1ba373fcf1ca3b8817">
+<p nodeId="d9193cb77fa8455e9db8c46b227d44ce"><span font-size="14">一个分层场景为一颗树，树由各个组件与连接关系构成，首期上线的基础组件包含</span><span font-size="14"><strong>策略节点</strong></span><span font-size="14">与</span><span font-size="14"><strong>路由条件</strong></span><span font-size="14">。</span></p>
+</td>
+</tr>
+<tr nodeId="cef2856e9e4d41f8bb2ae1df4b6372f4">
+<td colwidth="[149]" nodeId="9dd11cd14bfe411084df10dd12d6476a">
+<p align="center" nodeId="268890bbede84a0589e98adfa44ecd24"><span font-size="13"><strong>策略节点</strong></span></p>
+</td>
+<td colwidth="[915]" nodeId="106665d847304819a728943e4011d837">
+<p nodeId="4a056e88ed9046ee9a5d7678fbddde02"><span font-size="14">分层场景的根节点与末端。</span><span color=""><span font-size="14">规则/规则组的集合，部署操作类似普通场景，但仅归此分层场景所有，不支持跨分层场景共享。</span></span></p>
+</td>
+</tr>
+<tr nodeId="65e52a6754194b609cab19209003ee7c">
+<td colwidth="[149]" nodeId="9d0dde2f55564230bb4784f03251ff5d">
+<p align="center" nodeId="98146f3a98fe44bcb983337810048705"><span font-size="13"><strong><a href="https://km.sankuai.com/collabpage/1341421659" title="路由条件" nodeId="c47e25ae81824ca4b207186090a1592b"><span font-size="13"><strong>路由条件</strong></span></a></strong></span></p>
+</td>
+<td colwidth="[915]" nodeId="1798b8ef4e22454da2ee5a9472e1770c">
+<p nodeId="008560cd40e847aa994d097290950897"><span font-size="14">连接不同层级的策略节点的组件。</span><span color=""><span font-size="14">请求满足分支上的路由条件才能执行对应的下游的策略，类似多级路由中多个路由规则的集成，但不在规则列表中维护，仅归此分层场景所有，不支持跨树共享。在路由条件组件中，可选择启用决策相关的</span></span><span color=""><span font-size="14"><strong>短路条件</strong></span></span><span color=""><span font-size="14">。</span></span><a href="https://km.sankuai.com/collabpage/1341421659" title="https://km.sankuai.com/collabpage/1341421659" autoUpdate="true" nodeId="dbd39faee4a84ee1aa3e7a3c9f7292c3">https://km.sankuai.com/collabpage/1341421659</a></p>
+</td>
+</tr>
+<tr nodeId="25ad01ce1cd649dc8237d33cd269576f">
+<td colwidth="[149]" nodeId="e45b11447bfe4be0bae3f354c7eacb02">
+<p align="center" nodeId="a2ccfae9fbd94574b920e440d63c1c2d"><span font-size="13"><strong><a href="https://km.sankuai.com/collabpage/1409924045" title="决策加工" nodeId="226845d50ff848da83ce32f78189bc7f"><span font-size="13"><strong>决策加工</strong></span></a></strong></span><span font-size="13"><strong>/</strong></span><span font-size="13"><strong><a href="https://km.sankuai.com/collabpage/2213144559" title="决策树" nodeId="dbdf40dfb2e9485f9a128d413730d901"><span font-size="13">决策树</span></a></strong></span></p>
+</td>
+<td colwidth="[915]" nodeId="c9dc337f1c684c848e745ec42a8dbcaa">
+<p nodeId="dd0d4d5144c0476391b32f418b6a2e6b"><span color="rgb(44, 62, 80)"><span font-size="14">各策略节点执行输出的决策，都将汇总于决策加工组件/决策树进行统一加工</span></span><a href="https://km.sankuai.com/collabpage/1409924045" title="https://km.sankuai.com/collabpage/1409924045" autoUpdate="true" nodeId="da029e16951540a5972a67dc12a6dda5"><span font-size="14">https://km.sankuai.com/collabpage/1409924045</span></a><a href="https://km.sankuai.com/collabpage/2213144559" title="https://km.sankuai.com/collabpage/2213144559" autoUpdate="true" nodeId="55f1afece57d44ffbea31390ad733505">https://km.sankuai.com/collabpage/2213144559</a></p>
+</td>
+</tr>
+<tr nodeId="12ad1f06ad774e048fbf247595980eb2">
+<td colwidth="[149]" nodeId="db42f21d2e2c489b82eae2baa4bf7400">
+<p align="center" nodeId="03cfb7e32a3540c9a55ac54a356e9850"><span color=""><span font-size="13"><strong>短路条件</strong></span></span></p>
+</td>
+<td colwidth="[915]" nodeId="5ad491e754724e0a929790e3a0f22ede">
+<p nodeId="38dd5c5613444a74819cecc06f627da9"><span color="rgb(38, 38, 38)"><span font-size="14">「路由条件组件」中的一个配置项。如果开启短路条件，执行到该节点时会优先判断短路条件是否满足，满足则短路，不再往下路由。不满足则继续判断路由条件来决定是否向下个策略节点路由。</span></span></p>
+</td>
+</tr>
+<tr nodeId="73b0d7147a054344ae458ad37c22ed88">
+<td colwidth="[149]" nodeId="953ef920875240d0adda00c133433fa1">
+<p align="center" nodeId="75a6493375d743399478cf9e09a64549"><span font-size="13"><strong>引线</strong></span></p>
+</td>
+<td colwidth="[915]" nodeId="b49997ceffa04a168c5e7772ed6cdb43">
+<p nodeId="74d07db4737242c9a8601e6241866fcb"><span font-size="14">连接各个组件的线，决定了请求的执行走向。在路由条件组件与下方策略节点的引线上，需要选择该条引线判断的是路由条件的哪个分支。</span></p>
+</td>
+</tr>
+<tr nodeId="46090559a6cc4207977c0175249a4e7a">
+<td colwidth="[149]" nodeId="b0c9f7d04ea8448c9ace9cd78dfcd2fe">
+<p align="center" nodeId="30d86e52c6cd4038b8a6db6cf52e1cd9"><span font-size="13"><a href="https://km.sankuai.com/collabpage/1610062169" title="补偿执行" nodeId="88ccec416f7d4a65937b3d9353e8f460"><span font-size="13"><strong>补偿执行</strong></span></a></span></p>
+</td>
+<td colwidth="[915]" nodeId="d495c6c8224a4173be6face8d076db19">
+<p nodeId="c592dcbda4e7410b958ec4be29cd4c45"><span color=""><span font-size="14">策略分层执行的方式是将更重要能快速判断出结果的策略优先执行（类似名单/基础参数判断等），复杂且高耗时的规则后执行或不执行，因此在实时链路中就会存在一些未执行的策略，异步补偿就是将这部分本应执行完成，但因为分层未执行的部分在异步链路重新执行。</span></span></p>
+</td>
+</tr>
+<tr nodeId="ae937f4602fb436bb8fe3e842df05126">
+<td colwidth="[149]" nodeId="9eee1cc25c2b40beb16689324c28d69b">
+<p align="center" nodeId="8d7d5269bb934222915bb9e3ad1014f7"><span color=""><span font-size="13"><strong>用例测试</strong></span></span></p>
+</td>
+<td colwidth="[915]" nodeId="4cd2e4a83c5a472cbd7e22ef713743b0">
+<p nodeId="03ef57b15af849e58e2e0b517423e7a0"><span color=""><span font-size="14">分层场景各个节点部署完成后，需要经过整体测试才能发布生效。用例测试就是使用构造的json/真实的request传参内容，来模拟执行分层场景，观察执行结果是否符合期望的输出。</span></span></p>
+</td>
+</tr>
+</table>
+<p nodeId="53670fc54aa64d28a35c67705ed68e34" />
+<h1 nodeId="8603db1f2ecd4b159d726f0311435e4a">三、使用指南</h1>
+<km-collapse active="false" nodeId="fdaa81499c6146cf855be50c00c367c4">
+<km-title><span color="rgb(56, 136, 255)">分层场景宣讲记录</span></km-title>
+<km-content>
+<km-video src="https://km.sankuai.com/api/file/cdn/1333731150/117168670618?contentType=1" name="video1721017296.mp4" size="118.62MB" width="727" height="421" nodeId="c401ff3a0efa4498b591ae4915bdb1dd" />
+<p nodeId="4a82f3616b4649b1a11e3662ca79b89e" />
+<p nodeId="b8b36c7a942f457e8535363940eaad3e" />
+</km-content>
+</km-collapse>
+<p nodeId="d505b260812140d69bf12f258a92da49"><strong>分层场景中依旧需要使用规则和规则组实体来组成策略节点。因此在使用分层场景之前，依旧按当前方法配置好规则、决策与规则组，再将其引用到分层场景的各个策略节点中。</strong></p>
+<p nodeId="ba533e03b42c46988be479ff75be75a3">下面以一个分层场景的部署流程来分别介绍分层场景的各个功能模块：<br /><km-drawio src="https://km.sankuai.com/api/file/cdn/1333731150/103591033259?contentType=0&amp;isNewContent=false" width="655" height="327" nodeId="f7acbf3a8f48472d9140b9d7bbe480d2" /></p>
+<h2 nodeId="f7950d144b334732b618ae27aeb3542e">3.1 管理列表</h2>
+<km-collapse active="false" nodeId="0045c75d4cfc43f2903632d7b71363b4">
+<km-title><span color="#3888FF">展开查看功能详情</span></km-title>
+<km-content>
+<table responsive="false" nodeId="df71ddc8aad54abea124082b1a92cc5a">
+<tr nodeId="e5013ca582c542bfa6903ca037a38f12">
+<th colwidth="[103]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="bec0c1acc2244c60ba01ba5c4a622455">
+<p nodeId="27d142db2db34a5698f7430b7f666895"><span color="rgb(255, 255, 255)"><span font-size="14">功能模块</span></span></p>
+</th>
+<th colwidth="[631]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="702d746b65874968a69045f035a4e11e">
+<p nodeId="3e743082f38343fabb670bf1add9cb58"><span color="rgb(255, 255, 255)"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[607]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="39f27ca187bb479583c86b18d8fbabf3">
+<p nodeId="fb6ea47a7b7246d296be10e42be1ebe6"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="93f065f786ab44b8a8a901e2463c5e2a">
+<td colwidth="[103]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="09428b2e00a7446b81caeea4787882e1">
+<p align="start" nodeId="1bce6325dcfa45e88fb8cc59e05f7009"><span font-size="15">管理列表</span></p>
+</td>
+<td colwidth="[631]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="127c2e99bbaf4a5f9e29ce9bf8f35291">
+<p align="start" nodeId="4c992cc7704e4f0b80f090266cd6122a"><span font-size="15">菜单：策略部署-分层场景</span></p>
+<p align="start" nodeId="a21c3ca1d2dc4cbf8e5cf8e23b96d18e"><span font-size="15">1.筛选/搜索说明</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="39557112b6094d76a8d2d3accbd46c19">
+<tr nodeId="832f0514eeaa4fa68e3c2f4144adea82">
+<th colwidth="[107]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="7576074317be4e0ba7ae16f8e160ef6d">
+<p nodeId="42d047d4eb8248ffb3efe03e6664a156"><span color=""><span font-size="15">列表项目</span></span></p>
+</th>
+<th colwidth="[495]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="8b9346a97ee3475ebdd8a487b3c23c5d">
+<p nodeId="a93e12960c394dc59c41c9821d78fd62"><span font-size="15">说明</span></p>
+</th>
+</tr>
+<tr nodeId="cd661f1edf49421c86e4c66be322783c">
+<td colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="96638f7b5304419d8046d4f05d2b94f0">
+<p align="start" nodeId="53dd454e27d9486ba64bfb214c6f33d5"><span font-size="15">分层场景</span></p>
+</td>
+<td colwidth="[495]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="72af3fceb6dd48238d12a9ae27bd40f6">
+<p align="start" nodeId="86e68b8203fa4ef783888d647894b48c"><span font-size="15">输入id/名称，模糊搜索查找项目（同目前的普通场景列表）</span></p>
+</td>
+</tr>
+<tr nodeId="5ef0951b996744cc8a4c4ad3ea62f329">
+<td colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="37fb0306ce53421dbae16633c2585442">
+<p align="start" nodeId="c0969106644d45e4abb5adc371274530"><span font-size="15">规则/规则组</span></p>
+</td>
+<td colwidth="[495]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="be8b136d47e14a88a962663a7caf1dbb">
+<p align="start" nodeId="82586b3bddae4bc0ba5af4e3742a374e"><span font-size="15">下拉可选规则/规则组，默认是规则。第2个下拉框可输入id/名称筛选出选项供点击。（同目前的普通场景列表）</span></p>
+</td>
+</tr>
+<tr nodeId="4ed4a1e5cf9c4bd9951439cc3a272286">
+<td colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8eac34e44a4d4568bc89731b7f4c28b6">
+<p align="start" nodeId="5b8d30cc95c24381bba8e30ebc9aa000"><span font-size="15">MISID</span></p>
+</td>
+<td colwidth="[495]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="76cd84cbc1aa49afa07cdd58dea797f5">
+<p align="start" nodeId="43f0f821446a49449215eaf242a59921"><span font-size="15">支持对创建者/修改者/负责人 mis ID模糊搜索</span></p>
+</td>
+</tr>
+<tr nodeId="435ed39a905c43218ea6d808a480060f">
+<td colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fff9419290234481be536a85930862bd">
+<p align="start" nodeId="c9d67c7f19a047a9bda86bba580b2ee4"><span font-size="15">时间</span></p>
+</td>
+<td colwidth="[495]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3f0c3e7bb1a245c1bff78c2c2b5c6b57">
+<p align="start" nodeId="47993bbbd2224f73a12c1a833b071074"><span font-size="15">可根据创建/最后修改的时间范围来进行筛选（同目前的规则列表）</span></p>
+</td>
+</tr>
+<tr nodeId="a752988b7639489da2fa452761e82636">
+<td colwidth="[107]" nodeId="2f52f5d29da64350a239c296aedf0880">
+<p nodeId="52122cad0f5240e5b77c5794b01028ff"><span font-size="15">模式</span></p>
+</td>
+<td colwidth="[495]" nodeId="7bc54928d2f8423c813caf96df55704c">
+<p nodeId="c9f3de0692884d8e8d8c2cf3604de506"><span font-size="15">对场景使用的模式进行筛选，详见：</span><span font-size="15"><a href="https://km.sankuai.com/collabpage/1861016812" title="https://km.sankuai.com/collabpage/1861016812" autoUpdate="true" nodeId="a4e18deaa0b541c4bd49bf966b999dfc"><span font-size="15">https://km.sankuai.com/collabpage/1861016812</span></a></span></p>
+</td>
+</tr>
+</table>
+<p nodeId="b02c27d0cb2640599b0bf6561371d913" />
+<p align="start" nodeId="ed08f0594d8f4d8b828b85a93773f150"><span font-size="15">2.列表项目说明</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="894fab3e61e74a4e91881b37700f99bc">
+<tr nodeId="48a5a87b031c44249635c5a7920855e4">
+<th colwidth="[94]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="d0732ff6ee7e40799123004daa535577">
+<p nodeId="3bd4a62b1e82401da25dee37a3e69155"><span color=""><span font-size="15">列表项目</span></span></p>
+</th>
+<th colwidth="[505]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="a1704b953eda424e9bd259eadc7bacbf">
+<p nodeId="4a9dd5bb9e7f44c595306ad26b53e013"><span font-size="15">说明</span></p>
+</th>
+</tr>
+<tr nodeId="87b7500f502f4e438f3f5d0920e03875">
+<td colwidth="[94]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6918a2a676df4f91a9bc1cc4b0d3eef6">
+<p align="start" nodeId="b6d688de038c4a8f97e30306745159f4"><span font-size="15">分层场景ID</span></p>
+</td>
+<td colwidth="[505]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b77f6f3a68c440fabf81687c8b672eae">
+<p align="start" nodeId="5b985d7f9c57409a9e3d02bccb73efe8"><span font-size="15">一个分层场景的唯一标识</span></p>
+</td>
+</tr>
+<tr nodeId="2f8cab90a0a541aab84af5314e405c87">
+<td colwidth="[94]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bcdb14f4138d40b28ca1d1a2f50b92ae">
+<p align="start" nodeId="9bc14db44f624058942f9efe4ea77ee7"><span font-size="15">场景名称</span></p>
+</td>
+<td colwidth="[505]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="38afa76a0e254e2092059cfee9a7cdb1">
+<p align="start" nodeId="a239c95085614a8aa0b5940c21314632"><span font-size="15">名称，点击后可进入该场景</span><span color="rgb(245, 35, 45)"><span font-size="15">当前生效版本的详情预览页</span></span><span font-size="15">。</span></p>
+</td>
+</tr>
+<tr nodeId="2b785c6f472d401fb1b26ba5a8d8bb53">
+<td colwidth="[94]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="537249b0fc55404395b718d9d32ff578">
+<p align="start" nodeId="5ac85b988d26470fa35650e30e472ee3"><span font-size="15">场景备注</span></p>
+</td>
+<td colwidth="[505]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a4b217ecf9414d28bab5250bbc1c8af1">
+<p align="start" nodeId="7c0499b41db04b1da324bff2acef4637"><span font-size="15">场景备注信息</span></p>
+</td>
+</tr>
+<tr nodeId="acb4fc4a06ea495faa8835d4dec1f121">
+<td colwidth="[94]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a2676b0e5bc0420b9d28aa47e84306ff">
+<p align="start" nodeId="b44579b6d38048dfa8d845f95a1c6707"><span font-size="15">版本</span></p>
+</td>
+<td colwidth="[505]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a889827c1479473cbae3be4e2b1207f0">
+<p align="start" nodeId="ab239d7580bf4cc4931cf348f4b4e2e2"><span font-size="15">从v0开始递增，点击后抽屉展示详细版本信息。可查看历史版本的内容。</span></p>
+<p nodeId="8b2af7403dcc4bc7ab95866a77ae896d">升级：用户基于已有版本，主动点击「升级」进行升版操作，新升级出来的版本可以进行所有生效策略变更操作。<br />上线：用户可点击非使用中的版本「上线」，进入发布任务中对于分层场景版本进行切换上下线</p>
+</td>
+</tr>
+<tr nodeId="a423436dd11245d3825c18f2eac387cc">
+<td colwidth="[94]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="86cdb1bdc7154269918879dfe2206c47">
+<p align="start" nodeId="609ff885d7ee4ba2a396d902a3aa3961"><span font-size="15">负责人</span></p>
+</td>
+<td colwidth="[505]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cbc204188c194da5b92ede7f512f3cfd">
+<p nodeId="262487b76acd443897e149bd34b276fd"><span font-size="15">负责人：每个分层场景可以有一个负责人的misID，区别于创建人和最后修改。对该分层场景拥有</span><span color="rgb(245, 35, 45)"><span font-size="15">删除，可接收到分层场景每次迭代版本的通知</span></span><span font-size="15">。除了创建者在创建时可以定义该场景的负责人以外，负责人的变更都只能由</span><span color="rgb(245, 35, 45)"><span font-size="15">空间管理员&amp;当前负责人</span></span><span font-size="15">操作。</span></p>
+</td>
+</tr>
+<tr nodeId="d779704d8e9c42dd81606eff8de37322">
+<td colwidth="[94]" nodeId="8579d058636c480790b61c4f502f7739">
+<p nodeId="4986c2fbe4ff482ab3dcb4ca7db2bd0b"><span font-size="15">模式</span></p>
+</td>
+<td colwidth="[505]" nodeId="a4c2c7a0920d409c9d9626d0d2f9f2aa">
+<p nodeId="180053dce1aa4f27b6dd2fc863273df9"><span font-size="15">详见：</span><span font-size="15"><a href="https://km.sankuai.com/collabpage/1861016812" title="说明：模式切换" autoUpdate="true" nodeId="c852b15aaca04f61aa4c6b26a9bbd302">说明：模式切换</a></span></p>
+</td>
+</tr>
+<tr nodeId="085bacc60bc34340aeb87954ac944c28">
+<td colwidth="[94]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="221991588edc43f8af9164349553cf78">
+<p align="start" nodeId="2f9e2a6f33da4575bb1d1aa07b52c363"><span font-size="15">创建</span></p>
+</td>
+<td colwidth="[505]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cc019366303a486ab505cbaa002feb30">
+<p align="start" nodeId="efcbc40e52f34a14a6fd86151c90c882"><span font-size="15">记录创建改的时间与提交者mis号</span></p>
+</td>
+</tr>
+<tr nodeId="ae3ca1b1f2344c2488ce80f10d1aa666">
+<td colwidth="[94]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5b43341e510f4c5894b56e0732a7e98c">
+<p align="start" nodeId="1412c44c2dfc4be8bc8bba4690fc81ac"><span font-size="15">最后修改</span></p>
+</td>
+<td colwidth="[505]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cd6d2d57d0f34b5da01577155536bbab">
+<p align="start" nodeId="8d8ba8d363db41a6a79b54235cb9374e"><span font-size="15">该条记录最后一次修改的时间与提交者mis号</span></p>
+</td>
+</tr>
+<tr nodeId="fb266dcd3aba491e9bae0b7b66749fdd">
+<td colwidth="[94]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2bdb0965e59b4d90aa4326998eb786cc">
+<p align="start" nodeId="a95b4886ba1448c58b4543ab6bf1d2c4"><span font-size="15">操作</span></p>
+</td>
+<td colwidth="[505]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="691c1085b3f941deaa57fe4b4bbf9519">
+<p align="start" nodeId="44b80b4bee6a4999bf916fd5f7f81de6"><span font-size="15">修改信息：可修改场景名称、场景备注与负责人（支持多个，英文逗号隔开）</span><br />版本管理：可对版本上下线、升级进行操作</p>
+</td>
+</tr>
+</table>
+</td>
+<td colwidth="[607]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ddff40cb5b464f1b80f5c6b9e8a8d2d0">
+<p nodeId="4c85ed3b87a940c38ad7fbeaa293b540"><img src="https://km.sankuai.com/api/file/cdn/1333731150/116906979761?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1108.68" height="600" nodeId="e427624a3c6f4271bba397e9551ecc29" /></p>
+<p nodeId="762d6fcc813f4a20937dd219c8a4ea49"><img src="https://km.sankuai.com/api/file/cdn/1333731150/116906454593?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1111.48" height="600" nodeId="1fe2971372bb484cb42e851a1a42d330" /></p>
+<p nodeId="1c8fe42d7a064651a5e6902d0180f3e5"><img src="https://km.sankuai.com/api/file/cdn/1333731150/116908486309?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1112.12" height="600" nodeId="29808cd089344950b06d5070fbdc8d77" /></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h3 nodeId="16bbe5bf7c6d44fb8a2a9ff2fe7bcc24">分层场景的版本与状态</h3>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1333731150/117196449296?contentType=0&amp;isNewContent=false" width="390" height="372" nodeId="ba44813dd6a44502a0120e22d1833684" />
+<h3 nodeId="1156a7acc77a4e78a7d8f00d82f034b3">如何上线一个新的分层版本</h3>
+<table responsive="false" nodeId="dcdc9d28cbef4b2dbc398e402d99da36">
+<tr nodeId="ba2dc15f95614eb8b7854e4c661e4447">
+<th colwidth="[363]" nodeId="3804c3209567446b90c4d9aeb44218f5">
+<p nodeId="e44a13f104ca40068f88e9323d045d75">Step1:打开版本管理抽屉</p>
+</th>
+<th colwidth="[380]" nodeId="4a806ae9a1794dcbb949ca49609d4060">
+<p nodeId="5ef15a19f3874e7d87a63630e2a763c0">Step2:点击需要切换到的版本数据行的「上线」</p>
+</th>
+<th colwidth="[337]" nodeId="a1ad610ea6d24963b2b8c6ef3b70b5f1">
+<p nodeId="0f1d13f21eca4844945e318d60efd0e5">Step3:创建发布任务</p>
+</th>
+<th colwidth="[357]" nodeId="92bac9d20edb4c01b68ee8202be8b34a">
+<p nodeId="34a53530ff274ba191549899ea248068">Step4:完成发布任务配置，灰度上线</p>
+</th>
+<th colwidth="[385]" nodeId="2f36be8c10444ac2956bcfa6887bc40e">
+<p nodeId="59fb9807fb244a95a81eb5407733790f">Step5:完成发布，切换完成</p>
+</th>
+</tr>
+<tr nodeId="15d6a614da8d4f5aa40a8b1d98babaaa">
+<td colwidth="[363]" nodeId="b299bf2f996b4ffcbaffd3d34fbf9173">
+<p nodeId="0a15702d9f914ab38508d9382ca20f46">入口：点击操作列-「版本管理」/ 版本列数字超链</p>
+</td>
+<td colwidth="[380]" nodeId="426c011b45c443678084bece63ec118b">
+<p nodeId="06f56b986f6f44ffb7964cf1e3886991">希望将由V0版本升至V1版本</p>
+</td>
+<td colwidth="[337]" nodeId="ae522a84d012424a866cfe28855c5d29">
+<p nodeId="7c756ba9d9a14a228f0a73d9697772ce"><span color="rgb(255, 74, 71)">注意：创建发布任务后将直接跳转Step4页面，并默认将点击切换的版本上线添加到变更内容中</span></p>
+</td>
+<td colwidth="[357]" nodeId="f5948c04cbb94e0aaa2a908ac6361418">
+<p nodeId="272cb9133fc544b8be81c542415ad21a">完成发布任务配置，并上线</p>
+</td>
+<td colwidth="[385]" nodeId="dd05c55fa7334e4eb505ed2820ecfb34">
+<p nodeId="c91e75afdb8541bc9b3534717ce6aa7a" />
+</td>
+</tr>
+<tr nodeId="556cbba8a0224ebfbd138b3669440d8d">
+<td colwidth="[363]" nodeId="9d5d0c6dcabd4ece87ee80fd387c2fbc">
+<p nodeId="35a90cc045554d8bb5e1f8e76d0b9555"><img src="https://km.sankuai.com/api/file/cdn/1333731150/117201793757?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1205.65" height="600" nodeId="212872dcd2f6494caa2bfb638f711302" /></p>
+</td>
+<td colwidth="[380]" nodeId="9b0d67d0a31d468096716eb3827e1ed4">
+<p nodeId="81bf1fd4462f4c528f877da5855e6e1a"><img src="https://km.sankuai.com/api/file/cdn/1333731150/117200050952?contentType=1" name="image.jpeg" width="336" height="168" nodeId="a9afa321e6314cdab213469dbd746f16" /></p>
+</td>
+<td colwidth="[337]" nodeId="e7bd20394996480b9802d608d4f1d4dc">
+<p nodeId="146c504124c04b6a89e15e9a7c64ad24"><img src="https://km.sankuai.com/api/file/cdn/1333731150/117204053344?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1203.14" height="600" nodeId="045f6f2bcadb415aafd59ea9e7bd4473" /></p>
+</td>
+<td colwidth="[357]" nodeId="c883feab9c794f1a892d57113ddbf61f">
+<p nodeId="f2587a2c43a4432a89d9c671e1dda631"><img src="https://km.sankuai.com/api/file/cdn/1333731150/117203101448?contentType=1" name="image.jpeg" width="1204" height="600" nodeId="127714e2c2884c4eb20107df65510a9e" /></p>
+</td>
+<td colwidth="[385]" nodeId="a072c5a234c942f49a16c7ad525e6ce3">
+<p nodeId="b58fabd1f92b4f2c8feb956667208606"><img src="https://km.sankuai.com/api/file/cdn/1333731150/117230231765?contentType=1&amp;isNewContent=false" name="image.jpeg" width="335" height="161" nodeId="eae6d688c2294ca4b65e8ab7f7e90b70" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="126bc66bdec644778eea32b51775cf07" />
+<p nodeId="94639b5e83a341ef95b68cbe58f631fc" />
+<h2 nodeId="8425b3e4df324396af3e3aca95655137">3.2 预览状态</h2>
+<km-collapse active="false" nodeId="8eff0b49e94445f88dd16c0b1715d41b">
+<km-title><span color="#3888FF">展开查看功能详情</span></km-title>
+<km-content>
+<table responsive="false" nodeId="b03431b099fa4d838bb1305789074c9c">
+<tr nodeId="18b8f711c5ee477fba62370775ba50a8">
+<th colwidth="[92]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="f0fb1ed8f6e44a8e84fbe3e976f25f52">
+<p nodeId="dedb45ca4920484dba0325f4d970efa1"><span color="rgb(255, 255, 255)"><span font-size="14">功能模块</span></span></p>
+</th>
+<th colwidth="[642]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="5a3f75c2c69b4aadb7f5a4a548cf1d05">
+<p nodeId="e0d6a74b5be545e58ee4b4d55569a489"><span color="rgb(255, 255, 255)"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[613]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="d9753b553c084b419a26dbae0b288fb2">
+<p nodeId="8e2f94e818524335bc721206a5ff531e"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="bb49573736aa49b392958349ed6cd257">
+<td colwidth="[92]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fd147c683fe64fb3ae6d8bddf6d78f3f">
+<p align="start" nodeId="3c7a860370a04e68941fda1e03dce2fc"><span font-size="14">预览态</span></p>
+</td>
+<td colwidth="[642]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="22ee3a77e032437a861c80adc7ce14d1">
+<p align="start" nodeId="27cad2d0de4f47f59e2504395af8d382"><span font-size="14">1.路径：查看当前版本的分层场景的详情时/查看分层场景的历史版本</span></p>
+<p align="start" nodeId="7c52c18a4f3340c4ada11f8fc3444f73"><span font-size="14">2.说明</span></p>
+<ul nodeId="517effbf74d54066bc609677d0c53753">
+<li nodeId="59e120a004874d1a878c451a8617d3f0"><span font-size="14">与普通场景不同的是，分层场景有【编辑态】概念。策略必须在场景编辑态下部署好，选择保存到线上才会正式启用。历史版本和草稿中的编辑内容，</span><span color="rgb(245, 35, 45)"><span font-size="14">都不是真正在线上运行的分层场景</span></span><span font-size="14">。</span></li>
+<li nodeId="18a2a5a1f14a40889e992c5b810649d4">
+<p align="start" nodeId="5050080fc80344ecaffadb2959486287"><span font-size="14">预览态下 树结构不可编辑，但允许点击节点，查看节点内的详细内容。</span></p>
+</li>
+<li nodeId="7faaebf5a23c4f5995042e18bc4352f6">
+<p align="start" nodeId="628218c91dc74e3fb6c8edbb2a379997"><span color="rgb(245, 35, 45)"><span font-size="14">***历史版本的预览态，顶部没有删除和编辑按钮。</span></span></p>
+</li>
+</ul>
+<p align="start" nodeId="7fafe300033e4598b11313df8b74e159"><span font-size="14">3.按钮：</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="b6004d41d1424ea0915c1990fbb629e5">
+<tr nodeId="16b5a0bbfced403494d3a2059b5c863d">
+<th colwidth="[108]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="902e0495b90841f599bf2fc3c93bb206">
+<p nodeId="b8a9475598554a3e90898db1df0827f4"><span color=""><span font-size="14">按钮</span></span></p>
+</th>
+<th colwidth="[464]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="9142ecd9e8f5442ea6e77ad8722893b1">
+<p nodeId="334f40994c58483686d07239df5ac2c3"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="d47a0478f77a41bdb0a3f0f34dd2ce35">
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="596459a6626b41f4bb66f7ac33fcbe4e">
+<p align="start" nodeId="eb6cd8c0dd3f408e98c6d7b09faa9b49"><span font-size="14">返回</span></p>
+</td>
+<td colwidth="[464]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f4979f1cf891460caf3e1f4cfec28660">
+<p align="start" nodeId="b777045da30446f094bc1314398bf85d"><span font-size="14">回到上一页。</span></p>
+</td>
+</tr>
+<tr nodeId="fbb7099bedbe478289e4ef0b0aeb0bf1">
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3dc0b38dd9aa428981f46ac1bd5a9a41">
+<p align="start" nodeId="f324507f1f4a41c78d475e3fddbfed07"><span font-size="14">退出</span></p>
+</td>
+<td colwidth="[464]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bf314b18e16e4d56ad6e39d98e68cd56">
+<p align="start" nodeId="4aa6f83e196f4d01a9b1e71031e7f8cb"><span font-size="14">回到列表页。</span></p>
+</td>
+</tr>
+<tr nodeId="29053427ebe54064a7b301509c098b4f">
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d7205ae25ca04dc3ba16b6b2326f811b">
+<p align="start" nodeId="cda58f3f2e884fc79567d4076977b39b"><span font-size="14">编辑</span></p>
+</td>
+<td colwidth="[464]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c6a3348af5454a548deb9c3441fc9120">
+<p align="start" nodeId="527f2c3ea3f0492a97fce677fb426549"><span font-size="14">进入编辑态，优先判断有无其他人在编辑，有则弹窗提示xxx正在编辑，并拦截本次操作。</span></p>
+<p nodeId="db33102164c743659f1937d3b3429316"><span font-size="14">若无他人在编辑，则会提示用户是在上一个草稿的基础上进行编辑，还是废弃原草稿，另起一个草稿。</span></p>
+<p nodeId="6695709301b94a48bfd2ae8103a7b9eb"><span font-size="14">若当前编辑操作为新生效版本的第一次编辑，则直接进入编辑态，将作为首个草稿。</span></p>
+</td>
+</tr>
+<tr nodeId="21886d89261e492d912a946b0efa6a2e">
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3a68fa5d00d5438a9a29465e71f42fa4">
+<p align="start" nodeId="54dbf2a88d574abc95ff771b71894ac4"><span font-size="14">删除</span></p>
+</td>
+<td colwidth="[464]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1ce586d897ed45f6a69fae0203c9e5fa">
+<p align="start" nodeId="43bd3ddbe73f4913bf9178439595f214"><span font-size="14">非负责人点击删除时，将有toast报错拦截删除动作。</span></p>
+<p align="start" nodeId="4ccbb59d1c564a9ba59c7011ad70f72e"><span font-size="14">负责人操作时，将有二次确认弹窗。</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="d3498348338c4644b1557ce7b162cff9"><span font-size="14">4.草稿介绍：</span></p>
+<ul nodeId="d1affc58deac498caa2217e63d8a26d7">
+<li nodeId="e7e8199a09d44a44af14d2e401bee61b"><span font-size="14">对于所有操作用户来说，一个分层场景的同一版本仅会保存</span><span color="rgb(245, 35, 45)"><span font-size="14">一个公共草稿</span></span><span font-size="14">。</span></li>
+</ul>
+</td>
+<td colwidth="[613]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9125875ea3324b3ead52dc57a681a0f5">
+<p align="start" nodeId="9b24f8ca74ad414c87a31a1b2ebc4399"><img src="https://km.sankuai.com/api/file/cdn/1333731150/116909059324?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1105.54" height="600" nodeId="e56af92983c54094be3cafdfc3453596" /></p>
+<p nodeId="1d02a8a86f30450cb8c83bca6f6f71fe"><img src="https://km.sankuai.com/api/file/cdn/1333731150/116911800820?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1105.9" height="600" nodeId="72c19ff895f14ce5a157b185e1b995d9" /><img src="https://km.sankuai.com/api/file/cdn/1333731150/117233290684?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1198.13" height="600" nodeId="f2443ddc7bb44312a0792d1c35454274" /></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h2 nodeId="fcf1b5e7669b41f7bfa6a4fe55bada46">3.3 新建与编辑</h2>
+<km-collapse active="false" nodeId="9d377e1889f143668f412e52301d6745">
+<km-title><span color="#3888FF">展开查看功能详情</span></km-title>
+<km-content>
+<table borderColor="#cccccc" responsive="false" nodeId="abecf794478e40b793d62e8f0e469212">
+<tr nodeId="1bb14e3647cb469b960b83c98be0fd67">
+<th colwidth="[93]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="ddbe375abc744898addbdb40ef4e3fe9">
+<p nodeId="79c90753fc5641839961b20040e04b4a"><span color="rgb(255, 255, 255)"><span font-size="14">功能模块</span></span></p>
+</th>
+<th colwidth="[602]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="bc11d6e038fd4c15a80254b80f2dcddc">
+<p nodeId="27adb25a4a5b4ca78c0f01666002e753"><span color="rgb(255, 255, 255)"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[671]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="5fb44a92f7e44ddbae93f93d8f830266">
+<p nodeId="5578cce97a064856aed216e89932864c"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="3a5c734ff8d84df7b496033ee830bdfd">
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3e228605415e4e54a50bfbe45913474c">
+<p align="start" nodeId="777e7e5f6d94486386e9859ee0fed1c0"><span font-size="14">新建/编辑态</span></p>
+</td>
+<td colwidth="[602]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2abb48e3a6c34b07990263cfddb206f3">
+<p align="start" nodeId="346120103e374497ad219e048f19615a"><span font-size="14">菜单：策略部署-分层场景-新建</span></p>
+<p nodeId="9fbd1bb790bd4cbd912fbc024d0a43f6"><span font-size="14">点击新建分层场景，在弹窗中输入场景名称、场景备注与负责人。</span><span color="rgb(245, 35, 45)"><span font-size="14">点击确定将生成初始的生效版本V0，此时为一棵空树（无任何策略节点、路由），在列表中出现。用户可以点击预览，进入编辑。</span></span></p>
+<p align="start" nodeId="7e2fdb71f49c4894a07794820ef23a38"><span font-size="14">1.新建态页面布局</span></p>
+<km-collapse active="false" nodeId="752e309163cf4f68b8b9f2ab6ea7f638">
+<km-title><span color=""><span font-size="14">页面布局</span></span></km-title>
+<km-content>
+<table borderColor="#cccccc" responsive="false" nodeId="3c812bdcf30f4622ad060f8aba271c09">
+<tr nodeId="14b333444fa34fe9929bf622b6709307">
+<th colwidth="[99]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="394ed958e2e24b228a2026e1bc520cca">
+<p nodeId="6f90e1c681494788af7763d14c80b413"><span color=""><span font-size="14">区域</span></span></p>
+</th>
+<th colwidth="[408]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="70e0e33a7c3e4f0b8c0f28b5edc30693">
+<p nodeId="e74054fa67bf4bbab7071a462c705778"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="708c06860d72460a8473ca5b5de7090a">
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c50ec6b165d84f71b0f585ad053e3eac">
+<p align="start" nodeId="c8ca806b01234def82dc585ffd7cc9b6"><span font-size="14">页面顶部</span></p>
+</td>
+<td colwidth="[408]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="429fb098b42f4234bbbcc204a86dffaf">
+<p align="start" nodeId="250d316b010b4d2d9d345dd9d32d5b3f"><span font-size="14">从左至右：返回键，场景名称与id，一键更新，退出，保存草稿，用例测试</span></p>
+</td>
+</tr>
+<tr nodeId="6ff685fedf5947a9a0552f8bbc529720">
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9965cded498940c9a0bc2f072094465f">
+<p align="start" nodeId="6fc59fe04e51417fbfbd9e8d5764da24"><span font-size="14">画布左侧</span></p>
+</td>
+<td colwidth="[408]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6f9e563bd5c24ae3afbf3b49d4362be2">
+<p align="start" nodeId="44574defea5348a98f657cfd09623ae9"><span font-size="14">工具栏（收起键）</span></p>
+</td>
+</tr>
+<tr nodeId="0f652a112fc54dd1879bea2fac95ee15">
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1c044ba194ec4f0d876a9f12f30563bd">
+<p align="start" nodeId="3d8caf69cdde425fb9b143e281a279e4"><span font-size="14">画布右侧</span></p>
+</td>
+<td colwidth="[408]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a1bd021c596c4c77a117f566ee0c3d6b">
+<p align="start" nodeId="288ce8aa6a3b462a93358f2a7a341b81"><span font-size="14">抽屉区，用来展示场景/各组件的详情信息。</span></p>
+</td>
+</tr>
+<tr nodeId="0b92a9bdb15a45c889f1798398b6d4e4">
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="07c59e0e7cef43378e66219d3c85c4b5">
+<p align="start" nodeId="f43602a9841b4875843c0e96e58cc295"><span font-size="14">画布中间</span></p>
+</td>
+<td colwidth="[408]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b7edc5201e6248eba5c7e133fd0bf4c1">
+<p align="start" nodeId="28133b27928644bf9542f030d131f6f5"><span font-size="14">树的主体主要放在中间预览，支持组件的拖拉拽删。</span></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<p align="start" nodeId="49b49f1fb7244d6e80057f6336ff19f4"><span font-size="14">2.按钮说明</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="760d978c07f245c6bede9a450ba957be">
+<tr nodeId="bde7e44d4e944c1684cab1f184c79540">
+<th colwidth="[134]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="e684413be15e4f34971fe4e4561e975c">
+<p nodeId="716ff5acd86a4efbbe54bd9def982149"><span color=""><span font-size="14">按钮</span></span></p>
+</th>
+<th colwidth="[395]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="f4c387d31c1f47589c49be912947cccf">
+<p nodeId="df54456d56fd47ea885d606149e0fabf"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="e596e63e3b1b4895bbf8fa88538cb686">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="60195ebe102e470d9b2c59c9cafb89d2">
+<p align="start" nodeId="e8a099bdb24040c3a8a1bac9077a2994"><span font-size="14">返回（左箭头）</span></p>
+</td>
+<td colwidth="[395]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="036549fe9c9b4f99b6501ee93a1352a1">
+<p align="start" nodeId="7b7d3399e02245be9705cdb69500c4da"><span font-size="14">同退出，回到预览态。</span></p>
+</td>
+</tr>
+<tr nodeId="485ff5b4978243a2ba71c3308edb12b3">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a16755e7329f4d4a98e33f9e369accdd">
+<p align="start" nodeId="a26c47f869a242c986cbc0032dac1246"><span font-size="14">退出</span></p>
+</td>
+<td colwidth="[395]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8c14c4eaec9945089eb16a75e4181a30">
+<p align="start" nodeId="38f44c1fed6145de9e6577bc3cd72c80"><span font-size="14">退出编辑态，回到预览态。退出前会给弹窗二次确认「</span><span color="rgb(81, 196, 27)"><span font-size="14">是否将当前编辑内容保存为草稿并退出？</span></span><span font-size="14">」——取消/直接退出/保存并退出</span></p>
+<p nodeId="68236e97a1ee42a6973239d408bd6a61"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2391154589?contentType=1" name="image.jpeg" width="331" height="162" nodeId="17a395708f744acf8c08bdea9e0c7a83" /></p>
+</td>
+</tr>
+<tr nodeId="f75e42a6120b497eab691c16a10d1099">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0af2de3d3926406081ba9fe98e011886">
+<p align="start" nodeId="0f4020c8372a43e0a29213c3d1315908"><span font-size="14">保存草稿</span></p>
+</td>
+<td colwidth="[395]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="21d892199fbf4dbab0b8682b2a6f43c2">
+<p align="start" nodeId="33a9a68e2a1b4085bc29576767f871f7"><span font-size="14">将当前编辑的内容存至草稿，覆盖原草稿。</span></p>
+</td>
+</tr>
+<tr nodeId="9fe6548bfce245c39cac07f0a378f30d">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c573729c68724b5ba9808323ea6170dd">
+<p align="start" nodeId="35ddb0f07f4c42cf982b9f3a3a96e725"><span font-size="14">用例测试</span></p>
+</td>
+<td colwidth="[395]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0e7c959f873c4ed79c07e3ecbaed34da">
+<p align="start" nodeId="81d9876c954d4f19aaff5f41f1dbf82e"><span font-size="14">进入用例测试页，进入前先校验是否分层场景无结构问题。</span></p>
+</td>
+</tr>
+<tr nodeId="4daed15a2bab4f66a5715f09704f0589">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="61e698f80b7448f59adbc9f3ac50b94f">
+<p align="start" nodeId="25f46b9e8ea94d2685e0fc947d1a1114"><span font-size="14">快捷键-放大</span></p>
+</td>
+<td colwidth="[395]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="226e0dff5a954005bd1f1a9d7a92ddb7">
+<p align="start" nodeId="d0f7fdb5885c4b128a0de4b236c5ef4a"><span font-size="14">将画布页面放大</span></p>
+</td>
+</tr>
+<tr nodeId="da23f9588a104c7686b84be34725e15a">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="564be79f601346b5a7b39b3b724defc5">
+<p align="start" nodeId="2e83167578c141019fc6415cbb1fc39c"><span font-size="14">快捷键-缩小</span></p>
+</td>
+<td colwidth="[395]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="83e3529cefd34b829e950dfc5f2625d6">
+<p align="start" nodeId="e18e14bcff934d878b5529868704d36a"><span font-size="14">将画布页面缩小</span></p>
+</td>
+</tr>
+<tr nodeId="9056052163024f8fb4298eb07d17d9c3">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1a13bd5bb8ea4e4289dd46fbc06ba97c">
+<p align="start" nodeId="6505a2dff5004c289ed8d111b1059e87"><span font-size="14">快捷键-实际尺寸</span></p>
+</td>
+<td colwidth="[395]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3830e39427b64506aa736e01b662ab47">
+<p align="start" nodeId="b0e8d86b8a7b415393cae9f516ae9141"><span font-size="14">将画布尺寸展示为实际大小</span></p>
+</td>
+</tr>
+<tr nodeId="c064d3f65da04ceaa24aa2a0e7006248">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0fa11c220ec64849a1f5c0fa109610d5">
+<p align="start" nodeId="52e1084f16ff4d13af567e1275d666c7"><span font-size="14">快捷键-适应屏幕</span></p>
+</td>
+<td colwidth="[395]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bfb9dff9c4dd4b8a9ba10dea2860bd17">
+<p align="start" nodeId="64eb2af6ad8c4c11899b1b65cb787fd5"><span font-size="14">将画布尺寸适应屏幕展示</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="da7cf94fcac146948a5d1f9c106cb6b2"><span font-size="14">3.从预览态进入编辑态时，会提示是否使用之前保存的草稿，还是另起一个草稿。</span></p>
+<p nodeId="5c8acfeb45d24f91b529fcc2c9b49273"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2390905616?contentType=1" name="image.jpeg" width="320" height="157" nodeId="39e82b04e91e4026b9835dd66b40346f" /></p>
+<p nodeId="73ee1ba06bb54315bd5b687a965607ab"><span font-size="14">编辑态与草稿</span></p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1333731150/2381498341?contentType=0" width="344" height="223" nodeId="bad9bc5ac78c4abf94450bede43dcad7" />
+</td>
+<td colwidth="[671]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f26db8f7068a421dbc262205caa9f168">
+<p nodeId="151eaedf96e54a5093108b95b289c8a0"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2381821132?contentType=1" name="image.jpeg" width="649" height="352" nodeId="30805bf3df7b4caba7fe50bb35991505" /></p>
+<p nodeId="9217d28176c948bf8ed406ef4681f7df"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2381693744?contentType=1" name="image.jpeg" width="645" height="409" nodeId="986cdffbb3694df6bc0288e504eb9570" /></p>
+<p nodeId="7fbd14840b0443c59e4d409a4c972618"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2391019052?contentType=1" name="image.jpeg" width="645" height="365" nodeId="b1e7411dcd4e4bfabe1cef0277463d29" /></p>
+<p align="start" nodeId="71adf939c3fe4d47ac193801f34c66cd" />
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h3 nodeId="a2dd462ed7f04c1facc084d8ab758773">3.3.1 识别树</h3>
+<h4 nodeId="5ee9059ca6044e6499f064a2d1c5424c">a ) 组件：策略节点</h4>
+<km-collapse active="false" nodeId="60d7af74af7e4f43a2286f8fcd7dd540">
+<km-title>展开</km-title>
+<km-content>
+<table responsive="false" nodeId="1b4e00fc17984cbd89d77f3bb6a2f701">
+<tr nodeId="52c35bfe5c0241b897f2411c30eaae24">
+<th colwidth="[93]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="5cb83f6544694d3687cf6a5c4dd94819">
+<p nodeId="87df0412eaac4e13a7922c0a82eeb467"><span color="rgb(255, 255, 255)"><span font-size="14">功能模块</span></span></p>
+</th>
+<th colwidth="[602]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="bf16aa2dde414b538fc87c6d46de9eef">
+<p nodeId="6d075142b8964f5e8f726a699a5aa376"><span color="rgb(255, 255, 255)"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[671]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="f60b1196bee34754ac70dfbdd4d0a417">
+<p nodeId="2304a6303fe147febec35cc86d774cbe"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="9874bb7e5be84553aa4dddcdb7bc3185">
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="89552a92f3ba4f3188a098d147728832">
+<p align="start" nodeId="1f696e1f73ac4804932b914ce2f20b79"><span font-size="14">策略节点</span></p>
+<p nodeId="cf032ce4e3a8418c97147a8963d767ae"><span font-size="14">组件</span></p>
+</td>
+<td colwidth="[602]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2a2d5f1f0a2c418b89e1eff1ed53171f">
+<p align="start" nodeId="eded008c242c4e56a36901e459948600"><span font-size="14">1.概念说明</span></p>
+<p align="start" nodeId="7a5b13128e6a4052a4151b4ed22c0a90"><span font-size="14">策略节点：分层场景的根节点与末端。</span><span color=""><span font-size="14">规则/规则组的集合，部署操作类似普通场景，但仅归此分层场景所有，不支持跨分层场景共享。</span></span></p>
+<p nodeId="40a2d66f25f743d2a0c783a614cfc128" />
+<p align="start" nodeId="a31c9f5a3bad40509fac7b0b11dd4475"><span font-size="14">2.操作说明</span></p>
+<ul nodeId="5a2fe6e0ce2145aab21ffe281158e653">
+<li nodeId="80a0f49457e84161bfa0afddd136d823">
+<p align="start" nodeId="4b9f9e06f9d545e8bf00041767c61ee9"><span font-size="14">拖拽：第一个拖进树的组件必须为策略节点。使用引线与上下层的路由条件组件相连。用例测试时，会检验有无断开的节点。成功在屏中拖拽出一个策略组件，将默认展开节点详情（右侧抽屉），在树中单击任意组件，右侧即切换为该组件的详情。</span></p>
+</li>
+<li nodeId="ed2c42fedd0d42fa970ceb9bca4ee45a">
+<p align="start" nodeId="c09ae929b9564c229228da82edf55990"><span font-size="14">连线：策略节点组件上下各有一个空心圆，代表该节点可以连接1条线。【1进1出，上方只能与路由组件输出连接，下方只能与路由组件输入连接】鼠标点按组件下方的圆形，拖动到下方层组件上方圆形处即可建立连线。</span></p>
+</li>
+<li nodeId="d90e963d792f4e079fe1fb4822ea646a">
+<p align="start" nodeId="b91d142b7b1b467386e04bb7f208da3e"><span font-size="14">清除：右键组件，点击删除后将该节点从分层场景中清除。对引线也可右键，点击删除即可删除策略节点之间的连线</span></p>
+</li>
+</ul>
+<p nodeId="5207faa960f249cfb26d066fabe65585" />
+<p align="start" nodeId="f9f9a30be9fb4e7cba957894ee878e4f"><span font-size="14">3.策略节点详情</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="f73f774e5ffb42b39606e41d67ca2247">
+<tr nodeId="555694a106834ea4ba7790bd032f0611">
+<th colwidth="[81]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="61095d77c0ea4a48a024ec579ee77d62">
+<p nodeId="807ee7f4f96641ff8b29774256923170" />
+</th>
+<th colwidth="[93]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="457c36bce728478da68c58b87e024187">
+<p nodeId="70cdc8e106db4328aa755b570191e7ba"><span color=""><span font-size="14">项</span></span></p>
+</th>
+<th colwidth="[411]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="a71895d329ec4fa48c9f74ed7c8ba805">
+<p nodeId="94398c2ef80b4ed5b60558742c3e305d"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="eb23b143c5e54db190800cf7821fdbdd">
+<td rowspan="3" colwidth="[81]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9acd4762c3b64859909c364718868f74">
+<p align="start" nodeId="d3d1fa19fafe40c18732bf132f544f00"><span font-size="14">基本信息</span></p>
+</td>
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3ea4af3464a3419d879745dc380541de">
+<p align="start" nodeId="10103ed6e883476483aa9e7871896526"><span font-size="14">名称</span></p>
+</td>
+<td colwidth="[411]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c5d68740427d49cc8383eec3964ef54d">
+<p align="start" nodeId="5fe17d05011d40dfb88ec31b0dbaf75b"><span font-size="14">可编辑，在分层场景保存生效时真正生效。</span></p>
+</td>
+</tr>
+<tr nodeId="eabf8edcbd8043faafc85badd0f08324">
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dc72ccc5a2b3401fb43331d206f02764">
+<p align="start" nodeId="8e1833fe15c04719a7dfc1e10b77b76b"><span font-size="14">备注</span></p>
+</td>
+<td colwidth="[411]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e41e409b4bbc43a59c4ba6be23a2b8a6">
+<p align="start" nodeId="ab41a727354c4b1a983c7341bc3f980f"><span font-size="14">可编辑，在分层场景保存生效时真正生效。</span></p>
+</td>
+</tr>
+<tr nodeId="ad3d876a60b5431d8fe879dd74cefb56">
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5155da84fc2e43e998077ad1d850cd9b">
+<p align="start" nodeId="e410a5a869ea4c4e93de0243abd8fede"><span font-size="14">其他说明</span></p>
+</td>
+<td colwidth="[411]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9e67f287f26f4068a94e89a357fb14a2">
+<p align="start" nodeId="48c6f8bc14ac4e80a0a82e187046105a"><span font-size="14">在组件左侧，有一个数字即为该组件在该分层场景中的编号ID，查询日志时可以根据ID定位到规则出自于哪个组件。</span></p>
+</td>
+</tr>
+<tr nodeId="048c7f3e1ec74ba6a7a99263e1305938">
+<td rowspan="2" colwidth="[81]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c3632c77262e43d9b909c569dcc8a462">
+<p align="start" nodeId="4942c3e91d694dd8bc7ee96dd47bbfc8"><span font-size="14">规则信息</span></p>
+</td>
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a3b358dad78d42ad9ea1046894a1954e">
+<p align="start" nodeId="bde07e97a4354dfeacf5de58f6b45c7f"><span font-size="14">添加规则</span></p>
+</td>
+<td colwidth="[411]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7431172501d84d29b6a1c48a7f52bd15">
+<p align="start" nodeId="9019a4354baf4f07a38daf89e4f71192"><span font-size="14">编辑态下有该按钮，点击后增加一张卡片，输入规则ID/名称选择规则（右侧详情按钮链接到当前选中规则的详情页），可编辑状态、决策等，也可点击删除，清除该规则配置卡片。</span></p>
+<p nodeId="b7001ed323d349f3a71176990d2a511f"><span color="rgb(25, 144, 255)"><span font-size="14">1.普通场景中的一条规则决策配置在策略节点里对应1个卡片</span></span></p>
+<p nodeId="7723c69b74774101af1a64b831db2b6a"><span color="rgb(25, 144, 255)"><span font-size="14">2.策略节点的卡片里没有优先级（层级和路由决定执行优先级）和衍生参数（仅在路由场景中才使用）</span></span></p>
+</td>
+</tr>
+<tr nodeId="3e377510ad5046fd8636163785c8271b">
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fdcade2e536e4d198b58e354e21c87c1">
+<p align="start" nodeId="4228d1ba28744a51ad2061fc67fa87f4"><span font-size="14">添加规则组</span></p>
+</td>
+<td colwidth="[411]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="df3ce85825464011b66d183e2098eab1">
+<p align="start" nodeId="1dbad331555445faba0137a2bdd29bf2"><span font-size="14">编辑态下有该按钮，点击后增加一张卡片，输入规则组ID/名称选择规则组（右侧详情按钮链接到当前选中规则组的详情页），可编辑组内规则的状态，可进行整组卡片的删除。</span></p>
+<p nodeId="f20e7ed374854c3aa0321731800fb199"><span color="rgb(25, 144, 255)"><span font-size="14">1.普通场景中的一个规则组在策略节点里对应1个卡片，含有多条规则。</span></span></p>
+<p nodeId="79a0103b753c4029aec63f470a50cfed"><span color="rgb(25, 144, 255)"><span font-size="14">2.在策略节点中引用规则组，</span></span><span color="rgb(245, 35, 45)"><span font-size="14">不可进行配置微调</span></span><span color="rgb(25, 144, 255)"><span font-size="14">，即规则组本体携带的规则配置将全部随规则组应用到具体节点中，用户</span></span><span color="rgb(245, 35, 45)"><span font-size="14">不可在节点中增/删规则，也不可编辑决策、附加信息等配置项</span></span><span color="rgb(25, 144, 255)"><span font-size="14">，只能选择该条配置的状态。对于组中不需要使用的规则，直接</span></span><span color="rgb(245, 35, 45)"><span font-size="14">置为离线</span></span><span color="rgb(25, 144, 255)"><span font-size="14">即可。</span></span></p>
+</td>
+</tr>
+</table>
+<p align="start" nodeId="ba638c481566451fa94f1b09cecac359" />
+<p align="start" nodeId="7a59f41a82104f81913c413df0d08706"><span font-size="14">4.其他</span></p>
+<p align="start" nodeId="04c5a3e80ed14d578b6a7bf97ac30dce"><span font-size="14">点击用例测试的时候，若存在策略节点有卡片没有配置好（没选规则，没选决策），会提示某节点未ok，需要用户完善</span></p>
+</td>
+<td colwidth="[671]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="51e636635fce4ca49ec14d51646ce155">
+<p align="start" nodeId="b825a6356a604c96ad97af70fa0f4cdb"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2393932278?contentType=1" name="image.jpeg" width="649" height="371" nodeId="c89fa19f01314afca469a3e473614c35" /></p>
+<p nodeId="cbc9c37aae044902850868a65f2bb2fc"><span font-size="14">添加单规则</span></p>
+<p nodeId="1b91e86cc421432c90415b06e39d348b"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2393273961?contentType=1" name="image.jpeg" width="649" height="374" nodeId="c58c0e8f7f3744c8b59bbcb9c42297be" /></p>
+<p nodeId="8612e20119fa48a7a86aa67492173261"><span font-size="14">添加规则组</span></p>
+<p nodeId="280f705ba8e24e4ebfa5766fc4e14801"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2394721092?contentType=1" name="image.jpeg" width="649" height="380" nodeId="fe5f73f8228a4bec8b1bc20551364b8a" /></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h4 nodeId="57a9dc3ccf9a462ca769da1087202553">b ) 组件：路由条件</h4>
+<p nodeId="5b294d1ab7bf472ebdcd3d6d3cd3f859">详见<a href="https://km.sankuai.com/collabpage/1341421659" title="https://km.sankuai.com/collabpage/1341421659" autoUpdate="true" nodeId="03f4c222aa2e406ebf255db3de705e9c">https://km.sankuai.com/collabpage/1341421659</a></p>
+<h4 nodeId="1f8447e052d9467a91765056f2486f0c">c ) 组件：决策加工</h4>
+<p nodeId="4c7b56e6374740d0a71f1a9e52bfe17a"> 详见<a href="https://km.sankuai.com/collabpage/1409924045" title="https://km.sankuai.com/collabpage/1409924045" autoUpdate="true" nodeId="59d3d2deae6b4de0948573fdf5003d17">https://km.sankuai.com/collabpage/1409924045</a>【仅3空间使用，其余空间已更新为决策树使用方式】</p>
+<h3 nodeId="dbabdd734ffb4a958232b3f3e2f92a97">3.3.2 决策树</h3>
+<p nodeId="e4bc69e4b8b640ea9f205ae4356ab981">详见 <a href="https://km.sankuai.com/collabpage/2213144559" title="https://km.sankuai.com/collabpage/2213144559" autoUpdate="true" nodeId="d1871d37696544da91fe9e5187d063b9">https://km.sankuai.com/collabpage/2213144559</a></p>
+<h3 nodeId="fb638d2e323849cca2a747cff10602cd">3.3.3 用例测试</h3>
+<km-collapse active="false" nodeId="9a3ce5765dfa450fb6c743225e8a31fd">
+<km-title>展开</km-title>
+<km-content>
+<table responsive="false" nodeId="1bd21e6a5e4640329c9136a80d438b72">
+<tr nodeId="e38a4240f1224213b976bf71512f714c">
+<th colwidth="[93]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="4dc6094079554514bab39e7523867a1d">
+<p nodeId="4503d7e90fe24332bef83ad0f99076c3"><span color="rgb(255, 255, 255)"><span font-size="14">功能模块</span></span></p>
+</th>
+<th colwidth="[602]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="eba04711edf54b4f887503609a0b934c">
+<p nodeId="a6d69ffdf8974642ac796bcb0bf09dc6"><span color="rgb(255, 255, 255)"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[671]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="87b7dcdc84644a6d9aa0fe601c2d9f34">
+<p nodeId="f613660919c540bfaf120f0b0cde1935"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="6a5764690f2c43e7ba9854ced57b5507">
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cd32e34ac894453fbc0425e0935d38b9">
+<p align="start" nodeId="373f09db8b414fa89aba17f6d02995c4"><span font-size="14">用例测试</span></p>
+</td>
+<td colwidth="[602]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1d33653774c24a86b77a741c64d90462">
+<p align="start" nodeId="21808258fc3d462e9afadb06c52c0af5"><span font-size="14">1.概念说明</span></p>
+<p nodeId="d889c62dd50645708a7a49d07b83bbdd"><span color=""><span font-size="14"><strong>用例测试</strong></span></span><span color=""><span font-size="14">：分层场景各个节点部署完成后，需要经过整体测试才能发布生效。用例测试就是使用构造的json/真实的request传参内容，来模拟执行分层场景，观察执行结果是否符合期望的输出。</span></span></p>
+<p align="start" nodeId="01236199e14a481e9aad12085ff7a9a6"><span font-size="14">如下图所示，分层场景在编辑态下，如果需要保存生效，必须用例测试是「已就绪」状态。需要下面3个条件都满足。</span></p>
+<ul nodeId="6f0e226340654facb8ac8b7b57adbdcd">
+<li nodeId="4f53ac9eac2c4736aaffeb2e6739f3be">
+<p align="start" nodeId="e723ea6223454feb9031c813a8138727"><span font-size="14">逻辑状态：树没有断开的节点，或末端缺少策略节点。</span></p>
+</li>
+<li nodeId="1d0f7d16f75c49acbe5e9f4c7c4ff95c">
+<p align="start" nodeId="049147d9ae374644bc3eb6b360b1837d"><span font-size="14">节点：策略节点——所有规则卡片都无必填未填情况；路由组件——短路和路由表达式都无语法逻辑问题，引用参数合法。</span></p>
+</li>
+<li nodeId="c9e8e92f556f4741adc571a21c46d0a6">
+<p align="start" nodeId="68381309cc6847e2a27a789c4f5d66f9"><span font-size="14">用例测试状态：有新的测试通过的记录。</span></p>
+</li>
+</ul>
+<p align="start" nodeId="2e6e34162eae46e48a7d3e572859b2da"><span font-size="14">前两个条件，在点击用例测试的时候会校验，必须满足才可进入用例测试。第三个条件需要在用例测试里产生新的通过记录。</span></p>
+<p nodeId="a4e77e4c74b64797a23668cb1ffb797d" />
+<p align="start" nodeId="ab19e429a5ca4eff851e07d052465d7c"><span font-size="14">2.用例测试页</span></p>
+<p nodeId="b410c34b7a2d47e8b6c0a272180e1a5d"><span font-size="14">点击用例测试按钮，进入用例测试页。进入的同时会帮用户保存草稿。</span></p>
+<p nodeId="241f85b0bc864de7bed4f9f0c7ab49b2"><span font-size="14">页面介绍：</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="203f987a48fc444dbebf87b5bc9a14ee">
+<tr nodeId="3b4b319749074fb58d09ff6ebd2410c6">
+<th colwidth="[81]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="4aeb65f038e04ecb8cba95fd15b20cbe">
+<p nodeId="81202e8cb8164201b9a223edd024ba5d" />
+</th>
+<th colwidth="[108]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="133afec34e284f258820a6294c12c294">
+<p nodeId="a7794e21e23e4174bd253f366f5ba35a"><span color=""><span font-size="14">项</span></span></p>
+</th>
+<th colwidth="[349]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="ab0dd4771eb446a09a10309d693d4133">
+<p nodeId="5fa81dcc362d489081c3254cd7eed1de"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="35b9e808e0c249d486c956d520c2b434">
+<td rowspan="2" colwidth="[81]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7b19667165ff44e0bb813437b01fe205">
+<p align="start" nodeId="83b8f8e2d2c9488b9a924b2fd999f7c4"><span font-size="14">基本信息</span></p>
+</td>
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6c7fee163ae5447c9bbc05443d210d4e">
+<p align="start" nodeId="3f33ab24b6914366acc54f05a644e992"><span font-size="14">分层场景</span></p>
+</td>
+<td colwidth="[349]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="416d46906e5744cebf72aea03aa5a273">
+<p align="start" nodeId="677aaa0bc0d44f1c86671c0e8b619ed1"><span font-size="14">ID+名称</span></p>
+</td>
+</tr>
+<tr nodeId="1fe9f7c711a24781bd545b13f2588a1b">
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b8be98318e8e47f488dd88cc16a1005b">
+<p align="start" nodeId="a4f63fb14fc346cba2ea60736cd2918a"><span font-size="14">用例测试状态</span></p>
+</td>
+<td colwidth="[349]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="90d17eb0d2214de8ae76b7dc09a45cdf">
+<p align="start" nodeId="93c11271abf64afb8c365dd9d7be66e9"><span font-size="14">未就绪/就绪</span></p>
+</td>
+</tr>
+<tr nodeId="aec93d72699e40d3bf8d56d4d5d92c7d">
+<td rowspan="5" colwidth="[81]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fd15fc6c95e94efda52b414dbff22233">
+<p align="start" nodeId="a6387a5a54904bed99b770c466cc6c77"><span font-size="14">测试</span></p>
+</td>
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bfdf4c4a958c43739892de589d983e0e">
+<p align="start" nodeId="48b41a8d07e64b1fa2e442db9f43db12"><span font-size="14">Json</span></p>
+</td>
+<td colwidth="[349]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f053e976bfd247b0a90c1427aba0eb99">
+<p align="start" nodeId="4662f1238f41418392e076eb4be9d50b"><span font-size="14">默认该模式，下方支持输入/粘贴Json</span></p>
+</td>
+</tr>
+<tr nodeId="39e31a7293c8455ab0f11ba88d8200ae">
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6b4bde4d5a5248af980cf7ef42696950">
+<p align="start" nodeId="82879f7443944e51b2bfcdea89644760"><span font-size="14">Request ID</span></p>
+</td>
+<td colwidth="[349]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f594fef09b6b405d99b4526f1354f45d">
+<p align="start" nodeId="c27e3a27681d464cbbdd31286de13b51"><span font-size="14">选择该模式后，下方出现Request ID输入框</span></p>
+</td>
+</tr>
+<tr nodeId="5f4b96ee6d5a4c8482f4b37f143befb0">
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="63794a9cd8154c62b1ad6e560a3ef040">
+<p align="start" nodeId="1b78b4db62954657b264630011e5bb2c"><span font-size="14">期望输出</span></p>
+</td>
+<td colwidth="[349]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2d089bf21c80432fa408cb80ffafe99d">
+<p align="start" nodeId="748de82ee4114d8f9c634889d7094fc7"><span font-size="14">在此处输入期望的决策ID结果，</span><span color="rgb(245, 35, 45)"><span font-size="14">字符串型，多个用英文逗号连接。 例如：6, 357, 21</span></span></p>
+</td>
+</tr>
+<tr nodeId="82f249ecc5734474836c1ac1dd848946">
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="227f387b6ec14380894bb442f64e4e0c">
+<p align="start" nodeId="e871ed29bfec4f9680a7c444713e19bf"><span font-size="14">一键测试</span></p>
+</td>
+<td colwidth="[349]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1460e79fde0048f4aa7a974bcc56a749">
+<p align="start" nodeId="8e50e49f25c24b04ad3d198414ad1ce5"><span font-size="14">点击该按钮，将会弹窗告知本次的测试结果，支持查看本次请求在各个组件中的命中情况。</span><br /><span font-size="14">历史测试结果中增加一项测试记录。</span></p>
+</td>
+</tr>
+<tr nodeId="0491920d5ce244bbba0fc14bb53632b8">
+<td colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9ba452a6f3a34df4873ea0db463c27b8">
+<p align="start" nodeId="3174e7ef45ee40469b1e04e230683826"><span font-size="14">历史测试结果</span></p>
+</td>
+<td colwidth="[349]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="04b77bf97cf14d45bcf4fc38cf3d89c2">
+<p align="start" nodeId="1656d9ced2454805a760752635c248d3"><span font-size="14">测试用例：默认收起，点击展开详情会展示详细输入的json。</span></p>
+<p align="start" nodeId="c2799bd3f6834773b40415eb65fa2a84"><span font-size="14">查看报告：点击查看报告，进入报告详情页。</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="a6331c3f2daf4ff6bab71efc46a682ab" />
+<p align="start" nodeId="2dce85e3d2af4195bb370b5d4bcc7f81"><span font-size="14">3.测试报告</span></p>
+<p nodeId="dda23d95e4c64310a3b73334dd30fd2d"><span font-size="14">测试报告页中，依旧以图形式展示策略体系。可以点击各个组件，查看各个组件规则命中、路由条件命中的结果或是决策加工的结果。</span></p>
+<km-note type="info" hiddenTitle="true" nodeId="7b99572dba074360b47001483e97b912">
+<km-title></km-title>
+<km-content>
+<p nodeId="89100e258e10458fa893eb3ac263db52"><span font-size="14">有蓝色定位icon的策略节点代表该请求经过的节点，可帮助用户快速定位。</span></p>
+</km-content>
+</km-note>
+<table borderColor="#cccccc" responsive="false" nodeId="eef428871429400fa90cec50325ec764">
+<tr nodeId="3714e269cec94d6f9f0f135c24ce5a1d">
+<th colwidth="[89]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="4ca6c1c3bcce4f40a4f1fb6856fb2664">
+<p nodeId="1641af35ebe543a0bf7779649aefcd70"><span color=""><span font-size="14">项</span></span></p>
+</th>
+<th colwidth="[427]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="7dd0f7db866642a593a89d380d05ec27">
+<p nodeId="af6f5d8b91b5434396dca5119b38ad0f"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="d94fc145b3284975833cc37386af05a9">
+<td colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="eb7459a1f760410eb3742ab55bdf775f">
+<p align="start" nodeId="123d73ed973342b586cfae5431f5e996"><span font-size="14">策略节点</span></p>
+</td>
+<td colwidth="[427]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="acf673ffdff94059bac1640f6a1e499d">
+<p align="start" nodeId="77775af4d27a4505999e2b786884b3b3"><span font-size="14">决策输出总览：代表此节点命中输出的所有决策ID；</span></p>
+<p nodeId="9845cdccbb3748c49df25e78a147d793"><span font-size="14">命中规则/规则组：平铺命中的规则（生效与标记）。</span><span color="rgb(245, 35, 45)"><span font-size="14">注意：标记态无决策输出。</span></span></p>
+</td>
+</tr>
+<tr nodeId="df09257f731f4404be3f11f58ac9402c">
+<td colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="99f9fc36e385422a9e4dcaa5d0b41a55">
+<p align="start" nodeId="4e5c66a91052419f94c5fdcf4ce404aa"><span font-size="14">路由条件</span></p>
+</td>
+<td colwidth="[427]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0601bd4c07f74d258dd2d659225cb7e3">
+<p align="start" nodeId="adc3f256e4a04ae890940b53c5cadc1a"><span font-size="14">对应的短路条件和分支条件下方会显示是否命中。</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="8398d139696042c2bfb65395f18ec0c0" />
+<p align="start" nodeId="e75a33262420476f9fc566d10d9c5e2b"><span font-size="14">4.生效场景到线上</span></p>
+<p align="start" nodeId="cf2bf6151d8146e4a9613ac04e8fef41"><span font-size="14">有通过测试的最新用例后，点击完成，将弹窗提示用户准备发布生效。</span></p>
+<p nodeId="32db4a320e0b49c78528f2a43f365852"><span font-size="14">此时测试状态为已就绪。</span></p>
+<p nodeId="a97b6485239a4538b4fc33e4b1627921"><span font-size="14">用户点击【生效】后即可将当前的草稿内容发布上线成为</span><span color="rgb(245, 35, 45)"><span font-size="14">最新的生效版本</span></span><span font-size="14">。</span></p>
+<p nodeId="b0d64e3eeabf4de499312434b173360d"><span font-size="14">若仍旧希望继续编辑，点击【继续编辑】或【x】则停留在用例测试页，状态变为未就绪，可选择回到编辑页继续修改内容，或是继续测试。</span></p>
+<p nodeId="ba975d2f52b340c4a7f08e0d6a4a408a"><span color="rgb(25, 144, 255)"><span font-size="14">若在没有通过的用例的情况下点击完成，则回到编辑页，继续编辑。</span></span></p>
+<p align="start" nodeId="202398c00ec54fce84dbf5146dd8d70c" />
+</td>
+<td colwidth="[671]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f0346af3c8f6494d8783e3a2fc5f1548">
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1333731150/2398960621?contentType=0" width="327" height="344" nodeId="28b5372e3c024d3f9b157366186ed168" />
+<p nodeId="4f3e386b984d4793855bd24c3b0f7815"><span font-size="14">一键测试</span></p>
+<p align="start" nodeId="2b0bf23fed35441eaf6009168ce6f14c"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2400146466?contentType=1" name="image.jpeg" width="649" height="244" nodeId="36928af4c2984fbb8da4c7b2b9071595" /></p>
+<p nodeId="f8fee017832b4b61b2061cc687243b62"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2401221750?contentType=1" name="image.jpeg" width="649" height="205" nodeId="4f82aa35af864b41a7bc8631c09a39d0" /></p>
+<p nodeId="ec66a9316fd84270b3aeef7e95d5ef31"><span font-size="14">查看测试报告</span></p>
+<p nodeId="b82d782775e74b4e86f24c3709e9d2d7"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2401419442?contentType=1" name="image.jpeg" width="649" height="362" nodeId="91cfe6564f37426e9db81087121350e4" /></p>
+<p nodeId="a34b46f8a9294ab693fa853867cf9134"><span font-size="14">历史测试结果</span></p>
+<p nodeId="a112481fb2e8405fb2d63aed523c226d"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2401071251?contentType=1" name="image.jpeg" width="649" height="345" nodeId="29b9a568305f46ec97619c243f639557" /></p>
+<p nodeId="6aced30739a4401ebed35065d3f01ad2"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2403572872?contentType=1" name="image.jpeg" width="649" height="302" nodeId="396b6186414b4bd7a7eea84599ae521b" /></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h2 nodeId="eb28127acec74e85986158e9992f3a3e">3.4 补偿执行</h2>
+<p nodeId="6a3843603e94428cac06dbb078a57f0b">详见<a href="https://km.sankuai.com/collabpage/1610062169" title="https://km.sankuai.com/collabpage/1610062169" autoUpdate="true" nodeId="8673c4df016340358be3742515fc518c">https://km.sankuai.com/collabpage/1610062169</a></p>
+<h2 nodeId="7bc1535a9f1a43e89e272a3b32e748fc">3.5 日志排查</h2>
+<km-collapse active="false" nodeId="0b316bff8e5e4eaa882ab89427934ecc">
+<km-title>展开</km-title>
+<km-content>
+<km-note type="info" hiddenTitle="true" nodeId="df3662d628fc46d6983e95cc89ccef56">
+<km-title></km-title>
+<km-content>
+<p nodeId="c16a5da48385426fafb913a82cdb85f9">分层场景的实时链路日志与补偿链路日志，统一在"实时日志"入口查询。</p>
+</km-content>
+</km-note>
+<table borderColor="#cccccc" responsive="false" nodeId="7cf45ea14f104e42af31303624e38c72">
+<tr nodeId="30f3801824934a788a9f9c393a6ec866">
+<th colwidth="[83]" bgColor="rgb(0, 58, 140)" nodeId="8707d11fc4f548c398ddf8af5414598e">
+<p nodeId="a508e3c60e884fa486c1dbfd88a90dc2"><span color="rgb(255, 255, 255)"><span font-size="14">日志查询</span></span></p>
+</th>
+<th colwidth="[272]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="1ba759db954f4d288f1f705a1c91f975">
+<p nodeId="f67854c964fa43238468bda58fa680d4"><span color="rgb(255, 255, 255)"><span font-size="14">普通场景的日志</span></span></p>
+</th>
+<th colwidth="[855]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="7b14726e1bbe460ead6d062777ed3445">
+<p nodeId="35f0377dc0fa472d80d78d380673ec38"><span color="rgb(255, 255, 255)"><span font-size="14">分层场景的日志</span></span></p>
+</th>
+</tr>
+<tr nodeId="be486077d3154e3b93ea51ab58273452">
+<td colwidth="[83]" nodeId="99b00ba13b204440903bba08fef789cb">
+<p nodeId="7b19fa09fcac4922917a5f1aa611cb3b"><span font-size="14">图例</span></p>
+</td>
+<td colwidth="[272]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e5eb48f294524eab8f065fd4cc8fc828">
+<p align="start" nodeId="8ff5f2401a8f48a49908b7e08689e009"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2409366073?contentType=1" name="" width="284" height="172" nodeId="a9d2332fed6c4b15a7bb42e8340ab021" /></p>
+<p align="center" nodeId="181d3b31eb884110be54df51bd67be8f"><span font-size="13">左图1</span></p>
+<p nodeId="4dae8c36e4b14f2197b64a83ed924b57" />
+</td>
+<td colwidth="[855]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dc20ef52a3b44e129186fc6e5731f7e5">
+<p nodeId="8544ae58633d4d3b92096ded9583f4c5"><img src="https://km.sankuai.com/api/file/cdn/1333731150/45772247976?contentType=1&amp;isNewContent=false" name="image.jpeg" width="234" height="239" nodeId="bd9d7580da534c86bfa590fa850f4641" /><img src="https://km.sankuai.com/api/file/cdn/1333731150/45772288576?contentType=1&amp;isNewContent=false" name="image.jpeg" width="311" height="238" nodeId="20eff94afc5847939b660b133130c63a" /><img src="https://km.sankuai.com/api/file/cdn/1333731150/45778273837?contentType=1&amp;isNewContent=false" name="image.jpeg" width="256" height="237" nodeId="075a30efeecc43c2b69655a96161735c" /></p>
+<p nodeId="1c2dd102ea084d649f306068bcead71d"><span font-size="13">                              右图1                                                                   右图2                                                                     右图3</span></p>
+</td>
+</tr>
+<tr nodeId="56841d0b1f9746e5ac2eee11eb4ef463">
+<td colwidth="[83]" nodeId="e9a7c182c29e4ee4b4f799c1e9abc7fd">
+<p nodeId="c9bce21c63cc44d2b98dab98e6a64186"><span font-size="14">解读</span></p>
+</td>
+<td colspan="2" colwidth="[272,855]" nodeId="6c176d6b2ced4b39af874ec1ef7f77e6">
+<p nodeId="7e08fe371cc2442397f8c6854a3e6d0e"><span font-size="13"><strong>1.为什么决策被框起来了？</strong></span></p>
+<p nodeId="f47f614160e3415cb4f3a08b8bdf24ac"><span font-size="13">决策展示：一个整体决策为独立一行。</span></p>
+<p nodeId="11f25790b7b74c6ea2d9893efb4cc94f"><span font-size="13">因为分层场景具备决策合并能力，组合模式下常输出拼接后的</span><span color="#FF4A47"><span font-size="13">决策串</span></span><span font-size="13">，一串将会被框起来代表是一个整体。框内部的每个决策由“，”或“｜”连接。</span></p>
+<p nodeId="f7fd70d3f79b4ead906eab777a8e5ac8"><span font-size="13">若一串决策过长则展示上 会取到此行展示得下的最后一个符号，再换行。所以请留意一行是否是</span><span color="rgb(255, 74, 71)"><span font-size="13">符号结尾</span></span><span font-size="13">，是 则说明下一行此行的连续内容。</span></p>
+<p nodeId="9b0a258ee5984ca7930cd0e4e548eeed" />
+<p nodeId="7cfbdb765533406d93e124c175109c69"><span font-size="13"><strong>2.为什么[右图1]中已经有了一行组合决策，又单独有一行【加入K-V库】的决策？</strong></span></p>
+<p nodeId="d9adf3e1b408440da8bdf1779e653e01"><span font-size="13">加入K-V库是单个的【异步决策】，不参与合并，命中输出即会执行。</span></p>
+<p nodeId="e35a5f00bd524b67a323c068d173a260" />
+<p nodeId="ee9eb859867d48bba302a2e6e1de4679"><span font-size="13"><strong>3.为什么右图中有些决策有尾缀【异补】二字？</strong></span></p>
+<p nodeId="a95ce16a4ee44204954bc590f2d22c96"><span font-size="13">补偿链路执行的所有决策都含有【异补】尾缀。注意：如</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="13">果某决策在实时和异步补偿</span></span><span color="rgb(245, 35, 45)"><span font-size="13">都有输出</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="13">，就</span></span><span color="rgb(245, 35, 45)"><span font-size="13">不展示尾缀</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="13">；</span></span><span color="rgb(245, 35, 45)"><span font-size="13">只在异步</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="13">输出，才</span></span><span color="rgb(245, 35, 45)"><span font-size="13">展示尾缀【异补】</span></span></p>
+<p nodeId="7b37f7281fb34bb89634bc28cae86b58" />
+<p nodeId="a50d5b8356df439e90b00301c792f23b"><span font-size="13"><strong>4.为什么有的尾缀【异补】的决策是灰色的底纹？</strong></span></p>
+<p nodeId="7a8a20098e494cbfa032b769a34d6bfb"><span font-size="13">由于补偿链路的【普通决策】并不会输出给下游，仅落日志做记录，所以展示为灰色，意味着这个决策zeus并不会吐出给调用方。【异步决策】例如写kv，不管在实时还是补偿链路中命中，都会输出执行，因此不会出现灰色底情况。</span></p>
+<p nodeId="17bba7a1dede48e1986de1121c54e138" />
+<p nodeId="4289ed0b8714462cba54b4ea8fc9f533"><span font-size="13"><strong>5.补偿决策栏的内容是什么含义？</strong></span></p>
+<p nodeId="fdcf358e00a14ac5a2586429aea11f5a"><span font-size="13">分层场景通过</span><span font-size="13"><a href="https://km.sankuai.com/collabpage/1409924045#id-3.4%20%E8%A1%A5%E5%81%BF%E5%86%B3%E7%AD%96" title="补偿决策配置" nodeId="5132f8c0534e46a8bf24d6aeece3b9bf"><span font-size="13">补偿决策配置</span></a></span><span font-size="13">可以将补偿输出的【普通决策】转化为【异步决策】，然后输出给下游。此处展示的就是转化出来的决策。由于来自补偿链路，因此一定都带【异补】尾缀。</span></p>
+<p nodeId="0d5f489b1f8b4e82a9dfe429880c0003" />
+<p nodeId="96f6ce394d6b46d2bc9ba174bd8a03d1"><span font-size="13"><strong>6.生效规则前的数字代表什么？</strong></span></p>
+<p nodeId="c0af1599642643b6a9abc87ece7066c6"><span color="rgba(0, 0, 0, 0.87)"><span font-size="13">在普通场景日志中</span></span><span color="rgb(245, 35, 45)"><span font-size="13">展示规则优先级</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="13">的标识，但在分层场景日志中（没有规则优先级概念）这个数字代表</span></span><span color="rgb(245, 35, 45)"><span font-size="13">【分层场景内的组件ID】</span></span><span font-size="13">；</span></p>
+<p nodeId="3c5090f597b0491ab38e45fd4605fd4a" />
+<p nodeId="b9a3180d1ad04912937ff502c79fbe3f"><span font-size="13"><strong>7.规则尾部</strong></span><span color="rgb(245, 35, 45)"><span font-size="13"><strong>【异补】后缀</strong></span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="13"><strong>代表什么含义？</strong></span></span></p>
+<p nodeId="ad40bbd5bc05449d80c2f970b5904ae0"><span color="rgba(0, 0, 0, 0.87)"><span font-size="13">代表这条规则在补偿链路中执行（并没有在实时链路中执行到）</span></span></p>
+<p nodeId="24d916ca94ed44459ef38732cf97b9ae" />
+<p nodeId="78e1797f479d4214aa69c4de22d3b337"><span color="rgba(0, 0, 0, 0.87)"><span font-size="13"><strong>8.参数与因子有forworker后缀是什么含义？</strong></span></span></p>
+<p nodeId="ff484363648343a1b9aaa54b99837d25"><span font-size="13">【异步补偿中的生效/标记规则】与【实时链路中的标记规则】涉及到的参数、因子后增加</span><span color="rgb(245, 35, 45)"><span font-size="13">forworker</span></span><span font-size="13">后缀</span></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h2 nodeId="19192c9aba2f44c0a88686b0207a5f0a">3.6 规则组联动机制</h2>
+<km-collapse active="false" nodeId="f5a18c7683ed4031ad3aa4f12c5a6d3d">
+<km-title>展开</km-title>
+<km-content>
+<km-note type="info" hiddenTitle="true" nodeId="34df7c5e09b34c0c9a8fe370f892df40">
+<km-title></km-title>
+<km-content>
+<p nodeId="663a73b7e825446ea1d6c17252b027cb">基于安全发布管理，规则组本体的联动与普通场景中有所区别，<span color="rgb(245, 35, 45)">变更不会直接同步到线上的分层场景。</span></p>
+</km-content>
+</km-note>
+<table responsive="false" nodeId="8f156832b5d046ca9efa67ee9c441a41">
+<tr nodeId="c7cb77ddb6d3442eb9cf1aeccaf45e0e">
+<th colwidth="[448]" bgColor="rgb(0, 58, 140)" nodeId="f61d993385fe42b3bb57b99c73f78e9c">
+<p nodeId="5273bdb90b224d558e849c6cbb59df91"><span color="rgb(255, 255, 255)"><span font-size="14">说明</span></span></p>
+</th>
+<th colwidth="[640]" bgColor="rgb(0, 58, 140)" nodeId="f3ba9868a7b6429abd707f5dc0f475c5">
+<p nodeId="4e36eee292814e57b2e26439c00f71f0"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="ada18476f27742549d8bad904c366c20">
+<td colwidth="[448]" nodeId="022e269f2fca4802863350dd0397bd51">
+<p nodeId="6b9b96aca59d44268986467f4e65e865"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">分层场景和普通场景的迭代流程不同：分层场景有草稿态，每次迭代需要发布上线。因此如果规则组联动直接生效到所有分层场景，风险敞口较大。</span></span></p>
+<p nodeId="b367ad0c455e448ab57db317818fb9e6" />
+<p align="start" nodeId="7e6e7767377d4a91a28e0b6bc5a6058a"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">因此分层场景中规则组联动机制如下：</span></span></p>
+<p nodeId="61e5a487b35d48d8a15b2d923d8b10c6"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">1.规则组本体变更</span></span></p>
+<p nodeId="2bf34f3ce5a6462297b049aa2fe0eed2"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">2.分层场景线上生效版本不变，依旧以过去添加规则组时的快照作为执行内容。</span></span></p>
+<p nodeId="30c8a9e70a10483e8a897c8dac0945c2"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">3.分层场景草稿编辑中，需要点击【一键更新】将</span></span><span color="rgb(245, 35, 45)"><span font-size="14">最新的规则组本体的内容</span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">同步到此分层场景中，用例测试之后，发布生效。</span></span></p>
+</td>
+<td colwidth="[640]" nodeId="95f33b03aaab48b78ca0ce6bbba8981b">
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1333731150/2409961237?contentType=0" width="602" height="365" nodeId="aba0de2c1b6441e8bd931bf7d00f2460" />
+</td>
+</tr>
+<tr nodeId="64501d79a73c42898eeda04ef25e45a7">
+<td colwidth="[448]" nodeId="33465554cf2f4767839e0301fd159ed5">
+<p nodeId="fd67b2cc28b24415b30e69650f3789d0"><span font-size="14">1.编辑态下有【一键更新】按钮，点击后可将当前分层场景中的各个规则组更新至最新状态（与本体保持一致）。</span></p>
+<p nodeId="16fedb5d37504c5fa3d225044a1614ba"><span font-size="14">组中新增规则：状态默认【离线】</span></p>
+<p nodeId="57a6fa3d4d424f8d847d3038160d0bc0"><span font-size="14">组中变更规则：状态维持原状态</span></p>
+<p nodeId="7d0839416cec471c825ebb61cbb7855c"><span font-size="14">组中删除规则：对应在分层场景的规则组中也被删去</span></p>
+<p nodeId="1ec32aea564244dcb1c1c6f169009f2b" />
+<p nodeId="2c9872337e8843a7a405a8ee1981c429"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">2.在用户点击保存草稿/用例测试时，将会自动校验当前草稿中各个规则组是否已经更新完成。否则会提示用户进行【一键更新】后才允许进行用例测试。</span></span></p>
+</td>
+<td colwidth="[640]" nodeId="7f04bd552a624f0da3b531882424bc83">
+<p nodeId="96ef381ba65a4227b8871c43ee0eb894"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2410168641?contentType=1" name="image.jpeg" width="597" height="293" nodeId="8ddc80ae62ee4ab7a0b9df2a66aaabf4" /></p>
+<p nodeId="6013d6de952f4477b48b726d4e29309a"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2409762693?contentType=1" name="image.jpeg" width="593" height="301" nodeId="ba6f4d8fe04e484b9fe9d303131091bc" /></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h2 nodeId="a986eeb3739749f8b4a56fd3a9e46dd4">3.7 多人编辑限制</h2>
+<km-collapse active="false" nodeId="f98f3b2bfd9246a29bd54e2a22ee7172">
+<km-title>展开</km-title>
+<km-content>
+<table responsive="false" nodeId="98c59428add3475f95f048807a1e83f7">
+<tr nodeId="137d36302fa745e6a07946cd77f066bd">
+<th colwidth="[448]" bgColor="rgb(0, 58, 140)" nodeId="f3fd9f54c91f4c6abe4515eff781f0f2">
+<p nodeId="8f40551dda454816abcc2c4fbb0ede79"><span color="rgb(255, 255, 255)"><span font-size="14">说明</span></span></p>
+</th>
+<th colwidth="[640]" bgColor="rgb(0, 58, 140)" nodeId="3975c46bd6ef4196b4d51239451e38eb">
+<p nodeId="646157a5f3644935a5f5c8862fc17f4e"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="55774faeea7543de9b25ab94e058cb22">
+<td colwidth="[448]" nodeId="93545761d4dc42a48e375db45fbc902e">
+<p nodeId="d913a94664a8403d886aac3a4e09b57f"><span font-size="14">分层场景迭代直接影响线上风控效果，因此不支持多人同时编辑避免内容冲突引发的风险问题：</span></p>
+<ol nodeId="f633b63244474181aec0567140871612">
+<li nodeId="c3f2a5e764f742a0a77b9f2d6dbf7144"><span color=""><span font-size="14">进入编辑态，系统将判断有无其他人在编辑，有则弹窗提示并拦截本次操作。用户可以根据提示信息找到对应的同学商量安排各自的操作时间。</span></span></li>
+<li nodeId="93ac556cb7fb4c6a9b26cc64059ec09b"><span font-size="14">为防止用户编辑过程中忘记，当一位用户在分层场景编辑态下停留过长（超过3小时），将被自动踢出编辑态。此时将不再阻止其他人进入编辑。</span></li>
+<li nodeId="a1cd7e3e7fb842c5862a3dcf327783e4"><span font-size="14">踢出编辑态的效果为所有操作按钮都被锁定，用户只能点击【退出】。</span></li>
+<li nodeId="2f1aa5a58e7b4642897a7b0427c3364a"><span font-size="14">用例测试页也属于编辑态。</span></li>
+</ol>
+</td>
+<td colwidth="[640]" nodeId="ab2dfc91eead45a9874633cc003b6d6c">
+<p nodeId="c7955fe6ebb94fbca7b7bcf6fd2cba03"><img src="https://km.sankuai.com/api/file/cdn/1333731150/2410414571?contentType=1" name="image.jpeg" width="618" height="236" nodeId="e4eb05db24274e059dda5bd971663e66" /></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h2 nodeId="befc10f188a74ff2a7b44fb7a5eee831">3.8 搜索</h2>
+<km-collapse active="false" nodeId="406860c4954b488ba8aeb50495200c65">
+<km-title>展开</km-title>
+<km-content>
+<table responsive="false" nodeId="749468df515747459edd1b78dd57f30f">
+<tr nodeId="f2b0fe78292c4113ac6a9bf6df30e420">
+<th colwidth="[503]" bgColor="rgb(0, 58, 140)" nodeId="d87e78fbe5ca40269fd887cdde589de9">
+<p nodeId="7539cb5ca37743f68357395f4009156b"><span color="rgb(255, 255, 255)"><span font-size="14">说明</span></span></p>
+</th>
+<th colwidth="[469]" bgColor="rgb(0, 58, 140)" nodeId="a155a55c04a94a1c9ad5a0db77519d13">
+<p nodeId="5b30d636a9814b26acf93ffec07d2c81"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="cd7f796ab4e7497fa7bf1548e7da2fc9">
+<td colwidth="[503]" nodeId="bcc89dfaf4e84c3aa7b355eaab7b08f1">
+<p nodeId="8e614cbc566747bdb06832fbc9c87f8b"><span font-size="14">在分层场景的预览页&amp;编辑页，右上角按钮支持搜索。</span></p>
+<p nodeId="5d5967f4f74f4cbbaa5b8f1c7c59f6b2"><span font-size="14">点击出现抽屉，输入搜索条件，点击搜索。</span></p>
+<p nodeId="560d059322b9420aadcd9e77119e7411"><span font-size="14">搜索结果，会将符合的节点，打上</span><span color="rgb(25, 144, 255)"><span font-size="14">蓝色定位icon</span></span><span font-size="14">，</span><span color="rgb(245, 35, 45)"><span font-size="14"><u>节点内将仅展示符合搜索条件的相关策略。</u></span></span></p>
+<p nodeId="33aa4da0b27d4f32b3f8275dc87630a3"><span font-size="14">若希望恢复搜素前的全量展示内容，请点击右上角【搜索重置】</span></p>
+<p nodeId="ae96bd30e79b4485b0880695ed51613d" />
+<p nodeId="3db88941cf69406b9bcf2a44997d616c"><span font-size="14">编辑态下的搜索功能使用流程相同，不做赘述。</span></p>
+<km-note type="note" hiddenTitle="true" nodeId="59c0938492744f4c82b15dbaa6abf200">
+<km-title></km-title>
+<km-content>
+<p nodeId="dab62230a8a64b1f8ee7ce55fb997146"><span font-size="14">注意：编辑态下，由于搜索内容都是从草稿中获取的，为保障用户可以搜索到最新编辑后的内容，点击搜索将自动触发保存草稿。</span></p>
+<p nodeId="a2750931e66f46bd83be3820519683f2"><span font-size="14">若当前场景有组件未ready而导致无法保存，则会限制搜索的使用。</span></p>
+</km-content>
+</km-note>
+<p nodeId="fdc289bf3c04462db858d9a0d74dfa96" />
+</td>
+<td colwidth="[469]" nodeId="3532ff3f74bf458bb60f146fc149162f">
+<p nodeId="e4c6bd7634024e77ac01371da8009a86"><img src="https://km.sankuai.com/api/file/cdn/1333731150/15984275327?contentType=1" name="image.jpeg" width="1092" height="600" nodeId="cc63ec501a4242ceb42ea44067cf1b6f" /></p>
+<p nodeId="0bb2c7ffdd354fc0a06c478058be723b"><img src="https://km.sankuai.com/api/file/cdn/1333731150/15984141761?contentType=1" name="image.jpeg" width="1149" height="600" nodeId="9ded853ec9974483acdc5ccec120e2f8" /></p>
+<p nodeId="9be83056ecf74287915c2e555f1886f3"><img src="https://km.sankuai.com/api/file/cdn/1333731150/15985987134?contentType=1" name="image.jpeg" width="1098" height="600" nodeId="2f68d0541b4443b5b45614fdc62d3753" /></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h2 nodeId="f1154f5b0e17460d9bb15948cba1a65d">3.9 发布管控</h2>
+<p nodeId="0ce50e19d8f3434db16eb74f7909ea85">详见：<a href="https://km.sankuai.com/collabpage/2025859042" title="https://km.sankuai.com/collabpage/2025859042" autoUpdate="true" nodeId="027104572b3b4bb8aba559e1c6b8aea1">https://km.sankuai.com/collabpage/2025859042</a></p>
+<h1 nodeId="45a6422f60124d509f6c99c00b4554c0">四、FAQ</h1>
+<table responsive="false" nodeId="201cc056cf244df28e673afe168dda60">
+<tr nodeId="16bee3a0b0434c368b2734261e29a7cb">
+<th colwidth="[288]" bgColor="rgb(0, 58, 140)" nodeId="4bd5bdfc860445bba064a4c624899c02">
+<p nodeId="863c58d179b545829e5668a9d4a4177d"><span color="rgb(255, 255, 255)"><span font-size="14">问题</span></span></p>
+</th>
+<th colwidth="[716]" bgColor="rgb(0, 58, 140)" nodeId="2c7597a5fc964ea980dc6331408e8225">
+<p nodeId="580005ca39ae4dcba337a2b99bfb3760"><span color="rgb(255, 255, 255)"><span font-size="14">答</span></span></p>
+</th>
+</tr>
+<tr nodeId="c1eb888dc224476da66e48b72c6bccdc">
+<td colwidth="[288]" nodeId="8abe220cfe024a258628533056ff88d0">
+<p nodeId="afd43f62a2a74ba7a5b8979e305cd998"><span font-size="14">分层场景的配套周边功能当前支持情况？</span></p>
+</td>
+<td colwidth="[716]" nodeId="2a1ebd37aa33467dbcdad7306a2c7177">
+<p nodeId="1a9bbb6338e44b0e9a75a989a03731b5"><span font-size="14">1.分层场景的日志查询——已支持</span></p>
+<p nodeId="2729e8bf6c9a40f790e6a0a33469842b"><span font-size="14">2.分层场景的规则组联动——已支持</span></p>
+<p nodeId="f516992282df4c4abb7450d4aab30f7d"><span font-size="14">3.分层场景的熔断——已支持，详见：</span><a href="https://km.sankuai.com/page/1091686902#id-3.3%E5%88%86%E5%B1%82%E5%9C%BA%E6%99%AF%E7%86%94%E6%96%AD%E9%85%8D%E7%BD%AE" title="分层场景的规则熔断" nodeId="4c51c429cbe441e5a8b8944e3ef6cb55"><span font-size="14">分层场景的规则熔断</span></a></p>
+<p nodeId="45719d0405a54954b059bc9d6853441a"><span font-size="14">4.分层场景的排查探针——暂不支持</span></p>
+</td>
+</tr>
+</table>
+<km-note type="tip" nodeId="ca6a4fd9ac354220b3c980c26be9c2fd">
+<km-title>分层场景迭代预告🎉</km-title>
+<km-content>
+<p nodeId="1e2ceec86ebc449dbfb37c325647277d">后续分层场景将升级决策加工组件为分层场景-决策树，并提供识别树/决策树模板能力帮助各位用户快速配置</p>
+<table responsive="false" nodeId="3c685296d9c5440eb53fc8cfaef46b63">
+<tr nodeId="f241f5eddfa14c71a3e305204f1a339e">
+<th colwidth="[584]" nodeId="690237c7040d4597bed246e32b2a804c">
+<p nodeId="7937452662e940c794c27e5a87ad319d">识别树</p>
+</th>
+<th colwidth="[485]" nodeId="66670c00b94f4cbcafee0ef34be632ae">
+<p nodeId="69e93a4adfc44101b405c6b9f14565e8">决策树</p>
+</th>
+</tr>
+<tr nodeId="6dbb1dc84c6e4c57ab16aa7c0be0f676">
+<td colwidth="[584]" nodeId="960161e48565404fa45f3fb54a79b1a9">
+<p nodeId="edaabc1e1977441f879981f77258afc4"><img src="https://km.sankuai.com/api/file/cdn/1333731150/99553758973?contentType=1&amp;isNewContent=false" name="image.jpeg" width="563" height="255" nodeId="71539bb176bc430ba363db5a23dc5cdc" /></p>
+</td>
+<td colwidth="[485]" nodeId="433a6de330a949c89a03632b7db27c81">
+<p nodeId="6219c94b05ba452fb0170f2dd7818a44"><img src="https://km.sankuai.com/api/file/cdn/1333731150/99552654927?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1091" height="600" nodeId="87458f45f14749b5babe71f490f56c8b" /></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-note>
+<p nodeId="163e6adbc193440b93a6fba11b62958d"><span color="rgba(0, 0, 0, 0.87)"><span font-size="22">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+<p nodeId="f28a628a69d448c591697b9de6d8cf80" />
+</km-doc>

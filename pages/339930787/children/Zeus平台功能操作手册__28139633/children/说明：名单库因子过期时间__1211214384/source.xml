@@ -1,0 +1,29 @@
+<km-doc>
+<km-title nodeId="f5666022808d4f84ba90988a06217c7e">说明：名单库因子过期时间</km-title>
+<km-catalog style="none" nodeId="ece0029b55bf4f10b99ef8f8003f8d7d" />
+<h1 nodeId="180dbe170731434da929228922ddeb00">风险说明</h1>
+<p nodeId="f54fc11d0def4dd49a0d2fe75412e7d9">名单库因子的过期时间为可选配置，<span color=" ">默认为名单的过期时间</span>，名单的过期时间可以在skywalker平台查询。如果确实需要设置名单库因子的过期时间（<span color="rgb(245, 35, 45)"><strong>请慎重考虑！</strong></span>），请确认是否存在<span color=" ">除了过期时间其他配置都一致的名单库因子。</span></p>
+<km-note type="note" hiddenTitle="true" nodeId="525b42eb521145279a5179ced31bec27">
+<km-title></km-title>
+<km-content>
+<p nodeId="3cbb1c30050a492786b621814afc6e9f"><span color=" ">如</span>果在一个请求中存在<span color=" ">除了过期时间其他配置都一致</span>的名单库因子，<span color="rgb(245, 35, 45)"><strong>该因子的执行结果会相互覆盖，可能造成业务上的影响，需要自行承担！！！</strong></span></p>
+</km-content>
+</km-note>
+<h1 nodeId="8be505d734bc47279c04bb67f99df654">名单库因子说明</h1>
+<p nodeId="4f0e27a347ea40a2beef7a83c5a96dc5">名单库因子实质上<span color="rgb(0, 0, 0)">是对名单库查询的封装</span><span color=" ">的因子</span>，使用方法请参考文档<a href="https://km.sankuai.com/page/339769403" title="https://km.sankuai.com/page/339769403" autoUpdate="true" nodeId="2ba59832e37343028d7b26201b9c14c4">https://km.sankuai.com/page/339769403</a>。</p>
+<h1 nodeId="77a160bf797940b088dabfe72dd90784">名单的过期时间和名单库因子的过期时间区别</h1>
+<p nodeId="525d0e44d2214201b6458c061a0599ad">名单的过期时间和名单库因子的过期时间<span color="rgb(0, 0, 0)">不是同一个时间</span>。</p>
+<ul nodeId="84f16b2c400e444a810d4b93b3635731">
+<li nodeId="2988371a46924e09a5d65a24fa0f9371">名单过期时间：名单库中名单的过期时间，意为该名单在该时间范围后过期，如果在过期时间后查询，名单库将不会返回过期数据。</li>
+<li nodeId="20791679cc354341916ba842626fc1d6">
+<p nodeId="58bb528af3d048b09ff7b626bea707c4">名单库因子的过期时间：是指在zeus页面上配置的因子的过期时间，<span color="rgb(0, 0, 0)"><strong><u>如果设置了名单库因子的过期时间，那么对于名单数据的查询会以名单库因子的过期时间为准</u></strong></span><strong><u>。</u></strong>举例理解：</p>
+<ul nodeId="c7f9d609a89f4b899e1eef1295a97a09">
+<li nodeId="16b9a0e526e44251a0950558c3edb1a0">如果<span color=" "><strong><u>设置了名单库因子的过期时间为3600s</u></strong></span>，名单最近一次的更新时间为2021.8.5 15:00:00，名单<span color=" "><strong><u>设置永不过期</u></strong></span>，在2021.8.5 16:00:00请求查询名单库，<span color=" "><strong><u>根据过期时间3600s判断数据失效</u></strong></span>，名单库不会返回该名单库数据，如果在16:00之前请求数据，查询将返回该有效数据。</li>
+</ul>
+</li>
+</ul>
+<p nodeId="ad921fbf6ec6407fb9436643ade23312">即<span color="rgb(245, 35, 45)"><strong>如果设置了名单库因子的过期时间，以名单库因子的过期时间为准</strong></span>。</p>
+<p align="start" nodeId="8b49251d3028462b9b8f852eead10c8c" />
+<p nodeId="c628194fcb9b456f963f5b0228c82af0"><br /></p>
+<p nodeId="b63d17e61aa94ba9a044442afd0fe6b9" />
+</km-doc>

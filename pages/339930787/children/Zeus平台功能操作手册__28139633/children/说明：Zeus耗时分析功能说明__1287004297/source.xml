@@ -1,0 +1,89 @@
+<km-doc>
+<km-title nodeId="9bd2371bfca3443e8eea067d78b4dff4">说明：Zeus耗时分析功能说明</km-title>
+<h1 nodeId="107c1af9754b4cf6894d519ce3b0e96c">一、背景</h1>
+<p nodeId="c47ebf1cbe9c4b84829047ed0b083c29">策略执行链路超时是导致策略异常的原因之一，超时的原因主要有：路由逻辑复杂、规则逻辑冗余、fetcher超时，为使策略、产研对策略运行链路的耗时有更直观的感知，故建设事件、场景、规则维度的耗时分析能力，从而提升耗时问题定位效率、辅助策略进行规则治理、统一上下游对超时定义的口径。 </p>
+<p nodeId="24ac8b38e63e4dd29234387c229cf388">项目PRD：<a href="https://km.sankuai.com/page/1227913388" title="https://km.sankuai.com/page/1227913388" autoUpdate="true" nodeId="eb2efdcff9284437a349b193fda9d291">https://km.sankuai.com/page/1227913388</a></p>
+<h1 nodeId="3749985ddc0d4449b9d89e6553308b72">二、数据覆盖范围</h1>
+<p nodeId="df09947b584d4eeea9e936e4cbf979db">本期仅覆盖通过Tatooine-&gt;Zeus的路径耗时分析数据，而外部系统直接调Zeus的耗时监控不在本期范围内（二期会接入这部分能力）。</p>
+<h1 nodeId="3e9f3a78c4c04d27b431cbe8a77f007b">三、名词解释</h1>
+<p nodeId="c9c7f0adac2b4d6089064f3c6abe7425">Partner ：即业务方，来定义一个业务在特定场景下的接入标识，<a href="https://km.sankuai.com/page/28122598#id-platform-%E5%B9%B3%E5%8F%B0" title="https://km.sankuai.com/page/28122598#id-platform-%E5%B9%B3%E5%8F%B0" autoUpdate="true" nodeId="5823278dbc5e4f6fb467f01eff631a2c">https://km.sankuai.com/page/28122598#id-platform-%E5%B9%B3%E5%8F%B0</a>、<a href="https://rc-yoda.sankuai.com/#/parameterDetail?name=partner&amp;message=%E4%B8%9A%E5%8A%A1%E6%96%B9" title=" yoda-partner列表" nodeId="59a6957d514e4e99992500fddce544fa"> yoda-partner列表</a></p>
+<p nodeId="6d30c7c839414d1f97ffdeab3c620d06">Appkey：调用方接口标识。</p>
+<p nodeId="98f9a03599c54287b5111541bc5ea3f3">事件：Tatooine事件在策略团队侧被定义为业务活动中用户的风险行为节点，在技术侧被定义为两类接口（同步&amp;异步），<span color=" ">即业务在业务流程中针对需要进行风控判定的节点，调用对应的事件接口，从而获取风控决策。</span><a href="https://km.sankuai.com/page/1292077011" title="https://km.sankuai.com/page/1292077011" autoUpdate="true" nodeId="dc4a6a1719ec4af58263999bca25d542">https://km.sankuai.com/page/1292077011</a></p>
+<p nodeId="599af48a3a9d4d4398e7465d1402842e">调用量：在选定时间区间内事件/场景/规则的总请求次数。</p>
+<p nodeId="2a746fab91584563b54fe2c2ed543e75">超时量：在选定时间区间内事件/场景 超过耗时要求的请求量。</p>
+<p nodeId="1be057027d5d40bfbe18d5b08716c28a">超时率：超时量/调用量。</p>
+<p nodeId="e3b82c35d2404ddbb427e2ba8ba20379">耗时要求：在业务接入时，由Partner+Appkey+事件定义一条SLA要求（包含耗时要求），SLA的定义说明可参考：<a href="https://km.sankuai.com/page/1287292014" title="https://km.sankuai.com/page/1287292014" autoUpdate="true" nodeId="2e6b6a35989345968f59488947b12de5">https://km.sankuai.com/page/1287292014</a>、 <a href="https://km.sankuai.com/page/1272870013" title="https://km.sankuai.com/page/1272870013" autoUpdate="true" nodeId="61149236e4e64513be8bb6139bad977f">https://km.sankuai.com/page/1272870013</a></p>
+<p nodeId="b9421818beff4d78a6e3cf0bd4726239">TP999：在用户选择时间范围内，在所有请求中，耗时按照从小到大的顺序排列，排位比在99.9%的请求耗时。</p>
+<p nodeId="1ffb4255c1aa4cb1a2d6990801db9e88">平均耗时：在选定时间区间内，所有请求的耗时加总取平均。</p>
+<p nodeId="7d67a27bd3bd49d8923209e3d7e8ab50">最长耗时：选定时间区间内，所有请求中耗时最长的请求耗时。</p>
+<p nodeId="fbe382b2d26c4991b685a17434d01f4c">TT调Zeus失败量：requestid维度，tatooine调zeus失败的请求量。</p>
+<p nodeId="52ad33aa4a54407290de797b0e2dda97">TT调Zeus失败率：requestid维度，tatooine调zeus失败的请求量/tatooine调zeus的总请求量。</p>
+<h1 nodeId="5e408ecbd1094c03bbebc06e3f1a826a">四、功能说明</h1>
+<p nodeId="50b84cb61fed44339446cb245cbc89f0"><span color="rgb(245, 35, 45)">功能入口：Zeus-&gt;监控中心-&gt;耗时分析</span></p>
+<p nodeId="03557835a319482ba16bdde70904b31a">在Zeus中增加【监控中心】菜单，用于耗时情况监测与分析。通过条件筛选可筛选出特定条件下的事件、场景（包含普通场景、普通路由场景、多级路由场景）、规则、数据接口的耗时情况，从而监测耗时情况是否符合预期/分析超时case的具体耗时原因。</p>
+<h2 nodeId="40bace6eefe6490ba66c56f93f70686b">4.1 数据筛选逻辑</h2>
+<km-note type="tip" hiddenTitle="true" nodeId="53027887062b4fe88062b34796bc1083">
+<km-title></km-title>
+<km-content>
+<p nodeId="b20015b665734aadaafa296ae12a2b8a">由于耗时指标的计算底层依赖大量的数据计算及关联，为提升加载速度，在数据查询时对筛选条件做了限制。</p>
+</km-content>
+</km-note>
+<ol nodeId="b743f5ea9f4847ceae2b19f089db35bf">
+<li nodeId="0ea5be01d0dd4ec88a15a8dd3897e81b">Partner、Appkey、事件，用户需至少选择一个进行查询（因为在未定义Partner+Appkey+事件的组合非常多，将会造成数据难以加载），系统默认展示Partner值最大的耗时情况。</li>
+<li nodeId="848b4fabc1f347aeb26c4355bd159e97">事件的耗时情况是上游系统能感知和衡量是否超时的系统粒度，场景的耗时要求根据上游对事件耗时要求-20ms来定义，因此在逻辑筛选场景时需选定场景所在的事件。</li>
+<li nodeId="186c483a2e7840e190542f108b082981">筛选规则、数据接口时，需筛选规则所在的场景。</li>
+<li nodeId="b7f3008f3242441e80720abd970746f8">筛选时间支持近15天的数据查询，首页默认展示近1h的数据。</li>
+<li nodeId="98bfaaeb6b9044a1a85a530dce62239a">
+<p nodeId="b8398b15e3804f128d43bf7bda74e02e">支持各个表单的翻页，及在本页按照数字指标正序/倒序排列，默认按照超时率从大到小排列。</p>
+<p nodeId="d365a3accc124653bfe5f982fa43c642">*以为账户风控-69注册事件为例</p>
+</li>
+</ol>
+<p nodeId="bda181c6ff43447c91d0f58743b6a6f3"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1899717227?contentType=1&amp;isNewContent=false" name="image.jpeg" width="916" height="470" nodeId="dec56bebc7d640ac82fe6d590e5ceab1" /></p>
+<h2 nodeId="c9f0cf55859349608391651960cdfdaa">4.2 事件耗时</h2>
+<km-note type="tip" hiddenTitle="true" nodeId="02b4a2c6598643d9a9d0b77e2523eb87">
+<km-title></km-title>
+<km-content>
+<p nodeId="30824b99bbd44181bb91953fddae7358">由于zeus暂无维护事件与business的映射关系，在没有选定事件时，事件默列表全部空间的耗时情况。</p>
+</km-content>
+</km-note>
+<ol nodeId="a2e4fb034d0e4b09a6c349cc68dde208">
+<li nodeId="1352f7ce75ab448bbecf8c33a9030dbc">事件耗时列表中展示Partner+Appkey+事件组合的调用量、超时量、超时率、耗时要求、平均耗时、最长耗时、TT调Zeus失败量、TT调Zeus失败率。在每条耗时数据后都可点击“详情”查看事件维度的耗时监控。</li>
+<li nodeId="24d13587544b4979a8516b45fc1bf518">事件耗时分析分别展示事件的基本信息，及调用量、超时量、TT调Zeus失败量、超时率、TT调Zeus失败率、TP999、平均耗时、最长耗时、耗时要求的监控图。</li>
+<li nodeId="e527c71e553548088fa26d2ebe675f05">监控默认展示近1h的耗时情况，用户最多可选择近15天的耗时情况。</li>
+<li nodeId="7eb063a180004e6b8f6bbfc1300c86ed">单个请求的日志详情用户可点击进入“日志查询”查看。</li>
+</ol>
+<p nodeId="c3d9a425aa534c60a55aad40db3291b1"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1899719582?contentType=1&amp;isNewContent=false" name="image.jpeg" width="778" height="412" nodeId="a8f41fee53cc483b981e2bff2f01d198" /></p>
+<p nodeId="fcd0c3eff78b4caea607f998b85250c1"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1899719608?contentType=1&amp;isNewContent=false" name="image.jpeg" width="772" height="151" nodeId="3ae0fc35a1774d31bc89ee109055be6d" /></p>
+<p nodeId="a69aaffc12a541b5a476d394054d6440" />
+<h2 nodeId="5b5ace9632464acbb213bec83da2c2b9">4.3 场景耗时分析</h2>
+<p nodeId="264768eaae76400d92cdeef2c512b5b9">在进行场景耗时分析时用户需先选择场景所绑定的事件，场景选择前用户需选择场景类型（普通场景、普通路由、多级路由）再通过输入场景ID/名称的方式查看场景的耗时情况。</p>
+<ul nodeId="55f72b6949e841739826f1c9d249af62">
+<li nodeId="87ab7a27797d4647b029d42a3b5150a1">普通场景：展示场景的调用量、超时量、超时率、耗时要求、平均耗时、最长耗时，以及场景下规则的耗时情况。、</li>
+<li nodeId="34c4248b883d4c16bbf82e218b2d5b02">普通路由、多级路由：展示路由场景下的路由规则（如果有多个路由规则则所有路由平铺罗列）、子场景及子场景下的规则的耗时情况。</li>
+<li nodeId="663c8d87d4954cfc9d0879383c369579">场景可点击“详情”查看整个场景的耗时监控，规则不支持耗时监控的查看（规则的耗时和场景强关联，且无规则维度的耗时要求的定义）。</li>
+</ul>
+<p nodeId="f2706a68cd4740fa929f17cf9bf16d51" />
+<p nodeId="d184b506c79a4c66814ee342705019cf"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1718303636?contentType=1&amp;isNewContent=false" name="image.jpeg" width="860" height="93" nodeId="f1f58638dcf6457aa6809c04d8c8330f" /></p>
+<p nodeId="1e15e9923a904b679dcc197c216ebf8c"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1718191716?contentType=1&amp;isNewContent=false" name="image.jpeg" width="857" height="249" nodeId="dbf24164b4a14a3597b88d38cbd4d8aa" /></p>
+<p nodeId="362c00fb70884b3a99f4b4c71ec8091e"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1718190976?contentType=1&amp;isNewContent=false" name="image.jpeg" width="855" height="200" nodeId="59c7c8a303e74f699f4a0a68f6715b41" /></p>
+<h2 nodeId="73f1b7440ce945a4893acc8a366f1f93">4.4 数据接口耗时分析</h2>
+<p nodeId="a4e20c45de3f44eda441f07c7a2d56ab">数据接口耗时表单展示筛选条件下（最多到场景）所引用到的数据接口的耗时情况。展示数据接口的调用量、超时量、超时率、耗时要求、平均耗时、最长耗时，且用户可点击“详情”查看接口维度的耗时监控。</p>
+<p nodeId="8d2345acfe4e47388d5c5e03d0babbe4"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1718564947?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1057" height="259" nodeId="fa3ebaf9e9ec4adcb3cb12fe2ba03295" /></p>
+<p nodeId="d48d95e6831949cc8c75d8019b985d38" />
+<p nodeId="016b5d90671646729c29c21c87ae4fd8">耗时监控包含：接口调用量、超时量、超时率、平均耗时、最长耗时、耗时要求的耗时监控。</p>
+<p nodeId="d48110a04d5842909c5d34994fc786c7"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1718554067?contentType=1&amp;isNewContent=false" name="image.jpeg" width="834" height="439" nodeId="23e7aab212014d6da5b0340c9d1e8aa2" /></p>
+<p nodeId="dd4fa7d3c0344bb79d65e0f85e1c39f1"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1718407001?contentType=1&amp;isNewContent=false" name="image.jpeg" width="818" height="364" nodeId="c9426460c2604cae9e7730e027e6c2bd" /></p>
+<p nodeId="9570f6fbde2048279e0e5c3958d89568" />
+<h2 nodeId="eaeae6bcab7e4775a1d7bcb8035645a8">4.5 标记转生效耗时提示</h2>
+<p nodeId="1ef91b4037b14e0f853c88fc42aaa242">对标记规则转生效前，将有弹窗提示标记规则近一周的平均耗时和场景的耗时要求进行对比，提示用户规则上线后对耗时的影响。</p>
+<p nodeId="82de4b48074d478995511321796c4d5e"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1718556137?contentType=1&amp;isNewContent=false" name="image.jpeg" width="444" height="217" nodeId="b227379e57b44eb292cdf5418a2f99f0" /></p>
+<p nodeId="a8c932ebe38745c7a9416229d7cdd353" />
+<h2 nodeId="c23f54872d624d7fb795088eed902faa">4.6 请求超时日志标签</h2>
+<p nodeId="2091b7ee8cbc4161953d2a2cb41e643e">在日志查询中增加“请求超时”标签，且在日志详情中增加“异常信息”模块，当请求超时时则在异常信息中可查看事件、场景、数据接口的具体耗时及耗时要求。</p>
+<p nodeId="529d48c4c9aa4fc1879d36483dc0a270"><img src="https://km.sankuai.com/api/file/cdn/1287004297/1718520005?contentType=1&amp;isNewContent=false" name="image.jpeg" width="555" height="207" nodeId="233944ab6b59461ca6abe183048f8cf9" /></p>
+<p nodeId="e8d65ff9f2b3448d916767ce2569207c" />
+<p nodeId="0139346babc743c2b6e37a1eb8305adc" />
+<h1 nodeId="d4d777c66c8444678433f66327b2286e">五、问题反馈</h1>
+<p nodeId="567a06156a884b7599c04532f51eb815">对数据口径、功能使用等如有疑问，请联系：产品<km-mention name="金丽丹" uid="jinlidan" empId="" nodeId="1127a70cf326497b9b25a98a87755cdc" /> 研发<km-mention name="王雅靓" uid="wangyaliang" empId="" nodeId="7cec1e53552440dd8e61ffc354adafc6" /></p>
+<p nodeId="0bc1c6abbd1a45df81ccddecd947d6c1" />
+</km-doc>

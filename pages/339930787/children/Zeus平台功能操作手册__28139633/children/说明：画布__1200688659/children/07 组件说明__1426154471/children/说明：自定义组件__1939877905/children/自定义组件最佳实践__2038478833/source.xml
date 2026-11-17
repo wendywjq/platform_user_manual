@@ -1,0 +1,193 @@
+<km-doc>
+<km-title nodeId="1400e07ce92946949c35ddb7c7d29c0f">自定义组件最佳实践</km-title>
+<p nodeId="bfdcd75e231b4b2e9904e417ae660a32" />
+<table responsive="false" nodeId="2184d60b5ef7464ea5038b07dfbd81b0">
+<tr nodeId="439551214afd495999a89147f43b2967">
+<th colwidth="[50]" nodeId="9e08093a1a914392b6455f9b513d03fb">
+<p nodeId="406b73a01dec467c893b67c4ada6e37c" />
+</th>
+<th colwidth="[88]" nodeId="b16d209c458349c3a39beb70f35c3d06">
+<p nodeId="d03e219c3207427fbf1b4c18db6b9389">组件名称</p>
+</th>
+<th colwidth="[270]" nodeId="881d0a4e995f4eb4a1505931a9ebc482">
+<p nodeId="352850a216fb49d2b534f599d199badb">解决问题</p>
+</th>
+<th colwidth="[273]" nodeId="ec74b02e14cd441da69aa72af7c60eea">
+<p nodeId="62802d9fb0e3474194cb90a2979d8952">类型/配置界面</p>
+</th>
+<th colwidth="[120]" nodeId="69451facdf324d3c9dcd0713232d6713">
+<p nodeId="1454f03ad7ee43ceaee6e86d8e12cda2">适用空间</p>
+</th>
+<th colwidth="[202]" nodeId="cbff7383565d405fa45463ae9743f689">
+<p nodeId="a2cd3f1fd547413f90fe6588189d4f2c">使用方法</p>
+</th>
+<th colwidth="[156]" nodeId="6e542cff5f2d4a56be44a3db37ffed29">
+<p nodeId="8ae8c81931da4a8ab91bc7f34f5d431f">自定义组件链接</p>
+</th>
+<th colwidth="[76]" nodeId="9ca30712aa194b83915a0a2564ccb1b7">
+<p nodeId="5f175b564e5040a3ab597c3f713fbf89">维护人</p>
+</th>
+</tr>
+<tr nodeId="3d616e9f47e0464b8b59871472fb8fdd">
+<td colwidth="[50]" numCell="true" nodeId="19033a2c0a614c2781ed335024d1411f">
+<p nodeId="29b1d0a50a2947fc8a77d6a555b33833" />
+</td>
+<td colwidth="[88]" nodeId="f00ac93191464aba8d36da9a7013b39e">
+<p nodeId="738835dc3a29470b942c3555e3417095">【模版】账户处罚信息落表</p>
+</td>
+<td colwidth="[270]" nodeId="b741f92a783c4511a357f065d434590f">
+<p nodeId="de0ddfa18121474787ca3f4af8b8da1d">账户安全近线处置(策略实验&amp;)log信息</p>
+</td>
+<td colwidth="[273]" nodeId="d5f0c7a87b1043a58d589beea11ca625">
+<p nodeId="a34d75123a0a4ebf95b71d169f4e917a"><img src="https://km.sankuai.com/api/file/cdn/2038478833/80528230974?contentType=1&amp;isNewContent=false" name="image.jpeg" width="359.27" height="600" nodeId="3a5815d0cf054ebca6f6c352e0a74786" /></p>
+</td>
+<td colwidth="[120]" nodeId="ce79f841337e484eb3064827a2db0b1c">
+<p nodeId="e5e92b7924c4468d894a748b4049c7dc">3-用户账户</p>
+</td>
+<td colwidth="[202]" nodeId="5c9465cee1934fedba021fe7de66df41">
+<p nodeId="a4e9eb1ed5da4eeea9f640c5da5ab8e7" />
+</td>
+<td colwidth="[156]" nodeId="7a993572aff540259d4b553936177151">
+<p nodeId="fa731e0b6dcc45b68579ddcf87207d68"><a href="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=17&amp;version=1&amp;defineType=2" title="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=17&amp;version=1&amp;defineType=2" nodeId="79f55f19352d4d29a787c7df0dde6534">https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=17&amp;version=1&amp;defineType=2</a></p>
+</td>
+<td colwidth="[76]" nodeId="c3e363ad36a249c197ac6e08c0e3d2d1">
+<p nodeId="f242bfa75477421b912c63ba944ae352">gelei05</p>
+</td>
+</tr>
+<tr nodeId="29ba84eb42e2493b82db4e5cbc422bff">
+<td colwidth="[50]" numCell="true" nodeId="563345a7c1914a36b0756628f8bd8cce">
+<p nodeId="83c57a490b88411294ff4587b55652c3" />
+</td>
+<td colwidth="[88]" nodeId="2303e0066fef41268beb4ab0c572ef3a">
+<p nodeId="e8e1e8db355444508a19be92b90090e7">【子图】点评评价回扫子图</p>
+</td>
+<td colwidth="[270]" nodeId="6575d61d3c4f4bda9a6a3d1d844064cf">
+<p nodeId="fb54e2b17fce4232ab1c913a11e3eb6a">点评近线回扫策略的配置表单</p>
+</td>
+<td colwidth="[273]" nodeId="94b86f0f4f33496e91b4f1e6a8ef0c07">
+<p nodeId="79ff2b0414624859bdd446ab024808fa"><img src="https://km.sankuai.com/api/file/cdn/2038478833/80524868979?contentType=1&amp;isNewContent=false" name="image.jpeg" width="386" height="593" nodeId="d85c6efa5bd646ff9b92ffb3bf795cbd" /><img src="https://km.sankuai.com/api/file/cdn/2038478833/80527528927?contentType=1&amp;isNewContent=false" name="image.jpeg" width="166" height="189" nodeId="ac376c175dbc4148b2d1b9cab409e372" /></p>
+</td>
+<td colwidth="[120]" nodeId="02461ed3801f4b3a85191e8963ca1b5c">
+<p nodeId="2d2b734bbc1a4d84a4f11bf3864774f3">181-社区安全</p>
+</td>
+<td colwidth="[202]" nodeId="b0b3bc3bc74642bf9d260273b2a6dff8">
+<p nodeId="c8ecb49b07f449ee996551bde6f46421" />
+</td>
+<td colwidth="[156]" nodeId="87cd7a844e7a41f0add75e4af072a06b">
+<p nodeId="9463a67bbc1f4badbd1d9041d9ee6f49"><a href="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=2&amp;version=1&amp;defineType=1" title="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=2&amp;version=1&amp;defineType=1" nodeId="69f50ff4ee5a48fbbbbc6197798819ab">https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=2&amp;version=1&amp;defineType=1</a></p>
+</td>
+<td colwidth="[76]" nodeId="7924ae5cac254d788937fdee29d4f0ab">
+<p nodeId="b7e91b23222e4ab2b7bb90cb677db336">gelei05</p>
+</td>
+</tr>
+<tr nodeId="9a3f49d158604b46845154da82f6e333">
+<td colwidth="[50]" numCell="true" nodeId="986f25db240f47ff81f65edeb8d6ccfd">
+<p nodeId="7c005e9335d14cc182348cbcd8cad6ed" />
+</td>
+<td colwidth="[88]" nodeId="999a6d0257574b39982443704f754bd8">
+<p nodeId="9f991e6535bf4fe981c857cfe331b4ca">【子图】点评延迟2小时回扫子图</p>
+</td>
+<td colwidth="[270]" nodeId="d760c8de476143d8a4f6c89a643b73ba">
+<p nodeId="c26e9ab7a9914867b9fb085a47ce0cc1">延迟两小时后，等待累计，截屏特征后回扫的配置表单</p>
+</td>
+<td colwidth="[273]" nodeId="a5b164dfb8ad4f4fa74c0fd36b59d84c">
+<p nodeId="7aecb3c09c7d4ade9b03b2cdcb6e3790"><img src="https://km.sankuai.com/api/file/cdn/2038478833/80529283636?contentType=1&amp;isNewContent=false" name="image.jpeg" width="366" height="576" nodeId="6613bd6923cc4ef9a4ed44425c20c2db" /></p>
+<p nodeId="6d85a8ae585e4f75864e7457f2d361e7" />
+</td>
+<td colwidth="[120]" nodeId="216c24f174e4439cb85c418bcb8a96ff">
+<p nodeId="3862adecf83142b7b7340f85e9fa8f8e">181-社区安全</p>
+</td>
+<td colwidth="[202]" nodeId="d3c5b3a705b1413eb32068f820577cc3">
+<p nodeId="92869fb140e84f44abb88342965c2589" />
+</td>
+<td colwidth="[156]" nodeId="f6d125a98f1747b7b3b3ad698137e7a3">
+<p nodeId="d3d56d3decdf4b3db383c14af6010e5b"><a href="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=4&amp;version=1&amp;defineType=1" title="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=4&amp;version=1&amp;defineType=1" nodeId="6955af6ff47746eca3753294201cabd2">https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=4&amp;version=1&amp;defineType=1</a></p>
+</td>
+<td colwidth="[76]" nodeId="add23e520fb044fda757cd262633a2b9">
+<p nodeId="bde92359e236405092ab56f76647c482">gelei05</p>
+</td>
+</tr>
+<tr nodeId="38646d8a03b84b169dc9df63bec06994">
+<td colwidth="[50]" numCell="true" nodeId="5e6c2a00c2814eb7b544986b96f1a093">
+<p nodeId="252dceba85df4c54b08b6a7d1ac99671" />
+</td>
+<td colwidth="[88]" nodeId="5909276992f044dc86fdb8829a20f889">
+<p nodeId="307d8370e5f149d59f0b5710bb1ff75d">【模版】json提取所有内容</p>
+</td>
+<td colwidth="[270]" nodeId="7fb79d198c6e47c0889f8d2884809a80">
+<p nodeId="29e556934bb84ae4905814089dcf86d6">将上下文中的json串中的所有参数因子提取出来</p>
+</td>
+<td colwidth="[273]" nodeId="ec67f592512040a4acbc1bd8626d8661">
+<p nodeId="9639932f57d343b3b8ca759dd094cc5f"><img src="https://km.sankuai.com/api/file/cdn/2038478833/80528905432?contentType=1&amp;isNewContent=false" name="image.jpeg" width="393" height="340" nodeId="e3ed04fbbd994169a71323b1d867d742" /></p>
+<p nodeId="e4db36ecb0844e12aae3c3918666d118"><img src="https://km.sankuai.com/api/file/cdn/2038478833/80530684156?contentType=1&amp;isNewContent=false" name="image.jpeg" width="384" height="286" nodeId="504a00e941664fd083682192232c727f" /></p>
+</td>
+<td colwidth="[120]" nodeId="aa86297f49274059b0876a58a9a75dc2">
+<p nodeId="dbefa2654c1445a8b225d2cef827828a">35-UGC（上海侧）</p>
+</td>
+<td colwidth="[202]" nodeId="6e4e67de65cb4a0280cb2db225c406c7">
+<p nodeId="3b571e171352427aac61e16635e35832" />
+</td>
+<td colwidth="[156]" nodeId="1e0e8573efd34862ac58bcbafce42a87">
+<p nodeId="29f8c60aceaa41929ccd48deee99bd09"><a href="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=13&amp;version=1&amp;defineType=2" title="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=13&amp;version=1&amp;defineType=2" nodeId="44ce7a19862740c7a3c591f2ebf90a08">https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=13&amp;version=1&amp;defineType=2</a></p>
+</td>
+<td colwidth="[76]" nodeId="b1cde36c59e54cacb1810caf9c3b92ee">
+<p nodeId="e376471656534d2f96d0dcbc06633a02">gelei05</p>
+</td>
+</tr>
+<tr nodeId="6d65c5a6a31a4955874f3bed76b74215">
+<td colwidth="[50]" numCell="true" nodeId="dbdbd9eedfc74c2791ddd3b6e5a9b7d0">
+<p nodeId="4e8851b6b34447d8b3c3bc627d21be55" />
+</td>
+<td colwidth="[88]" nodeId="43adfd640d6c4d6b9b43550ef79e5b47">
+<p nodeId="1edf15e815364ca9ae1ff6046eb20dc6">【模版】json封装工具</p>
+</td>
+<td colwidth="[270]" nodeId="e0e35c8ad1cc4cc49c9b69f8ca75d39e">
+<p nodeId="11ca361258974ada80ac89b5b799b9ed">将多个参数打包成json串</p>
+</td>
+<td colwidth="[273]" nodeId="b0c54d85b98f40a3b20ea7904b43bf2f">
+<p nodeId="7cf1d2bcaf2a409c9169fbafec091ae7"><img src="https://km.sankuai.com/api/file/cdn/2038478833/80527583650?contentType=1&amp;isNewContent=false" name="image.jpeg" width="388" height="391" nodeId="2f6cc0dd4f6940bf9f46f3f3bf319f53" /></p>
+<p nodeId="c746dbc56c874350a5ffc37cee1c9b04"><img src="https://km.sankuai.com/api/file/cdn/2038478833/80531204876?contentType=1&amp;isNewContent=false" name="image.jpeg" width="388" height="317" nodeId="da31a2da13284e6eb8ecc467a1acbd72" /></p>
+</td>
+<td colwidth="[120]" nodeId="bdfc244bf34249c69ab673a1a55d512d">
+<p nodeId="a46853bfb161456dab785b74ca16027c">35-UGC（上海侧）</p>
+</td>
+<td colwidth="[202]" nodeId="b25adc9499344e92a0c5e434314dc46d">
+<p nodeId="f7d083ccbb86427b945a5efe51e7f11f" />
+</td>
+<td colwidth="[156]" nodeId="b5913873e8d74264808c8e1df1bb2ca1">
+<p nodeId="6fb05461b7d841aa935aa4f496b60f44"><a href="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=12&amp;version=1&amp;defineType=2" title="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=12&amp;version=1&amp;defineType=2" nodeId="c32fb93b81934f69bfc91bf9e0a9974f">https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=12&amp;version=1&amp;defineType=2</a></p>
+</td>
+<td colwidth="[76]" nodeId="71f57e0b8300495a80f2ebbdc0a6c631">
+<p nodeId="6782d42a93bc47f4adaac6e384aee4c9">gelei05</p>
+</td>
+</tr>
+<tr nodeId="5de097e399ac4178b2f06eff1195ee01">
+<td colwidth="[50]" numCell="true" nodeId="d957d0b4eac64a48bd277e5a57f00985">
+<p nodeId="0e0460f5977f43c8921f7e2bbb767f35" />
+</td>
+<td colwidth="[88]" nodeId="02c11ed4a9d34f8d862fde1a62b131da">
+<p nodeId="dac6d3675b71460e81986af06b61ff5a">【模版】内安引流场景数据</p>
+</td>
+<td colwidth="[270]" nodeId="48d3cb6a7cd3432ab0f91d9acb4116d1">
+<p nodeId="83b37e0d457449f3b2bb86c429f58ae8" />
+</td>
+<td colwidth="[273]" nodeId="d0f2fcabb52a4cdd9664c6d796a548f0">
+<p nodeId="b73f0e96332344b89f166e0a2a080227"><img src="https://km.sankuai.com/api/file/cdn/2038478833/80527149789?contentType=1&amp;isNewContent=false" name="image.jpeg" width="383" height="458" nodeId="04d35af679d84bfca3f899fdeae032e6" /></p>
+<p nodeId="d1e04743d5d34e89be85178692552b11"><img src="https://km.sankuai.com/api/file/cdn/2038478833/80529653126?contentType=1&amp;isNewContent=false" name="image.jpeg" width="392" height="358" nodeId="d2d4de0977524c8bbfaab0a8af367aa9" /></p>
+</td>
+<td colwidth="[120]" nodeId="df2429e52954481f9e7729d53b578283">
+<p nodeId="39b5f054851d49baa0fe214f122385d6">35-UGC（上海侧）</p>
+</td>
+<td colwidth="[202]" nodeId="f59b8ea819b3418894cfde9c40a29735">
+<p nodeId="54971b1cacde4e79b0e05325e05b9aed" />
+</td>
+<td colwidth="[156]" nodeId="fe7a2654749642d9ad20fa38b404ecb0">
+<p nodeId="c7b6f913ec20474fb3bed274dfac55c7"><a href="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=10&amp;version=1&amp;defineType=2" title="https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=10&amp;version=1&amp;defineType=2" nodeId="afc7f9bd4a304f1bada234bc6eecee9f">https://zeus.sankuai.com/data_zeus_static/#/custom/detail?id=10&amp;version=1&amp;defineType=2</a></p>
+</td>
+<td colwidth="[76]" nodeId="7f7332baf94e4f4493f26a328cfeb88c">
+<p nodeId="750cf2b23e774aaeab2f7b292d21cdd5">gelei05</p>
+</td>
+</tr>
+</table>
+<p nodeId="08760ddb2b80493cb307a36ec403b35a" />
+</km-doc>

@@ -1,0 +1,145 @@
+<km-doc>
+<km-title nodeId="598cdd3229de4d5dafca711549b52af6">策略评估-评估指标</km-title>
+<km-catalog style="none" nodeId="47d9bbfee8b344e09d0ff49d9fcbad30" />
+<h2 nodeId="23f382f8e0144dfcbfaf0a1083085809">一、背景</h2>
+<p nodeId="8ce3895980604a4c8d27b61af692ea7f">相见策略评估的背景</p>
+<h2 nodeId="5f74a8dea622460d962d5ec90fa928ac">二、名词解释</h2>
+<p nodeId="2d657e70f908454796d57139df957510">评估指标：</p>
+<p nodeId="d6542c99068f41e4a1f62c72acc8a57f">默认指标：如果生成评估任务，无论业务方是否配置，系统都会默认计算</p>
+<p nodeId="729e04fb5fd74c588af1279995fdc793">自定义指标：用户用系统指定的运算符，自定义配置的指标</p>
+<h2 nodeId="70143d343e2c4e10b1e0dcbb322e243d">三、操作指南</h2>
+<h3 nodeId="cb62555e273e4ddd8a874185adb1955a">1.用户操作流程说明</h3>
+<h5 nodeId="2bfbe658f3d647078e5a433a22f7abc2">系统默认指标</h5>
+<table borderColor="#cccccc" responsive="false" nodeId="8a19fa62efc64399b707928e3512b71f">
+<tr nodeId="64c33556cfff4b13b25f64addae30da7">
+<th colwidth="[529]" nodeId="09b1e8fd81ae44ae8ae339c238951d77">
+<p nodeId="d5d3f4e515f64565b4d18012293c7bc7"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[557]" nodeId="5e9a6d640a4c4509b2947f042bf1423d">
+<p nodeId="bdc9dbfe508f4d75a377bd9f43b7d0f7"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="bd77605ad3d049af9395300968f9852d">
+<td colwidth="[529]" nodeId="39710152fcd4442396fcb261f79a5307">
+<p nodeId="a3f8494c62e447098d6b499a2f5eee91"><span font-size="14">入口：</span></p>
+<p nodeId="09864f35df574b78a3b7e87f28cb37c1"><span color=" "><span font-size="14">zeus--&gt;策略评估--&gt;评估模板--&gt;评估指标tab</span></span></p>
+<p nodeId="54b5095c055f49e7aa9035b0520f4323" />
+<table borderColor="#cccccc" responsive="false" nodeId="1df9708ec3804a0481565288d2ca31f8">
+<tr nodeId="c598aed240864c558b356e83d54208f2">
+<th colwidth="[214]" nodeId="3d661435b062429e9c928cb567cb791c">
+<p nodeId="53d80bca003045abbd763707bd46b661"><span font-size="14">指标名</span></p>
+</th>
+<th colwidth="[247]" nodeId="072be8366d81436fb98c3ca8a13932d9">
+<p nodeId="887d2c027b4a47a390c02945afd97419"><span font-size="14">指标说明</span></p>
+</th>
+</tr>
+<tr nodeId="b6cae82f425c45ed8a1fe34b859d59fe">
+<td colwidth="[214]" nodeId="4bbcea273c8247cdaa736cbad8b48254">
+<p nodeId="5a2887014dd4422992b8dbf4b8165764"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">待评估规则的命中量</span></span></p>
+<p nodeId="71514277ff2347b386c871cfcb057bba"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">getAssessRuleIdCount</span></span></p>
+</td>
+<td colwidth="[247]" nodeId="4f2006a2867647168c891794fa30e02c">
+<p nodeId="62437b3506014ce1a76d33d712fe12c7"><span font-size="14">以请求（request_id）维度进行不去重统计待评估的规则的命中量</span></p>
+</td>
+</tr>
+<tr nodeId="482ce8c48c8d47bf9d2ee4ba1f371411">
+<td colwidth="[214]" nodeId="80a05be814414f3dbe6fac22c26e3d28">
+<p nodeId="4e8b8d0803704f3eb018ef85373d4f49"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">场景调用量</span></span></p>
+<p nodeId="316ee334704e44008c9661d56da1b684"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">totalRequestCount</span></span></p>
+</td>
+<td colwidth="[247]" nodeId="39fa8ccb4d4c4c358f1aaad27487ee5d">
+<p nodeId="aa2ad8f68af242e7901d1b9030ce57c3"><span font-size="14">以请求（request_id）维度进行不去重统计待评估规则所在场景的流量</span></p>
+</td>
+</tr>
+<tr nodeId="05f7c142108f47dc936a97a0348151d1">
+<td colwidth="[214]" nodeId="e0250d1c676945aaa43d7522b2a1eb96">
+<p nodeId="1551c1a2e4724b2a80ea601d3303587a"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">待评估规则命中率</span></span><br /><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">getAssessRuleHitRate</span></span></p>
+</td>
+<td colwidth="[247]" nodeId="1acde7d4d7fd463095a529355efffbf5">
+<p nodeId="959eba5b5ed048b9be59892f54ef02bc"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">getAssessRuleIdCount/totalRequestCount</span></span></p>
+<p nodeId="e61eda4da8f84f61b52eddedd0f6009f"><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">待评估规则命中量/场景调用量</span></span></p>
+</td>
+</tr>
+</table>
+</td>
+<td colwidth="[557]" nodeId="a745c39cc42b4984ba3e8e9874347b8f">
+<p nodeId="4b8edc474d0f4ccf8cb9e736e057ff0f"><img src="https://km.sankuai.com/api/file/cdn/1226778279/1392077456?contentType=1&amp;isNewContent=true" name="image.jpeg" width="534" height="207" nodeId="608fe41295f442d8911a542b8cea0d68" /></p>
+</td>
+</tr>
+</table>
+<h5 nodeId="577c358f9d2e4573baeebe527d955590">自定义指标</h5>
+<table borderColor="#cccccc" responsive="false" nodeId="b53cf67ef37f47d097ade6db552d2810">
+<tr nodeId="9ca33390944b484f9bdc978f12c40f56">
+<th colwidth="[55]" nodeId="5baf50f397734143b0c3cc48c345273a">
+<p nodeId="a43d0ccaeea64c99b265a876d81e5a7b" />
+</th>
+<th colwidth="[528]" nodeId="5c56c5d6915c46e088fad45a86aa152f">
+<p nodeId="7d7bfbcb46c849119e1cb5ab174b1dd5"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[561]" nodeId="3a749b071d0c496f8e1ac738d5e552ff">
+<p nodeId="6e8aef5aca4547dd8acb27ecef40153b"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="7019e80984fb4e608b3f677fa8947816">
+<td colwidth="[55]" numCell="true" nodeId="f153e43da87f48a6bace574c80cb004b">
+<p nodeId="cace2269e99a48ed861a60b135d14548" />
+</td>
+<td colwidth="[528]" nodeId="9376eeea3c4b4e0b86f46517b95e0d06">
+<p nodeId="a79199fc527e4aedb73cd7d36779a9b5"><span font-size="14">计数</span></p>
+<ol nodeId="14e3df82d67f4618a469764bfbece8e1">
+<li nodeId="b1b824bc3e844afeb56c131947e3cffd"><span font-size="14">以请求（request_id）维度进行计数，不去重</span></li>
+<li nodeId="5cc5b330dfbe46278a9f732d2fa7ce70"><span font-size="14">可以计数指定规则的命中量，前提是计算该指标的评估任务所过的场景中有该规则，不区分这个规则是标记状态还是生效状态</span></li>
+</ol>
+</td>
+<td colwidth="[561]" nodeId="409e71ec9b994d6ba99a63747efdfcfa">
+<p nodeId="a600a18038874bc38614f3d60c107c64"><img src="https://km.sankuai.com/api/file/cdn/1226778279/1392309401?contentType=1&amp;isNewContent=true" name="image.jpeg" width="539" height="490" nodeId="1f3382002f8a44f5ad77ee8d280d0035" /></p>
+<p nodeId="21b74234fd8d4b5e80d904cec255de97"><img src="https://km.sankuai.com/api/file/cdn/1226778279/1392370570?contentType=1&amp;isNewContent=true" name="image.jpeg" width="539" height="219" nodeId="edce352c666d499b93a64883e4bb8185" /></p>
+</td>
+</tr>
+<tr nodeId="1938c92be74b4bcb85c10b742923be3a">
+<td colwidth="[55]" numCell="true" nodeId="b91810f7c78143d08570ea2d4cbad67e">
+<p nodeId="c88ff423d750496995d94a0d0e2d4ceb" />
+</td>
+<td colwidth="[528]" nodeId="3a9ba225bb0340f9abf9c05e7687512a">
+<p nodeId="2c064b17539643f5af665f10a7d67718"><span font-size="14">加法/减法/乘法/除法/取余</span></p>
+<ol nodeId="9ac9d4f8208d4de2a261c0fe821faeb3">
+<li nodeId="0ffd8aa1adb54d11adebc755755aa84d"><span font-size="14">针对这5种计算方法，会带出两个输入框，输入框为下拉选项，选项为已经有的指标</span></li>
+<li nodeId="c96bcb4472bc4b0c8e0b9bd2a9a50e6a"><span font-size="14">针对除法，四舍五入保留两位小数；</span></li>
+</ol>
+<p nodeId="def6c14189394217b93cadb8dd82e3c9" />
+</td>
+<td colwidth="[561]" nodeId="ff6ae537df1b4ae69462ab29481ed427">
+<p nodeId="dbc892fe14584c46b36879fcecfe508d"><img src="https://km.sankuai.com/api/file/cdn/1226778279/1392384819?contentType=1&amp;isNewContent=true" name="image.jpeg" width="539" height="354" nodeId="bd8ef887c8db40fd9fd13cd5f09abd23" /></p>
+<p nodeId="c6793a639840467b94f048c013229da7"><img src="https://km.sankuai.com/api/file/cdn/1226778279/1392291861?contentType=1&amp;isNewContent=true" name="image.jpeg" width="539" height="361" nodeId="ae2663f2094444a1b09ab44f0eddae27" /></p>
+</td>
+</tr>
+<tr nodeId="f2181ca25e18442a9eadc7a402dd0627">
+<td colwidth="[55]" numCell="true" nodeId="7130c88fdfcc421c95fe1f57b88c222b">
+<p nodeId="0c0642cd936b4af3a764dc8e2e344cbc" />
+</td>
+<td colwidth="[528]" nodeId="4b3b0a3eca234b9d9d03e07cd73aee4a">
+<p nodeId="0600bf236892479e84a80f9f40b64462"><span font-size="14">命中其一累加/命中其一的待评估规则</span></p>
+<ol nodeId="4004bc904b704c2aafde20f7dead449e">
+<li nodeId="023de78957104f898c6750b35a248429">
+<p nodeId="65c4da347a334f01b72c44dc05f8f8e0"><span font-size="14">上述两种算子类似于sql中计数时 where条件的in语法</span></p>
+<p nodeId="5e4ed323610c4a56a46eada7af6a29a8"><span font-size="14">select count(*) from table where column_name1 in (condition1, condition2.....)</span></p>
+<p nodeId="373cd1040f2444488ffa050b41f4551c"><span font-size="14">区别在于：</span></p>
+<p nodeId="fb8a2101930d43599614d7b773f0c237"><span font-size="14">命中其一累加：仅以请求（request_id）维度，统计命中后面条件中的规则的数量</span></p>
+<p nodeId="c588b6972afe44589ef5126071f65e90"><span font-size="14">命中其一的待评估规则：仅以请求（request_id）维度，统计命中后面条件中的规则且命中待评估规则的数量</span></p>
+</li>
+<li nodeId="674025ec68d74c19bed998a9d0a96c17"><span font-size="14">支持选择规则/规则组，可以多选规则id/规则组id</span></li>
+<li nodeId="179a64776bc9495099dabdb453effc09"><span font-size="14">如果选择规则id，后面仅支持多选规则id；</span></li>
+<li nodeId="37ae29cacfba461590aec279ddc634a2"><span font-size="14">如果选择规则组id，近支持多选规则组id，实际计算时，会统计规则组里管理的所有规则id</span></li>
+</ol>
+</td>
+<td colwidth="[561]" nodeId="5a5fe412cd5e4ee0be68545bb6d585f8">
+<p nodeId="8b67653d6f91411c81a6068a175fc208"><img src="https://km.sankuai.com/api/file/cdn/1226778279/1392444512?contentType=1&amp;isNewContent=true" name="image.jpeg" width="539" height="294" nodeId="ef71983ae13c4629a424009849ed2be0" /></p>
+<p nodeId="723fbf991c934693943f5f430ee7a2f2"><img src="https://km.sankuai.com/api/file/cdn/1226778279/1392258486?contentType=1&amp;isNewContent=true" name="image.jpeg" width="539" height="311" nodeId="dbece6c686fd493c9da15925497a465b" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="e5bfc562ded24deebc5cadb36183678d">2.特殊说明</h3>
+<p nodeId="395c6cd5f6934cd4b6f51eb837bb31e3" />
+<h2 nodeId="e1e6ca6b8978468dafe167a9573cdbc0">四、FAQ</h2>
+<p nodeId="43349e94dd844b878c666bf9b291e506" />
+</km-doc>

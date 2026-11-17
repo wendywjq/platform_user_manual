@@ -1,0 +1,312 @@
+<km-doc>
+<km-title nodeId="2cf8963eb8834f56a3b6f61dfc220c65">说明：话术管理</km-title>
+<km-catalog style="none" nodeId="58e05330b19a421c87017d1e334abba4" />
+<h1 nodeId="baab5eb900824f2f95da4bbed0d0ee25">一、背景</h1>
+<ul nodeId="bb14c477a3df41ee97392111bd9ae3db">
+<li nodeId="fbf9ecfdb52d42c4b18fcb70bd2e4106">
+<p align="start" nodeId="250dfe8d46964c0cb294e8dc4885da80">Zeus上的话术功能过去在skywalker上，只能新增，不能删除，<span color="rgba(0, 0, 0, 0.87)">不知道引用到了哪些规则，</span>无法管理。</p>
+</li>
+<li nodeId="51f612c6bd6d44b6947bce39d7997eb8">
+<p align="start" nodeId="c44ea7087738443fa8e6b695685bc990">目前的话术配置是多个业务方的数据混合在一起，在选择配置的话术时也能看到其他业务线的话术数据（下拉几百条），容易造成干扰，需要进行业务线隔离。</p>
+</li>
+</ul>
+<p align="start" nodeId="f1df972f4f1b464eaaeee9327c312ef9"><span color="rgba(0, 0, 0, 0.87)">综上，难以维护话术的使用，话术容易出现错配、漏配。从而导致下游客诉的升级。因此，决定将话术迁移至zeus，并升级管理功能，进行空间隔离。</span></p>
+<p nodeId="e3029cd38b4242baa5a7da7d1a35171d" />
+<h1 nodeId="af0e96ddeed24aa59bee96f662abb735">二、名词解释</h1>
+<table responsive="false" nodeId="c2f7d60a37d24c01af51404ec56b43e3">
+<tr nodeId="9be2abd79d144c62b9fd9df398138375">
+<th colwidth="[97]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="3213b393ef164b38b225e7cbd6f83f91">
+<p nodeId="7252f49cd518455098d715a63388d953"><span font-size="14">定义</span></p>
+</th>
+<th colwidth="[248]" nodeId="5a3da2f10848489cac8e1570928651f8">
+<p nodeId="0c11b5bdd15b406c92936327a966641f"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[149]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="a5eb1b60aee44e2d8404a5c44dd95fa4">
+<p nodeId="c42e7ec436154d059fa5ebffa82db28e"><span font-size="14">skywalker上的名称</span></p>
+</th>
+<th colwidth="[145]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="4d84b18921d44265924d1c1b0a6b3782">
+<p nodeId="b4cf0d746f224ed2a3238e57fb78ca92"><span font-size="14">在哪里配置给规则</span></p>
+</th>
+<th colwidth="[142]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="e784dfa7dd044f35ba7529b76faf4578">
+<p nodeId="2844a04e288a494abc96116d374c7f05"><span font-size="14">最终在哪被消费</span></p>
+</th>
+<th colwidth="[170]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="43229216011840f3a5ba56fe6f66d8e8">
+<p nodeId="31078e3ff5e14002b3bacfb43c5b5360"><span font-size="14">在太平洋页面的字段名</span></p>
+</th>
+<th colwidth="[226]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="a06d27b004074910a8ef3fda0ceef5f5">
+<p nodeId="ab6ba4a2214f45dea2e98c0bb3c731d3"><span color="rgb(245, 35, 45)"><span font-size="14">在哪里创建、管理</span></span></p>
+</th>
+<th colwidth="[199]" nodeId="95f0f9bf42c4417d993f0359c96f8e1f">
+<p nodeId="564e106ac550438eb6208cf8e0a9c063"><span font-size="14">补充信息</span></p>
+</th>
+</tr>
+<tr nodeId="4d6b9116477e453b8deaa93d76427878">
+<th colwidth="[97]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c05415b839934f05a3d47265638d83de">
+<p nodeId="42af30703ad24dcd87c5818fa946ef26"><span color=""><span font-size="14">风控话术</span></span></p>
+</th>
+<td colwidth="[248]" nodeId="8d1cc4b726b74fb4af4049d96519ee78">
+<p nodeId="e4ae0676a6b5406fa24be0c65cbf300b"><span font-size="14">一般是该风控规则逻辑的文字表述。</span><span color=""><span font-size="14">即风控命中原因。</span></span></p>
+</td>
+<td colwidth="[149]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5037e90ebc81441191c1fcf69b0d01d2">
+<p align="start" nodeId="efcdc9df1056423497d8751df4793df4"><span color=""><span font-size="14">客服备注</span></span></p>
+</td>
+<td colwidth="[145]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f4abb5ba1d6d4323ad6e47ace548f1a8">
+<p align="start" nodeId="72187c69a1b44d8d90862edd79707afe"><span font-size="14">Zeus</span></p>
+</td>
+<td colwidth="[142]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c9003b9bf7fa4f5ba4400862f31b2a87">
+<p align="start" nodeId="3c5698ba0ab24bb3a07901f7125266dc"><span font-size="14">太平洋系统</span></p>
+</td>
+<td colwidth="[170]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5166acf1a4da438eacce0c4f11221ba4">
+<p align="start" nodeId="9b88077cbdfd491bba14800434db2341"><span font-size="14">拦截原因</span></p>
+</td>
+<td colwidth="[226]" verticalAlign="top" bgColor="rgb(252, 252, 202)" nodeId="a4590dc6aa9a4fa8bfe63f9e285f22c3">
+<p align="start" nodeId="bddb700c503b49819970e2fa20a172cf"><span font-size="14">Zeus-话术管理-风控话术tab</span></p>
+</td>
+<td colwidth="[199]" nodeId="3e43194f36244cec853906550c5e8e23">
+<p nodeId="cec6e57b79a048ea8157e1265c99efa6"><span font-size="14">1个风控话术只能被1个映射话术【关联】。</span></p>
+</td>
+</tr>
+<tr nodeId="8111f918094e458998bb6ff5355a70ec">
+<th colwidth="[97]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="df0bbe09f13c4ee49e1ea2884247bacf">
+<p nodeId="c9ad83efd61c40c59174ac883687b52b"><span color=""><span font-size="14">映射话术</span></span></p>
+</th>
+<td colwidth="[248]" nodeId="726f71d39cf14633a0985c7623d8f0e0">
+<p nodeId="37627cb8ced1433e85d595a04ddccde5"><span font-size="14">风控话术的补充说明，用于给客服同学传递进一步的指示建议。</span></p>
+</td>
+<td colwidth="[149]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dc9a7d1043844b6997b80310d350950a">
+<p align="start" nodeId="be932b4292d845e185ac8b289b747540"><span color=""><span font-size="14">映射话术</span></span></p>
+</td>
+<td colwidth="[145]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="080f819e8c864a5095c29ee92ae2fd05">
+<p align="start" nodeId="522ccc049d804a158b8a78a6fff0b642"><span font-size="14">Zeus，随风控话术</span></p>
+</td>
+<td colwidth="[142]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9fe53f8a9af6448084c5b10719337c65">
+<p align="start" nodeId="082bd6237c6b4617a4fb4a8c4988679b"><span font-size="14">太平洋系统</span></p>
+</td>
+<td colwidth="[170]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b843923c599c4bb6b3d4e18664221235">
+<p align="start" nodeId="76906d4e4cf14ad0bf3a2ff30444bd9a"><span font-size="14">给客服建议</span></p>
+</td>
+<td colwidth="[226]" verticalAlign="top" bgColor="rgb(252, 252, 202)" nodeId="b3031ed3ffde47f9a77bd14e2e3f2cad">
+<p align="start" nodeId="97af038f62f84cb6b470e508f814dfc2"><span font-size="14">Zeus-话术管理-映射话术tab</span></p>
+</td>
+<td colwidth="[199]" nodeId="fd500e4ea1764e4fbb3bfa136731f594">
+<p nodeId="ba1df8d9a89f471a9e612972b1603374"><span font-size="14">1个映射话术可【关联】多个风控话术。</span></p>
+</td>
+</tr>
+<tr nodeId="b6540248c5264bdbaf2fcab5e07ac0e2">
+<th colwidth="[97]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="aca241358dfc48c899a8a048e1e30669">
+<p nodeId="a70f7ae7f4014eaeb09628fcc2419e2f"><span color=""><span font-size="14">客服话术</span></span></p>
+</th>
+<td colwidth="[248]" nodeId="cb2029c833a54533a4aa29457881334d">
+<p nodeId="6a859f88df134e9c93819d6779bb9a10" />
+</td>
+<td colwidth="[149]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e0eec18dfcc145dbb6695d887c5fe10f">
+<p align="start" nodeId="ad6ad980383d41ba88a87f182d7a8000"><span color=""><span font-size="14">客服建议</span></span></p>
+</td>
+<td colwidth="[145]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bfae4b2b65fa4760bd18a75e651d6863">
+<p align="start" nodeId="c6002ad9d3224cf9bc52ea73e7bcd1bc"><span font-size="14">Zeus</span></p>
+</td>
+<td colwidth="[142]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="11140de5bffd4e22b1bcc6e28aa89661">
+<p align="start" nodeId="dbf3e5c997f148169756ec6b9fcf1dbf"><span font-size="14">太平洋系统</span></p>
+</td>
+<td colwidth="[170]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="127d2f370d4a43e6b1bb9b698fbfbdca">
+<p align="start" nodeId="f34dd87097544ab1900d72108d59cffe"><span font-size="14">客服话术</span></p>
+</td>
+<td colwidth="[226]" verticalAlign="top" bgColor="rgb(252, 252, 202)" nodeId="ea8caff7e6c1403b8c9e48afc2834737">
+<p align="start" nodeId="55068c640611464391c583ef2cc0045d"><span font-size="14">Zeus-话术管理-客服话术tab</span></p>
+</td>
+<td colwidth="[199]" nodeId="89fb94b66d8d4764b29a0eb5127c3d5f">
+<p nodeId="787952d0a68141f699b611273587545e"><span font-size="14">-</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="3b405a2649b1480fa9d778e90b2e46e7" />
+<h1 nodeId="d19b09489435438d8d6f6d31a7d93408">三、操作指南</h1>
+<p nodeId="f5ebf2406872451e8928617a9fa638b5">入口：Zeus菜单-配置中心-话术管理</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1302283710/1732715934?contentType=0&amp;isNewContent=false" width="512" height="312" nodeId="057f8c8f398245acb741ee764f30dcc0" />
+<h2 nodeId="b2f4b64bbd654cdcb9d61efad95211e4">3.1 话术的增删改查</h2>
+<h3 nodeId="6447cc42734b475d8fff60fcfda2c104">（1）风控话术</h3>
+<table responsive="false" nodeId="3bee212933a241d4a84f37f5806505bd">
+<tr nodeId="a00d002bc6814ad3bf22cd89c3b456f4">
+<th colwidth="[99]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="4dbe17e6964942fbb896bb80643322d1">
+<p nodeId="767dbfccc0614831abf45728abb07c54"><span font-size="14">入口</span></p>
+</th>
+<th colwidth="[301]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="641848030ea648a2854d6e915d345b30">
+<p nodeId="d71c522f67884333b81005f3b90bd90c"><span font-size="14">页面说明</span></p>
+</th>
+<th colwidth="[808]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="54f0396df2334919a707d0cb74a9c126">
+<p nodeId="ef18597682194f599d201f22006f8a1f"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="d4f2948327534a09becdcb255585be05">
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="382350e604cd41de9d347e16c7793832">
+<p align="start" nodeId="a5717fb727114e62828c175fe4c53460"><span font-size="14">配置中心--&gt;话术管理-风控话术tab</span></p>
+</td>
+<td colwidth="[301]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3d08c781e8d243798baf6ae9de2eec82">
+<p align="start" nodeId="b3cd18812c1b4d648ceaa9189c6adaf6"><span font-size="14">1.页面展示信息：按三类话术分为三个tab，每个tab下有一个话术列表（包含分页器，10条/页），支持按不同字段排序。</span></p>
+<p align="start" nodeId="9659027454e846dfbb381e1753b1d666"><span font-size="14">2.操作按钮</span></p>
+<p align="start" nodeId="2f0047ad988a49cda0cbe173b184ed4b"><span font-size="14">（1）筛选/查询：支持话术内容（模糊查询）、话术ID（模糊查询）、关联映射话术ID、最后修改/创建者misID、创建/修改时间（模糊查询）</span></p>
+<p align="start" nodeId="9d1d53972f8f4fd4a616ac5fd676197d"><span font-size="14">（2）【新增话术】：出现弹窗，默认类型为</span><span color="rgb(245, 35, 45)"><span font-size="14">【风控话术】</span></span><span font-size="14">，提交时校验内容不为空。</span></p>
+<p align="start" nodeId="3e1eb85a9da6467c9ba8fde7cdf278af"><span font-size="14">（3）【</span><span color=""><span font-size="14">编辑】：按钮入口在鼠标hover到话术内容上，点击icon出现二次确认弹窗，确认后进入编辑态，可编辑话术内容；</span></span></p>
+<p align="start" nodeId="f95a124c90294353bab101d954f3b1b7"><span color=""><span font-size="14">（4）【删除】包含二次确认弹窗</span></span></p>
+<ul nodeId="7cf0d379cd434270ba6b1f90a09231ae">
+<li nodeId="9a6bb7c269f142ebb854f3dedc7ad27d">
+<p align="start" nodeId="2002f8c5f50a431c83fd967e71b14ff1"><span color=""><span font-size="14">有引用量不可直接删除： “</span></span><span font-size="14">话术已被规则使用，无法删除。若需删除，请前往规则编辑，解除使用此话术。</span><span color=""><span font-size="14">”</span></span></p>
+</li>
+<li nodeId="c366a3b9e0dc402fb0f7abfe580a49d4">
+<p align="start" nodeId="312c2589ea09423ba4c2eddfbaa81b55"><span color=""><span font-size="14">无引用量时二次提示： “</span></span><span font-size="14">确认删除此话术吗？删除将会通知话术的创建者。”</span></p>
+</li>
+</ul>
+<p align="start" nodeId="2949294885d34edaa2fe14687059b246"><span color=""><span font-size="14">（5）【被引用量】：点击出弹窗，可查看被哪些规则使用。点击规则名称可跳转到规则详情页。</span></span></p>
+<p align="start" nodeId="9934d5dbe3d244aab932b3ee5b3d3fcc"><span color=""><span font-size="14">（6）【关联映射话术ID】：点击跳转到关联的映射话术详情页。</span></span></p>
+</td>
+<td colwidth="[808]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d099f2335a2c4a589a5d389541a59f02">
+<p nodeId="caa4ec18e14447f5b3e7d973380155d3"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732833660?contentType=1&amp;isNewContent=false" name="image.jpeg" width="770" height="431" nodeId="4ddb574f428344ff816eb04c13955029" /></p>
+<p nodeId="5b2bbda3646a4168966791e4387f1bc7"><span font-size="14">新增话术</span></p>
+<p nodeId="c958d635472c4d30be4b674c9ccdc567"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732838348?contentType=1&amp;isNewContent=false" name="image.jpeg" width="657" height="397" nodeId="d8beeadd545046d8a8f67f808e7098b3" /></p>
+<p nodeId="c507febcb38d4d2898833a0cee53fce6"><span font-size="14">编辑话术</span></p>
+<p nodeId="4c85ad683a504ee493bcd9e3a6c10296"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732858188?contentType=1&amp;isNewContent=false" name="image.jpeg" width="325" height="195" nodeId="0960234001b04830be644daaa6831d69" /><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732676716?contentType=1&amp;isNewContent=false" name="image.jpeg" width="331" height="197" nodeId="810dc708b69a4e1a94421bd00fb8a56b" /><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732941759?contentType=1&amp;isNewContent=false" name="image.jpeg" width="616" height="320" nodeId="7a9fe933ff9941a992aa7380bb7329ef" /></p>
+<p nodeId="6ed9b97b1d934d889650ceb145b0b5d6"><span font-size="14">删除话术</span></p>
+<p nodeId="2a58b80c659445a796f338e08a81c2b8"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732737321?contentType=1&amp;isNewContent=false" name="image.jpeg" width="344" height="174" nodeId="82f778160465466296b383b6ce8133f9" /><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732829530?contentType=1&amp;isNewContent=false" name="image.jpeg" width="357" height="174" nodeId="03fca52029354cdab41945ffa4387328" /></p>
+<p nodeId="f12adc11d6b441e2a4338660be79cb77"><span font-size="14">查看引用</span></p>
+<p nodeId="fe3f3a5f75c441faa1969233dbc9a08d"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732701947?contentType=1&amp;isNewContent=false" name="image.jpeg" width="659" height="393" nodeId="7dbcf22a0f7641168a49951e9ea8f569" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="b4b0d1dcb8e143a6b27c7bdf089e5c2f">（2）客服话术</h3>
+<table responsive="false" nodeId="e17898e9d9ee4e16b74a046c4cb15e05">
+<tr nodeId="11f65f81a95c41c7ba94e62b4a59e8c1">
+<th colwidth="[99]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="8ea09cfbf1d447afa5889521b86c2f86">
+<p nodeId="366efb16997542c8860435eb80f90ee5"><span font-size="14">入口</span></p>
+</th>
+<th colwidth="[299]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="3ef2fc5de1a3443599081eb34da9cd04">
+<p nodeId="c7d15b1a8fe14fbb9fea39b04883319f"><span font-size="14">页面说明</span></p>
+</th>
+<th colwidth="[816]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="ceea434970764fd38f0ac42751260ff3">
+<p nodeId="405ecb06b29e4eedb69a8a163e3a95e5"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="35ef34d88631410988eaef588de6e5e2">
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="10f23bb4e1f74fa282b1cf29ed37a479">
+<p align="start" nodeId="12106e348ae146dd9d8f6ca4da6806f4"><span font-size="14">配置中心--&gt;话术管理-客服话术tab</span></p>
+</td>
+<td colwidth="[299]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7243c49641ad43928ac7aa49a513cb0f">
+<p align="start" nodeId="f177ad4668614e0e85470d5753ad6d2c"><span font-size="14">1.页面展示信息：按三类话术分为三个tab，每个tab下有一个话术列表（包含分页器，10条/页），支持按不同字段排序。</span></p>
+<p align="start" nodeId="47b323d3bca94ed485c4ade13eccf3f0"><span font-size="14">2.操作按钮</span></p>
+<p align="start" nodeId="dfa97358e61a4951adb690988c534059"><span font-size="14">（1）筛选/查询：支持话术内容（模糊查询）、话术ID（模糊查询）、最后修改/创建者misID、创建/修改时间（模糊查询）</span></p>
+<p align="start" nodeId="b62af300a71e4d3fad81e6ebba49d661"><span font-size="14">（2）【新增话术】：出现弹窗，默认类型为</span><span color="rgb(245, 35, 45)"><span font-size="14">【客服话术】</span></span><span font-size="14">，提交时校验内容不为空。</span></p>
+<p align="start" nodeId="864e442aae1149a2afd7b14392faac3d"><span font-size="14">（3）【</span><span color=""><span font-size="14">编辑】：按钮入口在鼠标hover到话术内容上，点击icon出现二次确认弹窗，确认后进入编辑态，可编辑话术内容；</span></span></p>
+<p align="start" nodeId="68469e9070a8485eaccff5f9e907a5a2"><span color=""><span font-size="14">（4）【删除】包含二次确认弹窗</span></span></p>
+<ul nodeId="7995f2e740954422ab52e63cfa3989c5">
+<li nodeId="d5a2a72f212d45d39611f82384c23bcd">
+<p align="start" nodeId="3ef6a4af23674f5e8fe5ec01bed3b869"><span color=""><span font-size="14">有引用量不可直接删除： “</span></span><span font-size="14">话术已被规则使用，无法删除。若需删除，请前往规则编辑，解除使用此话术。</span><span color=""><span font-size="14">”</span></span></p>
+</li>
+<li nodeId="bccd8772694e413babbcc1e95d937b1e">
+<p align="start" nodeId="9e869d5ad16c46d4af571e55fc699356"><span color=""><span font-size="14">无引用量时二次提示： “</span></span><span font-size="14">确认删除此话术吗？删除将会通知话术的创建者。”</span></p>
+</li>
+</ul>
+<p align="start" nodeId="cdeee91fb5bc471bb0f5f94e16b4e035"><span color=""><span font-size="14">（5）【被引用量】：点击出弹窗，可查看被哪些规则使用。点击规则名称可跳转到规则详情页。</span></span></p>
+</td>
+<td colwidth="[816]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7295e3121f7a478f8cfb1e0e933c5f30">
+<p nodeId="464ce789964648e597dd28f4079577ff"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732858245?contentType=1&amp;isNewContent=false" name="image.jpeg" width="632" height="354" nodeId="7bbbfaeead204288b3f0ab83cd7bddcc" /></p>
+<p nodeId="42d309433bd541b4a373851112b30e60"><span font-size="14">新增话术</span></p>
+<p nodeId="8d071dcb870641e1ac5511e14c33c8c4"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732838413?contentType=1&amp;isNewContent=false" name="image.jpeg" width="640" height="384" nodeId="576d06c066b741c6a1bbb50fb3bdceff" /></p>
+<p nodeId="9efb20e6c7424a5081e11387fb71790f"><span font-size="14">编辑话术（同风控话术）</span></p>
+<p nodeId="f23571a96c56478992886cd7548fd97e"><span font-size="14">删除话术（同风控话术）</span></p>
+<p nodeId="d6240dff8943451ba3bb1176f3a87df0"><span font-size="14">查看引用（同风控话术）</span></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="0dd7d477bf284604aef47645e46ad7c7">（3）映射话术</h3>
+<table responsive="false" nodeId="ce51c854439649b1b25f93478dcc9101">
+<tr nodeId="200da371b4ba4077b81c2854e8314b86">
+<th colwidth="[99]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="a6999329be04475c9bffa39ab5db8393">
+<p nodeId="b87d25baf92c48548771efeab52c40ba"><span font-size="14">入口</span></p>
+</th>
+<th colwidth="[301]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="163d3f115e7042ebbc83581a67778420">
+<p nodeId="51dde2584ff34f87b82aab13b4fb57eb"><span font-size="14">页面说明</span></p>
+</th>
+<th colwidth="[808]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="c388e976efa84ad4b186caee1691d0b5">
+<p nodeId="93cbfd8ded2b4fcf8e386d1297bce53e"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="5f88e24174bf48559836523d9c61f3ec">
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="94488128d1124b1e812ac116288c6c09">
+<p align="start" nodeId="84f54daa1ebc47f1a6cba6efaadf59c2"><span font-size="14">配置中心--&gt;话术管理-映射话术tab</span></p>
+</td>
+<td colwidth="[301]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dd5e7bcf30fe45b6bb0c2a1674cba418">
+<p align="start" nodeId="a8e915c5dbc247a29911a9edf3bab3d6"><span font-size="14">1.页面展示信息：按三类话术分为三个tab，每个tab下有一个话术列表（包含分页器，10条/页），支持按不同字段排序。</span></p>
+<p align="start" nodeId="861dbd6991f94677bbdc0b8f2c69053c"><span font-size="14">2.操作按钮</span></p>
+<p align="start" nodeId="6ec444119e43406989a13600037b4a75"><span font-size="14">（1）筛选/查询：支持话术内容（模糊查询）、话术ID（模糊查询）、最后修改/创建者misID、创建/修改时间（模糊查询）</span></p>
+<p align="start" nodeId="0cd856873ec249049e7c085aeb0da6bc"><span font-size="14">（2）【新增话术】：</span><span color=""><span font-size="14">进入新页面，默认类型为</span></span><span color="rgb(245, 35, 45)"><span font-size="14">【映射话术】</span></span><span color=""><span font-size="14">，下方关联风控话术的添加方式为</span></span><span color="rgb(25, 144, 255)"><span font-size="14">「点击新增按钮，出现一行内容，输入框输入内容下拉选择，展示当前该空间下的风控话术ID+内容，点击选中一条后内容被添加到框中，再点保存即完成添加，在下方生成一条记录。</span></span><span color=""><span font-size="14">列表点击</span></span><span color="rgb(25, 144, 255)"><span font-size="14">删除关联</span></span><span color=""><span font-size="14">即删去此风控话术的关联。</span></span><span color="rgb(245, 35, 45)"><span font-size="14">新增关联风控话术，点击保存时，如果该风控话术已关联过其他映射，则保存失败，提示「无法配置，该风控话术已绑定其他映射话术。」</span></span><span font-size="14">。</span></p>
+<p nodeId="958eceb70524414cae5bd7bfc82d8e71"><span color=""><span font-size="14">（3）【详情】：点击后出现话术详情弹窗，内容为话术ID、类型（映射话术）、内容以及关联风控话术的列表。点击按钮【编辑】，出现弹窗确认，确认后进入编辑态，也可通过进入外部的话术列表的【编辑】直接进入编辑态；</span></span></p>
+<p align="start" nodeId="f9777891b32f44f8b9c044a014a2c5ec"><span font-size="14">（4）</span><span color=""><span font-size="14">【编辑】：点击后出现确认弹窗，文案「话术内容/关联关系更新后，引用该话术的规则中（含生效规则）的话术内容也将相应发生变更。是否进行编辑？」确认后进入编辑页面，内容逻辑同新增弹窗，仅多展示一项该映射话术的ID，点击【确认修改】时，完成修改；</span></span></p>
+<p align="start" nodeId="63f67fe4816c49589523619334a1c2f3"><span color=""><span font-size="14">（5）【删除】包含二次确认弹窗</span></span></p>
+<ul nodeId="d6ba45302f3f4fd682672e3cd26c4d03">
+<li nodeId="ea946e4ec4d84634b66f8d49029106fa">
+<p align="start" nodeId="6875bbbad6f94cbcbd86f21b62b5222a"><span color=""><span font-size="14">有关联风控话术时（引用量也可能为0）不可直接删除。</span></span></p>
+</li>
+<li nodeId="394b8311be324b9588a1ac0b84ec4bac">
+<p align="start" nodeId="1a51870e06354eff8b697cfe2fcefe4b"><span color=""><span font-size="14">无关联风控话术时（引用量=0）二次确认弹窗 “</span></span><span font-size="14">确认删除此话术吗？删除将会通知话术的创建者。”</span></p>
+</li>
+</ul>
+<p align="start" nodeId="2ff6ff8a36ca44128c07bced7774bbe7"><span color=""><span font-size="14">（6）【被引用量】：值含义为该映射话术关联的风控话术，各自被规则使用量的总和。点击出弹窗，展示该映射话术的ID、类型、内容。以及可查看被哪些风控话术关联，对应的被哪些规则使用。规则名称点击可跳转到规则详情页。</span></span></p>
+</td>
+<td colwidth="[808]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="375214b74a3948d19c0e49ac6064733b">
+<p nodeId="255b69e4b73a4e4a968ef6d03b64e109"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1733504772?contentType=1&amp;isNewContent=false" name="image.jpeg" width="786" height="443" nodeId="54dc8b78d2b9421aac78f7771075ec0c" /></p>
+<p nodeId="2ea2fda90f5740f9b0a74339eb235735"><span font-size="14">新增话术</span></p>
+<p nodeId="a7839bdb0650484ab57a37c275661b97"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1733485427?contentType=1&amp;isNewContent=false" name="image.jpeg" width="786" height="311" nodeId="d62820f424e3452cadaf2c0dfd3c1781" /></p>
+<p nodeId="5d13d3d9ac574eea920dc2ccf12fcd74"><span font-size="14">编辑话术</span></p>
+<p nodeId="154c626eaab642cfa691686482e6bcfb"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1733661347?contentType=1" name="image.jpeg" width="1587" height="587" nodeId="1be97bd6d2564498bc11a280f5855648" /></p>
+<p nodeId="24e18895d353459687d814061d36bba9"><span font-size="14">删除话术</span></p>
+<p nodeId="80b8649b64034138b204f745941f064f"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732737321?contentType=1" name="image.jpeg" width="344" height="174" nodeId="bcf223e9e9e54c9f952c3bd73607ff8a" /><img src="https://km.sankuai.com/api/file/cdn/1302283710/1732829530?contentType=1" name="image.jpeg" width="357" height="174" nodeId="32e754d924d8434eb07c5894467dfcfb" /></p>
+<p nodeId="dc5e8c11274142b2a5683f427ff2ac9c"><span font-size="14">查看引用</span></p>
+<p nodeId="e610669d9ea54777adc92933c5a7f39c"><img src="https://km.sankuai.com/api/file/cdn/1302283710/1733700845?contentType=1&amp;isNewContent=false" name="image.jpeg" width="786" height="475" nodeId="fbc984efd7eb4bcab114bc391aa17a8f" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="2a3a90c3b89d4ad2a6463350cc5de3eb" />
+<h2 nodeId="8ae30ece9ab749ba9ffbd6530559c4bf">3.2 在规则中使用话术</h2>
+<km-note type="tip" hiddenTitle="true" nodeId="9494c801d9a744548a506d74a8f3a0c1">
+<km-title></km-title>
+<km-content>
+<p nodeId="8cf80cfde6aa4aea9e8da83c288c0977">本部分 与之前功能保持一致，但在话术下拉框中，将仅展示本空间下的话术选项。</p>
+</km-content>
+</km-note>
+<h3 nodeId="9cf9a0be8c6e4797bfa9b9a58f4faa7c"><strong>（1）新建规则</strong></h3>
+<p nodeId="65c2acda946f407db30db820d55dab80">新建规则时，进入添加规则属性信息页面，在此页面的最后一项 <span color="rgb(245, 35, 45)">添加话术</span> 处，<span color="rgb(245, 35, 45)">在风控话术后面的选择框中选择创建的风控话术（原skywalker中的客服备注）</span>，<span color="rgb(245, 35, 45)">在客服话术后面的选择框中选择创建的客服话术（原skywalker中的客服建议）</span><span color="rgb(0, 0, 0)">，点击 </span><span color="rgb(245, 35, 45)">完成</span><span color="rgb(0, 0, 0)">，就完成了</span>在创建规则的过程中添加话术和客服备注；</p>
+<h3 nodeId="591dbc77a6ba4ec793fc7dad3bbc26e5"><strong>（2）编辑规则</strong></h3>
+<p align="start" nodeId="48298af65d2747c7995b2d9658ff62da">同添加规则入口一样，进入规则编辑页面，即可按照上述流程对规则进行修改。<span color="rgb(245, 35, 45)">不需要修改规则的逻辑信息和测试，</span>直接点击 <span color="rgb(245, 35, 45)">下一步 </span>跳到 规则的 <span color="rgb(245, 35, 45)">属性信息</span> 修改页面，在此页面的最后一项 <span color="rgb(245, 35, 45)">添加话术</span> 处，<span color="rgb(245, 35, 45)">在风控话术后面的选择框中选择创建的风控话术（原skywalker中的客服备注）</span>，<span color="rgb(245, 35, 45)">在客服话术后面的选择框中选择创建的客服话术（原skywalker中的客服建议）</span><span color="rgb(0, 0, 0)">，点击 </span><span color="rgb(245, 35, 45)">完成</span><span color="rgb(0, 0, 0)">，就完成了</span>在修改规则的过程中添加话术和客服备注；</p>
+<p nodeId="55bdf8ebd08445b5b6cb72829fea0b23" />
+<h1 nodeId="f0a718f4f56943aab70a7a7e11d67f6b">四、FAQ</h1>
+<table borderColor="#cccccc" responsive="false" nodeId="1126d56e0500471fbd63ced0446b79a4">
+<tr nodeId="b3f1a60c39e24856a7937d9929e975eb">
+<th colwidth="[55]" nodeId="28eff45dec6244f796b28d999e354856">
+<p nodeId="41c299700dc54dd4b0d32780f984ff9a" />
+</th>
+<th colwidth="[357]" nodeId="61bded30f83645e6948cac69e8e65274">
+<p nodeId="3658d1b1fbe34c988ef5442f2460dc67"><span font-size="14">问题</span></p>
+</th>
+<th colwidth="[451]" nodeId="5a64ebc8aa6e440da244d6ce5b4f77f7">
+<p nodeId="072d1caa3c114688b63b459ec3b82532"><span font-size="14">回答</span></p>
+</th>
+<th colwidth="[348]" nodeId="be1b834c402b460691f376a73895b495">
+<p nodeId="bd689941c0b942dcb657d4d3bf1fa972"><span font-size="14">备注</span></p>
+</th>
+</tr>
+<tr nodeId="3133cbd46d8b45f696a43cbeca154cc8">
+<td colwidth="[55]" numCell="true" nodeId="68480b6ce57a4f1fbecb8f7fe8a4b21e">
+<p nodeId="45f1f3d123704d3b9eb2b54b13e843e3" />
+</td>
+<td colwidth="[357]" nodeId="3f82335c59b84dd0be3375efa6920c2d">
+<p nodeId="05928b3515de49288baecffe142a20a0"><span font-size="14">话术按照空间隔离，但规则可以跨空间共享。那规则共享到新空间后，其配置的话术将会如何？</span></p>
+</td>
+<td colwidth="[451]" nodeId="4ce99f4783034721bccf2ea074826d65">
+<p nodeId="4835ed3f068040d7aabc01928a3ad4bc"><span font-size="14">规则共享到新空间，其在原空间携带的话术</span><span color="rgb(245, 35, 45)"><span font-size="14">不会一同共享</span></span><span font-size="14">，而是需要用户在新空间为该规则选择新空间下的话术。如果需要和旧空间的话术内容保持一致，</span><span color="rgb(245, 35, 45)"><span font-size="14">只能选择手动新增一条话术</span></span><span font-size="14">，为其配上。</span></p>
+</td>
+<td colwidth="[348]" nodeId="8db0674fcb2d499ab29a6011b4d928fc">
+<p nodeId="651821e76e9d40d99f6ebdb06a9107e8" />
+</td>
+</tr>
+</table>
+<p nodeId="7b4d320cca214547a39f1fe417045ed3" />
+</km-doc>

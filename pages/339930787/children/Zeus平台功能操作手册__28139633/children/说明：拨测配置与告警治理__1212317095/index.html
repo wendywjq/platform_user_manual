@@ -1,0 +1,391 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：拨测配置与告警治理</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-15">二、名词解释</a><a href="#section-18">三、操作指南</a><a href="#section-19">1.用户操作流程说明</a><a href="#section-559">2.特殊说明</a><a href="#section-560">拨测中涉及可变时间的情况：</a><a href="#section-576">四、FAQ</a><a href="#section-577">如何kafka写入申请权限</a><a href="#section-584">拨测目标</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：拨测配置与告警治理</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1212317095">查看学城原文</a></p><article>
+<h1>说明：拨测配置与告警治理</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p><span style="color: ">Zeus平台的近线引擎稳定性和可用性直接影响公司入侵发现及时性和有效性。</span></p>
+<p>但从<a href="https://km.sankuai.com/page/874957799" title="https://km.sankuai.com/page/874957799">已迁移作业-故障汇总</a>可知作业异常case频发，6月至今（07-06）共 11 起异常case，其中 2 起事故直接导致漏报，因此迫切需要正向建设Zeus作业稳定性、及告警有效性。</p>
+<p>拨测直接向近线引擎输入kafka写入数据。在生产环境进行实际数据处理（但是不会触发真实报警）。命中规则结果会进行统计。用于长期监测规则的有效性。</p>
+<p><span style="color:rgb(250, 84, 29)">由于拨测为近线引擎（基础安全方向）个性化功能，因此只在130-反入侵下展示，其他业务方需要使用的话需要先联系PM</span><span>@丁婷婷</span><span style="color:rgb(250, 84, 29)">和RD</span><span>@高大亮</span></p>
+<p></p>
+<h1 id="section-15">二、名词解释</h1>
+<p>拨测：<span style="color:rgba(0, 0, 0, 0.87)">用户自定义流量调用场景规则获取决策，判断结果是否满足用户诉求的任务配置</span></p>
+<h1 id="section-18">三、操作指南</h1>
+<h2 id="section-19">1.用户操作流程说明</h2>
+<ol>
+<li>
+<p>拨测配置</p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">Zeus--&gt;策略排查--&gt;拨测设置</span></p>
+</li>
+<li><span style="font-size:14px">Zeus--&gt;规则--&gt;规则详情--&gt;拨测配置</span></li>
+</ol>
+<p><span style="font-size:14px"><strong>【配置-单条配置1】</strong></span></p>
+<p><span style="font-size:14px">从规则详情页跳转配置（从规则详情页跳转拨测配置只能针对单条规则配置）</span></p>
+<ol>
+<li><span style="font-size:14px">点击规则详情页右上角的「拨测配置」按钮，跳转拨测配置详情页；</span></li>
+<li>
+<p><span style="font-size:14px">基本信息模块：</span></p>
+<ol>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>拨测规则</strong></span></span><span style="font-size:14px">：系统自动带出需要配置拨测的「规则ID-名称」，可修改调整切换成其他规则，必填；一旦选择，不能修改。</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>拨测场景</strong></span></span><span style="font-size:14px">：需要用户下拉选择，即确定此次配置的拨测任务是要过哪个场景，下拉选项为该规则在该业务空间下添加的所有场景，必填；一旦选择，不能修改。</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>产品线</strong></span></span><span style="font-size:14px">：下拉选项，用户自行选择，选项内容含：webids、hids、rasp、nids、edr、sysmon、dns、dbaudit、蜜罐；必填；产品线用于统计拨测的准确率的BI大盘和报表分析。一旦选择，不能修改。</span></li>
+<li><span style="color:#fa541d"><span style="font-size:14px"><strong>拨测类型</strong></span></span><span style="font-size:14px">：下拉选项，可选 全链路、半链路。</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>任务名称</strong></span></span><span style="font-size:14px">：当用户选中规则、场景、产品线后，系统会自动拼接任务名称并展示，拼接逻辑为「autotest_产品线_场景id_规则中文名」，支持用户在此基础上进行修改任务名称，（</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">备注：但是用户如果修改过一次任务名称后，重新选择产品线或者拨测场景或拨测规则，任务名称不会随之拼接，需要用户手工修改。</span></span><span style="font-size:14px">）必填；</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>任务状态</strong></span></span><span style="font-size:14px">：running/debug 二选一，系统默认running，必填；用户选择debug状态，则数据不会进行报表统计。建议新建拨测使用debug状态。</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>超时判断</strong></span></span><span style="font-size:14px">：支持用户输入超时时间标准，支持秒/分/时三个级别的，必填；</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>告警配置</strong></span></span><span style="font-size:14px">：支持用户设定任务告警阈值，基准为拨测任务</span><span style="color: "><span style="font-size:14px">近24小时的拨测成功率</span></span><span style="font-size:14px">，用户可以定义任务成功率在什么区间进行告警，非必填；填写内容如&lt;0.9，表示拨测成功率小于90%则进行报警。</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>告警接收人</strong></span></span><span style="font-size:14px">：接收大象告警通知的用户，直接填misid，可以填多个，非必填；填写多个是请用英文逗号分割。</span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">逻辑配置模块：</span></p>
+<p><span style="font-size:14px">当选择半链路拨测时：</span></p>
+<ol>
+<li><span style="font-size:14px">Kafka：下拉选择kafka topic，先输入再点选，下拉选项为有权限的topic，如果发现下拉选项里没有想要的topic，需要在zeus平台上注册该数据源；必填。而且需要申请mt-ids-zeus项目组对该数据源的写入权限。如何申请请参考FAQ。</span></li>
+<li><span style="font-size:14px">数据类型：单选，选项为new log、log、snappy，必填，选择数据类型后，系统会自动将content部分转成所选的数据类型，必填</span></li>
+<li><span style="font-size:14px">content：用户填写topic内容，必填。无论用户选择什么数据格式，都请填写JSON数据格式。系统会自动进行转换后进行发送。</span></li>
+</ol>
+<p><span style="font-size:14px">当选择全链路拨测时：</span></p>
+<ol>
+<li><span style="font-size:14px">主机名：下拉选择主机名</span></li>
+<li><span style="font-size:14px">数据类型：默认命令</span></li>
+<li><span style="font-size:14px">content：用户填写内容，必填。</span></li>
+</ol>
+</li>
+<li><span style="font-size:14px">操作：支持添加数据和删除数据</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">注意</span></span><span style="font-size:14px">：如果</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">一个拨测任务下如果配置了多个数据源，表明这个拨测需要几个数据源同时操才能触发，此时，这些数据源会同步发送。需用户注意</span></span></li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【配置-单条配置2】</strong></span></p>
+<p><span style="font-size:14px">从拨测配置tab跳转配置</span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「拨测配置」按钮，跳转拨测配置页面</span></li>
+<li><span style="font-size:14px">拨测配置页面内容同</span><span style="font-size:14px"><strong>【配置-单条配置1】</strong></span><span style="font-size:14px">，只是该页面不会自动带出规则信息，需要用户手工输入，其余配置一致；</span></li>
+<li><span style="font-size:14px">同样区分半链路拨测和全链路拨测</span></li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【配置-批量配置】</strong></span></p>
+<p><span style="font-size:14px">从拨测配置tab跳转配置（批量拨测配置支持对同一个场景下的规则）</span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「批量拨测配置」按钮，跳转批量配置页面</span></li>
+<li>
+<p><span style="font-size:14px">基本信息模块：</span></p>
+<ol>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>拨测场景</strong></span></span><span style="font-size:14px">：先key字段，支持模糊匹配该businessid下的场景，可以对一个场景下的多条规则同时配置拨测，必填；</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>产品线</strong></span></span><span style="font-size:14px">：即确认需要批量配置的是哪个产品线，一次批量配置只能配置一个产品线的，产品线下拉选项，用户自行选择，选项内容含：webids、hids、rasp、nids、edr、sysmon、dns、dbaudit、蜜罐；必填；</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>任务状态</strong></span></span><span style="font-size:14px">：running/debug 二选一，系统默认running，必填；</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>超时判断</strong></span></span><span style="font-size:14px">：支持用户输入超时时间标准，支持秒/分/时三个级别的，必填；</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>告警配置</strong></span></span><span style="font-size:14px">：支持用户设定任务告警阈值，基准为拨测任务</span><span style="color: "><span style="font-size:14px">近24小时的拨测成功率</span></span><span style="font-size:14px">，用户可以定义任务成功率在什么区间进行告警，非必填；</span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px"><strong>告警接收人</strong></span></span><span style="font-size:14px">：接收大象告警通知的用户，直接填misid，可以填多个，非必填；</span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">逻辑配置：</span></p>
+<ol>
+<li><span style="font-size:14px">规则：可下拉选择所选场景下的规则，一行只能选择一条规则，选定规则后，会自动带出该规则在指定场景的状态；</span></li>
+<li><span style="font-size:14px">任务名称：当用户选中规则、场景、产品线后，系统会自动拼接任务名称并展示，拼接逻辑为「autotest_产品线_场景id_规则中文名」，支持用户在此基础上进行修改任务名称，（</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">备注：但是用户如果修改过一次任务名称后，重新选择产品线或者拨测场景或拨测规则，任务名称不会随之拼接，需要用户手工修改。</span></span><span style="font-size:14px">）必填；</span></li>
+<li><span style="font-size:14px">Kafka：下拉选择kafka topic，先输入再点选，下拉选项为有权限的topic，如果发现下拉选项里没有想要的topic，需要先申请权限；必填</span></li>
+<li><span style="font-size:14px">数据类型：单选，选项为new log、log、snappy，必填，选择数据类型后，系统会自动将content部分转成所选的数据类型，必填</span></li>
+<li><span style="font-size:14px">content：用户填写topic内容，必填</span></li>
+<li>
+<p><span style="font-size:14px">操作：支持添加数据和删除数据</span></p>
+<p><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">注意</span></span><span style="font-size:14px">：</span></p>
+<ol>
+<li><span style="font-size:14px">批量配置拨测任务页面，支持对一条规则配置多个数据源，也支持多条规则配置不同的数据源。</span></li>
+<li><span style="font-size:14px">批量拨测配置时，任务生成维度为规则，如果逻辑配置模块，选了N条不一样的规则，最终生成的任务为N个任务，如果对1条规则配置了M行数据配置，最终生成的任务为1个</span></li>
+</ol>
+</li>
+</ol>
+<p></p>
+</li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【修改/删除】仅支持任务维度修改/删除</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击进入拨测配置tab，点击列表项的「任务名称」，直接跳转到指定任务详情页；</span></li>
+<li>
+<p><span style="font-size:14px">点击任务详情页的「编辑」按钮，跳转至拨测任务修改页面，仅支持修改任务状态、超时判断、告警配置、告警接收人、拨测逻辑配置模块。</span></p>
+<p></p>
+</li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【修改任务状态】</strong></span></p>
+<p><span style="font-size:14px">在任务列表页可以快速修改任务状态</span></p>
+<ol>
+<li><span style="font-size:14px">点击操作列的「编辑」按钮，可以直接修改任务状态，选定后点击保存则状态切换成功；</span></li>
+<li><span style="font-size:14px">只有状态=down的任务可以删除，其余不可删除</span></li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【拨测任务成功率查看】</strong></span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">拨测状态：一条规则可以配置多个拨测，在规则场景页面（即规则维度），展示的拨测状态为这条规则配置的所有拨测任务的汇总状态，</span><span style="color: "><span style="font-size:14px">共计四个状态，优先级：Running</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> &gt; </span></span><span style="color: "><span style="font-size:14px">Debug</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> &gt; </span></span><span style="color: "><span style="font-size:14px">Down</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> &gt; None</span></span></p>
+<ol>
+<li><span style="font-size:14px">None：表示该规则没有配置任何一条任务；</span></li>
+<li><span style="font-size:14px">Down：表示该规则配置过拨测任务但当前所有任务均为Down状态；</span></li>
+<li><span style="font-size:14px">Debug：表示该规则配置过拨测任务但当前任务状态没有Running状态的；</span></li>
+<li><span style="font-size:14px">Running：表示该规则配置过拨测任务且当前任务状态有Running状态的；</span></li>
+<li><span style="font-size:14px">任务维度则展示该任务的状态，只有</span><span style="color: "><span style="font-size:14px">Running</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"> 、</span></span><span style="color: "><span style="font-size:14px">Debug</span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">、 </span></span><span style="color: "><span style="font-size:14px">Down</span></span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">拨测成功率：计算公式为：</span><span style="color: "><span style="font-size:14px">RUNNING 拨测用例成功数 /  RUNNING 拨测用例总数</span></span></p>
+<ol>
+<li><span style="color: "><span style="font-size:14px">规则维度：成功率=该规则在该场景下统计时点所有状态=running的任务过去24h的sucess的用例数/该规则在该场景下统计时点所有状态=running的任务24h的用例数</span></span></li>
+<li><span style="color: "><span style="font-size:14px">任务维度：成功率=统计时点状态=running的任务过去24h的sucess的用例数/统计时点状态=running的任务24h的用例数</span></span></li>
+</ol>
+</li>
+</ol>
+<p><br></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【配置-单条配置1】</strong></span></p>
+<p><img src="assets/2520f650c31255a5.png" width="699" height="366" alt="image.png"></p>
+<p><span style="font-size:14px">半链路拨测配置：</span></p>
+<p><img src="assets/81b547bd13e56a32.png" width="699" height="364" alt="image.png"></p>
+<p></p>
+<p><img src="assets/9321ba248b3482c3.png" width="699" height="340" alt="image.png"></p>
+<p><img src="assets/0ed7a0766d2351a4.png" width="699" height="371" alt="image.png"></p>
+<p><span style="font-size:14px">全链路拨测配置：</span></p>
+<p><img src="assets/3fbafce72e6990c8.png" width="707" height="367" alt="image.jpeg"></p>
+<p><img src="assets/1a3670f9e036e5da.png" width="707" height="371" alt="image.jpeg"></p>
+<p><span style="font-size:14px"><strong>【配置-单条配置2】</strong></span></p>
+<p><img src="assets/dfe82c30a8adc6c8.png" width="701" height="341" alt="image.png"></p>
+<p><img src="assets/2763a0214ddb7530.png" width="701" height="337" alt="image.png"></p>
+<p><img src="assets/f38571ca9b321d74.png" width="701" height="344" alt="image.png"></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【配置-批量配置】</strong></span></p>
+<p><img src="assets/f45dcff2c737d700.png" width="701" height="341" alt="image.png"></p>
+<p><span style="font-size:14px">半链路拨测批量配置</span></p>
+<p><img src="assets/1451008252507dd9.png" width="701" height="352" alt="image.png"></p>
+<p><img src="assets/bafdad92add669b8.png" width="701" height="369" alt="image.png"></p>
+<p><span style="font-size:14px">全链路拨测批量配置</span></p>
+<p><img src="assets/659272c3d069f988.png" width="707" height="360" alt="image.jpeg"></p>
+<p></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【修改/删除】</strong></span></p>
+<p><img src="assets/d2a6fa64640d44cf.png" width="701" height="340" alt="image.png"></p>
+<p><img src="assets/384116499c36a54f.png" width="701" height="306" alt="image.png"></p>
+<p><img src="assets/b732f863480ada87.png" width="701" height="359" alt="image.png"></p>
+<p><span style="font-size:14px"><strong>【修改任务状态】</strong></span></p>
+<p><img src="assets/e019bca6d588ba47.png" width="701" height="131" alt="image.png"></p>
+<p><img src="assets/b42ab0c756c21b21.png" width="701" height="66" alt="image.png"></p>
+<p></p>
+<p><span style="font-size:14px"><strong>【拨测任务查看】</strong></span></p>
+<p><span style="font-size:14px"><strong>规则维度</strong></span></p>
+<p><img src="assets/ea50d983938c4f4d.png" width="701" height="299" alt="image.png"></p>
+<p><span style="font-size:14px"><strong>任务维度</strong></span></p>
+<p><img src="assets/aaa1acbe15fbade7.png" width="701" height="302" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+</li>
+<li>告警治理（主要为运维，非配置页）</li>
+</ol>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">Zeus--&gt;策略排查--&gt;告警治理</span></p>
+<p></p>
+</li>
+</ol>
+<p><span style="font-size:14px"><strong>【操作】</strong></span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">待治理：</span></p>
+<ol>
+<li><span style="font-size:14px">待治理查询区可以通过筛选指标分类和指标名称，精准定位所需要治理的告警</span></li>
+<li><span style="font-size:14px">治理：可以通过点击操作列的治理按钮，进行治理+填写告警原因，便于后续分析，也可以通过将鼠标hover告警内容上，悬浮展示具体告警内容，并在快速解决模块点击操作项，即可对告警进行治理</span></li>
+</ol>
+</li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<ol>
+<li>
+<p><span style="font-size:14px">已治理：</span></p>
+<ol>
+<li><span style="font-size:14px">所有已治理的告警均会从未治理转到已治理模块；</span></li>
+<li><span style="font-size:14px">已治理的查询区比未治理多了「处理方式」和「misid」</span></li>
+<li>
+<p><span style="font-size:14px">列表项比未治理多了告警原因、处理方式、告警跟进人和跟进事件、时效</span></p>
+<ol>
+<li><span style="font-size:14px">告警原因为用户在告警治理时所填写的告警原因，如果用户选择快速解决，则无告警原因</span></li>
+<li><span style="font-size:14px">处理方式为用户在告警治理时所选择的处理方式</span></li>
+<li><span style="font-size:14px">告警跟进人为进行告警治理的用户的misid和进行告警治理的时间</span></li>
+<li><span style="font-size:14px">时效：为告警报出到被治理的时间，精确到小时，四舍五入计算</span></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/ee1a15dd8d6a6ad9.png" width="699" height="278" alt="image.png"></p>
+<p><img src="assets/796e5af74e89ec33.png" width="300" height="173" alt="image.png"><br><img src="assets/58b0915b2b56c19f.png" width="699" height="278" alt="image.png"></p>
+<p><img src="assets/8dd0cd143ea76a92.png" width="699" height="260" alt="image.png"></p>
+<p></p>
+<p></p>
+<p></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h2 id="section-559">2.特殊说明</h2>
+<h3 id="section-560">拨测中涉及可变时间的情况：</h3>
+<p>部分拨测需要传入的数据中要求时间可变（比如说规则中有自动过滤过期数据的逻辑）。此时，需要使用另外的格式。</p>
+<p>内容中支持的时间格式为</p>
+<p><span style="color: ">#DIAL#{时间格式 MINUS 时间段}#DIAL#</span></p>
+<p><span style="color: ">简单例子如下</span></p>
+<p><span style="color: ">#DIAL#{yyyy-MM-dd HH:mm:ss MINUS 1d}#DIAL#</span></p>
+<p><span style="color: ">注意，时间段目前只支持m(分钟) h(小时) d(天)</span></p>
+<p><span style="color: ">时间格式可以填写java joda支持的时间格式。</span></p>
+<p>其他拨测支持的时间格式参考</p>
+<p><a href="https://km.sankuai.com/page/1216432275" title="https://km.sankuai.com/page/1216432275">近线引擎中支持的时间格式</a></p>
+<h1 id="section-576">四、FAQ</h1>
+<h2 id="section-577">如何kafka写入申请权限</h2>
+<p><a href="http://data.sankuai.com/hetu/tableApply?refer=primary&amp;rType=rt" title="http://data.sankuai.com/hetu/tableApply?refer=primary&amp;rType=rt">http://data.sankuai.com/hetu/tableApply?refer=primary&amp;rType=rt</a></p>
+<p><img src="assets/74df0b0492d40013.png" width="1601" height="528" alt="image.png"></p>
+<p>输入kafka topic名称，并申请写入权限。申请权限需要kafka负责人进行审批</p>
+<p></p>
+<h1 id="section-584">拨测目标</h1>
+<p></p>
+<p><span style="color:rgb(9, 109, 217)"><strong>各产品线的场景覆盖率达90%，以场景维度计算（场景中有一条规则配置拨测即算该场景已）配置拨测。目前近线引擎所有场景如下，尚未配置拨测的场景如下</strong></span></p>
+<p></p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/画布拨测配置临时方案__1224468385/index.html">画布拨测配置临时方案</a> <span class="status">已保存</span></li></ul></section></main></body></html>

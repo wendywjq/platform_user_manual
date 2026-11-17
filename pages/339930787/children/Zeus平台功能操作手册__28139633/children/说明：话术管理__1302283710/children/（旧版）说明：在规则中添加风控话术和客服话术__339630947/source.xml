@@ -1,0 +1,48 @@
+<km-doc>
+<km-title nodeId="ea9d320ddb114681815b2573f76f6aa7">（旧版）说明：在规则中添加风控话术和客服话术</km-title>
+<km-catalog style="none" nodeId="6aa200192f5f4dfa9ad2ad28a1786d54" />
+<h1 nodeId="1fd1bf4afd5e49c298d3e81f775ef489">一、背景</h1>
+<p nodeId="9a9f9b127f10402f859eb06e0fc41a47"><span color="rgb(245, 35, 45)"><strong>需要补充</strong></span></p>
+<h1 nodeId="e651cd39bbb84f36bc10602c01ac39dd">二、操作说明</h1>
+<h2 nodeId="d3410bef30034a929c650957bdeaf749"><del>1.第一步：先在skywalker上创建客服备注和客服建议</del>（已迁移zeus，请见<a href="https://km.sankuai.com/page/1302283710" title="https://km.sankuai.com/page/1302283710" autoUpdate="true" nodeId="2044f3d6f4c24c32aa0536bfe853f237">https://km.sankuai.com/page/1302283710</a>）</h2>
+<km-note type="warning" hiddenTitle="true" nodeId="495237bc8b11486d98a56fd9a0ef369f">
+<km-title></km-title>
+<km-content>
+<p nodeId="5a87acefd65b4b03a866ce7c59089f65">skywalker上的<span color="rgb(245, 35, 45)"><strong>客服备注</strong></span>：对应Zeus上的 <span color="rgb(245, 35, 45)"><strong>风控话术</strong></span>，即风控命中原因，主要面向PM，同规则绑定；</p>
+<p nodeId="ab2302da038f47538cc4c7019fd2d472">skywalker上的<span color="rgb(245, 35, 45)"><strong>客服建议</strong></span>：对应Zeus上的 <span color="rgb(245, 35, 45)"><strong>客服话术</strong></span>，主要<span color=" ">面向运营，同规则绑定</span>；</p>
+</km-content>
+</km-note>
+<h3 nodeId="a20e5efdffbe42a8b46d62b0e221ef53">1.1 入口</h3>
+<p nodeId="003665f98a48436491db491298da01e1"><span color="rgb(245, 35, 45)">skywalker-&gt;配置中心-&gt;话术映射配置 </span></p>
+<p nodeId="f6cc124cf20a4cc699d434cf859c5257"><img src="https://km.sankuai.com/api/file/cdn/339630947/339621114?contentType=1&amp;isNewContent=false" name="image.png" width="815" height="325" nodeId="646cfd8b22184875855942b66221fcf0" /></p>
+<h3 nodeId="1048b68808734fdaa5586050e6a789d0">1.2 创建客服备注</h3>
+<p nodeId="27f44209618641f9abab68e779c12cb5">点击 <span color="rgb(245, 35, 45)">客服备注配置-&gt;新增</span>，进入<span color="rgb(245, 35, 45)"> 新增客服备注 </span>页面，填写 <span color="rgb(245, 35, 45)">客服备注名称</span>，点击 <span color="rgb(245, 35, 45)">提交</span>，即完成客服备注的创建；</p>
+<p nodeId="76af66f2c1504b378105cd1cea1487e9"><img src="https://km.sankuai.com/api/file/cdn/339630947/339647530?contentType=1&amp;isNewContent=false" name="image.png" width="756" height="300" nodeId="f26716164b844155992082c50c39aff6" /></p>
+<p nodeId="14bfdfda28bb4a23b3dfc14a7b7908a6" />
+<p nodeId="3b47dcc0716d489faf213c8b90048d39"><img src="https://km.sankuai.com/api/file/cdn/339630947/339518640?contentType=1&amp;isNewContent=false" name="image.png" width="500" height="229" nodeId="d8630055793d40fda68b622fba77b0e3" /></p>
+<p nodeId="0de92be80d9544a994a2f5bfbba44a32" />
+<h3 nodeId="28b3eb7ab15c4b529962d821f542bc2e">1.3 创建客服建议</h3>
+<p nodeId="28c76c4331cb422da6ff9470bf76a4d6">点击 <span color="rgb(245, 35, 45)">客服建议配置-&gt;新增</span>，进入<span color="rgb(245, 35, 45)"> 新增客服建议 </span>页面，填写 <span color="rgb(245, 35, 45)">客服建议名称</span>，点击 <span color="rgb(245, 35, 45)">提交</span>，即完成客服建议的创建；</p>
+<p nodeId="72f688766eac4299919789e90eca6672"><img src="https://km.sankuai.com/api/file/cdn/339630947/339518919?contentType=1&amp;isNewContent=false" name="image.png" width="736" height="273" nodeId="ef4f602b74064169a4b8a5104027ec59" /></p>
+<p nodeId="1f4e4085af874b418be67cbf04b13777" />
+<p nodeId="f23bacb0ebea4d119fcdcfb20240968f"><img src="https://km.sankuai.com/api/file/cdn/339630947/339634551?contentType=1&amp;isNewContent=false" name="image.png" width="490" height="225" nodeId="2accd15ef1464a94af32331ea0c1b19a" /></p>
+<p nodeId="526fc1890dd6411593b09f3848800b30" />
+<p nodeId="23f8a77ecc514665903ba5250fecc21f" />
+<h2 nodeId="f3dca7e8f8694135a3cd0e7abe65ed0c">2.第二步：在Zeus上为规则添加客服备注、客服建议</h2>
+<h3 nodeId="18681dc227694859b8405216458dc8bd">2.1 入口</h3>
+<p align="start" nodeId="693364732a794da3b9d5480c8ff9acdf"><span color="rgb(245, 35, 45)">规则—&gt;规则</span></p>
+<p align="start" nodeId="db5d494db3504258bf5b4d649a0af14f"><img src="https://km.sankuai.com/api/file/cdn/339630947/339631747?contentType=1&amp;isNewContent=true" name="image.png" width="516" height="267" nodeId="ddb243d0b30948f896a9252aa1297ec6" /></p>
+<h3 align="start" nodeId="db7685a29bd84deabb6c7596008ececc">2.2 在创建规则的过程中添加话术和客服备注</h3>
+<p align="start" nodeId="91e54c72a496407eb95f321142bf6c26"><strong>（1）点击 </strong><span color="rgb(245, 35, 45)"><strong>添加规则</strong></span><strong> ，进入添加规则页面之后，</strong><span color="rgb(245, 35, 45)"><strong>首先填写规则逻辑信息</strong></span><strong>（中文名称、英文名称、规则内容，具体填写说明详见</strong><a href="https://km.sankuai.com/page/312585969" title="https://km.sankuai.com/page/312585969" autoUpdate="true" nodeId="bf5d6abfa09a4c37a3cf2336315fb505">https://km.sankuai.com/page/312585969</a><strong>），之后点击 </strong><span color="rgb(245, 35, 45)"><strong>下一步；</strong></span></p>
+<p nodeId="dc0aac72bded477488cc6b1ad6ef020b"><img src="https://km.sankuai.com/api/file/cdn/339630947/339631371?contentType=1&amp;isNewContent=true" name="image.png" width="1335" height="532" nodeId="fb560ed0a0ad457eb584216b32bc7a5a" /></p>
+<p nodeId="5c9cbbedbcf04e93b53fbe37f4ff5aac" />
+<p nodeId="5002198e47c7456d85befd700a3900c3"><strong>（2）</strong><span color="rgb(245, 35, 45)"><strong>添加测试用例</strong></span><strong>，测试结果</strong><span color="rgb(245, 35, 45)"><strong>通过</strong></span><strong>，点击 </strong><span color="rgb(245, 35, 45)"><strong>下一步；</strong></span></p>
+<p nodeId="f1eb6ac796754f1e967d9507a35f4742"><img src="https://km.sankuai.com/api/file/cdn/339630947/339516741?contentType=1&amp;isNewContent=true" name="image.png" width="1308" height="440" nodeId="99b648b9d7444ada805d06cfe270f299" /></p>
+<p nodeId="2eb4e039883a4c3784fcf578918c5ef3" />
+<p nodeId="dbcfba979b11421d891a36881f398254"><strong>（3）进入添加规则属性信息页面，在此页面的最后一项 </strong><span color="rgb(245, 35, 45)"><strong>添加话术</strong></span><strong> 处，</strong><span color="rgb(245, 35, 45)"><strong>在风控话术后面的选择框中选择创建的风控话术（客服备注）</strong></span><strong>，</strong><span color="rgb(245, 35, 45)"><strong>在客服话术后面的选择框中选择创建的客服话术（客服建议）</strong></span><span color="rgb(0, 0, 0)"><strong>，点击 </strong></span><span color="rgb(245, 35, 45)"><strong>完成</strong></span><span color="rgb(0, 0, 0)"><strong>，</strong></span><span color="rgb(0, 0, 0)">就完成了</span>在创建规则的过程中添加话术和客服备注<strong>；</strong></p>
+<p nodeId="33726f5cc6154b47aaea31948390d7b8"><img src="https://km.sankuai.com/api/file/cdn/339630947/339644966?contentType=1&amp;isNewContent=false" name="image.png" width="1163" height="481" nodeId="6f73fa15d2d14cd187eaa2bdb7c73c1d" /></p>
+<p align="start" nodeId="f97c77098049481a84a4ad6765f03f45" />
+<h3 align="start" nodeId="81f8e3f7d7244caab056adf066d34714">2.3 在修改规则的过程中添加话术和客服备注</h3>
+<p align="start" nodeId="66fddb602e964f57b3bef97feb17928d"><strong>（1）同添加规则入口一样，进入规则页面</strong><span color="rgb(245, 35, 45)"><strong>，在规则列表中找到已经创建的规则</strong></span><strong>，</strong><span color="rgb(245, 35, 45)"><strong>点击规则中文名称</strong></span><strong>，</strong><span color="rgb(245, 35, 45)"><strong>进入更新规则详情页面</strong></span><strong>，点击 </strong><span color="rgb(245, 35, 45)"><strong>编辑</strong></span><strong>，即可按照刚刚添加规则的流程对规则进行修改，</strong><span color="rgb(245, 35, 45)"><strong>不需要修改规则的逻辑信息和测试，</strong></span><strong>直接点击 </strong><span color="rgb(245, 35, 45)"><strong>下一步 </strong></span><strong>跳到 规则的 </strong><span color="rgb(245, 35, 45)"><strong>属性信息</strong></span><strong> 修改页面，在此页面的最后一项 </strong><span color="rgb(245, 35, 45)"><strong>添加话术</strong></span><strong> 处，</strong><span color="rgb(245, 35, 45)"><strong>在风控话术后面的选择框中选择创建的风控话术（客服备注）</strong></span><strong>，</strong><span color="rgb(245, 35, 45)"><strong>在客服话术后面的选择框中选择创建的客服话术（客服建议）</strong></span><span color="rgb(0, 0, 0)"><strong>，点击 </strong></span><span color="rgb(245, 35, 45)"><strong>完成</strong></span><span color="rgb(0, 0, 0)"><strong>，</strong></span><span color="rgb(0, 0, 0)">就完成了</span>在修改规则的过程中添加话术和客服备注<strong>；</strong></p>
+<p nodeId="cc9e4b44c37c43fe8ac63e943886ff21" />
+</km-doc>
