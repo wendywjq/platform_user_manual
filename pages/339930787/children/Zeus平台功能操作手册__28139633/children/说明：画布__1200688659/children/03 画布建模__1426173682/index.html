@@ -1,0 +1,469 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>03 画布建模</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">流程总览</a><a href="#section-5">1 数据源接入</a><a href="#section-55">2 数据源预处理</a><a href="#section-160">3 数据处理</a><a href="#section-343">4 数据聚合</a><a href="#section-401">5 决策执行</a><a href="#section-432">6 用户自定义函数使用（UDF）</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：画布</a> / <a href="index.html">03 画布建模</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1426173682">查看学城原文</a></p><article>
+<h1>03 画布建模</h1>
+<div style="none"></div>
+<h1 id="section-3">流程总览</h1>
+<img src="assets/5367570ac58a0124.svg" width="816" height="296" alt="流程图">
+<h2 id="section-5">1 数据源接入</h2>
+<ul>
+<li><strong>目的：确定该画布作业输入的数据来源。当前支持Kafka</strong><em><strong>、Mafka</strong></em><strong>消息接入</strong></li>
+</ul>
+<table>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Kafka</p>
+</td>
+<td>
+<p><img src="assets/3f5b52a48caadc7b.png" width="207" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200718382" title="https://km.sankuai.com/page/1200718382">说明：画布- Kafka配置指南</a></p>
+<p>示例<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15</a>组件1</p>
+<p>【配置相关】</p>
+<ul>
+<li>
+<p><strong>Namespace/Topic</strong>填写用以确定选中某一数据源</p>
+<ul>
+<li>权限：填写完成后系统会自动校验配置者是否有该数据源权限，若无则需跳转至kafka平台进行权限申请<img src="assets/8973c921dcb2ee47.png" width="330" height="148" alt="image.jpeg"><img src="assets/0b9ae80cde53148b.png" width="287" height="236" alt="image.jpeg"></li>
+<li>申请权限的需求方请填写为所在<span style="color:rgba(0, 0, 0, 0.87)">业务域对应的项目组</span></li>
+</ul>
+</li>
+<li>
+<p><strong>日志类型</strong>：如果json选择log或newlog格式直接配置即可；如果是特殊格式或者需要一对多转换，需要使用自定义数据源方式。</p>
+<ul>
+<li><span>自定义数据源代码需要继承IParser抽象类，并实现parse方法；如果希望输出多条数据，需要继承IFlatParser抽象类，并实现flatParse方法</span></li>
+</ul>
+</li>
+<li>
+<p><strong>参数配置</strong>（高级配置）：当用户选择多个kafka 数据源时，可能存在不同数据源有相同的字段，在后面进行逻辑编写时可能存在字段重复导致逻辑配置有问题，所以可以在参数配置模块对topic里的字段进行重命名</p>
+<p></p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Mafka</p>
+</td>
+<td style="background-color:rgb(244, 245, 247)">
+<p></p>
+</td>
+<td style="background-color:rgb(244, 245, 247)">
+<p>待上线功能</p>
+<ul>
+<li>支持近线画布接入及输出mafka消息</li>
+</ul>
+</td>
+</tr>
+</table>
+<p></p>
+<h2 id="section-55">2 数据源预处理</h2>
+<ul>
+<li><strong>目的：对数据源中的数据进行初步补充、筛选及过滤</strong></li>
+</ul>
+<table>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Select</p>
+</td>
+<td>
+<p><img src="assets/4862c6970c503819.png" width="440" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200639384" title="https://km.sankuai.com/page/1200639384">说明：画布- Select组件</a></p>
+<p>简单逻辑，可以用Select组件（aviator语法），exp-5支持比较复杂的语法</p>
+<p><span>示例：</span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15</a><span> 组件17</span></p>
+<p>【配置相关】</p>
+<ul>
+<li><strong>丢弃其余变量</strong>：选择后select输入框中未选择的变量会在此环节丢弃</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>代码组件</p>
+</td>
+<td>
+<p><img src="assets/3f5fa106af07e1e6.png" width="363" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200639574" title="https://km.sankuai.com/page/1200639574">说明：画布- 代码组件</a></p>
+<p>复杂逻辑，可以用代码组件（java语法）</p>
+<p><span>示例 </span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11</a><span> 组件26</span></p>
+<p><span>【常见使用场景】</span></p>
+<ol>
+<li>转化数据格式</li>
+<li>进行数据增强</li>
+<li>其余各种自定义用途</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>选择返回一个值或返回多个值逻辑，选择后代码框中会出现提示代码</li>
+</ul>
+<ul>
+<li>
+<p>如果要实现“返回一个值”的逻辑，则继承抽象类IProcessor，并实现process方法。</p>
+</li>
+<li>如果要实现“返回多个值”的逻辑，则继承抽象类IFlatProcessor，并实现flatProcess方法。</li>
+<li>
+<p>process方法入参为传入该组件的上下文，出参为经过该组件处理后的上下文。</p>
+</li>
+<li>
+<p>flatProcess方法入参为传入该组件的上下文，出参为经过该组件处理后的多条上下文。</p>
+<p></p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>规则集合</p>
+</td>
+<td>
+<p><img src="assets/979da58fc3598f0e.png" width="483" height="467" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200669387" title="https://km.sankuai.com/page/1200669387">说明：画布- 规则集合组件</a></p>
+<p>示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=76&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=76&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=76&amp;version=1</a>组件2</p>
+<p>【常见使用场景】</p>
+<ol>
+<li>过黑白规则/黑白名单进行数据过滤</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>如果规则集合中有多条规则，所有规则都会被执行；</li>
+<li>每条规则的执行结果（true/false）会写入到上下文中，key格式是：ruleResult_规则id。例如12345规则的结果key是ruleResult_12345；</li>
+<li>每个规则内部使用的因子执行结果都会被加入到上下文中，key是因子英文名。</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>数据获取</p>
+</td>
+<td>
+<p><img src="assets/3b79e2d142697237.png" width="227" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1319403547" title="https://km.sankuai.com/page/1319403547">说明：画布 - 数据获取</a></p>
+<p>http get:  <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1</a></p>
+<p>http post: <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1</a></p>
+<p>rpc : <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1</a></p>
+<p>【常见使用场景】</p>
+<ol>
+<li><span>用于获取增量补充数据用于策略执行</span></li>
+</ol>
+<p>【配置相关】</p>
+<img src="assets/d1cc2f28d94fddc9.svg" width="986" height="194" alt="流程图">
+<ul>
+<li>
+<p>key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</p>
+</li>
+<li>
+<p>Squrriel平台限流值: 6w/min</p>
+<p>S3平台限流值：6k/min</p>
+<p>RPC平台限流值:3w/min</p>
+<p>HTTP平台限流值: 6k/min，如需更高流量，请联系近离值班rd</p>
+</li>
+<li><strong>注意用户配置过程中限流量最好进行配置兜底，否则上线后可能出现大value+无缓存打爆了Squirrel的情况</strong></li>
+</ul>
+</td>
+</tr>
+</table>
+<h2 id="section-160">3 数据处理</h2>
+<table>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>if...else</p>
+</td>
+<td>
+<p><img src="assets/f271971671a231d6.png" width="482" height="587" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200679482" title="https://km.sankuai.com/page/1200679482">说明：画布- If...Else组件</a></p>
+<p>示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=79&amp;version=6" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=79&amp;version=6">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=79&amp;version=6</a>组件3</p>
+<p>【配置相关】</p>
+<ul>
+<li><strong>rule表达式框</strong>：<span>支持填写简单条件，也支持填写复杂条件。表达式字段为上文所传字段（含原始字段和自定义字段，如果原始字段被重新定义过，则填写自定义后的字段名）</span></li>
+<li><span>当有两个及以上rule配置框时，需要明确多个rule之间的「与」「或」「非」关系</span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>groupby组件</p>
+</td>
+<td>
+<p><img src="assets/3852e95d75c816a3.png" width="207" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200659466" title="https://km.sankuai.com/page/1200659466">说明：画布- GroupBy组件</a></p>
+<p>示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21</a>组件4</p>
+<p>【常见使用场景】</p>
+<ol>
+<li>聚合计算，一定时间内告警大于多少条告警</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>
+<p><strong>计数类型</strong>：次数即类似sql中的count</p>
+<p>                 求和即类似sql中的sum</p>
+<p>                 存值即类似sql中的as</p>
+</li>
+<li><strong>聚合方式</strong>：事件驱动即每来一次数据触发一次检测；时间驱动即存储<em>时间窗口</em>所填的数据，每隔<em>时间滑动间隔</em>触发一次检测</li>
+<li>
+<p>当前主机在10min内写了哪些文件，事件驱动</p>
+<p>我们平时什么时候用事件驱动，什么时候用事件驱动。再给一点具体的使用场景，看怎么选择</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Join</p>
+</td>
+<td>
+<p><img src="assets/8b77b138e0c05937.png" width="268" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200629722" title="https://km.sankuai.com/page/1200629722">说明：画布- Join组件</a></p>
+<p>【常见使用场景】</p>
+<ol>
+<li><span>两个流间的数据交叉匹配，满足条件的输出</span></li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>left join支持标准的滚动窗口和滑动窗口，inner join类似于事件驱动的跳窗</li>
+<li>左右流时间维度格式尽量保持一致，否则可能出现join不上报错的情况</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>代码组件</p>
+</td>
+<td>
+<p><img src="assets/c3e4ccf5cae8bf18.png" width="363" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200639574" title="https://km.sankuai.com/page/1200639574">说明：画布- 代码组件</a></p>
+<p>复杂逻辑，可以用代码组件（java语法）</p>
+<p><span>示例 </span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11</a><span> 组件26</span></p>
+<p><span>【常见使用场景】</span></p>
+<ol>
+<li>转化数据格式</li>
+<li>进行数据增强</li>
+<li>其余各种自定义用途</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>选择返回一个值或返回多个值逻辑，选择后代码框中会出现提示代码</li>
+</ul>
+<ul>
+<li>
+<p>如果要实现“返回一个值”的逻辑，则继承抽象类IProcessor，并实现process方法。</p>
+</li>
+<li>如果要实现“返回多个值”的逻辑，则继承抽象类IFlatProcessor，并实现flatProcess方法。</li>
+<li>
+<p>process方法入参为传入该组件的上下文，出参为经过该组件处理后的上下文。</p>
+</li>
+<li>
+<p>flatProcess方法入参为传入该组件的上下文，出参为经过该组件处理后的多条上下文。</p>
+<p></p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>数据拆分</p>
+</td>
+<td>
+<p><img src="assets/2590b151ded2109c.png" width="483" height="213" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200639511" title="https://km.sankuai.com/page/1200639511">说明：画布- 数据拆分组件</a></p>
+<p><span>将数据流复制后拆分流转至后续各节点</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Union</p>
+</td>
+<td>
+<p><img src="assets/fc0263b3d41ab3e8.png" width="484" height="201" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200639529" title="https://km.sankuai.com/page/1200639529">说明：画布- Union组件</a></p>
+<p><span>两个数据流的合并</span></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>数据获取</p>
+</td>
+<td>
+<p><img src="assets/2efdb2e3e1f61feb.png" width="227" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1319403547" title="https://km.sankuai.com/page/1319403547">说明：画布 - 数据获取</a></p>
+<p>http get:  <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1</a></p>
+<p>http post: <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1</a></p>
+<p>rpc : <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1</a></p>
+<p>【常见使用场景】</p>
+<ol>
+<li><span>用于获取增量补充数据用于策略执行</span></li>
+</ol>
+<p>【配置相关】</p>
+<img src="assets/64e9ad788169e520.svg" width="986" height="194" alt="流程图">
+<ul>
+<li>
+<p>key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</p>
+</li>
+<li>
+<p>Squrriel平台限流值: 6w/min</p>
+<p>S3平台限流值：6k/min</p>
+<p>RPC平台限流值:3w/min</p>
+<p>HTTP平台限流值: 6k/min，如需更高流量，请联系近离值班rd</p>
+</li>
+<li><strong>注意用户配置过程中限流量最好进行配置兜底，否则上线后可能出现大value+无缓存打爆了Squirrel的情况</strong></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>数据存储</p>
+</td>
+<td>
+<p><img src="assets/48fc9f3509a9bdad.png" width="205" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1316510919" title="https://km.sankuai.com/page/1316510919">说明：画布 - 数据存储</a></p>
+<p><span>将执行过程中某些关键数据进行外存</span></p>
+<p>【常见使用场景】</p>
+<ol>
+<li>写入基线加白名单做可信层校验</li>
+</ol>
+<p><span>【配置相关】</span></p>
+<img src="assets/dc878d993a357de3.svg" width="696" height="326" alt="流程图">
+<ol>
+<li>
+<p>key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</p>
+</li>
+<li>平台限流值: 6k/min，如需更高流量，请联系近离值班rd</li>
+</ol>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>丢弃组件</p>
+</td>
+<td>
+<p><img src="assets/e78beff40e73b4e0.png" width="483" height="141" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200763174" title="https://km.sankuai.com/page/1200763174">说明：画布- 丢弃配置指南</a></p>
+<p><span style="color:rgb(44, 62, 80)">直接将该部分数据丢弃</span></p>
+</td>
+</tr>
+</table>
+<h2 id="section-343">4 数据聚合</h2>
+<ul>
+<li>
+<p>目的：实现对决策对象的聚合、去重等操作</p>
+</li>
+</ul>
+<table>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Groupby</p>
+</td>
+<td>
+<p><img src="assets/4a2dc6c8120c55b3.png" width="207" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200659466" title="https://km.sankuai.com/page/1200659466">说明：画布- GroupBy组件</a></p>
+<p>示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21</a>组件4</p>
+<p>【常见使用场景】</p>
+<ol>
+<li>聚合计算，一定时间内告警大于多少条告警</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>
+<p><strong>计数类型</strong>：次数即类似sql中的count</p>
+<p>                 求和即类似sql中的sum</p>
+<p>                 存值即类似sql中的as</p>
+</li>
+<li><strong>聚合方式</strong>：事件驱动即每来一次数据触发一次检测；时间驱动即存储<em>时间窗口</em>所填的数据，每隔<em>时间滑动间隔</em>触发一次检测</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Distinct</p>
+</td>
+<td>
+<p><img src="assets/ad925d422cd9e19b.png" width="369" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200649532" title="https://km.sankuai.com/page/1200649532">说明：画布- Distinct组件</a></p>
+<p>【常见使用场景】</p>
+<ol>
+<li>决策执行去重</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>
+<p><strong>key：</strong><span>支持输入单个或多个上文所传字段（含原始字段和自定义字段，如果原始字段被重新定义过，则填写自定义后的字段名），作为key进行去重，必填</span></p>
+</li>
+<li>
+<p><span><strong>时间维度/时间维度格式：</strong></span>填写<span>画布任务执行的时间戳，若不填则默认画布开始运行的时间</span></p>
+</li>
+<li>
+<p><span><strong>时间窗口：</strong></span><span>即计算从时间戳往前滑动多少时间区间进行计算，支持选择分/时/日，文本框中为数字，必填</span></p>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<h2 id="section-401">5 决策执行</h2>
+<table>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>决策</p>
+</td>
+<td>
+<p><img src="assets/e7217adc86f81312.png" width="624" height="539" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200629952" title="https://km.sankuai.com/page/1200629952">说明：画布- 决策信息配置指南</a></p>
+<p>【配置相关】</p>
+<p>用户可在决策组件中使用在Zeus平台上注册的决策及相关信息，近线将根据配置信息下游的数据传输，但是否能实际执行得看下游是否具备执行能力</p>
+<ul>
+<li>决策：<a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：决策__1608157813/children/（废弃）说明：创建＿修改决策__312514906/index.html" title="https://km.sankuai.com/page/312514906">（废弃）说明：创建/修改决策</a></li>
+<li>附加信息：<a href="../../../说明：Zeus决策附加信息使用文档__28253486/index.html" title="https://km.sankuai.com/page/28253486">说明：Zeus决策附加信息使用文档</a></li>
+<li>决策理由：<a href="../../../说明：决策理由使用__304311873/index.html" title="https://km.sankuai.com/page/304311873">说明：决策理由使用</a></li>
+<li>
+<p>示例：</p>
+<ul>
+<li>
+<p>基础安全：</p>
+<p><img src="assets/567ffd79cf79cbd9.png" width="324" height="211" alt="image.jpeg"></p>
+</li>
+<li>
+<p>非基础安全：</p>
+<p><img src="assets/645adb9b34a13601.png" width="317" height="274" alt="image.jpeg"></p>
+</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<h2 id="section-432">6 用户自定义函数使用（UDF）</h2>
+<p><a href="children/说明：画布 - UDF管理__1402465659/index.html" title="https://km.sankuai.com/collabpage/1402465659">说明：画布 - UDF管理</a></p>
+<ul>
+<li>支持<span style="color:rgba(0, 0, 0, 0.87)">在平台管理用户自定义函数，并在画布aviator表达式中进行引用</span></li>
+</ul>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/说明：画布 - UDF管理__1402465659/index.html">说明：画布 - UDF管理</a> <span class="status">已保存</span></li></ul></section></main></body></html>

@@ -1,0 +1,32 @@
+<km-doc>
+<km-title nodeId="72e91eb39ec041538004c6748e4f858b">说明：规则在场景配置中的状态说明</km-title>
+<h3 nodeId="fd416fe73d044be88412778bd2cebd2b">规则在场景配置中的生效、标记、灰度和离线状态</h3>
+<p align="start" nodeId="9ab71f914a544eb2b12a8d4db4fff044">生效：规则在场景配置中为生效状态，则该条规则逻辑会正常执行，且在业务侧可获取到决策信息；</p>
+<p align="start" nodeId="a166f44cfe07497abe591f2a6cb0cf7b">灰度：规则在场景配置中为灰度状态，则该条规则逻辑会正常执行，且在业务侧可获取到满足灰度比例设定流量的决策信息，不满足灰度比例设定流量的信息，业务侧获取不到相关的决策信息；</p>
+<p align="start" nodeId="35649a56ef424886a19b4eb1b8754423">标记：规则在场景配置中为标记状态，则该条规则逻辑会正常执行，但在业务侧获取不到相关的决策信息；</p>
+<p align="start" nodeId="754d54f687614aa38fed9123f43c782d">离线：规则在场景配置中为离线状态，则该条规则逻辑不会执行</p>
+<h3 nodeId="0ed68fcf58e849159aa706530e9aee68">​设定场景配置下的状态</h3>
+<table responsive="false" nodeId="e07a570e90314f50909d69531327e6e3">
+<tr nodeId="07a7e7c5f8f14684afdc417f9ebdf06d">
+<th colwidth="[199]" nodeId="6f682f611d474fe4ad484c19b560a38b">
+<p nodeId="5bd3e122281449148fe52a9f89e830e6">新增场景配置设定状态</p>
+</th>
+<th colwidth="[207]" nodeId="e602eae704274746a1828db515a0f238">
+<p nodeId="9f162012fbfd4a1aab83e3d7b7db4436">修改当前已有场景配置状态</p>
+</th>
+</tr>
+<tr nodeId="4d12b935b8d4456797dbd72209614613">
+<td colwidth="[199]" nodeId="b4e0860729b34a30a156f1564d0e9d2a">
+<p nodeId="3a008e49d0664aecb2800875035b6ac8" />
+</td>
+<td colwidth="[207]" nodeId="f1c19b6182254c338e0611c89daa9f4d">
+<p nodeId="560ff5ba88e245e6839494550dd35b5c" />
+</td>
+</tr>
+</table>
+<p nodeId="327ad7f6694645f6a4584b7f1bbfea5a" />
+<p nodeId="027f8e417c8044a08633646950a6f9c3" />
+<p nodeId="d34f6f6863a644c3a10eeacc0ef7f43a">​</p>
+<p nodeId="1444e29df4254e01a9003b15d71bb8b6" />
+<p nodeId="40cff5ab80fb4653afe9c2960ab12a61">​</p>
+</km-doc>

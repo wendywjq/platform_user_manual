@@ -1,0 +1,1393 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：规则熔断</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-31">一、背景</a><a href="#section-33">二、名词解释</a><a href="#section-80">三、操作指南</a><a href="#section-81">3.1 用户流程</a><a href="#section-83">3.2 操作说明</a><a href="#section-90">Step1 创建规则熔断</a><a href="#section-907">Step2 管理熔断配置</a><a href="#section-959">Step3 响应熔断/查看熔断记录</a><a href="#section-1336">Step4 在场景配置、规则、决策页面配置&amp;查看熔断</a><a href="#section-1394">3.3 分层场景熔断配置</a><a href="#section-1466">3.4 特殊说明</a><a href="#section-1535">四、FAQ</a><a href="#section-1542">五、宣讲记录</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：规则熔断</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1091686902">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：规则熔断</h1>
+<div style="none"></div>
+<p>功能地址：<a href="https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList" title="https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList">https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList</a><br><span style="color:rgb(245, 35, 45)">注：使用规则熔断功能前，请务必保证已经阅读 【3.4特殊说明】，以避免出现熔断效果不符合预期的情况。</span></p>
+<div class="note">
+<strong>使用【自动熔断】必看！</strong>
+<div>
+<ol>
+<li>
+<p>使用自动熔断前，请先找到组织架构对应的SRE同学帮忙根据<a href="https://km.sankuai.com/page/1279838989" title="https://km.sankuai.com/page/1279838989">事件通知策略配置</a><strong>配置电话通知</strong>，否则电话通知将不可生效！</p>
+<ol>
+<li>告警电话呼出号码可能被手机识别成骚扰电话。建议将以下号码加白或加入通讯录：051480311605、051480311606、051485590912、051485590914、02151657926、02151657936、02151657940、02151657942</li>
+<li>
+<p>当前平台已默认配置以下通知策略</p>
+<details>
+<summary>平台已有通知策略，若以下升级策略不符合本组织架构诉求，可联系组织架构对应SRE同学帮忙配置。</summary>
+<div>
+<p>1）“美团/基础研发平台/信息安全部/风控和业务安全”架构下，需要事件在开始2分钟之后没有人响应的话，电话告警事件发起人，期间仍未响应，电话将连续打5次；再20分钟之后仍无人响应的话再次电话告警事件发起人X1，并拉事件发起人X1入群。</p>
+<p>2）“美团/基础研发平台/信息安全部/风控和业务安全/点评风控”架构下，需要事件在开始2分钟之后没有人响应的话，电话告警事件发起人，期间仍未响应，电话将连续打5次；再20分钟之后仍无人响应的话再次电话告警事件发起人X1，并拉事件发起人X1入群<span style="color:rgba(0, 0, 0, 0.87)">；</span>再30分钟后仍无人响应时，电话告警丁思远dingsiyuan 于陈群yuchenqun 林睿linrui06，并拉入群。</p>
+</div>
+</details>
+</li>
+</ol>
+</li>
+<li>自动熔断告警时，告警将逐级升级。请务必在处理ZeusRobot通知的<strong>同时处理Radar事件</strong>，否则告警仍将持续升级！！<br>处理方式Radar方式：点击开始处理--&gt;@radar处理完成<br><img src="assets/823f1e68c0ca936a.png" width="203" height="203" alt="image.jpeg"><img src="assets/3f6578b6dad4494e.png" width="250" height="99" alt="image.jpeg"></li>
+</ol>
+</div>
+</div>
+<h1 id="section-31">一、背景</h1>
+<p>当规则命中情况产生异常，达到预设的熔断阈值时，将规则状态由人工或系统进行生效转标记的降级，以此规避风险</p>
+<h1 id="section-33">二、名词解释</h1>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">名词</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">解释</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">单点熔断</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">实时链路中，针对【场景-规则-决策】进行的监控，触达阈值熔断的对象为场景中的规则配置，从【生效】转为【标记】。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">画布熔断</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">近线画布中，针对【画布-组件-（规则）】进行的监控，触达阈值熔断的对象为画布中的组件，或组件中的一条规则，从【正常执行】转为【阻断执行】。</span></p>
+<p><a href="https://km.sankuai.com/collabpage/1354627337" title="https://km.sankuai.com/collabpage/1354627337">说明：画布 - 熔断配置</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">任务熔断</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">离线任务重，针对【离线任务-（规则）-决策】进行的监控，触达阈值熔断的对象为离线任务的规则/决策，从【正常下发】转为【阻断下发】，默认为自动熔断</span><a href="../说明：离线引擎__322991443/children/说明：离线任务-熔断配置__2157764712/index.html" title="https://km.sankuai.com/collabpage/2157764712">说明：离线任务-熔断配置</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">人工熔断</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">满足熔断规则阈值后，通知到负责人。由人工判断，点击「一键熔断」执行规则转标记动作。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">自动熔断</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">满足熔断规则阈值后，直接将监控对象熔断（生效规则转标记/画布组件变熔断态/分层场景规则变熔断态），同时通知到负责人。</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-80">三、操作指南</h1>
+<h2 id="section-81">3.1 用户流程</h2>
+<img src="assets/b710746fbdd94b85.svg" width="1196" height="356" alt="流程图">
+<h2 id="section-83">3.2 操作说明</h2>
+<p>规则熔断入口：监控中心--&gt;规则熔断 </p>
+<p>测试环境网址：<a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/rulesFuseList" title="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/rulesFuseList">https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/rulesFuseList</a><a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList"></a></p>
+<p>线上环境网址：<a href="https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList" title="https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList">https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList</a></p>
+<h3 id="section-90">Step1 创建规则熔断</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】</span></p>
+<p>监控中心<span style="font-size:14px">--&gt;规则熔断 --&gt;新建熔断</span></p>
+<p><span style="font-size:14px">用户可在新建熔断页面按照以下维度输入信息，完成创建。</span></p>
+<p><span style="font-size:14px"><strong>基本信息</strong></span></p>
+<p><span style="font-size:14px">熔断模式：单点熔断，即为实时链路中对场景规则配置的熔断。（画布熔断为针对画布中组件的熔断配置）</span></p>
+<p><span style="font-size:14px">熔断名称：用户自定义输入名称</span></p>
+<p><span style="font-size:14px"><strong>作用范围</strong></span></p>
+<p><span style="font-size:14px">针对以下范围限定的生效规则起作用。</span></p>
+<ul>
+<li><span><span style="font-size:14px">输入场景ID，多个英文逗号分隔，模糊匹配</span></span></li>
+<li><span><span style="font-size:14px">输入规则ID，多个英文逗号分隔，模糊匹配</span></span></li>
+<li><span><span style="font-size:14px">输入决策ID，多个英文逗号分隔，模糊匹配</span></span></li>
+</ul>
+<p><span style="font-size:14px">（</span><span><span style="font-size:14px">输入多项用英文逗号隔开；输入“*”表示全部；“|”表示选择左侧的内容但是排除其中包含的右侧的内容，例如“*|23”表示选择全部，但是排除其中包含ID为23的</span></span><span style="font-size:14px">）</span></p>
+<p><span style="font-size:14px"><strong>作用时间</strong></span></p>
+<p><span style="font-size:14px">系统将在设置的作用时间内检查数据，从而触发熔断；</span></p>
+<p><span style="font-size:14px">时间类型包括：自由时间段（自由选择时间范围）与星期模式（设置每天的统一时间段，自由选择一周中的星期数）。</span></p>
+<p><span style="font-size:14px">勾选排除节假日后，节假日不检查数据，例如设置了周六，同时勾选了排除节假日，则周六不检查数据</span></p>
+<p><span style="font-size:14px">添加作用时间：以‘和’的逻辑关系增加作用时间，即可通过添加多条作用时间，获得一个作用时间的并集。</span></p>
+<p><span style="font-size:14px"><strong>熔断规则</strong></span></p>
+<p><span style="font-size:14px">单条熔断规则需要设置如下项：</span></p>
+<ul>
+<li><span style="font-size:14px">时间周期（最近x分钟）：默认1分钟，支持输入</span></li>
+<li>
+<p><span style="font-size:14px">计算指标：</span><span><span style="font-size:14px">下拉列表选择，可选择“命中量”/“命中率”指标。</span></span></p>
+<details>
+<summary><span style="color:rgb(25, 144, 255)"><span style="font-size:14px">计算指标</span></span></summary>
+<div>
+<table>
+<tr>
+<th colspan="2">
+<p><span style="font-size:14px">指标名称</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">逻辑</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="3">
+<p><span style="font-size:14px">命中量</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">命中量</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">策略时间周期内总命中请求量</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">高价值用户命中量</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">策略时间周期内总命中高价值用户量</span><br><span style="font-size:14px">去重逻辑参考：</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199">学城文档 644052199（无权限读取标题）</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">客诉用户命中量</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">策略时间周期内总命中客诉用户量</span><br><span style="font-size:14px">去重逻辑参考：</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199">学城文档 644052199（无权限读取标题）</a></p>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<p><span style="font-size:14px">命中率</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">策略命中量/策略所在场景的请求量</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+</div>
+</details>
+<p></p>
+</li>
+<li><span style="font-size:14px">计算函数：</span><span><span style="font-size:14px">下拉列表选择，默认选择“绝对量”，其余计算函数见下方附表。</span></span></li>
+<li><span style="font-size:14px">对比关系：</span><span><span style="font-size:14px">下拉列表选择，&gt;, &gt;=, =, &lt;, &lt;=，默认为“&gt;=”</span></span></li>
+<li><span style="font-size:14px">阈值：</span><span><span style="font-size:14px">直接输入数值，系统根据指标匹配单位</span></span></li>
+<li><span style="font-size:14px">指标：</span><span><span style="font-size:14px">选填，高价值用户、客诉用户</span></span></li>
+<li><span style="font-size:14px">去重维度：</span><span><span style="font-size:14px">选填，可多选，userid、orderid、poiid、uuid</span></span></li>
+</ul>
+<p><span><span style="font-size:14px">增加子规则：添加的子规则和该条熔断规则是串联关系，是同属一个序号下的熔断规则。即‘且’逻辑。同时满足，才代表命中本条规则。（图中01熔断规则下有两条子规则）</span></span></p>
+<p><span><span style="font-size:14px">添加熔断规则：添加的熔断规则拥有新的序号，添加的熔断规则和之前的熔断规则是并联关系，即‘或’逻辑。满足一条，即触发熔断。（图中02与01就是‘或’逻辑）</span></span></p>
+<p><span style="color:rgb(56, 158, 13)"><span style="font-size:14px">说明：熔断规则之间使用‘或’符号连接，一条熔断规则及其子规则使用‘且’符号连接。</span></span></p>
+<p><span style="font-size:14px"><strong>执行动作</strong></span></p>
+<p><span style="font-size:14px">人工熔断：熔断条件触发后，通知设置的联系人，前往手动进行熔断动作。</span></p>
+<p><span style="font-size:14px">自动熔断：熔断条件触发后，自动进行规则熔断动作。</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">仅支持熔断规则配置下降类函数</span></span></p>
+<p><span style="font-size:14px"><strong>通知方式</strong></span></p>
+<p><span style="font-size:14px">下拉列表选择，目前支持：大象通知、短信通知、电话通知。人工熔断暂不支持短信通知和电话通知。</span></p>
+<p><span style="font-size:14px"><strong>通知频次上限</strong></span></p>
+<p><span><span style="font-size:14px">默认无，可选【按间隔】，可输入每次通知间的最小时间间隔数，下拉选择时间单位【分钟、小时】</span></span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:14px">频次上限</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">通知发送逻辑</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">无</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">原逻辑，只要满足熔断条件就发送通知。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">按间隔</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">每一次通知发送后的设置时间间隔内，不发送触发的熔断告警通知。</span></p>
+</td>
+</tr>
+</table>
+<p><span style="font-size:14px"><strong>通知人</strong></span></p>
+<p><span style="font-size:14px">可选择业务空间负责人、业务空间变更通知人、自定义、最后修改人及其直属上级。</span></p>
+<p><span style="font-size:14px">自定义：支持手动输入mis号，多个使用英文逗号隔开</span></p>
+<p><span style="font-size:14px">最后修改人及其直属上级：Zeus场景中可能存在多条【场景-规则-决策】一致的场景配置，若最后修改人不同，则触发熔断后都会收到告警。直属上级即组织架构中的一级leader（X1）</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">熔断列表</span></p>
+<p><img src="assets/85a2c6b81d3fc6b3.png" width="705" height="323" alt="image.jpeg"></p>
+<p><span style="font-size:14px">熔断配置</span></p>
+<p><img src="assets/8a917039738e2354.png" width="705" height="352" alt="image.jpeg"></p>
+<p></p>
+<p></p>
+</td>
+</tr>
+</table>
+<ul>
+<li><strong>自动熔断的配置审批机制</strong></li>
+</ul>
+<p><span style="color:rgba(0, 0, 0, 0.87)">先判断申请人直系leader/同组同学（包含用户自己）是否在空间负责人中。如果在，上线申请只推送申请人直系leader/同组同学（包含用户自己）；如果leader/同组同学 都不在空间负责人列表，则将申请发送至空间负责人全员。</span></p>
+<ul>
+<li><strong>基线值的计算逻辑：</strong></li>
+</ul>
+<p><span>例：用户选择周期为n（例如最近2分钟），今天是2016-12-02（周五），计算的时间点为19:56，基线数据的算法是4个周五（2016-11-11，2016-11-18，2016-11-25，2016-12-02）的19:54-19:56这2分钟的数据的加权求和或平均，权重值依次为1，2，3，4。如：基线值设为value，四个周五对应的19:54-19:56数据（由远及近）分别为A,B,C,D，则value = (A+2B+3C+4D) / 10</span></p>
+<details>
+<summary>计算函数详细说明</summary>
+<div>
+<p><span style="color:rgb(245, 35, 45)">自动熔断暂时不支持下降类函数</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">时间周期/最近N分钟</span></p>
+</th>
+<th style="background-color:rgb(247, 247, 247);vertical-align:top">
+<p><span style="font-size:14px">计算函数</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">对比关系</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">阈值</span></p>
+</th>
+<th style="background-color:rgb(247, 247, 247);vertical-align:top">
+<p><span style="font-size:14px">逻辑说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">类型</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">指标</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">维度/去重</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">参考来源</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">默认最近1分钟</span></p>
+<p></p>
+</td>
+<td rowspan="2" style="color:rgba(0, 0, 0, 0.87);background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">命中量</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">数值，单位适配计算函数</span></p>
+</td>
+<td style="color:rgba(0, 0, 0, 0.87);background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span><span style="font-size:12px">最近N分钟 规则命中（指标）量（按维度去重）</span></span><span style="font-size:12px">&gt;=阈值</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">固定阈值</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">高价值用户 | 客诉用户</span></p>
+<p><span style="font-size:12px">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199"><span style="font-size:14px">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">userid | orderid | poiid</span></p>
+<p><span style="font-size:12px">不去重/去重</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">cat/druid</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&lt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span><span style="font-size:12px">最近N分钟 规则命中（指标）量（按维度去重）</span></span><span style="font-size:12px">&lt;=阈值</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">最近N分钟命中量比之前N分钟上升值</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">=M-N</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较上一时间周期内命中量上升值（上一时间周期时间命中量N，当前时间周期内命中量M）</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">高价值用户 | 客诉用户</span></p>
+<p><span style="font-size:12px">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199"><span style="font-size:14px">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">userid | orderid | poiid</span></p>
+<p><span style="font-size:12px">不去重/去重</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">druid/外卖</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">最近N分钟命中量比之前N分钟下降值</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">=N-M</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较上一时间周期内命中量下降值（上一时间周期命中量N，当前时间周期命中量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">最近N分钟命中量比之前N分钟上升百分比</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较上一时间周期内命中量上升百分比（上一时间周期命中量N，当前时间周期命中量M）</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">高价值用户 | 客诉用户</span></p>
+<p><span style="font-size:12px">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199"><span style="font-size:14px">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">userid | orderid | poiid</span></p>
+<p><span style="font-size:12px">不去重/去重</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">外卖</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">最近N分钟命中量比之前N分钟下降百分比</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">=（N-M）/M*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较上一时间周期内命中量下降百分比 （上一时间周期命中量N，当前时间周期命中量M）</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">外卖</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比昨天同一时间上升值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=M-N</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较昨天同时间周期内命中量上升值（昨天同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">高价值用户 | 客诉用户</span></p>
+<p><span style="font-size:12px">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199"><span style="font-size:14px">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">userid | orderid | poiid</span></p>
+<p><span style="font-size:12px">不去重/去重</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">外卖</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比昨天同一时间下降值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=N-M</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较昨天同时间周期内命中量下降值 （昨天同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">外卖</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比昨天同一时间上升百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较昨天同时间周期内命中量上升百分比（昨天同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">高价值用户 | 客诉用户</span></p>
+<p><span style="font-size:12px">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199"><span style="font-size:14px">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">userid | orderid | poiid</span></p>
+<p><span style="font-size:12px">不去重/去重</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">cat</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比昨天同一时间下降百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（N-M）/M*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较昨天同时间周期内命中量下降百分比（昨天同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">cat</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比上周同一时间上升值</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">=M-N</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较上周同时间周期内命中量上升值（上周同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">高价值用户 | 客诉用户</span></p>
+<p><span style="font-size:12px">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199"><span style="font-size:14px">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">userid | orderid | poiid</span></p>
+<p><span style="font-size:12px">不去重/去重</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">cat</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比上周同一时间下降值</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">=N-M</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较上周同时间周期内命中量下降值 （上周同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">cat</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比上周同一时间上升百分比</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较上周同时间周期内命中量上升百分比（上周同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">高价值用户 | 客诉用户</span></p>
+<p><span style="font-size:12px">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199"><span style="font-size:14px">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">userid | orderid | poiid</span></p>
+<p><span style="font-size:12px">不去重/去重</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">外卖</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比上周同一时间下降百分比</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">=（N-M）/M*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量较上周同时间周期内命中量下降百分比（上周时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td style="background-color:rgb(223, 232, 252);vertical-align:top">
+<p><span style="font-size:12px">外卖</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比基线上升值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="color:rgba(0, 0, 0, 0.87);background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=当前值-基线值</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量与基线相比上升数值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">高价值用户 | 客诉用户</span></p>
+<p><span style="font-size:12px">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199"><span style="font-size:14px">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">userid | orderid | poiid</span></p>
+<p><span style="font-size:12px">不去重/去重</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">cat</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比基线下降值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="color:rgba(0, 0, 0, 0.87);background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=基线值-当前值</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量与基线相比下降数值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">cat</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前命中量基线上升百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（当前值-基线值）/基线</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量与基线相比上升百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">高价值用户 | 客诉用户</span></p>
+<p><span style="font-size:12px">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199"><span style="font-size:14px">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">userid | orderid | poiid</span></p>
+<p><span style="font-size:12px">不去重/去重</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">cat</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前命中量比基线下降百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（基线值-当前值）/基线</span></p>
+<p><span style="font-size:12px">当前时间周期内命中量与基线相比下降百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">动态比率</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">cat</span></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h3 id="section-907">Step2 管理熔断配置</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">安全管理--&gt;规则熔断 --&gt;熔断配置tab</span></p>
+<p><span style="font-size:14px">在本页面可根据熔断id/名称、作用场景id、作用规则、作用决策、状态、最后修改人、最后修改事件、熔断模式进行搜索，定位到目标熔断规则。</span></p>
+<p><span style="font-size:14px">列表展示的内容维度包括：熔断id、名称、熔断模式、作用场景、作用规则、作用决策、状态、执行动作、最后修改、操作（编辑、删除）。</span></p>
+<ul>
+<li><span style="font-size:14px">点击【编辑】跳转编辑页面，页面布局与新建页面基本一致，多一条状态的编辑项。</span></li>
+<li>
+<p><span style="font-size:14px">点击【删除】，弹出二次确认弹框是否确认删除。</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">点击【复制】，</span><span><span style="font-size:14px">熔断规则列表中 操作列新增【复制】按钮。点击出二次确认弹窗，确认后生成新的一条熔断规则。</span></span></p>
+<p><span><span style="font-size:14px">新熔断规则命名：xxxxx副本，默认状态为【关闭】</span></span></p>
+</li>
+</ul>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/e24ced0be41ed520.png" width="707" height="324" alt="image.jpeg"></p>
+<p><img src="assets/bad48cf765119a57.png" width="701" height="325" alt="image.png"></p>
+<p><img src="assets/fdfd88fb8f8430fd.png" width="303" height="117" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">历史版本信息</span></p>
+<p><span style="font-size:14px">可在熔断配置页-版本信息tab，查看版本信息，点击版本列表中的【查看】按钮，下方出现该版本的信息。</span></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/3e5412a7c66b42fb.png" width="707" height="343" alt="image.jpeg"></p>
+<p><img src="assets/a5642a4a127e3890.png" width="707" height="326" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-959">Step3 响应熔断/查看熔断记录</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">【入口】</span></p>
+<p>监控中心<span style="font-size:14px">--&gt;规则熔断 --&gt;熔断记录tab</span></p>
+<p><span style="font-size:14px">在本页面可根据熔断id/名称、执行动作（人工熔断or自动熔断）、作用场景id、作用规则、作用决策、状态、发生日期、通知人、最后处理人进行搜索，定位到目标熔断记录。</span></p>
+<p><span style="font-size:14px">列表展示的内容维度包括：熔断id、</span><span style="font-size:14px"><strong>熔断名称</strong></span><span style="font-size:14px">、执行动作（人工熔断or自动熔断）、发生时间、恢复时间、熔断时长、</span><span style="font-size:14px"><strong>状态</strong></span><span style="font-size:14px">、作用场景、作用规则、作用决策、最后修改人、最后修改时间、</span><span style="font-size:14px"><strong>操作</strong></span><span style="font-size:14px">。</span></p>
+<ul>
+<li><span style="font-size:14px">熔断名称：点击名称链接，跳转</span></li>
+<li><span style="font-size:14px">状态：与执行动作是级联关系。不同动作对应状态。具体对应见下表1</span></li>
+<li><span style="font-size:14px">操作：不同执行动作的不同状态下，对应可进行的操作不同。具体对应见下表1</span></li>
+</ul>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/567e2d1e4b3e55b9.png" width="705" height="325" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【熔断消息】</span></p>
+<p><span style="font-size:14px">当监控达到设定的阈值时，公众号发送熔断消息，用户可进行操作</span></p>
+<p><span style="font-size:14px">1.一键熔断</span></p>
+<p><img src="assets/24f5638523bc5093.png" width="412" height="280" alt="image.jpeg"></p>
+<p><span style="font-size:14px">2.ACK告警静默</span><img src="assets/416489f39d5589e3.png" width="412" height="280" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/dab6c1dade2beeda.png" width="502" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ul>
+<li><span style="font-size:14px">自动熔断响应流程：</span><img src="assets/497f2bd1d41c3e0b.svg" width="374" height="105" alt="流程图"></li>
+</ul>
+<ol>
+<li><span style="font-size:14px">系统自动熔断后，ZeusRobot、短信和雷达radar同时发送自动熔断告警通知。</span></li>
+<li><span style="font-size:14px">用户通过ZeusRobot或Zeus 页面完成对于熔断结果的确认，是否恢复自动熔断</span></li>
+<li><span style="font-size:14px">确认后，用户通过radar大象群或radar页面点击“开始处理”完成事件响应，完成响应后，后续告警不再升级</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/880955db608c04e7.png" width="659" height="337" alt="image.jpeg"></p>
+<p><img src="assets/cfd17963ac62c9dc.png" width="705" height="401" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<details>
+<summary>表1 执行动作、状态、操作的级联关系与说明</summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">执行动作</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">状态</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">操作</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">恢复时间</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">操作按钮时效</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="5" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">自动熔断</span></p>
+</td>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(102, 102, 102)"><span style="font-size:14px">已熔断</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">一键恢复</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">触发自动熔断后还未处理时显示此操作，点击后弹出一键恢复确认框，需要填写归因后才能确认，进行一键恢复（熔断为标记状态的规则重新变为生效）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">已确认熔断</span></p>
+</td>
+<td>
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">归因</span></span><br><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">一键恢复</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">点击“我已确认”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(102, 102, 102)"><span style="font-size:14px">已恢复</span></span></p>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击“一键恢复”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">有</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">查看归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击“一键恢复”后、填写归因后显示此操作。点击查看归因，可查看之前记录的原因。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">有</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td rowspan="13" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">人工熔断</span></p>
+</td>
+<td rowspan="5" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">待人工处理</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">一键熔断             </span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">触发人工熔断规则后还未处理下，显示此操作。点击后弹出一键熔断确认框，需要填写归因后才能确认，进行一键熔断（将熔断规则中正在生效的规则改为标记状态）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td rowspan="5" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">“一键熔断 、</span><span><span style="font-size:14px">ACK1小时  、 ACK1周 、  ACK1月</span></span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">  </span></span><span style="font-size:14px">” 24小时之内有效</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">ACK1小时</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">点击后，1小时内不再给通知人发送通知。（即使1小时内再次触发熔断）</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">ACK1周</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">点击后，1周内不再给通知人发送通知。（即使1周内再次触发熔断）</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">ACK1月</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">点击后，1个月内不再给通知人发送通知。（即使1个月内再次触发熔断）</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">归因</span></span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(75, 75, 75)"><span style="font-size:14px">已熔断</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击“一键熔断”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">- -</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">查看归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击“一键熔断”后、填写归因后显示此操作。点击查看归因，可查看之前记录的原因。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">- -</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(102, 102, 102)"><span style="font-size:14px">ACK1小时</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击“</span><span style="color:rgb(102, 102, 102)"><span style="font-size:14px">ACK1小时</span></span><span style="font-size:14px">”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">- -</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">查看归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击“</span><span style="color:rgb(102, 102, 102)"><span style="font-size:14px">ACK1时</span></span><span style="font-size:14px">”后、填写归因后显示此操作。点击查看归因，可查看之前记录的原因。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">- -</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(102, 102, 102)"><span style="font-size:14px"> ACK1周</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击“</span><span style="color:rgb(102, 102, 102)"><span style="font-size:14px">ACK1周</span></span><span style="font-size:14px">”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">- -</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">查看归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击“</span><span style="color:rgb(102, 102, 102)"><span style="font-size:14px">ACK1小周</span></span><span style="font-size:14px">”后、填写归因后显示此操作。点击查看归因，可查看之前记录的原因。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">- -</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(102, 102, 102)"><span style="font-size:14px">ACK1月</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击“</span><span style="color:rgb(102, 102, 102)"><span style="font-size:14px">ACK1月</span></span><span style="font-size:14px">”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">- -</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">查看归因</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">点击“</span><span style="color:rgb(102, 102, 102)"><span style="font-size:14px">ACK1月</span></span><span style="font-size:14px">”后、填写归因后显示此操作。点击查看归因，可查看之前记录的原因。</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">- -</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h3 id="section-1336">Step4 在场景配置、规则、决策页面配置&amp;查看熔断</h3>
+<p>规则熔断功能上线后，在场景、规则、决策配置页面也提供了入口可以配置熔断规则，也可查看对应规则下已有的熔断规则。</p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">策略部署--&gt;场景 --&gt;普通场景tab</span></p>
+<p><span style="font-size:14px">场景下每条【规则-决策】配置的后方，</span><span><span style="font-size:14px">有【熔断相关】按钮，点击出现弹窗，弹窗内有：</span></span></p>
+<ul>
+<li><span><span style="font-size:14px">【添加熔断配置】按钮：点击进入新建熔断配置页，作用域默认已经填入了该场景-规则-决策。</span></span></li>
+<li><span style="font-size:14px">当前涉及的熔断配置列表：展示该【场景-规则-决策】涉及到的熔断配置，点击可跳转至对应的熔断配置页，可编辑。</span></li>
+</ul>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/78bf77de485d333b.png" width="723" height="305" alt="image.jpeg"></p>
+<p><img src="assets/72d94963cf1d7d00.png" width="723" height="301" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">策略部署--&gt;规则 --&gt;规则详情页</span></p>
+<p><span style="font-size:14px">规则详情页最后（添加话术之后）可查看到一栏熔断信息，以链接形式展示。点击后跳转至熔断信息页，点击编辑可进入熔断编辑。</span></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/27c8d746b6aaa14a.png" width="717" height="368" alt="image.png"></p>
+<p><img src="assets/9324c52138709471.png" width="717" height="309" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">策略部署--&gt;决策 --&gt;决策详情页</span></p>
+<p><span style="font-size:14px">决策详情页补充信息最后（路由决策之后）中有一栏tab熔断信息。点击后，可查看到一栏熔断信息，以链接形式展示。点击后跳转至熔断信息页，点击编辑可进入熔断编辑。</span></p>
+</td>
+<td>
+<p><img src="assets/2b38ab927dcd9f7c.png" width="717" height="325" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h2 id="section-1394">3.3 分层场景熔断配置</h2>
+<div class="note">
+<strong></strong>
+<div>
+<p>分层场景支持熔断配置。只有在场景中【生效】的规则才会纳入监控范围。本身【标记】规则熔断不予监控。</p>
+<p>与普通场景稍有区别的是，分层中熔断掉的规则，临时以【熔断】态进行执行，这是一个附加在生效态上的临时状态，执行效果等同【标记】（并不会把原【生效】的配置改成标记）。</p>
+<p>若用户认为后续需要恢复正常的生效执行，可点击恢复熔断，即可重新生效，无需通过场景的编辑、再发布。</p>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">描述</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">图</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">熔断含义：</span></p>
+<p><span style="font-size:14px">根据场景、规则、决策确定作用范围，对范围下【生效】状态的规则命中量等指标进行监控。判断是否达到阈值而熔断，熔断后使【生效】规则临时以【熔断】态进行执行，等同【标记】效果。</span></p>
+<p></p>
+<p><span style="font-size:14px">入口：</span></p>
+<p><span style="font-size:14px">1.分层场景-预览页-策略节点-规则配置后方的熔断配置按钮。点击后出现弹窗，展示该条配置相关的熔断配置。可点击新增，直接打开熔断新建页。也可以查看已有的熔断配置。</span></p>
+<p><span style="font-size:14px">2.规则熔断-新建-选择【分层场景熔断】模式</span></p>
+<p></p>
+<p><span style="font-size:14px">配置内容：</span></p>
+<p><span style="font-size:14px">1. 分层场景、规则、决策皆支持多选。另外规则还支持【全部规则】的选项，代表范围包含该场景下的所有规则。选择【自选规则】时，可用英文逗号连接多个id对象。⚠️ </span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">注意，不支持*的识别</span></span><span style="font-size:14px">。</span></p>
+<p><span style="font-size:14px">2. 可在分层场景预览态下查看各个规则熔断情况，可手动进行熔断恢复，使规则重新以【生效】态执行</span></p>
+<p><span style="font-size:14px">3.作用时间及后方的配置和 单点熔断一致，不赘述。</span></p>
+</td>
+<td>
+<p><img src="assets/4bbac1a341607ae7.png" width="773" height="397" alt="image.jpeg"></p>
+<p><img src="assets/e1843c568543b4c1.png" width="773" height="433" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">配置了熔断的对象，可以在场景-预览中看到 规则后方出现开关。</span></p>
+<ul>
+<li><span style="font-size:14px">开关开启时，代表该生效规则正常监控中。（此时不允许用户拨动开关，即不能手动把规则 熔断，必须触发阈值才可以点击一键熔断）</span></li>
+<li><span style="font-size:14px">开关关闭时，代表该生效规则 已被熔断，临时以【标记】的效果执行（注意状态栏中展示的是【熔断】字样）。此时用户可以手动拨动开关，让熔断恢复正常生效执行。</span></li>
+</ul>
+<p><span style="font-size:14px">熔断恢复会有二次确认，告知若有多条同样的规则-决策配置，将会一起被恢复。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="font-size:14px">本身状态为【标记】和【离线】的规则，不在熔断监控范围内，所以后方状态栏是空的（即使熔断配置选了这条规则作为作用范围）。</span></p>
+</div>
+</div>
+<p><span style="font-size:14px">每次用户打开预览页，若有规则处于熔断态，都会有浮窗提示用户。</span></p>
+<p><span style="font-size:14px">因为熔断态是一个临时状态，本质期望用户及时处理这类规则：或去编辑里将该规则转标记/离线；或者重新恢复生效。</span></p>
+<p></p>
+<p><span style="font-size:14px">大象告警、ack、熔断记录页 和单点熔断一致，不做赘述。</span></p>
+</td>
+<td>
+<p><img src="assets/2bba5199e0853321.png" width="767" height="868" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h2 id="section-1466">3.4 特殊说明</h2>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">项目</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px">暂不支持</span></p>
+</td>
+<td>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:16px">暂不支持</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:16px">路由场景</span></span><span style="font-size:16px">，仅支持</span><span style="color:rgb(245, 35, 45)"><span style="font-size:16px">普通场景（含 子场景）</span></span><span style="font-size:16px">。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px">生效期与屏蔽期</span></p>
+</td>
+<td>
+<p><span style="font-size:16px">规则熔断在创建初期会有一段屏蔽期，而后进入生效期，才会进行报出。了解：</span><a href="children/说明：监控＿熔断报出屏蔽期__1214650678/index.html" title="https://km.sankuai.com/page/1214650678">说明：监控/熔断报出屏蔽期</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:16px">比值函数计算逻辑</span></p>
+</td>
+<td>
+<p><span style="font-size:16px">对于熔断计算中的比值类函数，当出现</span><span style="color:rgb(245, 35, 45)"><span style="font-size:16px">分母为0</span></span><span style="font-size:16px">的情况，将默认将</span><span style="color:rgb(245, 35, 45)"><span style="font-size:16px">分母置1</span></span><span style="font-size:16px">计算。</span></p>
+<p><span style="font-size:16px">【例】熔断规则最近2分钟命中量较上一个2分钟上升百分比大于50%则报出，上个2分钟命中量为0，当前2分钟命中量为5，计算为（5-0）/</span><span style="color:rgb(245, 35, 45)"><span style="font-size:16px">1</span></span><span style="font-size:16px">=500%，报出。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:16px">相同【规则-决策】的命中量</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:16px">对于同个场景下存在n条相同的【规则-决策】配置，</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:16px">计算命中量时，会只算1次，不会乘n（即默认同个场景内去重）</span></span><span style="color:rgb(38, 38, 38)"><span style="font-size:16px">。</span></span></p>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:16px">【例】用户配置了一条规则熔断的作用域为【场景A-规则B-决策C】，在zeus场景A下，有3条生效的【规则B-决策C】的配置（决策附加信息、理由等有区别），当1个流量命中规则B时，在该熔断中，</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:16px">只记命中量为1次。</span></span></p>
+<p><img src="assets/46447fb1232fc59b.png" width="460" height="268" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-1535">四、FAQ</h1>
+<ol>
+<li>
+<p>人工熔断能不能配置短信和电话通知？</p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">当前人工熔断不支持短信、电话通知方式，仅支持大象通知。人工熔断存在如果用户不及时处理会一直告出的问题，会产生大量的成本，因此暂不考虑。</span></p>
+</li>
+</ol>
+<p></p>
+<h1 id="section-1542">五、宣讲记录</h1>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/1091686902/59218804429?contentType=1">video1090377613.mp4</a></figcaption></figure>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:22px">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/（已废弃）说明：规则熔断使用指南__62939397/index.html">（已废弃）说明：规则熔断使用指南</a> <span class="status">已保存</span></li><li><a href="children/说明：监控＿熔断报出屏蔽期__1214650678/index.html">说明：监控/熔断报出屏蔽期</a> <span class="status">已保存</span></li></ul></section></main></body></html>

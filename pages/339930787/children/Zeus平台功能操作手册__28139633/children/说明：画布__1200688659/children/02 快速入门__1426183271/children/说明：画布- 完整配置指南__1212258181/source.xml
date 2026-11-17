@@ -1,0 +1,163 @@
+<km-doc>
+<km-title nodeId="ab15550ef50c4cdeb2cb84925d5a6afd">说明：画布- 完整配置指南</km-title>
+<km-catalog style="none" nodeId="515db33f0eed459d8d105b36450ecdb0" />
+<h3 align="start" nodeId="1bab253e138e41119f0fee57158b7ee3">一、背景</h3>
+<p align="start" nodeId="0ad19d776ec94983992813e13a511ceb">见画布背景</p>
+<h3 align="start" nodeId="dd12b417d24449b69e6efdd9e2faff8c">二、名词解释</h3>
+<p align="start" nodeId="64ebc7d10ce64dcfac9156fa7ca9c88b">画布：用户可以在画布中通过拖拽的方式自定义配置一条数据处理流，以多个数据源组件作为起始，以多个决策类组件作为终止。</p>
+<p align="start" nodeId="3765f32a28e04fb2a6840025543759ba">画布中的组件包括常规的流数据处理（join,groupby,distinct，数据拆分等）逻辑判断（if-else等），规则与自定义代码执行，决策（金丝雀告警，落kafka，丢弃等）。</p>
+<p align="start" nodeId="9a9d29bf844f494f92f2417c587d977c">当用户完成策略的配置之后，画布会自动生成一个flink任务用来执行用户所配置的逻辑。</p>
+<p nodeId="dfbf97bb102f438fb6030595fd49d1de" />
+<h3 align="start" nodeId="29107701c37f4467946551c2febf869a">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="a02ec796fb6b4867b25e1cec4eea8d9f">
+<tr nodeId="bac46b7ba25d46efa985ab9c2612c9e9">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="6e7ef758f1a64b3e894204618a533830">
+<p nodeId="17835c62f36a4dba904930b29b5b717e"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="86d0b47454c6435d9371ecc7698ee34f">
+<p nodeId="e9757345284c4207a85244b1d0ab2fd3"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="775805e2012b472886f275676c3d328e">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e3feddb06ed94011b53d745b19a56d66">
+<p nodeId="cc222ff435cd4b8c8f197719f8426593"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="0c2408e930164758a66d65bda87add4b"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="b81fdf7da77b4014875fffdfe2ccb19a"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="2c14d567a0cc4d64afff2e63492f6711">
+<li nodeId="098694c693344d28a4994002dc7aebd0"><span font-size="14">点击进入画布基本配置页，拖拽两个kafka组件到画布中上方，按照</span><a href="https://km.sankuai.com/page/1200718382" title="https://km.sankuai.com/page/1200718382" autoUpdate="true" nodeId="4f2ca30b3abd4b97b0eee933c77a4244"><span font-size="14">https://km.sankuai.com/page/1200718382</span></a><span font-size="14">先将两个数据源配置完毕</span></li>
+</ol>
+<p nodeId="2eab085e43be41c696e4bd82b26db44d" />
+<p nodeId="658902d372d640519c6823fbc8c3ffd7" />
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ca4b1bab6b294d349315a45680251d96">
+<p nodeId="61dc0ea61e1846d2bf606a9f1c2576b0" />
+<p nodeId="9885f656a4da45bb9dfc9ccacc8e724e"><img src="https://km.sankuai.com/api/file/cdn/1212258181/1268285928?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="266" nodeId="fefe398bd460438a8d770f75d21483cd" /></p>
+</td>
+</tr>
+<tr nodeId="2be19f0bd0c64ad1ae50ac1ea45c2590">
+<td colwidth="[485]" nodeId="b3b5a83a380b4236859646c6a8e080b4">
+<ol nodeId="4faaaf956296409d8472294cd5f80828">
+<li nodeId="e4b1c54ffdab4176bd1818d993c89359"><span font-size="14">针对kafka数据源1进行数据流处理</span></li>
+<li nodeId="7734832fcfd34c3dbe19a0c1c8488329"><span font-size="14">从左侧拖一个select组件到画布中，置于kafka数据源1下方</span></li>
+<li nodeId="a40e70fffb774ba7bcf9630f7852df80"><span font-size="14">点击kafka数据源1，组件下方会出现一个圆点，点击空白圆点进行拉线至select组件上方的空白圆点，将两个组件连起来</span></li>
+<li nodeId="9be2cef41929419abc75ec6eefd6d67d"><span font-size="14">根据</span><a href="https://km.sankuai.com/page/1200639384" title="https://km.sankuai.com/page/1200639384" autoUpdate="true" nodeId="949c28c0e8ba4419a1cb83907327b036"><span font-size="14">https://km.sankuai.com/page/1200639384</span></a><span font-size="14">按需配置select的逻辑</span></li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="88121e72e28b4875b6571fd294e095a1">
+<p nodeId="bed8799f39ff4d9682ab236c3f57f76a"><img src="https://km.sankuai.com/api/file/cdn/1212258181/1268422453?contentType=1" name="image.png" width="546" height="261" nodeId="84f3974721a24d37a701c0c9ecfc6e17" /></p>
+</td>
+</tr>
+<tr nodeId="38823dc6ec834d1fa61b1dea35bf79bb">
+<td colwidth="[485]" nodeId="c7d2119b9a6a46f4bc3d96a391ae43bd">
+<ol nodeId="74d46bdfbf4546da81110ed7fcc7c6fe">
+<li nodeId="d62a053203c74915a64e9675b5bfb1f9"><span font-size="14">从左侧拖一个代码组件到画布中，置于select组件下方</span></li>
+<li nodeId="73f73c131eeb4092bf17fbfaf67cdbfd"><span font-size="14">将select组件和代码组件连起来</span></li>
+<li nodeId="191215045c4d48fabb545db3987bc9c6"><span font-size="14">根据</span><a href="https://km.sankuai.com/page/1200639574" title="https://km.sankuai.com/page/1200639574" autoUpdate="true" nodeId="62bffed5ebab4ee2a2382ca260eba216"><span font-size="14">https://km.sankuai.com/page/1200639574</span></a><span font-size="14">按需配置代码组件的逻辑</span></li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="1700067574c741908f3e9ccddb807c74">
+<p nodeId="6a0a92cf369e49fd8e0cdb8882fce030"><img src="https://km.sankuai.com/api/file/cdn/1212258181/1268161626?contentType=1" name="image.png" width="546" height="280" nodeId="91d67ab6adeb42cfb524a35988e65827" /></p>
+</td>
+</tr>
+<tr nodeId="da42faf526844c3ba2eb18ea05fd8956">
+<td colwidth="[485]" nodeId="48c3047c96854c508867ccd49329c97b">
+<ol nodeId="d044fe34866b489c9f170dd5f701f8bb">
+<li nodeId="a94235de10a44e32bff3861a7045faf8"><span font-size="14">从左侧拖一个if...else组件到画布中，置于代码组件下方</span></li>
+<li nodeId="6b9220a41d8e43e5ac077cde86befc3c"><span font-size="14">将代码组件和if...else组件连起来</span></li>
+<li nodeId="7422e957742e42998b77faaf0c8d3a71"><span font-size="14">根据</span><a href="https://km.sankuai.com/page/1200679482" title="https://km.sankuai.com/page/1200679482" autoUpdate="true" nodeId="2ca03e81d76840ad80602b26891faede"><span font-size="14">https://km.sankuai.com/page/1200679482</span></a><span font-size="14">按需配置if...else组件的逻辑</span></li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="3d15775e1c2142f98f1015e01f2b0fd6">
+<p nodeId="b8b830f3e9464829b897a3d7fcaa5f58"><img src="https://km.sankuai.com/api/file/cdn/1212258181/1268288417?contentType=1" name="image.png" width="546" height="265" nodeId="bfa63a497a0f4479877d27fb5f529fa6" /></p>
+</td>
+</tr>
+<tr nodeId="332e1e2c2ecf4cc7a729410b88943537">
+<td colwidth="[485]" nodeId="806a0e64862540f495452cc5298607d9">
+<ol nodeId="dfb00a370b774fda8c93a9d2cd1dfd31">
+<li nodeId="d2592053b9ff47589a6c06ac9e9da8be"><span font-size="14">因为if...else组件为判断组件，会有两个结果，因此连在后面的会有两个组件</span></li>
+<li nodeId="092ba001ae954cc9b56414b8712effaa"><span font-size="14">假设按照此画布逻辑，不满足测试条件的会旁路输出，满足条件的会与kafka数据源2的处理结果汇总之后再进行处理</span></li>
+<li nodeId="4be75c9b673848c6b336c94e392843d6"><span font-size="14">从左侧拖一个旁路输出组件至于if...else组件左下方，</span></li>
+<li nodeId="b76997c890e34c53951514ea682ed15a"><span font-size="14">用左边的连线将if...else组件和旁路输出组件连起来</span></li>
+<li nodeId="0eceb589ff2749dbbe02ce4937482666"><span font-size="14">点击左边的连线，可以选择逻辑是true还是false的进入旁路输出</span></li>
+<li nodeId="103429d465294c33ab7fc8e987428fe8"><span font-size="14">根据</span><a href="https://km.sankuai.com/page/1200679482" title="https://km.sankuai.com/page/1200679482" autoUpdate="true" nodeId="dafb88b5ac324c7787f723f8493608d2"><span font-size="14">https://km.sankuai.com/page/1200679482</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/1200659710" title="https://km.sankuai.com/page/1200659710" autoUpdate="true" nodeId="5354eac0c41741b688418081a16df6f0"><span font-size="14">https://km.sankuai.com/page/1200659710</span></a><span font-size="14">按需配置</span></li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="ee7943824d5640cc95b82b0f61170eeb">
+<p nodeId="0ef61e40c02642e09bdee9e3a642e006"><img src="https://km.sankuai.com/api/file/cdn/1212258181/1268422485?contentType=1" name="image.png" width="546" height="264" nodeId="85455f4742ad4579877e0e8d4ed03592" /></p>
+</td>
+</tr>
+<tr nodeId="64d6414b6f34455ca21ac7b25df57dfd">
+<td colwidth="[485]" nodeId="3fc81c0e43904fe0b7e8b37e49077147">
+<ol nodeId="8971589f67214e18aa5f64dcddb20c10">
+<li nodeId="7efd153ac1df4b4f995855b303f18539"><span font-size="14">处理kakfa数据源2</span></li>
+<li nodeId="5c08eada7e454383a2aad7e1a83129dc"><span font-size="14">从左侧拖一个Distinct组件到画布中，置于kakfa数据源2组件下方</span></li>
+<li nodeId="7c21f847714e4985bb21a3dfde6339f9"><span font-size="14">将kakfa数据源2组件和Distinct组件连起来</span></li>
+<li nodeId="69fa1fb0a27a4b6b9b3c85979d34b64f"><span font-size="14">根据</span><a href="https://km.sankuai.com/page/1200649532" title="https://km.sankuai.com/page/1200649532" autoUpdate="true" nodeId="3e2f658bc43140a58302ac262feed7f9"><span font-size="14">https://km.sankuai.com/page/1200649532</span></a><span font-size="14">按需配置Distinct组件的逻辑</span></li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="5fda2d1d239e4e7eb5aa2bceeafdb17a">
+<p nodeId="440d87e000a847bbadcd1d40d43020d3"><img src="https://km.sankuai.com/api/file/cdn/1212258181/1268257229?contentType=1" name="image.png" width="546" height="266" nodeId="f9be0c9f76fd427abde062e59d8ee1ee" /></p>
+</td>
+</tr>
+<tr nodeId="5a47a05510b347ebb9c0b1a6aa73f1af">
+<td colwidth="[485]" nodeId="1e1923f7e7ef48a4a2d9485c0c3f7ccd">
+<ol nodeId="98de151775034ab78df2e31955114f7a">
+<li nodeId="7c658788a032455385805b67a3f31704"><span font-size="14">处理完kakfa数据源2后，需要将处理完的Kafka数据源1和kafka数据源2进行汇总</span></li>
+<li nodeId="f6e0a4ab81454f6caeac2de8ad0e90ab"><span font-size="14">从左侧拖一个Union组件到画布中，置于if...else组件和Distinct组件下方</span></li>
+<li nodeId="fb3e4880933a4f419dc5fb7b1c6f8c23"><span font-size="14">将if...else组件右边的线连到Union组件的左上方，Distinct组件的线连到Union组件的右上方，即完成两个数据流的汇合</span></li>
+<li nodeId="835d6a1022f94a7d966c1a4dec3cb9d8"><span font-size="14">参考</span><a href="https://km.sankuai.com/page/1200639529" title="https://km.sankuai.com/page/1200639529" autoUpdate="true" nodeId="058b9787f2724a1dbfce5aec0a675820"><span font-size="14">https://km.sankuai.com/page/1200639529</span></a><span font-size="14">使用说明</span></li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="3b183a80d2d0407594c8ea497ba27995">
+<p nodeId="7dc5db20a4cb45ca8f2bef632986fbdb"><img src="https://km.sankuai.com/api/file/cdn/1212258181/1268159808?contentType=1" name="image.png" width="546" height="262" nodeId="f8f24405d72c4a67995c803ff948318d" /></p>
+</td>
+</tr>
+<tr nodeId="4fe23637b39b446884ef26b4338dcb3f">
+<td colwidth="[485]" nodeId="0e317703e9eb4de8b3e41f2e6c2390a3">
+<ol nodeId="b1e6090db6494a1c871e1e528d46fd4d">
+<li nodeId="246480fc7a4941e1b40a6a8111937e3e"><span font-size="14">对汇总后的数据流进行后续的数据加工</span></li>
+<li nodeId="a6a5338572554cde99239ffe0c03c66f"><span font-size="14">假设需要过zeus上的规则集合</span></li>
+<li nodeId="88ff83874a744b528c0f23fe49e476dd"><span font-size="14">从左侧拖一个规则集合组件到画布中，置于Union组件下方</span></li>
+<li nodeId="551c7c963a1c454bad95061d29aa3d53"><span font-size="14">将Union组件和规则集合组件连起来</span></li>
+<li nodeId="ad4085ebc01440d6b8eb196ddfc0c229"><span font-size="14">参考</span><a href="https://km.sankuai.com/page/1200669387" title="https://km.sankuai.com/page/1200669387" autoUpdate="true" nodeId="e59c9f54647649038b14c01f31209ad9"><span font-size="14">https://km.sankuai.com/page/1200669387</span></a><span font-size="14">按需配置规则集合</span></li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="9a1c4f40d35c44cfaafcddfb2490b1ff">
+<p nodeId="cf80b082dcd04e5388c0668324c5aea3"><img src="https://km.sankuai.com/api/file/cdn/1212258181/1268422493?contentType=1" name="image.png" width="546" height="265" nodeId="b1b64826f01c499aa9c2c62e22ef3c20" /></p>
+</td>
+</tr>
+<tr nodeId="8e2edf44788e46a68bcc0545962dd2c6">
+<td colwidth="[485]" nodeId="29c5c518dc0f49cb99e1c0bf512dd273">
+<ol nodeId="6b4872f02a514cdea7226327026e5e35">
+<li nodeId="552e864113b44a1b9c70dec501fe6856"><span font-size="14">假设需要对过完规则集合的数据流进行规则结果判断</span></li>
+<li nodeId="17c6d4b9c15946458910991650414441"><span font-size="14">从左侧拖一个if...else组件到画布中，置于规则集合组件下方</span></li>
+<li nodeId="e97604d2061b443ca25fe994b2df66ee"><span font-size="14">将规则集合组件和if...else组件连起来</span></li>
+<li nodeId="0a71f76d6bb64607a0923c2f5e994f98"><span font-size="14">根据</span><a href="https://km.sankuai.com/page/1200679482" title="https://km.sankuai.com/page/1200679482" autoUpdate="true" nodeId="873957e67ac7422bae8786123736b345"><span font-size="14">https://km.sankuai.com/page/1200679482</span></a><span font-size="14">按需配置if...else组件的逻辑</span></li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="7bcf1f154eb64a7bbf3340244a08c207">
+<p nodeId="e58812ad6059400b9dc1176328677b8c"><img src="https://km.sankuai.com/api/file/cdn/1212258181/1268425060?contentType=1" name="image.png" width="546" height="268" nodeId="7565b2ed31eb4df8af8447e75c92e751" /></p>
+</td>
+</tr>
+<tr nodeId="4f19145e94ad46cc97dc271753fccd94">
+<td colwidth="[485]" nodeId="477d9c80619f49c3b528f61933addb6f">
+<ol nodeId="78d2f8a4f3de4c4b88d66a2fd51b3d75">
+<li nodeId="9f0cde1e76914af08e2e9069a0f672ea"><span font-size="14">假设按照此画布逻辑，规则结果为true的会进行决策告警，规则结果为false的会丢弃</span></li>
+<li nodeId="44603f190d76411ea11f51cb7e6a611c"><span font-size="14">从左侧拖一个决策输出组件和丢弃组件至于if...else组件左下方，</span></li>
+<li nodeId="3c894bf9298343f6bb0df0e8ddb63407"><span font-size="14">用左边的连线将if...else组件和决策信息组件连起来，用右边的连线将if...else组件和丢弃组件连起来</span></li>
+<li nodeId="be8d4818c0ce4e8db896a3156ce9184a"><span font-size="14">同样可以在连线上进行true or false的修改</span></li>
+<li nodeId="27c388a292bf4a1f9a9c87d78e93a311"><span font-size="14">根据</span><a href="https://km.sankuai.com/page/1200629952" title="https://km.sankuai.com/page/1200629952" autoUpdate="true" nodeId="0c0ab115ce764817b9358c6aa56713fd"><span font-size="14">https://km.sankuai.com/page/1200629952</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/1200763174" title="https://km.sankuai.com/page/1200763174" autoUpdate="true" nodeId="98ca31897f9c42098b6b73a54854cb39"><span font-size="14">https://km.sankuai.com/page/1200763174</span></a><span font-size="14">按需配置</span></li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="369061d787d646ebb02f78e899f5e661">
+<p nodeId="2ea9966f2a1e4e559571c495af575bbd"><img src="https://km.sankuai.com/api/file/cdn/1212258181/1268288475?contentType=1" name="image.png" width="546" height="265" nodeId="a99938d519b84b9e9b3a4761e668d732" /></p>
+</td>
+</tr>
+</table>
+<h3 align="start" nodeId="32974f3ab2ae4b028ba1324d94e39630">四、FAQ</h3>
+<p nodeId="f63d3d3087c64090967d65beca620a41">配置录屏：</p>
+<p nodeId="b1da32b7a5de471fb106c174f69e66a0" />
+<km-video src="https://km.sankuai.com/api/file/cdn/1212258181/1502766047?contentType=1" name="我的影片.mp4" size="209.05MB" width="0" height="0" nodeId="6e821d331d6f4181a2fb5177f3b3d546" />
+<p nodeId="e22a42608dc344269a0271650e4fa8f9"><br /></p>
+<p nodeId="58f56bfa13814f379a50f280b62fad49" />
+</km-doc>

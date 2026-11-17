@@ -1,0 +1,130 @@
+<km-doc>
+<km-title nodeId="6609b77e5e37476796c4a5ff22e0d02a">说明：画布拨测</km-title>
+<km-catalog style="none" nodeId="e63c74ae3f9a4c22b1a740959810ecf2" />
+<h1 nodeId="b6c5c1f1fd2e40349fa220f66809757a">一、背景</h1>
+<p nodeId="8e9ee236bfeb42b7897ea1b82c95e5fe">在部分安全领域，基于全量数据进行异常行为，当规则命中率或决策命中率比例较低时，无法直接通过线上的命中数据确定策略部署是否正常。需要通过模拟数据命中量统计的方式保障生产策略正常运行。即旁路拨测建设</p>
+<p nodeId="36439d12558b4b60a9fa9587fb0aa17b">在基础安全类的对抗场景，拨测逻辑应用较多，本次支持画布布控策略的逻辑拨测。即支持画布输出决策-决策附加信息、旁路输出逻辑的拨测。</p>
+<h1 nodeId="7b9df73e6e14458da6d942e925266de1">二、名称解释</h1>
+<p nodeId="f7bc05d50f804d07b1679ed6f17424cd"><span color="rgb(170, 170, 170)">拨测：用户自定义流量调用场景规则/画布获取决策，判断结果是否满足用户诉求的任务配置，确保线上环境作业的有效性</span><br /><span color="rgb(170, 170, 170)">半链路拨测：用户可针对画布决策选择kafka topic数据源进行拨测，只能监测从Zeus处理到金丝雀告警的后半段数据的处理情况</span></p>
+<h1 nodeId="ddf58e5f4cb44febaf7cdefef4259a6a">三、操作指南</h1>
+<h2 nodeId="19a502f6ac334b6bb86a7d0420271403">3.1 用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1686793193/39540733306?contentType=0&amp;isNewContent=false" width="1176" height="289" nodeId="8fe807c7f31c4be99b67c556e7a69b64" />
+<h2 nodeId="aff8cf08d2d14befa40e0a66d64ca783">3.2 具体页面操作说明</h2>
+<p nodeId="53a6199dc6bd41d5a7dc4213cef26ef0">【入口1】</p>
+<table responsive="false" nodeId="a3e03716292d4bfbbb28e49a20423cdc">
+<tr nodeId="352a1be9b835487291ebba47f6e4e5b8">
+<th colwidth="[290]" nodeId="0d567da6a27b4fd4ac646b903ec2bf44">
+<p nodeId="8b7d78307fa84218b6f512307deec79d">说明</p>
+</th>
+<th colwidth="[950]" nodeId="6c5eeaf5e7c6407d899a4eeddb9941fb">
+<p nodeId="0e6932bab6684c1e816aa2b477050433">页面</p>
+</th>
+</tr>
+<tr nodeId="ed0e14d0be654ef18cdd41e1f5e7c6e4">
+<td colwidth="[290]" nodeId="bc0aa076d88a4fc6b148baf33fcf921d">
+<p nodeId="f8b3f54696cf40dd9ea2eaf35ef97839">安全管理--&gt;拨测管理</p>
+<ol nodeId="a377d890a5f043bda932afb82640ad80">
+<li nodeId="7fc97556380846bfac6831de5ffba52b">在拨测管理列表页面，支持删除拨测任务，下线拨测任务</li>
+<li nodeId="3747c2d826c24245b5f7e134189b6722">拨测任务的删除需要现将拨测任务下线</li>
+</ol>
+</td>
+<td colwidth="[950]" nodeId="11dbc55ca14b4877b23e7161e0e59a7b">
+<p nodeId="88fee3803c2f4960a4e08e9b11022b74"><img src="https://km.sankuai.com/api/file/cdn/1686793193/39609082324?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="520.61" nodeId="bf33c8c92f8a41ad9bacc69e8e74daab" /></p>
+</td>
+</tr>
+<tr nodeId="809b7f4042d140a3a3174f905405bb65">
+<td colwidth="[290]" nodeId="f1a456df3f4c4f5fb944dbce2c55e391">
+<p nodeId="f63052a9391d41518c8b7e071426c448">【配置拨测】</p>
+<ol nodeId="7b462681c26c480d9644cba4bf665a90">
+<li nodeId="37d39ccbfa0541dc8bdcf008eee3ae9d">当前仅支持半链路拨测</li>
+<li nodeId="9961d4b7a7d14157b7acaa29089e8131">
+<p nodeId="75233e115d7a4e8792297fdaad6c5e26">支持对数据源作业（数据映射--&gt;场景--&gt;规则）和画布两种对象的拨测</p>
+<p nodeId="e8b8e08e290e40b093f99651665f7360">**注：规则在画布中的拨测，是画布拨测范围；规则在场景中的拨测是规则拨测范围。后续规则拨测随着数据源作业迁移下线将逐步下线</p>
+</li>
+<li nodeId="323d46ba894340d0a6bbfb620fed6c3e">画布：支持模糊搜索已经生效的画布，非生效画布因逻辑尚未明确，无法配置拨测</li>
+<li nodeId="9affa8cc55e84a11a60eb73bcd99f491">画布拨测支持对画布输出的决策-决策附加信息/旁路输出-topic进行拨测</li>
+<li nodeId="8e97d6f852c34a6fa61bd1118738f80c">默认超时时间为1800秒，可进行修改</li>
+<li nodeId="22838fe5b31c476993008007a0205adc">拨测数据-信息，输入改组数据标题，将在拨测告警中、仿真测试中便于提示用户</li>
+<li nodeId="a837e5bdbcfa4be6a317e4dd5cde0140">具体MQ对应的日志类型与画布、schema中的类型一致。content信息为字符串信息</li>
+</ol>
+</td>
+<td colwidth="[950]" nodeId="a11fb365415d4131805df82b3f8b9e78">
+<p nodeId="34dce9d90cf14f8f8dbe1d7750a9d5ae"><img src="https://km.sankuai.com/api/file/cdn/1686793193/39609550961?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1193" height="600" nodeId="d5d6b9d459574d1c8da701e4701fee57" /></p>
+<p nodeId="a68c3aa71e014399b21a2297ee2ae6fe"><img src="https://km.sankuai.com/api/file/cdn/1686793193/39611859518?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1283.86" height="600" nodeId="3e39ddc187fd4b11a9a145ab97b22aca" /></p>
+<ul nodeId="66d4ac6e27f54889905813fa2aca0196">
+<li nodeId="8c1a9f53c49846b08f521d870d24e69a">窗口逻辑拨测配置</li>
+</ul>
+<p nodeId="f83ccbd7946d495aa3df0fcdfaf15d8c"><img src="https://km.sankuai.com/api/file/cdn/1686793193/63974607618?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1153.38" height="600" nodeId="45835c8fff804eb6902b2ee6523c1bd1" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="5b34dbbce0e444f3a306bea716329f8d">入口2</p>
+<table responsive="false" nodeId="be2a2c3cd0934011a3e45b3e61f762b9">
+<tr nodeId="caa6d819ecd7427697fbe778c047ba51">
+<th colwidth="[252]" nodeId="f1198a1fb16c4f6c8ac2e8ede883665b">
+<p nodeId="d8fd586f3ffa4a098e72abdb34f56500">说明</p>
+</th>
+<th colwidth="[950]" nodeId="034f8a067eb74e0fa9877b6fa142300f">
+<p nodeId="3b0b4ec9a2da46e595a5951c696ab43b">页面</p>
+</th>
+<th colwidth="[68]" nodeId="42cb84546da546f8b1b3ecd22274cb80">
+<p nodeId="bd267b2b07424b8eaab69bcfe770c2d4" />
+</th>
+</tr>
+<tr nodeId="b4878517de1148f3b6b2e470b9424674">
+<td colwidth="[252]" nodeId="38eb52a4c3904d999ae130975a491bfa">
+<p nodeId="6bd991f809bc4418924a5f76951363a1">画布详情--&gt;配置拨测</p>
+</td>
+<td colwidth="[950]" nodeId="5d1b06b47ca74ed78b38176f7d688bd2">
+<p nodeId="615c0fc740b64712bf249240652fd0dc"><img src="https://km.sankuai.com/api/file/cdn/1686793193/39609010815?contentType=1" name="image.jpeg" width="1399" height="336" nodeId="79cf1a3e514a4d829b50f7f1df5b79c0" /></p>
+</td>
+<td colwidth="[68]" nodeId="0e51871ed71243b2989303a74d0224ca">
+<p nodeId="80792b6d34374605beacf3f21ae5d700" />
+</td>
+</tr>
+<tr nodeId="bc04fa4f6e9049ddbbbdd10d8b67db0c">
+<td colwidth="[252]" nodeId="f4ce548854284860aca39aa04c9ef264">
+<p nodeId="6e912f999ec8486eb8595737356a2ed2">【配置拨测】</p>
+<ol nodeId="f089159a8cf7471a98ce46fba277dbd6">
+<li nodeId="5e4303707c2c4122bfe46901654c15e9">添加拨测任务，需要用户选择针对什么逻辑进行拨测配置，可支持选择决策/旁路数据</li>
+<li nodeId="a57f05fe563f40499808bb30876d4e1b">唤起拨测的编辑/添加页面，若该逻辑历史上未配置过拨测，则是添加页面；若该逻辑历史上配置过拨测，则是编辑页面</li>
+<li nodeId="5cd981fc6a6942d99333dc5c5ad4162a">拨测的编辑页面，仅支持超时时间、状态和拨测数据的修改，其他信息不支持修改</li>
+</ol>
+</td>
+<td colwidth="[950]" nodeId="62b425006b0241c3b166285e3f39dccf">
+<p nodeId="f53e6ea925004574bfceb3069175f650"><img src="https://km.sankuai.com/api/file/cdn/1686793193/39618423820?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1376.64" height="600" nodeId="e3802764bfab4367843413b5a8ab676b" /></p>
+<p nodeId="48ea1a1fe3d04ba1bc04c11efbcc10e4"><img src="https://km.sankuai.com/api/file/cdn/1686793193/39616841417?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1140.13" height="600" nodeId="8d691f1f948a4948b40db600dd4f2f5a" /></p>
+</td>
+<td colwidth="[68]" nodeId="134dec324f724b4ebaa58bbe409369de">
+<p nodeId="5076a51d447e470b9a7fdb89d20068fd"><img src="https://km.sankuai.com/api/file/cdn/1686793193/39609010815?contentType=1" name="image.jpeg" width="1399" height="336" nodeId="823622722f3e4daaa944e1af7143d71c" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="bd7998f717b94b6b8b8451f202668858">3.3 涉及窗口类拨测content配置说明</h2>
+<p nodeId="578ca306609b421cbd97f1d353c4f6c1">--待补充--</p>
+<h2 nodeId="018766236d114bf98ee9e46a47bbb242">3.4 拨测告警</h2>
+<ul nodeId="e0cb5d038903496ab4742382c229e522">
+<li nodeId="bc42943ac63f4323b2422531bd6bb0d6">单次异常告警</li>
+</ul>
+<km-note type="info" hiddenTitle="true" nodeId="d0ac4da68ff94fe4aa2db71f2827802c">
+<km-title>告警模板</km-title>
+<km-content>
+<p nodeId="7811775617e243a7932c16660d7e76a9">近线引擎拨测告警: running拨测结果和预期不符。过去半个小时钟内，拨测设置:<span color="rgba(0, 0, 0, 0.35)">画布名称 -拨测任务名称-数据信息</span> 不符合预期的结果或者结果接收超时： 符合预期拨测个数<span color="rgb(170, 170, 170)">:0</span>，不符合预期拨测个数:<span color="rgb(170, 170, 170)">2</span>。 [拨测设置|<a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_inspect_setting_by_name?name=autotest_rasp_8186_RASP_Base64%E7%BC%96%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C]" title="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_inspect_setting_by_name?name=autotest_rasp_8186_RASP_Base64%E7%BC%96%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C]" nodeId="d4c6511129db4d6ba573a2672120973b">https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_inspect_setting_by_name?name=autotest_rasp_8186_RASP_Base64%E7%BC%96%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C]</a>。[最近的不符合预期的拨测详情|<a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_attempt?inspectId=20220720110432-b559608b-9d3a-4f3e-a0c0-2556a52bbe3c]" title="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_attempt?inspectId=20220720110432-b559608b-9d3a-4f3e-a0c0-2556a52bbe3c]" nodeId="51c2be148d9c4337b8b4a5e7f9f49f1e">https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_attempt?inspectId=20220720110432-b559608b-9d3a-4f3e-a0c0-2556a52bbe3c]</a>。 报警关注人zhanghaoyi02,yucongxiang (已聚合报警)</p>
+<p nodeId="0bfb812d6ae64b44bbf7cc1e72ed8205"><span color="rgba(0, 0, 0, 0.84)">快速解决：[</span><span color="rgb(10, 112, 245)">静默24小时</span>]<span color="rgba(0, 0, 0, 0.84)">[</span><span color="rgb(10, 112, 245)">静默6小时</span>]<span color="rgba(0, 0, 0, 0.84)">[</span><span color="rgb(10, 112, 245)">静默1小时</span>]</p>
+<p nodeId="d1b973be75a54999908733be52c36969" />
+</km-content>
+</km-note>
+<ul nodeId="f0f0f3bff9ad46b59a591d82c09fccbe">
+<li nodeId="790cd3f47a134e7fbab3ff7d25e18715">按日统计告警（每天下午4点 统计24小时内的拨测情况）</li>
+</ul>
+<km-note type="info" hiddenTitle="true" nodeId="b8de402de2124d969654fc2cc2ab7633">
+<km-title></km-title>
+<km-content>
+<p nodeId="4e7cb68ec0c74aaa9b8e50118f11cc5b"><span color="rgba(0, 0, 0, 0.87)">标签dbaudit的数据源 拨测本日（昨日16:00至今天16:00）生效拨测成功率为NaN,拨测总数为0。详情参考产品线下各个拨测设置成功率【</span><a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_statistic?productLine=dbaudit&amp;fromTime=2022-07-18%2016:00&amp;toTime=2022-07-19%2016:00" title="统计情况" nodeId="a43d4883d6ff43b9b5534f3ad8356b65">统计情况</a><span color="rgba(0, 0, 0, 0.87)">】。</span></p>
+<p nodeId="ff6e8db6745445fdb5e5972099bdc28f"><span color="rgba(0, 0, 0, 0.87)">标签dbaudit的画布 拨测本日（昨日16:00至今天16:00）生效拨测成功率为NaN,拨测总数为0。详情参考产品线下各个拨测设置成功率【</span><a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_statistic?productLine=dbaudit&amp;fromTime=2022-07-18%2016:00&amp;toTime=2022-07-19%2016:00" title="统计情况" nodeId="ab7d0ee1080d46309f6ba4d0b497989b">统计情况</a><span color="rgba(0, 0, 0, 0.87)">】。</span><br /><span color="rgba(0, 0, 0, 0.87)">标签dns的 数据源 拨测本日（昨日16:00至今天16:00）生效拨测成功率为99.96%,拨测总数为2381。详情参考产品线下各个拨测设置成功率【</span><a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_statistic?productLine=dns&amp;fromTime=2022-07-18%2016:00&amp;toTime=2022-07-19%2016:00" title="统计情况" nodeId="5d413e0a98ea454db1c77d74280140a7">统计情况</a><span color="rgba(0, 0, 0, 0.87)">】。</span><br /><span color="rgba(0, 0, 0, 0.87)">标签dns的 画布拨测本日（昨日16:00至今天16:00）生效拨测成功率为99.96%,拨测总数为2381。详情参考产品线下各个拨测设置成功率【</span><a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_statistic?productLine=dns&amp;fromTime=2022-07-18%2016:00&amp;toTime=2022-07-19%2016:00" title="统计情况" nodeId="008925ca27e34d10a680b01da855674e">统计情况</a><span color="rgba(0, 0, 0, 0.87)">】。</span></p>
+</km-content>
+</km-note>
+<p nodeId="1b2b068211e7490aa5f3e10a3d78981d" />
+<h1 nodeId="4f1e0703231f48f298b2a55632706bed">四、FAQ</h1>
+<p nodeId="92bba43eb51a4ddab873ce4387216a1a">--待补充--</p>
+</km-doc>

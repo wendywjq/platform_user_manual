@@ -1,0 +1,1393 @@
+<km-doc>
+<km-title nodeId="af00366882ee4e23827b2c582f2a43ae">说明：规则熔断</km-title>
+<km-catalog style="none" nodeId="946a51b1e8e9404fbb1066deeb0eff9a" />
+<p nodeId="6a13796b8fcc484a90e265cd23eaebb4">功能地址：<a href="https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList" title="https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList" nodeId="a269b8779dd04055a539c3768a59f7e9">https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList</a><br /><span color="rgb(245, 35, 45)">注：使用规则熔断功能前，请务必保证已经阅读 【3.4特殊说明】，以避免出现熔断效果不符合预期的情况。</span></p>
+<km-note type="warning" nodeId="fc03a541956c49ad91eab915e6e85b06">
+<km-title>使用【自动熔断】必看！</km-title>
+<km-content>
+<ol nodeId="5f8a958b18714334bb07796949b4e5f7">
+<li nodeId="cb356eda9dda4f4e8d3781d8552cb3ba">
+<p nodeId="cfa849b62aff4cca86a74bb5eb67cb7c">使用自动熔断前，请先找到组织架构对应的SRE同学帮忙根据<a href="https://km.sankuai.com/page/1279838989" title="https://km.sankuai.com/page/1279838989" autoUpdate="true" nodeId="0f94f82ace3e4f989a83721b275913db">https://km.sankuai.com/page/1279838989</a><strong>配置电话通知</strong>，否则电话通知将不可生效！</p>
+<ol nodeId="338b411b4ba64ef8b86f892273cc10fb">
+<li nodeId="5b1a0d1fe9b3456fb30e54c7c9ceb626">告警电话呼出号码可能被手机识别成骚扰电话。建议将以下号码加白或加入通讯录：051480311605、051480311606、051485590912、051485590914、02151657926、02151657936、02151657940、02151657942</li>
+<li nodeId="380d725fa5a349dab67aaf49689e098c">
+<p nodeId="739b55a611574b7a82f3aea26f8bb5a1">当前平台已默认配置以下通知策略</p>
+<km-collapse active="false" nodeId="91a1b92058bf4c8dbe9b8c7ccccf6074">
+<km-title>平台已有通知策略，若以下升级策略不符合本组织架构诉求，可联系组织架构对应SRE同学帮忙配置。</km-title>
+<km-content>
+<p nodeId="41f321c2738c4e4ca58e5ded44fb5730">1）“美团/基础研发平台/信息安全部/风控和业务安全”架构下，需要事件在开始2分钟之后没有人响应的话，电话告警事件发起人，期间仍未响应，电话将连续打5次；再20分钟之后仍无人响应的话再次电话告警事件发起人X1，并拉事件发起人X1入群。</p>
+<p nodeId="dd6f040aeb0740fda7238a15f1024dae">2）“美团/基础研发平台/信息安全部/风控和业务安全/点评风控”架构下，需要事件在开始2分钟之后没有人响应的话，电话告警事件发起人，期间仍未响应，电话将连续打5次；再20分钟之后仍无人响应的话再次电话告警事件发起人X1，并拉事件发起人X1入群<span color="rgba(0, 0, 0, 0.87)">；</span>再30分钟后仍无人响应时，电话告警丁思远dingsiyuan 于陈群yuchenqun 林睿linrui06，并拉入群。</p>
+</km-content>
+</km-collapse>
+</li>
+</ol>
+</li>
+<li nodeId="3b84879ec88a4026ae2ff8acd6b4a870">自动熔断告警时，告警将逐级升级。请务必在处理ZeusRobot通知的<strong>同时处理Radar事件</strong>，否则告警仍将持续升级！！<br />处理方式Radar方式：点击开始处理--&gt;@radar处理完成<br /><img src="https://km.sankuai.com/api/file/cdn/1091686902/53662518196?contentType=1" name="image.jpeg" width="203" height="203" nodeId="acbe10e39d7f4c1ca82f8de74de67a6c" /><img src="https://km.sankuai.com/api/file/cdn/1091686902/59114459664?contentType=1&amp;isNewContent=false" name="image.jpeg" width="250" height="99" nodeId="942108864239439fbac194b22ab21bf3" /></li>
+</ol>
+</km-content>
+</km-note>
+<h1 nodeId="ee0a9d5ffa93498e95ab87b383e3ac0f">一、背景</h1>
+<p nodeId="53ff3cede5534086871c5636945b9966">当规则命中情况产生异常，达到预设的熔断阈值时，将规则状态由人工或系统进行生效转标记的降级，以此规避风险</p>
+<h1 nodeId="51d4f3e632204b34863ab3f605382a07">二、名词解释</h1>
+<table responsive="false" nodeId="fb5012bb29c6463ab1804d9178cbb182">
+<tr nodeId="4124db14f8a3452e8983451ce7d6d0e7">
+<th colwidth="[102]" nodeId="3ac58bd3fe604e458e6dd9616f87d44c">
+<p nodeId="7ef9977c28094494b457b0e4b71390c2"><span font-size="14">名词</span></p>
+</th>
+<th colwidth="[780]" nodeId="65d3035557a2477eab23e9e68ac91069">
+<p nodeId="0a61d7879ef64d85bcf18c5dc82ea6c7"><span font-size="14">解释</span></p>
+</th>
+</tr>
+<tr nodeId="bd14da915e3c4315a55766990c8adb50">
+<td colwidth="[102]" nodeId="9689459bca344aa293a045f816fbbf4d">
+<p nodeId="2e8f1b63d9c741658d79381904cceb00"><span font-size="14">单点熔断</span></p>
+</td>
+<td colwidth="[780]" nodeId="85ea7720e0ef4efdb9c25cfcb3e13f75">
+<p nodeId="7d5e9e1b08284b1d8caf2da013f9ff3e"><span font-size="14">实时链路中，针对【场景-规则-决策】进行的监控，触达阈值熔断的对象为场景中的规则配置，从【生效】转为【标记】。</span></p>
+</td>
+</tr>
+<tr nodeId="8def4dc8c413405b8893c260d986ea94">
+<td colwidth="[102]" nodeId="0b3c7876a84c4be28f50119f18028242">
+<p nodeId="c67ac776da2c4b22895a57a5c86f6486"><span font-size="14">画布熔断</span></p>
+</td>
+<td colwidth="[780]" nodeId="c427eebf60bb4b60b709c00fb0cee874">
+<p nodeId="8120773f73e54946be72e83e1a1cb640"><span font-size="14">近线画布中，针对【画布-组件-（规则）】进行的监控，触达阈值熔断的对象为画布中的组件，或组件中的一条规则，从【正常执行】转为【阻断执行】。</span></p>
+<p nodeId="f25ab6b5e4a64aee99d542bf6681e63a"><a href="https://km.sankuai.com/collabpage/1354627337" title="https://km.sankuai.com/collabpage/1354627337" autoUpdate="true" nodeId="3117e813f76a4c5d8b970381769ea9b5"><span font-size="14">https://km.sankuai.com/collabpage/1354627337</span></a></p>
+</td>
+</tr>
+<tr nodeId="f418f9f57a134ffa88fa24665d233afb">
+<td colwidth="[102]" nodeId="db58e497e6ec442e95f07105484e7a12">
+<p nodeId="476fcc7286d14f3093947255fb4e75ca"><span font-size="14">任务熔断</span></p>
+</td>
+<td colwidth="[780]" nodeId="d906becf5b014887bc0650f2fc3e4d4e">
+<p nodeId="615a5b2fa54f46e1bee5a27210a829f0"><span font-size="14">离线任务重，针对【离线任务-（规则）-决策】进行的监控，触达阈值熔断的对象为离线任务的规则/决策，从【正常下发】转为【阻断下发】，默认为自动熔断</span><a href="https://km.sankuai.com/collabpage/2157764712" title="https://km.sankuai.com/collabpage/2157764712" autoUpdate="true" nodeId="247754526aea4364a7204c15e57ed92b"><span font-size="14">https://km.sankuai.com/collabpage/2157764712</span></a></p>
+</td>
+</tr>
+<tr nodeId="ae4c2840b54b48b7b492cecb0861c41a">
+<td colwidth="[102]" nodeId="fc00d219f0d5466eb4c027ddcd3bac1a">
+<p nodeId="d92bbb75d77146b8a73279f67a0b754f"><span font-size="14">人工熔断</span></p>
+</td>
+<td colwidth="[780]" nodeId="a64d713ab33844739295d35600cd49db">
+<p nodeId="81a7c9fec10f482885fbab5632214a4d"><span font-size="14">满足熔断规则阈值后，通知到负责人。由人工判断，点击「一键熔断」执行规则转标记动作。</span></p>
+</td>
+</tr>
+<tr nodeId="14fdbe1ade664c27b39247ba41950afc">
+<td colwidth="[102]" nodeId="b80693eb577341b89d39d2ac789ae799">
+<p nodeId="d75d9a7dd376446590d9a87a3e5f79af"><span font-size="14">自动熔断</span></p>
+</td>
+<td colwidth="[780]" nodeId="ed529db6ea444874823926efb6b31c77">
+<p nodeId="c082f9e1274f4cc08454ffd838809ba2"><span font-size="14">满足熔断规则阈值后，直接将监控对象熔断（生效规则转标记/画布组件变熔断态/分层场景规则变熔断态），同时通知到负责人。</span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="08133eda1c6145dc9d57bac9e09ae951">三、操作指南</h1>
+<h2 nodeId="d4ccb96bcb5f42048ed17503c8acbba5">3.1 用户流程</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1091686902/53620772509?contentType=0&amp;isNewContent=false" width="1196" height="356" nodeId="7d44f7395edf4c6690d219784248ee35" />
+<h2 nodeId="ef14ad69842f476499c04468e327f00b">3.2 操作说明</h2>
+<p align="start" nodeId="51e60e366e1f4b988a3df9b004a24a96">规则熔断入口：监控中心--&gt;规则熔断 </p>
+<p align="start" nodeId="9ebdc91a848f413b9ca7ec2f7d9e5449">测试环境网址：<a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/rulesFuseList" title="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/rulesFuseList" nodeId="12e09fed132341a4bb448c04ff7a5b62">https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/rulesFuseList</a><a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList" nodeId="aae78a2b241d4f2dbb0bf67e185e7aea"></a></p>
+<p align="start" nodeId="824ec709cab442fc883a1f0d7d38aef0">线上环境网址：<a href="https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList" title="https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList" nodeId="f911ac952a4f46f3b878e972dab69eba">https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList</a></p>
+<h3 nodeId="8e9ae25866f54a35aa43cdb4398201f5">Step1 创建规则熔断</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="ad585605c3fb49dca56db9d6132977d0">
+<tr nodeId="56d4be826d564be1a87edbcadff88639">
+<th colwidth="[565]" nodeId="55b98b8df6eb43d7a4a94a5fa5b40672">
+<p nodeId="6aae504f715b4733984dc75be8de9750"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[727]" nodeId="92f1a969f4c84c039816605f78325300">
+<p nodeId="9df0473e139d4259af34997cdb4d69ec"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="916318eba9884d61989d3a5145c80570">
+<td colwidth="[565]" nodeId="26911e4e3a2e4e64838ffb8fd40097ad">
+<p nodeId="898e3568344746809d4ec00e2e073832"><span font-size="14">【入口】</span></p>
+<p align="start" nodeId="22651d5157fb42c7b1a7f5a96a79fafa">监控中心<span font-size="14">--&gt;规则熔断 --&gt;新建熔断</span></p>
+<p nodeId="7cb4944d5fa244e6bdb1939e93ad22ae"><span font-size="14">用户可在新建熔断页面按照以下维度输入信息，完成创建。</span></p>
+<p nodeId="a46e5c27689b4b61b3c838d88d425664"><span font-size="14"><strong>基本信息</strong></span></p>
+<p nodeId="0339fcc257e6459899ab93b89ffb225b"><span font-size="14">熔断模式：单点熔断，即为实时链路中对场景规则配置的熔断。（画布熔断为针对画布中组件的熔断配置）</span></p>
+<p align="start" nodeId="ff679dec439d46eab51bb365913224a2"><span font-size="14">熔断名称：用户自定义输入名称</span></p>
+<p align="start" nodeId="0381f8286a874f37a9cbaa5100a43fdb"><span font-size="14"><strong>作用范围</strong></span></p>
+<p align="start" nodeId="d38a88be08d24e71ba4fa3ddf0ca60b0"><span font-size="14">针对以下范围限定的生效规则起作用。</span></p>
+<ul nodeId="ae48b42dbb7f4e6783514b81d7ede85d">
+<li nodeId="056ee8c60cc34890b43604ad0ab42e1f"><span color=""><span font-size="14">输入场景ID，多个英文逗号分隔，模糊匹配</span></span></li>
+<li nodeId="f11f5f85ea444da09f52460bb58d7a37"><span color=""><span font-size="14">输入规则ID，多个英文逗号分隔，模糊匹配</span></span></li>
+<li nodeId="1df0065545514fd7b66208ca5213d0f3"><span color=""><span font-size="14">输入决策ID，多个英文逗号分隔，模糊匹配</span></span></li>
+</ul>
+<p nodeId="07ff072d78cf431b9c3ffa682ac4172c"><span font-size="14">（</span><span color=""><span font-size="14">输入多项用英文逗号隔开；输入“*”表示全部；“|”表示选择左侧的内容但是排除其中包含的右侧的内容，例如“*|23”表示选择全部，但是排除其中包含ID为23的</span></span><span font-size="14">）</span></p>
+<p nodeId="3c99abe75e5649f9bb1ebd996c5faae3"><span font-size="14"><strong>作用时间</strong></span></p>
+<p nodeId="b3b81fa1a042403cbbd6fcf75cd78a96"><span font-size="14">系统将在设置的作用时间内检查数据，从而触发熔断；</span></p>
+<p align="start" nodeId="ba418f812d044bab9618778344985e74"><span font-size="14">时间类型包括：自由时间段（自由选择时间范围）与星期模式（设置每天的统一时间段，自由选择一周中的星期数）。</span></p>
+<p align="start" nodeId="16747c78a50441729add75df714be443"><span font-size="14">勾选排除节假日后，节假日不检查数据，例如设置了周六，同时勾选了排除节假日，则周六不检查数据</span></p>
+<p nodeId="af21899f7aed4ac68a81f400de5ed033"><span font-size="14">添加作用时间：以‘和’的逻辑关系增加作用时间，即可通过添加多条作用时间，获得一个作用时间的并集。</span></p>
+<p nodeId="5b0a4af713694b3daf3caee9a659da97"><span font-size="14"><strong>熔断规则</strong></span></p>
+<p nodeId="79c2ac1a3338489c8515b2cdfa0837b1"><span font-size="14">单条熔断规则需要设置如下项：</span></p>
+<ul nodeId="adfdbab87aed4e0ea25baf75ab8aefd0">
+<li nodeId="02f8690ce43b45cca83b718859b166cc"><span font-size="14">时间周期（最近x分钟）：默认1分钟，支持输入</span></li>
+<li nodeId="997c00eb398d4a1ea65c87d32f17ea00">
+<p nodeId="e875df5c6eb04f609800b03c7c14dd4e"><span font-size="14">计算指标：</span><span color=""><span font-size="14">下拉列表选择，可选择“命中量”/“命中率”指标。</span></span></p>
+<km-collapse nodeId="47a86c818dad4292889e96a46d53cc17">
+<km-title><span color="rgb(25, 144, 255)"><span font-size="14">计算指标</span></span></km-title>
+<km-content>
+<table responsive="false" nodeId="887e955cb3f3416e8ded4a48405e2f3c">
+<tr nodeId="6b85512344b14aecb0c101791963fb20">
+<th colspan="2" colwidth="[69,145]" nodeId="11efb694c8444decb5548404570a9605">
+<p nodeId="90e65d4ac2d34358822131805a4a8d8c"><span font-size="14">指标名称</span></p>
+</th>
+<th colwidth="[279]" nodeId="fb63efcb5e874c23b907f8fe73f77ba3">
+<p nodeId="f4a9874a01814b62b218b857c23aa061"><span font-size="14">逻辑</span></p>
+</th>
+</tr>
+<tr nodeId="3f86453b18e344c1aad209e028b2e57a">
+<td rowspan="3" colwidth="[69]" nodeId="d4ecaecd4ee04d2999cce1aab261cdbb">
+<p nodeId="09c58a5c1a4740268b0d42ad8bc327d9"><span font-size="14">命中量</span></p>
+</td>
+<td colwidth="[145]" nodeId="0ac740a0b8c64774ae5c58c1342149e6">
+<p nodeId="23316e57e146484fa3f8485e6ceff2fa"><span font-size="14">命中量</span></p>
+</td>
+<td colwidth="[279]" nodeId="c34fa0b974604f6aa2398ba5243e12a4">
+<p nodeId="cb34d9821ee24544abd1542214f33565"><span font-size="14">策略时间周期内总命中请求量</span></p>
+</td>
+</tr>
+<tr nodeId="9c7b8053525e42d68877eee62408f1d5">
+<td colwidth="[145]" nodeId="1c0936d987164f7cbcefab402e231df6">
+<p nodeId="631a326611a04747b309d3432422970a"><span font-size="14">高价值用户命中量</span></p>
+</td>
+<td colwidth="[279]" nodeId="a9d1b09003e7424082dbc7f55c16b9ca">
+<p nodeId="831dae6fec7b49b6877256450309d6d1"><span font-size="14">策略时间周期内总命中高价值用户量</span><br /><span font-size="14">去重逻辑参考：</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199" autoUpdate="true" nodeId="9cb82cf787944e83b5744a9583a8b7ba"><span font-size="14">https://km.sankuai.com/page/644052199</span></a></p>
+</td>
+</tr>
+<tr nodeId="659b562706cd49269696a81e887c045a">
+<td colwidth="[145]" nodeId="abb0315a48104d028103cc661632ff50">
+<p nodeId="0bab3cc8af0d4e36b762af6773d98a27"><span font-size="14">客诉用户命中量</span></p>
+</td>
+<td colwidth="[279]" nodeId="c64a61fc02ed4f9fbb52aeef69ee4b68">
+<p nodeId="5ae7205025444cabb64a3714d71da46c"><span font-size="14">策略时间周期内总命中客诉用户量</span><br /><span font-size="14">去重逻辑参考：</span><a href="https://km.sankuai.com/page/644052199" title="https://km.sankuai.com/page/644052199" autoUpdate="true" nodeId="37e8b522fd1546fc8ecddc94154c85cb"><span font-size="14">https://km.sankuai.com/page/644052199</span></a></p>
+</td>
+</tr>
+<tr nodeId="6074ac1a49de4fe78fa70246f4848ccc">
+<td colspan="2" colwidth="[69,145]" nodeId="4376bd36fa32452ab5c4af1673d12b79">
+<p nodeId="b21870bc0ccd43adbdb2e382003a6d2a"><span font-size="14">命中率</span></p>
+</td>
+<td colwidth="[279]" nodeId="5e6566ea615244b58d26c9d2c8185156">
+<p nodeId="55875fbdc713430d8bac6de1495c376d"><span font-size="14">策略命中量/策略所在场景的请求量</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="76c1e733531e4547ac1deb7dc06a4b1b" />
+</km-content>
+</km-collapse>
+<p nodeId="28a0a91dae4a499990d603bb98135cf3" />
+</li>
+<li nodeId="7101d715b5d04a57b7daf47498e7b9b8"><span font-size="14">计算函数：</span><span color=""><span font-size="14">下拉列表选择，默认选择“绝对量”，其余计算函数见下方附表。</span></span></li>
+<li nodeId="4ca67c5b01114b10949e72272633dcae"><span font-size="14">对比关系：</span><span color=""><span font-size="14">下拉列表选择，&gt;, &gt;=, =, &lt;, &lt;=，默认为“&gt;=”</span></span></li>
+<li nodeId="f4d12d8267cf4a009bec4b3a019a7a19"><span font-size="14">阈值：</span><span color=""><span font-size="14">直接输入数值，系统根据指标匹配单位</span></span></li>
+<li nodeId="6d28e782396f47d6937485c4df12644c"><span font-size="14">指标：</span><span color=""><span font-size="14">选填，高价值用户、客诉用户</span></span></li>
+<li nodeId="b2ed4892d5b5478380cd3d42c82167f1"><span font-size="14">去重维度：</span><span color=""><span font-size="14">选填，可多选，userid、orderid、poiid、uuid</span></span></li>
+</ul>
+<p nodeId="fb8c5750ecb44fc78458276f62c3c10f"><span color=""><span font-size="14">增加子规则：添加的子规则和该条熔断规则是串联关系，是同属一个序号下的熔断规则。即‘且’逻辑。同时满足，才代表命中本条规则。（图中01熔断规则下有两条子规则）</span></span></p>
+<p nodeId="1c4afc3648464e31a58860ed6be340fb"><span color=""><span font-size="14">添加熔断规则：添加的熔断规则拥有新的序号，添加的熔断规则和之前的熔断规则是并联关系，即‘或’逻辑。满足一条，即触发熔断。（图中02与01就是‘或’逻辑）</span></span></p>
+<p align="start" nodeId="ceb807998e204ee9be6e780b39d68417"><span color="rgb(56, 158, 13)"><span font-size="14">说明：熔断规则之间使用‘或’符号连接，一条熔断规则及其子规则使用‘且’符号连接。</span></span></p>
+<p nodeId="8803cbed866e41f49eb9a3b460668981"><span font-size="14"><strong>执行动作</strong></span></p>
+<p align="start" nodeId="0a64ccc97adb4e93bcfc4c432cf633d7"><span font-size="14">人工熔断：熔断条件触发后，通知设置的联系人，前往手动进行熔断动作。</span></p>
+<p nodeId="805cb7390e1c4127ab4c72eaa877e5a6"><span font-size="14">自动熔断：熔断条件触发后，自动进行规则熔断动作。</span><span color="rgb(245, 35, 45)"><span font-size="14">仅支持熔断规则配置下降类函数</span></span></p>
+<p align="start" nodeId="a09ab194f2eb4a0c87ff9307aa484176"><span font-size="14"><strong>通知方式</strong></span></p>
+<p align="start" nodeId="9f9837b892754210828d2a7c0eb6483d"><span font-size="14">下拉列表选择，目前支持：大象通知、短信通知、电话通知。人工熔断暂不支持短信通知和电话通知。</span></p>
+<p nodeId="408069615c6c4839a15c3a14ae016cb9"><span font-size="14"><strong>通知频次上限</strong></span></p>
+<p nodeId="6c0e97b45439465aa85c70ee220e7033"><span color=""><span font-size="14">默认无，可选【按间隔】，可输入每次通知间的最小时间间隔数，下拉选择时间单位【分钟、小时】</span></span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="9ef52b6415e54281a9a4d60f772f1d41">
+<tr nodeId="c34d6dd4755242a48d01b1d546c3c714">
+<th colwidth="[89]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="1b3508d68f20430ba4af4976ed32a707">
+<p nodeId="a56a169d0c8a4428b7a5b1ecbce92b34"><span color=""><span font-size="14">频次上限</span></span></p>
+</th>
+<th colwidth="[318]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="ea386f8f8d1a4c4ba338a7a364053244">
+<p nodeId="ebb47e19248d4804a6e8f96c6b3e8067"><span font-size="14">通知发送逻辑</span></p>
+</th>
+</tr>
+<tr nodeId="ec36cefc42c74e88898b6957445fffd5">
+<td colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5de035bce4fe4094a9b688ae7aa682bd">
+<p nodeId="03f69dcd718448649a64617aa8e84ddb"><span font-size="14">无</span></p>
+</td>
+<td colwidth="[318]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5358c1bdbbc24f08a14f5baf6118eb19">
+<p nodeId="8993f27b20f945eaaac7c2d52c4e314a"><span font-size="14">原逻辑，只要满足熔断条件就发送通知。</span></p>
+</td>
+</tr>
+<tr nodeId="523fbc42754543469c08fc06e1df85ce">
+<td colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ba1698c9ea264a40ba08c85755d147ef">
+<p nodeId="069dc75f96ad45ef82f93574fcb15009"><span font-size="14">按间隔</span></p>
+</td>
+<td colwidth="[318]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7fe4c039e5004a72a51873ce5458e2de">
+<p nodeId="1f914200473241bf87e0e8fb4c1c566c"><span font-size="14">每一次通知发送后的设置时间间隔内，不发送触发的熔断告警通知。</span></p>
+</td>
+</tr>
+</table>
+<p align="start" nodeId="6373d2bf1a194234919aaa28f540f629"><span font-size="14"><strong>通知人</strong></span></p>
+<p align="start" nodeId="d6973251c8534833a6f8923bf5e33b97"><span font-size="14">可选择业务空间负责人、业务空间变更通知人、自定义、最后修改人及其直属上级。</span></p>
+<p nodeId="2f68102d4a214c26a5c7e9b1282d10e8"><span font-size="14">自定义：支持手动输入mis号，多个使用英文逗号隔开</span></p>
+<p nodeId="7bcea77ca89c427697cd26ab837fc55a"><span font-size="14">最后修改人及其直属上级：Zeus场景中可能存在多条【场景-规则-决策】一致的场景配置，若最后修改人不同，则触发熔断后都会收到告警。直属上级即组织架构中的一级leader（X1）</span></p>
+</td>
+<td colwidth="[727]" nodeId="eb4981939b5e44b7a52cfcf7bc77d311">
+<p nodeId="3115a045760647068de2750a67b0d78e"><span font-size="14">熔断列表</span></p>
+<p nodeId="962253550246434bae0ba251c527ecf3"><img src="https://km.sankuai.com/api/file/cdn/1091686902/53618381702?contentType=1&amp;isNewContent=false" name="image.jpeg" width="705" height="323" nodeId="8c38cc2e8f0b4ac3aeb6859cb1571e67" /></p>
+<p nodeId="d043eea57f5c4198a445ef778966b940"><span font-size="14">熔断配置</span></p>
+<p nodeId="4861169f1936421488e9cd1b95cf173f"><img src="https://km.sankuai.com/api/file/cdn/1091686902/130121080316?contentType=1&amp;isNewContent=false" name="image.jpeg" width="705" height="352" nodeId="f99f22e8d8be49d582635276a1dd3a88" /></p>
+<p nodeId="a6067c140b1446f69601493beed56244" />
+<p nodeId="247b057d0e1e45e280635901bd63e1b9" />
+</td>
+</tr>
+</table>
+<ul nodeId="e252cc24b0ca4b8d8d833bbb49f725d3">
+<li nodeId="5d61e942f7004f4f861765de132ecbb9"><strong>自动熔断的配置审批机制</strong></li>
+</ul>
+<p nodeId="7e4fa53f657e40749768d50ca639d002"><span color="rgba(0, 0, 0, 0.87)">先判断申请人直系leader/同组同学（包含用户自己）是否在空间负责人中。如果在，上线申请只推送申请人直系leader/同组同学（包含用户自己）；如果leader/同组同学 都不在空间负责人列表，则将申请发送至空间负责人全员。</span></p>
+<ul nodeId="9f9bc60314744046a16598cef5c01594">
+<li nodeId="76d1e5fd5ef8402396f6aedc7b6b47e4"><strong>基线值的计算逻辑：</strong></li>
+</ul>
+<p align="start" nodeId="e55ed17d2e424131a048ed931be569de"><span color="">例：用户选择周期为n（例如最近2分钟），今天是2016-12-02（周五），计算的时间点为19:56，基线数据的算法是4个周五（2016-11-11，2016-11-18，2016-11-25，2016-12-02）的19:54-19:56这2分钟的数据的加权求和或平均，权重值依次为1，2，3，4。如：基线值设为value，四个周五对应的19:54-19:56数据（由远及近）分别为A,B,C,D，则value = (A+2B+3C+4D) / 10</span></p>
+<km-collapse active="false" nodeId="809adde966bb4b76adf8b7be71aa2e24">
+<km-title>计算函数详细说明</km-title>
+<km-content>
+<p nodeId="153c7f03813e4be8a3a66d7cb77f06bd"><span color="rgb(245, 35, 45)">自动熔断暂时不支持下降类函数</span></p>
+<table responsive="false" nodeId="d27d8952d7594d4a8f0aaea7a6033620">
+<tr nodeId="fb8196e8c1374b7db41769b45c38b946">
+<th colwidth="[55]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="b7bad0ca701845d1b52a932c7c826a6f">
+<p nodeId="55f131e8f66e416bab20a3c1ad1626fc" />
+</th>
+<th colwidth="[106]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="b563cd9cd9324bc59be388dd71c00d4f">
+<p nodeId="8cf866e89a3843bf8c1b83c5419d18cb"><span font-size="14">时间周期/最近N分钟</span></p>
+</th>
+<th colwidth="[205]" verticalAlign="top" bgColor="rgb(247, 247, 247)" nodeId="be71f76376db4470ac09fef7d14480e5">
+<p nodeId="b41f6710587d4b7291b8ef3838e15f86"><span font-size="14">计算函数</span></p>
+</th>
+<th colwidth="[95]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="6b410d57dd424a6ead8a30a64937fd55">
+<p nodeId="2b96e8eb803a44dcafb54a6674b4d189"><span font-size="14">对比关系</span></p>
+</th>
+<th colwidth="[86]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="55d323352b3642af89454a2ba09b392b">
+<p nodeId="591097c2aa034f7e99a5376c73218202"><span font-size="14">阈值</span></p>
+</th>
+<th colwidth="[625]" verticalAlign="top" bgColor="rgb(247, 247, 247)" nodeId="a7e1e276e0a7438e8321f9a3e158ca81">
+<p nodeId="c9630a39934b4b1c8b47988d58870ad8"><span font-size="14">逻辑说明</span></p>
+</th>
+<th colwidth="[84]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="0a5f800e47564962b4ff944400c04b00">
+<p nodeId="8f0e7fd82d714b32a6d9bc7135f2d378"><span font-size="14">类型</span></p>
+</th>
+<th colwidth="[89]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="3184c5d588944bbc9fae081c976524b0">
+<p nodeId="099ce231fe8e4982bd6ad0717a23bbc9"><span font-size="14">指标</span></p>
+</th>
+<th colwidth="[116]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="6a39543a0e8f414c8a71fe03f948fbea">
+<p nodeId="223d860342b74c74a066a4a01393e90f"><span font-size="14">维度/去重</span></p>
+</th>
+<th colwidth="[84]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="e9b694440173443ea7b6e56da0a75e37">
+<p nodeId="d8836e622d57483aadfd6d3c771cbc79"><span font-size="14">参考来源</span></p>
+</th>
+</tr>
+<tr nodeId="986a303bf1584e348909ce78c484c256">
+<td colwidth="[55]" numCell="true" nodeId="984109cf4fdd463699dcb8f3913cfa53">
+<p align="center" nodeId="561776fc7be5438daf34e898e6d291f5" />
+</td>
+<td rowspan="2" colwidth="[106]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d56b0f79b3054eb992ca4109ad51cb2d">
+<p nodeId="46fef6bcccf54812b056b3ffc0ac4664"><span font-size="14">默认最近1分钟</span></p>
+<p nodeId="23742855b15043f3a75f04a29f4cf292" />
+</td>
+<td rowspan="2" colwidth="[205]" verticalAlign="top" bgColor="rgb(255, 255, 255)" color="rgba(0, 0, 0, 0.87)" nodeId="b7dd254252dc436f90582ad5ebdd3043">
+<p nodeId="1084a171ba414cda9c214e8b8d7b407f"><span font-size="14">命中量</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7369137fd7854251b3493ff5004f7a4b">
+<p nodeId="555cb24b4f8340b0bb8378b99a963697"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="337bdaa1237e48ecb655e925a253d415">
+<p nodeId="3fa3554d9f0c422ea646a84ea559e941"><span font-size="14">数值，单位适配计算函数</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" color="rgba(0, 0, 0, 0.87)" nodeId="2b59f8e2409c42b8ad6b33a29457a63e">
+<p nodeId="48700e82013049198596384745b9cba9"><span color=""><span font-size="12">最近N分钟 规则命中（指标）量（按维度去重）</span></span><span font-size="12">&gt;=阈值</span></p>
+</td>
+<td rowspan="2" colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cfe0d09e9d604bd48ca3369e9f6bab1c">
+<p nodeId="f622e988d7c6417aabe0face7ec92a3f"><span font-size="12">固定阈值</span></p>
+</td>
+<td rowspan="2" colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="acce2d6eb23244de92e8b894eac6a4cf">
+<p nodeId="ce25c7c290164b789523e56ae72eba54"><span font-size="12">高价值用户 | 客诉用户</span></p>
+<p nodeId="ef509d640f834ee9bd5c753347f45e90"><span font-size="12">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="指标计算说明" autoUpdate="true" nodeId="f4c2618b260c401a9d21527bb520d7d9"><span font-size="14">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" colwidth="[116]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4b08992117594f10bd2d751d97f2a082">
+<p nodeId="ebf6bbcbccdd4ec888f49fc5f71c97d4"><span font-size="12">userid | orderid | poiid</span></p>
+<p nodeId="ee4962c042bc4d4ab62c88c5f9987490"><span font-size="12">不去重/去重</span></p>
+</td>
+<td rowspan="2" colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e3d6c032de8e416cb73057ababc0d905">
+<p nodeId="003045134dcd4b6aa9912c17c601615a"><span font-size="12">cat/druid</span></p>
+</td>
+</tr>
+<tr nodeId="ccc4344a364d44d3a710bf2fc9433e32">
+<td colwidth="[55]" numCell="true" nodeId="1383818f798d46ddb4b1cb538d551666">
+<p align="center" nodeId="8816a285d08942ea83b940ee7979dbc3" />
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="28888130899146f1ab4d1a59da11877e">
+<p nodeId="c6f21579d299481d9a264ce4e41bccec"><span font-size="12">&lt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fcaed69037744ec0adac788103b0b734">
+<p nodeId="4ba2b127c5514e88ac101625a1a30a90"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0402cd0b36034f5c9ffff97efee01d52">
+<p nodeId="474fa10ce69d457c929eaa6ebfb682f2"><span color=""><span font-size="12">最近N分钟 规则命中（指标）量（按维度去重）</span></span><span font-size="12">&lt;=阈值</span></p>
+</td>
+</tr>
+<tr nodeId="6e1ea62af59a41e1adaf230e90a3906d">
+<td colwidth="[55]" numCell="true" nodeId="e6b14025e5b14cccba32c0675496e523">
+<p align="center" nodeId="f6cc1226e8884a79a457426b083d5456" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="411046e578be42cd853a8e5fe107260c">
+<p nodeId="65d6f3bd9878405a9ec2e9179e0db259"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="33983555c5784dcbbf7540e21eecb27a">
+<p nodeId="d768243f49ce475283679f2cfe00865e"><span font-size="14">最近N分钟命中量比之前N分钟上升值</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="6979561efc844719bb48dbc0e74cb4ab">
+<p nodeId="995a84be957b45109841c5453ad2f6ea"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="f73ef29f4eaa4c1daea5d657c74ac4ae">
+<p nodeId="8cced2dac2ee404faaac53a1e2c7f35b"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="3d8a0c25f0e04ceb85eb37ac8909de9b">
+<p nodeId="5b9375cb3a224ea8a6d27a9473ef7647"><span font-size="12">=M-N</span></p>
+<p nodeId="35b7f800cfad4d87afcf2552ca2b0918"><span font-size="12">当前时间周期内命中量较上一时间周期内命中量上升值（上一时间周期时间命中量N，当前时间周期内命中量M）</span></p>
+</td>
+<td rowspan="2" colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="3d3d979aa99b493b9aa2b3ad1d45c168">
+<p nodeId="85eacdf2ea084eeea9ece0c69ed55c08"><span font-size="12">动态比率</span></p>
+</td>
+<td rowspan="2" colwidth="[89]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="55a63ddbe3964769814ffb5184374270">
+<p nodeId="ffc033eca5a64d82874eb609eb91f308"><span font-size="12">高价值用户 | 客诉用户</span></p>
+<p nodeId="91491384574f4400bf6b17d4238db383"><span font-size="12">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="指标计算说明" autoUpdate="true" nodeId="8b109772f94c485dba4f119563c67cee"><span font-size="14">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" colwidth="[116]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="dcae937dcba44781966db87ab1e52d3b">
+<p nodeId="1c2d2aa9460f4feb883341ffca612a6e"><span font-size="12">userid | orderid | poiid</span></p>
+<p nodeId="f793a887546b47baa7e3d5ee9b62c577"><span font-size="12">不去重/去重</span></p>
+</td>
+<td rowspan="2" colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="c7dfb9f9884d48d9bab981c78cbe501c">
+<p nodeId="a81ac8bc74ca46aba630e4e0b3e00552"><span font-size="12">druid/外卖</span></p>
+</td>
+</tr>
+<tr nodeId="54435445894e423bac7d6e22a7ab2d47">
+<td colwidth="[55]" numCell="true" nodeId="fd065e835e4e47cba841a59f2235600b">
+<p align="center" nodeId="67efeb711d4a471aac44b3551025479c" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="877000fe4af74667853c936beba14351">
+<p nodeId="50f8c615b6014a779641849fc765a792"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="716175fe93ef401d84c540d017a829a0">
+<p nodeId="26642a0fcecf43c7b5b31d30b32a890e"><span font-size="14">最近N分钟命中量比之前N分钟下降值</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="8a1e36222f2641babf4775b87f7f95c1">
+<p nodeId="206a45bfd1074ded88368e76ef6c8e25"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="b85280b321df4f26b17e09beef148312">
+<p nodeId="fa1b5dac84ec4cbc954c968dbd22b0ab"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="7345443574f14854beed4d97255a65c3">
+<p nodeId="0aae5edb5b6a4075a188ed118e395e70"><span font-size="12">=N-M</span></p>
+<p nodeId="da763118298d47e5bf4962aea4ec3297"><span font-size="12">当前时间周期内命中量较上一时间周期内命中量下降值（上一时间周期命中量N，当前时间周期命中量M）</span></p>
+</td>
+</tr>
+<tr nodeId="a45c099181064da0a2a06ac5d27a07ec">
+<td colwidth="[55]" numCell="true" nodeId="340c39b590cd44eaad0f24e0def81ab1">
+<p align="center" nodeId="d1180670b184447c9ec86300029f0da3" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="0c884486cc1842329cf50215c66e4cc9">
+<p nodeId="31b666cdfd7e4e5baa339a0d4bafb4f0"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="4ebee10ca9bc4f2db1ca805286a3d8d8">
+<p nodeId="3477ba375add4afe9350e7632761752f"><span font-size="14">最近N分钟命中量比之前N分钟上升百分比</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="b0ca0b9697374ed7918983b984b87020">
+<p nodeId="f65b8fd5d5004ed68e91104aa90b247d"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="7648650816a14288b028a4029f1c156e">
+<p nodeId="b97696ec7b004beeb8230f280055de90"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="ee8f6bddca7d40d4ad921adaa2b72a40">
+<p nodeId="381dd706b6d1449d8498fcee31bf082d"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="8511c261cdbd4813b3589b494f8c3302"><span font-size="12">当前时间周期内命中量较上一时间周期内命中量上升百分比（上一时间周期命中量N，当前时间周期命中量M）</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="1325fb5b04cc4c2788d14cac6b93024d">
+<p nodeId="4c32a8d5a7684449a6efae7bb14a53cb"><span font-size="12">动态比率</span></p>
+</td>
+<td rowspan="2" colwidth="[89]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="fef282ef44df4dcbb995df5d52931ae5">
+<p nodeId="64b3edfbbdfd43a98c15069892b4407f"><span font-size="12">高价值用户 | 客诉用户</span></p>
+<p nodeId="683dd0d04a174b9e8b424542c7e6df5b"><span font-size="12">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="指标计算说明" autoUpdate="true" nodeId="b12326f5ab3848d38597bcbff43e587d"><span font-size="14">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" colwidth="[116]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="9173265d227741e4a73a920206972bfc">
+<p nodeId="82fb9109ccf24dadaf783e55c3b79cbd"><span font-size="12">userid | orderid | poiid</span></p>
+<p nodeId="64221135d54f4ade8082259cbfdfc667"><span font-size="12">不去重/去重</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="ffd08d2e8d9f4d1e8a376fe86d262490">
+<p nodeId="e883743728884dee9cbc327358eb2a84"><span font-size="12">外卖</span></p>
+</td>
+</tr>
+<tr nodeId="71b34ff90b0c4a9597c388ae63395808">
+<td colwidth="[55]" numCell="true" nodeId="dc50b067459f44e9be7926701afc444c">
+<p align="center" nodeId="8f2eeaa8f9fd46338eb6e59e105153f6" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="6c29d127b2a54030bfbbd2d66d5dd36c">
+<p nodeId="3c672029aced4d52a18399df8b2ab1c5"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="854fd57efb944fa9800dcd55a1e89b14">
+<p nodeId="94ecd307865d407080afeaac6ecc65d1"><span font-size="14">最近N分钟命中量比之前N分钟下降百分比</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="20c445bb8104463ab6decefac64191f5">
+<p nodeId="544d31a726f14ed5a71e85dda7f90af6"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="c7f84cb26f6244b6a36a29c97257f507">
+<p nodeId="b683b4f8b575433dbf3e9d77752e3e59"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="aef203971b8d41ec80fede7227dd440f">
+<p nodeId="834c9f5af78544a999061d68ac5b8564"><span font-size="12">=（N-M）/M*100%</span></p>
+<p nodeId="87fa10dc6b53448984a7b9024c4490b3"><span font-size="12">当前时间周期内命中量较上一时间周期内命中量下降百分比 （上一时间周期命中量N，当前时间周期命中量M）</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="cca9eef2f50b422497cce63ab9385df1">
+<p nodeId="d81c7d29cfea4476871222d74eb8f6fe"><span font-size="12">动态比率</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="94d3455f7b614df0b7992c1079555ae6">
+<p nodeId="f8c43b0e3ab6430a86a3fddb271662b2"><span font-size="12">外卖</span></p>
+</td>
+</tr>
+<tr nodeId="c7261613703b46e3880e3b7d50323736">
+<td colwidth="[55]" numCell="true" nodeId="a97a672e1eaa424ab0dae28629c2a58f">
+<p align="center" nodeId="5632f2ea55e64b04a3ebbb4ea1f63dd0" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="aa5d054ffc8240349a51b2891d33dfef">
+<p nodeId="2e4922414cc24d568bec45be0a53a36a"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="da679af92adc488fa9ac66451b8b51c1">
+<p nodeId="c2e2ad19cc484d64a3e9f3297c922902"><span font-size="14">当前命中量比昨天同一时间上升值</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9e0e179970074838bf8ed28d9ffebf04">
+<p nodeId="352bcd6cfa3e4c38929871e057f0eb85"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="61824176b65641d2a66e88406cbad16f">
+<p nodeId="6b5cf721af8443238e63995df54b99f1"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a4f88e398256414b80a4d084d9999cb4">
+<p nodeId="0626467118f44dc4a6f8b435d2c36107"><span font-size="12">=M-N</span></p>
+<p nodeId="fea4cf79c5184bb4bfb779be1aeb38ee"><span font-size="12">当前时间周期内命中量较昨天同时间周期内命中量上升值（昨天同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d148224119d24dcdb4fbb5abd8cd2b51">
+<p nodeId="dd767eafa96b46baa1d81e44eded5a1b"><span font-size="12">动态比率</span></p>
+</td>
+<td rowspan="2" colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ecd686394bae4cc4a9b412f2c0ccfd7d">
+<p nodeId="991045ee5871499ea9623fe682ecff94"><span font-size="12">高价值用户 | 客诉用户</span></p>
+<p nodeId="c833048f6ed84b9f91c65c93aac0847f"><span font-size="12">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="指标计算说明" autoUpdate="true" nodeId="62a4237ef5a14277bd1adc65b493a015"><span font-size="14">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" colwidth="[116]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d17d50e552c94d8a9997ffb771adc123">
+<p nodeId="15b0ce9b5f1d46ca8850c133e12f52ae"><span font-size="12">userid | orderid | poiid</span></p>
+<p nodeId="f81dbb31df1740189e4e365c2e1f6ef8"><span font-size="12">不去重/去重</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="27bdba0524804342945bc3464b947639">
+<p nodeId="123421ee541d4356bd0c0f9c9e42969f"><span font-size="12">外卖</span></p>
+</td>
+</tr>
+<tr nodeId="02c830fc97a74149949fbafefb3e5a81">
+<td colwidth="[55]" numCell="true" nodeId="86d505a95cdf42b6ad49660af6d69a3b">
+<p align="center" nodeId="c4ddf517e4ba4aeaa687d575da20c87f" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="73604893e15c4f149c24772e1d5ee80a">
+<p nodeId="614e436fe1bd4fd2b166044309abebab"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="01252991cfc140169c38939325a4739d">
+<p nodeId="66261276ff8147369a57948d59fac34e"><span font-size="14">当前命中量比昨天同一时间下降值</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="46b5b7dd14ed48109917956fab1522c7">
+<p nodeId="53fca63b12c6465da6815407457674f3"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fdc72916492e4816b51503d58a30519e">
+<p nodeId="b551949a8c6348c79799d2ed1b53a731"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="aef7d9e927a24522bb5417ff3933c370">
+<p nodeId="3800cde8e55c4d49802e07d5807d7d35"><span font-size="12">=N-M</span></p>
+<p nodeId="e290807993384c3b896f1339864321c9"><span font-size="12">当前时间周期内命中量较昨天同时间周期内命中量下降值 （昨天同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9de8c0ccd63841bbb1b514f1bf99f0ad">
+<p nodeId="4a33424b8c9c428782daddab19ef4ae4"><span font-size="12">动态比率</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a7f6eb251384433cad0fe857f8d03029">
+<p nodeId="e27c5663a4da4feab2fc2bbac687a755"><span font-size="12">外卖</span></p>
+</td>
+</tr>
+<tr nodeId="f61d1fef174b4ce594522f733a8245e5">
+<td colwidth="[55]" numCell="true" nodeId="5ea19c9c2e27402895f547a4209f00bb">
+<p align="center" nodeId="379da4cc75a44022aa48bc1c830b0724" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="03ec265e1d81496c834b2ec306af1a4b">
+<p nodeId="9ef10916515e48659aa8efa7f602bef8"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3f1c51ab3af74f82ba4d7f2bb31610d4">
+<p nodeId="9b8d76d8edcf40be8fc50e226d652634"><span font-size="14">当前命中量比昨天同一时间上升百分比</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="877b035b3fba4621bd64cc08e2e12963">
+<p nodeId="5ca606797a864371a234fcd7570e3cb3"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="47fd42dc4332461198d3ca2e140ba33c">
+<p nodeId="5cd86d7b45ba4c2880666c6fa18afba5"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3bf275ab173c43a08ca6f3e1e43e7960">
+<p nodeId="e8b79388dfd64e2f8b61018a254d806b"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="dc22c43879714af095226c8b3d77c956"><span font-size="12">当前时间周期内命中量较昨天同时间周期内命中量上升百分比（昨天同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c656a14bde704bd0a2dca6e30f14e5f0">
+<p nodeId="ef2066c50e3f405d9adaee77615d329f"><span font-size="12">动态比率</span></p>
+</td>
+<td rowspan="2" colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="14bd6b21f4bc4159b5a219da42fab15c">
+<p nodeId="25b1de109793461aba4a5854608a2120"><span font-size="12">高价值用户 | 客诉用户</span></p>
+<p nodeId="35c238eee5de405a908d8fd88df23ae4"><span font-size="12">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="指标计算说明" autoUpdate="true" nodeId="7f78e740e5264fcaa65ec95a73860a16"><span font-size="14">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" colwidth="[116]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e500eb5a5a0f45d591cb77e346a0324c">
+<p nodeId="fff0adb728b849029f6c476d618d3ee0"><span font-size="12">userid | orderid | poiid</span></p>
+<p nodeId="744ad6cb2796456591430134d88904b2"><span font-size="12">不去重/去重</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="63f809160cc34cc3b94dba7c4dc1f2a2">
+<p nodeId="04b84702c99b4963854775c70a3164a1"><span font-size="12">cat</span></p>
+</td>
+</tr>
+<tr nodeId="64b4e147f23442cfafb1163c89e9b324">
+<td colwidth="[55]" numCell="true" nodeId="0f4c98f56f174f3c9b81be10c8cebc90">
+<p align="center" nodeId="2191a65789fe406eb38989417e85517a" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dfcc91322ecf4115ad934941a4f101c2">
+<p nodeId="b218a488eefb4cf795f2f204cc3dc690"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d2c3b7f667aa4a1cb25b061caca7ebfe">
+<p nodeId="3b4b45c37d4c46d1b80ab407fa3f8bee"><span font-size="14">当前命中量比昨天同一时间下降百分比</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="86b6c8ae48f24bf5a263fd82135c79ad">
+<p nodeId="a633c1aeed5f41eb9c544887790f8bff"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3b491692197c48739fa5ebfcd35af0ab">
+<p nodeId="3d0613f2223f4aa78ec4848e99acf7f1"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e26b734ae9f243bfb341318dce119e94">
+<p nodeId="4803dfe4bfe64833a3ed1cc0803197c6"><span font-size="12">=（N-M）/M*100%</span></p>
+<p nodeId="d4da9cea943645f3b60bb859ec86c2c2"><span font-size="12">当前时间周期内命中量较昨天同时间周期内命中量下降百分比（昨天同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e114c199efd840119a5970b0ad01ebcf">
+<p nodeId="935cceac16b1422490f0d1c909bd3c62"><span font-size="12">动态比率</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="55bb70ae99f9474abc7f1ab25cd866a0">
+<p nodeId="05f5dd08c4aa4b888cd095b98927c7be"><span font-size="12">cat</span></p>
+</td>
+</tr>
+<tr nodeId="9f5b896bac4b4e3cb61121495adf0a9a">
+<td colwidth="[55]" numCell="true" nodeId="e310a1ad9c10429b930c0dd9bcff9c5b">
+<p align="center" nodeId="9514be5b5ea748ca92acbc2b27eb85ce" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="8ae64a067fc14c81831dbaf722d2e10f">
+<p nodeId="f40f77f269f441f0aa6bc35e02d1a686"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="89f8dc5f8ca84625a4ed5cde7bd3ff61">
+<p nodeId="7f9046e6060c4503962713e77cc644a9"><span font-size="14">当前命中量比上周同一时间上升值</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="a397467afaac4fc2b9f99f500e902e47">
+<p nodeId="909c7782baea4f85a362c542901dee88"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="fa7fce459f224daf84458ebbe49b8b7f">
+<p nodeId="67410fc2ed9e4f528c5d1a34a64486ca"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="06f224e850204975b27baf0e97461529">
+<p nodeId="3489601433974a4f9ac1d61ca6f3752b"><span font-size="12">=M-N</span></p>
+<p nodeId="3f859ef67b9141ec9b6561d3cfdc431b"><span font-size="12">当前时间周期内命中量较上周同时间周期内命中量上升值（上周同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="a0e76ea10f22467d966ebedaacd2ca10">
+<p nodeId="4fef87976f2f4cfa8c0cb9274bf9e24d"><span font-size="12">动态比率</span></p>
+</td>
+<td rowspan="2" colwidth="[89]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="309aacb7ec7c4678a59c42179f798a3b">
+<p nodeId="a5c921e7ce314fc6bc1127b74ca2dd79"><span font-size="12">高价值用户 | 客诉用户</span></p>
+<p nodeId="50d3ad1139084213a7429aa78dd95f31"><span font-size="12">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="指标计算说明" autoUpdate="true" nodeId="1852547256994284b8140c2361e9c957"><span font-size="14">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" colwidth="[116]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="c3ce6874b8a74b2fbc2d6048a1c031b7">
+<p nodeId="0589f9bbb5d447e69ed422d96370a086"><span font-size="12">userid | orderid | poiid</span></p>
+<p nodeId="ea3a9566be2446328dc5496806dbaa8e"><span font-size="12">不去重/去重</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="8446f766689542a5aadbeb71c07ab3e7">
+<p nodeId="658837c7e3a043dc924e3175a5139055"><span font-size="12">cat</span></p>
+</td>
+</tr>
+<tr nodeId="6490f50b95f0405585a58abb7fec343d">
+<td colwidth="[55]" numCell="true" nodeId="0829d9778e064f8293c9db3966b2991e">
+<p align="center" nodeId="2fbb73e3964e4992a96399c4f174d02d" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="2217ad2c5010452a8dec083dbe9a5254">
+<p nodeId="ce3b84935c1640488582577e59379177"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="05e009fe59db48818ce39608411fbff4">
+<p nodeId="ac89a86d2c864daea5f074d362c3f48d"><span font-size="14">当前命中量比上周同一时间下降值</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="6cee672b57d947f79e51227481d295a9">
+<p nodeId="cb92981d9892493e8c39a5b27fd982c0"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="38fbf571e1f14cc587d6368e685e9896">
+<p nodeId="d8d2743b22304e08832a6587063174e6"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="fd9c025d4f6c4c79b7ceb8481328d297">
+<p nodeId="ca8c550a6fbe427a8e46459eddedca21"><span font-size="12">=N-M</span></p>
+<p nodeId="d70cbee8901b47089738c30f23a817e7"><span font-size="12">当前时间周期内命中量较上周同时间周期内命中量下降值 （上周同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="86936f646bed44129e0ff374c3c50f2e">
+<p nodeId="105f133195664ba98efa976fe249078f"><span font-size="12">动态比率</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="31497007780345e5977be94bcf0c9c53">
+<p nodeId="0736a08f8e01423c873048b7a07a6d6d"><span font-size="12">cat</span></p>
+</td>
+</tr>
+<tr nodeId="aac7cc1c144c4b5386cb052b9be3cb9b">
+<td colwidth="[55]" numCell="true" nodeId="efd37102643b42d68844a59b24c75bd4">
+<p align="center" nodeId="837d72ade7a14c23aa878db3fca3cc91" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="62b2e63c6f624cd68fdb4e7dbe6f6264">
+<p nodeId="482d8ea5dec442f69c7d256c235963ba"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="1eb0ff64f22b4ddc806726044797a984">
+<p nodeId="9ac2a826b22b4033966310ed03e15d29"><span font-size="14">当前命中量比上周同一时间上升百分比</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="59de47f788c947abaa8202ed7e3ffed4">
+<p nodeId="91fdf2da2cf24314a2c0d69ef292a2f2"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="86a0a45de3aa4ea996d80f0cde868ebb">
+<p nodeId="fe8f66276ee64c54a35ab45a35b949c0"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="894efbaf1623414cbfb20de17581a6d5">
+<p nodeId="debabf04923240149878285ca081fa7f"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="36235284325147d580e5685ad391c0a2"><span font-size="12">当前时间周期内命中量较上周同时间周期内命中量上升百分比（上周同时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="8664881a973d405195fa75ac4af10dab">
+<p nodeId="9a48529b75c74a91b63d7aeabd5cd2a3"><span font-size="12">动态比率</span></p>
+</td>
+<td rowspan="2" colwidth="[89]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="31607ab5439645de848be515b5676718">
+<p nodeId="50408f3eb29e43c4adeb154d35492b2a"><span font-size="12">高价值用户 | 客诉用户</span></p>
+<p nodeId="5fcff29ae96d46fdba6ae6d35a803ead"><span font-size="12">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="指标计算说明" autoUpdate="true" nodeId="6fe6e3c4ca134a0ab83f7ad94e444fba"><span font-size="14">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" colwidth="[116]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="06161cb241ca45a4878be3a11be714f6">
+<p nodeId="c21cc54aa9a643fea88c88bd2aea7418"><span font-size="12">userid | orderid | poiid</span></p>
+<p nodeId="91f0211b879c4306800981569c867244"><span font-size="12">不去重/去重</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="e9bb204f33b64ce582e903830b78ec7c">
+<p nodeId="8cde4908ee1f43e1a7471f070cb03ca8"><span font-size="12">外卖</span></p>
+</td>
+</tr>
+<tr nodeId="c8cf4e946ad0453db9e8e90db3e111e3">
+<td colwidth="[55]" numCell="true" nodeId="6667bbfe67fa479a939b5be87252309d">
+<p align="center" nodeId="9f909cefd90040428ef148d1fd3f0b66" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="5ab2709c4f2749028d0c2b667759fa01">
+<p nodeId="0771a10708644867b35b4c3b94fb95c8"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="ad5bea4a52e54796876aab81208a3e37">
+<p nodeId="fffbb891e9144973aa2ecdaf7d67c9b6"><span font-size="14">当前命中量比上周同一时间下降百分比</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="a4c951c061ba438881163fdbd3a5f5db">
+<p nodeId="8b1e6aab79b04bb49b4697606f10260d"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="6a45a119f9e248ada8b17eb06ef664fd">
+<p nodeId="f425cbdb02db4b10830e2e07a51bd400"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="c08d12778b5148c289931fc2a8e0b608">
+<p nodeId="17191c1ce17446d8b4d294f173af27b1"><span font-size="12">=（N-M）/M*100%</span></p>
+<p nodeId="93da37854c9c4e08a2541530fcc9e4f5"><span font-size="12">当前时间周期内命中量较上周同时间周期内命中量下降百分比（上周时间命中量N，当前时间命中量M）</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="bde917808a834cc1b136ac6778cbe666">
+<p nodeId="0d5d594c3d54420f91c6194e338e10c2"><span font-size="12">动态比率</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(223, 232, 252)" nodeId="fb0e67beb7c347e2afbc12d8d9f9bd37">
+<p nodeId="312890f0eed344a6992361af1cbe059c"><span font-size="12">外卖</span></p>
+</td>
+</tr>
+<tr nodeId="802cd698bed2450ea4a001522e74d244">
+<td colwidth="[55]" numCell="true" nodeId="79db15ce402048169c79541cad5d7471">
+<p align="center" nodeId="3734a175680542bdb978b4cf206e6cbc" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="db7cd40ab7294dee8334d1dd94ec389c">
+<p nodeId="4129ab76f3e94b9cb3e52f42596abd85"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="202ea523b48a49ed8a157e0f163ca941">
+<p nodeId="adf06aa951a84ce9a80fc70075fad1eb"><span font-size="14">当前命中量比基线上升值</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c84995066e0b43d4a6a6745cb915e9e3">
+<p nodeId="56fe38ec4e364ab8aaca40373d12808e"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="29556b029ef64dd4b1253873ad3ed06a">
+<p nodeId="7b70348631454148aa2c370d68e652b0"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" color="rgba(0, 0, 0, 0.87)" nodeId="afcb23c5d3b444a0b32ea377aead7e3d">
+<p nodeId="0811830d43d643f39210e4cf89e8c421"><span font-size="12">=当前值-基线值</span></p>
+<p nodeId="8bbfd6a280d34a5c9b1d865a6e150ceb"><span font-size="12">当前时间周期内命中量与基线相比上升数值</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ab04eb1915f84d618324f8f16c77e342">
+<p nodeId="9ef56de4f4064f349b8253a2a9c6bd58"><span font-size="12">动态比率</span></p>
+</td>
+<td rowspan="2" colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dda85c007df145cfa062ed8ed0a1879b">
+<p nodeId="738fbd8d503f45469be040ba3e341b25"><span font-size="12">高价值用户 | 客诉用户</span></p>
+<p nodeId="4c6d3a8d69994362a7411cfd6a897619"><span font-size="12">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="指标计算说明" autoUpdate="true" nodeId="8033e4b1f6574261afad976c23c2b0c5"><span font-size="14">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" colwidth="[116]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c2e19325b9e646088de64262ecefd7e9">
+<p nodeId="a454816900504f05a914270142fe84ea"><span font-size="12">userid | orderid | poiid</span></p>
+<p nodeId="382fac835ba64542b7c763d7bab23862"><span font-size="12">不去重/去重</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a8c01122f64d4887bfcdc3a8ee62fe38">
+<p nodeId="a14c80bd8396411b9b50f06fe592a82c"><span font-size="12">cat</span></p>
+</td>
+</tr>
+<tr nodeId="c24da497ebdb40fca141c7bb88396556">
+<td colwidth="[55]" numCell="true" nodeId="03c1aeb5039a474cb0efff27be744930">
+<p align="center" nodeId="181ba9619fd24903bf4a8d917d2f388b" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="611bc9ce511c4fb3b1faba2bc57a36fd">
+<p nodeId="08c011b9bcaa4fc4bdffaa0c2a0afe45"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="833f1bc09ad94b5b8166b7950b84aa33">
+<p nodeId="708d309b346547c49eef9531f1a46b1f"><span font-size="14">当前命中量比基线下降值</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8d18d79606c84714bf43accbb3275c7f">
+<p nodeId="7de3baa23e9e4e368e1ee6588380ac38"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b2c41ed84a15431195a66353b1c13311">
+<p nodeId="ba3b346dfd4f42389237e58d8556f9b9"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" color="rgba(0, 0, 0, 0.87)" nodeId="9c1c0d9ccf674bd3acb2d16dc6f52a9e">
+<p nodeId="bdbd0fa79b524974a7e29e00205a85b2"><span font-size="12">=基线值-当前值</span></p>
+<p nodeId="5e789a0dec744220bc617da7b273a33a"><span font-size="12">当前时间周期内命中量与基线相比下降数值</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="80a49d7aa95544f8aa99387b45a84e57">
+<p nodeId="4e0c1f079eff4758bd5f7d2329d58f20"><span font-size="12">动态比率</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="068a4b43e3d3471b89f555ab961953b4">
+<p nodeId="3dbb204314104a2e95d735e592c6df9a"><span font-size="12">cat</span></p>
+</td>
+</tr>
+<tr nodeId="74b55cf1c849451e8cf8b1e04ff38baa">
+<td colwidth="[55]" numCell="true" nodeId="2c051758f58949d3b093a9aebac6cb2b">
+<p align="center" nodeId="7c7a57c4038c4f2485020055b427bf8b" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f6d5a12df5b840ed9cc0e80916e5ce0c">
+<p nodeId="90aca266efd7420d95fdf6ed46813f54"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="68b0923ea2f64effb856e913fc5a1c3f">
+<p nodeId="26ecb01802524ccdaead5d5558294bd9"><span font-size="14">当前命中量基线上升百分比</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c72bb403991946688c0aad784a5582ef">
+<p nodeId="5b73b1b81ea747bd98dd654900a58072"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f1a75324f6b44257bd2337188d8a90d9">
+<p nodeId="0c7eefc3dd1b4dc589c1778f74d96480"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="379414ed5fda4601b1406760b9383242">
+<p nodeId="61a56a2058494fa6a77680533f0964a7"><span font-size="12">=（当前值-基线值）/基线</span></p>
+<p nodeId="8daa321fd97f4eb9b3560d6b67b16b58"><span font-size="12">当前时间周期内命中量与基线相比上升百分比</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e15d5cf5e447466a98196f29b9f04fbc">
+<p nodeId="de39937f4f6d4e92861c0871887e1584"><span font-size="12">动态比率</span></p>
+</td>
+<td rowspan="2" colwidth="[89]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="239c1bcafb9b4b408965f0c06d036af7">
+<p nodeId="8f39f4972b68417fa076c318729bbf9a"><span font-size="12">高价值用户 | 客诉用户</span></p>
+<p nodeId="410dc4c848cb427c95829d765d3d8713"><span font-size="12">计算逻辑见</span><a href="https://km.sankuai.com/page/644052199" title="指标计算说明" autoUpdate="true" nodeId="5e4827f9f37c4d65821443ac1124ae10"><span font-size="14">指标计算说明</span></a></p>
+</td>
+<td rowspan="2" colwidth="[116]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7b127ae35e2345c9a2dd0db7894e5290">
+<p nodeId="e371fc4dc3bc4af896e846c30d50f63d"><span font-size="12">userid | orderid | poiid</span></p>
+<p nodeId="e7ce1952bd0944898dba39a4764261aa"><span font-size="12">不去重/去重</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="21194a072ec949d7a237fc81108f6ca9">
+<p nodeId="4c39325f0f144ffc9703adb1e53960c4"><span font-size="12">cat</span></p>
+</td>
+</tr>
+<tr nodeId="a198773a5ce54dbaa1b01751c598e798">
+<td colwidth="[55]" numCell="true" nodeId="b44076f4147e4f279b4b6df3b17a5376">
+<p align="center" nodeId="5dbfd16117ff4a02926c481d010ecee7" />
+</td>
+<td colwidth="[106]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c86b09efe75244f8b58a6ff8678261e1">
+<p nodeId="4b0bc888e7604d49b1b5429b6f1cce63"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[205]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="75703bb8e44d44789da87d7fe4c49e4a">
+<p nodeId="46e5c081e3114fdd94c3fa4de0e63964"><span font-size="14">当前命中量比基线下降百分比</span></p>
+</td>
+<td colwidth="[95]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="340ab279ae53458faa914f8c093551c3">
+<p nodeId="2a2176dd3d3547c6bcc34f1044d66518"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f5df8621cbbc49e7be1e94294f09a6b6">
+<p nodeId="bd40ef15c7234edf9baac24c8ae824d3"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="54540f5ff4ea4e1a8e2ca5bf9ab0dc91">
+<p nodeId="6bfdf7b600294f6684e5f5efb0441505"><span font-size="12">=（基线值-当前值）/基线</span></p>
+<p nodeId="bf78f11c9f33451abf822197e3229dde"><span font-size="12">当前时间周期内命中量与基线相比下降百分比</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="aa053076ea4946aa856fab7aa389e231">
+<p nodeId="9895809b1ae8413eaf4b335cc5a2b547"><span font-size="12">动态比率</span></p>
+</td>
+<td colwidth="[84]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a3ee0f30a7d541368ea926f94c765c0f">
+<p nodeId="a3aa3331a0d74fcd8b0958452942db9f"><span font-size="12">cat</span></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h3 nodeId="0702e6fd516b4b128bf737659b73b7d4">Step2 管理熔断配置</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="3b55562e470641848378a2159927a0a6">
+<tr nodeId="0a8be1565cd74a3287c138e82ee1d515">
+<th colwidth="[434]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="8f6b3103e83f4df098615728898ac527">
+<p nodeId="017fa1d64805492a835da76b45f86e8d"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[729]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="0a762e5a138143d88220bbe5c3135b5a">
+<p nodeId="2ad13fc369084d48a1e6ab04b1bbae14"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="e6be6b8ba69547919dd79f33acdc0b4c">
+<td colwidth="[434]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d8dd0cb58b2c437997af456b80ba87ab">
+<p nodeId="a08f6813aa7e4ca3a767fddef0d502c1"><span font-size="14">【入口】</span></p>
+<p align="start" nodeId="e1e840d4478946e3bcfa794e16dd0a28"><span font-size="14">安全管理--&gt;规则熔断 --&gt;熔断配置tab</span></p>
+<p nodeId="06b58f1bc58241619bd2b0ca02ee4096"><span font-size="14">在本页面可根据熔断id/名称、作用场景id、作用规则、作用决策、状态、最后修改人、最后修改事件、熔断模式进行搜索，定位到目标熔断规则。</span></p>
+<p nodeId="89ff683dcfb74b9bbbf314b4350fcd3f"><span font-size="14">列表展示的内容维度包括：熔断id、名称、熔断模式、作用场景、作用规则、作用决策、状态、执行动作、最后修改、操作（编辑、删除）。</span></p>
+<ul nodeId="f2e377ea51834bab8244ff79081f5e32">
+<li nodeId="7cffdd5706cd488899c0c9765f3f61be"><span font-size="14">点击【编辑】跳转编辑页面，页面布局与新建页面基本一致，多一条状态的编辑项。</span></li>
+<li nodeId="f54fc079f5924ca29c190d9789f60a28">
+<p align="start" nodeId="d51083eb5147416e840b17537b813587"><span font-size="14">点击【删除】，弹出二次确认弹框是否确认删除。</span></p>
+</li>
+<li nodeId="f217a91850c14a14a17e36327169e4b8">
+<p nodeId="a91e8bd2da0947a1b8550f828bb0f788"><span font-size="14">点击【复制】，</span><span color=""><span font-size="14">熔断规则列表中 操作列新增【复制】按钮。点击出二次确认弹窗，确认后生成新的一条熔断规则。</span></span></p>
+<p align="start" nodeId="adc76540fd2d43619734b0dd700f5550"><span color=""><span font-size="14">新熔断规则命名：xxxxx副本，默认状态为【关闭】</span></span></p>
+</li>
+</ul>
+</td>
+<td colwidth="[729]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ed6db8acab5244d5a2a049d271a244d0">
+<p nodeId="0442f9bec03145f296ae5745ad8ffb62"><img src="https://km.sankuai.com/api/file/cdn/1091686902/53623557357?contentType=1&amp;isNewContent=false" name="image.jpeg" width="707" height="324" nodeId="120e8bc864f94495a3ae6f2c8b3a7576" /></p>
+<p nodeId="49a451f33ec1423eab84291b266ef950"><img src="https://km.sankuai.com/api/file/cdn/1091686902/1097774940?contentType=1&amp;isNewContent=false" name="image.png" width="701" height="325" nodeId="d9020ca290b145f39341b0b5df702f07" /></p>
+<p nodeId="1f3ff84feba6456cb5864760f87775ac"><img src="https://km.sankuai.com/api/file/cdn/1091686902/1097880140?contentType=1&amp;isNewContent=false" name="image.png" width="303" height="117" nodeId="b959537f777247eab82b102cdfa13944" /></p>
+</td>
+</tr>
+<tr nodeId="bf7978713140441aa8af393050504b8f">
+<td colwidth="[434]" nodeId="ca8fe8436da44f81bb0b36e536fbb020">
+<p nodeId="b3fa4b0c93004a71bc26a4cfd89addbf"><span font-size="14">历史版本信息</span></p>
+<p nodeId="7d80f93d417743b68d3a27b78d2cd7ae"><span font-size="14">可在熔断配置页-版本信息tab，查看版本信息，点击版本列表中的【查看】按钮，下方出现该版本的信息。</span></p>
+<p nodeId="b098e9c938ad47d09e1c99c26a610a86" />
+</td>
+<td colwidth="[729]" nodeId="e09aa48b02754ae5b93ba77a1aa72a16">
+<p nodeId="321907d62f664139abf7afa53adcca6b"><img src="https://km.sankuai.com/api/file/cdn/1091686902/53632431217?contentType=1&amp;isNewContent=false" name="image.jpeg" width="707" height="343" nodeId="6ab363f7183d4a89a9be81dd6b0688ba" /></p>
+<p nodeId="dee27cc68cb3471a877ef62417764465"><img src="https://km.sankuai.com/api/file/cdn/1091686902/53632464409?contentType=1&amp;isNewContent=false" name="image.jpeg" width="707" height="326" nodeId="8b394208c69847eaac62c8b44698dd16" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="4d361ac35d164006a679212fb5490275">Step3 响应熔断/查看熔断记录</h3>
+<table responsive="false" nodeId="4c511d83eced4cec85487e0b33b84f71">
+<tr nodeId="3e8af35c2bca4b8990a404fa204d0987">
+<th colwidth="[434]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="002d6e40f9434c6fbeb6cd4f04a71b61">
+<p nodeId="dd8d7045eb604ff4a6981999ea42019a"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[727]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="e9e976b8d39e4e7b8eb111ee1d0da27c">
+<p nodeId="5cfef58e5537499c811ab56753f0e04a"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="32dfd79c31814911a12069b185af47b7">
+<td colwidth="[434]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="014de559077f476c87f548c6de2fa295">
+<p nodeId="58caae2bfa9a44f686aba725a33f2be3"><span font-size="14">【入口】</span></p>
+<p align="start" nodeId="434ac139fef447f5bc002a01782dfc1d">监控中心<span font-size="14">--&gt;规则熔断 --&gt;熔断记录tab</span></p>
+<p nodeId="6e348020f97b4970b40e6a724f9b71f8"><span font-size="14">在本页面可根据熔断id/名称、执行动作（人工熔断or自动熔断）、作用场景id、作用规则、作用决策、状态、发生日期、通知人、最后处理人进行搜索，定位到目标熔断记录。</span></p>
+<p nodeId="96d99d3dae674e4490fd0c393ab45dad"><span font-size="14">列表展示的内容维度包括：熔断id、</span><span font-size="14"><strong>熔断名称</strong></span><span font-size="14">、执行动作（人工熔断or自动熔断）、发生时间、恢复时间、熔断时长、</span><span font-size="14"><strong>状态</strong></span><span font-size="14">、作用场景、作用规则、作用决策、最后修改人、最后修改时间、</span><span font-size="14"><strong>操作</strong></span><span font-size="14">。</span></p>
+<ul nodeId="c7265be5484b423ea392293fbf1ef3af">
+<li nodeId="60fed015d89f4017a76726789f3408b9"><span font-size="14">熔断名称：点击名称链接，跳转</span></li>
+<li nodeId="eda0eff8fa0f49e2a507aec9d3f451a1"><span font-size="14">状态：与执行动作是级联关系。不同动作对应状态。具体对应见下表1</span></li>
+<li nodeId="28427e20e43b491da17a21596c69e358"><span font-size="14">操作：不同执行动作的不同状态下，对应可进行的操作不同。具体对应见下表1</span></li>
+</ul>
+<p nodeId="13849445047f4677ae7b23b174f9ac0b" />
+</td>
+<td colwidth="[727]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="86727d9db20f45c2afda2a77827c8db4">
+<p nodeId="dc8b13e70a6f4e2f92eb88840989d6a9"><img src="https://km.sankuai.com/api/file/cdn/1091686902/53631954971?contentType=1&amp;isNewContent=false" name="image.jpeg" width="705" height="325" nodeId="e9cf70422f894abc88bb3529c343f462" /></p>
+</td>
+</tr>
+<tr nodeId="17fa29c135014c6ea9992b65a493b94c">
+<td colwidth="[434]" nodeId="f8cbfbf4e3804e7b99865e1df9f6d93e">
+<p nodeId="68305faa91a941efaaba52c63a0a568e"><span font-size="14">【熔断消息】</span></p>
+<p nodeId="94b7237d62d541bdaae6052b9b0a7a44"><span font-size="14">当监控达到设定的阈值时，公众号发送熔断消息，用户可进行操作</span></p>
+<p nodeId="f8d405d0144c44f6ae295ad4a16fd4fc"><span font-size="14">1.一键熔断</span></p>
+<p nodeId="35e9d5885f8c49c7a01566c8e1ba8d10"><img src="https://km.sankuai.com/api/file/cdn/1091686902/91515034227?contentType=1&amp;isNewContent=false" name="image.jpeg" width="412" height="280" nodeId="1eeba14577b34ce5926ed6c9f2624779" /></p>
+<p nodeId="bbd4ceaab48b49258110ecf6afdd443c"><span font-size="14">2.ACK告警静默</span><img src="https://km.sankuai.com/api/file/cdn/1091686902/91511020231?contentType=1&amp;isNewContent=false" name="image.jpeg" width="412" height="280" nodeId="5d330c39f82d49e780c6cb128e9f4e76" /></p>
+</td>
+<td colwidth="[727]" nodeId="ad5e1648af1c4b8686603dde26858b90">
+<p nodeId="fc115de9f3ed45bbb6bbc314e631ea46"><img src="https://km.sankuai.com/api/file/cdn/1091686902/91511250047?contentType=1&amp;isNewContent=false" name="image.jpeg" width="502" height="600" nodeId="ed3a771ed91a4895899b887c3b9a4021" /></p>
+</td>
+</tr>
+<tr nodeId="7a3de0bfd7d04bbb9f404cea1dcdfdc1">
+<td colwidth="[434]" nodeId="98c9e32c5c8c45c89ec4be31cce1986f">
+<ul nodeId="043397ef907946228d91d1c4746c5d2e">
+<li nodeId="17ae6b03f237451e8cffd51ab93ebcb4"><span font-size="14">自动熔断响应流程：</span><km-drawio src="https://km.sankuai.com/api/file/cdn/1091686902/59187155088?contentType=0&amp;isNewContent=false" width="374" height="105" nodeId="134779c542224d4fa203df84557a6a68" /></li>
+</ul>
+<ol nodeId="eb57f46e1bfe48fc93aa758a61cba0aa">
+<li nodeId="159c8bcf21e84ee9a279d0fa3909bab1"><span font-size="14">系统自动熔断后，ZeusRobot、短信和雷达radar同时发送自动熔断告警通知。</span></li>
+<li nodeId="e86360c8a2b2400f8da7ef8faaeee0ac"><span font-size="14">用户通过ZeusRobot或Zeus 页面完成对于熔断结果的确认，是否恢复自动熔断</span></li>
+<li nodeId="28b87db8cc8e4b90b4fb925bbf81044e"><span font-size="14">确认后，用户通过radar大象群或radar页面点击“开始处理”完成事件响应，完成响应后，后续告警不再升级</span></li>
+</ol>
+</td>
+<td colwidth="[727]" nodeId="a83fbb02f2df4efe958f48182e28ef5f">
+<p nodeId="909afe3b87e84acbb5b2ec124ef4fbde"><img src="https://km.sankuai.com/api/file/cdn/1091686902/53662518196?contentType=1&amp;isNewContent=false" name="image.jpeg" width="659" height="337" nodeId="86da2878363b4b4ab12c00586db88ca3" /></p>
+<p nodeId="a61da43da51941e485cbc323c2687bdc"><img src="https://km.sankuai.com/api/file/cdn/1091686902/53505858299?contentType=1&amp;isNewContent=false" name="image.jpeg" width="705" height="401" nodeId="a6861843e6904674ae3463103bb6bd65" /></p>
+</td>
+</tr>
+</table>
+<km-collapse active="false" nodeId="726dfb0ab70b4fca94e8c4b228f0a90b">
+<km-title>表1 执行动作、状态、操作的级联关系与说明</km-title>
+<km-content>
+<table responsive="false" nodeId="599e961a17c64e11b9703b7f838c5dce">
+<tr nodeId="65b40df343864e27991893d474cbc2c3">
+<th colwidth="[86]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="5484f64a8e5c4b0c8ca89d8ea68ce235">
+<p nodeId="bc48e8c2ddf84fd28cddee3f467a48ed"><span font-size="14">执行动作</span></p>
+</th>
+<th colwidth="[107]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="29410db90e9445aa84bea4cd411549aa">
+<p nodeId="0c112a60f17c476e8b27c1390a7fc61d"><span font-size="14">状态</span></p>
+</th>
+<th colwidth="[105]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="02cc557950ca4a159f389ba94f5195af">
+<p nodeId="6351d8d3580e4057992eadd26ca8eb86"><span font-size="14">操作</span></p>
+</th>
+<th colwidth="[439]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="5851ec5acf93455ebefa6eaba1407866">
+<p nodeId="1696cfa1802f40b48d10352c1e463912"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[163]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="62a057c9a0eb4cc2b2e08b7e4bf71053">
+<p nodeId="dbc18fef02244cfe8cdcf5e95b0af5b8"><span font-size="14">恢复时间</span></p>
+</th>
+<th colwidth="[225]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="2cb7a66679cd4cfeaa72a506d60d7fbe">
+<p nodeId="0dbe20ffd37045be858a658ac2afc35b"><span font-size="14">操作按钮时效</span></p>
+</th>
+</tr>
+<tr nodeId="5e0968e2ccc541dd861cd9e2993f1622">
+<td rowspan="5" colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3221a757f43b4f3aa96e222604f0a939">
+<p nodeId="5db0a8d4109345d39031c4aaec39e218"><span font-size="14">自动熔断</span></p>
+</td>
+<td rowspan="2" colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="eb87d47d46754d3b9a4cbcf3d401bc11">
+<p nodeId="aa335978260045deaa81f92f3df833c7"><span color="rgb(102, 102, 102)"><span font-size="14">已熔断</span></span></p>
+</td>
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1b8b73584e15495cb0e73bc7407cae8a">
+<p nodeId="83d36d501cc045948fb78263c56fd07f"><span color="rgb(48, 84, 235)"><span font-size="14">一键恢复</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ca75d640456c4945ba0f13e663d95f89">
+<p nodeId="404f5c99d7c94a97b40ea05170d9ce2d"><span font-size="14">触发自动熔断后还未处理时显示此操作，点击后弹出一键恢复确认框，需要填写归因后才能确认，进行一键恢复（熔断为标记状态的规则重新变为生效）</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="46a7beb9213a4eb597ec8764f26f90c0">
+<p nodeId="8022961b1f274e25a818cac1ea349ce5" />
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="807e8525504e4f80894698680f065fad">
+<p nodeId="071f22376b15463697d33e46ea2ac9a2" />
+</td>
+</tr>
+<tr nodeId="cb22d5e41c50485d96f1e28502dc62f8">
+<td colwidth="[105]" bgColor="rgb(255, 255, 255)" nodeId="09681bd79191452782767c3487a5227b">
+<p nodeId="7bf99964a36c477498444911259de16f"><span color="rgb(48, 84, 235)"><span font-size="14">归因</span></span></p>
+</td>
+<td colwidth="[439]" bgColor="rgb(255, 255, 255)" nodeId="8b421c7988ae48b6a7094a8f73114df5">
+<p nodeId="06b0f6d425be473b8199770924a5aaaf" />
+</td>
+<td colwidth="[163]" bgColor="rgb(255, 255, 255)" nodeId="37b613a4632145439447f87bee6b7ef8">
+<p nodeId="76ee3f066f0e4d168f7bcf26e7d4df7a" />
+</td>
+<td colwidth="[225]" bgColor="rgb(255, 255, 255)" nodeId="1653ec942dc446d69870dbdb518b2ebf">
+<p nodeId="edfb0de77b3b4ae880ad5e7d8519f867" />
+</td>
+</tr>
+<tr nodeId="9d5df560b35a49a7afcea3be9dd86bd7">
+<td colwidth="[107]" nodeId="4c760556bba54ca0b18402bcbc4230ee">
+<p nodeId="e519fb5b2e46478e91dc03f9fc6132c3"><span font-size="14">已确认熔断</span></p>
+</td>
+<td colwidth="[105]" nodeId="67644516d4be48ac8c6ad91ed5add576">
+<p nodeId="27b20ae28f55480da23e517324e0c05e"><span color="rgb(48, 84, 235)"><span font-size="14">归因</span></span><br /><span color="rgb(48, 84, 235)"><span font-size="14">一键恢复</span></span></p>
+</td>
+<td colwidth="[439]" nodeId="43ea5944f2224cdd90e049b8c235a56c">
+<p nodeId="4ef2d6b7273f4ed4ab6a0cf498ea0339"><span font-size="14">点击“我已确认”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td colwidth="[163]" nodeId="2f834b3b64cb480fab25724c922d51fa">
+<p nodeId="1132b5a788994d35ac7ba58718ef0de6" />
+</td>
+<td colwidth="[225]" nodeId="0dd95bb0ed114f01a7b045dad5ecefcc">
+<p nodeId="a3d64a01e419450d8caa9aa7721e6070" />
+</td>
+</tr>
+<tr nodeId="8d67039556de4a9587b2d90290a4f0a9">
+<td rowspan="2" colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3c1f8009b20449a1b2798e2bac913be8">
+<p nodeId="0960065cc53349d9871a1d91de3435af"><span color="rgb(102, 102, 102)"><span font-size="14">已恢复</span></span></p>
+<p nodeId="421ae7227dbe4ed1a5bbe8bd9b3d99f1" />
+</td>
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1238bf4a8efb41808b3e30c0153ffb51">
+<p nodeId="04bc35c810a64ed7a330832cc3999d99"><span color="rgb(48, 84, 235)"><span font-size="14">归因</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="480d5f734b49408fafb993b820885e95">
+<p nodeId="1d128c02ec9e4d759d8a790776b8d750"><span font-size="14">点击“一键恢复”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3e19f85e65474f90a445358afa72ea32">
+<p nodeId="0b8c58b259b04942ae0eb61850c09c62"><span font-size="14">有</span></p>
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="20413a94cb844b06a31774b0286a4dfa">
+<p nodeId="3e74d463b59b421e9d0a4f25c044a328" />
+</td>
+</tr>
+<tr nodeId="90616a476c7b40ae8dbc07e843e7df04">
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ca5ec1a261074081b31549c66f17ef80">
+<p nodeId="abb6faae3d524c298835d4aaa0340d43"><span color="rgb(48, 84, 235)"><span font-size="14">查看归因</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9c2ae31ed5a4417a9d326fa4498e1dab">
+<p nodeId="b8ce9ee486164261ad154c794effea8a"><span font-size="14">点击“一键恢复”后、填写归因后显示此操作。点击查看归因，可查看之前记录的原因。</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f82856da010b4db7a7934d838e61782e">
+<p nodeId="d4908e0fe1194841bd80c39861014aa3"><span font-size="14">有</span></p>
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b6f10a052e674eec833e5d434d0ff984">
+<p nodeId="7a7c69eac5a64875afc27b0ff9f5cde8" />
+</td>
+</tr>
+<tr nodeId="0599b275270541c98a0978bab03682c1">
+<td rowspan="13" colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d7c5bf6e0dad45d5ab8b0d1d90bf4b56">
+<p nodeId="0fa0022d61534197a39017cb20b5441a"><span font-size="14">人工熔断</span></p>
+</td>
+<td rowspan="5" colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a9edf34c47164306bfa3920c342aeb8e">
+<p nodeId="c1a96e3eb9bd4ca69d573e2be09a2852"><span color="rgb(245, 35, 45)"><span font-size="14">待人工处理</span></span></p>
+</td>
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="65bc94ef2c2742e5be1f52811183daf0">
+<p nodeId="481ab1dfacaa4fec94fbcefe563665eb"><span color="rgb(48, 84, 235)"><span font-size="14">一键熔断             </span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="333173fd5dd6494c928f6b6280d3b8aa">
+<p nodeId="f00564ca68604d6aa92c6e0533450da0"><span font-size="14">触发人工熔断规则后还未处理下，显示此操作。点击后弹出一键熔断确认框，需要填写归因后才能确认，进行一键熔断（将熔断规则中正在生效的规则改为标记状态）</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e92b3daeb55843978cdc7d5422fdb795">
+<p nodeId="3a814294605a4d6d93402efce874b4f2" />
+</td>
+<td rowspan="5" colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b5a0a943486e431ab6af23a7f3a63dd1">
+<p nodeId="a64a6cf5dcc845f1a4534e9ee36be6e4"><span font-size="14">“一键熔断 、</span><span color=""><span font-size="14">ACK1小时  、 ACK1周 、  ACK1月</span></span><span color="rgb(48, 84, 235)"><span font-size="14">  </span></span><span font-size="14">” 24小时之内有效</span></p>
+</td>
+</tr>
+<tr nodeId="a8b54253f2434bb1a38b7a7ea62ec523">
+<td colwidth="[105]" nodeId="f3af9b51d0a94a569671934170e2ff7a">
+<p nodeId="bbdb2f00d7fa48219fc8422685e5092c"><span color="rgb(48, 84, 235)"><span font-size="14">ACK1小时</span></span></p>
+</td>
+<td colwidth="[439]" nodeId="e73842d235e44738b42d95dfe4d7001c">
+<p nodeId="e7c97774f08d424db11f5e572280f013"><span font-size="14">点击后，1小时内不再给通知人发送通知。（即使1小时内再次触发熔断）</span></p>
+</td>
+<td colwidth="[163]" nodeId="b6bcac15829641eea0ed2c6fe8befec3">
+<p nodeId="ddf775c30af74a839910a13e33cd96be" />
+</td>
+</tr>
+<tr nodeId="134e9339c8764ba981e7d674528d3b0e">
+<td colwidth="[105]" nodeId="2f9a3090c7e5419baf55c1e46fd16a38">
+<p nodeId="ce19048d49da423ca69868cbbb3f33cf"><span color="rgb(48, 84, 235)"><span font-size="14">ACK1周</span></span></p>
+</td>
+<td colwidth="[439]" nodeId="1d53931f7de445189a622b3858856fec">
+<p nodeId="f5681a11c2a047b1b322a7d0e3e7aced"><span font-size="14">点击后，1周内不再给通知人发送通知。（即使1周内再次触发熔断）</span></p>
+</td>
+<td colwidth="[163]" nodeId="6a3c1f7000f6468896323d81fef28686">
+<p nodeId="1b504bba59984f9c88f98e9978f469b5" />
+</td>
+</tr>
+<tr nodeId="6ea28e59e7fe49afae3e31123181b5ec">
+<td colwidth="[105]" nodeId="77a98ee3c24644199470facdae40c531">
+<p nodeId="d322ddd8e642471090058d438d7b909b"><span color="rgb(48, 84, 235)"><span font-size="14">ACK1月</span></span></p>
+</td>
+<td colwidth="[439]" nodeId="4c7837893dcd4c86a0b3a9042704e3a0">
+<p nodeId="2dcc18df9bc341f391ddb531a64aa32f"><span font-size="14">点击后，1个月内不再给通知人发送通知。（即使1个月内再次触发熔断）</span></p>
+</td>
+<td colwidth="[163]" nodeId="660f329b827d41e681d0139ade6c5baf">
+<p nodeId="d67cfb786512415e98913369aa6ce5cd" />
+</td>
+</tr>
+<tr nodeId="c022d67912ab44a8b5902139bb5eff24">
+<td colwidth="[105]" nodeId="aa428c14e3db4b1296d45870c4361c9d">
+<p nodeId="9bdbc4bdba024d8a8ed9c605981a2d60"><span color="rgb(48, 84, 235)"><span font-size="14">归因</span></span></p>
+</td>
+<td colwidth="[439]" nodeId="b0bf76acd1604f43b7e3dac2d7ff7dcf">
+<p nodeId="8a817219f50b4c5da0d8fe78b3317efd" />
+</td>
+<td colwidth="[163]" nodeId="4932b5b1a45841369716d4843c6ffaff">
+<p nodeId="7e8fc1e9519047bc8036e3adf159cc7d" />
+</td>
+</tr>
+<tr nodeId="175a02ed3d004e9e93807a70c767d207">
+<td rowspan="2" colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e626e3e22ca5499e97be9273616632cb">
+<p nodeId="07778a44dc9043e795a544951185190c"><span color="rgb(75, 75, 75)"><span font-size="14">已熔断</span></span></p>
+</td>
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d65cedc4ca2e48e4a4d2688dbde9ea86">
+<p nodeId="055d25dfc0aa47e8bef185ab880c6233"><span color="rgb(48, 84, 235)"><span font-size="14">归因</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e4ec157901ae42db835b7c094035a141">
+<p nodeId="37e8fb0caaa24fd9a5f3d6e1b45d3022"><span font-size="14">点击“一键熔断”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ba2ad8c51ab1470c8edb6c7927a05f51">
+<p nodeId="428f2f8401784bce9c23811263654135"><span font-size="14">- -</span></p>
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e5572d59558a4a0ea7d46649b4c58449">
+<p nodeId="01b5cdb602cd4a34914a1334796ff536" />
+</td>
+</tr>
+<tr nodeId="10d976f58f2d41169b697e65bfabda65">
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="48cf3153d687433b9123a4743747e916">
+<p nodeId="faa4ca19760c4d5e85ed803c685bafe1"><span color="rgb(48, 84, 235)"><span font-size="14">查看归因</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bd202e4ac1fd47acb96b0dc6d3bf44f6">
+<p nodeId="3d62f153548d4813852545ba84cad21d"><span font-size="14">点击“一键熔断”后、填写归因后显示此操作。点击查看归因，可查看之前记录的原因。</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c2b5aec7452c4ff79b5db640d3d476b3">
+<p nodeId="5d06bc14c69249debda53b5a41983627"><span font-size="14">- -</span></p>
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b14eab7506534375ae0213626a744780">
+<p nodeId="a2a61e5570de43af9e1781956b3f92e1" />
+</td>
+</tr>
+<tr nodeId="ee79a4ac3f5f4d0db5addfc53cc30687">
+<td rowspan="2" colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a0a2f5eda9964b4cb3d53dacde5c4b9d">
+<p nodeId="d3e9979c5891489497402afc4949daa9"><span color="rgb(102, 102, 102)"><span font-size="14">ACK1小时</span></span></p>
+</td>
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a300bbc6a30441e3872dc7a188daa80b">
+<p nodeId="b11c66e68ae1478089ff6cbbff6bea61"><span color="rgb(48, 84, 235)"><span font-size="14">归因</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e84b49a89d5c432b80caeb38e8bf1df4">
+<p nodeId="6e307fd283d8454ab6c8819e218cf6c7"><span font-size="14">点击“</span><span color="rgb(102, 102, 102)"><span font-size="14">ACK1小时</span></span><span font-size="14">”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="81737e65437e460b9467cf842e4157fc">
+<p nodeId="8f301d5069cc435287f8366b8f6b1708"><span font-size="14">- -</span></p>
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1a1fd0392b034c358980f86ef6e2067f">
+<p nodeId="d5813a76ed224748b8ae3657dfd19719" />
+</td>
+</tr>
+<tr nodeId="948b7eb44d0e4ad7868f1b753f42ca10">
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9adf6fab7a5f40048485bb3a0f0a6cd4">
+<p nodeId="645a767781bf430ebd4d0b9851c0a57b"><span color="rgb(48, 84, 235)"><span font-size="14">查看归因</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="50fddc5794f448928f3cb7c0d1c6b993">
+<p nodeId="57e75539f85b4f919ebd2426f5605f0d"><span font-size="14">点击“</span><span color="rgb(102, 102, 102)"><span font-size="14">ACK1时</span></span><span font-size="14">”后、填写归因后显示此操作。点击查看归因，可查看之前记录的原因。</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6fd17c9a263643e28ec9cda4d7ed5dcc">
+<p nodeId="8bc4cf0559b5421eb0a2342d8e90776d"><span font-size="14">- -</span></p>
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a04f30ab446b4fce878dd1ad5cbc5257">
+<p nodeId="ca4d759281af49b8a521150868ff63e6" />
+</td>
+</tr>
+<tr nodeId="b79662b7c3584a978a9f733444842430">
+<td rowspan="2" colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8c73cb4c68db4bc098b3822665d144f7">
+<p nodeId="48f7955a3ea44467a2f0ff1ba1c0ff02"><span color="rgb(102, 102, 102)"><span font-size="14"> ACK1周</span></span></p>
+</td>
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f9c90cc9f44743a69742ff1b4b504b9f">
+<p nodeId="8d9cd0273cec472e8c9f3a9477556241"><span color="rgb(48, 84, 235)"><span font-size="14">归因</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5aa31c1e230342b7abea79244006739f">
+<p nodeId="0dfdaf7e859d4f0992d84f1975b4b368"><span font-size="14">点击“</span><span color="rgb(102, 102, 102)"><span font-size="14">ACK1周</span></span><span font-size="14">”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="38ff566455494a33b4d4994de2a58da4">
+<p nodeId="6c53ad352925462ebdea761b76b2939b"><span font-size="14">- -</span></p>
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3de44140f12a4dd087a30b3d19e29b08">
+<p nodeId="b415a86844d54e97b7cce3b6cc5ea4e3" />
+</td>
+</tr>
+<tr nodeId="ad50e14e53fe44e4be419681e3f64432">
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9aac3434549d4a569a6b57bb049668b4">
+<p nodeId="c4cf836cfb01471e8ec8b52941aa19f9"><span color="rgb(48, 84, 235)"><span font-size="14">查看归因</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="340cad7c51114ffebff86c85e6c2f6af">
+<p nodeId="088f36f105b74a9c87e51a19302280a8"><span font-size="14">点击“</span><span color="rgb(102, 102, 102)"><span font-size="14">ACK1小周</span></span><span font-size="14">”后、填写归因后显示此操作。点击查看归因，可查看之前记录的原因。</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="be3f173c7c5c4adbb9e01aac12a40ce0">
+<p nodeId="a7c3c9c7b1184f57ad841352ffcaaf29"><span font-size="14">- -</span></p>
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="475c2b9b5e2f45dcb8c6a5a1beb7f1b6">
+<p nodeId="ad908967cef24410b9a434b4a9a201b9" />
+</td>
+</tr>
+<tr nodeId="a702f8bd973d47df88ec180cd9b975b4">
+<td rowspan="2" colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="08558c3c8f6745339667a3d7381c0fe2">
+<p nodeId="2a450dbd70e941c8af79eed72def7862"><span color="rgb(102, 102, 102)"><span font-size="14">ACK1月</span></span></p>
+</td>
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cba2f3ec435841668b4717aa71fc2359">
+<p nodeId="dce3c76e89f64ddb8f5be1894d5986eb"><span color="rgb(48, 84, 235)"><span font-size="14">归因</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8f054c1320f246cdbb05bcf95c64e1dc">
+<p nodeId="6df5f072828f4a7ea50d7962e664698c"><span font-size="14">点击“</span><span color="rgb(102, 102, 102)"><span font-size="14">ACK1月</span></span><span font-size="14">”后显示此操作。点击归因，可填写记录原因。</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2a20d9d5f81c4fa9803c70627b80a7b4">
+<p nodeId="5f6b31ce79674e50bdb3ae5888403339"><span font-size="14">- -</span></p>
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="231b8fa6f9a34bc88135d8028a4613dc">
+<p nodeId="536841bef9c64d5d832bde1cea20a11c" />
+</td>
+</tr>
+<tr nodeId="252b3eff560348c3844c737971459ea5">
+<td colwidth="[105]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="396466e247c447f7aa71cf0c1d585106">
+<p nodeId="c1e8d335a6604544adbddbe38f378d62"><span color="rgb(48, 84, 235)"><span font-size="14">查看归因</span></span></p>
+</td>
+<td colwidth="[439]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9ceafffcefa34360b804765b19ce4f8d">
+<p nodeId="d162cfcce9004a809586dcc6daab1bc2"><span font-size="14">点击“</span><span color="rgb(102, 102, 102)"><span font-size="14">ACK1月</span></span><span font-size="14">”后、填写归因后显示此操作。点击查看归因，可查看之前记录的原因。</span></p>
+</td>
+<td colwidth="[163]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6a66e7f029b14e0c8ec5000b76c4eb41">
+<p nodeId="231b77a174b6446d923d612db9032cb9"><span font-size="14">- -</span></p>
+</td>
+<td colwidth="[225]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b68dd67f420045e89eb6203d2666e7cf">
+<p nodeId="70abca12df264c2497d0ff0157000eb8" />
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h3 nodeId="d67c2ed9128c47e991a3d61a61fdc1cd">Step4 在场景配置、规则、决策页面配置&amp;查看熔断</h3>
+<p nodeId="e1c8dd4a8f2a4c22b4ce2251ec450bf5">规则熔断功能上线后，在场景、规则、决策配置页面也提供了入口可以配置熔断规则，也可查看对应规则下已有的熔断规则。</p>
+<table responsive="false" nodeId="d5d035fbdcc1452da289ed63bc6e8372">
+<tr nodeId="75a99249aeaf44ed83cf8cd41d5f6d07">
+<th colwidth="[243]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="7ddc7d96969d48b0ba3811d444ced390">
+<p nodeId="86957fdf6244459e805a5514d0c6d401"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[745]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="7804a34cd9cd44d8aedd169c7db9a3e9">
+<p nodeId="b6f270d2ad7a4476ae7de17479112d0e"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="bb5505f80a7f42c6bf5e6f90acb19002">
+<td colwidth="[243]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cc89f94b383a45c0a07fd2f6be6decef">
+<p nodeId="20fd2ca60ed74acc8e85af48828d9530"><span font-size="14">【入口】</span></p>
+<p align="start" nodeId="811071e9f8b142fab96a01f1160e193f"><span font-size="14">策略部署--&gt;场景 --&gt;普通场景tab</span></p>
+<p nodeId="fa9b2a5a13fa4cf593496e24c6a77935"><span font-size="14">场景下每条【规则-决策】配置的后方，</span><span color=""><span font-size="14">有【熔断相关】按钮，点击出现弹窗，弹窗内有：</span></span></p>
+<ul nodeId="87234cf3df8d4082b7a2230324becb49">
+<li nodeId="9b92e68604f142cc9a269c2c4406f07d"><span color=""><span font-size="14">【添加熔断配置】按钮：点击进入新建熔断配置页，作用域默认已经填入了该场景-规则-决策。</span></span></li>
+<li nodeId="43d825a63f8844489727631090f1760f"><span font-size="14">当前涉及的熔断配置列表：展示该【场景-规则-决策】涉及到的熔断配置，点击可跳转至对应的熔断配置页，可编辑。</span></li>
+</ul>
+<p nodeId="16b48f27952c4d11b8ea60bd79f97663" />
+</td>
+<td colwidth="[745]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7fbfd788cf364c92814f7da4f18f2806">
+<p nodeId="61462dd06b8345af8546ab19f62d771f"><img src="https://km.sankuai.com/api/file/cdn/1091686902/1485694556?contentType=1&amp;isNewContent=false" name="image.jpeg" width="723" height="305" nodeId="829463be5db34a3982b0a59274d62675" /></p>
+<p nodeId="533bdfde194046eba5d88391ab503298"><img src="https://km.sankuai.com/api/file/cdn/1091686902/1485478539?contentType=1&amp;isNewContent=false" name="image.jpeg" width="723" height="301" nodeId="6e33b0ee65444903a5a0024e745c7e64" /></p>
+</td>
+</tr>
+<tr nodeId="359d55e4ad964a70bbe49cad2257b09c">
+<td colwidth="[243]" nodeId="b79c69ac233a47989f18e8af1e98c053">
+<p nodeId="75cec2fee2de41489d912f71d36e4c1a"><span font-size="14">【入口】</span></p>
+<p align="start" nodeId="79439b1ffa9641f696dd12ce2483b4da"><span font-size="14">策略部署--&gt;规则 --&gt;规则详情页</span></p>
+<p nodeId="c23e75f4027c43e9844dc34b911d9a2e"><span font-size="14">规则详情页最后（添加话术之后）可查看到一栏熔断信息，以链接形式展示。点击后跳转至熔断信息页，点击编辑可进入熔断编辑。</span></p>
+<p nodeId="8ff09da67b5543209e8afdddba5b7084" />
+</td>
+<td colwidth="[745]" nodeId="aacfc34be8bd4f34af8b7e20a232a81b">
+<p nodeId="fc0284e0f4de4ffb86c526c7a20e646e"><img src="https://km.sankuai.com/api/file/cdn/1091686902/1100652079?contentType=1&amp;isNewContent=false" name="image.png" width="717" height="368" nodeId="c7bd281124a6407e995918788aba6c14" /></p>
+<p nodeId="8674e963a13c47e09e2ca8e0fb0f665a"><img src="https://km.sankuai.com/api/file/cdn/1091686902/1101080272?contentType=1&amp;isNewContent=false" name="image.png" width="717" height="309" nodeId="81225519d75646da86de2505835cd6b9" /></p>
+</td>
+</tr>
+<tr nodeId="830b4db23392438f85465e03c070a872">
+<td colwidth="[243]" nodeId="d87acfa4b7fc4b06af72bc71f7f7376d">
+<p nodeId="ca44d7de63ce42cdae72ac3d5f2d33d6"><span font-size="14">【入口】</span></p>
+<p align="start" nodeId="8bb22ceebf524167abccf0155f385e72"><span font-size="14">策略部署--&gt;决策 --&gt;决策详情页</span></p>
+<p nodeId="22f8edba3ccc4946b403d099f11afd00"><span font-size="14">决策详情页补充信息最后（路由决策之后）中有一栏tab熔断信息。点击后，可查看到一栏熔断信息，以链接形式展示。点击后跳转至熔断信息页，点击编辑可进入熔断编辑。</span></p>
+</td>
+<td colwidth="[745]" nodeId="5d0cbafa574f4cedb26a523fad4bc057">
+<p nodeId="50cf80f41dbe41bd8c255b409cf016f2"><img src="https://km.sankuai.com/api/file/cdn/1091686902/1101144412?contentType=1&amp;isNewContent=false" name="image.png" width="717" height="325" nodeId="c277855a6560442084ae2e43fc56f84a" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="87f655cf0c2b4a2d816c137f18094bb9" />
+<h2 nodeId="8d668db9ecfd4e688352c21e305a8a67">3.3 分层场景熔断配置</h2>
+<km-note type="info" hiddenTitle="true" nodeId="aa33d43d44054e0698547702c19838f1">
+<km-title></km-title>
+<km-content>
+<p nodeId="c58cbc6330a24aedbd682a49c83fd139">分层场景支持熔断配置。只有在场景中【生效】的规则才会纳入监控范围。本身【标记】规则熔断不予监控。</p>
+<p nodeId="e7406736006e49988bf0a9a4f5794e88">与普通场景稍有区别的是，分层中熔断掉的规则，临时以【熔断】态进行执行，这是一个附加在生效态上的临时状态，执行效果等同【标记】（并不会把原【生效】的配置改成标记）。</p>
+<p nodeId="81152a60932246c18a41fc7a0061c3bf">若用户认为后续需要恢复正常的生效执行，可点击恢复熔断，即可重新生效，无需通过场景的编辑、再发布。</p>
+</km-content>
+</km-note>
+<table responsive="false" nodeId="3a21700fcf614b2284664b4b200860ac">
+<tr nodeId="6191d21458f34b4985da9fe5b11bf239">
+<th colwidth="[402]" nodeId="81a8a2497b81409fadc7717a91c86ca5">
+<p nodeId="f006c8254d39477d9fc87169a5c6604f"><span font-size="14">描述</span></p>
+</th>
+<th colwidth="[795]" nodeId="22165cb7cd1d4649ae93a9313c115181">
+<p nodeId="36df0fef46bd4c6592275c72b9624443"><span font-size="14">图</span></p>
+</th>
+</tr>
+<tr nodeId="7d7deb3de1614838861128fab9923a46">
+<td colwidth="[402]" nodeId="e3252799e27545d5a2d0120dc5231882">
+<p nodeId="67e884fd0323436cb3b4908166016e6a"><span font-size="14">熔断含义：</span></p>
+<p nodeId="d21f567fede540cb8d346043d6105770"><span font-size="14">根据场景、规则、决策确定作用范围，对范围下【生效】状态的规则命中量等指标进行监控。判断是否达到阈值而熔断，熔断后使【生效】规则临时以【熔断】态进行执行，等同【标记】效果。</span></p>
+<p nodeId="4fb75c77c2c74c6eb86a21443314ad97" />
+<p nodeId="55c2d78863004b5a87cda96c023d4629"><span font-size="14">入口：</span></p>
+<p nodeId="86bb94dea9b343c4bb9f0d053c22fc68"><span font-size="14">1.分层场景-预览页-策略节点-规则配置后方的熔断配置按钮。点击后出现弹窗，展示该条配置相关的熔断配置。可点击新增，直接打开熔断新建页。也可以查看已有的熔断配置。</span></p>
+<p nodeId="8cc9b6da70b94e7b85ec93b7eb4904a7"><span font-size="14">2.规则熔断-新建-选择【分层场景熔断】模式</span></p>
+<p nodeId="b5c8d5279acb401cbc2d76eda2d71d82" />
+<p nodeId="fb79a7a8e47340fa892f89a747a67ac6"><span font-size="14">配置内容：</span></p>
+<p nodeId="5c3ece4d27d7460e9de220f080a6fa25"><span font-size="14">1. 分层场景、规则、决策皆支持多选。另外规则还支持【全部规则】的选项，代表范围包含该场景下的所有规则。选择【自选规则】时，可用英文逗号连接多个id对象。⚠️ </span><span color="rgb(245, 35, 45)"><span font-size="14">注意，不支持*的识别</span></span><span font-size="14">。</span></p>
+<p nodeId="c5b00030d2774035ba9b7f2b591e9264"><span font-size="14">2. 可在分层场景预览态下查看各个规则熔断情况，可手动进行熔断恢复，使规则重新以【生效】态执行</span></p>
+<p nodeId="d99e27d0e07342ae96f57de11d16c33f"><span font-size="14">3.作用时间及后方的配置和 单点熔断一致，不赘述。</span></p>
+</td>
+<td colwidth="[795]" nodeId="9a2b39b5adc64222b8de4b981b732968">
+<p nodeId="a5fffdd590e74acab3eee99641d4fc0e"><img src="https://km.sankuai.com/api/file/cdn/1091686902/16360081024?contentType=1&amp;isNewContent=false" name="image.jpeg" width="773" height="397" nodeId="73be824df0424a8985891dc5ec324f62" /></p>
+<p nodeId="15fc7bc890034637a2c23955d5c19700"><img src="https://km.sankuai.com/api/file/cdn/1091686902/16367403501?contentType=1&amp;isNewContent=false" name="image.jpeg" width="773" height="433" nodeId="5583d945bb3d448fa52196f165c766f4" /></p>
+</td>
+</tr>
+<tr nodeId="9969a26d7a35421e8b6673c563aec078">
+<td colwidth="[402]" nodeId="45eba4d2a7bc48e7bd4bb44130549ce9">
+<p nodeId="a2fa96a1133f4d8d8e12d1c4d36098a0"><span font-size="14">配置了熔断的对象，可以在场景-预览中看到 规则后方出现开关。</span></p>
+<ul nodeId="fbc73c1149a5422fb5452a07bb2f3f61">
+<li nodeId="d0c721013c9948299255561a86b09a77"><span font-size="14">开关开启时，代表该生效规则正常监控中。（此时不允许用户拨动开关，即不能手动把规则 熔断，必须触发阈值才可以点击一键熔断）</span></li>
+<li nodeId="5e03b9ab07eb412c80d13da40770cc4c"><span font-size="14">开关关闭时，代表该生效规则 已被熔断，临时以【标记】的效果执行（注意状态栏中展示的是【熔断】字样）。此时用户可以手动拨动开关，让熔断恢复正常生效执行。</span></li>
+</ul>
+<p nodeId="0702d02b28004a53ad72024091371c78"><span font-size="14">熔断恢复会有二次确认，告知若有多条同样的规则-决策配置，将会一起被恢复。</span></p>
+<km-note type="info" hiddenTitle="true" nodeId="85dd2a4423eb459999b2e6759058afa5">
+<km-title></km-title>
+<km-content>
+<p nodeId="c61a41391e044794ba4010adc7030ced"><span font-size="14">本身状态为【标记】和【离线】的规则，不在熔断监控范围内，所以后方状态栏是空的（即使熔断配置选了这条规则作为作用范围）。</span></p>
+</km-content>
+</km-note>
+<p nodeId="675ea8b92ec34f5fa71b580f50a0dfcd"><span font-size="14">每次用户打开预览页，若有规则处于熔断态，都会有浮窗提示用户。</span></p>
+<p nodeId="6773b7fa55194da099b3271df84bb1ad"><span font-size="14">因为熔断态是一个临时状态，本质期望用户及时处理这类规则：或去编辑里将该规则转标记/离线；或者重新恢复生效。</span></p>
+<p nodeId="4bde8eb88fc54e15bef10b4b74220830" />
+<p nodeId="6ce9d9f458f245ad94ef284770c3cfed"><span font-size="14">大象告警、ack、熔断记录页 和单点熔断一致，不做赘述。</span></p>
+</td>
+<td colwidth="[795]" nodeId="10ba3009acbf423cb6fd65f0cfad111b">
+<p nodeId="d1cdec7bf9c84716a9348dfe10d064b0"><img src="https://km.sankuai.com/api/file/cdn/1091686902/16367678471?contentType=1&amp;isNewContent=false" name="image.jpeg" width="767" height="868" nodeId="67df4d740c8748749a66dc93364e90ef" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="79d6f9fe596f435ea93d9aa697a4f444" />
+<h2 nodeId="7b0e94604d53420189884d1b8eddd535">3.4 特殊说明</h2>
+<table borderColor="#cccccc" responsive="false" nodeId="afee4d6076614002b77f7fa8c035223d">
+<tr nodeId="3c22c207bb2042d68ead4db9389f1ee6">
+<th colwidth="[242]" nodeId="2aa5af1cb41a4d2ab20cd5c7d3dff93f">
+<p nodeId="613cc053175344b2a0f94221d98e7997"><span font-size="14">项目</span></p>
+</th>
+<th colwidth="[883]" nodeId="ad832286afa1469ea7f3fe0b49476eb1">
+<p nodeId="f1bd2be9aeab4a8d8b213bfa0ca4e24d"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="f48bcc8a644c49deba00247f69a913d4">
+<td colwidth="[242]" nodeId="7cd1cff615a745ba8a79ee7f58282619">
+<p nodeId="e293dd2f3ced43c3a98e17250393075b"><span font-size="16">暂不支持</span></p>
+</td>
+<td colwidth="[883]" nodeId="805ea5c237904fbaa2ef8ff3700bf290">
+<p nodeId="62c3f168999b41939c5045fcda2f15ca"><span color="rgb(38, 38, 38)"><span font-size="16">暂不支持</span></span><span color="rgb(245, 35, 45)"><span font-size="16">路由场景</span></span><span font-size="16">，仅支持</span><span color="rgb(245, 35, 45)"><span font-size="16">普通场景（含 子场景）</span></span><span font-size="16">。</span></p>
+</td>
+</tr>
+<tr nodeId="2d271631fb0c41c6af5f17e815d750ea">
+<td colwidth="[242]" nodeId="38d6124d15eb411cb4cb645634a04eb6">
+<p nodeId="c18faec3cc2f411eb64b6a8a305b6399"><span font-size="16">生效期与屏蔽期</span></p>
+</td>
+<td colwidth="[883]" nodeId="2d1c7da75cc74ee5a020ff42a0f4dce2">
+<p nodeId="a221db346f59414cb6bb9e152a5f4470"><span font-size="16">规则熔断在创建初期会有一段屏蔽期，而后进入生效期，才会进行报出。了解：</span><a href="https://km.sankuai.com/page/1214650678" autoUpdate="true" nodeId="bf6976e1472d4661abc93ce68fccd0a4"></a></p>
+</td>
+</tr>
+<tr nodeId="1917dfcedeb34c01b93fa8d37ae7fbf1">
+<td colwidth="[242]" nodeId="116e3f9073be4e67a09d8884e3d1a54c">
+<p nodeId="42669f52364e4b0d85cf424ae5fadab1"><span font-size="16">比值函数计算逻辑</span></p>
+</td>
+<td colwidth="[883]" nodeId="39a1727eff1b441aaf0b876dc9f46efa">
+<p nodeId="a130611b95b34219a0aa59508db37116"><span font-size="16">对于熔断计算中的比值类函数，当出现</span><span color="rgb(245, 35, 45)"><span font-size="16">分母为0</span></span><span font-size="16">的情况，将默认将</span><span color="rgb(245, 35, 45)"><span font-size="16">分母置1</span></span><span font-size="16">计算。</span></p>
+<p nodeId="ea2a732d32e648eea9e416682ae1dd16"><span font-size="16">【例】熔断规则最近2分钟命中量较上一个2分钟上升百分比大于50%则报出，上个2分钟命中量为0，当前2分钟命中量为5，计算为（5-0）/</span><span color="rgb(245, 35, 45)"><span font-size="16">1</span></span><span font-size="16">=500%，报出。</span></p>
+</td>
+</tr>
+<tr nodeId="2d727fe698064b139d4fdf81203b4efa">
+<td colwidth="[242]" nodeId="e75cc7bac1ab4dfaa983b7b3e9b5eb58">
+<p nodeId="d47064341eeb4b368aeef9a76e1b4ef2"><span color="rgb(38, 38, 38)"><span font-size="16">相同【规则-决策】的命中量</span></span></p>
+</td>
+<td colwidth="[883]" nodeId="741d70d56995405aaf55dd84d1a27afc">
+<p nodeId="2d15b327973244f294a48a1818ab0a13"><span color="rgb(38, 38, 38)"><span font-size="16">对于同个场景下存在n条相同的【规则-决策】配置，</span></span><span color="rgb(245, 35, 45)"><span font-size="16">计算命中量时，会只算1次，不会乘n（即默认同个场景内去重）</span></span><span color="rgb(38, 38, 38)"><span font-size="16">。</span></span></p>
+<p nodeId="f14c3d57200249c484ffc4c2313bbe62"><span color="rgb(38, 38, 38)"><span font-size="16">【例】用户配置了一条规则熔断的作用域为【场景A-规则B-决策C】，在zeus场景A下，有3条生效的【规则B-决策C】的配置（决策附加信息、理由等有区别），当1个流量命中规则B时，在该熔断中，</span></span><span color="rgb(245, 35, 45)"><span font-size="16">只记命中量为1次。</span></span></p>
+<p nodeId="60f8830a75ae4fc2a6b4df5e98928fd1"><img src="https://km.sankuai.com/api/file/cdn/1091686902/1485503023?contentType=1" name="image.jpeg" width="460" height="268" nodeId="ca7cdf0ffa2342fbbfaebbbaab9155e5" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="dc463a3c6a1c4a27b85cab641399a77d">四、FAQ</h1>
+<ol nodeId="b6265b7445914ab0a354865c2a770fd1">
+<li nodeId="c7ed8b4554e5470f8fe1f2264e344f32">
+<p nodeId="acfac9ea231f44dba5b0bb774183ae6c">人工熔断能不能配置短信和电话通知？</p>
+<p nodeId="4a849fcdbf304567ab9808a3e9edbb98"><span color="rgba(0, 0, 0, 0.87)">当前人工熔断不支持短信、电话通知方式，仅支持大象通知。人工熔断存在如果用户不及时处理会一直告出的问题，会产生大量的成本，因此暂不考虑。</span></p>
+</li>
+</ol>
+<p nodeId="55373fb5e3484c05b4b3e3a8f64b65cb" />
+<h1 nodeId="82d4c9328ebe4f66a7c68e0018c4fb0e">五、宣讲记录</h1>
+<km-video src="https://km.sankuai.com/api/file/cdn/1091686902/59218804429?contentType=1" name="video1090377613.mp4" size="90.27MB" width="0" height="0" nodeId="f34bd54091d9418fa8b2bfae81bdebd0" />
+<p nodeId="a2c2253dd49d4118ba7fa71f520cd476"><span color="rgba(0, 0, 0, 0.87)"><span font-size="22">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+</km-doc>

@@ -1,0 +1,335 @@
+{
+  "root_id": "28139633",
+  "saved_date": "2026-11-17",
+  "batch": 7,
+  "document_count": 22,
+  "cumulative_document_count": 142,
+  "traversal": "depth_first_in_api_order",
+  "documents": [
+    {
+      "id": "598210800",
+      "title": "说明：规则在场景配置中的状态说明",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：规则在场景配置中的状态说明__598210800",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/598210800",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "617139793",
+      "title": "说明：普通因子引用规则组因子（工具因子）",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：普通因子引用规则组因子（工具因子）__617139793",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/617139793",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 2
+    },
+    {
+      "id": "632094474",
+      "title": "说明：策略演练支持因子工具修改",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：策略演练支持因子工具修改__632094474",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/632094474",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "632597648",
+      "title": "说明：策略回滚",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：策略回滚__632597648",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/632597648",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "684867269",
+      "title": "说明：RCData和RCModel与Zeus互通使用说明文档",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：RCData和RCModel与Zeus互通使用说明文档__684867269",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/684867269",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "743597175",
+      "title": "说明：后置决策——写累计",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：后置决策——写累计__743597175",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/743597175",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 2,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "759505837",
+      "title": "说明：版本发布&回滚",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：版本发布&回滚__759505837",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/759505837",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "851061369",
+      "title": "说明：仿真测试",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：仿真测试__851061369",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/851061369",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 13,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "866685353",
+      "title": "说明：Squirrel因子/S3因子",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Squirrel因子＿S3因子__866685353",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/866685353",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "1091686902",
+      "title": "说明：规则熔断",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：规则熔断__1091686902",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1091686902",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 26,
+      "remote_images": 0,
+      "diagrams": 2
+    },
+    {
+      "id": "62939397",
+      "title": "（已废弃）说明：规则熔断使用指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：规则熔断__1091686902/children/（已废弃）说明：规则熔断使用指南__62939397",
+      "parent_id": "1091686902",
+      "source": "https://km.sankuai.com/collabpage/62939397",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 11,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1214650678",
+      "title": "说明：监控/熔断报出屏蔽期",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：规则熔断__1091686902/children/说明：监控＿熔断报出屏蔽期__1214650678",
+      "parent_id": "1091686902",
+      "source": "https://km.sankuai.com/collabpage/1214650678",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 8,
+      "remote_images": 0,
+      "diagrams": 2
+    },
+    {
+      "id": "1200688659",
+      "title": "说明：画布",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1200688659",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1352098872",
+      "title": "近线画布用户指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/近线画布用户指南__1352098872",
+      "parent_id": "1200688659",
+      "source": "https://km.sankuai.com/collabpage/1352098872",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 51,
+      "remote_images": 0,
+      "diagrams": 5
+    },
+    {
+      "id": "1426154026",
+      "title": "01 功能简介",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/01 功能简介__1426154026",
+      "parent_id": "1200688659",
+      "source": "https://km.sankuai.com/collabpage/1426154026",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 2,
+      "remote_images": 0,
+      "diagrams": 2
+    },
+    {
+      "id": "1426183271",
+      "title": "02 快速入门",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/02 快速入门__1426183271",
+      "parent_id": "1200688659",
+      "source": "https://km.sankuai.com/collabpage/1426183271",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 6,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "1212258181",
+      "title": "说明：画布- 完整配置指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/02 快速入门__1426183271/children/说明：画布- 完整配置指南__1212258181",
+      "parent_id": "1426183271",
+      "source": "https://km.sankuai.com/collabpage/1212258181",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 10,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1426173682",
+      "title": "03 画布建模",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/03 画布建模__1426173682",
+      "parent_id": "1200688659",
+      "source": "https://km.sankuai.com/collabpage/1426173682",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 25,
+      "remote_images": 0,
+      "diagrams": 4
+    },
+    {
+      "id": "1402465659",
+      "title": "说明：画布 - UDF管理",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/03 画布建模__1426173682/children/说明：画布 - UDF管理__1402465659",
+      "parent_id": "1426173682",
+      "source": "https://km.sankuai.com/collabpage/1402465659",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 10,
+      "remote_images": 0,
+      "diagrams": 2
+    },
+    {
+      "id": "1426202145",
+      "title": "04 画布调试",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/04 画布调试__1426202145",
+      "parent_id": "1200688659",
+      "source": "https://km.sankuai.com/collabpage/1426202145",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 9,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1686793193",
+      "title": "说明：画布拨测",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/04 画布调试__1426202145/children/说明：画布拨测__1686793193",
+      "parent_id": "1426202145",
+      "source": "https://km.sankuai.com/collabpage/1686793193",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 9,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "1426221504",
+      "title": "05 监控治理",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：画布__1200688659/children/05 监控治理__1426221504",
+      "parent_id": "1200688659",
+      "source": "https://km.sankuai.com/collabpage/1426221504",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 0
+    }
+  ],
+  "media": [
+    {
+      "document_id": "617139793",
+      "type": "video",
+      "name": "屏幕录制2021-01-25 下午5.57.22.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/617139793/618323294?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "632094474",
+      "type": "video",
+      "name": "策略演练支持因子工具修改.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/632094474/632732231?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "632094474",
+      "type": "video",
+      "name": "策略演练支持规则组因子修改.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/632094474/632680572?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "632597648",
+      "type": "video",
+      "name": "策略演练支持因子工具修改.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/632597648/632782255?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "632597648",
+      "type": "video",
+      "name": "策略演练支持规则组因子修改.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/632597648/632782254?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "684867269",
+      "type": "video",
+      "name": "如何设置和查看参数属性设置.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/684867269/686745913?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "759505837",
+      "type": "video",
+      "name": "版本发布和回滚流程.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/759505837/826903510?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "1091686902",
+      "type": "video",
+      "name": "video1090377613.mp4",
+      "url": "https://km.sankuai.com/api/file/cdn/1091686902/59218804429?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "1352098872",
+      "type": "video",
+      "name": "video1507794297.mp4",
+      "url": "https://km.sankuai.com/api/file/cdn/1352098872/14225218699?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "1212258181",
+      "type": "video",
+      "name": "我的影片.mp4",
+      "url": "https://km.sankuai.com/api/file/cdn/1212258181/1502766047?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "1402465659",
+      "type": "video",
+      "name": "video1383592073.mp4",
+      "url": "https://km.sankuai.com/api/file/cdn/1402465659/9101736695?contentType=1",
+      "status": "remote_only"
+    }
+  ],
+  "attachments": [],
+  "video_policy": "names_and_original_links_only",
+  "asset_errors": [],
+  "pause_after_batch": true
+}

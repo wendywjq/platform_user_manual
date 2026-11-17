@@ -1,0 +1,54 @@
+<km-doc>
+<km-title nodeId="12684493e8de41dc9ff5a88aa9eaa0fd">04 画布调试</km-title>
+<km-catalog style="none" nodeId="8d2abadfbffa4658a1d095aa286dbafb" />
+<h1 nodeId="f14bff28cd4941b79f4eafe07ee82714">1 旁路输出</h1>
+<p nodeId="0f3abb95fdf14d0da207a31b993fdfc0"><img src="https://km.sankuai.com/api/file/cdn/1426202145/11005723244?contentType=1" name="image.jpeg" width="484" height="339" nodeId="d4e17d741ad94e109ca6636b33ed0021" /></p>
+<p nodeId="b284c3f1277c4ddbb6fd83c9ab4877b5"><a href="https://km.sankuai.com/page/1200659710" title="https://km.sankuai.com/page/1200659710" autoUpdate="true" nodeId="83052b9968444cccac4b5604a8c72344">https://km.sankuai.com/page/1200659710</a></p>
+<p nodeId="a3609dba052245ef81f74ec1f272427f"><span color="">将流转至该节点的数据全部输出至指定topic</span></p>
+<p nodeId="55348aed4697492db22b7f38f9f0065d">【常见使用场景】</p>
+<ol nodeId="bfc41df702894328bdf1231243595fc6">
+<li nodeId="0a8753bcf1cd4cb2ba4e5c0fba12f7b3">用于输出到离线hive，进行离线数据分析及策略调试</li>
+</ol>
+<p nodeId="834a4f15c22c47f581176787c4b41993">【配置相关】</p>
+<p nodeId="80c450c1fad048a69ad123f557a6bff5">如何将topic转为hive：</p>
+<ol nodeId="5ce19d3803fa43b480ab299b678872a9">
+<li nodeId="d6b3d5df500947ec8c2ab94ea79a2691">
+<p nodeId="a049b93ecdd44f6fba2456dc483a98de"><span color="">Zeus选择 旁路输出 组件，输出格式选择json</span></p>
+<p nodeId="b23607fa373a4c25b6f73216c3234015"><img src="https://km.sankuai.com/api/file/cdn/1426202145/11006513853?contentType=1" name="image.jpeg" width="332" height="265" nodeId="dc4ab78dee1c4a078815522b706724ee" /></p>
+</li>
+<li nodeId="29b8d0b821e14a4591bb0a85711a8f03">
+<p nodeId="1e987e989e95480f83af108a1dd79bbb"><span color="">通过大数据平台接入kafka topic，将数据存储到hive中</span><a href="https://data.sankuai.com/exporter#/distribution" title="https://data.sankuai.com/exporter#/distribution" nodeId="674c6d01e786454e9e8e694625154a25">https://data.sankuai.com/exporter#/distribution</a><img src="https://km.sankuai.com/api/file/cdn/1426202145/10997167781?contentType=1" name="image.jpeg" width="464" height="381" nodeId="280b0234d91048e58bb13f43dea1999f" /></p>
+<p nodeId="7eb3a3e4424a4c189ef9b3cc35a8abed"><img src="https://km.sankuai.com/api/file/cdn/1426202145/11007319130?contentType=1" name="image.jpeg" width="443" height="364" nodeId="8f04063816624baeba909041baccfd2c" /></p>
+</li>
+<li nodeId="3b33c455cd5c486084e8513760a0e957">
+<p nodeId="e2241236f17e447e9899225dd2255476"><span color="">配置完后需要检查作业状态，正常20分钟后就能从hive里查数据了。</span><a href="https://data.sankuai.com/exporter#/distribution/dls/13327" title="配置示例" nodeId="49f1e09e76d64bcb896899bf615c3305">配置示例</a></p>
+<p nodeId="672793a4eae04d24897b4a201a32d8fb"><img src="https://km.sankuai.com/api/file/cdn/1426202145/10997493807?contentType=1" name="image.jpeg" width="1338" height="315" nodeId="c3b49e7bc191400fab15b476771a3c34" /></p>
+</li>
+</ol>
+<h1 nodeId="cf899b43d8394ef1b8376f5ad47074df">2 仿真测试</h1>
+<p nodeId="31341cd1c4bc41e9b7e402a3ebe0dc61"><img src="https://km.sankuai.com/api/file/cdn/1426202145/11007319132?contentType=1" name="image.jpeg" width="692" height="600" nodeId="0827346c12564dcbb9cf6bac0cb9eedf" /></p>
+<ul nodeId="6efcb39eac364c39b1942457b920c056">
+<li nodeId="c708554e0b094beda753e4398ae566d6">用于辅助业务和研发对于执行过程和执行逻辑的快速排查</li>
+</ul>
+<p nodeId="04327084a5e54eeb8ed0745c5ee22780">【布控自助亮点】</p>
+<ol nodeId="b11347f5c26c4e0788d0131b6b161614">
+<li nodeId="e7d6e33893a043a8aa058fcbb9c6c1fc">仿真测试输入，可选择历史测试数据直接进行测试<img src="https://km.sankuai.com/api/file/cdn/1426202145/10997493808?contentType=1" name="image.jpeg" width="1338" height="269" nodeId="0948720f50164b309503fc87abb83d92" /></li>
+<li nodeId="1c59c30506174d3e8bf38c916ab334d7">执行失败的组件可点击查看具体报错情况</li>
+<li nodeId="9f0df9871ba6429e986b80e89c388ce5">具体报错内容已由纯代码形式转换成了自然语言</li>
+<li nodeId="5bd10bd6645c42dc84fa21b65aa91864">组件本身配置不符合逻辑，由平台兜底逻辑通过执行的组件置为黄色，提示用户警告信息</li>
+</ol>
+<h1 nodeId="486585695b294ef58cb019da90e43729">3 自定义日志</h1>
+<p nodeId="f4fe042be0d3487d95f28316ca0d114f"><img src="https://km.sankuai.com/api/file/cdn/1426202145/11006513852?contentType=1" name="image.jpeg" width="386" height="107" nodeId="1a193721f2fc40c38065d7c1d516f0ad" /><img src="https://km.sankuai.com/api/file/cdn/1426202145/11007319129?contentType=1" name="image.jpeg" width="431" height="176" nodeId="f0e18e4db8d64a13a9d52f03d45429c6" /></p>
+<p nodeId="b9d5f57ede5548e786637ab3b7d62b2e"><a href="https://km.sankuai.com/collabpage/1366107270" title="https://km.sankuai.com/collabpage/1366107270" autoUpdate="true" nodeId="e431315743b741b4945bc3cb4ec98fe1">https://km.sankuai.com/collabpage/1366107270</a></p>
+<ul nodeId="6bd6c8c4e432429c8671faf76c4e3949">
+<li nodeId="1c0c9b88b618439e8741f8de4b8330fe">用于辅助业务指定调试表达式/代码某部分内容</li>
+</ul>
+<h1 nodeId="24f913ea728f48e1ac44411891464bc3">4 画布拨测（待上线）</h1>
+<ul nodeId="a04a00b10c7e4638b344cb2a641afff4">
+<li nodeId="61358498c832457fb4241224a0f1fcd2">支持用户自定义流量调用画布获取决策，判断结果是否满足用户诉求的任务配置，确保线上环境作业的有效性</li>
+</ul>
+<h1 nodeId="fe78b4606a504a41b235dd5f31118875">5 表达式调试小工具（待上线）</h1>
+<ul nodeId="282c4b9f36dd4e0583119820b82eb965">
+<li nodeId="94452111d6264bb1b37e41b4ee6ad832">支持用户在一个界面对aviator表达式的调试单测</li>
+</ul>
+</km-doc>

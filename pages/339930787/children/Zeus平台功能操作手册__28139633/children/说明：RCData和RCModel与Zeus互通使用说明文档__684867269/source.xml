@@ -1,0 +1,34 @@
+<km-doc>
+<km-title nodeId="6ac8f953154b4cf99dc3ca5c0055c6d8">说明：RCData和RCModel与Zeus互通使用说明文档</km-title>
+<km-catalog style="none" nodeId="c4d57db36bc04ee187b3e5828ae6289e" />
+<h1 align="start" nodeId="bb6525706f9249dfa99ed563b06453fa">一、背景</h1>
+<p align="start" nodeId="42092f728f9642af91a3fa0884937d38">1）现有的路由场景执行过程中存在着数据中断，策略PM无法配置真实的决策流。实际配置上，一个真实的决策流被配置成为了多个分支，由审批系统串起来整个决策流。在实际执行过程中，单个分值执行完毕后跳离zeus到审批系统，审批系统从rcdata获取下一个flownum执行时需要的数据，再次触发zeus进行规则执行。遇到三方数据需要等待的时，审批系统挂起等待数据结果返回，在数据返回后重新调用zeus。在以上的数据和系统交互方式下，策略PM在策略配置过程中存在以下痛点：</p>
+<p align="start" nodeId="df13ad2bc9e240fbbd3cc3920e94a33a">【变量上线前置工作多】：一个新变量上线&gt;&gt;宙斯中使用，至少要经过 8个步骤，最多要经过 11个步骤，详情<a href="https://km.sankuai.com/page/507558425" title="ZEUS-现有问题梳理" autoUpdate="true" nodeId="bdb89abad30948ea99a1954f390562e2">ZEUS-现有问题梳理</a>。目前总计4000个变量，使用这么多变量需要至少操作 3.2万次。</p>
+<p align="start" nodeId="aad802bb533141b2b9aca1aea3fbc9fb">【安全隐患多】：在策略迭代过程中，路由场景分支优化，上线文配置，变量新增等环节，每个步骤都涉及到需求沟通和同步开发的工作，都会影响到线上变量计算，造成计算异常。</p>
+<p align="start" nodeId="40db5bc0f5a247b592bd8f8135a13c4b">【策略体系维护成本高】：无法配置真实的决策流，真实的决策流必须转化为符合zeus执行逻辑的图在进行部署，后续策略迭代人力成本高。</p>
+<p align="start" nodeId="f6f341bd888f46b4b2fd48c64cf5fada">2）【计算冗余】：审批系统负责业务流程的调度和前置数据的获取，在参数准备时，根据flownum中的场景对应的dataport，将dataport中的全部参数获取并传递给zeus，这类前置入参的方式导致计算冗余。</p>
+<p nodeId="8237f128c71141c6872c3d17a0dcffad" />
+<h1 align="start" nodeId="8f9d8437a077421d908b5b0baf36e338">二、名词解释</h1>
+<p nodeId="4cd92b48dc7e44e4a461bc165fbe0cfd" />
+<h1 align="start" nodeId="27f52585a3914cc3869bdd34f6e3c73e">三、操作指南</h1>
+<h2 align="start" nodeId="e12b5007fbce4f539d8ae17d8c5fb7f2">1.用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/684867269/686518915?contentType=0&amp;isNewContent=false" width="1017" height="1017" nodeId="b2ae1376d63446e79b193dabcfbf67cc" />
+<h2 align="start" nodeId="faedc91db96c47f8a098fc4edcc38c83">2.Quick Start</h2>
+<p nodeId="40d67cef1ea34d3aa69410ee65d74d0b">1、如何新增参数属性</p>
+<p nodeId="d55556d1bb5f414c97808d3488329424"><km-mention name="胡卓亦" uid="huzhuoyi" empId="" nodeId="521ac3ebd7794067848c554e88b0c26d" />补充下小视频</p>
+<p nodeId="3aaae90a45344e31b94ea30a15485489">2、新增参数如何设置和查看属性设置</p>
+<km-video src="https://km.sankuai.com/api/file/cdn/684867269/686745913?contentType=1" name="如何设置和查看参数属性设置.mov" size="9.79MB" width="0" height="0" nodeId="e4ada31538224ec0a81a9cca4024ee38" />
+<p nodeId="34e142ecf2b948f8a7a0f1be4ad89834" />
+<h2 align="start" nodeId="9947970ced874a658ce9703e4dd4d5ea">3.详细操作流程说明</h2>
+<h4 align="start" nodeId="36fd02e0f324469399fa34e06932cefa">Step1:提参数需求给RCData和RCModel</h4>
+<h4 align="start" nodeId="7d26ca1fbc8c4f1b9c97e6c8808e049b">Step2: 将参数配置成规则并在场景中生效</h4>
+<h4 align="start" nodeId="625d96e6a6d84fc4a73f124bd9761aad">Step3: 流量命中规则，规则按需取数进行执行并返回决策</h4>
+<h4 align="start" nodeId="f3c97ad1d546459589e467b3bf18c7ad">Step4: 如果参数有属性设置，新增两步1）在风险运营门户新增参数属性设置；2）在zeus路由场景节点配置参数属性</h4>
+<h4 align="start" nodeId="6f97e545d42949b0a77984673f605ada">Step5: </h4>
+<h1 align="start" nodeId="fdfaceb3acca44faad4867cc8320cd74">四、FAQ</h1>
+<h3 align="start" nodeId="bd88ef080609438abce6173942679206">Q1：何时进行参数属性的设置？</h3>
+<p align="start" nodeId="083e4142939d4733b099707e70b562e6">--当规则中使用的参数具有时效性，版本等影响到参数取值的维度时，需要进行参数属性的设置。</p>
+<h3 align="start" nodeId="598914c7beff40b0afd17447d22f62d4">Q2：在哪儿进行参数属性的设置？</h3>
+<p align="start" nodeId="0259d7976c7d49cc93fb909efe92e167">--打开路由场景的场景配置节点，即可进行参数属性的设置</p>
+<p nodeId="5b9509121d1345f9a2380a115679de1a"><br /></p>
+</km-doc>

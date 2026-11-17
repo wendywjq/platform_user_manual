@@ -1,0 +1,164 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>01 功能简介</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">1功能概述</a><a href="#section-4">1.1 定义</a><a href="#section-8">1.2 背景</a><a href="#section-44">1.3 生态概览</a><a href="#section-46">2 功能简介</a><a href="#section-47">2.1 相关概念介绍</a><a href="#section-80">3 使用流程介绍</a><a href="#section-81">3.1 流程概述</a><a href="#section-83">3.2 功能使用详情索引</a><a href="#section-108">4 接入使用</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：画布</a> / <a href="index.html">01 功能简介</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1426154026">查看学城原文</a></p><article>
+<h1>01 功能简介</h1>
+<div style="none"></div>
+<h1 id="section-3">1功能概述</h1>
+<h2 id="section-4">1.1 定义</h2>
+<p>近线基于Flink计算引擎，能在时间窗口内对<span>多个流事件进行综合分析，一般数据量比较大，同时能实现</span>分钟级别<span>响应</span>近线画布是使用近线引擎的一种策略配置方式，让用户可以在一个页面通过拖拉拽的方式完成复杂模型配置-测试灰度-计算任务自启动-模型运行状态感知-告警通知的全链路执行</p>
+<h2 id="section-8">1.2 背景</h2>
+<table>
+<tr>
+<th>
+<p>for 基础安全 用户</p>
+</th>
+<th>
+<p>for 非基础安全其他 用户</p>
+</th>
+</tr>
+<tr>
+<td>
+<ul>
+<li><strong>灵活诉求多</strong>：有些策略模型包含数据处理、基线过滤、聚合告警三大模块，其中又依赖黑白规则、CEP等，整体配置流程长，复杂度高场景规则的方式无法满足其数据处理、过滤等节点的灵活配置、格式化逻辑中使用因子等诉求。</li>
+<li><strong>配置不友好</strong>：业务方群体为熟悉代码的安全工程师，原有策略均为代码部署。场景规则的方式将原有简单策略模型进行分层模块化配置，需要将大段代码在一个规则中实现（如CEP规则），维护成本较高，且后续复杂模型支持，对于用户使用友好度过低。</li>
+</ul>
+</td>
+<td>
+<ul>
+<li><strong>逻辑表达不清晰</strong>：场景规则的策略描述逻辑表征能力较差。而画布dag图形式无论是拖拉拽的简单配置方式还是表达逻辑的能力都比场景规则更清晰简单</li>
+<li><strong>多流数据表达能力弱</strong>：对于多流数据的表征语言场景规则表达能力有限。</li>
+</ul>
+</td>
+</tr>
+</table>
+<p>而画布可以做到的是...</p>
+<ol>
+<li><span style="color:rgba(0, 0, 0, 0.87)"><strong>拖拉拽低代码配置，上手成本低</strong></span><span style="color:rgba(0, 0, 0, 0.87)">：通过</span><span>拖拉拽组件至画布中，并自由连接各个组件模块，配置符合策略执行顺序的可视化图链路</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.87)"><strong>仿真测试调试透明，debug更清晰</strong></span><span style="color:rgba(0, 0, 0, 0.87)">：通过展示图中每个节点算子的输入输出字段，更清晰的明确数据流的流转的形式</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.87)"><strong>作业异常告警分级，排查效率更高</strong></span><span style="color:rgba(0, 0, 0, 0.87)">：通过划分不同作业优先级，配置给不同作业队列资源保障及响应速度，让资源和人力用在刀刃上</span></li>
+</ol>
+<p>因此，Zeus开始探索让用户实现在一个页面完成复杂模型的配置-测试灰度-计算任务自启动-模型运行状态感知-告警通知的全链路。但客观来讲，画布不是绝对优于场景规则。画布的缺乏整体视角，而场景规则的某一场景下配了几条策略场景规则配置会较为清晰，用户需结合自己的使用习惯及实际需求选择某种配置方式</p>
+<h2 id="section-44">1.3 生态概览</h2>
+<img src="assets/1615d59dfe52a8e6.svg" width="656" height="326" alt="流程图">
+<h1 id="section-46">2 功能简介</h1>
+<h2 id="section-47">2.1 相关概念介绍</h2>
+<table>
+<tr>
+<th>
+<p>名词</p>
+</th>
+<th>
+<p>解释</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>画布</p>
+</td>
+<td>
+<p>策略部署的一种模式，用户可以在画布中通过拖拽的方式自定义配置一条数据处理流，以多个数据源组件作为起始，以多个决策类组件作为终止。当用户完成策略的配置之后，画布会自动生成一个flink任务用来执行用户所配置的逻辑。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>组件</p>
+</td>
+<td>
+<p>组成画布的功能块，包括常规的流数据处理（join,groupby,distinct，数据拆分等）逻辑判断（if-else等），规则与自定义代码执行，决策（金丝雀告警，落kafka，丢弃等）。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>熔断配置</p>
+</td>
+<td>
+<p>基于画布组件/组件内规则 配置的熔断内容，包括熔断对象（组件/组件内的规则）、熔断作用时间、熔断监控规则、告警人等。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>仿真测试</p>
+</td>
+<td>
+<p><span>通过输入单条/批量的mock数据，展示画布策略全链路执行情况及单个流程节点命中详情</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>画布拨测</p>
+</td>
+<td>
+<p>用户自定义流量调用画布获取决策，判断结果是否满足用户诉求的任务配置，确保线上环境作业的有效性</p>
+</td>
+</tr>
+</table>
+<h1 id="section-80">3 使用流程介绍</h1>
+<h2 id="section-81">3.1 流程概述</h2>
+<img src="assets/adc2d70c065f5f9e.svg" width="1506" height="366" alt="流程图">
+<h2 id="section-83">3.2 功能使用详情索引</h2>
+<table>
+<tr>
+<th>
+<p>可视化建模阶段</p>
+</th>
+<th>
+<p>详细说明文档</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>画布建模（事前）</p>
+</td>
+<td>
+<p><a href="../03 画布建模__1426173682/index.html" title="https://km.sankuai.com/collabpage/1426173682">03 画布建模</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>画布调试（事中）</p>
+</td>
+<td>
+<p><a href="../04 画布调试__1426202145/index.html" title="https://km.sankuai.com/collabpage/1426202145">04 画布调试</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>监控治理（事后）</p>
+</td>
+<td>
+<p><a href="../05 监控治理__1426221504/index.html" title="https://km.sankuai.com/collabpage/1426221504">05 监控治理</a></p>
+</td>
+</tr>
+</table>
+<h1 id="section-108">4 接入使用</h1>
+<p>若有基于风控相关的需求想接入使用画布功能，请完成以下步骤开通使用：</p>
+<ol>
+<li>整理业务具体画布使用场景及需求文档，联系近线画布产品<span>@龙含嫣(Louise Long)</span>评估是否可以接入使用</li>
+<li>
+<p>评估通过后，按照以下格式发送邮件，经上级批准后由值班研发处理开通</p>
+<details>
+<summary>邮件格式</summary>
+<div>
+<p>            收件人：申请人直属上级</p>
+<p>            抄送人：杜思思（dusisi）、刘思淼（liusimiao）、周强（zhouqia<span>ng23）、金丽丹（jinlidan）、高</span>建（<span>gaojian35</span>）、方小远（<span style="color:rgba(0, 0, 0, 0.54)">fangxiaoyuan</span>）、徐言（<span style="color:rgba(0, 0, 0, 0.54)">xuyan35</span>）</p>
+<p>具体格式如下：</p>
+<p>             a.邮件标题：【Zeus画布使用权限申请】申请部门+申请人  例：【Zeus画布使用权限申请】美团/基础研发平台/信息安全部/风控和业务安全/平台和数据产品 +刘思淼</p>
+<p>             b.邮件正文：</p>
+<ul>
+<li>
+<p>申请人MIS号：</p>
+</li>
+<li>
+<p>申请人部门：（举例：美团/基础研发平台/信息安全部/风控和业务安全/平台和数据产品 ）</p>
+</li>
+<li>
+<p>需求背景：说明此需求来源的背景以及用途；</p>
+</li>
+<li>
+<p>需求说明：说明使用画布的用途；</p>
+</li>
+</ul>
+</div>
+</details>
+</li>
+<li>准备万象组id、名称及队列资源（若业务无自身队列资源，可估算预计使用情况向Zeus申请资源使用），提供给值班近线<span>@Zeus</span>研发完成画布空间开通</li>
+</ol>
+</article></main></body></html>

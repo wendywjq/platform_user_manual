@@ -1,0 +1,255 @@
+<km-doc>
+<km-title nodeId="b83d6d96d7794a86a30f609a4702780b">说明：监控/熔断报出屏蔽期</km-title>
+<p nodeId="21a38b507c47473e96c19aa9cf90d20c"><span color="rgb(245, 35, 45)">请在创建/修改监控和熔断配置前，阅读本文档。</span></p>
+<km-catalog style="none" nodeId="b24c87ec8b754e259295ee6c27681435" />
+<h1 nodeId="363fbe46e0b04c7fa0a42fa3922ba537">1.报出屏蔽期与生效期</h1>
+<p nodeId="7628363803c94846b0e74508ca3df62d"><span color="rgb(38, 38, 38)">规则熔断功能在运行时包括：【监控计数】、【函数计算】、【告警报出】等动作。目前的监控模式下，用户创建新的熔断配置之前，相关的监控单元并未建立，计数的历史数据为0。因此，在熔断创建后初期，需要</span><span color="rgb(245, 35, 45)">至少</span><span color="rgb(38, 38, 38)">收集一个周期的数据，才可进行正式的报出，正式报出前的这段时间，为</span><span color="rgb(245, 35, 45)"><em>报出屏蔽期</em></span><span color="rgb(38, 38, 38)">。正式报出开始之后的时间，为</span><span color="rgb(245, 35, 45)"><em>生效期</em></span><span color="rgb(38, 38, 38)">。</span></p>
+<km-note type="info" hiddenTitle="true" nodeId="a61cf3e914b6404e9825745ce9e3c70a">
+<km-title></km-title>
+<km-content>
+<p nodeId="871c7523165c46baa5a82def61d7cfb9">为什么要屏蔽期？</p>
+<p nodeId="e83ae88772734e96a0d2f4003c93b56a">--因为历史上监控单元没有计数，熔断建立初期（不够一个周期），告出的数据<span color="rgb(245, 35, 45)">并不是真实在过去一个周期的流量情况</span>。所以需要屏蔽。</p>
+<p nodeId="93c674b372564a0b8be3b370fa71fa4d">【例1】监控过去5分钟命中量 小于100 则告出</p>
+<p nodeId="8c331d689b6848a4a2e318c684f51fe5">--如果没有屏蔽期，则建立后的头几分钟（不足5分钟），大概率都会告警，因为还没收集够5分钟的数据。</p>
+<p nodeId="6fa805aa56094c2bbb3843d979b6240e">【例2】监控过去5分钟比昨天同时期的上升比大于100%则告出</p>
+<p nodeId="76432c45644841bcae8c15d90c809e99">--如果没有屏蔽期，则建立后的头24小时，大概率会频繁告警。因为还没收集够1天的数据，此时的“昨天同时期”就是0，所以只要当前有一些命中量，上升比就很容易大过100%</p>
+</km-content>
+</km-note>
+<table borderColor="#cccccc" responsive="false" nodeId="916566fe4ce347c4a6b2cb139f2e59a5">
+<tr nodeId="4af1952d751642f89544eb5411bb1cec">
+<th colwidth="[670]" nodeId="eb32055b1efc485188e79bc69cc8f817">
+<p nodeId="92c21d940eb2429c9ed817479139c0d5"><span font-size="14">示意图</span></p>
+</th>
+<th colwidth="[626]" nodeId="ed4ed3e3fc644b6e94e8520074f216f5">
+<p nodeId="0b892b7b0dee492cb67757e6646cd298"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="9d905daaa8484480857fe094709ca8d3">
+<td colwidth="[670]" nodeId="3e1324d5084d4783a9dc0f08881987c0">
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1214650678/1470403178?contentType=0" width="642" height="381" nodeId="efb316d065e1499cb40cc91772bd8e4c" />
+</td>
+<td colwidth="[626]" nodeId="03eee3ff09824f9c975f8c6230f7f006">
+<p nodeId="4060f63628ed4a68b533771aaedfe4dd"><span color="rgb(38, 38, 38)"><span font-size="14">左图展示一个监控计数单元（场景-规则-决策-熔断子规则）的熔断报出逻辑：</span></span></p>
+<ul nodeId="bafbfaf8158949d3b6d24de21e8f043e">
+<li nodeId="9b84cbba9e1c4af0a6bdd7f85f2df160"><span color="rgb(38, 38, 38)"><span font-size="14">熔断【计算粒度】为1次/分钟，即整分钟会进行一次函数计算，判断是否需要报出。</span></span></li>
+<li nodeId="8339e60ab0df45faaa7e8e85ffd9d216"><span color="rgb(38, 38, 38)"><span font-size="14">以使用【命中量】函数的子规则为例，假设用户配置的【周期】为2分钟（该子规则含义即为：最近2分钟的命中量），并在第n分钟（0&lt;n&lt;1）新创建了熔断（创建时间为成功提交时间）。</span></span></li>
+</ul>
+<p nodeId="e459b7d1878c4384a81891273283ce8f"><span color="rgb(38, 38, 38)"><span font-size="14">从图中可以看出，时间轴上n点之前没有任何历史数据，在第1分钟、第2分钟的计算时，由于实际累计命中量的时间长度还未满足用户设置的2分钟周期，此时即使命中量满足熔断规则（如最近2分钟的命中量&lt;10），也不会报出告警，因为数据不全，报出不具有参考性。</span></span></p>
+<p nodeId="371f73a3e6b64bdfa341e99ce16eaf73"><span color="rgb(38, 38, 38)"><span font-size="14">在时间点n+2之后，已有完整的2分钟数据，此时进入生效期，在后续第3分钟、第4分钟……的计算节点上，一旦满足熔断规则便会正常报出。</span></span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="d889a99722a64dd4a264465aee790122">2.不同计算函数的屏蔽期</h1>
+<p nodeId="495c97c2da2a46a8b80eb9a80fc4f808"><span color="rgb(0, 0, 0)">值得注意的是，使用不同的计数函数，进入生效期的时长根据函数特性，会有所区别。</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="6dcd49dda4e74b79a178cecfdc29976c">
+<tr nodeId="de41c277ab3b42c99307ab150bdb5807">
+<th colwidth="[256]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="48875cedb56545948a286781a7583607">
+<p nodeId="f138cc6181b94e33bf723ed99469c1c5"><span font-size="14">函数</span></p>
+</th>
+<th colwidth="[186]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="f021912e1f094fb883077f779e70ad48">
+<p nodeId="483c5586715b45ae846924127377fa4b"><span font-size="14">报出屏蔽期：周期长度为n</span></p>
+</th>
+<th colwidth="[353]" nodeId="dab0af37c2fe49a897a3facfe5dab1b1">
+<p nodeId="2f1af5dc9bbf4f6a95c6b2f28c4abcb6"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="627937cfbd594e0492ff8b96ac284b09">
+<td colwidth="[256]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="478f6054dbc545929135104b5ce5a056">
+<p nodeId="4448cc04836a4bd8a0a40b61e70bd04b"><span font-size="14">命中量（最近一个周期）</span></p>
+</td>
+<td colwidth="[186]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0fa88e536d9844a9879d5020b9e14ad2">
+<p nodeId="9e50338153d64730af80bc3d1677967e"><span font-size="14">n</span></p>
+</td>
+<td colwidth="[353]" nodeId="26cf2bcd72814fe2a27779937e8fd340">
+<p nodeId="759784021b12454da075a252158b13f5"><span font-size="14">计算最近1个周期的命中量，要求至少累计有【1个完整周期】的历史数据。</span></p>
+</td>
+</tr>
+<tr nodeId="24ace20945614a828c3fae7ffd179b35">
+<td colwidth="[256]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="555954654c744d44b2bb404357bd6a58">
+<p nodeId="b9276997a9a6462880df56e9b8d31fe2"><span font-size="14">最近N分钟比之前</span><span color="rgb(245, 35, 45)"><span font-size="14">N分钟</span></span></p>
+<p nodeId="40cccddd2e0c4c8585fba0886682a963"><span font-size="14">（最近一个周期比之前一个周期 上升/下降的 绝对量、百分比）</span></p>
+</td>
+<td colwidth="[186]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6043a48f8963455193859db24b5883f6">
+<p nodeId="54ef1fa7bf93453eb0d4c4a91ff1a75b"><span font-size="14">2n</span></p>
+</td>
+<td colwidth="[353]" nodeId="098022e7c3d240df8030be3afbb94712">
+<p nodeId="722b422397eb4b1c99cf164a52870646"><span font-size="14">计算最近1个周期与上一个周期的比较，要求至少累计有【2个完整周期】的历史数据。</span></p>
+</td>
+</tr>
+<tr nodeId="4c61602072b548dbb7419a414067749d">
+<td colwidth="[256]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e22430b8c9b8492a87912e3ac37f41b5">
+<p nodeId="8e6cd16b614841838485c0b45e30fb52"><span font-size="14">最近一个周期的命中量比</span><span color="rgb(245, 35, 45)"><span font-size="14">昨日</span></span><span font-size="14">同时段</span></p>
+<p nodeId="7a43891d88184c048db5bf5710d5e4e4"><span font-size="14">（上升/下降的 绝对量、百分比）</span></p>
+</td>
+<td colwidth="[186]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ebd3ec8f247a43b587c0aa43d2a81a16">
+<p nodeId="94777d85c1f349939899125fee8d352e"><span font-size="14">24小时+n</span></p>
+</td>
+<td colwidth="[353]" nodeId="316284f22323481bac6802de571ce75c">
+<p nodeId="3fbf2b1a2d32487cb444b6fd75848ac2"><span font-size="14">计算最近1个周期与昨天同时段该周期的比较，要求至少累计有【24小时+1个完整周期】的历史数据。</span></p>
+</td>
+</tr>
+<tr nodeId="b912a5806af94c94bdeca8c2613a1417">
+<td colwidth="[256]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0f5ced3046724752a698eae4ed67b00b">
+<p nodeId="c95a1eb682fc4eb6b1d61ae6dbde643e"><span font-size="14">最近一个周期的命中量比</span><span color="rgb(245, 35, 45)"><span font-size="14">上周</span></span><span font-size="14">同时段</span></p>
+<p nodeId="1e03b6310d5349af984c44c5a0f4c508"><span font-size="14">（上升/下降的 绝对量、百分比）</span></p>
+</td>
+<td colwidth="[186]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6b90b498ae614aa394c1f84ab2120312">
+<p nodeId="6c7c9999398445318ef42f3736755751"><span font-size="14">1周+n</span></p>
+</td>
+<td colwidth="[353]" nodeId="f389f102e43c45449b535327b591e6cd">
+<p nodeId="d927fb20a2a54f538812f3674c23a03c"><span font-size="14">计算最近1个周期与上周同时段该周期的比较，要求至少累计有【1周+1个完整周期】的历史数据。</span></p>
+</td>
+</tr>
+<tr nodeId="371089a44b2947e283969128b3d18661">
+<td colwidth="[256]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="06aa13cf8a174bd793d511189c12b2c2">
+<p nodeId="43ef3c691a7942479ff8aa8591322f27"><span font-size="14">最近一个周期的命中量比</span><span color="rgb(245, 35, 45)"><span font-size="14">基线</span></span></p>
+<p nodeId="4b5b754521a74fbe9c482382bcea7150"><span font-size="14">（上升/下降的 绝对量、百分比）</span></p>
+</td>
+<td colwidth="[186]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="80408b3385ab48c995b1d50f5292b237">
+<p nodeId="7f4ec6dac4bb4f2f85e7a8fa42fa2298"><span font-size="14">3周+</span><span color="rgb(245, 35, 45)"><span font-size="14">n</span></span></p>
+</td>
+<td colwidth="[353]" nodeId="c264e61297be40e798996748d767c28f">
+<p nodeId="2296e3d9ca704dc89bcb88303133b93a"><span color="rgb(245, 35, 45)"><span font-size="14">***</span></span><span font-size="14">基线是根据最近四周的同个时段（最近n分钟）的命中量的加权平均值，相关函数计算的是最近n分钟的命中量与基线的比较。要求至少累计有</span><span color="rgb(245, 35, 45)"><span font-size="14">【3周+n分钟】</span></span><span font-size="14">的历史数据。</span></p>
+<km-collapse active="false" nodeId="d7f68f681598488585629d1ceeff6166">
+<km-title><span font-size="14">基线计算定义</span></km-title>
+<km-content>
+<p nodeId="e881eb79f0414553919f01dd4e4cd0b6"><span color=""><span font-size="14">例：用户选择周期为n（例如最近2分钟），今天是2016-12-02（周五），计算的时间点为19:56，基线数据的算法是4个周五（2016-11-11，2016-11-18，2016-11-25，2016-12-02）的19:54-19:56这2分钟的数据的加权求和或平均，权重值依次为1，2，3，4。如：基线值设为value，四个周五对应的19:54-19:56数据（由远及近）分别为A,B,C,D，则value = (A+2B+3C+4D) / 10</span></span></p>
+</km-content>
+</km-collapse>
+</td>
+</tr>
+</table>
+<h1 nodeId="85424afba28c47a790be81789fa0d751">3.修改监控/熔断配置须知</h1>
+<p nodeId="80fd4b8027cc4ac5a254ce5945459ed7">修改熔断配置项时，一些会使熔断计数重新开始，一些则可以直接修改。</p>
+<table borderColor="#cccccc" responsive="false" nodeId="429236d456844c3f9f55d548ace6ede9">
+<tr nodeId="c1a824d97e2e4b6285bab3d0c8f8c980">
+<th colwidth="[551]" nodeId="c5be81cca91a441a85be75ec60f5c81a">
+<p nodeId="7f062013a0e942b1844121c7f22aef9f"><span font-size="14">示意图</span></p>
+</th>
+<th colwidth="[478]" nodeId="17b9c36cd9e24ce099c2a149a87daccc">
+<p nodeId="6ea244368a994f78b65deb5ecb520c8b"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="ccf02f1a3b0848b09eb38a428f0909db">
+<td colwidth="[551]" nodeId="f8262b42ae2b4da8844edeb40b6b414e">
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1214650678/1495621820?contentType=0" width="510" height="240" nodeId="8fc4333db6f94cdfbc657c68cd548973" />
+</td>
+<td colwidth="[478]" nodeId="8ad980649a5e481aafd447dc4689768c">
+<p nodeId="05f9a0e7a98a4f34b41923ed08f87794"><span font-size="14">熔断功能的最小独立监控单元是【</span><span color=""><span font-size="14">场景-规则-决策-单个熔断子规则】，即</span></span><span color="rgb(245, 35, 45)"><span font-size="14">【作用域】与【熔断子规则】相乘决定了监控单元的数量</span></span><span color=""><span font-size="14">。因此，编辑【作用域】&amp;【熔断规则】的增减，将直接决定监控单元的增减。</span></span></p>
+</td>
+</tr>
+<tr nodeId="19f923a567b94e14a3a2d1e78a8450ca">
+<td colwidth="[551]" nodeId="f63d35dbe64b452c9199467f36674dd7">
+<p nodeId="a9b4c00441734ab8b98e408f64bf459e"><img src="https://km.sankuai.com/api/file/cdn/1214650678/1470467912?contentType=1" name="image.jpeg" width="501" height="190" nodeId="0cf5150fbe4047e19b554a74ed253346" /></p>
+</td>
+<td colwidth="[478]" nodeId="346fd30c20e64123b53dadf50f1ed0c0">
+<p nodeId="608db0be5638481b86e9c8c14c5356e7"><span font-size="14">如左图， 01、02为熔断规则，之间用【或】连接。01中有两条子规则，之间用【且】连接。计算报出时，会根据涉及到的多条子规则，以其中屏蔽期的最大者，来决定是否屏蔽本次报出</span><span color="rgb(245, 35, 45)"><span font-size="14">（可以理解为每次报出的前置条件为：所涉及到的监控单元都在生效期内，否则就会屏蔽）</span></span></p>
+</td>
+</tr>
+</table>
+<p nodeId="a4cc9737d3504ee7860b6e4413840eb5"><span color=""><span font-size="19">如下表，一些修改动作会产生新的监控单元，新监控单元是新开始计数的，历史数据为0。（屏蔽期也从提交修改那刻起算）</span></span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="d8e4379f714d494b9f9223615e1ad71d">
+<tr nodeId="9c828d54b56f4ab4ba98c222672be29e">
+<th colwidth="[216]" nodeId="e8d6298794074d37a849d89d2319bb82">
+<p nodeId="e59d3b885f944696b6e3e434e117dd23"><span font-size="14">页面&amp;弹窗</span></p>
+</th>
+<th colwidth="[124]" nodeId="53a51030bcd148f88e71c429f056e216">
+<p nodeId="7e5ebc809a564f97839977b33ab937c6"><span font-size="14">修改项</span></p>
+</th>
+<th colwidth="[465]" nodeId="54162bcf8e304cbfb93a29b141d74eb3">
+<p nodeId="30ecf5f0d9234cc6aa910299cb1b97fe"><span font-size="14">影响说明</span></p>
+</th>
+</tr>
+<tr nodeId="0b46389e1716471d9a4fb399e2a9c230">
+<td rowspan="5" colwidth="[216]" nodeId="550f8f277d6747d0ada5c90970df0bdf">
+<p nodeId="c924d4f6eedd4d7dbc3e3f193174ada8"><img src="https://km.sankuai.com/api/file/cdn/1214650678/1475391566?contentType=1" name="image.jpeg" width="1255" height="600" nodeId="b5625a799a724bc4862ba288cad579ed" /></p>
+<p nodeId="ff5dbd7966134101a7010bdab398475f"><img src="https://km.sankuai.com/api/file/cdn/1214650678/1475427712?contentType=1" name="image.jpeg" width="988" height="600" nodeId="3eab75b859d74e59847880892f87f2de" /></p>
+<p nodeId="0f379c25700744d89131e4761f9e9dd3" />
+<p nodeId="2e14ae3559b04d6da4e553c51d24e895"><img src="https://km.sankuai.com/api/file/cdn/1214650678/1470739744?contentType=1" name="image.jpeg" width="237" height="134" nodeId="ecb5af0a4e8a400989978c06ba16e9e8" /></p>
+<p nodeId="6fc95d1b32d045daae04de5c5a0a843c"><img src="https://km.sankuai.com/api/file/cdn/1214650678/1470739750?contentType=1" name="image.jpeg" width="276" height="141" nodeId="3efb6cb58d7143ec92fbc522abce56ea" /></p>
+<p nodeId="69b28354da0d456ab0c48a6a7cea2b69"><img src="https://km.sankuai.com/api/file/cdn/1214650678/1470539406?contentType=1" name="image.jpeg" width="269" height="138" nodeId="e4f16642efc94879baf725c896c97f09" /></p>
+</td>
+<td colwidth="[124]" nodeId="d6fa7c7a88e746808706a4a2deae0479">
+<p nodeId="5707730757b64f5d90a559a80ee436de"><span font-size="14">基本信息</span></p>
+</td>
+<td colwidth="[465]" nodeId="6c39760418134aa1aa575e1901b1b457">
+<p nodeId="52c09055f5ab4aa88599b050ae7da0f2"><span font-size="14">不影响</span></p>
+</td>
+</tr>
+<tr nodeId="80ba5b066e5a41189d2e10838a8b07e9">
+<td colwidth="[124]" nodeId="271a499e4cff493da428e4001aafc8f6">
+<p nodeId="343c4e5d33014435922ab63f4826e139"><span font-size="14">修改作用域</span></p>
+</td>
+<td colwidth="[465]" nodeId="5b23c83ef5304df9a085d45dc8f2abc2">
+<p nodeId="20421acbe56a45d6bc2cb66c2fed3c9f"><span font-size="14">提交修改时，系统会判断本次修改是否变更了作用域，并给予用户二次弹窗确认是否修改。</span></p>
+<ul nodeId="51ed835d838843dd80e3e3c12711f256">
+<li nodeId="b3a1769d3e1c4fea9f48327ffdd6460b"><span font-size="14">作用域有新增部分：产生的新监控单元，从修改提交那刻开始计数</span></li>
+<li nodeId="adca01df1cc040bf959ae2f148545336"><span font-size="14">作用域有删减部分：对应的监控单元清空计数</span></li>
+<li nodeId="8b2c184ccf5e49a39881fb562f74e921"><span font-size="14">未增减的那部分作用域：不影响，涉及的老监控单元继续计数</span></li>
+</ul>
+</td>
+</tr>
+<tr nodeId="95751d06f52d4ecb884418087bf3d101">
+<td colwidth="[124]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="56544a9729ba466bb9fb2b4a21ac5dd3">
+<p nodeId="909ba1dc8bb64e10a4354f18632c944c"><span font-size="14">作用时间</span></p>
+</td>
+<td colwidth="[465]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ac8ac7e108e14d8085daa1d4aedc8886">
+<p nodeId="ae8962cd7c3a4e7e9ed0a6a8d6e33c77"><span font-size="14">不影响</span></p>
+</td>
+</tr>
+<tr nodeId="b87a0578fc1c45418f39f82f52c86e1a">
+<td colwidth="[124]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e717f16007154ce1b59539da8031e650">
+<p nodeId="99bcc523e1f744a6b86475a6c3d0319a"><span font-size="14">熔断规则</span></p>
+</td>
+<td colwidth="[465]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dee1c30e0a924721b4fa45295192bac8">
+<p nodeId="673ab4563d3b4f0c9a1868696bae461d"><span font-size="14">提交修改时，系统会判断本次修改是否变更了熔断规则，并给予用户二次弹窗确认是否修改。</span></p>
+<ul nodeId="9f6cf46062de4562b9b7343e429a3ea3">
+<li nodeId="a6819b6a888f4b0bbf8907784534e5d2"><span font-size="14">新增熔断规则（含子规则）：产生的新监控单元，从修改提交那刻开始计数</span></li>
+<li nodeId="2f76625c9ab74ea282258268b52ed50c"><span font-size="14">删除熔断规则（含子规则）：对应的监控单元清空计数</span></li>
+<li nodeId="1f0384a4d3a14967bc1425588268ddab"><span font-size="14">未动的熔断规则（含子规则）：涉及的老监控单元继续计数</span></li>
+<li nodeId="c9d743e9766f4caabd47f194fd040a3c">
+<p nodeId="702ecc8b1edb42b499803d9cdf3843d7"><span font-size="14">编辑内容的熔断规则（含子规则）：</span></p>
+<ul nodeId="9c17df42371341348bde4c99b2904d47">
+<li nodeId="6abbfb2bbb494bc68b563a37b08ed581"><span font-size="14">时间周期、计算函数、对比关系、阈值：</span><span color="rgb(245, 35, 45)"><span font-size="14">修改不影响，涉及的老监控单元继续计数</span></span></li>
+<li nodeId="f27e129bcd04493dad069263ac4eee20"><span font-size="14">指标、去重维度：</span><span color="rgb(245, 35, 45)"><span font-size="14">不允许修改</span></span></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="cfa7cb4b9b9f4c10980a5977bf885d23">
+<td colwidth="[124]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c7a06d5b319d4d5e9b41a33ce47bb903">
+<p nodeId="49ced23b6aee4cda8479c4da39474b1a"><span font-size="14">熔断动作</span></p>
+</td>
+<td colwidth="[465]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="385efe1607fc4ca09149716fde80e719">
+<p nodeId="3e6ef82e36c5415f99f1041ea2b7cf6e"><span font-size="14">不影响</span></p>
+</td>
+</tr>
+<tr nodeId="6b43f7946c9f45888ed3ccb8839a65cf">
+<td colspan="3" colwidth="[216,124,465]" nodeId="0a6a02487ca0428583884879d9f5ede0">
+<p nodeId="d5a636a667824c6a95b6e1839e2e0c33"><span color="rgb(245, 35, 45)"><span font-size="14">熔断复制：复制熔断，相当于用被复制对象的配置 新建了一条熔断配置，因此也是重新开始计数。</span></span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="da3301caf35b4453a3a00f1f94810d1f">4.特殊说明</h1>
+<table borderColor="#cccccc" responsive="false" nodeId="a9664ca7df53430088522e5765d8133b">
+<tr nodeId="a04b6008916c40a5a7fb6676d6df43ef">
+<th colwidth="[162]" nodeId="9576a5ab21f84a60873a48100eae6b13">
+<p nodeId="d7dc4765d7c9479db3a273cbab6651d3"><span font-size="14">项目</span></p>
+</th>
+<th colwidth="[885]" nodeId="e4a5b9cbe6294fe68848bbab6987d95b">
+<p nodeId="f1418384cb3a49d4bdec052e785abfee"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="8587a9b6e4304ccd94a8607b604983fa">
+<td colwidth="[162]" nodeId="e06549c569f54147b9f85a679a2b160a">
+<p nodeId="2ab4dd258d47496e81e7902850d98798"><span font-size="14">屏蔽期覆盖不到的部分</span></p>
+</td>
+<td colwidth="[885]" nodeId="c566dddeb5db4f979f02e0db189c71a3">
+<p nodeId="fc2aa13ec0984de9b64e6f2a940cbfcd"><span color="rgb(38, 38, 38)"><span font-size="14">目前，用户在未更改熔断配置的情况下，去zeus场景配置里【新增】了生效（灰度）的规则而产生的新监控单元，熔断的屏蔽期还无法覆盖到。</span></span><span color="rgb(245, 35, 45)"><span font-size="14">对于这部分新增的监控单元，将没有屏蔽期作用</span></span><span color="rgb(38, 38, 38)"><span font-size="14">，即新增后，一旦满足熔断规则便会立刻报出，请知晓。</span></span></p>
+</td>
+</tr>
+</table>
+<p nodeId="fec92ac6334548b090cc07301dd87614" />
+<p nodeId="5993f07c35944e0783f5a2d20bd31920" />
+</km-doc>

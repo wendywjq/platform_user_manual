@@ -1,0 +1,164 @@
+<km-doc>
+<km-title nodeId="fe08c79b18ae4776bfe4e765e6a1e8f6">01 功能简介</km-title>
+<km-catalog style="none" nodeId="463ba9bea0854cdaa498af39a3aa7631" />
+<h1 nodeId="099eca397ec940eab1132746793581da">1功能概述</h1>
+<h2 nodeId="0f47a92ad1bc4cd98d1fc72f1021b5e4">1.1 定义</h2>
+<p nodeId="1def480c019841b7b88cf5209d08c130">近线基于Flink计算引擎，能在时间窗口内对<span color="">多个流事件进行综合分析，一般数据量比较大，同时能实现</span>分钟级别<span color="">响应</span>近线画布是使用近线引擎的一种策略配置方式，让用户可以在一个页面通过拖拉拽的方式完成复杂模型配置-测试灰度-计算任务自启动-模型运行状态感知-告警通知的全链路执行</p>
+<h2 nodeId="9e3de927b60f475e9439074fedc2da61">1.2 背景</h2>
+<table responsive="false" nodeId="704d6b4c549f4aa98ebd60fb5ccfda08">
+<tr nodeId="8d2205d231b24847a8405afd65d4b97f">
+<th colwidth="[560]" nodeId="927c8e8666d64d9abc45c8640bbea4c3">
+<p nodeId="f53a1763b740432cbe4fb8bd09df3ab1">for 基础安全 用户</p>
+</th>
+<th colwidth="[574]" nodeId="cee8b21c76c54ba89ea681f5658b2979">
+<p nodeId="9c3bfc22fd434e4fbcb6cf2b892a0b77">for 非基础安全其他 用户</p>
+</th>
+</tr>
+<tr nodeId="2445d639bccd453bbfc63b3741daa3db">
+<td colwidth="[560]" nodeId="fe1b12c251d94258bbbf795de8a61778">
+<ul nodeId="2d2902067f314e1e8e5efad83daeeccb">
+<li nodeId="394ded6190ac4e628da810a72881e0bd"><strong>灵活诉求多</strong>：有些策略模型包含数据处理、基线过滤、聚合告警三大模块，其中又依赖黑白规则、CEP等，整体配置流程长，复杂度高场景规则的方式无法满足其数据处理、过滤等节点的灵活配置、格式化逻辑中使用因子等诉求。</li>
+<li nodeId="13fbb75c73ae453485831398c3a7477e"><strong>配置不友好</strong>：业务方群体为熟悉代码的安全工程师，原有策略均为代码部署。场景规则的方式将原有简单策略模型进行分层模块化配置，需要将大段代码在一个规则中实现（如CEP规则），维护成本较高，且后续复杂模型支持，对于用户使用友好度过低。</li>
+</ul>
+</td>
+<td colwidth="[574]" nodeId="f8ae523f78d64a378fa98dd5ade2af52">
+<ul nodeId="e6ccbbd077884c9ba13b51eb3e65da92">
+<li nodeId="692de5415ebe4b38b2e1c23668e71250"><strong>逻辑表达不清晰</strong>：场景规则的策略描述逻辑表征能力较差。而画布dag图形式无论是拖拉拽的简单配置方式还是表达逻辑的能力都比场景规则更清晰简单</li>
+<li nodeId="b744d8eb37114fd8aa92bbdea7b92ee0"><strong>多流数据表达能力弱</strong>：对于多流数据的表征语言场景规则表达能力有限。</li>
+</ul>
+</td>
+</tr>
+</table>
+<p nodeId="fe98b73d188b478793dd9b8b7838d376">而画布可以做到的是...</p>
+<ol nodeId="4d2ca6cc831b4a529d976df31d31be0b">
+<li nodeId="297c0a1f92fe40f589df1c49d435ea38"><span color="rgba(0, 0, 0, 0.87)"><strong>拖拉拽低代码配置，上手成本低</strong></span><span color="rgba(0, 0, 0, 0.87)">：通过</span><span color="">拖拉拽组件至画布中，并自由连接各个组件模块，配置符合策略执行顺序的可视化图链路</span></li>
+<li nodeId="cc07daeaf45343f484e7167b9ad52347"><span color="rgba(0, 0, 0, 0.87)"><strong>仿真测试调试透明，debug更清晰</strong></span><span color="rgba(0, 0, 0, 0.87)">：通过展示图中每个节点算子的输入输出字段，更清晰的明确数据流的流转的形式</span></li>
+<li nodeId="153d62e434ef4321b84f66f851d1ed10"><span color="rgba(0, 0, 0, 0.87)"><strong>作业异常告警分级，排查效率更高</strong></span><span color="rgba(0, 0, 0, 0.87)">：通过划分不同作业优先级，配置给不同作业队列资源保障及响应速度，让资源和人力用在刀刃上</span></li>
+</ol>
+<p nodeId="a45eb20237b74b52b80b6284faaf432d">因此，Zeus开始探索让用户实现在一个页面完成复杂模型的配置-测试灰度-计算任务自启动-模型运行状态感知-告警通知的全链路。但客观来讲，画布不是绝对优于场景规则。画布的缺乏整体视角，而场景规则的某一场景下配了几条策略场景规则配置会较为清晰，用户需结合自己的使用习惯及实际需求选择某种配置方式</p>
+<h2 nodeId="6523c80d894144dcac72b93a4055807d">1.3 生态概览</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1426154026/11002939760?contentType=0&amp;isNewContent=false" width="656" height="326" nodeId="7755b33c2d8a4f3d9e8bee5be93c4868" />
+<h1 nodeId="2f7743e2da784dc784c441adb2b7d3cf">2 功能简介</h1>
+<h2 nodeId="b5f56bb516fd41f5882fec4388ab3dd2">2.1 相关概念介绍</h2>
+<table responsive="false" nodeId="c47b281b99f144649c484277d7069d83">
+<tr nodeId="340db447453a477889c3f2f00aa23809">
+<th colwidth="[82]" nodeId="af638a9401bb4b8b85ea5a104b30e835">
+<p nodeId="c56be26fbe2e49ea81706be82b159e5e">名词</p>
+</th>
+<th colwidth="[842]" nodeId="89be3c085af94e139c9b45caea5339c7">
+<p nodeId="5b228353c7294eeba66159ab5b684eae">解释</p>
+</th>
+</tr>
+<tr nodeId="f06e55096b7446b78752f211fe21fcc5">
+<td colwidth="[82]" nodeId="9e10f3637c6b4b91891ec18014a0a4f0">
+<p nodeId="846353e5b09e41fda2097c470265de31">画布</p>
+</td>
+<td colwidth="[842]" nodeId="5aecba64a6b84eee8c56e9e55907a896">
+<p nodeId="7f5188dcc61b43d1a2d29e6d652c33f1">策略部署的一种模式，用户可以在画布中通过拖拽的方式自定义配置一条数据处理流，以多个数据源组件作为起始，以多个决策类组件作为终止。当用户完成策略的配置之后，画布会自动生成一个flink任务用来执行用户所配置的逻辑。</p>
+</td>
+</tr>
+<tr nodeId="153b41e185ac41d1813994f79f45347b">
+<td colwidth="[82]" nodeId="9a1d9f513f524397bb7f312219c55fd5">
+<p nodeId="09cb34dc182e46d195953f690908d2a9">组件</p>
+</td>
+<td colwidth="[842]" nodeId="e75fd46a7fba4db19f4a975f95227136">
+<p align="start" nodeId="994082917a0f4550bdb33d2c4b212523">组成画布的功能块，包括常规的流数据处理（join,groupby,distinct，数据拆分等）逻辑判断（if-else等），规则与自定义代码执行，决策（金丝雀告警，落kafka，丢弃等）。</p>
+</td>
+</tr>
+<tr nodeId="472d6dc58b6f4f1389b99862e5608d71">
+<td colwidth="[82]" nodeId="ec64266e4bb54d4d98d5444c05370f75">
+<p nodeId="8b37ac0553404858978a2753a950816c">熔断配置</p>
+</td>
+<td colwidth="[842]" nodeId="d7f3547f0842497fba3f2e947ce8b4c4">
+<p nodeId="e05d7c333bbd46afb281aa200d9a2c08">基于画布组件/组件内规则 配置的熔断内容，包括熔断对象（组件/组件内的规则）、熔断作用时间、熔断监控规则、告警人等。</p>
+</td>
+</tr>
+<tr nodeId="55f1b313f0b64922aa7fa8ecaffd6e21">
+<td colwidth="[82]" nodeId="d29132e2615a48048fa6ec5e1a07b2fd">
+<p nodeId="b962863793f54efe9a109623f94390d7">仿真测试</p>
+</td>
+<td colwidth="[842]" nodeId="52d150579da648f6b960d21b83141bfd">
+<p nodeId="12fda2b93e0c490097c68b9cc7e130f9"><span color="">通过输入单条/批量的mock数据，展示画布策略全链路执行情况及单个流程节点命中详情</span></p>
+</td>
+</tr>
+<tr nodeId="756b6aa3c3af41ec80b4333c2ccd3cd3">
+<td colwidth="[82]" nodeId="10a96ea83bda408a842c5b84901b5681">
+<p nodeId="5e89bdf431d1433db8023c28de924797">画布拨测</p>
+</td>
+<td colwidth="[842]" nodeId="cba3fa645d0e4af4b4131704f39adcfb">
+<p nodeId="f5aa7b2ad6ba432fbe29a0f68f132060">用户自定义流量调用画布获取决策，判断结果是否满足用户诉求的任务配置，确保线上环境作业的有效性</p>
+</td>
+</tr>
+</table>
+<h1 nodeId="e16978af26f4461097844c8c7557d5c7">3 使用流程介绍</h1>
+<h2 nodeId="ee300206f4df45408917408930de55d5">3.1 流程概述</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1426154026/11000890207?contentType=0&amp;isNewContent=false" width="1506" height="366" nodeId="f614f6bcd4aa46289bf7c63e925fed63" />
+<h2 nodeId="562916dac9d3408db86d7f57a67bb875">3.2 功能使用详情索引</h2>
+<table responsive="false" nodeId="ce05671c32314d709eaa2ca59a769cbf">
+<tr nodeId="aff7e2f50f3d4a85812206ef4b0a3a3a">
+<th colwidth="[162]" nodeId="69e3242a593b429d89dfa1d5e2ad0cfc">
+<p nodeId="875c704d94be407da1f020e1cd0234b9">可视化建模阶段</p>
+</th>
+<th colwidth="[173]" nodeId="95868a4a2dfd4460a22b8fc62f6f5f34">
+<p nodeId="7a6b1dbb87cd4107a7bbed12447c6aac">详细说明文档</p>
+</th>
+</tr>
+<tr nodeId="04edfc87cbd94198a3b572fa9e49673f">
+<td colwidth="[162]" nodeId="04a5a9cb61794e37b9b2afef1a16c935">
+<p nodeId="8c34d87ebbc94be889b41f1a09f1094c">画布建模（事前）</p>
+</td>
+<td colwidth="[173]" nodeId="a334924897be476fb37b7ed244ab649c">
+<p nodeId="27c0aa5018134b0485e8bc6ba9c46b91"><a href="https://km.sankuai.com/collabpage/1426173682" title="https://km.sankuai.com/collabpage/1426173682" autoUpdate="true" nodeId="bb18e3c787404b12a16f950b6d09df44">https://km.sankuai.com/collabpage/1426173682</a></p>
+</td>
+</tr>
+<tr nodeId="4cb147eaf3a043f69137c6d5d405cd40">
+<td colwidth="[162]" nodeId="293be337f8ee481db794226c39176dda">
+<p nodeId="a71ccc4a251849a2a033b8c0bf146ba0">画布调试（事中）</p>
+</td>
+<td colwidth="[173]" nodeId="3527bfc97d1747f7a5e2b4ac60a162a4">
+<p nodeId="5540d6a8c94a414cab551f886fd4207c"><a href="https://km.sankuai.com/collabpage/1426202145" title="https://km.sankuai.com/collabpage/1426202145" autoUpdate="true" nodeId="756452988d53489bb2e6b70335beda5d">https://km.sankuai.com/collabpage/1426202145</a></p>
+</td>
+</tr>
+<tr nodeId="bcac405d7b2840ef97ad82b236345dea">
+<td colwidth="[162]" nodeId="bb8b33b07d494931847b4528650fa279">
+<p nodeId="0bbb9142f39249eabbb3898058ac7afd">监控治理（事后）</p>
+</td>
+<td colwidth="[173]" nodeId="3d0d8159793c4c55825d5018a83f5e11">
+<p nodeId="8d2e2432528f465faa81ddb0e9ced603"><a href="https://km.sankuai.com/collabpage/1426221504" title="https://km.sankuai.com/collabpage/1426221504" autoUpdate="true" nodeId="985cde0d668c4dc2af8f96596e3d8f60">https://km.sankuai.com/collabpage/1426221504</a></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="cb855d97c7a2421bad5065c4383a7653">4 接入使用</h1>
+<p nodeId="cb191838b14d49f4b65647d522e1c02f">若有基于风控相关的需求想接入使用画布功能，请完成以下步骤开通使用：</p>
+<ol nodeId="caa5a5a9461b4a9d881f7ca6f0a7b3ca">
+<li nodeId="e28357622e18449ea0924ffc27da0878">整理业务具体画布使用场景及需求文档，联系近线画布产品<km-mention name="龙含嫣(Louise Long)" uid="longhanyan" empId="" nodeId="d0efb6caaa8448df9d4f171e11fc6c51" />评估是否可以接入使用</li>
+<li nodeId="08737dd9991a43408ee8da48feee7357">
+<p nodeId="0f97a40f71394daba242b41ef1bfe5ef">评估通过后，按照以下格式发送邮件，经上级批准后由值班研发处理开通</p>
+<km-collapse active="false" nodeId="94dc1355ec8140168f0c884eef50cbfd">
+<km-title>邮件格式</km-title>
+<km-content>
+<p align="start" nodeId="09db06156e474a10aea6c73c2cfc6898">            收件人：申请人直属上级</p>
+<p align="start" nodeId="1ad8e83a6f494c6598ca4a389517cd97">            抄送人：杜思思（dusisi）、刘思淼（liusimiao）、周强（zhouqia<span color="">ng23）、金丽丹（jinlidan）、高</span>建（<span color="">gaojian35</span>）、方小远（<span color="rgba(0, 0, 0, 0.54)">fangxiaoyuan</span>）、徐言（<span color="rgba(0, 0, 0, 0.54)">xuyan35</span>）</p>
+<p align="start" nodeId="82a8e3f2a5834b4db3de04f53999f97a">具体格式如下：</p>
+<p align="start" nodeId="256f3071b34a4bcdab62080e847dc177">             a.邮件标题：【Zeus画布使用权限申请】申请部门+申请人  例：【Zeus画布使用权限申请】美团/基础研发平台/信息安全部/风控和业务安全/平台和数据产品 +刘思淼</p>
+<p align="start" nodeId="148aeee93f2f45fc9a6bad4fa28c3ef7">             b.邮件正文：</p>
+<ul nodeId="828f1e4a1beb42f2bcda94dfb65bb6cd">
+<li nodeId="589337f993f54530808253c21d94f3ab">
+<p align="start" nodeId="e722004dfffe4473add0fe38eea2b9d3">申请人MIS号：</p>
+</li>
+<li nodeId="c1538bdbeda84dda9190af142a567e10">
+<p align="start" nodeId="5a753e7ee2db4ddc93ceaa1331bf64a4">申请人部门：（举例：美团/基础研发平台/信息安全部/风控和业务安全/平台和数据产品 ）</p>
+</li>
+<li nodeId="dedc41cb360d4893ae4616645b9ab0ed">
+<p align="start" nodeId="1e76a32e97514b9287c2042e03e2dc42">需求背景：说明此需求来源的背景以及用途；</p>
+</li>
+<li nodeId="36c7beef94344c8aabc1fbb96fc31750">
+<p align="start" nodeId="6a9bdf2ddd3b40a0ae1f2b7b900e0c6e">需求说明：说明使用画布的用途；</p>
+</li>
+</ul>
+</km-content>
+</km-collapse>
+</li>
+<li nodeId="245c4e55cfae4eee90fae0d1dfb59c15">准备万象组id、名称及队列资源（若业务无自身队列资源，可估算预计使用情况向Zeus申请资源使用），提供给值班近线<km-mention name="Zeus" uid="it_rc_zeus" empId="" nodeId="054f8c9f159048bfbc08e4800111fb37" />研发完成画布空间开通</li>
+</ol>
+</km-doc>

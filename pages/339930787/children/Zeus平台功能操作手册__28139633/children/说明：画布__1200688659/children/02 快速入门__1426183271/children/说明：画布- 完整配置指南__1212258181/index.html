@@ -1,0 +1,163 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布- 完整配置指南</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-10">三、操作指南</a><a href="#section-192">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">02 快速入门</a> / <a href="index.html">说明：画布- 完整配置指南</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1212258181">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：画布- 完整配置指南</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<p>见画布背景</p>
+<h3 id="section-5">二、名词解释</h3>
+<p>画布：用户可以在画布中通过拖拽的方式自定义配置一条数据处理流，以多个数据源组件作为起始，以多个决策类组件作为终止。</p>
+<p>画布中的组件包括常规的流数据处理（join,groupby,distinct，数据拆分等）逻辑判断（if-else等），规则与自定义代码执行，决策（金丝雀告警，落kafka，丢弃等）。</p>
+<p>当用户完成策略的配置之后，画布会自动生成一个flink任务用来执行用户所配置的逻辑。</p>
+<p></p>
+<h3 id="section-10">三、操作指南</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p><span style="font-size:14px"><strong>【基础配置】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击进入画布基本配置页，拖拽两个kafka组件到画布中上方，按照</span><a href="https://km.sankuai.com/page/1200718382" title="https://km.sankuai.com/page/1200718382">说明：画布- Kafka配置指南</a><span style="font-size:14px">先将两个数据源配置完毕</span></li>
+</ol>
+<p></p>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+<p><img src="assets/97698a93f5a6ce71.png" width="546" height="266" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">针对kafka数据源1进行数据流处理</span></li>
+<li><span style="font-size:14px">从左侧拖一个select组件到画布中，置于kafka数据源1下方</span></li>
+<li><span style="font-size:14px">点击kafka数据源1，组件下方会出现一个圆点，点击空白圆点进行拉线至select组件上方的空白圆点，将两个组件连起来</span></li>
+<li><span style="font-size:14px">根据</span><a href="https://km.sankuai.com/page/1200639384" title="https://km.sankuai.com/page/1200639384">说明：画布- Select组件</a><span style="font-size:14px">按需配置select的逻辑</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/e1918af543a699ad.png" width="546" height="261" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">从左侧拖一个代码组件到画布中，置于select组件下方</span></li>
+<li><span style="font-size:14px">将select组件和代码组件连起来</span></li>
+<li><span style="font-size:14px">根据</span><a href="https://km.sankuai.com/page/1200639574" title="https://km.sankuai.com/page/1200639574">说明：画布- 代码组件</a><span style="font-size:14px">按需配置代码组件的逻辑</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/95423696d2090ea2.png" width="546" height="280" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">从左侧拖一个if...else组件到画布中，置于代码组件下方</span></li>
+<li><span style="font-size:14px">将代码组件和if...else组件连起来</span></li>
+<li><span style="font-size:14px">根据</span><a href="https://km.sankuai.com/page/1200679482" title="https://km.sankuai.com/page/1200679482">说明：画布- If...Else组件</a><span style="font-size:14px">按需配置if...else组件的逻辑</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/26f349cfebbb24e0.png" width="546" height="265" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">因为if...else组件为判断组件，会有两个结果，因此连在后面的会有两个组件</span></li>
+<li><span style="font-size:14px">假设按照此画布逻辑，不满足测试条件的会旁路输出，满足条件的会与kafka数据源2的处理结果汇总之后再进行处理</span></li>
+<li><span style="font-size:14px">从左侧拖一个旁路输出组件至于if...else组件左下方，</span></li>
+<li><span style="font-size:14px">用左边的连线将if...else组件和旁路输出组件连起来</span></li>
+<li><span style="font-size:14px">点击左边的连线，可以选择逻辑是true还是false的进入旁路输出</span></li>
+<li><span style="font-size:14px">根据</span><a href="https://km.sankuai.com/page/1200679482" title="https://km.sankuai.com/page/1200679482">说明：画布- If...Else组件</a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/1200659710" title="https://km.sankuai.com/page/1200659710">说明：画布- 旁路输出组件</a><span style="font-size:14px">按需配置</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/d021c38d0707c723.png" width="546" height="264" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">处理kakfa数据源2</span></li>
+<li><span style="font-size:14px">从左侧拖一个Distinct组件到画布中，置于kakfa数据源2组件下方</span></li>
+<li><span style="font-size:14px">将kakfa数据源2组件和Distinct组件连起来</span></li>
+<li><span style="font-size:14px">根据</span><a href="https://km.sankuai.com/page/1200649532" title="https://km.sankuai.com/page/1200649532">说明：画布- Distinct组件</a><span style="font-size:14px">按需配置Distinct组件的逻辑</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/ae147b9c4ef4ac19.png" width="546" height="266" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">处理完kakfa数据源2后，需要将处理完的Kafka数据源1和kafka数据源2进行汇总</span></li>
+<li><span style="font-size:14px">从左侧拖一个Union组件到画布中，置于if...else组件和Distinct组件下方</span></li>
+<li><span style="font-size:14px">将if...else组件右边的线连到Union组件的左上方，Distinct组件的线连到Union组件的右上方，即完成两个数据流的汇合</span></li>
+<li><span style="font-size:14px">参考</span><a href="https://km.sankuai.com/page/1200639529" title="https://km.sankuai.com/page/1200639529">说明：画布- Union组件</a><span style="font-size:14px">使用说明</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/750e689768037ba1.png" width="546" height="262" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">对汇总后的数据流进行后续的数据加工</span></li>
+<li><span style="font-size:14px">假设需要过zeus上的规则集合</span></li>
+<li><span style="font-size:14px">从左侧拖一个规则集合组件到画布中，置于Union组件下方</span></li>
+<li><span style="font-size:14px">将Union组件和规则集合组件连起来</span></li>
+<li><span style="font-size:14px">参考</span><a href="https://km.sankuai.com/page/1200669387" title="https://km.sankuai.com/page/1200669387">说明：画布- 规则集合组件</a><span style="font-size:14px">按需配置规则集合</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/143ad0193f2daa06.png" width="546" height="265" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">假设需要对过完规则集合的数据流进行规则结果判断</span></li>
+<li><span style="font-size:14px">从左侧拖一个if...else组件到画布中，置于规则集合组件下方</span></li>
+<li><span style="font-size:14px">将规则集合组件和if...else组件连起来</span></li>
+<li><span style="font-size:14px">根据</span><a href="https://km.sankuai.com/page/1200679482" title="https://km.sankuai.com/page/1200679482">说明：画布- If...Else组件</a><span style="font-size:14px">按需配置if...else组件的逻辑</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/475dd41f89816eab.png" width="546" height="268" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">假设按照此画布逻辑，规则结果为true的会进行决策告警，规则结果为false的会丢弃</span></li>
+<li><span style="font-size:14px">从左侧拖一个决策输出组件和丢弃组件至于if...else组件左下方，</span></li>
+<li><span style="font-size:14px">用左边的连线将if...else组件和决策信息组件连起来，用右边的连线将if...else组件和丢弃组件连起来</span></li>
+<li><span style="font-size:14px">同样可以在连线上进行true or false的修改</span></li>
+<li><span style="font-size:14px">根据</span><a href="https://km.sankuai.com/page/1200629952" title="https://km.sankuai.com/page/1200629952">说明：画布- 决策信息配置指南</a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/1200763174" title="https://km.sankuai.com/page/1200763174">说明：画布- 丢弃配置指南</a><span style="font-size:14px">按需配置</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/a3e326f8dd5f8c33.png" width="546" height="265" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-192">四、FAQ</h3>
+<p>配置录屏：</p>
+<p></p>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/1212258181/1502766047?contentType=1">我的影片.mp4</a></figcaption></figure>
+<p><br></p>
+<p></p>
+</article></main></body></html>

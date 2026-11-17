@@ -1,0 +1,55 @@
+<km-doc>
+<km-title nodeId="7df4a1a87bc4437780a60654e8e1721e">说明：普通因子引用规则组因子（工具因子）</km-title>
+<km-catalog style="none" nodeId="cec85193cee84d5dbd726551494b0c05" />
+<h1 nodeId="3eeb7e7dd3e149d3a1b37a14c56c6f2c">一、背景</h1>
+<p nodeId="ea1c4fca3a1047578d4f258d1f0d9c56">功能适用：适用于业务有涉及到工具因子的多层计算，即工具因子需要封装在普通因子中再封装到规则中</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/617139793/618250709?contentType=0&amp;isNewContent=false" width="407" height="123" nodeId="eb49906c33f047c387fd13f407b531f2" />
+<h1 nodeId="947fcfb42c274157a706b6f784303413">二、名词解释</h1>
+<ul nodeId="e6d3695d3f724ce887761c7552518df8">
+<li nodeId="6ad797f2a2684f5d985fc4e045be3a18">工具因子/规则组因子：即由因子工具生成的工具因子，结果为true/false</li>
+</ul>
+<h1 nodeId="d1378a541d8c4ea58c9126060f5fd7a8">三、操作指南</h1>
+<h2 nodeId="697084ad65854afcbbf6f4e2cb0549fc">1.用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/617139793/618241544?contentType=0&amp;isNewContent=false" width="870" height="156" nodeId="00617c3dcd88425baa9f20d81af9fc06" />
+<h2 nodeId="2b1a3c57dbbd48ccaafd0c2d5766fa8d">2.Quick Start</h2>
+<km-video src="https://km.sankuai.com/api/file/cdn/617139793/618323294?contentType=1" name="屏幕录制2021-01-25 下午5.57.22.mov" size="68.68MB" width="0" height="0" nodeId="ceacc6e5ad67494f89a4fedc2aee26c3" />
+<p nodeId="94ccc5e12a2448278d507e9c215d8c8a" />
+<h2 nodeId="be636ae5a33e4a9a95008c60b6444c65">3.详细操作流程说明</h2>
+<h3 nodeId="5be1c3e6ff764023810df3b2ea999378">Step1:创建规则组，见<a href="https://km.sankuai.com/page/59203601" title="https://km.sankuai.com/page/59203601" autoUpdate="true" nodeId="3b254d325ee148f3b6f8da0a4c8b76cb">https://km.sankuai.com/page/59203601</a></h3>
+<h3 nodeId="493320f6163742c78b96a8f09fbb119d">Step2: 规则组生成因子工具，见<a href="https://km.sankuai.com/page/194006669" title="https://km.sankuai.com/page/194006669" autoUpdate="true" nodeId="6113fd77878d4d2c89fe8ed85f93b9a1">https://km.sankuai.com/page/194006669</a></h3>
+<h3 nodeId="7eaed8886f44405291a3fd30059c046d">Step3: 因子工具生成工具因子，见<a href="https://km.sankuai.com/page/194006669" title="https://km.sankuai.com/page/194006669" autoUpdate="true" nodeId="f18614974007429b81f0cfc195932b8a">https://km.sankuai.com/page/194006669</a></h3>
+<h3 nodeId="61a5d6caec204654a9b590eebb4a5060">Step4: 工具因子被普通因子引用</h3>
+<table responsive="false" nodeId="a473de8b227a4006bea233a007f4d648">
+<tr nodeId="78256f751604424584366b37d5c542ff">
+<th colwidth="[325]" nodeId="b2da399d480e4304a366fa6ce85eab5d">
+<p nodeId="06b491c4d2fa453085ed1e6757997431"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[449]" nodeId="46285a9d58b643e0870b89a7bb3b182c">
+<p nodeId="15291f9ae92448e1babb5661a2eaa260"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="6a4fe235b5b24640812c2f49008e68e7">
+<td colwidth="[325]" nodeId="fad515cdbcd8435689925a6548c64609">
+<ol nodeId="a8b28e9c2c3c43088b8cb1cb67c65a4d">
+<li nodeId="b015eece94e2407cb9724fd303151319"><span font-size="14">进入因子列表页面--&gt;添加因子</span></li>
+<li nodeId="ece557a1ee03477bb50750caf8f2da4f"><span font-size="14">创建普通因子--&gt;表达式中引用工具因子--&gt;保存--创建成功</span></li>
+</ol>
+</td>
+<td colwidth="[449]" nodeId="62191afa6e524352abebf806baab33fd">
+<p nodeId="7ba3cdd9d6d0451babefe33a7d247a1f"><span font-size="14">1.</span></p>
+<p nodeId="fda9bf759c1f4ec4b396076a0c1d7a30"><img src="https://km.sankuai.com/api/file/cdn/617139793/618347674?contentType=1&amp;isNewContent=false" name="image.png" width="420" height="190" nodeId="f5197592705a40bd9e673d23fdc4f54b" /></p>
+<p nodeId="7d90c4ef4b1d48d4bceceb9755f127ea"><span font-size="14">2.</span></p>
+<p nodeId="f2c51459face4d5ba4e217b8973fa0ff"><img src="https://km.sankuai.com/api/file/cdn/617139793/618227270?contentType=1&amp;isNewContent=false" name="image.png" width="420" height="192" nodeId="c99c425d1fac4db8a368e798aaa8f43c" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="a6f9f05cea694f3b9f2838555e34e853">Step5: 将Step4中的普通因子放入到规则中，见<a href="https://km.sankuai.com/page/312585969" title="https://km.sankuai.com/page/312585969" autoUpdate="true" nodeId="317fcbf887ac4c5f99e58158d8eb2453">https://km.sankuai.com/page/312585969</a></h3>
+<h1 nodeId="9d88a46d44af46259775f9ed279ddbbe">四、FAQ</h1>
+<h3 nodeId="2f7ebcfbb20b46c78559eca61b4d84cb">Q1：xxxxxx</h3>
+<p nodeId="84bfce0bdde945d2854c11e90e4e7127">--A：</p>
+<h3 nodeId="ab0ac928b1fb485c9a09dc6a53a667d4">Q2：xxxxxx</h3>
+<p nodeId="451713b2e59f4d49bdea0199c5eac418">--A：</p>
+<p nodeId="b7ee90a555394839899bd7a4b48c4da7" />
+<p nodeId="8e62081f76664f94815f23983254255f" />
+<p nodeId="48d3c28a534242eba2ea34eca1d39465" />
+</km-doc>

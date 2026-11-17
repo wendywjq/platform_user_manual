@@ -1,0 +1,98 @@
+<km-doc>
+<km-title nodeId="47fb273e7cb8471381afc6986d3887ff">说明：画布 - UDF管理</km-title>
+<km-catalog style="none" nodeId="d8cc9932c2c446c2993f27c36cd63ddc" />
+<h1 nodeId="aa64ad466b35450899b32977cb19a0b5">一、背景</h1>
+<ul nodeId="8eb2b17181e2413cb7ffe975cb05193a">
+<li nodeId="619a2ca458e448e6bb788c4385e44391">
+<p align="start" nodeId="27ac7ddbfb574c8091c896f617914deb"><span color="">策略同学在建模过程中通常会有一些复用性较高、复杂度也高的函数，难以用aviator语法实现。</span>目前只支持在画布/数据源管理中，通过代码组件的功能引入代码实现该类函数。<span color="">比较粗糙且仅有一次性代码部署执行能力</span>无法做到可复用；或者通过人工找RD的方式来添加扩展函数，时间流程长，建模效率低</p>
+</li>
+</ul>
+<h1 nodeId="9f5ecb7c617b46eb93b8371ecbba4bcd">二、名称解释</h1>
+<p nodeId="4f307cbd9ca245b18809671745891377">UDF：用户自定义标量值函数（User Defined Scalar Function），其输入与输出是一对一的关系，即读入一行数据，写一条输出值 。</p>
+<h1 nodeId="6cac20344ff5474d9384cf7a95e876da">三、使用概览</h1>
+<ul nodeId="4e3697b1d58e44f0ba03dbcaf0daafea">
+<li nodeId="a89575d9b528453abdfa720a2a6f9e03">
+<p align="start" nodeId="5c9c157449174e208cdf03c820771be8">工程与函数的对应关系</p>
+</li>
+</ul>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1402465659/8804338436?contentType=0&amp;isNewContent=false" width="536" height="236" nodeId="0a4aa777c0ed4c83a1f98dbaa358d072" />
+<ul nodeId="154d36bcfaa944dfbf66deea69a24bf1">
+<li nodeId="5cdb2afd3b0447d596491278d2645cf6">
+<p align="start" nodeId="02c12d88fd1a44f889d3aa9c476cc0e7">总体流程图</p>
+</li>
+</ul>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1402465659/8491381321?contentType=0&amp;isNewContent=false" width="946" height="476" nodeId="f17603be509241219d20f0ab3f744ee0" />
+<h1 nodeId="91fa0b4c4f80490283a6045fd684c984">四、操作说明</h1>
+<p nodeId="6564feb61d644fa39728c679d7559b48"><span color="#FF4A47">目前仅130空间下含该功能，如其他业务空间有该需求可提tt至rd同学帮忙配置该功能</span></p>
+<h2 nodeId="d684a394bd1b44a4baccc7607096291a">4.1 jar包准备及编译</h2>
+<ul nodeId="33a9c089fc2844e9bed9288a64c6cf37">
+<li nodeId="2f2efdce65ea48eab59d7e599584462d">UDF本地jar包格式及jar包构建方式：<a href="https://km.sankuai.com/collabpage/1374510499" title="https://km.sankuai.com/collabpage/1374510499" autoUpdate="true" nodeId="40f244616e984704bd17a196f43f730d">https://km.sankuai.com/collabpage/1374510499</a><br /></li>
+</ul>
+<h2 nodeId="17c6884f5b0643d68e154d89dc8cd3f4">4.2 新建版本或工程</h2>
+<ol nodeId="a08ef6aebb58461d816f2658bc7036d3">
+<li nodeId="84d26aaa4a2442b1a8fdbb33aaa1ae2b">列表页可查询生效版本/最新一版UDF工程、生效版本函数。点击右上角可开始新建UDF流程，点击某一工程右侧新增版本，即进入新增UDF版本流程</li>
+</ol>
+<p nodeId="801d005cd03f40cab0695b11adb81a7f"><img src="https://km.sankuai.com/api/file/cdn/1402465659/8519925766?contentType=1&amp;isNewContent=false" name="image.jpeg" width="353" height="202" nodeId="d04e50ed167c43d99a128d8e1304223d" /></p>
+<p nodeId="9ef9fdcffc2247f69f057dfbb244e12e">2. 填写中英文名，UDF展示多以英文名为主</p>
+<p nodeId="0d430a60c9094a988ffefb2d500e3aa5"><img src="https://km.sankuai.com/api/file/cdn/1402465659/8517203233?contentType=1&amp;isNewContent=false" name="image.jpeg" width="360" height="206" nodeId="218ed0d0b56749ddbd1f165132b0cdf9" /></p>
+<p nodeId="f78e1469e1744f9db3f66e6805e25ae2">3. 填写S3名（名称为pom中配置的:    自己的artifactId-自己的版本）完成构建</p>
+<p nodeId="b32a4f9783f64e8da27c6f752e668179"><img src="https://km.sankuai.com/api/file/cdn/1402465659/8522804104?contentType=1&amp;isNewContent=false" name="image.jpeg" width="378" height="216" nodeId="cc4388535ae1464b93eeb5cc7ec35e2c" /></p>
+<p nodeId="2eb92d4f7eae484cadf450f95555bfb2">4. 函数解析。确认函数个数及内容是否与jar包中相符，若不一致，可发起tt联系rd解决</p>
+<p nodeId="42cec7b16cd645beb1c8d02ed8171603"><img src="https://km.sankuai.com/api/file/cdn/1402465659/8522342582?contentType=1&amp;isNewContent=false" name="image.jpeg" width="396" height="227" nodeId="05c6040e19504302b107f007137826de" /></p>
+<p nodeId="4c27b5ba495448959fbae523ba28c87c">5. 测试。可对工程中函数进行逻辑测试，<strong>保存该工程须至少有一个函数测试用例通过</strong></p>
+<p nodeId="6844dada06064a448755e7342cc30464"><img src="https://km.sankuai.com/api/file/cdn/1402465659/8523172745?contentType=1&amp;isNewContent=false" name="image.jpeg" width="399" height="228" nodeId="4bca98dd82cf48ad8fbb1817d2893cef" /></p>
+<h2 nodeId="ddfcc663ff544f71ae64f243bb9cb38b">4.3 版本升级</h2>
+<ul nodeId="3f6600bfa37644508f935e4e480df405">
+<li nodeId="c0003afd800e4c84ba1e9e40947dac7f">版本升级时，新版本的代码须<span color="rgba(0, 0, 0, 0.87)">包含或兼容上一个在线版本的被依赖函数</span>，否则将升级失败</li>
+</ul>
+<p nodeId="6b1e8bf3f61342df8281e16e72b58fdd"><img src="https://km.sankuai.com/api/file/cdn/1402465659/8546103284?contentType=1&amp;isNewContent=false" name="image.jpeg" width="471" height="270" nodeId="6ba865efe71d453f955555402261df91" /></p>
+<h2 nodeId="2e3c2b26df1246949211b06f1f552d7a">4.4 udf引用</h2>
+<ul nodeId="ecdf62f7a89b471985fc18647c2b74fa">
+<li nodeId="e5feb849c42147ce9d5325d10c1ce7cd">引用范围：画布aviator表达式（后续对于规则因子、画布代码组件等会陆续支持）</li>
+</ul>
+<ul nodeId="16b714ac5d094036a8f9f92b72278194">
+<li nodeId="9cdc57e1736743c69a5724a045a669f4">
+<p nodeId="b4c7217bc1954136adc70eb63eb20d3d">引用方式：udf.工程名.函数名</p>
+<p nodeId="f6a7d610d338475cacabb4e6a3f28c32"><img src="https://km.sankuai.com/api/file/cdn/1402465659/11449011969?contentType=1&amp;isNewContent=false" name="image.jpeg" width="648" height="472" nodeId="ec607b195bcb4adaa33820e30c7eb3cd" /></p>
+</li>
+<li nodeId="7bdb61dd4c924979ae871a89df816037">更新方式：点击画布详情页左上角查看详情，对于udf当前生效版本和画布引用版本不一致的支持更新。更新后对于线上画布会自动重启，使用更新后的版本；对于仿真测试需用户<span color="rgba(0, 0, 0, 0.87)">手动修改表达式，重新触发表达式编译才能正常仿真。</span></li>
+<li nodeId="7741485cfbbd4952b292704fb57e44c6">
+<p nodeId="a10b7ca7ae7144d89f07812fe7dc5482"><span color="rgba(0, 0, 0, 0.87)"><strong>用法建议：不建议访问外部数据源，可直接使用三方数据源组件</strong></span></p>
+<p nodeId="86badfaf2315433c96ec8830f621aee6"><img src="https://km.sankuai.com/api/file/cdn/1402465659/8521191304?contentType=1&amp;isNewContent=false" name="image.jpeg" width="654" height="375" nodeId="803930925c32472fa2734243f98d3baf" /></p>
+<p nodeId="cc3c8c33eb1a4bcf8004d016b9da06da" />
+</li>
+</ul>
+<h1 nodeId="34df3fd39a284f948d9c3463a971d797">五、常见Q&amp;A</h1>
+<p nodeId="bb2044e44c3c4c7ba0af84dda89ffe31">可能遇到的问题及解决方案正在持续补充中...</p>
+<h2 nodeId="088b39ffb8da4793be040e9702de5094">5.1 udf执行时可能遇到的问题</h2>
+<p nodeId="e7051f4b4db141898df1ebd1486735c9">对于依赖了公司平台包的udf函数，建议在udf管理页面进行测试（由于部分公司平台包，启动较为复杂，可能会导致初始化失败)</p>
+<p nodeId="9a7c4c9a057a4c83b9b36d9a868723c4" />
+<p nodeId="4174d2304dde48b0a43488a674e42b3b">已知问题: 由于<span color="rgb(98, 151, 85)"><em>com.sankuai.sec.basic_info的依赖了启动比较复杂的redis和lion等公司平台包，</em></span></p>
+<p nodeId="b32fece38a80484ea83797305b17a807"><span color="rgb(98, 151, 85)"><em>对于如下包名开头的包，将采用平台而非业务自己在udf里引用的三方包：</em></span><span color="rgb(106, 135, 89)">com.dianping;com.sankuai.sec.basic_info;com.alibaba.fastjson;com.google.gson;org.apache.http;com.sankuai.inf.patriot"</span></p>
+<p nodeId="46b7e568c05744eb95b93eba9cbe6b69" />
+<h2 nodeId="f996f649c4984787bcf30ebcfcfa89b3">5.2 是否支持udf中调用外部数据源</h2>
+<p nodeId="0a968c1461284b55b6a1043d683e20ed">平台未做限制，但建议走三方数据源调用，而非在udf中访问外部数据源(因为udf中对于外部数据源不具备限流能力，带来的风险需要业务自行cover)</p>
+<p nodeId="b7917b293b4a441ea087f9ecaed50f05" />
+<h2 nodeId="2982b40760894fe8b9c185b8f12c698e">5.3 udf是否支持缓存，哪些场景适用缓存</h2>
+<p nodeId="0160dc2d02d0482aa9ca7eb7451df699">udf支持缓存；使用方式，参考: <a href="https://km.sankuai.com/collabpage/1374510499" title="https://km.sankuai.com/collabpage/1374510499" autoUpdate="true" nodeId="ce554d4cb99d4c5b9db232f34f9e7f18">https://km.sankuai.com/collabpage/1374510499</a></p>
+<p nodeId="79c7b695837d4b3b838bc2f19effda6a">使用缓存场景建议: </p>
+<p nodeId="2bf761d964404e8e9542b388d2d19a11">1.udf执行耗时长或cpu消耗量大</p>
+<p nodeId="80427c64f9d44a5a83a7a9a04359f48b">2.udf缓存命中率高</p>
+<p nodeId="990dc50f4c6145778c5250cb63b1f504" />
+<h2 nodeId="02a4e020f2814da9836014894a019733">5.4 udf调用监控</h2>
+<p nodeId="a2e71cca6bc14791bb5da9a2a70b7916">udf调用量及耗时监控: </p>
+<p nodeId="1afb9a77f9824297974dc7ae471ca617"><a href="https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=81485&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;type=udf-invoke" title="https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=81485&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;type=udf-invoke" nodeId="0de2b9a1b4a04264b42a959709e91548">https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=81485&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;type=udf-invoke</a></p>
+<p nodeId="878d6fef03264c35ba2655d3cc1d6cdf" />
+<p nodeId="1649aa413c0640d0a688f9c3e44d2d2a">使用缓存能力的udf调用量及耗时监控:</p>
+<p nodeId="330a7b5fb2eb467bba0d94cff244d3ee"><a href="https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=64711&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;fold=business&amp;type=udf-invoke-with-cache&amp;query=" title="https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=64711&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;fold=business&amp;type=udf-invoke-with-cache&amp;query=" nodeId="8c0b7861015648c092ab1b01a4d09b91">https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=64711&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;fold=business&amp;type=udf-invoke-with-cache&amp;query=</a></p>
+<p nodeId="dd2a9b9cc6894c01b1de8c49c0bc8217" />
+<h2 nodeId="6d22abac70164f2ab0eb1d4ba9a32618">5.5 udf支持范围</h2>
+<p nodeId="c99cb40b4f6946979175d2ac0c23a472">当前仅支持画布aviator表达式中进行引用，后续会逐渐在画布代码组件、规则因子中支持udf使用。如有相关诉求可反馈至<km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="6e0fcea7acd54727962d316114be4d7f" />，帮助我们之后更好的迭代升级~~</p>
+<p nodeId="ec46a86489d74f1daae115b7ac4b4e3e" />
+<h2 nodeId="a7956629989042c9b5ae933e638cb7df">5.6 有函数没有被解析出来</h2>
+<p nodeId="1a7571a7b6414268ad6dfa2ab21313fa">先排查是否jar包中是否继承<span color="rgb(255, 74, 71)">ZeusUdfScalarFunction</span>类，只有继承了才能被解析出来。若已继承仍未解析出来，可提tt至rd</p>
+<h1 nodeId="c67a33e726854bdf85ea438645c7fb3e">六、业务宣讲记录</h1>
+<km-video src="https://km.sankuai.com/api/file/cdn/1402465659/9101736695?contentType=1" name="video1383592073.mp4" size="31.56MB" width="0" height="0" nodeId="bc23e44a33d44d51b97403accc9b0fe1" />
+<h1 nodeId="0aba2201e1c4447a8c98ec58fc6be7d0" />
+<p nodeId="d41c046cb99e40e8b2d7da12f2b34013" />
+</km-doc>

@@ -1,0 +1,47 @@
+<km-doc>
+<km-title nodeId="36e93de56b1145b2b950f2916d7cd5f6">说明：仿真测试</km-title>
+<km-catalog style="none" nodeId="fcd796b8552e40cb9d0fa7aee41552b3" />
+<h1 align="start" nodeId="cc5ec97c29e44c04bd6bf1f9106e2a0e"><span color="rgb(0, 0, 0)"><strong>1.解决问题</strong></span></h1>
+<p nodeId="5a94e961893c4457827086cc0ba41a3e">通过输入单条/批量的mock数据，展示策略全链路执行情况及单个流程节点命中详情</p>
+<h1 nodeId="5815be3bf2bd41bbbddc079b7556aba4">2.操作说明</h1>
+<h2 nodeId="66bbf236cf5a4f66a84f96e4b7933b55">step1: 入口</h2>
+<p nodeId="d41aca86d97b47459203293ddbda44d7"><span color=" ">点击</span><span color="rgb(245, 35, 45)"><strong>策略排查-&gt;仿真测试</strong></span><span color=" ">进入仿真测试页面</span></p>
+<p nodeId="90be3b01be9942a7b718d326821049fe"><img src="https://km.sankuai.com/api/file/cdn/851061369/851047967?contentType=1&amp;isNewContent=true" name="image.png" width="688" height="330" nodeId="29b5fbfea7f746bdbd3d4cbf0ca61f14" /></p>
+<h2 nodeId="cd5338cfdda444f9a4905b324d8caba6">step2: 选择执行</h2>
+<ul nodeId="195792dd09f54c5ca9ed8912dc345880">
+<li nodeId="d8a0e21236784d78bb63e02cc5c8a52f"><span color=" ">若选择仿真对象为数据源，输入选中数据源，选择数据输入方式为单条/批量，点击“执行测试”</span></li>
+</ul>
+<p nodeId="23b1ac2c769a4ba2800f6328e3734f79"><img src="https://km.sankuai.com/api/file/cdn/851061369/850117097?contentType=1&amp;isNewContent=true" name="image.png" width="914" height="263" nodeId="d92e506cb07649538294a339f76714cb" /></p>
+<ul nodeId="64cfe478292f4b01ad238faf3d354098">
+<li nodeId="275dcbc6ab2c4408ba55dd47e1d0d5a6"><span color=" ">若选择仿真对象为场景-CEP模型，可模糊搜索选中对应CEP场景，在对应的“算子：数据源”下输入数据，点击“执行测试”</span></li>
+</ul>
+<p nodeId="7e43ff8c570145049e79a5c1549a2e44"><img src="https://km.sankuai.com/api/file/cdn/851061369/1025706817?contentType=1&amp;isNewContent=false" name="image.png" width="917" height="475" nodeId="2969ec24adca43ec81de46daeb771fbf" /></p>
+<h2 nodeId="76e21872e5a74ba6ba5f2a04eea6f3de">step3: 结果查看</h2>
+<h4 nodeId="a4a78be30ef3433bbdc3c72a6ccdbe2b">（1）<strong>仿真对象：数据源  &amp;&amp; 数据输入：单条</strong></h4>
+<p nodeId="c03046d801034361b3015c6c686e3314">3.1 点击测试结果框右上角的<img src="https://km.sankuai.com/api/file/cdn/851061369/851037896?contentType=1&amp;isNewContent=true" name="image.png" width="18" height="17" nodeId="b96b1103a9754929945dbe19ccf4ce43" />、<img src="https://km.sankuai.com/api/file/cdn/851061369/851038168?contentType=1&amp;isNewContent=true" name="image.png" width="18" height="17" nodeId="eed1664dca7f4bef93465d8bb4c5985c" />可放大、缩小展示结果。<span color="rgb(245, 35, 45)">Tips：拖动测试结果框中任一空白处，可挪动展示内容。</span></p>
+<p nodeId="194d95c126d84a1c96449dbdaa732696">3.2 点击“数据源”、“数据映射”、“可信”、“场景”任一节点框，会在测试结果下方展示该节点命中详情，点击节点框中蓝色的节点名称，则跳转至该节点配置详情页。</p>
+<p nodeId="044b13c977b24c069afb75574eacab12"><img src="https://km.sankuai.com/api/file/cdn/851061369/850117099?contentType=1&amp;isNewContent=true" name="image.png" width="963" height="364" nodeId="b72a4e0e5fb54cff810901a1bb208a8a" /></p>
+<p nodeId="f45fd9a4234b41e083cedbc99c7c25f1">3.3 点击“可信”或“场景”节点框后，下方会展示该可信和场景下所包含的规则及其执行详情，若命中场景下的规则，则同步展示其决策信息。</p>
+<p nodeId="f9ccba5f59f64a5195f6bccb142db96c">Tips：可信未命中代表会正常执行后续场景规则，可信的命中代表命中黑/白类型规则，会进行数据丢弃不执行后续场景规则。</p>
+<p nodeId="8f0ae96fb9a54250b38c625d0bb05969"><img src="https://km.sankuai.com/api/file/cdn/851061369/856341184?contentType=1&amp;isNewContent=false" name="image.png" width="889" height="427" nodeId="d0d46cb34b6040cf8c95a313e5d544bd" /></p>
+<p nodeId="5e4605ba2bdc4c2e872a3e0c9851cea1">3.4 点击“执行详情”可打开规则具体命中链路图，包含规则内因子和参数值。点击“决策信息”可打开决策详情。点击“规则名称”则跳转至规则配置详情页。</p>
+<p nodeId="7b96d01842774c93a18d957ab85e4486"><img src="https://km.sankuai.com/api/file/cdn/851061369/850933198?contentType=1&amp;isNewContent=true" name="image.png" width="617" height="285" nodeId="980d6156a738492faf6bbc685eaee687" /><img src="https://km.sankuai.com/api/file/cdn/851061369/850971152?contentType=1&amp;isNewContent=true" name="image.png" width="265" height="283" nodeId="02af921672584a2292da438ec44158ff" /></p>
+<h4 nodeId="998bb542d1bb4738912d8b551117a1bd"><strong>（2）仿真对象：数据源  &amp;&amp; 数据输入：批量</strong></h4>
+<p nodeId="210a30eb81d04199969b5258bbe4b322">批量数据测试结果按照单条数据request_id进行展示。</p>
+<p nodeId="2954c022ec65426dbe16536dcb92083e">点击“request_id”后的链接，可跳转至该单条数据的全链路执行页面，点击操作同step3。</p>
+<p nodeId="fbb8915461324f77a2b8985b836c371d">点击“命中规则”后的链接，可打开该规则的执行详情。</p>
+<p nodeId="c865867a49844f508f4de4e971138146">点击右侧不同标签，可展示该条数据下参数/因子/附加信息/决策信息详情。</p>
+<p nodeId="f25c816cf6604e0897ae8d861cb84f91"><img src="https://km.sankuai.com/api/file/cdn/851061369/850933202?contentType=1&amp;isNewContent=true" name="image.png" width="764" height="372" nodeId="eceb2f459d124b13910e84fe95b607b4" /></p>
+<h4 nodeId="8e33543bf84642679db8f3e1bfcc0654"><strong>（3）仿真对象：场景-CEP模型  </strong></h4>
+<ul nodeId="0ad2e8b36b5d4e32917f7162cb5303e2">
+<li nodeId="cdf15c975506422ea9c60ba1d86079bd">“计算条件”节点对应单个CEP算子配置中的“满足何种计算条件”，“数据聚合”节点为进入窗口触发聚合操作后的数据，“判断结果”节点对应CEP规则中“判断结果”表达式的执行结果，“决策信息”节点内容为对应场景中配置的决策信息命中情况。</li>
+<li nodeId="808d83f986b741a0b220e460b28972a5">点击任一节点框，会在测试结果下方展示该节点命中详情，点击节点框中蓝色的节点名称，则跳转至配置详情页。</li>
+</ul>
+<ul nodeId="ff8c17577fe340a48ee3a2b93537dfc3">
+<li nodeId="ab67baa231af44ff9f1b3a2ac8894fb9">点击测试结果框右上角的<img src="https://km.sankuai.com/api/file/cdn/851061369/851037896?contentType=1" name="" width="18" height="17" nodeId="d7df4ed049f1489b9b43ccf3392b5a85" />、<img src="https://km.sankuai.com/api/file/cdn/851061369/851038168?contentType=1" name="" width="18" height="17" nodeId="9a9cb5c560a7414dac3e46b4ac874989" />可放大、缩小展示结果。<span color="rgb(245, 35, 45)">Tips：拖动测试结果框中任一空白处，可挪动展示内容。</span></li>
+</ul>
+<p nodeId="fed26d76875a425399135141da5c565e"><img src="https://km.sankuai.com/api/file/cdn/851061369/1026165713?contentType=1&amp;isNewContent=false" name="image.png" width="969" height="493" nodeId="449452940e2d40da88360511ba1a2d9e" />​</p>
+<h1 align="start" nodeId="14a902e629ea4784b3624a3439f0a4e5"><span color="rgb(0, 0, 0)"><strong>3.FAQ</strong></span></h1>
+<h2 nodeId="cc275687fcac4806a3ead2d97fc9b8b8"><span color="rgb(0, 0, 0)"><strong>Q1：为什么数据映射命中，后面场景未执行？/为什么可信未命中，后面场景未执行？</strong></span></h2>
+<p nodeId="b5665521c30d47149ca1dbff5b92e846">-A：请优先检查场景中配置的规则是否有“生效”状态。场景中完全没有生效规则，则未执行属于正常情况，若场景中配置有生效规则仍未执行，请联系RD排查。</p>
+</km-doc>

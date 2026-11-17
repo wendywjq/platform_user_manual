@@ -1,0 +1,877 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：版本发布&amp;回滚</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-9">二、名词解释</a><a href="#section-12">三、操作指南</a><a href="#section-13">1.用户操作流程说明</a><a href="#section-18">2.Quick Start</a><a href="#section-24">3.详细操作流程说明</a><a href="#section-25">Step1:创建版本&gt;&gt;修改策略内容</a><a href="#section-26">Step2: 选择是否针对策略版本进行双跑</a><a href="#section-27">Step3: 双跑完成发送上线审批通知&gt;&gt;发送上线申请</a><a href="#section-28">Step4: 上线申请通过，一键上线</a><a href="#section-29">Step5: 申请回滚</a><a href="#section-31">4.版本上线后的操作注意事项</a><a href="#section-42">四、FAQ</a><a href="#section-43">Q1：版本与私有化之间的关系是什么？</a><a href="#section-403">Q2：版本包含了哪些策略元素？</a><a href="#section-764">Q4：版本与现有的演练任务之间是什么关系？后续策略演练任务还存在吗？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：版本发布&amp;回滚</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/759505837">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：版本发布&amp;回滚</h1>
+<p></p>
+<h1 id="section-3">一、背景</h1>
+<p>zeus仅仅支持规则，因子的版本，其他的对象，例如路由场景，普通场景等均不支持版本的管理；策略PM在策略迭代过程中存在以下痛点</p>
+<p>【路由场景发布不可控，内容不可追溯】：目前路由场景的修改和上线在正常环境和演练环境都可以进行，修改和发布流程不统一，修改记录不可追溯。</p>
+<p>【回滚功能不完善】：缺少以版本为单元的回滚机制，目前的回滚机制是增量回滚机制（修改什么回滚什么）。</p>
+<p>【影响上下游的联动】：版本功能的缺失，阻碍了金融侧双跑，灰度等安全生产流程。</p>
+<p></p>
+<h1 id="section-9">二、名词解释</h1>
+<p>版本：策略元素的快照，包括生效和未生效的元素。版本的颗粒度为业务线。版本是双跑，灰度等功能的基础，双跑，灰度等安全生产事件以版本为单位进行。</p>
+<p></p>
+<h1 id="section-12">三、操作指南</h1>
+<h2 id="section-13">1.用户操作流程说明</h2>
+<p></p>
+<img src="assets/b63d5eaee15a3971.svg" width="1176" height="266" alt="流程图">
+<p></p>
+<p></p>
+<h2 id="section-18">2.Quick Start</h2>
+<p>1、如何创建/修改&gt;&gt;发布版本&gt;&gt;回滚</p>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/759505837/826903510?contentType=1">版本发布和回滚流程.mov</a></figcaption></figure>
+<p></p>
+<h2 id="section-24">3.详细操作流程说明</h2>
+<h4 id="section-25">Step1:创建版本&gt;&gt;修改策略内容</h4>
+<h4 id="section-26">Step2: 选择是否针对策略版本进行双跑</h4>
+<h4 id="section-27">Step3: 双跑完成发送上线审批通知&gt;&gt;发送上线申请</h4>
+<h4 id="section-28">Step4: 上线申请通过，一键上线</h4>
+<h4 id="section-29">Step5: 申请回滚</h4>
+<p></p>
+<h3 id="section-31">4.版本上线后的操作注意事项</h3>
+<p>1、版本创建的入口未统一【目前支持演练环境和在线环境同时修改，但是在线环境的修改不会保存在版本中】，用户在线环境针对策略元素的逻辑信息进行修改【具体逻辑信息待补充】会导致版本的回滚不成功。</p>
+<p>对于用户操作习惯的要求：涉及针对策略元素的修改在<span style="color:rgb(245, 35, 45)">演练环境中</span>完成，按照版本创建&gt;&gt;修改&gt;&gt;双跑&gt;&gt;发布的流程进行发布上线，由于在线环境删除也会导致回滚不成功，在版本未收口在演练环境之前不要在在线环境进行元素的删除【重点注意】</p>
+<p>2、策略元素的新增和删除在在线环境，修改在演练环境，用户操作流程割裂。</p>
+<p>3、版本的创建和编辑的环境延用现有的演练环境，后续将不存在双跑演练任务，双跑演变为版本发布的一个环节，双跑单位为版本。双跑的启动和准确结果的查看都跳转到挑战者平台，延用挑战者平台的操作路径。目前已经支持了0分钟双跑，用户可以不经过双跑直接上线。</p>
+<p>4、回滚的颗粒度从演练任务为单位变为以版本为单位。支持用户从线上版本回滚至30天内版本号小于生效版本号的任意版本。回滚流程与现有流程保持一致。</p>
+<p>5、zeus目前支持多版本的同时编辑，在发布上线环节支持直接覆盖和基于线上版本重新编辑后上线。例如用户A,B分布基于版本V1.0创建了V1.1和V1.2，版本V1.1上线后变为V2.0，版本V1.2上线时有两种方式：1）直接上线，此种方式将会覆盖V1.1修改的内容；2）基于V2.0版本重新编辑后上线。</p>
+<p>6、版本上线时，双跑任务会被清空【初始化】，版本创建页仅保留线上版本。<span style="color:#f5232d">【特别注意】</span></p>
+<p></p>
+<h1 id="section-42">四、FAQ</h1>
+<h5 id="section-43">Q1：版本与私有化之间的关系是什么？</h5>
+<p>zeus的策略元素，规则，规则组，因子，决策等都支持在金融集群下跨业务线共享。版本以业务线为单位进行创建和保存，为了降低各业务线版本之间的耦合性以及回滚带来的问题，将共享的策略元素按照业务线进行私有化，私有化后仅参数，累计事件，数据接口和数据服务支持共享，其他元素都为各业务线私有，后续的迭代相互独立。在元素私有化的基础上，版本功能上线时，将各业务线线上版本初始化为V1.0，后续版本的创建基于V1.0版本</p>
+<details>
+<summary>版本元素公私有化说明</summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">元素类型</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">typeId</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">子类型</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">subType</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">属性</span></p>
+</th>
+</tr>
+<tr>
+<th style="background-color:rgb(247, 247, 247);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">参数</span></span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">0</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">公有</span></p>
+</td>
+</tr>
+<tr>
+<th rowspan="6" style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">因子</span></p>
+</th>
+<td rowspan="6" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">普通因子</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">累计因子</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">2</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">扩展因子</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">3</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">决策表因子</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">4</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">规则组因子</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">5</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">不限</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">-1</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th rowspan="3" style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">规则</span></p>
+</th>
+<td rowspan="3" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">2</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">生效</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">64</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">标记</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">32</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">不限</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">-1</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">累计</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">3</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">决策附加信息</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">4</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">衍生参数</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">5</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">数据接口</span></span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">6</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">公有</span></p>
+</td>
+</tr>
+<tr>
+<th rowspan="3" style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">场景</span></p>
+</th>
+<td rowspan="3" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">7</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">生效</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">64</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">标记</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">32</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">不限</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">-1</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">决策理由</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">8</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">决策</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">9</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">累计事件</span></span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">10</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">公有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">因子工具</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">12</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">规则组</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">13</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">数据服务</span></span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">14</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">公有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">多级路由</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">16</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">场景配置</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">18</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">标签</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">公有</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+</div>
+</details>
+<h5 id="section-403">Q2：版本包含了哪些策略元素？</h5>
+<details>
+<summary>版本元素</summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">元素类型</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">typeId</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">子类型</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">subType</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p></p>
+</th>
+</tr>
+<tr>
+<th style="background-color:rgb(247, 247, 247);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">参数</span></span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">0</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">公有</span></p>
+</td>
+</tr>
+<tr>
+<th rowspan="6" style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">因子</span></p>
+</th>
+<td rowspan="6" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">普通因子</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">累计因子</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">2</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">扩展因子</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">3</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">决策表因子</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">4</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">规则组因子</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">5</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">不限</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">-1</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th rowspan="3" style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">规则</span></p>
+</th>
+<td rowspan="3" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">2</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">生效</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">64</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">标记</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">32</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">不限</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">-1</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">累计</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">3</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">决策附加信息</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">4</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">衍生参数</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">5</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">数据接口</span></span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">6</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">公有</span></p>
+</td>
+</tr>
+<tr>
+<th rowspan="3" style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">场景</span></p>
+</th>
+<td rowspan="3" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">7</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">生效</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">64</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">标记</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">32</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">不限</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">-1</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">决策理由</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">8</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">决策</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">9</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">累计事件</span></span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">10</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">公有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">因子工具</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">12</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">规则组</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">13</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">数据服务</span></span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">14</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">公有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">多级路由</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">16</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">场景配置</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">18</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">私有</span></p>
+</td>
+</tr>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">标签</span></p>
+</th>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">公有</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+</div>
+</details>
+<p><strong>Q3：多版本同时编辑后上线，怎么处理？</strong><br>zeus支持多版本的同时编辑，相同原点的版本上线时可以直接覆盖或基于线上版本重新修改后上线两种方式。例如用户A,B分布基于版本V1.0创建了V1.1和V1.2，版本V1.1上线后变为V2.0，版本V1.2上线时有两种方式：1）直接上线，此种方式将会覆盖V1.1修改的内容；2）基于V2.0版本重新编辑后上线。</p>
+<h5 id="section-764">Q4：版本与现有的演练任务之间是什么关系？后续策略演练任务还存在吗？</h5>
+<p>现有版本的修改，查看延用的是策略演练的环境。在版本发布流程上延用的是策略演练任务的流程（双跑&gt;&gt;上线通知&gt;&gt;上线审批&gt;&gt;一键上线），甚至在回滚流程上同样延用的是策略演练任务的回滚流程。但是在实体上用版本替代了策略演练任务，后续zeus的发布，双跑，上线和回滚均以版本为单位。</p>
+<p><strong>Q5：版本的时效性有多长？</strong></p>
+<p>历史版本永久保存，支持对于历史所有版本的查看。</p>
+<p></p>
+<p></p>
+<p></p>
+</article></main></body></html>

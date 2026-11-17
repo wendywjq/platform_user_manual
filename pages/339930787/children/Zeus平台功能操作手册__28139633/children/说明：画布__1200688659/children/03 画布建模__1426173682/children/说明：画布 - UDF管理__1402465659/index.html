@@ -1,0 +1,98 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布 - UDF管理</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-9">二、名称解释</a><a href="#section-11">三、使用概览</a><a href="#section-20">四、操作说明</a><a href="#section-23">4.1 jar包准备及编译</a><a href="#section-28">4.2 新建版本或工程</a><a href="#section-46">4.3 版本升级</a><a href="#section-52">4.4 udf引用</a><a href="#section-69">五、常见Q&amp;A</a><a href="#section-71">5.1 udf执行时可能遇到的问题</a><a href="#section-82">5.2 是否支持udf中调用外部数据源</a><a href="#section-85">5.3 udf是否支持缓存，哪些场景适用缓存</a><a href="#section-92">5.4 udf调用监控</a><a href="#section-101">5.5 udf支持范围</a><a href="#section-105">5.6 有函数没有被解析出来</a><a href="#section-108">六、业务宣讲记录</a><a href="#section-112"></a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">03 画布建模</a> / <a href="index.html">说明：画布 - UDF管理</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1402465659">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：画布 - UDF管理</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<ul>
+<li>
+<p><span>策略同学在建模过程中通常会有一些复用性较高、复杂度也高的函数，难以用aviator语法实现。</span>目前只支持在画布/数据源管理中，通过代码组件的功能引入代码实现该类函数。<span>比较粗糙且仅有一次性代码部署执行能力</span>无法做到可复用；或者通过人工找RD的方式来添加扩展函数，时间流程长，建模效率低</p>
+</li>
+</ul>
+<h1 id="section-9">二、名称解释</h1>
+<p>UDF：用户自定义标量值函数（User Defined Scalar Function），其输入与输出是一对一的关系，即读入一行数据，写一条输出值 。</p>
+<h1 id="section-11">三、使用概览</h1>
+<ul>
+<li>
+<p>工程与函数的对应关系</p>
+</li>
+</ul>
+<img src="assets/c885bee1f55f96ff.svg" width="536" height="236" alt="流程图">
+<ul>
+<li>
+<p>总体流程图</p>
+</li>
+</ul>
+<img src="assets/315add52093297d4.svg" width="946" height="476" alt="流程图">
+<h1 id="section-20">四、操作说明</h1>
+<p><span style="color:#FF4A47">目前仅130空间下含该功能，如其他业务空间有该需求可提tt至rd同学帮忙配置该功能</span></p>
+<h2 id="section-23">4.1 jar包准备及编译</h2>
+<ul>
+<li>UDF本地jar包格式及jar包构建方式：<a href="https://km.sankuai.com/collabpage/1374510499" title="https://km.sankuai.com/collabpage/1374510499">学城文档 1374510499（无权限读取标题）</a><br></li>
+</ul>
+<h2 id="section-28">4.2 新建版本或工程</h2>
+<ol>
+<li>列表页可查询生效版本/最新一版UDF工程、生效版本函数。点击右上角可开始新建UDF流程，点击某一工程右侧新增版本，即进入新增UDF版本流程</li>
+</ol>
+<p><img src="assets/c5d19749da43793a.png" width="353" height="202" alt="image.jpeg"></p>
+<p>2. 填写中英文名，UDF展示多以英文名为主</p>
+<p><img src="assets/bd6cd36e3bdf6ae1.png" width="360" height="206" alt="image.jpeg"></p>
+<p>3. 填写S3名（名称为pom中配置的:    自己的artifactId-自己的版本）完成构建</p>
+<p><img src="assets/e0b00fb9611fb15a.png" width="378" height="216" alt="image.jpeg"></p>
+<p>4. 函数解析。确认函数个数及内容是否与jar包中相符，若不一致，可发起tt联系rd解决</p>
+<p><img src="assets/f0883f7ee2953d9f.png" width="396" height="227" alt="image.jpeg"></p>
+<p>5. 测试。可对工程中函数进行逻辑测试，<strong>保存该工程须至少有一个函数测试用例通过</strong></p>
+<p><img src="assets/7f4692b881ce5ebb.png" width="399" height="228" alt="image.jpeg"></p>
+<h2 id="section-46">4.3 版本升级</h2>
+<ul>
+<li>版本升级时，新版本的代码须<span style="color:rgba(0, 0, 0, 0.87)">包含或兼容上一个在线版本的被依赖函数</span>，否则将升级失败</li>
+</ul>
+<p><img src="assets/b035fd8df776259f.png" width="471" height="270" alt="image.jpeg"></p>
+<h2 id="section-52">4.4 udf引用</h2>
+<ul>
+<li>引用范围：画布aviator表达式（后续对于规则因子、画布代码组件等会陆续支持）</li>
+</ul>
+<ul>
+<li>
+<p>引用方式：udf.工程名.函数名</p>
+<p><img src="assets/6b68c1e310d60c48.png" width="648" height="472" alt="image.jpeg"></p>
+</li>
+<li>更新方式：点击画布详情页左上角查看详情，对于udf当前生效版本和画布引用版本不一致的支持更新。更新后对于线上画布会自动重启，使用更新后的版本；对于仿真测试需用户<span style="color:rgba(0, 0, 0, 0.87)">手动修改表达式，重新触发表达式编译才能正常仿真。</span></li>
+<li>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><strong>用法建议：不建议访问外部数据源，可直接使用三方数据源组件</strong></span></p>
+<p><img src="assets/81e7569dd68a175f.png" width="654" height="375" alt="image.jpeg"></p>
+<p></p>
+</li>
+</ul>
+<h1 id="section-69">五、常见Q&amp;A</h1>
+<p>可能遇到的问题及解决方案正在持续补充中...</p>
+<h2 id="section-71">5.1 udf执行时可能遇到的问题</h2>
+<p>对于依赖了公司平台包的udf函数，建议在udf管理页面进行测试（由于部分公司平台包，启动较为复杂，可能会导致初始化失败)</p>
+<p></p>
+<p>已知问题: 由于<span style="color:rgb(98, 151, 85)"><em>com.sankuai.sec.basic_info的依赖了启动比较复杂的redis和lion等公司平台包，</em></span></p>
+<p><span style="color:rgb(98, 151, 85)"><em>对于如下包名开头的包，将采用平台而非业务自己在udf里引用的三方包：</em></span><span style="color:rgb(106, 135, 89)">com.dianping;com.sankuai.sec.basic_info;com.alibaba.fastjson;com.google.gson;org.apache.http;com.sankuai.inf.patriot"</span></p>
+<p></p>
+<h2 id="section-82">5.2 是否支持udf中调用外部数据源</h2>
+<p>平台未做限制，但建议走三方数据源调用，而非在udf中访问外部数据源(因为udf中对于外部数据源不具备限流能力，带来的风险需要业务自行cover)</p>
+<p></p>
+<h2 id="section-85">5.3 udf是否支持缓存，哪些场景适用缓存</h2>
+<p>udf支持缓存；使用方式，参考: <a href="https://km.sankuai.com/collabpage/1374510499" title="https://km.sankuai.com/collabpage/1374510499">学城文档 1374510499（无权限读取标题）</a></p>
+<p>使用缓存场景建议: </p>
+<p>1.udf执行耗时长或cpu消耗量大</p>
+<p>2.udf缓存命中率高</p>
+<p></p>
+<h2 id="section-92">5.4 udf调用监控</h2>
+<p>udf调用量及耗时监控: </p>
+<p><a href="https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=81485&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;type=udf-invoke" title="https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=81485&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;type=udf-invoke">https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=81485&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;type=udf-invoke</a></p>
+<p></p>
+<p>使用缓存能力的udf调用量及耗时监控:</p>
+<p><a href="https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=64711&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;fold=business&amp;type=udf-invoke-with-cache&amp;query=" title="https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=64711&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;fold=business&amp;type=udf-invoke-with-cache&amp;query=">https://raptor.mws.sankuai.com/application/transaction/type?reportType=hour&amp;date=&amp;startDate=20221012150000&amp;endDate=20221012155900&amp;r=64711&amp;ip=All&amp;group=&amp;domain=com.sankuai.zeus.nearline&amp;fold=business&amp;type=udf-invoke-with-cache&amp;query=</a></p>
+<p></p>
+<h2 id="section-101">5.5 udf支持范围</h2>
+<p>当前仅支持画布aviator表达式中进行引用，后续会逐渐在画布代码组件、规则因子中支持udf使用。如有相关诉求可反馈至<span>@刘思淼</span>，帮助我们之后更好的迭代升级~~</p>
+<p></p>
+<h2 id="section-105">5.6 有函数没有被解析出来</h2>
+<p>先排查是否jar包中是否继承<span style="color:rgb(255, 74, 71)">ZeusUdfScalarFunction</span>类，只有继承了才能被解析出来。若已继承仍未解析出来，可提tt至rd</p>
+<h1 id="section-108">六、业务宣讲记录</h1>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/1402465659/9101736695?contentType=1">video1383592073.mp4</a></figcaption></figure>
+<h1 id="section-112"></h1>
+<p></p>
+</article></main></body></html>

@@ -1,0 +1,36 @@
+<km-doc>
+<km-title nodeId="e3a5b622ee8948c3810d793846e19b2a">说明：策略回滚</km-title>
+<km-catalog style="none" nodeId="1eae0f0e1c144a9a8b3a13d2cc456cf1" />
+<h1 align="start" nodeId="e137896903134829ae099f16533b72c2">一、背景</h1>
+<p nodeId="9199a65c776a4b3a9a166c13cfe1fa73"><strong>策略演练支持因子工具/因子工具因子修改</strong></p>
+<p align="start" nodeId="6819f7cfc7224d189463d2134cd021a7">当因子工具因子被生效规则引用时：</p>
+<p align="start" nodeId="3d4e1dd216ee4968acd57d2e467fc3e6">（1）因子工具因子无法修改，这样一方面保障了线上生产策略的安全性，但也阻塞了业务有相关修改的需求；</p>
+<p align="start" nodeId="09eabb8c5d5e4074a99c5d11da4f0f4b">（2）因子工具因子中使用的因子工具可以正常修改，存在误操作影响线上生产策略的隐患；</p>
+<p nodeId="8150dc5fa513495d81367c97aeeffdaa" />
+<h1 align="start" nodeId="99d80f852e0c42ef9646236f52a1ab8e">二、名词解释</h1>
+<p nodeId="78f30bec266644da849f57ae3d13280d">因子工具：<span color=" ">一类通用工具具备因子属性，可通过配置阈值等条件进行引用，</span><span color="rgb(250, 84, 29)">输出为评分</span><span color=" ">。使用方不可进行修改只能使用，使用前类似与场景接入方式进行引用接入。例如虚拟设备评分就是对虚拟设备识别的因子工具；</span></p>
+<p nodeId="77df7b0bdbc8420cbdbc9befbd9df2a7">规则组因子：</p>
+<p nodeId="776531d4470642e39dda9f5b9090e844" />
+<h1 align="start" nodeId="03a0e1e06be346dd9d96210703bca9ee">三、操作指南</h1>
+<h2 align="start" nodeId="8c857c1d244645f98e29f2b4c22a0900">1.用户操作流程说明</h2>
+<p align="start" nodeId="7498f55e0cc740499de3f12c8192256f"><km-drawio src="https://km.sankuai.com/api/file/cdn/632597648/632791567?contentType=0&amp;isNewContent=false" width="1636" height="483" nodeId="506aeaad45ef487fb976822c3d9e92e9" />​</p>
+<h2 align="start" nodeId="a5cd51ecc13e4d2ca9f1df9886871a12">2.Quick Start</h2>
+<h4 nodeId="e58633dcf1124767a324b93078160f9c">2、1 策略演练支持因子工具的修改</h4>
+<km-video src="https://km.sankuai.com/api/file/cdn/632597648/632782255?contentType=1" name="策略演练支持因子工具修改.mov" size="22.50MB" width="0" height="0" nodeId="8f361a3f15fb403ba3d27d9f7be40db1" />
+<p nodeId="59a56e744cf544a29ad5920055550b92" />
+<h4 nodeId="6fcd822777a8464aa69ebd491c5cf070">2、1 策略演练支持规则组因子的修改</h4>
+<km-video src="https://km.sankuai.com/api/file/cdn/632597648/632782254?contentType=1" name="策略演练支持规则组因子修改.mov" size="26.51MB" width="0" height="0" nodeId="e5408b5c511a404fb45899fa62c61fa2" />
+<p nodeId="ba766499f6694807a524950a34db8553" />
+<h2 align="start" nodeId="9e40dfd5623a4b4e9be8d258e3c3b153">3.详细操作流程说明</h2>
+<h4 align="start" nodeId="99c1583e6e904e0d92411069f38f87a9">Step1:选择需要修改的因子工具或规则组因子</h4>
+<h4 align="start" nodeId="efcaf884ecaf4ccb9601b269d13fed84">Step2: 选择需要修改的信息-逻辑信息或属性信息</h4>
+<h4 align="start" nodeId="4463dab1ac724f7981187c98d5dc8687">Step3: 修改逻辑信息-新建演练任务跳转到演练环境进行逻辑信息的修改；修改属性信息-在线环境直接修改并保存</h4>
+<h4 align="start" nodeId="c72297b92d594307a2461904ea4c785f">Step4: 修改逻辑信息-演练任务双跑</h4>
+<h4 align="start" nodeId="2439181645b54cf286c1cc24451b1b24">Step5: 修改逻辑信息-演练任务上线</h4>
+<h1 align="start" nodeId="264f9392d41c49feb811adb061a1f60f">四、FAQ</h1>
+<h3 align="start" nodeId="bcd05f0222b948edafa2cdbf6627eb09">Q1：</h3>
+<p align="start" nodeId="8c02de1338e441b38f59485797bdf573">--A：</p>
+<h3 align="start" nodeId="b6671e660d314a2ea1add275917a0422">Q2：xxxxxx</h3>
+<p align="start" nodeId="91bddd47fa784547b59e3dce89d0597b">--A：</p>
+<p nodeId="1803112985254bc5803d2664bce63ef0"><br /></p>
+</km-doc>

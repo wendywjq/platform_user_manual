@@ -1,0 +1,37 @@
+<km-doc>
+<km-title nodeId="9997102cb2564019b4435521205f69aa">说明：画布</km-title>
+<p nodeId="1243eafdf7cf4e39add5cbeb1c5277c6">由于画布为近线引擎功能，因此仅在个别空间进行展示。若有基于风控相关的需求想接入使用画布功能，请完成以下步骤开通使用：</p>
+<ol nodeId="caa5a5a9461b4a9d881f7ca6f0a7b3ca">
+<li nodeId="e28357622e18449ea0924ffc27da0878">整理业务具体画布使用场景及需求文档，联系近线画布PM<km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="41b73496137547bb9e760f96bc7490d7" />和RD<km-mention name="姜涛" uid="jiangtao59" empId="" nodeId="6759dd979340421ba62e6a64d45143d4" /><km-mention name="沈坚" uid="shenjian11" empId="" nodeId="dbad66303a7f4cce8f237be203b30109" /><km-mention name="葛磊" uid="gelei05" empId="" nodeId="64c62e0225c749a383673b79da655fdc" /><km-mention name="秦银" uid="qinyin02" empId="" nodeId="d1a6be6c321c43edafd07ace490ae658" /><km-mention name="王文生" uid="wangwensheng03" empId="" nodeId="f57e0a275be342feb181d86f89273509" /><km-mention name="储召杨" uid="chuzhaoyang02" empId="" nodeId="776707e5dedb4fa8870fada14369a952" />评估</li>
+<li nodeId="88293c1bb7c144f3bef89cb422ecd77a">
+<p nodeId="4df7c2424dc146bfa304472a05ad61b2">评估通过后，按照以下格式发送邮件，经上级批准后由值班研发处理开通</p>
+<km-collapse active="false" nodeId="92183739ce5e4105b314436fd161c353">
+<km-title>邮件格式</km-title>
+<km-content>
+<p align="start" nodeId="09db06156e474a10aea6c73c2cfc6898">            收件人：申请人直属上级</p>
+<p align="start" nodeId="1ad8e83a6f494c6598ca4a389517cd97">            抄送人：杜思思（dusisi）、刘思淼（liusimiao）、周强（zhouqia<span color=" ">ng23）、金丽丹（jinlidan）、高</span>建（<span color=" ">gaojian35</span>）、方小远（<span color="rgba(0, 0, 0, 0.54)">fangxiaoyuan</span>）、徐言（<span color="rgba(0, 0, 0, 0.54)">xuyan35</span>）</p>
+<p align="start" nodeId="82a8e3f2a5834b4db3de04f53999f97a">具体格式如下：</p>
+<p align="start" nodeId="256f3071b34a4bcdab62080e847dc177">             a.邮件标题：【Zeus画布使用权限申请】申请部门+申请人  例：【Zeus画布使用权限申请】美团/基础研发平台/信息安全部/风控和业务安全/平台和数据产品 +刘思淼</p>
+<p align="start" nodeId="148aeee93f2f45fc9a6bad4fa28c3ef7">             b.邮件正文：</p>
+<ul nodeId="828f1e4a1beb42f2bcda94dfb65bb6cd">
+<li nodeId="589337f993f54530808253c21d94f3ab">
+<p align="start" nodeId="e722004dfffe4473add0fe38eea2b9d3">申请人MIS号：</p>
+</li>
+<li nodeId="c1538bdbeda84dda9190af142a567e10">
+<p align="start" nodeId="5a753e7ee2db4ddc93ceaa1331bf64a4">申请人部门：（举例：美团/基础研发平台/信息安全部/风控和业务安全/平台和数据产品 ）</p>
+</li>
+<li nodeId="dedc41cb360d4893ae4616645b9ab0ed">
+<p align="start" nodeId="1e76a32e97514b9287c2042e03e2dc42">需求背景：说明此需求来源的背景以及用途；</p>
+</li>
+<li nodeId="36c7beef94344c8aabc1fbb96fc31750">
+<p align="start" nodeId="6a9bdf2ddd3b40a0ae1f2b7b900e0c6e">需求说明：说明使用画布的用途；</p>
+</li>
+</ul>
+</km-content>
+</km-collapse>
+</li>
+<li nodeId="245c4e55cfae4eee90fae0d1dfb59c15">准备万象组id、名称及队列资源（若业务无自身队列资源，可估算预计使用情况向Zeus申请资源使用），提供给值班近线<km-mention name="Zeus" uid="it_rc_zeus" empId="" nodeId="054f8c9f159048bfbc08e4800111fb37" />研发完成画布空间开通</li>
+</ol>
+<km-page-tree spaceId="" pageId="self" maxDepth="0" nodeId="780561fa2e2c4369b18010812caeb555" />
+<p nodeId="e7d7f01f2d4f4993a465878beaa1af7e" />
+</km-doc>

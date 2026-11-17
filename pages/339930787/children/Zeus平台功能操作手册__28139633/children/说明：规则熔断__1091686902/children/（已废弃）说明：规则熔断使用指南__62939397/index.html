@@ -1,0 +1,365 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>（已废弃）说明：规则熔断使用指南</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">规则熔断现已支持在zeus页面配置，具体见规则熔断新文档 https://km.sankuai.com/page/1091686902</a><a href="#section-6">一、解决问题</a><a href="#section-17">二、可支持熔断的能力</a><a href="#section-77">三.使用指南</a><a href="#section-95">2.1 基于CAT的熔断实现</a><a href="#section-96">2.1.1 配置熔断逻辑</a><a href="#section-107">2.1.1.1 找到所需业务的BusinessKey</a><a href="#section-140">2.1.1.2 添加告警逻辑</a><a href="#section-173">2.1.1.3 添加熔断逻辑</a><a href="#section-184">2.1.2 熔断告警逻辑生效</a><a href="#section-186">2.1.3 接收熔断告警</a><a href="#section-189">2.1.4 处理熔断告警</a><a href="#section-210">2.2 基于druid的熔断实现</a><a href="#section-213">2.2.1 支持的参数</a><a href="#section-341">2.2.2 实现方式</a><a href="#section-346">2.2.3 使用案例</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：规则熔断</a> / <a href="index.html">（已废弃）说明：规则熔断使用指南</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/62939397">查看学城原文</a></p><article>
+<h1>（已废弃）说明：规则熔断使用指南</h1>
+<div style="none"></div>
+<h1 id="section-3"><span style="color:#f5232d">规则熔断现已支持在zeus页面配置，具体见规则熔断新文档 </span><a href="../../index.html" title="https://km.sankuai.com/page/1091686902">说明：规则熔断</a></h1>
+<h1 id="section-6">一、解决问题</h1>
+<p>熔断，规则引擎的安全功能之一，主要解决因各种原因导致的 <span style="color:rgb(255, 0, 0)"><strong>生效</strong></span><strong> </strong>规则 <span style="color:rgb(255, 0, 0)">命中Zeus请求量（含拦截、限制支付方式等对业务有干预的决策） </span>突增，避免对业务造成大规模误伤，命中量突增原因包括以下：</p>
+<ul>
+<li>风控修改规则配置</li>
+<li>业务参数名称或值发生变更</li>
+<li>接口或依赖组件错误</li>
+<li>其他未知因素导致的命中量突变</li>
+</ul>
+<h1 id="section-17">二、可支持熔断的能力</h1>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">熔断方式</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">熔断对象</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">熔断维度</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">熔断逻辑</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">是否兜底</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255)">
+<ul>
+<li><span style="font-size:14px">人工熔断</span></li>
+<li><span style="font-size:14px">自动熔断</span></li>
+</ul>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">场景配置</span></li>
+<li><span style="font-size:14px">规则</span></li>
+</ul>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">固定阈值</span></li>
+<li><span style="font-size:14px">动态比率</span></li>
+</ul>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">去重(userid)</span></li>
+<li><span style="font-size:14px">不去重</span></li>
+<li><span style="font-size:14px">支持精细化到某个规则配置熔断阈值</span></li>
+<li><span style="font-size:14px">支持全局维度配置熔断阈值</span></li>
+</ul>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">是，自动对抗</span></li>
+<li><span style="color:black"><span style="font-size:14px">否，熔断后全部放行</span></span></li>
+</ul>
+</td>
+</tr>
+</table>
+<p><em>说明：</em></p>
+<p><em>场景：检测场景下的决策波动，熔断对象为引起波动的单条策略(场景+规则+决策)</em></p>
+<p><em>规则：检测规则的命中的波动，熔断对象为引起波动的多条策略(使用规则的全部场景)</em></p>
+<h1 id="section-77">三.使用指南</h1>
+<ul>
+<li>熔断可支持的指标</li>
+</ul>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">cat实现指标维度（非去重）</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">druid实现指标维度（去重）</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/5ed066c22831709d.png" width="252" height="227" alt="原文图片"></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/2d9f69dbdf1c9fdf.png" width="379" height="222" alt="原文图片"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-95">2.1 基于CAT的熔断实现</h2>
+<h3 id="section-96">2.1.1 配置熔断逻辑</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示例</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<h4 id="section-107"><span style="font-size:14px">2.1.1.1 找到所需业务的BusinessKey</span></h4>
+<p><span style="font-size:14px">1）首先进入CAT首页：</span><a href="http://cat.sankuai.com/cat/s/business?op=list" title="http://cat.sankuai.com/cat/s/business?op=list"><span style="font-size:14px">http://cat.sankuai.com/cat/s/business?op=list</span></a></p>
+<p><span style="font-size:14px">2）Domain输入框中输入：com.sankuai.rc.zeus.worker</span></p>
+<p><span style="font-size:14px">3）选择报表展示-业务告警配置</span></p>
+<p><span style="font-size:14px">4）BusinessKey是关键部分，命名规范如下</span></p>
+<ul>
+<li><span style="font-size:14px">scene代表场景，rule代表规则，decision代表决策，第一个数字代表业务id，第二个数字代表决策id</span></li>
+<li><span style="font-size:14px">例如：scene_and_rule_1_2表示 业务为1（反作弊）、决策为2（拦截）的生效规则在某个场景下的命中监控；rule_decison_1</span></li>
+</ul>
+<p><span style="color:rgb(240, 94, 80)"><span style="font-size:14px">Tips:如何找到自己业务id、决策id呢？</span></span></p>
+<p><span style="font-size:14px">业务ID：</span><a href="https://zeus.sankuai.com/business_group_mappings/get_list" title="https://zeus.sankuai.com/business_group_mappings/get_list"><span style="font-size:14px">https://zeus.sankuai.com/business_group_mappings/get_list</span></a></p>
+<p><a href="https://zeus.sankuai.com/business_group_mappings/get_list"></a><span style="font-size:14px">决策ID：</span><a href="https://zeus.sankuai.com/decision/search" title="https://zeus.sankuai.com/decision/search"><span style="font-size:14px">https://zeus.sankuai.com/decision/search</span></a></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<h4 id="section-140"><span style="font-size:14px">2.1.1.2 添加告警逻辑</span></h4>
+<p><span style="font-size:14px">1）业务告警配置-右侧告警编辑-新增告警</span></p>
+<p><span style="font-size:14px">2）告警名：</span><span style="color:rgb(57, 57, 57)"><span style="font-size:14px">warning_开头表示这是一条告警逻辑，只报出不熔断；</span></span></p>
+<p><span style="color:rgb(57, 57, 57)"><span style="font-size:14px">3）告警对象：次数</span></span></p>
+<p><span style="color:rgb(57, 57, 57)"><span style="font-size:14px">4）告警级别：P0、P1、P2……</span></span></p>
+<p><span style="color:rgb(57, 57, 57)"><span style="font-size:14px">5）告警组：大家可以自己配置，向告警组中添加mis号</span></span></p>
+<p><span style="color:rgb(57, 57, 57)"><span style="font-size:14px">6）告警方式：大象、邮件、短信、语音可以组合使用</span></span></p>
+<p><span style="color:rgb(57, 57, 57)"><span style="font-size:14px">7）夜间模式、降级链接：高端功能，可默认不填</span></span></p>
+<p><span style="color:rgb(57, 57, 57)"><span style="font-size:14px">8）剩下的监控可参考链接：</span></span><a href="http://docs.sankuai.com/doc/arch_dp/cat/alarm/alarm/" title="http://docs.sankuai.com/doc/arch_dp/cat/alarm/alarm/"><span style="font-size:14px">http://docs.sankuai.com/doc/arch_dp/cat/alarm/alarm/</span></a></p>
+</td>
+<td>
+<p><img src="assets/8b7d6fa69409b401.png" width="879" height="273" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<h4 id="section-173"><span style="font-size:14px">2.1.1.3 添加熔断逻辑</span></h4>
+<p><span style="font-size:14px">1）业务告警配置-右侧告警编辑-新增告警</span></p>
+<p><span style="color:rgb(57, 57, 57)"><span style="font-size:14px">fuse_开头表示这是一条熔断逻辑，触发后规则即被改为标记状态</span></span></p>
+<p><span style="font-size:14px">2）其他与监控逻辑没区别</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<h3 id="section-184">2.1.2 熔断告警逻辑生效</h3>
+<p>联系Zeus值班号，提供需要生效的告警逻辑</p>
+<h3 id="section-186">2.1.3 接收熔断告警</h3>
+<p><img src="assets/5f8003d2a4c97750.png" width="610" height="293" alt="image.png"></p>
+<h3 id="section-189">2.1.4 处理熔断告警</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">人工熔断</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">自动熔断与恢复</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">将规则1183在场景436一键改为标记</span></p>
+<p><img src="assets/90f3f54cc28e1e20.png" width="733" height="135" alt="image.png"></p>
+</td>
+<td>
+<p><span style="font-size:14px">将规则10060在场景1394一键改为生效</span></p>
+<p><img src="assets/eb965535086bb8e5.png" width="177" height="136" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h2 id="section-210">2.2 基于druid的熔断实现</h2>
+<p><span style="color:rgb(245, 35, 45)">对基于CAT熔断满足不了的需求比如：userid去重、高价值用户占比等数据可以通过基于druid的熔断实现。</span></p>
+<h3 id="section-213">2.2.1 支持的参数</h3>
+<p>熔断策略是作为规则配置在业务自建的某个场景中的，当前支持的参数如下，业务可以根据自己的需求使用这些参数直接开发熔断规则</p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246)">
+<p><span style="font-size:14px">参数名</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246)">
+<p><span style="font-size:14px">类型</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246)">
+<p><span style="font-size:14px">含义</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">fuseBusinessId</span></p>
+</td>
+<td rowspan="4">
+<p><span style="font-size:14px">整型</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">当前熔断指标所在的业务Id</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">fuseSceneId</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">当前熔断指标监控的场景Id</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">fuseRuleId</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">当前熔断指标监控的规则Id</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">fuseDecisionId</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">当前熔断指标监控的决策Id</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">distinctUserIdInAllSceneThisMinute</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:14px">长整型</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">生效规则 在 所有场景 当前分钟 命中量（按userid去重）</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">distinctUserIdClassifiedBySceneInLast5Minutes</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:14px">长整型</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">生效规则 在 某场景 最近5分钟 命中量 （按userid去重）</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">distinctUserIdToAllRequestRatioClassifiedBySceneThisMinute</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:14px">双精度型</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">生效规则 在 某场景  当前分钟 命中量 占 该场景总流量的比例（按userid去重）</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">distinctUserIdClassifiedBySceneThisMinute</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:14px">长整型</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">生效规则 在 某场景 当前分钟 命中量 （按userid去重）</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">distinctHighValueUserIdClassifiedBySceneThisMinute</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:14px">长整型</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">生效规则 在 某场景 当前分钟 命中量 中 高价值用户数（按userid去重）</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">distinctHighValueUserIdRatioClassifiedBySceneThisMinute</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:14px">双精度型</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">生效规则 在 某场景  当前分钟命中量 中 高价值用户占比（按userid去重）</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">distinctUserIdClassifiedBySceneLastMinute</span></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:14px">长整型</span></p>
+</td>
+<td>
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">生效规则 在 某场景 上一分钟 命中量 （按userid去重）</span></span></p>
+</td>
+</tr>
+</table>
+<h3 id="section-341">2.2.2 实现方式</h3>
+<p>熔断服务会每分钟查询一次数据库，对于每个businessId*sceneId*ruleId*decisionId维度，都会计算出一个context，context中包含如上参数列表中的所有参数。我们会把每个维度构造的context参数都过一遍<span style="color:rgb(245, 34, 45)">提前配置好的熔断场景</span><span style="color:rgb(51, 51, 51)">，场景中的熔断策略由业务的同事自己编辑，最后根据是命中“人工熔断”还是“自动熔断”进行后续的处理。</span><span style="color:rgb(245, 34, 45)">为了保证安全性暂时只支持“人工熔断”。</span></p>
+<h3 id="section-346">2.2.3 使用案例</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示例</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="3">
+<ol>
+<li><span style="font-size:14px">业务同事创建一个熔断场景，用于编写如上参数构成的熔断规则</span></li>
+<li><span style="font-size:14px">业务同事创建“自动熔断”和“人工熔断”决策，以及如上参数列表中的参数</span></li>
+<li>
+<p><span style="font-size:14px">与Zeus同事（  @Zeus）沟通如下信息，由Zeus同事进行配置</span></p>
+<ol>
+<li><span style="font-size:14px">要监控采样的决策Id</span></li>
+<li><span style="font-size:14px">业务的businessId</span></li>
+<li><span style="font-size:14px">业务负责人misId（自动熔断或人工熔断后会大象通知负责人）</span></li>
+<li><span style="font-size:14px">熔断策略所在的场景Id</span></li>
+<li><span style="font-size:14px">自动熔断的决策Id</span></li>
+<li><span style="font-size:14px">人工熔断的决策Id</span></li>
+</ol>
+</li>
+<li><span style="font-size:14px">在之前配置的场景中编写熔断规则</span></li>
+<li><span style="font-size:14px">完成以上几步后Zeus熔断服务就会自动监控配置的业务和决策，并会每分钟计算一次所有维度的参数，打包成一次请求放到业务创建的熔断场景中，如果命中熔断规则就会触发相应的决策（只能为自动熔断或人工熔断）</span></li>
+</ol>
+<p></p>
+</td>
+<td>
+<p><img src="assets/f04f6b0976fa1ba1.png" width="912" height="100" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><img src="assets/2a55a2f317442f3e.png" width="912" height="382" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><img src="assets/e1613b5a891315f2.png" width="319" height="138" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">触发人工熔断的决策后会发送大象给配置的负责人，可以通过查看该规则最近的拦截情况，如果不符合预期则可以点击“一键熔断”直接把该场景中的该规则改为标记</span></li>
+<li><span style="font-size:14px">触发自动熔断的决策后会直接将该场景中的该规则变为标记状态，并且发送大象给配置的负责人，可以通过查看该规则最近的拦截情况，如果发现规则没问题可以点击“一键恢复”把被熔断的规则恢复</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/1fcc13f3ce2be9b0.png" width="256" height="188" alt="image.png"><img src="assets/7524057c590f9602.png" width="256" height="188" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+</article></main></body></html>

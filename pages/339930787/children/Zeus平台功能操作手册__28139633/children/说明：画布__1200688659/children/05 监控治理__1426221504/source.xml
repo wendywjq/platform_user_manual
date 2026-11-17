@@ -1,0 +1,25 @@
+<km-doc>
+<km-title nodeId="c5a761bda9614bc69b7deb907e5ae355">05 监控治理</km-title>
+<h1 nodeId="80b48a5ea776499ca4079e7f26f57b3c">1 告警治理</h1>
+<p nodeId="82fdd7243b6f40a9b450dfce75c8163c"><img src="https://km.sankuai.com/api/file/cdn/1426221504/11006513881?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1116" height="600" nodeId="ab8c2e3759134c038fd3c18372ce5c0b" /></p>
+<ul nodeId="2c4abd4544ce4d50980d8f3f1ca61f94">
+<li nodeId="06ebb23f964b4422902bf7f8c0ca0da2">对于画布异常错误类型进行告警阈值及类型配置</li>
+<li nodeId="67138d14253b402ca96e2b018f50da2d">告警SOP（待补充）</li>
+</ul>
+<h1 nodeId="849bcd79e8b2427d96c255f83e041581">2 熔断配置</h1>
+<p nodeId="958fad366382413bb4cf2e437572acb2"><img src="https://km.sankuai.com/api/file/cdn/1426221504/10997183868?contentType=1&amp;isNewContent=false" name="image.jpeg" width="926" height="600" nodeId="07440d9b52dc42149d7462c05db9e6de" /><img src="https://km.sankuai.com/api/file/cdn/1426221504/11002700109?contentType=1&amp;isNewContent=false" name="image.jpeg" width="901" height="453" nodeId="3b1dbabb5ac84544ace61a40f9393a78" /></p>
+<p nodeId="469a8d8b8e624cdab43479e9b6cc9b38"><a href="https://km.sankuai.com/collabpage/1354627337" title="https://km.sankuai.com/collabpage/1354627337" autoUpdate="true" nodeId="651ff2f5e69742d19e702cedd051b1fe">https://km.sankuai.com/collabpage/1354627337</a></p>
+<ul nodeId="51bcf8f85a934ae4a73af88b03aafa00">
+<li nodeId="81c651999e8c42bda118e3946172bc99">用于当监控对象（场景规则 / 画布组件）命中情况产生异常，达到预设的熔断阈值时，将该对象由人工或系统进行降级（生效转标记 / 组件阻断），以此规避风险</li>
+</ul>
+<h1 nodeId="b6f055b8bfdd4b2f848ff1975e2fae02">3 近线日志</h1>
+<p nodeId="2c42a62d7780471ab49e55273b8a6160"><img src="https://km.sankuai.com/api/file/cdn/1426221504/11002722990?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1050" height="600" nodeId="0ccec68cec4b4cc58802da1874ede767" /></p>
+<p nodeId="cdfdb8434ecc4e718a73cf784f5cb2c7"><a href="https://km.sankuai.com/collabpage/1357527347" title="https://km.sankuai.com/collabpage/1357527347" autoUpdate="true" nodeId="1903b8a4130644509f545a218110653e">https://km.sankuai.com/collabpage/1357527347</a></p>
+<ul nodeId="8a4ffc7629e0411bb2171fac4df5999a">
+<li nodeId="42cd5d51288d485ca6f8056f8c0d63a0">记录了各业务方使用近线画布做决策的详细数据，包括：画布内的数据流转过程，各组件节点中间数据，命中数据等等相关信息；用于业务做数据分析、异常排查和问题定位等</li>
+</ul>
+<h1 nodeId="e4cc0ea0ee6448d49ef21815ffbb7fcc">4 作业分级</h1>
+<ul nodeId="c798a32edcc14c00a25dd6775efc3076">
+<li nodeId="1464848bf54846aaa1a2121add92ddec">支持用户对不同的画布作业进行分级，rd同学根据不同的作业级别进行分类运维</li>
+</ul>
+</km-doc>

@@ -1,0 +1,47 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：仿真测试</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">1.解决问题</a><a href="#section-7">2.操作说明</a><a href="#section-8">step1: 入口</a><a href="#section-16">step2: 选择执行</a><a href="#section-27">step3: 结果查看</a><a href="#section-28">（1）仿真对象：数据源  &amp;&amp; 数据输入：单条</a><a href="#section-45">（2）仿真对象：数据源  &amp;&amp; 数据输入：批量</a><a href="#section-53">（3）仿真对象：场景-CEP模型  </a><a href="#section-65">3.FAQ</a><a href="#section-68">Q1：为什么数据映射命中，后面场景未执行？/为什么可信未命中，后面场景未执行？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：仿真测试</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/851061369">查看学城原文</a></p><article>
+<h1>说明：仿真测试</h1>
+<div style="none"></div>
+<h1 id="section-3"><span style="color:rgb(0, 0, 0)"><strong>1.解决问题</strong></span></h1>
+<p>通过输入单条/批量的mock数据，展示策略全链路执行情况及单个流程节点命中详情</p>
+<h1 id="section-7">2.操作说明</h1>
+<h2 id="section-8">step1: 入口</h2>
+<p><span style="color: ">点击</span><span style="color:rgb(245, 35, 45)"><strong>策略排查-&gt;仿真测试</strong></span><span style="color: ">进入仿真测试页面</span></p>
+<p><img src="assets/e209ac59b29aca33.png" width="688" height="330" alt="image.png"></p>
+<h2 id="section-16">step2: 选择执行</h2>
+<ul>
+<li><span style="color: ">若选择仿真对象为数据源，输入选中数据源，选择数据输入方式为单条/批量，点击“执行测试”</span></li>
+</ul>
+<p><img src="assets/3f2746f0e2d17a13.png" width="914" height="263" alt="image.png"></p>
+<ul>
+<li><span style="color: ">若选择仿真对象为场景-CEP模型，可模糊搜索选中对应CEP场景，在对应的“算子：数据源”下输入数据，点击“执行测试”</span></li>
+</ul>
+<p><img src="assets/59485bc8b5f4a3b4.png" width="917" height="475" alt="image.png"></p>
+<h2 id="section-27">step3: 结果查看</h2>
+<h4 id="section-28">（1）<strong>仿真对象：数据源  &amp;&amp; 数据输入：单条</strong></h4>
+<p>3.1 点击测试结果框右上角的<img src="assets/231a1297888a71d5.png" width="18" height="17" alt="image.png">、<img src="assets/b5a2b4a24be5c2d0.png" width="18" height="17" alt="image.png">可放大、缩小展示结果。<span style="color:rgb(245, 35, 45)">Tips：拖动测试结果框中任一空白处，可挪动展示内容。</span></p>
+<p>3.2 点击“数据源”、“数据映射”、“可信”、“场景”任一节点框，会在测试结果下方展示该节点命中详情，点击节点框中蓝色的节点名称，则跳转至该节点配置详情页。</p>
+<p><img src="assets/9506f71d824e15a0.png" width="963" height="364" alt="image.png"></p>
+<p>3.3 点击“可信”或“场景”节点框后，下方会展示该可信和场景下所包含的规则及其执行详情，若命中场景下的规则，则同步展示其决策信息。</p>
+<p>Tips：可信未命中代表会正常执行后续场景规则，可信的命中代表命中黑/白类型规则，会进行数据丢弃不执行后续场景规则。</p>
+<p><img src="assets/4d0b66b5c0fbe895.png" width="889" height="427" alt="image.png"></p>
+<p>3.4 点击“执行详情”可打开规则具体命中链路图，包含规则内因子和参数值。点击“决策信息”可打开决策详情。点击“规则名称”则跳转至规则配置详情页。</p>
+<p><img src="assets/51a95576edbb7908.png" width="617" height="285" alt="image.png"><img src="assets/563698d2585e2f90.png" width="265" height="283" alt="image.png"></p>
+<h4 id="section-45"><strong>（2）仿真对象：数据源  &amp;&amp; 数据输入：批量</strong></h4>
+<p>批量数据测试结果按照单条数据request_id进行展示。</p>
+<p>点击“request_id”后的链接，可跳转至该单条数据的全链路执行页面，点击操作同step3。</p>
+<p>点击“命中规则”后的链接，可打开该规则的执行详情。</p>
+<p>点击右侧不同标签，可展示该条数据下参数/因子/附加信息/决策信息详情。</p>
+<p><img src="assets/45160728c168cd95.png" width="764" height="372" alt="image.png"></p>
+<h4 id="section-53"><strong>（3）仿真对象：场景-CEP模型  </strong></h4>
+<ul>
+<li>“计算条件”节点对应单个CEP算子配置中的“满足何种计算条件”，“数据聚合”节点为进入窗口触发聚合操作后的数据，“判断结果”节点对应CEP规则中“判断结果”表达式的执行结果，“决策信息”节点内容为对应场景中配置的决策信息命中情况。</li>
+<li>点击任一节点框，会在测试结果下方展示该节点命中详情，点击节点框中蓝色的节点名称，则跳转至配置详情页。</li>
+</ul>
+<ul>
+<li>点击测试结果框右上角的<img src="assets/16c71a0ca2368274.png" width="18" height="17" alt="原文图片">、<img src="assets/8bea642c5291c577.png" width="18" height="17" alt="原文图片">可放大、缩小展示结果。<span style="color:rgb(245, 35, 45)">Tips：拖动测试结果框中任一空白处，可挪动展示内容。</span></li>
+</ul>
+<p><img src="assets/9494a06d5cd6c1aa.png" width="969" height="493" alt="image.png">​</p>
+<h1 id="section-65"><span style="color:rgb(0, 0, 0)"><strong>3.FAQ</strong></span></h1>
+<h2 id="section-68"><span style="color:rgb(0, 0, 0)"><strong>Q1：为什么数据映射命中，后面场景未执行？/为什么可信未命中，后面场景未执行？</strong></span></h2>
+<p>-A：请优先检查场景中配置的规则是否有“生效”状态。场景中完全没有生效规则，则未执行属于正常情况，若场景中配置有生效规则仍未执行，请联系RD排查。</p>
+</article></main></body></html>

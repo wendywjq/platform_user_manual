@@ -1,0 +1,469 @@
+<km-doc>
+<km-title nodeId="ca074f27de11455b9e2b046565f85764">03 画布建模</km-title>
+<km-catalog style="none" nodeId="a6aed56a26c846b8902437d97b355621" />
+<h1 nodeId="072d6f648e154249a4b742529a94db56">流程总览</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1426173682/10997156571?contentType=0&amp;isNewContent=false" width="816" height="296" nodeId="827347e85bb648d79ffdf7e042a7f060" />
+<h2 align="start" nodeId="a21e97f5985c41d28f8787c530f89126">1 数据源接入</h2>
+<ul nodeId="c1bbdf5580574d03b4f82f5a7d40eb2e">
+<li nodeId="eacc54bf1fb444d38bcac829c0b8826c"><strong>目的：确定该画布作业输入的数据来源。当前支持Kafka</strong><em><strong>、Mafka</strong></em><strong>消息接入</strong></li>
+</ul>
+<table responsive="false" nodeId="3f5c75bedc8e424ca7a097a3bcd5e750">
+<tr nodeId="b35f219545204024aa01366fdb254b03">
+<td colwidth="[69]" bgColor="rgb(244, 245, 247)" nodeId="93bc230357e24e80907dbe34814b646e">
+<p nodeId="da42b461ae0e458c92870ecc1c9f3110">Kafka</p>
+</td>
+<td colwidth="[272]" nodeId="3e9ac6487a7e4fb7aa1089fc152373f8">
+<p nodeId="08219e2402a64c8c9b629a164444c851"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10997461591?contentType=1&amp;isNewContent=false" name="image.jpeg" width="207" height="600" nodeId="f633e74bc6344f98a148516d8130e2de" /></p>
+</td>
+<td colwidth="[798]" nodeId="5085240e59b140efa070f8af9a71c876">
+<p nodeId="0c4db56db51e419aa55828279d6d6455"><a href="https://km.sankuai.com/page/1200718382" title="https://km.sankuai.com/page/1200718382" autoUpdate="true" nodeId="c41c4ac812ce4c2a9e086cecae5d1dc6">https://km.sankuai.com/page/1200718382</a></p>
+<p nodeId="52c4daa49e3843b2bea2befbd44d1f07">示例<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15" nodeId="d0e697b830c448b3a14a9e13251064e8">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15</a>组件1</p>
+<p nodeId="24ffd99f83c740c09a476b499e91e57a">【配置相关】</p>
+<ul nodeId="a6c474b75d574bd8a032de47ebbf88a7">
+<li nodeId="a53b4bb595f448d0ae7aa0d89d9ac352">
+<p nodeId="c3d3d538bc7a4c6faabdc9a10958fed8"><strong>Namespace/Topic</strong>填写用以确定选中某一数据源</p>
+<ul nodeId="32351f8470b74f0995477c5e01d9b589">
+<li nodeId="34a1693ee9224909bbb5104f078669c1">权限：填写完成后系统会自动校验配置者是否有该数据源权限，若无则需跳转至kafka平台进行权限申请<img src="https://km.sankuai.com/api/file/cdn/1426173682/10997461586?contentType=1&amp;isNewContent=false" name="image.jpeg" width="330" height="148" nodeId="c5a2d0f91572401d806975300f8ae3a7" /><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996814059?contentType=1&amp;isNewContent=false" name="image.jpeg" width="287" height="236" nodeId="9100cbd6be7740f79d3dba9200b206c8" /></li>
+<li nodeId="3958732c3e3d4ef69b80cc55d325dee1">申请权限的需求方请填写为所在<span color="rgba(0, 0, 0, 0.87)">业务域对应的项目组</span></li>
+</ul>
+</li>
+<li nodeId="abddd391a8374274ab2df90d9424ad2b">
+<p nodeId="4a3af5a3e71d435fbbbb267f6df0a9ee"><strong>日志类型</strong>：如果json选择log或newlog格式直接配置即可；如果是特殊格式或者需要一对多转换，需要使用自定义数据源方式。</p>
+<ul nodeId="91a9d1d13fa94161aa95a9462e77a3f5">
+<li nodeId="877195f34009493a8f6093bc41fba929"><span color="">自定义数据源代码需要继承IParser抽象类，并实现parse方法；如果希望输出多条数据，需要继承IFlatParser抽象类，并实现flatParse方法</span></li>
+</ul>
+</li>
+<li nodeId="26a65eb1bd7f44f498588b09f59ae81e">
+<p align="start" nodeId="982f19a8528e4ea1835a606e504a9660"><strong>参数配置</strong>（高级配置）：当用户选择多个kafka 数据源时，可能存在不同数据源有相同的字段，在后面进行逻辑编写时可能存在字段重复导致逻辑配置有问题，所以可以在参数配置模块对topic里的字段进行重命名</p>
+<p align="start" nodeId="d4be5082dbbf471194b4f1239abe97bf" />
+</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="f43f527a22d74b7d9353e3f0954139da">
+<td colwidth="[69]" bgColor="rgb(244, 245, 247)" nodeId="db340fed8f0f45578ab9ff7333227806">
+<p nodeId="05388b7147024705afcb28345098f5ad">Mafka</p>
+</td>
+<td colwidth="[272]" bgColor="rgb(244, 245, 247)" nodeId="be04c2ffd65c4ed396f2c0a2e65667fb">
+<p nodeId="cdbc0d6cc0ef4c999e92a795e52f6b11" />
+</td>
+<td colwidth="[798]" bgColor="rgb(244, 245, 247)" nodeId="fb2d114442ab43ab94f6b1f3868970ed">
+<p nodeId="7f5863bd018c4a58a1202c47a6ab036c">待上线功能</p>
+<ul nodeId="65a250471d1a4f559ff248b5e24279d0">
+<li nodeId="4daa687a5301480295abd1f02f6bedca">支持近线画布接入及输出mafka消息</li>
+</ul>
+</td>
+</tr>
+</table>
+<p align="start" nodeId="61696a82ef6245c4ab160c5ee15a39a1" />
+<h2 align="start" nodeId="aebcdb5f56014a86bb818eeccbaa3370">2 数据源预处理</h2>
+<ul nodeId="e15c6465b3824369b1034f0807fd3e58">
+<li nodeId="af47b1ebf24643d7be24b064ce417f29"><strong>目的：对数据源中的数据进行初步补充、筛选及过滤</strong></li>
+</ul>
+<table responsive="false" nodeId="4703566c616f4f53b0978096a4e21884">
+<tr nodeId="5460e99346534f28ba1c23bcd1343872">
+<td colwidth="[85]" bgColor="rgb(244, 245, 247)" nodeId="985acefeaae348138b87abe5a259f891">
+<p nodeId="bf08e86e3f97415a94320ef53b3ac0e7">Select</p>
+</td>
+<td colwidth="[544]" nodeId="4dd581764928481891cdb0aeaf2a832b">
+<p nodeId="07411f29c950497da79b7824078afead"><img src="https://km.sankuai.com/api/file/cdn/1426173682/11005693905?contentType=1&amp;isNewContent=false" name="image.jpeg" width="440" height="600" nodeId="dd0ebef60d454188aa0594243b502916" /></p>
+</td>
+<td colwidth="[776]" nodeId="6a28d2c98b5041c59db42f8a23c6e874">
+<p nodeId="f1ca200d5e15437c889f8ab83c108a4c"><a href="https://km.sankuai.com/page/1200639384" title="https://km.sankuai.com/page/1200639384" autoUpdate="true" nodeId="236e725cbb524b22a26d6cd88d8c5605">https://km.sankuai.com/page/1200639384</a></p>
+<p nodeId="f22d33801a1e40d1a3c8f3d028591697">简单逻辑，可以用Select组件（aviator语法），exp-5支持比较复杂的语法</p>
+<p nodeId="1627e3b5c9ea4a568ef81c6615ae04f2"><span color="">示例：</span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15" nodeId="6a5084eb611846319a2717ccc8ce4cab">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15</a><span color=""> 组件17</span></p>
+<p nodeId="f62b2f6027d84c639e8bb49a986072c4">【配置相关】</p>
+<ul nodeId="4e25948aa1694bfa8b450f2b64f680ee">
+<li nodeId="a2100c1eed9e4ab9829ad26c22a99a62"><strong>丢弃其余变量</strong>：选择后select输入框中未选择的变量会在此环节丢弃</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="16fb979fa93d42ed96891d882db7b721">
+<td colwidth="[85]" bgColor="rgb(244, 245, 247)" nodeId="878dfd6126234f9282a3d09fd37d6d2e">
+<p nodeId="d222acb9f4d24cb1899dc9f9d426fe98">代码组件</p>
+</td>
+<td colwidth="[544]" nodeId="d249ff97ad2141408ecd09a2d6b7e1e6">
+<p nodeId="c4bf58949e604c9b9d4ab3f4e25b70c3"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10997461589?contentType=1&amp;isNewContent=false" name="image.jpeg" width="363" height="600" nodeId="7aaa681d412a4c33a94c9ab7a550831c" /></p>
+</td>
+<td colwidth="[776]" nodeId="3f774d85f05246329710970d378cbb4a">
+<p nodeId="93f196863ea841c6b2a2f55bd8517717"><a href="https://km.sankuai.com/page/1200639574" title="https://km.sankuai.com/page/1200639574" autoUpdate="true" nodeId="834b4a979a8a4ff699fc475af40403a1">https://km.sankuai.com/page/1200639574</a></p>
+<p nodeId="a3c5d34cc9494d8db37ecd3e28ec343a">复杂逻辑，可以用代码组件（java语法）</p>
+<p nodeId="fde64fafb0a54f85b4f9ac4f0d62158b"><span color="">示例 </span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11" nodeId="808fd98a792a4f44a86d80a90c77f281">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11</a><span color=""> 组件26</span></p>
+<p nodeId="d4434137570c4b52b3d8fc8cc3c4412e"><span color="">【常见使用场景】</span></p>
+<ol nodeId="99246a8ab9344bd5b8dfbb0149b09c16">
+<li nodeId="a54cbb92eadb48d0a240ad9e9f2e02fe">转化数据格式</li>
+<li nodeId="e4b930c52f574add9972102133093def">进行数据增强</li>
+<li nodeId="6b0df49858bb4d35afe28fba6bb5c526">其余各种自定义用途</li>
+</ol>
+<p nodeId="88e39bbecaf741339ba5c44c60b36a5e">【配置相关】</p>
+<ul nodeId="dba552af705144a2a8027e94bd6b1c74">
+<li nodeId="4c40af5cc020486794f529acf09b4887">选择返回一个值或返回多个值逻辑，选择后代码框中会出现提示代码</li>
+</ul>
+<ul nodeId="49175ccd5ca3462a85dff9ca9ee6df0a">
+<li nodeId="c5526b0bbe294166a0d5cf59efef4e73">
+<p align="start" nodeId="6c3a2c7abbf64568b6cc35f6dd2ce35d">如果要实现“返回一个值”的逻辑，则继承抽象类IProcessor，并实现process方法。</p>
+</li>
+<li nodeId="2caa80b4c7334092bbabeee72358b137">如果要实现“返回多个值”的逻辑，则继承抽象类IFlatProcessor，并实现flatProcess方法。</li>
+<li nodeId="39a31ef1161148a2b9a31742bb5ec0a2">
+<p align="start" nodeId="2ff2ee99602f4871bc9aaa7ce626e927">process方法入参为传入该组件的上下文，出参为经过该组件处理后的上下文。</p>
+</li>
+<li nodeId="7871141adb3344a99633f2bc314dfa45">
+<p nodeId="f7063cafc6cf4b969f6c036a5c1a9ed9">flatProcess方法入参为传入该组件的上下文，出参为经过该组件处理后的多条上下文。</p>
+<p align="start" nodeId="16fafbb5d877416a98aaefd3ffa6aa9f" />
+</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="cd541520e5774a2db70981bc93b69407">
+<td colwidth="[85]" bgColor="rgb(244, 245, 247)" nodeId="ea001cdd7b384596896f186fd785fbd1">
+<p nodeId="6d8c3fb92f3b442fb3926a68f17c2389">规则集合</p>
+</td>
+<td colwidth="[544]" nodeId="a731e5ca70fa43828146c7581e60e9e6">
+<p nodeId="6e0452225ffd404e91aa526d353f1c86"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996820096?contentType=1&amp;isNewContent=false" name="image.jpeg" width="483" height="467" nodeId="22e99ded28c34477b723030ced8b8891" /></p>
+</td>
+<td colwidth="[776]" nodeId="0e30746b088c40fda9a30c0f64c05f35">
+<p nodeId="95f919c41c694a0f833bccc325cf5942"><a href="https://km.sankuai.com/page/1200669387" title="https://km.sankuai.com/page/1200669387" autoUpdate="true" nodeId="c7cdbd5dbc524c17b6f1715090cb443f">https://km.sankuai.com/page/1200669387</a></p>
+<p nodeId="4e4df270f4704db68eecc77af755a68f">示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=76&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=76&amp;version=1" nodeId="d06bb6642c7d45669eb8569eb717f560">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=76&amp;version=1</a>组件2</p>
+<p nodeId="603b484f06c7432da6436f8a5ea27277">【常见使用场景】</p>
+<ol nodeId="f959dc6417cb4312a77fe334023ab14e">
+<li nodeId="2bd7cba309d2444d84085b6284672446">过黑白规则/黑白名单进行数据过滤</li>
+</ol>
+<p nodeId="0de1436aee69460180b90b9bb16723fd">【配置相关】</p>
+<ul nodeId="391a48f185cc4809bdf6d942f3241a11">
+<li nodeId="5b12bfdb8c31487d940ccc27cf15966f">如果规则集合中有多条规则，所有规则都会被执行；</li>
+<li nodeId="af9b2b4d57b7448ba1b629f06a337237">每条规则的执行结果（true/false）会写入到上下文中，key格式是：ruleResult_规则id。例如12345规则的结果key是ruleResult_12345；</li>
+<li nodeId="372c65bf8cfd40e79231fd5c54d694b9">每个规则内部使用的因子执行结果都会被加入到上下文中，key是因子英文名。</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="e051d60eecad4a2c88c7e09013e6eb55">
+<td colwidth="[85]" bgColor="rgb(244, 245, 247)" nodeId="aa001a13d7794d228f9ce70213e60761">
+<p nodeId="6517c645868c4cbeab3636c7679a5828">数据获取</p>
+</td>
+<td colwidth="[544]" nodeId="a9dcb8e2f58b4adc80ed9561b13e0b94">
+<p nodeId="f7d180c228954dd99fe7ae5a7d5da5f6"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10997461590?contentType=1&amp;isNewContent=false" name="image.jpeg" width="227" height="600" nodeId="e6de734adb6443db88ebc9c63e34dbf6" /></p>
+</td>
+<td colwidth="[776]" nodeId="ecdac464a24242749fb86e19872c156f">
+<p nodeId="ba64a0a7768e45adb438aaba6012eda9"><a href="https://km.sankuai.com/page/1319403547" title="https://km.sankuai.com/page/1319403547" autoUpdate="true" nodeId="f46ce5361e254d92886810d442593114">https://km.sankuai.com/page/1319403547</a></p>
+<p nodeId="9a4614a268004298ab429361c4f79ddd">http get:  <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" nodeId="b698d5d441ff4facb2558e87afba1aec">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1</a></p>
+<p align="start" nodeId="54cc64889a73445795868b5e7f5e686a">http post: <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" nodeId="d4b980d1bbae4d1fbb94215a5c3b9753">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1</a></p>
+<p align="start" nodeId="56ccc2edc7314f26b86925d424d7b467">rpc : <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" nodeId="a813378de36f42a48ac840b568a93121">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1</a></p>
+<p nodeId="a408f0edf9af412ca80b32c6274c9de6">【常见使用场景】</p>
+<ol nodeId="27e495cd042f4055a39132a76619fd74">
+<li nodeId="3b93642cfb714731874245e530b12003"><span color="">用于获取增量补充数据用于策略执行</span></li>
+</ol>
+<p nodeId="f7fd4d3dc325422e90212f6c8d767336">【配置相关】</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1426173682/10996820101?contentType=0&amp;isNewContent=false" width="986" height="194" nodeId="2aacd33d5732486db1d40aa1f1450876" />
+<ul nodeId="baa3082caf8e4bd5b844ee3479c7bfea">
+<li nodeId="05de56b77a4947f1a301718ea9cf4a0d">
+<p align="start" nodeId="9044c3104b4940dd9d641c700347060c">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</p>
+</li>
+<li nodeId="f4e46741e50749748aa851ab5de7aad1">
+<p align="start" nodeId="d9f8b7ce01574b5b969fa7964da7f0af">Squrriel平台限流值: 6w/min</p>
+<p nodeId="0b3f8c4601594d4185d0656c556d7266">S3平台限流值：6k/min</p>
+<p nodeId="663e9a37a86a4f5cb747b40629e1140e">RPC平台限流值:3w/min</p>
+<p nodeId="16d6e3f80ef547739f4e3e3b7d952205">HTTP平台限流值: 6k/min，如需更高流量，请联系近离值班rd</p>
+</li>
+<li nodeId="0617d878f88d4bf78aa461791513e3ba"><strong>注意用户配置过程中限流量最好进行配置兜底，否则上线后可能出现大value+无缓存打爆了Squirrel的情况</strong></li>
+</ul>
+</td>
+</tr>
+</table>
+<h2 align="start" nodeId="81f4e54cffe8490fb22c17504aac6789">3 数据处理</h2>
+<table responsive="false" nodeId="bbce1406a92c44aa823aa322e5d91bd5">
+<tr nodeId="30b5a96659ed412c80200f9d7a7d43cc">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="ba08243794e3471bb1cfbd31a21ea556">
+<p nodeId="a9bba7bd824a4f4e9ba3d396681bd3ff">if...else</p>
+</td>
+<td colwidth="[555]" nodeId="868c22af55144896aac5eeeb5a34671c">
+<p nodeId="aae70ec329154668872587f1a76cda96"><img src="https://km.sankuai.com/api/file/cdn/1426173682/11005693907?contentType=1&amp;isNewContent=false" name="image.jpeg" width="482" height="587" nodeId="fc420ba3fc644f5f8c5d7f35412ccd8a" /></p>
+</td>
+<td colwidth="[766]" nodeId="3c854f6c10bf4f9e88bea576497053af">
+<p nodeId="d3fbe36d4d6e437e95ac6ae1056a2068"><a href="https://km.sankuai.com/page/1200679482" title="https://km.sankuai.com/page/1200679482" autoUpdate="true" nodeId="217a5c7a34944e18bc55fa82f23438ea">https://km.sankuai.com/page/1200679482</a></p>
+<p nodeId="eec53330ce574c6093895dd23603ab3b">示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=79&amp;version=6" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=79&amp;version=6" nodeId="75e00818dfaa43779cf2ec75af894249">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=79&amp;version=6</a>组件3</p>
+<p nodeId="23111457615044f195e9e3eec9df78bf">【配置相关】</p>
+<ul nodeId="d1e5de3c58554705868007503ba879fd">
+<li nodeId="674d265ea7f34e1faf4fe6d116ee23bd"><strong>rule表达式框</strong>：<span color="">支持填写简单条件，也支持填写复杂条件。表达式字段为上文所传字段（含原始字段和自定义字段，如果原始字段被重新定义过，则填写自定义后的字段名）</span></li>
+<li nodeId="492df3732ecc4bed9691dead3844f8f1"><span color="">当有两个及以上rule配置框时，需要明确多个rule之间的「与」「或」「非」关系</span></li>
+</ul>
+</td>
+</tr>
+<tr nodeId="7a5413a1f70e4de98af4c9fdf4da2190">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="30ff7f140e02475795ff6b49d1b71823">
+<p nodeId="d792668178e44e2e9039ade799adeb12">groupby组件</p>
+</td>
+<td colwidth="[555]" nodeId="8c9ebeb100824980ae9bc04ac4d05b7e">
+<p nodeId="da42df8dbf1c4c25a153c5bf5c652fa2"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996814063?contentType=1&amp;isNewContent=false" name="image.jpeg" width="207" height="600" nodeId="b0139c7d8e334efe94c303dc2bb227d3" /></p>
+</td>
+<td colwidth="[766]" nodeId="a6808fff3cf34dea8f3b37a75b0077b5">
+<p nodeId="7cd3887948064ea398b460610f9981d5"><a href="https://km.sankuai.com/page/1200659466" title="https://km.sankuai.com/page/1200659466" autoUpdate="true" nodeId="8d04f3b48f714119808c7f686e4cd9d3">https://km.sankuai.com/page/1200659466</a></p>
+<p nodeId="4507a283f773406a83c80e0705e42ae8">示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21" nodeId="de0156a5493945a292d995cfb1ccb36d">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21</a>组件4</p>
+<p nodeId="0f2f4395088f46138ebe6084f1ee8775">【常见使用场景】</p>
+<ol nodeId="ede800cb7ff948d2898b3b3558c26217">
+<li nodeId="221f7b01ecef4cff944c61958bc53501">聚合计算，一定时间内告警大于多少条告警</li>
+</ol>
+<p nodeId="e749a1293d3d4647b7dce3235275ddd7">【配置相关】</p>
+<ul nodeId="17ba61fe34d84c7c857ba041580ee854">
+<li nodeId="b5fda29dc5a7414c9274f3934881b5f7">
+<p nodeId="2ffc764e2d2b45739e2d3d121accd592"><strong>计数类型</strong>：次数即类似sql中的count</p>
+<p nodeId="80e387b388e84926ad067c1a863e6930">                 求和即类似sql中的sum</p>
+<p nodeId="759788842a6e45f3b95077d9d110978b">                 存值即类似sql中的as</p>
+</li>
+<li nodeId="8f082c94c3bf4d43a861dd2760eb5e87"><strong>聚合方式</strong>：事件驱动即每来一次数据触发一次检测；时间驱动即存储<em>时间窗口</em>所填的数据，每隔<em>时间滑动间隔</em>触发一次检测</li>
+<li nodeId="d1a4491dea8842f6bf36af782274ff94">
+<p nodeId="db82e2817d15451eb34892bfcaf83efd">当前主机在10min内写了哪些文件，事件驱动</p>
+<p nodeId="cd0c74cbf34240b3be98966f74f2c534">我们平时什么时候用事件驱动，什么时候用事件驱动。再给一点具体的使用场景，看怎么选择</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="d5dd9ce0e0dc46edbd1162cd09aed9c6">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="bf6fa65703cb4952857eecd95513207f">
+<p nodeId="0a86764211524953959bd2310e05e7f1">Join</p>
+</td>
+<td colwidth="[555]" nodeId="eb399d7bc44744da8b713a133a5fefcc">
+<p nodeId="0fc72181f4984a97a64f3d8761946dab"><img src="https://km.sankuai.com/api/file/cdn/1426173682/11006009914?contentType=1&amp;isNewContent=false" name="image.jpeg" width="268" height="600" nodeId="938a5d76a3874ee2a9f8f6472df7aa7a" /></p>
+</td>
+<td colwidth="[766]" nodeId="82b2843cb8754e3fa47b403a8b41a8b6">
+<p nodeId="1181b449d2d44694bcf3831d971b4cde"><a href="https://km.sankuai.com/page/1200629722" title="https://km.sankuai.com/page/1200629722" autoUpdate="true" nodeId="0aa67b9da8c34286bd2d50796466f758">https://km.sankuai.com/page/1200629722</a></p>
+<p nodeId="b075d780abf54f7cb4337602258d64db">【常见使用场景】</p>
+<ol nodeId="8d8be939d66c43a592103dfaf405e425">
+<li nodeId="d6b4159932a74c85a1e3125e5adfb448"><span color="">两个流间的数据交叉匹配，满足条件的输出</span></li>
+</ol>
+<p nodeId="493fc76dba944797a7483f9c152f3b58">【配置相关】</p>
+<ul nodeId="aece0df73d5d4123a2b12c6d63b7e243">
+<li nodeId="700cafe633214baaa17f4945cb0b6e55">left join支持标准的滚动窗口和滑动窗口，inner join类似于事件驱动的跳窗</li>
+<li nodeId="fbe950633b6c4f4aa677bbfadd03623c">左右流时间维度格式尽量保持一致，否则可能出现join不上报错的情况</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="23e2d49d974940609ab5b8ef73e67ea0">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="04e6000573a842428751675f9a20b41e">
+<p nodeId="a84dd3b8c9894ee0814d55e74afa2d56">代码组件</p>
+</td>
+<td colwidth="[555]" nodeId="ec67d6b5719441b28216d06f4fce0fb8">
+<p nodeId="210aa698b4f2426780dd9ff97cb8fadd"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996814061?contentType=1&amp;isNewContent=false" name="image.jpeg" width="363" height="600" nodeId="b5da5ef6bd554d9da7a6bbb0bd3b8334" /></p>
+</td>
+<td colwidth="[766]" nodeId="1ea095a63a3442f5bdb7617bfe84276d">
+<p nodeId="21c0fa8527554f5a824db5e2011d4309"><a href="https://km.sankuai.com/page/1200639574" title="https://km.sankuai.com/page/1200639574" autoUpdate="true" nodeId="986447bebd6a4d58bdc78b4072c1dcad">https://km.sankuai.com/page/1200639574</a></p>
+<p nodeId="7eb55a35c4e54a6f929c3a665a53bc33">复杂逻辑，可以用代码组件（java语法）</p>
+<p nodeId="d86733ff506c4dfeb10165cc8a30612c"><span color="">示例 </span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11" nodeId="799a105f4d9346da86a5903168d809f0">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11</a><span color=""> 组件26</span></p>
+<p nodeId="c85a79e69a384bff89dfe5812842d052"><span color="">【常见使用场景】</span></p>
+<ol nodeId="1586dad4007a4bbc8ebe3c0e81f31b92">
+<li nodeId="18f1a79abe474cc685f47cf6c8142fe9">转化数据格式</li>
+<li nodeId="6b3a0d63632a48d38b7e099d80b6d86e">进行数据增强</li>
+<li nodeId="89e5be2336274f9db1f749446e58a396">其余各种自定义用途</li>
+</ol>
+<p nodeId="6d6e24feaba143de9dc3a8f24019ad69">【配置相关】</p>
+<ul nodeId="bfe84d65d30b451ca364a0b8dbd5d0be">
+<li nodeId="5578dd4a8c5d44dabc509e4948a01ade">选择返回一个值或返回多个值逻辑，选择后代码框中会出现提示代码</li>
+</ul>
+<ul nodeId="792f860d6f894c078f7821d3be738bfd">
+<li nodeId="453c4ed5c9804ebc827fffea2b830025">
+<p align="start" nodeId="fea9aad1e1214c44bf0fcb1ba6815290">如果要实现“返回一个值”的逻辑，则继承抽象类IProcessor，并实现process方法。</p>
+</li>
+<li nodeId="a097791d8696430a9b91715ba0c59ba7">如果要实现“返回多个值”的逻辑，则继承抽象类IFlatProcessor，并实现flatProcess方法。</li>
+<li nodeId="daa42178cce640fbb79a412461e6e5cb">
+<p align="start" nodeId="9c7c7e311ccf40b8b2b93baafe3c1733">process方法入参为传入该组件的上下文，出参为经过该组件处理后的上下文。</p>
+</li>
+<li nodeId="9b75c4e1e27a49208ff9e00e2fabac5b">
+<p nodeId="bdacd8e14cc44757a2cee74ae0ce1d2c">flatProcess方法入参为传入该组件的上下文，出参为经过该组件处理后的多条上下文。</p>
+<p align="start" nodeId="43422c563a9549c3803f3c54ae7f74ab" />
+</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="a2ef8f4524bb4c718a365ab89c263ae1">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="fd2f0b98e58d455b84f704cd70a7479f">
+<p nodeId="7ed1dfb5e9994dd4b72472206bf853ca">数据拆分</p>
+</td>
+<td colwidth="[555]" nodeId="217df7f5dde94644a0a5f0bf3d6664ef">
+<p nodeId="db00d3112b754b4983f254af40810e14"><img src="https://km.sankuai.com/api/file/cdn/1426173682/11005693908?contentType=1&amp;isNewContent=false" name="image.jpeg" width="483" height="213" nodeId="da4dd3cdd1f94cf1aaa4876de884b285" /></p>
+</td>
+<td colwidth="[766]" nodeId="06b664b07bce4b2ebd989e85be7f626d">
+<p nodeId="58c6b554b9de456fac2170d0c3ebe57c"><a href="https://km.sankuai.com/page/1200639511" title="https://km.sankuai.com/page/1200639511" autoUpdate="true" nodeId="3187f75fef5c465d9df702f9b5df2320">https://km.sankuai.com/page/1200639511</a></p>
+<p nodeId="20ad3a32b1fb498caf33b8ec244d0185"><span color="">将数据流复制后拆分流转至后续各节点</span></p>
+</td>
+</tr>
+<tr nodeId="6302232f2ce44f0ca09f9d5c53f031e0">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="8f7b3b1b783348f4b485c246af5a029f">
+<p nodeId="c745c26060f446e19eeeb4cbd7c403e9">Union</p>
+</td>
+<td colwidth="[555]" nodeId="a3af60a8150148e5b7d3a4e71d9c9f1e">
+<p nodeId="4744cf0823db4c2f886c7e3375ab1895"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996814057?contentType=1&amp;isNewContent=false" name="image.jpeg" width="484" height="201" nodeId="95ea0a12b1694b9ba91c3328eb17ca0e" /></p>
+</td>
+<td colwidth="[766]" nodeId="af37331c58c74f1faade965dfaefa70f">
+<p nodeId="d8da705e818a4b49a31a9872b9b0eb3a"><a href="https://km.sankuai.com/page/1200639529" title="https://km.sankuai.com/page/1200639529" autoUpdate="true" nodeId="53c6f1bfdbbf49ea93d5d9c0327af388">https://km.sankuai.com/page/1200639529</a></p>
+<p nodeId="8371586dbc23442ab7b5e793b4b1c4e0"><span color="">两个数据流的合并</span></p>
+<p nodeId="b27a984e2aac409b802e91f9425d7706" />
+</td>
+</tr>
+<tr nodeId="283f0d3ed43549e28bbe79a0c8c84f1a">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="3d72f418acaa447aab82ae5a2bc12d32">
+<p nodeId="b4a9d1b23ba1408b942384dbdf649041">数据获取</p>
+</td>
+<td colwidth="[555]" nodeId="94119941e0f445ea9d9ff3a5462f6e62">
+<p nodeId="6cd7e6b7446847e7b389a0861099393f"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996820098?contentType=1&amp;isNewContent=false" name="image.jpeg" width="227" height="600" nodeId="76482306d111416f8ac5eba628e19660" /></p>
+</td>
+<td colwidth="[766]" nodeId="a9dc2ed7cccd412484897ceb546c9e4d">
+<p nodeId="35f3c204664c4da4aaf158e31f1fef00"><a href="https://km.sankuai.com/page/1319403547" title="https://km.sankuai.com/page/1319403547" autoUpdate="true" nodeId="8e8836eb67444d5cb80913aeb577fefd">https://km.sankuai.com/page/1319403547</a></p>
+<p nodeId="9aeb03fd5cb94b66ba34c462d1917c33">http get:  <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" nodeId="d234f29785204bd2a21582e6472aa21f">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1</a></p>
+<p align="start" nodeId="6261af67d7d345b797ec7da6784914a3">http post: <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" nodeId="0d949fd8414247708e346d96dc8dea8b">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1</a></p>
+<p align="start" nodeId="b8af9424913044a39fb197f63f59c6f6">rpc : <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" nodeId="129f062968c4405f9ee441986c1f7892">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1</a></p>
+<p nodeId="2470ad55346e43a2b18f874bd2109f7f">【常见使用场景】</p>
+<ol nodeId="5f727c508f06424e8ecd9d3ba4ab38dc">
+<li nodeId="9fe36b215adf4d54963bbc3d2f469cc1"><span color="">用于获取增量补充数据用于策略执行</span></li>
+</ol>
+<p nodeId="380a6825921e46b480035c88915a92a4">【配置相关】</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1426173682/11006009916?contentType=0&amp;isNewContent=false" width="986" height="194" nodeId="adcddff49a34429ba28df961e053a79a" />
+<ul nodeId="54d8ca3d12b24c9492de0e939eddd56e">
+<li nodeId="7695d3bc7a65476fa043aafb6293acc2">
+<p align="start" nodeId="588e44fe5d3f479190dfc08231f8d862">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</p>
+</li>
+<li nodeId="cc1327509aae498796607833d3867230">
+<p align="start" nodeId="aacf052a4daa46f1826a7d4ad94f0fc8">Squrriel平台限流值: 6w/min</p>
+<p nodeId="189c22bf36f543c1b34964d8ad5d4b89">S3平台限流值：6k/min</p>
+<p nodeId="40d0c4ea753546afbf2d0760bc8a1c87">RPC平台限流值:3w/min</p>
+<p nodeId="52b6bb91a78d4c918135001812b5a9e7">HTTP平台限流值: 6k/min，如需更高流量，请联系近离值班rd</p>
+</li>
+<li nodeId="51d44298f55444b4943508c1522a7403"><strong>注意用户配置过程中限流量最好进行配置兜底，否则上线后可能出现大value+无缓存打爆了Squirrel的情况</strong></li>
+</ul>
+</td>
+</tr>
+<tr nodeId="88795145ad5e41b6b9a4d84d7b3ff8dd">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="891da7cbadc64f7bbb3c990d3d7e7c96">
+<p nodeId="89863da23e044550bcf4e4abb5e6204d">数据存储</p>
+</td>
+<td colwidth="[555]" nodeId="a8f041b146d347498917bbea6ef37620">
+<p nodeId="459a2605faf0439bb0fef22c9af55af5"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996814056?contentType=1&amp;isNewContent=false" name="image.jpeg" width="205" height="600" nodeId="9087f702ed264c07808fbf497e3e1ceb" /></p>
+</td>
+<td colwidth="[766]" nodeId="ba94f153d150493ea2f1ff8ec3b47150">
+<p nodeId="f088b5a2c25245c3978293fed9098d3b"><a href="https://km.sankuai.com/page/1316510919" title="https://km.sankuai.com/page/1316510919" autoUpdate="true" nodeId="19fbd28b4cf44ec58f51f6f83ca07fb8">https://km.sankuai.com/page/1316510919</a></p>
+<p nodeId="ee7ce1fe45d340038075eb0ef526657d"><span color="">将执行过程中某些关键数据进行外存</span></p>
+<p nodeId="f5021eb3f5d047828c4c0d3b17c20709">【常见使用场景】</p>
+<ol nodeId="24f90f4e90934a88bba7bf8e592c30a4">
+<li nodeId="135907e6160244c3a6b2e6965a125d42">写入基线加白名单做可信层校验</li>
+</ol>
+<p nodeId="1c653d25f73e447caa5105be940cfc53"><span color="">【配置相关】</span></p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1426173682/10997466480?contentType=0&amp;isNewContent=false" width="696" height="326" nodeId="90c0cb5845bd4f2fa78f3a10c841d372" />
+<ol nodeId="7e9ac2e35b4d44ae9422904e44d1f108">
+<li nodeId="c815240a6fa14e7fa08dfb94391139dd">
+<p align="start" nodeId="063aeeaa69a443168f1e0c401582dc8b">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</p>
+</li>
+<li nodeId="cf0530b22d6945c0a9e506066f5d935a">平台限流值: 6k/min，如需更高流量，请联系近离值班rd</li>
+</ol>
+</td>
+</tr>
+<tr nodeId="0b60885f67b142b8951498d42fcdd9bd">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="db2ad138bcdd442d86632e3266729bed">
+<p nodeId="d58b9f3960cd4dee807f7ff8cf64a220">丢弃组件</p>
+</td>
+<td colwidth="[555]" nodeId="7fddb986fbc147d39c66cace64aaa8cc">
+<p nodeId="7842fd4418554077be3f33faf2438558"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996814058?contentType=1&amp;isNewContent=false" name="image.jpeg" width="483" height="141" nodeId="8d4ce0d45ecb483084830ebd3563a177" /></p>
+</td>
+<td colwidth="[766]" nodeId="6a12a7605e4c4214a6f2eba438eccb8e">
+<p nodeId="35d43dbe21bb49389182df441c540b53"><a href="https://km.sankuai.com/page/1200763174" title="https://km.sankuai.com/page/1200763174" autoUpdate="true" nodeId="860e0cceb3434b1b98c4dfbade58c4dd">https://km.sankuai.com/page/1200763174</a></p>
+<p nodeId="9af9d78269e143cc9d6cd17062bceb26"><span color="rgb(44, 62, 80)">直接将该部分数据丢弃</span></p>
+</td>
+</tr>
+</table>
+<h2 align="start" nodeId="23da5d13c9344d9d931b14db51bd7c7a">4 数据聚合</h2>
+<ul nodeId="5ca397c6c150421cb5047d413fe4d989">
+<li nodeId="90192cc78f974fae9150be12b89e24c5">
+<p align="start" nodeId="4e0491f210cd4d80a0c0bb5483d820cc">目的：实现对决策对象的聚合、去重等操作</p>
+</li>
+</ul>
+<table responsive="false" nodeId="88b3914dfe3049a39ace279d913ca725">
+<tr nodeId="10699fe9a26f450fbbb8c30ed17159dc">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="2a4460207458431bad58a9c9624b8b22">
+<p nodeId="4d4ac729040442978bf0ca4ba27c6a24">Groupby</p>
+</td>
+<td colwidth="[555]" nodeId="22acf107fc1a4a3c9ac9a0b03ef33b6d">
+<p nodeId="f0ee204a23e14d239c77854720658916"><img src="https://km.sankuai.com/api/file/cdn/1426173682/11005693900?contentType=1&amp;isNewContent=false" name="image.jpeg" width="207" height="600" nodeId="bf367ea3baba458e955d895c730cec6f" /></p>
+</td>
+<td colwidth="[772]" nodeId="c42514dcd6f947d9a0761d46e43e9369">
+<p nodeId="1bc683274aba4154b3b7d65a889306e3"><a href="https://km.sankuai.com/page/1200659466" title="https://km.sankuai.com/page/1200659466" autoUpdate="true" nodeId="6f80df14dc364e8db409ffebeabe507f">https://km.sankuai.com/page/1200659466</a></p>
+<p nodeId="94672cfec5a64c08af64c00dfee3172d">示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21" nodeId="3848fcd679e14e9ca207c23809a6c925">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21</a>组件4</p>
+<p nodeId="4f7456f4525d4376b84a0ab55fefa940">【常见使用场景】</p>
+<ol nodeId="528c68abac0e4b88b4dc1772a6153391">
+<li nodeId="593d1a4633884b7f9167a554dc296aad">聚合计算，一定时间内告警大于多少条告警</li>
+</ol>
+<p nodeId="23728f75e1ed4fa6a1a803ed04a0eb18">【配置相关】</p>
+<ul nodeId="368424def5ab41f09cc5b480ed3e4111">
+<li nodeId="7799505e4e84459f9ab8d55641f1abfa">
+<p nodeId="a27c6e16144c4fd1885efa613df6e129"><strong>计数类型</strong>：次数即类似sql中的count</p>
+<p nodeId="530a63c800234ada988d403313d78448">                 求和即类似sql中的sum</p>
+<p nodeId="2661c66dc9c848f0bb23dfa59c103110">                 存值即类似sql中的as</p>
+</li>
+<li nodeId="9da43ade2cbb498c86ba47877a929948"><strong>聚合方式</strong>：事件驱动即每来一次数据触发一次检测；时间驱动即存储<em>时间窗口</em>所填的数据，每隔<em>时间滑动间隔</em>触发一次检测</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="5c9d84af91354ded9d129cff6a87a654">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="d9fa272c370b4fee9b48035f33ac3ba6">
+<p nodeId="ee417e476491496eb6be3393ca39cad2">Distinct</p>
+</td>
+<td colwidth="[555]" nodeId="48913d278cf54a33a88c7ba5a99298af">
+<p nodeId="d03354f0da204c4db6b1cd4f64c9869a"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996814064?contentType=1&amp;isNewContent=false" name="image.jpeg" width="369" height="600" nodeId="5e351eb9ed8541e3bddf84b72504b01b" /></p>
+</td>
+<td colwidth="[772]" nodeId="d9c5621c57ea42619bf9e0d6026d98a1">
+<p nodeId="455de39b615c40afbd36f9bc796220d4"><a href="https://km.sankuai.com/page/1200649532" title="https://km.sankuai.com/page/1200649532" autoUpdate="true" nodeId="ff740388a23c4a2f8619fb46bcfff228">https://km.sankuai.com/page/1200649532</a></p>
+<p nodeId="25ff1194697c435b97d0c98385d11512">【常见使用场景】</p>
+<ol nodeId="4b15d4b0ee9f4d989d544e41a8851593">
+<li nodeId="7a33bfb3b9e648168e557ebb57de67a9">决策执行去重</li>
+</ol>
+<p nodeId="8fb86fc3e793439abafe50684306683d">【配置相关】</p>
+<ul nodeId="d04e4325b72c457dba1f89798826d54e">
+<li nodeId="e760c23df5c942ff88b738d21e433331">
+<p align="start" nodeId="8f8f4404ff5c4029a39e70f8dce7b735"><strong>key：</strong><span color="">支持输入单个或多个上文所传字段（含原始字段和自定义字段，如果原始字段被重新定义过，则填写自定义后的字段名），作为key进行去重，必填</span></p>
+</li>
+<li nodeId="87c20eb1b6c64be59d421121c57156b1">
+<p align="start" nodeId="be347cd791fe4263b37e815142d67251"><span color=""><strong>时间维度/时间维度格式：</strong></span>填写<span color="">画布任务执行的时间戳，若不填则默认画布开始运行的时间</span></p>
+</li>
+<li nodeId="ae85b94d7c6345d3ba2856e38d64ae11">
+<p align="start" nodeId="3c7410c946c74daeabedfdc13adb3cea"><span color=""><strong>时间窗口：</strong></span><span color="">即计算从时间戳往前滑动多少时间区间进行计算，支持选择分/时/日，文本框中为数字，必填</span></p>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<h2 nodeId="2b0c94f1fbc34b9f91d2793cb5070fc4">5 决策执行</h2>
+<table responsive="false" nodeId="1f7c3b6817fd4c5cbf9dff976eb40c15">
+<tr nodeId="6d908e70e9ee44d48ddb2bf2b0b0fd19">
+<td colwidth="[84]" bgColor="rgb(244, 245, 247)" nodeId="f75107badb72476690ebdd5a6099c03d">
+<p nodeId="b8265d9c0d70400f8531b46b33422c34">决策</p>
+</td>
+<td colwidth="[551]" nodeId="6a28199b84f24170aac06f744c7c9364">
+<p nodeId="ced4e737ef5e4b49bf0e9df4ee724689"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996820093?contentType=1&amp;isNewContent=false" name="image.jpeg" width="624" height="539" nodeId="ac05df96eada4178b7899518da228101" /></p>
+</td>
+<td colwidth="[772]" nodeId="0d7078ffe1214b749656230d35da95ba">
+<p nodeId="a1972d67a0d44b20a8254ef46b7beae4"><a href="https://km.sankuai.com/page/1200629952" title="https://km.sankuai.com/page/1200629952" autoUpdate="true" nodeId="83362c56c7c94dfbaa9a7f41a922530e">https://km.sankuai.com/page/1200629952</a></p>
+<p nodeId="629b0fd82ef042d3a0e72509b3c24984">【配置相关】</p>
+<p align="start" nodeId="5d2a092d1aa54f47a1a791e2175cdc34">用户可在决策组件中使用在Zeus平台上注册的决策及相关信息，近线将根据配置信息下游的数据传输，但是否能实际执行得看下游是否具备执行能力</p>
+<ul nodeId="bbc9e871c21d4ce8abebaeb137d9ed82">
+<li nodeId="981637e681254ac0a88d9cf0517396be">决策：<a href="https://km.sankuai.com/page/312514906" title="https://km.sankuai.com/page/312514906" autoUpdate="true" nodeId="4af3c8761acd435da53b6075c8de86a2">https://km.sankuai.com/page/312514906</a></li>
+<li nodeId="b83434e7f8744022a524354dc955e748">附加信息：<a href="https://km.sankuai.com/page/28253486" title="https://km.sankuai.com/page/28253486" autoUpdate="true" nodeId="de7580ba31954804a2387084ac2385fa">https://km.sankuai.com/page/28253486</a></li>
+<li nodeId="7270997eab7a4dcfa739f029f6cfc018">决策理由：<a href="https://km.sankuai.com/page/304311873" title="https://km.sankuai.com/page/304311873" autoUpdate="true" nodeId="0bfab32ffd434ccdbc465159d3082ad8">https://km.sankuai.com/page/304311873</a></li>
+<li nodeId="b006154df22e4ca09098a569403f4e0e">
+<p nodeId="ca179168ae6c4a28ac715f772b05f04e">示例：</p>
+<ul nodeId="a9c687755a93445e94b526cff99fa02c">
+<li nodeId="edf882d490444f4193e4e5d0c78a6b2f">
+<p nodeId="cf63b53b0c6e474f800ce3a4dc3f7302">基础安全：</p>
+<p nodeId="798b994cc4da422b8bf412a1bde82e2e"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10997466477?contentType=1&amp;isNewContent=false" name="image.jpeg" width="324" height="211" nodeId="b4c1849e6961406984bc28c7c873d960" /></p>
+</li>
+<li nodeId="cdcef13e28ab4661b5afbd5889bc4a79">
+<p nodeId="33142a5191034250ae61a3c2d14ecba7">非基础安全：</p>
+<p nodeId="901e15910f6148a095fbfb03af12e7d5"><img src="https://km.sankuai.com/api/file/cdn/1426173682/10996820092?contentType=1&amp;isNewContent=false" name="image.jpeg" width="317" height="274" nodeId="cdcbd74d61b349ab835b16a04b3d1ffa" /></p>
+</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<h2 nodeId="1e2d5188c253465e88fe8513862ce0cd">6 用户自定义函数使用（UDF）</h2>
+<p nodeId="94e21f2ec56843e0bdeb97b515a52a18"><a href="https://km.sankuai.com/collabpage/1402465659" title="https://km.sankuai.com/collabpage/1402465659" autoUpdate="true" nodeId="445424227ded4ce8bd29ef4a382b45ef">https://km.sankuai.com/collabpage/1402465659</a></p>
+<ul nodeId="f77db31c14c8404fa5dea929fb0a2f59">
+<li nodeId="d53d85a3a1a24cb98dfe88c3b8a172d2">支持<span color="rgba(0, 0, 0, 0.87)">在平台管理用户自定义函数，并在画布aviator表达式中进行引用</span></li>
+</ul>
+</km-doc>

@@ -1,0 +1,255 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：监控/熔断报出屏蔽期</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-5">1.报出屏蔽期与生效期</a><a href="#section-54">2.不同计算函数的屏蔽期</a><a href="#section-150">3.修改监控/熔断配置须知</a><a href="#section-273">4.特殊说明</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：规则熔断</a> / <a href="index.html">说明：监控/熔断报出屏蔽期</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1214650678">查看学城原文</a></p><article>
+<h1>说明：监控/熔断报出屏蔽期</h1>
+<p><span style="color:rgb(245, 35, 45)">请在创建/修改监控和熔断配置前，阅读本文档。</span></p>
+<div style="none"></div>
+<h1 id="section-5">1.报出屏蔽期与生效期</h1>
+<p><span style="color:rgb(38, 38, 38)">规则熔断功能在运行时包括：【监控计数】、【函数计算】、【告警报出】等动作。目前的监控模式下，用户创建新的熔断配置之前，相关的监控单元并未建立，计数的历史数据为0。因此，在熔断创建后初期，需要</span><span style="color:rgb(245, 35, 45)">至少</span><span style="color:rgb(38, 38, 38)">收集一个周期的数据，才可进行正式的报出，正式报出前的这段时间，为</span><span style="color:rgb(245, 35, 45)"><em>报出屏蔽期</em></span><span style="color:rgb(38, 38, 38)">。正式报出开始之后的时间，为</span><span style="color:rgb(245, 35, 45)"><em>生效期</em></span><span style="color:rgb(38, 38, 38)">。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>为什么要屏蔽期？</p>
+<p>--因为历史上监控单元没有计数，熔断建立初期（不够一个周期），告出的数据<span style="color:rgb(245, 35, 45)">并不是真实在过去一个周期的流量情况</span>。所以需要屏蔽。</p>
+<p>【例1】监控过去5分钟命中量 小于100 则告出</p>
+<p>--如果没有屏蔽期，则建立后的头几分钟（不足5分钟），大概率都会告警，因为还没收集够5分钟的数据。</p>
+<p>【例2】监控过去5分钟比昨天同时期的上升比大于100%则告出</p>
+<p>--如果没有屏蔽期，则建立后的头24小时，大概率会频繁告警。因为还没收集够1天的数据，此时的“昨天同时期”就是0，所以只要当前有一些命中量，上升比就很容易大过100%</p>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">示意图</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<img src="assets/ddea107a14eef42c.svg" width="642" height="381" alt="流程图">
+</td>
+<td>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">左图展示一个监控计数单元（场景-规则-决策-熔断子规则）的熔断报出逻辑：</span></span></p>
+<ul>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">熔断【计算粒度】为1次/分钟，即整分钟会进行一次函数计算，判断是否需要报出。</span></span></li>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">以使用【命中量】函数的子规则为例，假设用户配置的【周期】为2分钟（该子规则含义即为：最近2分钟的命中量），并在第n分钟（0&lt;n&lt;1）新创建了熔断（创建时间为成功提交时间）。</span></span></li>
+</ul>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">从图中可以看出，时间轴上n点之前没有任何历史数据，在第1分钟、第2分钟的计算时，由于实际累计命中量的时间长度还未满足用户设置的2分钟周期，此时即使命中量满足熔断规则（如最近2分钟的命中量&lt;10），也不会报出告警，因为数据不全，报出不具有参考性。</span></span></p>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">在时间点n+2之后，已有完整的2分钟数据，此时进入生效期，在后续第3分钟、第4分钟……的计算节点上，一旦满足熔断规则便会正常报出。</span></span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-54">2.不同计算函数的屏蔽期</h1>
+<p><span style="color:rgb(0, 0, 0)">值得注意的是，使用不同的计数函数，进入生效期的时长根据函数特性，会有所区别。</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">函数</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">报出屏蔽期：周期长度为n</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">命中量（最近一个周期）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">n</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">计算最近1个周期的命中量，要求至少累计有【1个完整周期】的历史数据。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">最近N分钟比之前</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">N分钟</span></span></p>
+<p><span style="font-size:14px">（最近一个周期比之前一个周期 上升/下降的 绝对量、百分比）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">2n</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">计算最近1个周期与上一个周期的比较，要求至少累计有【2个完整周期】的历史数据。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">最近一个周期的命中量比</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">昨日</span></span><span style="font-size:14px">同时段</span></p>
+<p><span style="font-size:14px">（上升/下降的 绝对量、百分比）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">24小时+n</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">计算最近1个周期与昨天同时段该周期的比较，要求至少累计有【24小时+1个完整周期】的历史数据。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">最近一个周期的命中量比</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">上周</span></span><span style="font-size:14px">同时段</span></p>
+<p><span style="font-size:14px">（上升/下降的 绝对量、百分比）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">1周+n</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">计算最近1个周期与上周同时段该周期的比较，要求至少累计有【1周+1个完整周期】的历史数据。</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">最近一个周期的命中量比</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">基线</span></span></p>
+<p><span style="font-size:14px">（上升/下降的 绝对量、百分比）</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">3周+</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">n</span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">***</span></span><span style="font-size:14px">基线是根据最近四周的同个时段（最近n分钟）的命中量的加权平均值，相关函数计算的是最近n分钟的命中量与基线的比较。要求至少累计有</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">【3周+n分钟】</span></span><span style="font-size:14px">的历史数据。</span></p>
+<details>
+<summary><span style="font-size:14px">基线计算定义</span></summary>
+<div>
+<p><span><span style="font-size:14px">例：用户选择周期为n（例如最近2分钟），今天是2016-12-02（周五），计算的时间点为19:56，基线数据的算法是4个周五（2016-11-11，2016-11-18，2016-11-25，2016-12-02）的19:54-19:56这2分钟的数据的加权求和或平均，权重值依次为1，2，3，4。如：基线值设为value，四个周五对应的19:54-19:56数据（由远及近）分别为A,B,C,D，则value = (A+2B+3C+4D) / 10</span></span></p>
+</div>
+</details>
+</td>
+</tr>
+</table>
+<h1 id="section-150">3.修改监控/熔断配置须知</h1>
+<p>修改熔断配置项时，一些会使熔断计数重新开始，一些则可以直接修改。</p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">示意图</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<img src="assets/13c923bbd639825e.svg" width="510" height="240" alt="流程图">
+</td>
+<td>
+<p><span style="font-size:14px">熔断功能的最小独立监控单元是【</span><span><span style="font-size:14px">场景-规则-决策-单个熔断子规则】，即</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">【作用域】与【熔断子规则】相乘决定了监控单元的数量</span></span><span><span style="font-size:14px">。因此，编辑【作用域】&amp;【熔断规则】的增减，将直接决定监控单元的增减。</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><img src="assets/e81bf69056666f67.png" width="501" height="190" alt="image.jpeg"></p>
+</td>
+<td>
+<p><span style="font-size:14px">如左图， 01、02为熔断规则，之间用【或】连接。01中有两条子规则，之间用【且】连接。计算报出时，会根据涉及到的多条子规则，以其中屏蔽期的最大者，来决定是否屏蔽本次报出</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">（可以理解为每次报出的前置条件为：所涉及到的监控单元都在生效期内，否则就会屏蔽）</span></span></p>
+</td>
+</tr>
+</table>
+<p><span><span style="font-size:19px">如下表，一些修改动作会产生新的监控单元，新监控单元是新开始计数的，历史数据为0。（屏蔽期也从提交修改那刻起算）</span></span></p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">页面&amp;弹窗</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">修改项</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">影响说明</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="5">
+<p><img src="assets/022939c40c606745.png" width="1255" height="600" alt="image.jpeg"></p>
+<p><img src="assets/9d246f27cd9ef7cb.png" width="988" height="600" alt="image.jpeg"></p>
+<p></p>
+<p><img src="assets/c420456ccfd97e23.png" width="237" height="134" alt="image.jpeg"></p>
+<p><img src="assets/78bc1e1cda050532.png" width="276" height="141" alt="image.jpeg"></p>
+<p><img src="assets/ea65f328db740ea0.png" width="269" height="138" alt="image.jpeg"></p>
+</td>
+<td>
+<p><span style="font-size:14px">基本信息</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">不影响</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">修改作用域</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">提交修改时，系统会判断本次修改是否变更了作用域，并给予用户二次弹窗确认是否修改。</span></p>
+<ul>
+<li><span style="font-size:14px">作用域有新增部分：产生的新监控单元，从修改提交那刻开始计数</span></li>
+<li><span style="font-size:14px">作用域有删减部分：对应的监控单元清空计数</span></li>
+<li><span style="font-size:14px">未增减的那部分作用域：不影响，涉及的老监控单元继续计数</span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">作用时间</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">不影响</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">熔断规则</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">提交修改时，系统会判断本次修改是否变更了熔断规则，并给予用户二次弹窗确认是否修改。</span></p>
+<ul>
+<li><span style="font-size:14px">新增熔断规则（含子规则）：产生的新监控单元，从修改提交那刻开始计数</span></li>
+<li><span style="font-size:14px">删除熔断规则（含子规则）：对应的监控单元清空计数</span></li>
+<li><span style="font-size:14px">未动的熔断规则（含子规则）：涉及的老监控单元继续计数</span></li>
+<li>
+<p><span style="font-size:14px">编辑内容的熔断规则（含子规则）：</span></p>
+<ul>
+<li><span style="font-size:14px">时间周期、计算函数、对比关系、阈值：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">修改不影响，涉及的老监控单元继续计数</span></span></li>
+<li><span style="font-size:14px">指标、去重维度：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">不允许修改</span></span></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">熔断动作</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">不影响</span></p>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">熔断复制：复制熔断，相当于用被复制对象的配置 新建了一条熔断配置，因此也是重新开始计数。</span></span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-273">4.特殊说明</h1>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">项目</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">屏蔽期覆盖不到的部分</span></p>
+</td>
+<td>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">目前，用户在未更改熔断配置的情况下，去zeus场景配置里【新增】了生效（灰度）的规则而产生的新监控单元，熔断的屏蔽期还无法覆盖到。</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">对于这部分新增的监控单元，将没有屏蔽期作用</span></span><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">，即新增后，一旦满足熔断规则便会立刻报出，请知晓。</span></span></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p></p>
+</article></main></body></html>

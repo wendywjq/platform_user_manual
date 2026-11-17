@@ -1,0 +1,79 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：Squirrel因子/S3因子</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、名词解释</a><a href="#section-6">二、数据结构</a><a href="#section-13">三、操作说明</a><a href="#section-59">三 s3因子使用示例</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：Squirrel因子/S3因子</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/866685353">查看学城原文</a></p><article>
+<h1>说明：Squirrel因子/S3因子</h1>
+<div style="none"></div>
+<h1 id="section-3">一、名词解释</h1>
+<p>Squirrel因子：因子值存储在squirrel中，查询时首先尝试从本地缓存查询因子值，本地缓存中查询不到会去squirrel中查询因子值。如果在squirrel中查询到值，会把值写入本地缓存中，并在一定时间后过期。</p>
+<p>S3因子：因子值存储在s3中，应用启动时会首先从s3拉取全量缓存，每次查询时都从本地缓存查询。每隔一段时间会重新从s3上更新数据到本地缓存。</p>
+<h1 id="section-6">二、数据结构</h1>
+<p>squirrel因子的数据结构类似于squirrel中的hash的数据结构，有category、key、field、value四个维度：</p>
+<p>category是一组key的集合，一般隶属于同一个业务的key在同一个category中</p>
+<p>每一个key可能会包含很多组field-&gt;value键值对</p>
+<p>具体的存储结构如下：</p>
+<img src="assets/d8cdaa40461a089b.svg" width="552" height="427" alt="流程图">
+<p>s3因子理论上可以支持除了hash以外更多的数据结构，比如字符串，队列，集合等等，但是需要进一步开发。</p>
+<h1 id="section-13">三、操作说明</h1>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：策略部署-因子-扩展因子-squirrel因子/s3因子</span></p>
+<p><span style="font-size:14px">说明：</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">squirrel因子：</span></p>
+<ol>
+<li><span style="font-size:14px">存储类即数据结构中的category。</span></li>
+<li><span style="font-size:14px">过期时间默认为4小时，即代表4小时后数据过期，可手动更改过期时间。</span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">s3因子：</span></p>
+<ol>
+<li><span style="font-size:14px">文件名即数据结构中的category</span></li>
+<li><span style="font-size:14px">刷新周期默认为4小时，即代表缓存期为4小时，4小时后数据将自动刷新，可手动更改刷新周期。</span></li>
+</ol>
+</li>
+<li><span style="font-size:14px">可选择查询方式输入对应的key表达式和field表达式，均为</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">aviator表达式。</span></span></li>
+<li><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">针对Key和Field的表达式测试用例，仅代表对该表达式正确性的验证，不代表实际是否有获取到数据</span></span></li>
+</ol>
+<p></p>
+</td>
+<td>
+<p><img src="assets/bafd2845ce8d9b42.png" width="769" height="383" alt="image.png"></p>
+<p><img src="assets/e4264d2277d2f707.png" width="769" height="408" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-59">三 s3因子使用示例</h1>
+<p>由第二部分可知，用户在s3上保存的原始名单应该是一个两层map，以下面的json为示例：</p>
+<pre><code>{
+    "key1": {
+        "fiel1": "key1value1",
+        "field2": "key1value2"
+    },
+    "key2": {
+        "fiel1": "key2value1",
+        "field2": "key2value2",
+        "field3": "key2value3"
+    }
+}</code></pre>
+<p>用户将此json上传到指定s3 bucket上，命名为"testList"</p>
+<p>s3 因子配置:</p>
+<p><img src="assets/0ef604d3705efc99.png" width="1210" height="600" alt="image.png">​</p>
+<p>因子类型选择s3因子</p>
+<p>文件名填写s3的文件名：testList</p>
+<p>刷新时间填入要求多久重新拉一次s3上的文件到缓存</p>
+<p>结果类型，与s3文件的value的类型一致，在testList中，value的值类型是字符串型（比如'key1field1'）</p>
+<p>查询方式这里示例最简单的获取key下field的value值</p>
+<p>key表达式这里写了常量'key1'，也支持使用aviator表达式</p>
+<p>field表达式这里写了常量'field1'，也支持使用aviator表达式</p>
+<p>这个例子里由于key和field都是常量，因此因子值也是常量'key1field1'。</p>
+</article></main></body></html>

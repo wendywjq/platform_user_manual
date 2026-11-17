@@ -1,0 +1,79 @@
+<km-doc>
+<km-title nodeId="eaede8c8dc954fb4859767a8bca4087e">说明：Squirrel因子/S3因子</km-title>
+<km-catalog style="none" nodeId="59fb7e0554ea4819acdd8a973262b1c4" />
+<h1 nodeId="764b610309ae45379230876e63c0f14e">一、名词解释</h1>
+<p nodeId="c125917bd4f848c4af884c51b6e2cbca">Squirrel因子：因子值存储在squirrel中，查询时首先尝试从本地缓存查询因子值，本地缓存中查询不到会去squirrel中查询因子值。如果在squirrel中查询到值，会把值写入本地缓存中，并在一定时间后过期。</p>
+<p nodeId="60522e8870ed4956b3ef02de433726dd">S3因子：因子值存储在s3中，应用启动时会首先从s3拉取全量缓存，每次查询时都从本地缓存查询。每隔一段时间会重新从s3上更新数据到本地缓存。</p>
+<h1 nodeId="4ecab90832ba4fd59448b931a16e5c67">二、数据结构</h1>
+<p nodeId="82ddac844bca42d8b8c1c1d639cd1232">squirrel因子的数据结构类似于squirrel中的hash的数据结构，有category、key、field、value四个维度：</p>
+<p nodeId="9835f631d0be4514afd287214e257f63">category是一组key的集合，一般隶属于同一个业务的key在同一个category中</p>
+<p nodeId="f9e8389de9914c5bab6c4d6a47233085">每一个key可能会包含很多组field-&gt;value键值对</p>
+<p nodeId="38ad947cf55c455eba10316f7e669bdd">具体的存储结构如下：</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/866685353/899377374?contentType=0&amp;isNewContent=false" width="552" height="427" nodeId="507b016ecba64607995d86569f1088da" />
+<p nodeId="360a4137575b456e95a1c28930f8013b">s3因子理论上可以支持除了hash以外更多的数据结构，比如字符串，队列，集合等等，但是需要进一步开发。</p>
+<h1 nodeId="43626b15c816468791562ca6a9c71a04">三、操作说明</h1>
+<table borderColor="#cccccc" responsive="false" nodeId="96a15dce365b4db497bf0b0d20b594cf">
+<tr nodeId="70c708c397654d28a0d7d3cbd37cffc1">
+<th colwidth="[338]" nodeId="bc683eb23f884feab30e4aaa0efa9419">
+<p nodeId="d5fd7e0c693349fcab477566aa3a59da"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[797]" nodeId="330274467fda420a8dafec5b3e93b574">
+<p nodeId="ea5ac391b93242e8a093f1b996b6a5c5"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="f7594f966f1a4113a8266c7a53f26234">
+<td colwidth="[338]" nodeId="9f3ab63601b547e6ba4156bf43dcd930">
+<p nodeId="5304f5a6e5214dbfab871ce90feaf9b7"><span font-size="14">入口：策略部署-因子-扩展因子-squirrel因子/s3因子</span></p>
+<p nodeId="f99027533b4644e4ad3c359ba25a288f"><span font-size="14">说明：</span></p>
+<ol nodeId="6026a8f14bee4db88946bdc80e6258d7">
+<li nodeId="b9b3f241b0354d86a6634853cf021b96">
+<p nodeId="e2f9e5f0b5c34eed97d30ea84bee5719"><span font-size="14">squirrel因子：</span></p>
+<ol nodeId="2c406e805f7941bdabe95eeea87afcf9">
+<li nodeId="cbb7b7bb45e94f4e94f2c96d86fe895a"><span font-size="14">存储类即数据结构中的category。</span></li>
+<li nodeId="b7c337fc89c9420caf5952305f8a1ef4"><span font-size="14">过期时间默认为4小时，即代表4小时后数据过期，可手动更改过期时间。</span></li>
+</ol>
+</li>
+<li nodeId="1b6f032c22e14a07917f7abb2fee1f4f">
+<p nodeId="529668dda93c4952a8872f804639f846"><span font-size="14">s3因子：</span></p>
+<ol nodeId="1dcddab5ae694e3bb05a24674767a30d">
+<li nodeId="2491d25ca3a44addb3a127fce8a32842"><span font-size="14">文件名即数据结构中的category</span></li>
+<li nodeId="dd34bd96be70490188265486ddc61c14"><span font-size="14">刷新周期默认为4小时，即代表缓存期为4小时，4小时后数据将自动刷新，可手动更改刷新周期。</span></li>
+</ol>
+</li>
+<li nodeId="d96db37716cf40ed86e24d04855ccd1f"><span font-size="14">可选择查询方式输入对应的key表达式和field表达式，均为</span><span color="rgb(0, 0, 0)"><span font-size="14">aviator表达式。</span></span></li>
+<li nodeId="a88e43f179104e209377e926ca942758"><span color="rgb(245, 35, 45)"><span font-size="14">针对Key和Field的表达式测试用例，仅代表对该表达式正确性的验证，不代表实际是否有获取到数据</span></span></li>
+</ol>
+<p nodeId="ce8f47a1f4dc49c5acb6a828d451190b" />
+</td>
+<td colwidth="[797]" nodeId="147e1785e64e446eafa90c1983c2ac06">
+<p nodeId="887932f6b6784e37b078da28327c5670"><img src="https://km.sankuai.com/api/file/cdn/866685353/914165443?contentType=1" name="image.png" width="769" height="383" nodeId="6bcf361a598a4c7e99b21971727afb37" /></p>
+<p nodeId="e0313bbc498542e3b4a9a956279af818"><img src="https://km.sankuai.com/api/file/cdn/866685353/1026481092?contentType=1&amp;isNewContent=false" name="image.png" width="769" height="408" nodeId="305a933a0edc4e52bed3e67ddb0dd5f5" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="fdc6c8e9ab9a45eaa2e8f77df3bb4679" />
+<h1 nodeId="595732e3c66240a08074221888bff4ba">三 s3因子使用示例</h1>
+<p nodeId="1b8913e4a461453aa392e398c26173b9">由第二部分可知，用户在s3上保存的原始名单应该是一个两层map，以下面的json为示例：</p>
+<pre language="Plain Text" nodeId="c5fb80536535414182314d4d0fb4c5b3"><code>{
+    "key1": {
+        "fiel1": "key1value1",
+        "field2": "key1value2"
+    },
+    "key2": {
+        "fiel1": "key2value1",
+        "field2": "key2value2",
+        "field3": "key2value3"
+    }
+}</code></pre>
+<p nodeId="8789e0356a504119a5abed6d7be0b5b1">用户将此json上传到指定s3 bucket上，命名为"testList"</p>
+<p nodeId="cf6b2328cd7e4c8b9f9c9d79d4ba015d">s3 因子配置:</p>
+<p nodeId="f80ae1f24b274260a43510568864eda0"><img src="https://km.sankuai.com/api/file/cdn/866685353/1326146776?contentType=1&amp;isNewContent=false" name="image.png" width="1210" height="600" nodeId="afbebc6bf5614e309c6a00b4c80428f8" />​</p>
+<p nodeId="78f506cad59d44079689a6911c77759a">因子类型选择s3因子</p>
+<p nodeId="859ed516d85644cd9d8800d6b9759ecc">文件名填写s3的文件名：testList</p>
+<p nodeId="b8af4414ecf94e18816e14dfde06a6ca">刷新时间填入要求多久重新拉一次s3上的文件到缓存</p>
+<p nodeId="7535aa2c928044819d38a5d9eac1fa3a">结果类型，与s3文件的value的类型一致，在testList中，value的值类型是字符串型（比如'key1field1'）</p>
+<p nodeId="4f29036d93394cfbba4aad7721f5f182">查询方式这里示例最简单的获取key下field的value值</p>
+<p nodeId="ca6027e12e5f481aa3f7e526c29c687f">key表达式这里写了常量'key1'，也支持使用aviator表达式</p>
+<p nodeId="8fe803928b9848a0b6c5f1235768023d">field表达式这里写了常量'field1'，也支持使用aviator表达式</p>
+<p nodeId="7329f3ebdc8d41359cb77320cef245b4">这个例子里由于key和field都是常量，因此因子值也是常量'key1field1'。</p>
+</km-doc>

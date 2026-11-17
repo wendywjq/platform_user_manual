@@ -1,0 +1,8 @@
+<km-doc>
+<km-title nodeId="bcc838a74fbd485a848d3cbba9c1034d">说明：后置决策——写累计</km-title>
+<p nodeId="7cdaa476b7004865a0359836c4df5b72"><span color="rgba(0, 0, 0, 0.87)">首先需要在</span><a href="https://zeus.sankuai.com/data_zeus_static/#/accumulateEvent" title="https://zeus.sankuai.com/data_zeus_static/#/accumulateEvent" nodeId="000b532f0dee465b831c11d506f60060">https://zeus.sankuai.com/data_zeus_static/#/accumulateEvent</a><span color="rgba(0, 0, 0, 0.87)">这里新建一个累计事件，</span></p>
+<p nodeId="1e75c7a27daf4933b79a15712162a0f2"><img src="https://km.sankuai.com/api/file/cdn/743597175/743643279?contentType=1&amp;isNewContent=true" name="image.png" width="1181" height="600" nodeId="14fe3819b58c490a8575cc833ec5e07d" /></p>
+<p nodeId="2294feb413c5451fbe8b1fb640f8feaf"><span color="rgba(0, 0, 0, 0.87)">然后用新建的累计事件id在</span><a href="https://zeus.sankuai.com/data_zeus_static/#/decisionInfo?id=1884" title="https://zeus.sankuai.com/data_zeus_static/#/decisionInfo?id=1884" nodeId="742c1f39bbd04451a9a70fa26b6a0c18">https://zeus.sankuai.com/data_zeus_static/#/decisionInfo?id=1884</a><span color="rgba(0, 0, 0, 0.87)">这里的附加信息中配一个信息列表，也就是赋值给accumulateEventId</span></p>
+<p nodeId="0b870fe3864c4c13ae8cca801183ca35"><img src="https://km.sankuai.com/api/file/cdn/743597175/743480000?contentType=1&amp;isNewContent=true" name="image.png" width="1152" height="600" nodeId="93ec367665b34cefbe749e6b4b91a5dd" /></p>
+<p nodeId="75193613c0214f9197c9a2a702d560b3"><span color="rgba(0, 0, 0, 0.87)">之后可以作为规则的决策使用</span></p>
+</km-doc>

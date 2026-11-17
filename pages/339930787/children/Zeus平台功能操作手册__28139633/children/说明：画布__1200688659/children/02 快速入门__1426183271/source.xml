@@ -1,0 +1,16 @@
+<km-doc>
+<km-title nodeId="f97d0eff8a524b62a8e667f363c19d63">02 快速入门</km-title>
+<h1 nodeId="6fda89961d30466884130ca9eb40c518">1 使用流程简介</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1426183271/10997094182?contentType=0&amp;isNewContent=false" width="1506" height="366" nodeId="c7a7e1bf964e41678192eaa7a8dae34d" />
+<p nodeId="91a31c0464114cb1820b59d362f1fd33">参考配置：<a href="https://km.sankuai.com/page/1212258181" title="https://km.sankuai.com/page/1212258181" autoUpdate="true" nodeId="42a5136d016943ca81623338ce93f0d6">https://km.sankuai.com/page/1212258181</a></p>
+<h1 nodeId="14b5db2849b4461ca23cbc58a9acb1a7">2 完整流程说明</h1>
+<h3 nodeId="d176da40676a46a1b828a85ab5525550">2.1 登录Zeus，选择业务空间，点击策略部署-画布，新建画布</h3>
+<p nodeId="1d302d6082634ac68787392ceec132e8"><img src="https://km.sankuai.com/api/file/cdn/1426183271/11001534856?contentType=1&amp;isNewContent=false" name="image.jpeg" width="682" height="389" nodeId="d2e8af9fa52c43f2900e6c9fb70a0661" /></p>
+<h3 nodeId="e226189a1a2d4f34901cfc0a42b5b204">2.2 拖拉拽左侧组件，按照策略执行顺序部署可视化策略图</h3>
+<p nodeId="73d38970c25a42498a49e8200d111a81"><img src="https://km.sankuai.com/api/file/cdn/1426183271/10997094183?contentType=1&amp;isNewContent=false" name="image.jpeg" width="684" height="391" nodeId="e98da338130140e28d3c650c7fe5f991" /></p>
+<h3 nodeId="715fcfabacaa4b469c1dfce181fee0fe">2.3 配置完成，进入仿真测试，输入测试数据</h3>
+<p nodeId="651e067493514a4fa8c5be78e7d20512"><img src="https://km.sankuai.com/api/file/cdn/1426183271/11001534854?contentType=1&amp;isNewContent=false" name="image.jpeg" width="686" height="391" nodeId="2cef8fe93fc547bbb7eda0367c38e789" /></p>
+<h3 nodeId="538e3f0ae9fe4e298e4c268330ea7405">2.4 仿真测试通过，将作业置于就绪态，点击上线</h3>
+<p nodeId="0de49dc5ebd84e85a6e30bbb369979fa"><img src="https://km.sankuai.com/api/file/cdn/1426183271/11001382567?contentType=1&amp;isNewContent=false" name="image.jpeg" width="688" height="393" nodeId="c3d3d939be2746c99c95bee1493f7680" /></p>
+<p nodeId="3681f1f0e53c4c86b082c469f578b280"><img src="https://km.sankuai.com/api/file/cdn/1426183271/11000761429?contentType=1&amp;isNewContent=false" name="image.jpeg" width="671" height="384" nodeId="87bc3ec0d91847f68de7c500309f95ef" /></p>
+</km-doc>

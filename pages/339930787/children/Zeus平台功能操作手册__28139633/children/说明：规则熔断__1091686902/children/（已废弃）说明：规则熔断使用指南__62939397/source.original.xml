@@ -1,0 +1,365 @@
+<km-doc>
+<km-title nodeId="08e828939cd1441eb837473e7c1660fc">（已废弃）说明：规则熔断使用指南</km-title>
+<km-catalog style="none" nodeId="5fad369919864e9e82f99db84543e152" />
+<h1 nodeId="5577993f905e4f93be85065709c52dfb"><span color="#f5232d">规则熔断现已支持在zeus页面配置，具体见规则熔断新文档 </span><a href="https://km.sankuai.com/page/1091686902" title="https://km.sankuai.com/page/1091686902" autoUpdate="true" nodeId="11c1c7c3555f4b6d9c7586e0f2bee501">https://km.sankuai.com/page/1091686902</a></h1>
+<h1 nodeId="37dce85106d94eebaead54dbef4a3b4a">一、解决问题</h1>
+<p nodeId="68921ce1c39c48e7ba733ddf866bec43">熔断，规则引擎的安全功能之一，主要解决因各种原因导致的 <span color="rgb(255, 0, 0)"><strong>生效</strong></span><strong> </strong>规则 <span color="rgb(255, 0, 0)">命中Zeus请求量（含拦截、限制支付方式等对业务有干预的决策） </span>突增，避免对业务造成大规模误伤，命中量突增原因包括以下：</p>
+<ul nodeId="bf97af243fb442d8b7fb62163fd177a7">
+<li nodeId="0a4d872e9838414b88661e2f058eb163">风控修改规则配置</li>
+<li nodeId="08c0358ed5254d5192ee9621edc3ff62">业务参数名称或值发生变更</li>
+<li nodeId="0694cf74a0614443b8e0b81aa7da24ad">接口或依赖组件错误</li>
+<li nodeId="99864b7a9e854a1b91b9f353baf1fc88">其他未知因素导致的命中量突变</li>
+</ul>
+<h1 nodeId="7c662d78fd7245849133784de4b3cbfe">二、可支持熔断的能力</h1>
+<table borderColor="#cccccc" responsive="false" nodeId="82f5528b134e41bda209c8b93fd73f2b">
+<tr nodeId="39fac29c01db4ef4b9e7e78011310b85">
+<th colwidth="[111]" nodeId="3074061870634f9a9df609c2f39c6e55">
+<p nodeId="e63b70e70c0d4d43bac96133b07f740f"><span font-size="14">熔断方式</span></p>
+</th>
+<th colwidth="[123]" nodeId="fe07842ca41940a78181d60d4bf00f08">
+<p nodeId="b5a64a56e0c04dd5b663143e8507bed3"><span font-size="14">熔断对象</span></p>
+</th>
+<th colwidth="[135]" nodeId="3d0ae0b74cd8427f81e3d47cef7d4f69">
+<p nodeId="3d00ccead24a43d8b6d3ef88e428d726"><span font-size="14">熔断维度</span></p>
+</th>
+<th colwidth="[331]" nodeId="0e338fb306c94acd93bd9d100faae8e0">
+<p nodeId="ac461660af624739ae09002112af95e2"><span font-size="14">熔断逻辑</span></p>
+</th>
+<th colwidth="[273]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="46c207d7c3494477bcfadeb8451d59f6">
+<p nodeId="15390b04218c4142a9231e3df2a2a765"><span font-size="14">是否兜底</span></p>
+</th>
+</tr>
+<tr nodeId="634568a3babd43fa9157cdf1dbf54da1">
+<td colwidth="[111]" bgColor="rgb(255, 255, 255)" nodeId="680a9430d5f74e05ae257ef13f216b04">
+<ul data-task-list="true" nodeId="265f9ca119f349be950265cc8dcba266">
+<li data-checked="true" nodeId="b81cadbeca6c4a17909f274f6539c3d8"><span font-size="14">人工熔断</span></li>
+<li data-checked="true" nodeId="a66aaff5e54e4012977635b830ae2a4c"><span font-size="14">自动熔断</span></li>
+</ul>
+</td>
+<td colwidth="[123]" nodeId="275b8e7fe9d447559c9a2745c04c687a">
+<ul data-task-list="true" nodeId="956f2370fa27449cbfc9691d2ecdec58">
+<li data-checked="true" nodeId="7612675c362746bea03a9d30a6dcdf58"><span font-size="14">场景配置</span></li>
+<li data-checked="true" nodeId="7a78b7573779426d82a43fb5d18bbd64"><span font-size="14">规则</span></li>
+</ul>
+</td>
+<td colwidth="[135]" nodeId="22e51e1d9a654326b8d9761b22e574f3">
+<ul data-task-list="true" nodeId="90af152714a242708fd9965836a6715b">
+<li data-checked="true" nodeId="0c6d0150bc48435f82c189e8beb159eb"><span font-size="14">固定阈值</span></li>
+<li data-checked="true" nodeId="a03cdfad7b5c49c5b51a16dc8908e202"><span font-size="14">动态比率</span></li>
+</ul>
+</td>
+<td colwidth="[331]" nodeId="b2ca14e89e584201b8b193992efd839b">
+<ul data-task-list="true" nodeId="d0c5fda2823d4e85ac509c163a41d90d">
+<li data-checked="false" nodeId="df267e706aee482392e88c6b1ae7fbf0"><span font-size="14">去重(userid)</span></li>
+<li data-checked="false" nodeId="55056d045a4448deb2f74ff04ae015cb"><span font-size="14">不去重</span></li>
+<li data-checked="false" nodeId="57ac3166f962407fa9037078000f1efa"><span font-size="14">支持精细化到某个规则配置熔断阈值</span></li>
+<li data-checked="false" nodeId="878105df052a4bae9f96ee9082785057"><span font-size="14">支持全局维度配置熔断阈值</span></li>
+</ul>
+</td>
+<td colwidth="[273]" nodeId="38772fe0484b410180bfbdcee726457b">
+<ul data-task-list="true" nodeId="54755b0d2eb1418bb734958409b58d58">
+<li data-checked="false" nodeId="63cb12e1e1f44f7fb580b2dcc6be1412"><span font-size="14">是，自动对抗</span></li>
+<li data-checked="true" nodeId="86e52b5b80bb4304a2e956f7a0b3116d"><span color="black"><span font-size="14">否，熔断后全部放行</span></span></li>
+</ul>
+</td>
+</tr>
+</table>
+<p nodeId="525da0dfaeaf48a1beefae579dfc1280"><em>说明：</em></p>
+<p align="start" nodeId="1ab5ec79d0d645358166854e9a7b5938"><em>场景：检测场景下的决策波动，熔断对象为引起波动的单条策略(场景+规则+决策)</em></p>
+<p align="start" nodeId="11e2f977eafd4405bb50bcd2ffe39ce8"><em>规则：检测规则的命中的波动，熔断对象为引起波动的多条策略(使用规则的全部场景)</em></p>
+<h1 nodeId="7a800ae33c60498391af71942105acd6">三.使用指南</h1>
+<ul nodeId="904c43982c6d4b15a0c9d984bc915cb1">
+<li nodeId="00ea05e2fed34b5193261f49c40c01fc">熔断可支持的指标</li>
+</ul>
+<table borderColor="#cccccc" responsive="false" nodeId="c4bff0025b494f3ea3e522d1b6ec60ce">
+<tr nodeId="888336af1c124d259b23ac2b8753c504">
+<th colwidth="[353]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="2f37bc934cf9452c96640465b4cbcd73">
+<p nodeId="ca54ca2f1dc7409ba68963a9643b81da"><span font-size="14">cat实现指标维度（非去重）</span></p>
+</th>
+<th colwidth="[408]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="9140706c19b84125b8113ef41a7902ea">
+<p nodeId="1d41900736b84167a02cde214726e7d0"><span font-size="14">druid实现指标维度（去重）</span></p>
+</th>
+</tr>
+<tr nodeId="3da9a00c8f474a6c9c773931904649f2">
+<td colwidth="[353]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="377c0235371d4661886c6d6057549ab0">
+<p nodeId="ec042555fc80403885babf3dc34d7db8"><img src="https://km.sankuai.com/api/file/cdn/62939397/392427601?contentType=1&amp;isNewContent=false" name="" width="252" height="227" nodeId="740cf4090c2c4459aed25f5bfcb81076" /></p>
+</td>
+<td colwidth="[408]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e8a4eeee44b941e99acb44a852697f22">
+<p nodeId="9e586f43297147d0961975b39199cbd5"><img src="https://km.sankuai.com/api/file/cdn/62939397/392279597?contentType=1&amp;isNewContent=false" name="" width="379" height="222" nodeId="7a2f7ae4bd2c4683b6deb183588b09e4" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="077f9b4e757f406191534be0bc5e56f2">2.1 基于CAT的熔断实现</h2>
+<h3 nodeId="1259c8bb6e1e4e03befc66c33e6d49d7">2.1.1 配置熔断逻辑</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="d8de10f6a4a3442e9e28e9b881d10d62">
+<tr nodeId="405133991d2445429de5de54f9c30bdf">
+<th colwidth="[593]" nodeId="e4e0871009474dff885d2823b0ec7e79">
+<p nodeId="3db7ac34551f44be9db9ed9328ba84bf"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[908]" nodeId="2a158f2abaf744d28c397dcb165722df">
+<p nodeId="814d54fabad74662a803c8aa5719b509"><span font-size="14">示例</span></p>
+</th>
+</tr>
+<tr nodeId="ec2be90b3e5c401a986f56a00996e71b">
+<td colwidth="[593]" nodeId="d7cf31a7fd9047619e740e8468769a31">
+<h4 nodeId="4ba31b1028aa47e58566d008bff9c034"><span font-size="14">2.1.1.1 找到所需业务的BusinessKey</span></h4>
+<p nodeId="b6b6c7e160274ace9dc39d0574b5fbaa"><span font-size="14">1）首先进入CAT首页：</span><a href="http://cat.sankuai.com/cat/s/business?op=list" title="http://cat.sankuai.com/cat/s/business?op=list" nodeId="9db2f89b68894d3bb24b33a5656623bd"><span font-size="14">http://cat.sankuai.com/cat/s/business?op=list</span></a></p>
+<p nodeId="dbaf8e2752e2436f902b535faf9c6480"><span font-size="14">2）Domain输入框中输入：com.sankuai.rc.zeus.worker</span></p>
+<p nodeId="ed8c26cecc9b4659a84495d79b7ce6d2"><span font-size="14">3）选择报表展示-业务告警配置</span></p>
+<p nodeId="748c335ea8ee43ab80744b26478d4f53"><span font-size="14">4）BusinessKey是关键部分，命名规范如下</span></p>
+<ul nodeId="23ac7af54c4f4b5d955b4ee6bf49b575">
+<li nodeId="07be6cd5fec640269e29c1533c4b4174"><span font-size="14">scene代表场景，rule代表规则，decision代表决策，第一个数字代表业务id，第二个数字代表决策id</span></li>
+<li nodeId="2557cf949d8b4c15b262a209078677d6"><span font-size="14">例如：scene_and_rule_1_2表示 业务为1（反作弊）、决策为2（拦截）的生效规则在某个场景下的命中监控；rule_decison_1</span></li>
+</ul>
+<p nodeId="b8b11f72826747f5881c8bab08cff946"><span color="rgb(240, 94, 80)"><span font-size="14">Tips:如何找到自己业务id、决策id呢？</span></span></p>
+<p nodeId="5e4521bdb05b4482b80e350be0291973"><span font-size="14">业务ID：</span><a href="https://zeus.sankuai.com/business_group_mappings/get_list" title="https://zeus.sankuai.com/business_group_mappings/get_list" nodeId="b65c74e225bb43658cd64c6c45ccf353"><span font-size="14">https://zeus.sankuai.com/business_group_mappings/get_list</span></a></p>
+<p nodeId="7f3d3c0a7ca242d0b436678d5936528a"><a href="https://zeus.sankuai.com/business_group_mappings/get_list" nodeId="ad23299ceda840b9a1984d132c16bda3"></a><span font-size="14">决策ID：</span><a href="https://zeus.sankuai.com/decision/search" title="https://zeus.sankuai.com/decision/search" nodeId="4c1c63bcc23246b6a6d4750b63f285df"><span font-size="14">https://zeus.sankuai.com/decision/search</span></a></p>
+</td>
+<td colwidth="[908]" nodeId="92f4ca7aaf7440aa98229f6f44cd6b0b">
+<p nodeId="b0dc93b9f83943359c84828516ee1cd3" />
+</td>
+</tr>
+<tr nodeId="1defa7f3f60247cba3ac192727251f00">
+<td colwidth="[593]" nodeId="245a11707ea5409eb56a28acd6920d52">
+<h4 nodeId="e0720afd06a34d829aa8206170a51bc1"><span font-size="14">2.1.1.2 添加告警逻辑</span></h4>
+<p nodeId="4c578e5f3967407392155a99ccc5947b"><span font-size="14">1）业务告警配置-右侧告警编辑-新增告警</span></p>
+<p nodeId="a964815d65be43d681176ddb69e4801b"><span font-size="14">2）告警名：</span><span color="rgb(57, 57, 57)"><span font-size="14">warning_开头表示这是一条告警逻辑，只报出不熔断；</span></span></p>
+<p nodeId="f311b7945047456682b3b160d47db39d"><span color="rgb(57, 57, 57)"><span font-size="14">3）告警对象：次数</span></span></p>
+<p nodeId="6c2b5988bbf74dc6a1d12df3826322b7"><span color="rgb(57, 57, 57)"><span font-size="14">4）告警级别：P0、P1、P2……</span></span></p>
+<p nodeId="f967a0419ca94991b1c3e895c943673c"><span color="rgb(57, 57, 57)"><span font-size="14">5）告警组：大家可以自己配置，向告警组中添加mis号</span></span></p>
+<p nodeId="9d84f850bf334b26a3b1ea59426d9ab6"><span color="rgb(57, 57, 57)"><span font-size="14">6）告警方式：大象、邮件、短信、语音可以组合使用</span></span></p>
+<p nodeId="1f887229bbda4215bd2a67fcb7020509"><span color="rgb(57, 57, 57)"><span font-size="14">7）夜间模式、降级链接：高端功能，可默认不填</span></span></p>
+<p nodeId="40357ad15201483ab802dde976341a28"><span color="rgb(57, 57, 57)"><span font-size="14">8）剩下的监控可参考链接：</span></span><a href="http://docs.sankuai.com/doc/arch_dp/cat/alarm/alarm/" title="http://docs.sankuai.com/doc/arch_dp/cat/alarm/alarm/" nodeId="b371cf93f4a646c48c749e71c4e2cffe"><span font-size="14">http://docs.sankuai.com/doc/arch_dp/cat/alarm/alarm/</span></a></p>
+</td>
+<td colwidth="[908]" nodeId="f7dd4e7bcda64ed6a16a18d4a886a608">
+<p nodeId="5bc71109e0b549a9816797066fd16d46"><img src="https://km.sankuai.com/api/file/62939397/62966596" name="image.png" width="879" height="273" nodeId="27fbc557dfc54f70896eb81ff84418e2" /></p>
+</td>
+</tr>
+<tr nodeId="c8c300f2f9e54666b043620b6b89cc03">
+<td colwidth="[593]" nodeId="af267a8ba4fc4da09aa92d91d4727a53">
+<h4 nodeId="3668d4fdbe4b42548846600fc7c007fa"><span font-size="14">2.1.1.3 添加熔断逻辑</span></h4>
+<p nodeId="984df0a1623d4630855b087fbfc0577c"><span font-size="14">1）业务告警配置-右侧告警编辑-新增告警</span></p>
+<p nodeId="abc19eeaeedf4414a0dcba476ff26671"><span color="rgb(57, 57, 57)"><span font-size="14">fuse_开头表示这是一条熔断逻辑，触发后规则即被改为标记状态</span></span></p>
+<p nodeId="98c40f0d36ef46fb9d9d06d2d8d0efd9"><span font-size="14">2）其他与监控逻辑没区别</span></p>
+</td>
+<td colwidth="[908]" nodeId="7d750aaf963b4980af9e3965c266b9f5">
+<p nodeId="be8175cc3c324101b98a24ff3eb5728d" />
+</td>
+</tr>
+</table>
+<h3 nodeId="ffd30b9f53aa4de78c6ae443cc6b5e25">2.1.2 熔断告警逻辑生效</h3>
+<p nodeId="937c7975fecf401e92e5ab87e50605ce">联系Zeus值班号，提供需要生效的告警逻辑</p>
+<h3 nodeId="3e5e40dd1fff4170a5ea700f65637ea8">2.1.3 接收熔断告警</h3>
+<p nodeId="dc0491c6b1cc4d2a9ffa36e8d0a3be6f"><img src="https://km.sankuai.com/api/file/62939397/63020132" name="image.png" width="610" height="293" nodeId="cb686a6e778942049d1603db58a8e4dc" /></p>
+<h3 nodeId="ace5106f6d1b44c8a4dfdd86de09a612">2.1.4 处理熔断告警</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="fca813a728024fbf995d8f9621f3b20d">
+<tr nodeId="3c6d9fc78fbe46e2a3a6ee19e4a28407">
+<th colwidth="[762]" nodeId="848b7c334242492aadea2017e65f7bb1">
+<p nodeId="c9bcf13b695245788baac7871a79e65e"><span font-size="14">人工熔断</span></p>
+</th>
+<th colwidth="[303]" nodeId="d939f00066b447c09958528b0c265959">
+<p nodeId="b27fc6b823c9471aa1e1e057d8fef977"><span font-size="14">自动熔断与恢复</span></p>
+</th>
+</tr>
+<tr nodeId="506354bf9c234a42ba3bbeabbb49c88e">
+<td colwidth="[762]" nodeId="5e197b8f93f644dbb17418279d49837b">
+<p nodeId="17027d18048f4711a0e1de5db9be354a"><span font-size="14">将规则1183在场景436一键改为标记</span></p>
+<p nodeId="803d3b4dce2d4a7498ef761909b65bbb"><img src="https://km.sankuai.com/api/file/62939397/62969999" name="image.png" width="733" height="135" nodeId="309abecdf3684c7a91224896550bdcf4" /></p>
+</td>
+<td colwidth="[303]" nodeId="39c6ea3af536420d8a8599758065c4aa">
+<p nodeId="de0d6c4ac96f43e09baf7c5f8c817e80"><span font-size="14">将规则10060在场景1394一键改为生效</span></p>
+<p nodeId="48031fb6b7ed419683eaf6ea521dafe7"><img src="https://km.sankuai.com/api/file/62939397/62993382" name="image.png" width="177" height="136" nodeId="7d698778235a4075bde8ed97975b6dd1" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="b78f0f27186345098787ce0f270f559b" />
+<h2 nodeId="f2b7250e1f39492ca6835433a3f24bbf">2.2 基于druid的熔断实现</h2>
+<p nodeId="5bbeaa3489bc47c4bcd01aa508a5eccd"><span color="rgb(245, 35, 45)">对基于CAT熔断满足不了的需求比如：userid去重、高价值用户占比等数据可以通过基于druid的熔断实现。</span></p>
+<h3 nodeId="83a7109516444991b2f3a73f60900e07">2.2.1 支持的参数</h3>
+<p nodeId="3d5ce9e5644a4d529ae67a9c6cc5fabf">熔断策略是作为规则配置在业务自建的某个场景中的，当前支持的参数如下，业务可以根据自己的需求使用这些参数直接开发熔断规则</p>
+<table borderColor="#cccccc" responsive="false" nodeId="916ca5d0263645b8aa1974538c5f1c4f">
+<tr nodeId="314204fc784346b5a240aae493781abc">
+<th colwidth="[431]" bgColor="rgb(246, 246, 246)" nodeId="092d18109ef041ffa2bbf3d22f2284a1">
+<p nodeId="38ede864609448f5a1c25180a2a23206"><span font-size="14">参数名</span></p>
+</th>
+<th colwidth="[195]" bgColor="rgb(246, 246, 246)" nodeId="eeead6f576dd41af9a0b35f83aa3a105">
+<p nodeId="75a508c0df804dbeafc42cea97b7756e"><span font-size="14">类型</span></p>
+</th>
+<th colwidth="[539]" bgColor="rgb(246, 246, 246)" nodeId="6a3776f62cec4b28adde83e06ae3cc4d">
+<p nodeId="324572defe0a40399c518c97f1d83d09"><span font-size="14">含义</span></p>
+</th>
+</tr>
+<tr nodeId="f643fa1a56c34acd8c2b32198d52d2c4">
+<td colwidth="[431]" nodeId="6cec439a415b4db0a566112cfab8d5d7">
+<p nodeId="71966fbd272d499cb8eb5674d2b05cf6"><span font-size="14">fuseBusinessId</span></p>
+</td>
+<td rowspan="4" colwidth="[195]" nodeId="8c39e2be5ca44628b94d6f14dbb8165d">
+<p nodeId="92a11f7f417746969d20af1c2e6e3eb9"><span font-size="14">整型</span></p>
+</td>
+<td colwidth="[539]" nodeId="21165ca08e8f4597af7cdcd7362f3a03">
+<p nodeId="666af5e219ed4412b28a02d21fd0def2"><span font-size="14">当前熔断指标所在的业务Id</span></p>
+</td>
+</tr>
+<tr nodeId="60b41588142445dba8c74c05e1133fa9">
+<td colwidth="[431]" nodeId="61843ec2522d4dc09e0d3b4814dd31f0">
+<p nodeId="849129c48b1a4ee3a278b610105a06ef"><span font-size="14">fuseSceneId</span></p>
+</td>
+<td colwidth="[539]" nodeId="744735a7f1694b83af60cd572bb8a322">
+<p nodeId="d2e05569710e4ff6aa199fcdc72c7508"><span font-size="14">当前熔断指标监控的场景Id</span></p>
+</td>
+</tr>
+<tr nodeId="d3b871bf3fc44e6ea6a879bd89b3492c">
+<td colwidth="[431]" nodeId="e6cea2267a654675828c15f1c8e10591">
+<p nodeId="b9021e8c33614660bf4528ddc72c1d86"><span font-size="14">fuseRuleId</span></p>
+</td>
+<td colwidth="[539]" nodeId="da2a0b3fe4084754a4df61b348589df4">
+<p nodeId="ec8c8c6adfcc45389449a785f87aadc4"><span font-size="14">当前熔断指标监控的规则Id</span></p>
+</td>
+</tr>
+<tr nodeId="cbbf866406a44aafb566d21db7dcaf16">
+<td colwidth="[431]" nodeId="6a329409cec3461084c8dd941c274ab7">
+<p nodeId="197d2be5945543b1b8977dffac76daf8"><span font-size="14">fuseDecisionId</span></p>
+</td>
+<td colwidth="[539]" nodeId="1428fbcacf804f0cbb63724e399209e3">
+<p nodeId="ebbca424771c4032817f1d7dd000abea"><span font-size="14">当前熔断指标监控的决策Id</span></p>
+</td>
+</tr>
+<tr nodeId="398492ef8b524c3fa8a307d1c76768da">
+<td colwidth="[431]" bgColor="rgb(255, 255, 255)" nodeId="5befc2af4932465bb249c494ce11b803">
+<p nodeId="83fd500108d7497c970df3fa1fcb1402"><span color="rgb(51, 51, 51)"><span font-size="14">distinctUserIdInAllSceneThisMinute</span></span></p>
+</td>
+<td colwidth="[195]" bgColor="rgb(255, 255, 255)" nodeId="2d84672cd8b2486490ad13356e9aeba6">
+<p nodeId="8bd5d4144b4e42e8b56920a2a73dc705"><span font-size="14">长整型</span></p>
+</td>
+<td colwidth="[539]" bgColor="rgb(255, 255, 255)" nodeId="18b85f71844d4589b7352ab2226a9bd1">
+<p nodeId="fbb63393b0f74e3690a0c71bbf4c3790"><span color="rgb(51, 51, 51)"><span font-size="14">生效规则 在 所有场景 当前分钟 命中量（按userid去重）</span></span></p>
+</td>
+</tr>
+<tr nodeId="2b927f947689454eb0016476f002e492">
+<td colwidth="[431]" bgColor="rgb(255, 255, 255)" nodeId="d0ba708a13504129bf1a01ae4b01cb8d">
+<p nodeId="61a8c2302d694fe284b3af4350f6f56f"><span color="rgb(51, 51, 51)"><span font-size="14">distinctUserIdClassifiedBySceneInLast5Minutes</span></span></p>
+</td>
+<td colwidth="[195]" bgColor="rgb(255, 255, 255)" nodeId="edd64505226b4d9c9f421ea1f177d45c">
+<p nodeId="a612e49ce53c488b805165ac891d4233"><span font-size="14">长整型</span></p>
+</td>
+<td colwidth="[539]" bgColor="rgb(255, 255, 255)" nodeId="cdc032bd440744df9dde1dd1a233f6a6">
+<p nodeId="7b1dedb0d547401293f581742fdbdaca"><span color="rgb(51, 51, 51)"><span font-size="14">生效规则 在 某场景 最近5分钟 命中量 （按userid去重）</span></span></p>
+</td>
+</tr>
+<tr nodeId="c2aa61b87bba41a28b869d14927eb16c">
+<td colwidth="[431]" bgColor="rgb(255, 255, 255)" nodeId="66311d3daf3744e7b6d5961133298823">
+<p nodeId="51b4ca2fdd694972b3250a8cb15dbcd5"><span color="rgb(51, 51, 51)"><span font-size="14">distinctUserIdToAllRequestRatioClassifiedBySceneThisMinute</span></span></p>
+</td>
+<td colwidth="[195]" bgColor="rgb(255, 255, 255)" nodeId="68f90fad128a44e196c48d24e477bb16">
+<p nodeId="58567a67088744ed9b912b34053a593b"><span font-size="14">双精度型</span></p>
+</td>
+<td colwidth="[539]" bgColor="rgb(255, 255, 255)" nodeId="05ab897cbffb413c8ba085924cecdde6">
+<p nodeId="c201054afaa64af1bc6c1dbd03804ee9"><span color="rgb(51, 51, 51)"><span font-size="14">生效规则 在 某场景  当前分钟 命中量 占 该场景总流量的比例（按userid去重）</span></span></p>
+</td>
+</tr>
+<tr nodeId="256785cd9674437a8e7379836fa50e98">
+<td colwidth="[431]" bgColor="rgb(255, 255, 255)" nodeId="2993df4e71254d52b7e2f49540a365e8">
+<p nodeId="91f24a8826e94700ba12d76591251ee4"><span color="rgb(51, 51, 51)"><span font-size="14">distinctUserIdClassifiedBySceneThisMinute</span></span></p>
+</td>
+<td colwidth="[195]" bgColor="rgb(255, 255, 255)" nodeId="4fd4d94dcec14e75a1cf691c314c817e">
+<p nodeId="0fab8f1540e14027943bc1e26964890d"><span font-size="14">长整型</span></p>
+</td>
+<td colwidth="[539]" bgColor="rgb(255, 255, 255)" nodeId="b4aa6518d5cf4b5d9861ba0c46d41b53">
+<p nodeId="9c1b5669560f4fd288988b12403262ca"><span color="rgb(51, 51, 51)"><span font-size="14">生效规则 在 某场景 当前分钟 命中量 （按userid去重）</span></span></p>
+</td>
+</tr>
+<tr nodeId="4494d5b368fa4e0a8c77d657d4a5d49f">
+<td colwidth="[431]" bgColor="rgb(255, 255, 255)" nodeId="cab2800d86564c93bbd5e9f61c727a30">
+<p nodeId="12057f4f2922475c8c7329cf6097574f"><span color="rgb(51, 51, 51)"><span font-size="14">distinctHighValueUserIdClassifiedBySceneThisMinute</span></span></p>
+</td>
+<td colwidth="[195]" bgColor="rgb(255, 255, 255)" nodeId="3fccd3c20c224232b29b1b4fa8b46937">
+<p nodeId="994a8d56baf14104b5175ec430a795be"><span font-size="14">长整型</span></p>
+</td>
+<td colwidth="[539]" bgColor="rgb(255, 255, 255)" nodeId="540781eda7ef47c3b71f3b11d111ad75">
+<p nodeId="d2b1917db75444649d94dc48901ffa3b"><span color="rgb(51, 51, 51)"><span font-size="14">生效规则 在 某场景 当前分钟 命中量 中 高价值用户数（按userid去重）</span></span></p>
+</td>
+</tr>
+<tr nodeId="55a86a0dcf194d92813d9f35832659ce">
+<td colwidth="[431]" bgColor="rgb(255, 255, 255)" nodeId="9f3afa563d4b43fe80fad90b8799e3f1">
+<p nodeId="d644117fe5054f7fa4d9cd5d6f7c7e7d"><span color="rgb(51, 51, 51)"><span font-size="14">distinctHighValueUserIdRatioClassifiedBySceneThisMinute</span></span></p>
+</td>
+<td colwidth="[195]" bgColor="rgb(255, 255, 255)" nodeId="ce34baa641d34575ba7d601f3e785af9">
+<p nodeId="44e70f55a21e4535a78d927319927099"><span font-size="14">双精度型</span></p>
+</td>
+<td colwidth="[539]" bgColor="rgb(255, 255, 255)" nodeId="6d827bc1b8a9449ba14701a31171d84d">
+<p nodeId="6ea9e2979ae646799cf70fe15da0e85f"><span color="rgb(51, 51, 51)"><span font-size="14">生效规则 在 某场景  当前分钟命中量 中 高价值用户占比（按userid去重）</span></span></p>
+</td>
+</tr>
+<tr nodeId="e333ae472a9d4769acd908962e51451f">
+<td colwidth="[431]" nodeId="fd6a630db2f54206925f1c1f93b7a73b">
+<p nodeId="078602c8a1304a9d8ebd8d034ddea86f"><span color="rgb(51, 51, 51)"><span font-size="14">distinctUserIdClassifiedBySceneLastMinute</span></span></p>
+</td>
+<td colwidth="[195]" bgColor="rgb(255, 255, 255)" nodeId="db4b28e3bc1949f3ac0ce361c8f91667">
+<p nodeId="dd343eb4dacf4191bd02bb459f3b86ed"><span font-size="14">长整型</span></p>
+</td>
+<td colwidth="[539]" nodeId="b58ae7f6744641abb6505527e0c69b7c">
+<p nodeId="38b9d623cd96492c88e4ef1de7f89594"><span color="rgb(51, 51, 51)"><span font-size="14">生效规则 在 某场景 上一分钟 命中量 （按userid去重）</span></span></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="dac576372fbd4e2aad7d83056f0efa25">2.2.2 实现方式</h3>
+<p nodeId="92177d7fde054dffbe89ce367d4f0d8e">熔断服务会每分钟查询一次数据库，对于每个businessId*sceneId*ruleId*decisionId维度，都会计算出一个context，context中包含如上参数列表中的所有参数。我们会把每个维度构造的context参数都过一遍<span color="rgb(245, 34, 45)">提前配置好的熔断场景</span><span color="rgb(51, 51, 51)">，场景中的熔断策略由业务的同事自己编辑，最后根据是命中“人工熔断”还是“自动熔断”进行后续的处理。</span><span color="rgb(245, 34, 45)">为了保证安全性暂时只支持“人工熔断”。</span></p>
+<h3 nodeId="7a8d5793571749a6a88aa79735e8efb5">2.2.3 使用案例</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="9da88931853e43149621ad371fb11902">
+<tr nodeId="01bb01f7cf494799bee899c5e21f1bad">
+<th colwidth="[329]" nodeId="dac1ea92f9b343a29db262881d3f3ceb">
+<p nodeId="0ef97cb2e41946bbb4333847bfbd251e"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[941]" nodeId="5c2b9e5bcb9a4315969dff38fdc8ab70">
+<p nodeId="ad138e399ff44b13823ff6a99bd68d29"><span font-size="14">示例</span></p>
+</th>
+</tr>
+<tr nodeId="88aaead099dd404ca6a680e1c818fe7e">
+<td rowspan="3" colwidth="[329]" nodeId="2118a6d1ffa848a6bdc6ad1294ab6b46">
+<ol nodeId="667769b0a6704e06ab190a32c6c6ccd1">
+<li nodeId="f496c20de482469e92335bc02b2ef972"><span font-size="14">业务同事创建一个熔断场景，用于编写如上参数构成的熔断规则</span></li>
+<li nodeId="264bbc0f74244694ac917056c9098600"><span font-size="14">业务同事创建“自动熔断”和“人工熔断”决策，以及如上参数列表中的参数</span></li>
+<li nodeId="d227e4e48f424c949cf720fdcefb1dd0">
+<p nodeId="9a738ef8658b425d9cb816ea4edb180a"><span font-size="14">与Zeus同事（  @Zeus）沟通如下信息，由Zeus同事进行配置</span></p>
+<ol nodeId="b62ab509973740ce80759b255bf6882b">
+<li nodeId="a98f88378dd34e7b80cddbac02bb2c43"><span font-size="14">要监控采样的决策Id</span></li>
+<li nodeId="753eef4480c949b5a0fec16e16f1f040"><span font-size="14">业务的businessId</span></li>
+<li nodeId="18a29a4210434d4884b270c55643c81f"><span font-size="14">业务负责人misId（自动熔断或人工熔断后会大象通知负责人）</span></li>
+<li nodeId="9ea26e2f9edd4079bd0f658b11d1759e"><span font-size="14">熔断策略所在的场景Id</span></li>
+<li nodeId="ca42067a55e14df382634825dac25665"><span font-size="14">自动熔断的决策Id</span></li>
+<li nodeId="666445e66fbc434ba3839234ffbed115"><span font-size="14">人工熔断的决策Id</span></li>
+</ol>
+</li>
+<li nodeId="0f5e132225914bfa97efa93fb20de409"><span font-size="14">在之前配置的场景中编写熔断规则</span></li>
+<li nodeId="ad5716794c9d4181b18b05caf95b5176"><span font-size="14">完成以上几步后Zeus熔断服务就会自动监控配置的业务和决策，并会每分钟计算一次所有维度的参数，打包成一次请求放到业务创建的熔断场景中，如果命中熔断规则就会触发相应的决策（只能为自动熔断或人工熔断）</span></li>
+</ol>
+<p nodeId="6f703ae941ba4794b4ff7b1863a4058a" />
+</td>
+<td colwidth="[941]" nodeId="5e215fec3a534fe4a47847624689037c">
+<p nodeId="b99ffed35700433f93549712c06eb4f0"><img src="https://km.sankuai.com/api/file/62939397/346500478" name="image.png" width="912" height="100" nodeId="9dd8ab722efd4f37a4c18101bd5b4d08" /></p>
+</td>
+</tr>
+<tr nodeId="5c561e2c92ba484fbc17c0f9a3d96b15">
+<td colwidth="[941]" nodeId="58d90a774901427ab6db6afc933cf09e">
+<p nodeId="030bc2576a534c258549e296a274a331"><img src="https://km.sankuai.com/api/file/62939397/346500622" name="image.png" width="912" height="382" nodeId="94e6edbca57748679a16e288ad47a64c" /></p>
+</td>
+</tr>
+<tr nodeId="cefa9a46f17f4d6c84121545cfa72295">
+<td colwidth="[941]" nodeId="9b4d5c1d144746399ca8e8a62d1d254d">
+<p nodeId="21798969d9a143338f57af83de72ceca"><img src="https://km.sankuai.com/api/file/62939397/346436845" name="image.png" width="319" height="138" nodeId="2a7f5728ff1148ba931139a277201557" /></p>
+</td>
+</tr>
+<tr nodeId="c8cf557adcfa40c3ad18d29b077076e4">
+<td colwidth="[329]" nodeId="f3bfa6ffc4b344a29d19759d9b4b1ceb">
+<ol nodeId="b777cb09e5ef4cce816c267cc821ce26">
+<li nodeId="a798f03945a94446a4cf64c1044f2623"><span font-size="14">触发人工熔断的决策后会发送大象给配置的负责人，可以通过查看该规则最近的拦截情况，如果不符合预期则可以点击“一键熔断”直接把该场景中的该规则改为标记</span></li>
+<li nodeId="c993543866ff419e966cc915a4c92fa7"><span font-size="14">触发自动熔断的决策后会直接将该场景中的该规则变为标记状态，并且发送大象给配置的负责人，可以通过查看该规则最近的拦截情况，如果发现规则没问题可以点击“一键恢复”把被熔断的规则恢复</span></li>
+</ol>
+</td>
+<td colwidth="[941]" nodeId="ca1b4af82e344ef59faa6dd427e395e6">
+<p nodeId="c9b847e4b1004f9c86e8e706dc34cfe4"><img src="https://km.sankuai.com/api/file/62939397/346500479" name="image.png" width="256" height="188" nodeId="fb310d55be01453daa335bbadb658978" /><img src="https://km.sankuai.com/api/file/62939397/346269778" name="image.png" width="256" height="188" nodeId="80ea6db3483742d49d6056481770d9f9" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="993e1f42685d46538e208555d03a53c7" />
+</km-doc>

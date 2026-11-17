@@ -1,0 +1,54 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>04 画布调试</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">1 旁路输出</a><a href="#section-34">2 仿真测试</a><a href="#section-46">3 自定义日志</a><a href="#section-54">4 画布拨测（待上线）</a><a href="#section-57">5 表达式调试小工具（待上线）</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：画布</a> / <a href="index.html">04 画布调试</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1426202145">查看学城原文</a></p><article>
+<h1>04 画布调试</h1>
+<div style="none"></div>
+<h1 id="section-3">1 旁路输出</h1>
+<p><img src="assets/db8e329b0fe0d366.png" width="484" height="339" alt="image.jpeg"></p>
+<p><a href="https://km.sankuai.com/page/1200659710" title="https://km.sankuai.com/page/1200659710">说明：画布- 旁路输出组件</a></p>
+<p><span>将流转至该节点的数据全部输出至指定topic</span></p>
+<p>【常见使用场景】</p>
+<ol>
+<li>用于输出到离线hive，进行离线数据分析及策略调试</li>
+</ol>
+<p>【配置相关】</p>
+<p>如何将topic转为hive：</p>
+<ol>
+<li>
+<p><span>Zeus选择 旁路输出 组件，输出格式选择json</span></p>
+<p><img src="assets/1a401ee76e1c8553.png" width="332" height="265" alt="image.jpeg"></p>
+</li>
+<li>
+<p><span>通过大数据平台接入kafka topic，将数据存储到hive中</span><a href="https://data.sankuai.com/exporter#/distribution" title="https://data.sankuai.com/exporter#/distribution">https://data.sankuai.com/exporter#/distribution</a><img src="assets/2cdd59eb11684a67.png" width="464" height="381" alt="image.jpeg"></p>
+<p><img src="assets/b0739b11ea56dc85.png" width="443" height="364" alt="image.jpeg"></p>
+</li>
+<li>
+<p><span>配置完后需要检查作业状态，正常20分钟后就能从hive里查数据了。</span><a href="https://data.sankuai.com/exporter#/distribution/dls/13327" title="配置示例">配置示例</a></p>
+<p><img src="assets/8f4e5b7f1bfd13aa.png" width="1338" height="315" alt="image.jpeg"></p>
+</li>
+</ol>
+<h1 id="section-34">2 仿真测试</h1>
+<p><img src="assets/84cd0698750914b5.png" width="692" height="600" alt="image.jpeg"></p>
+<ul>
+<li>用于辅助业务和研发对于执行过程和执行逻辑的快速排查</li>
+</ul>
+<p>【布控自助亮点】</p>
+<ol>
+<li>仿真测试输入，可选择历史测试数据直接进行测试<img src="assets/145864fcc311629c.png" width="1338" height="269" alt="image.jpeg"></li>
+<li>执行失败的组件可点击查看具体报错情况</li>
+<li>具体报错内容已由纯代码形式转换成了自然语言</li>
+<li>组件本身配置不符合逻辑，由平台兜底逻辑通过执行的组件置为黄色，提示用户警告信息</li>
+</ol>
+<h1 id="section-46">3 自定义日志</h1>
+<p><img src="assets/c27cc56473b115dd.png" width="386" height="107" alt="image.jpeg"><img src="assets/4e3d301b8d2a393b.png" width="431" height="176" alt="image.jpeg"></p>
+<p><a href="https://km.sankuai.com/collabpage/1366107270" title="https://km.sankuai.com/collabpage/1366107270">说明：画布 - 自定义日志配置及查看</a></p>
+<ul>
+<li>用于辅助业务指定调试表达式/代码某部分内容</li>
+</ul>
+<h1 id="section-54">4 画布拨测（待上线）</h1>
+<ul>
+<li>支持用户自定义流量调用画布获取决策，判断结果是否满足用户诉求的任务配置，确保线上环境作业的有效性</li>
+</ul>
+<h1 id="section-57">5 表达式调试小工具（待上线）</h1>
+<ul>
+<li>支持用户在一个界面对aviator表达式的调试单测</li>
+</ul>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/说明：画布拨测__1686793193/index.html">说明：画布拨测</a> <span class="status">已保存</span></li></ul></section></main></body></html>

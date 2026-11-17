@@ -1,0 +1,844 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>近线画布用户指南</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-17">一、近线画布概述</a><a href="#section-18">1. 什么是近线决策</a><a href="#section-31">2. 什么是近线画布</a><a href="#section-42">3. 为什么要做近线画布</a><a href="#section-76">4. 近线画布生态概览</a><a href="#section-78">二、名词解释</a><a href="#section-111">三、操作与功能说明</a><a href="#section-122">3.1 事前准备</a><a href="#section-162">3.2 画布使用</a><a href="#section-163">3.2.1 数据源接入</a><a href="#section-239">3.2.2 数据源预处理</a><a href="#section-345">3.2.3 数据处理</a><a href="#section-535">3.2.4 数据聚合</a><a href="#section-603">3.2.5 决策执行</a><a href="#section-626">3.2.6 用户自定义函数使用（UDF）</a><a href="#section-634">3.3 画布调试</a><a href="#section-718">3.4 监控治理</a><a href="#section-775">四、各业务画布使用最佳实践</a><a href="#section-782">五、画布性能调优最佳实践</a><a href="#section-789">六、FAQ</a><a href="#section-790">1.我更新完画布，版本显示生效但作业启动失败，过几分钟又通知作业启动成功是什么情况</a><a href="#section-801">2.仿真测试kafka报错说解析为空怎么解决</a><a href="#section-806">3.日志中心为什么看不到我配置的kafka topic中的某个字段</a><a href="#section-814">4.我最近修改了某个画布的内容，点保存的时候出现了我没有修改的组件的报错怎么办</a><a href="#section-817">5.想要使用画布或体验画布，如何操作？</a><a href="#section-823">七、宣讲记录</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：画布</a> / <a href="index.html">近线画布用户指南</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1352098872">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>近线画布用户指南</h1>
+<div style="none"></div>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:24px"><strong>如有任何疑问，请联系 </strong></span></span><span style="font-size:24px"><strong>产品：</strong></span><span>@杜思思</span><span style="font-size:24px"><strong>研发：</strong></span><span>@姜涛</span><span>@葛磊</span><span>@秦银</span><span>@储召杨</span><span>@田雨鸣</span></p>
+<h1 id="section-17">一、近线画布概述</h1>
+<h2 id="section-18">1. 什么是近线决策</h2>
+<p>近线基于Flink计算引擎，消费流式数据进行分钟级识别决策，支持单事件和多事件处理<span>，支持单流分析和多流关联。</span></p>
+<div class="note">
+<strong>如您的业务场景匹配以下任一特点，欢迎使用近线引擎：</strong>
+<div>
+<ul>
+<li><strong>多事件决策</strong>：依赖单事件不足以识别风险，需要融合多事件信息或者进行数据增强后综合决策，例如基于用户行为序列识别作弊风险。</li>
+<li><strong>分秒级时效</strong>：离线策略/模型检出时效性差，可能导致漏过或者影响用户体验，实时（毫秒级识别）又无法实现复杂的决策逻辑。</li>
+<li><strong>短周期回溯</strong>：识别出风险后，希望对历史短周期（分钟/小时）的流量进行快速的回溯处置，离线处置无法满足时效需求，例如识别高危设备后对近期登录过的账户进行冻结。</li>
+</ul>
+</div>
+</div>
+<h2 id="section-31">2. 什么是近线画布</h2>
+<p>近线画布是使用近线决策引擎的一种策略配置方式，让用户可以在一个页面通过拖拉拽的方式完成<u>模型配置-仿真测试-任务启动-状态感知-告警通知</u>的全流程。</p>
+<p><em><strong><u>画布与场景的区别？</u></strong></em></p>
+<p>场景：针对某种风险的<span style="color:#FF4A47">实时建模单元</span>，内含多个规则、决策。</p>
+<p>画布：针对某种风险的<span style="color:#FF4A47">近线建模单元</span>，内含多事件加工、规则、决策。</p>
+<h2 id="section-42">3. 为什么要做近线画布</h2>
+<p>【背景】</p>
+<table>
+<tr>
+<th>
+<p>for 基础安全 用户</p>
+</th>
+<th>
+<p>for 非基础安全其他 用户</p>
+</th>
+</tr>
+<tr>
+<td>
+<ul>
+<li><strong>灵活诉求多</strong>：有些策略模型包含数据处理、基线过滤、聚合告警三大模块，其中又依赖黑白规则、CEP等，整体配置流程长，复杂度高场景规则的方式无法满足其数据处理、过滤等节点的灵活配置、格式化逻辑中使用因子等诉求。</li>
+<li><strong>配置不友好</strong>：业务方群体为熟悉代码的安全工程师，原有策略均为代码部署。场景规则的方式将原有简单策略模型进行分层模块化配置，需要将大段代码在一个规则中实现（如CEP规则），维护成本较高，且后续复杂模型支持，对于用户使用友好度过低。</li>
+</ul>
+</td>
+<td>
+<ul>
+<li><strong>逻辑表达不清晰</strong>：场景规则的策略描述逻辑表征能力较差。而画布dag图形式无论是拖拉拽的简单配置方式还是表达逻辑的能力都比场景规则更清晰简单</li>
+<li><strong>多流数据表达能力弱</strong>：对于多流数据的表征语言场景规则表达能力有限。</li>
+</ul>
+</td>
+</tr>
+</table>
+<p>画布好在这些地方...</p>
+<ol>
+<li><span style="color:#00BA73">​拖拉拽低代码配置，上手成本低</span><span style="color:rgba(0, 0, 0, 0.87)">通过</span><span>拖拉拽组件至画布中，并自由连接各个组件模块，配置符合策略执行顺序的可视化图链路</span></li>
+<li><span style="color:#00BA73">​仿真测试调试透明，debug更清晰</span><span style="color:rgba(0, 0, 0, 0.87)">通过展示图中每个节点算子的输入输出字段，更清晰的明确数据流的流转的形式</span></li>
+<li><span style="color:#00BA73">​作业异常告警分级，排查效率更高</span><span style="color:rgba(0, 0, 0, 0.87)">通过划分不同作业优先级，配置给不同作业队列资源保障及响应速度，让资源和人力用在刀刃上</span></li>
+</ol>
+<p>因此，Zeus开始探索让用户实现在一个页面完成复杂模型的配置-测试灰度-计算任务自启动-模型运行状态感知-告警通知的全链路。但客观来讲，画布不是绝对优于场景规则。画布的缺乏整体视角，而场景规则的某一场景下配了几条策略场景规则配置会较为清晰，用户需结合自己的使用习惯及实际需求选择某种配置方式</p>
+<h2 id="section-76">4. 近线画布生态概览</h2>
+<img src="assets/15c611de919240fc.svg" width="608" height="304" alt="流程图">
+<h1 id="section-78">二、名词解释</h1>
+<table>
+<tr>
+<th>
+<p>名词</p>
+</th>
+<th>
+<p>解释</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>画布</p>
+</td>
+<td>
+<p>策略部署的一种模式，用户可以在画布中通过拖拽的方式自定义配置一条数据处理流，以多个数据源组件作为起始，以多个决策类组件作为终止。当用户完成策略的配置之后，画布会自动生成一个flink任务用来执行用户所配置的逻辑。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>组件</p>
+</td>
+<td>
+<p>组成画布的功能块，包括常规的流数据处理（join,groupby,distinct，数据拆分等）逻辑判断（if-else等），规则与自定义代码执行，决策（金丝雀告警，落kafka，丢弃等）。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>熔断配置</p>
+</td>
+<td>
+<p>基于画布组件/组件内规则 配置的熔断内容，包括熔断对象（组件/组件内的规则）、熔断作用时间、熔断监控规则、告警人等。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>仿真测试</p>
+</td>
+<td>
+<p><span>通过输入单条/批量的mock数据，展示画布策略全链路执行情况及单个流程节点命中详情</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>画布拨测</p>
+</td>
+<td>
+<p>用户自定义流量调用画布获取决策，判断结果是否满足用户诉求的任务配置，确保线上环境作业的有效性</p>
+</td>
+</tr>
+</table>
+<h1 id="section-111">三、操作与功能说明</h1>
+<ul>
+<li><strong>五分钟快速上手</strong></li>
+</ul>
+<img src="assets/7fd0a4d9eba995f4.svg" width="1506" height="366" alt="流程图">
+<p><img src="assets/d5f3b084aec6e010.png" width="302" height="172" alt="image.jpeg"><img src="assets/9c991ad185c50fbc.png" width="305" height="174" alt="image.jpeg"><img src="assets/3b6f5fe239d5d3a0.png" width="312" height="178" alt="image.jpeg"><img src="assets/55bd2b9bad91bd8b.png" width="310" height="177" alt="image.jpeg"><img src="assets/19e870f61e581f93.png" width="314" height="179" alt="image.jpeg"></p>
+<h2 id="section-122">3.1 事前准备</h2>
+<p>若有基于风控相关的需求想接入使用画布功能，请完成以下步骤开通使用：</p>
+<ol>
+<li>整理业务具体画布使用场景及需求文档，联系近线画布产研<span>@杜思思</span><span>@姜涛</span>评估是否可以接入使用</li>
+<li>
+<p>评估通过后，按照以下格式发送邮件，经上级批准后由值班研发处理开通</p>
+<details>
+<summary>邮件格式</summary>
+<div>
+<p>            收件人：申请人直属上级</p>
+<p>            抄送人：杜思思（dusisi）、刘思淼（liusimiao）、龙含嫣（longhanyan）<span>、金丽丹（jinlidan）</span>、郭东方（<span style="color:rgba(0, 0, 0, 0.54)">guodongfang02</span>）、姜涛（<span style="color:rgba(0, 0, 0, 0.54)">jiangtao59</span>）</p>
+<p>具体格式如下：</p>
+<p>             a.邮件标题：【Zeus画布使用权限申请】申请部门+申请人  例：【Zeus画布使用权限申请】美团/基础研发平台/信息安全部/风控和业务安全/平台和数据产品 +刘思淼</p>
+<p>             b.邮件正文：</p>
+<ul>
+<li>
+<p>申请人MIS号：</p>
+</li>
+<li>
+<p>申请人部门：（举例：美团/基础研发平台/信息安全部/风控和业务安全/平台和数据产品 ）</p>
+</li>
+<li>
+<p>需求背景：说明此需求来源的背景以及用途；</p>
+</li>
+<li>
+<p>需求说明：说明使用画布的用途；</p>
+</li>
+</ul>
+</div>
+</details>
+</li>
+<li>准备万象组id、名称及实时计算队列资源（单位CU，若业务无自身队列资源，可估算预计使用情况向Zeus申请资源使用），提供给值班近线<span>@Zeus</span>研发完成画布空间开通</li>
+</ol>
+<details>
+<summary>资源预估方法</summary>
+<div>
+<ol>
+<li><em><strong><u>基于数据分区数量的粗略估计</u></strong></em></li>
+</ol>
+<p>CU数量 = MAX（多个Kafka Topic分区数量）  <a href="https://kafka.sankuai.com/#/topic/summary" title="查询kafka分区数量">查询kafka分区数量</a></p>
+</div>
+</details>
+<h2 id="section-162">3.2 画布使用</h2>
+<h3 id="section-163">3.2.1 数据源接入</h3>
+<ul>
+<li><strong>目的：确定该画布作业输入的数据来源。当前支持Kafka</strong><em><strong>、Mafka</strong></em><strong>消息接入</strong></li>
+</ul>
+<table>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>Kafka</p>
+</td>
+<td>
+<p><img src="assets/41093d0fcb81fe1e.png" width="207.43" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200718382" title="https://km.sankuai.com/page/1200718382">说明：画布- Kafka配置指南</a></p>
+<p>示例<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15</a>组件1</p>
+<p>【配置相关】</p>
+<ul>
+<li>
+<p><strong>Namespace/Topic</strong>填写用以确定选中某一数据源</p>
+<ul>
+<li>权限：填写完成后系统会自动校验配置者是否有该数据源权限，若无则需跳转至kafka平台进行权限申请<img src="assets/fc8e36a7781a4f36.png" width="330" height="148" alt="image.jpeg"><img src="assets/b28c5074b767c43d.png" width="287" height="236" alt="image.jpeg"></li>
+<li>申请权限的需求方请填写为所在<span style="color:rgba(0, 0, 0, 0.87)">业务域对应的项目组</span></li>
+</ul>
+</li>
+<li>
+<p><strong>日志类型</strong>：如果json选择log或newlog格式直接配置即可；如果是特殊格式或者需要一对多转换，需要使用自定义数据源方式。</p>
+<ul>
+<li><span>自定义数据源代码需要继承IParser抽象类，并实现parse方法；如果希望输出多条数据，需要继承IFlatParser抽象类，并实现flatParse方法</span></li>
+</ul>
+</li>
+<li>
+<p><strong>参数配置</strong>（高级配置）：当用户选择多个kafka 数据源时，可能存在不同数据源有相同的字段，在后面进行逻辑编写时可能存在字段重复导致逻辑配置有问题，所以可以在参数配置模块对topic里的字段进行重命名</p>
+<p></p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>Mafka</p>
+</td>
+<td style="background-color:#FFF">
+<p><img src="assets/f2175e3357b83070.png" width="246" height="600" alt="image.jpeg"></p>
+</td>
+<td style="background-color:#FFF">
+<p>待上线功能（预计11月底上线，敬请期待~）</p>
+<p><a href="https://km.sankuai.com/collabpage/1447281124" title="https://km.sankuai.com/collabpage/1447281124">说明：画布- Mafka配置指南</a></p>
+<ul>
+<li>支持近线画布接入及输出mafka消息</li>
+</ul>
+<p>【配置相关】</p>
+<ul>
+<li>
+<p><span style="font-size:14px"><strong>是否配置set消费</strong></span><span style="font-size:14px">：默认不配置set消费</span></p>
+<ul>
+<li>跨set消费：选中后，将消费所有set</li>
+<li>指定set<span>消费</span>：选中后，需指定一个cell</li>
+</ul>
+</li>
+<li>
+<p><span><strong>消费起点</strong></span><span>：默认选中从最新消费</span></p>
+<ul>
+<li>从最新消费</li>
+<li>指定消费起始时间：需选择<span style="color:rgb(0, 0, 0)">消费起始的时间，默认回溯一天。如果需要回溯多天消息，请先前往</span><a href="http://mafka.mws-test.sankuai.com/consumer/95119569/detail/track?showPriority=1&amp;topicId=26027805&amp;consumerId=95119572&amp;buId=5&amp;action=monitor" title="mafka平台申请白名单">mafka平台申请白名单</a><span style="color:rgb(0, 0, 0)">，若未申请白名单但选择多天，系统将自动只回溯一天消息</span></li>
+<li>接上次消费</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<p></p>
+<h3 id="section-239">3.2.2 数据源预处理</h3>
+<ul>
+<li><strong>目的：对数据源中的数据进行初步补充、筛选及过滤</strong></li>
+</ul>
+<table>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Select</p>
+</td>
+<td>
+<p><img src="assets/1bf18c5966210568.png" width="440.18" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200639384" title="https://km.sankuai.com/page/1200639384">说明：画布- Select组件</a></p>
+<p>简单逻辑，可以用Select组件（aviator语法），exp-5支持比较复杂的语法</p>
+<p><span>示例：</span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=47&amp;version=15</a><span> 组件17</span></p>
+<p>【配置相关】</p>
+<ul>
+<li><strong>丢弃其余变量</strong>：选择后select输入框中未选择的变量会在此环节丢弃</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>代码组件</p>
+</td>
+<td>
+<p><img src="assets/ecdb25c68be909c9.png" width="363" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200639574" title="https://km.sankuai.com/page/1200639574">说明：画布- 代码组件</a></p>
+<p>复杂逻辑，可以用代码组件（java语法）</p>
+<p><span>示例 </span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11</a><span> 组件26</span></p>
+<p><span>【常见使用场景】</span></p>
+<ol>
+<li>转化数据格式</li>
+<li>进行数据增强</li>
+<li>其余各种自定义用途</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>选择返回一个值或返回多个值逻辑，选择后代码框中会出现提示代码</li>
+</ul>
+<ul>
+<li>
+<p>如果要实现“返回一个值”的逻辑，则继承抽象类IProcessor，并实现process方法。</p>
+</li>
+<li>如果要实现“返回多个值”的逻辑，则继承抽象类IFlatProcessor，并实现flatProcess方法。</li>
+<li>
+<p>process方法入参为传入该组件的上下文，出参为经过该组件处理后的上下文。</p>
+</li>
+<li>
+<p>flatProcess方法入参为传入该组件的上下文，出参为经过该组件处理后的多条上下文。</p>
+<p></p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>规则集合</p>
+</td>
+<td>
+<p><img src="assets/40fc798496acaf26.png" width="483" height="467" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200669387" title="https://km.sankuai.com/page/1200669387">说明：画布- 规则集合组件</a></p>
+<p>示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=76&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=76&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=76&amp;version=1</a>组件2</p>
+<p>【常见使用场景】</p>
+<ol>
+<li>过黑白规则/黑白名单进行数据过滤</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>如果规则集合中有多条规则，所有规则都会被执行；</li>
+<li>每条规则的执行结果（true/false）会写入到上下文中，key格式是：ruleResult_规则id。例如12345规则的结果key是ruleResult_12345；</li>
+<li>每个规则内部使用的因子执行结果都会被加入到上下文中，key是因子英文名。</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>数据获取</p>
+</td>
+<td>
+<p><img src="assets/2c9f2c64d3bbdb36.png" width="227" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1319403547" title="https://km.sankuai.com/page/1319403547">说明：画布 - 数据获取</a></p>
+<p>http get:  <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1</a></p>
+<p>http post: <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1</a></p>
+<p>rpc : <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1</a></p>
+<p>【常见使用场景】</p>
+<ol>
+<li><span>用于获取增量补充数据用于策略执行</span></li>
+</ol>
+<p>【配置相关】</p>
+<img src="assets/ebe9f4057a963470.svg" width="986" height="194" alt="流程图">
+<ul>
+<li>
+<p>key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</p>
+</li>
+<li>
+<p>Squrriel平台限流值: 6w/min</p>
+<p>S3平台限流值：6k/min</p>
+<p>RPC平台限流值:3w/min</p>
+<p>HTTP平台限流值: 6k/min，如需更高流量，请联系近离值班rd</p>
+</li>
+<li><strong>注意用户配置过程中限流量最好进行配置兜底，否则上线后可能出现大value+无缓存打爆了Squirrel的情况</strong></li>
+</ul>
+</td>
+</tr>
+</table>
+<p></p>
+<h3 id="section-345">3.2.3 数据处理</h3>
+<table>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>if...else</p>
+</td>
+<td>
+<p><img src="assets/8f3d78307adc33d1.png" width="482" height="587" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200679482" title="https://km.sankuai.com/page/1200679482">说明：画布- If...Else组件</a></p>
+<p>示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=79&amp;version=6" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=79&amp;version=6">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=79&amp;version=6</a>组件3</p>
+<p>【配置相关】</p>
+<ul>
+<li><strong>rule表达式框</strong>：<span>支持填写简单条件，也支持填写复杂条件。表达式字段为上文所传字段（含原始字段和自定义字段，如果原始字段被重新定义过，则填写自定义后的字段名）</span></li>
+<li><span>当有两个及以上rule配置框时，需要明确多个rule之间的「与」「或」「非」关系</span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>groupby组件</p>
+</td>
+<td>
+<p><img src="assets/bf06e8471cac0f4d.png" width="207" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200659466" title="https://km.sankuai.com/page/1200659466">说明：画布- GroupBy组件</a></p>
+<p>示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21</a>组件4</p>
+<p>【常见使用场景】</p>
+<ol>
+<li>聚合计算，一定时间内告警大于多少条告警</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>
+<p><strong>计数类型</strong>：次数即类似sql中的count</p>
+<p>                 求和即类似sql中的sum</p>
+<p>                 存值即类似sql中的as</p>
+</li>
+<li>
+<p><strong>聚合方式</strong>：事件驱动即每来一次数据触发一次检测；时间驱动即存储<em>时间窗口</em>所填的数据，每隔<em>时间滑动间隔</em>触发一次检测</p>
+<ul>
+<li><span style="color:rgba(0, 0, 0, 0.87)">30分钟内出现了三条以上命令，那么就告警---事件驱动 </span><span style="color:rgba(0, 0, 0, 0.87)"><strong>实时性</strong></span><br><span style="color:rgba(0, 0, 0, 0.87)">30分钟中出现3条以上命令，且如果命令中包含内部扫描器已知特征，则不告警---时间驱动 </span><span style="color:rgba(0, 0, 0, 0.87)"><strong>对时间窗口内进行更加复杂的逻辑处理</strong></span></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Join</p>
+</td>
+<td>
+<p><img src="assets/fb51172b2bfe7b3d.png" width="268" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200629722" title="https://km.sankuai.com/page/1200629722">说明：画布- Join组件</a></p>
+<p>【常见使用场景】</p>
+<ol>
+<li><span>两个流间的数据交叉匹配，满足条件的输出</span></li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>left join支持标准的滚动窗口和滑动窗口，inner join类似于事件驱动的跳窗</li>
+<li>左右流时间维度格式尽量保持一致，否则可能出现join不上报错的情况</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>代码组件</p>
+</td>
+<td>
+<p><img src="assets/ecdb25c68be909c9.png" width="363" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200639574" title="https://km.sankuai.com/page/1200639574">说明：画布- 代码组件</a></p>
+<p>复杂逻辑，可以用代码组件（java语法）</p>
+<p><span>示例 </span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11</a><span> 组件26</span></p>
+<p><span>【常见使用场景】</span></p>
+<ol>
+<li>转化数据格式</li>
+<li>进行数据增强</li>
+<li>其余各种自定义用途</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>选择返回一个值或返回多个值逻辑，选择后代码框中会出现提示代码</li>
+</ul>
+<ul>
+<li>
+<p>如果要实现“返回一个值”的逻辑，则继承抽象类IProcessor，并实现process方法。</p>
+</li>
+<li>如果要实现“返回多个值”的逻辑，则继承抽象类IFlatProcessor，并实现flatProcess方法。</li>
+<li>
+<p>process方法入参为传入该组件的上下文，出参为经过该组件处理后的上下文。</p>
+</li>
+<li>
+<p>flatProcess方法入参为传入该组件的上下文，出参为经过该组件处理后的多条上下文。</p>
+<p></p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>数据拆分</p>
+</td>
+<td>
+<p><img src="assets/22e8996a7a1f2773.png" width="483" height="213" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200639511" title="https://km.sankuai.com/page/1200639511">说明：画布- 数据拆分组件</a></p>
+<p><span>将数据流复制后拆分流转至后续各节点</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>Union</p>
+</td>
+<td>
+<p><img src="assets/c65e2672896e54f4.png" width="484" height="201" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200639529" title="https://km.sankuai.com/page/1200639529">说明：画布- Union组件</a></p>
+<p><span>两个数据流的合并</span></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>数据获取</p>
+</td>
+<td>
+<p><img src="assets/2c9f2c64d3bbdb36.png" width="227" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1319403547" title="https://km.sankuai.com/page/1319403547">说明：画布 - 数据获取</a></p>
+<p>http get:  <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1</a></p>
+<p>http post: <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1</a></p>
+<p>rpc : <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1</a></p>
+<p>【常见使用场景】</p>
+<ol>
+<li><span>用于获取增量补充数据用于策略执行</span></li>
+</ol>
+<p>【配置相关】</p>
+<img src="assets/1b522c83ca10c628.svg" width="986" height="194" alt="流程图">
+<ul>
+<li>
+<p>key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</p>
+</li>
+<li>
+<p>Squrriel平台限流值: 6w/min</p>
+<p>S3平台限流值：6k/min</p>
+<p>RPC平台限流值:3w/min</p>
+<p>HTTP平台限流值: 6k/min，如需更高流量，请联系近离值班rd</p>
+</li>
+<li><strong>注意用户配置过程中限流量最好进行配置兜底，否则上线后可能出现大value+无缓存打爆了Squirrel的情况</strong></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>数据存储</p>
+</td>
+<td>
+<p><img src="assets/309cd9990b6a943f.png" width="205.8" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1316510919" title="https://km.sankuai.com/page/1316510919">说明：画布 - 数据存储</a></p>
+<p><span>将执行过程中某些关键数据进行外存</span></p>
+<p>【常见使用场景】</p>
+<ol>
+<li>写入基线加白名单做可信层校验</li>
+</ol>
+<p><span>【配置相关】</span></p>
+<img src="assets/22fc0370fe955ec4.svg" width="696" height="326" alt="流程图">
+<ol>
+<li>
+<p>key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</p>
+</li>
+<li>平台限流值: 6k/min，如需更高流量，请联系近离值班rd</li>
+</ol>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>丢弃组件</p>
+</td>
+<td>
+<p><img src="assets/00b459af7bbddd6a.png" width="483" height="141" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200763174" title="https://km.sankuai.com/page/1200763174">说明：画布- 丢弃配置指南</a></p>
+<p><span style="color:rgb(44, 62, 80)">直接将该部分数据丢弃</span></p>
+</td>
+</tr>
+</table>
+<h3 id="section-535">3.2.4 数据聚合</h3>
+<ul>
+<li>
+<p>目的：实现对决策对象的聚合、去重等操作</p>
+</li>
+</ul>
+<table>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Groupby</p>
+</td>
+<td>
+<p><img src="assets/bf06e8471cac0f4d.png" width="207" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200659466" title="https://km.sankuai.com/page/1200659466">说明：画布- GroupBy组件</a></p>
+<p>示例<a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=73&amp;version=21</a>组件4</p>
+<p>【常见使用场景】</p>
+<ol>
+<li>聚合计算，一定时间内告警大于多少条告警</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>
+<p><strong>计数类型</strong>：次数即类似sql中的count</p>
+<p>                 求和即类似sql中的sum</p>
+<p>                 存值即类似sql中的as</p>
+</li>
+<li>
+<p><strong>聚合方式</strong>：事件驱动即每来一次数据触发一次检测；时间驱动即存储<em>时间窗口</em>所填的数据，每隔<em>时间滑动间隔</em>触发一次检测</p>
+<ul>
+<li><span style="color:rgba(0, 0, 0, 0.87)">30分钟内出现了三条以上命令，那么就告警---事件驱动 </span><span style="color:rgba(0, 0, 0, 0.87)"><strong>实时性</strong></span></li>
+<li><span style="color:rgba(0, 0, 0, 0.87)">30分钟中出现3条以上命令，且如果命令中包含内部扫描器已知特征，则不告警---时间驱动 </span><span style="color:rgba(0, 0, 0, 0.87)"><strong>对时间窗口内进行更加复杂的逻辑处理</strong></span></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>Distinct</p>
+</td>
+<td>
+<p><img src="assets/06e97e600f9fae8f.png" width="369.87" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200649532" title="https://km.sankuai.com/page/1200649532">说明：画布- Distinct组件</a></p>
+<p>【常见使用场景】</p>
+<ol>
+<li>决策执行去重</li>
+</ol>
+<p>【配置相关】</p>
+<ul>
+<li>
+<p><strong>key：</strong><span>支持输入单个或多个上文所传字段（含原始字段和自定义字段，如果原始字段被重新定义过，则填写自定义后的字段名），作为key进行去重，必填</span></p>
+</li>
+<li>
+<p><span><strong>时间维度/时间维度格式：</strong></span>填写<span>画布任务执行的时间戳，若不填则默认画布开始运行的时间</span></p>
+</li>
+<li>
+<p><span><strong>时间窗口：</strong></span><span>即计算从时间戳往前滑动多少时间区间进行计算，支持选择分/时/日，文本框中为数字，必填</span></p>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<h3 id="section-603"><br>3.2.5 决策执行</h3>
+<table>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>决策</p>
+</td>
+<td>
+<p><img src="assets/34744f17bd09a5ae.png" width="624" height="539" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200629952" title="https://km.sankuai.com/page/1200629952">说明：画布- 决策信息配置指南</a></p>
+<p>【配置相关】</p>
+<p>用户可在决策组件中使用在Zeus平台上注册的决策及相关信息，近线将根据配置信息下游的数据传输，但是否能实际执行得看下游是否具备执行能力</p>
+<ul>
+<li>决策：<a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：决策__1608157813/children/（废弃）说明：创建＿修改决策__312514906/index.html" title="https://km.sankuai.com/page/312514906">（废弃）说明：创建/修改决策</a></li>
+<li>附加信息：<a href="../../../说明：Zeus决策附加信息使用文档__28253486/index.html" title="https://km.sankuai.com/page/28253486">说明：Zeus决策附加信息使用文档</a></li>
+<li>
+<p>决策理由：<a href="../../../说明：决策理由使用__304311873/index.html" title="https://km.sankuai.com/page/304311873">说明：决策理由使用</a></p>
+<p></p>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<h3 id="section-626">3.2.6 用户自定义函数使用（UDF）</h3>
+<p><a href="../03 画布建模__1426173682/children/说明：画布 - UDF管理__1402465659/index.html" title="https://km.sankuai.com/collabpage/1402465659">说明：画布 - UDF管理</a></p>
+<ul>
+<li>支持<span style="color:rgba(0, 0, 0, 0.87)">在平台管理用户自定义函数，并在画布aviator表达式中进行引用</span></li>
+</ul>
+<p><img src="assets/1c49ae1dcd83503f.png" width="396" height="227" alt="image.jpeg"></p>
+<h2 id="section-634">3.3 画布调试</h2>
+<table>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>旁路输出</p>
+</td>
+<td>
+<p><img src="assets/9b212bc5278087b9.png" width="484" height="339" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1200659710" title="https://km.sankuai.com/page/1200659710">说明：画布- 旁路输出组件</a></p>
+<p><span>将流转至该节点的数据全部输出至指定topic</span></p>
+<p>【常见使用场景】</p>
+<ol>
+<li>用于输出到离线hive，进行离线数据分析及策略调试</li>
+</ol>
+<p>【配置相关】</p>
+<p>如何将topic转为hive：</p>
+<ol>
+<li>
+<p><span>Zeus选择 旁路输出 组件，输出格式选择json</span></p>
+<p><img src="assets/9b8da4ee92f97270.png" width="332" height="265" alt="image.jpeg"></p>
+</li>
+<li>
+<p><span>通过大数据平台接入kafka topic，将数据存储到hive中</span><a href="https://data.sankuai.com/exporter#/distribution" title="https://data.sankuai.com/exporter#/distribution">https://data.sankuai.com/exporter#/distribution</a><img src="assets/f03bb114d6c7a663.png" width="464" height="381" alt="image.jpeg"></p>
+<p><img src="assets/7fe6e50ebcc3aa82.png" width="443" height="364" alt="image.jpeg"></p>
+</li>
+<li>
+<p><span>配置完后需要检查作业状态，正常20分钟后就能从hive里查数据了。</span><a href="https://data.sankuai.com/exporter#/distribution/dls/13327" title="配置示例">配置示例</a></p>
+<p><img src="assets/4b7e2d503976cce8.png" width="2113.455078125" height="498.19" alt="image.jpeg"></p>
+</li>
+</ol>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>仿真测试</p>
+</td>
+<td>
+<p><img src="assets/1d4fb86ba5b83e03.png" width="692.31" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p>说明文档待补充</p>
+<ul>
+<li>用于辅助业务和研发对于执行过程和执行逻辑的快速排查</li>
+</ul>
+<p>【布控自助亮点】</p>
+<ol>
+<li>仿真测试输入，可选择历史测试数据直接进行测试<img src="assets/c556f49eada3689e.png" width="1983" height="399.42" alt="image.jpeg"></li>
+<li>执行失败的组件可点击查看具体报错情况</li>
+<li>具体报错内容已由纯代码形式转换成了自然语言</li>
+<li>组件本身配置不符合逻辑，由平台兜底逻辑通过执行的组件置为黄色，提示用户警告信息</li>
+</ol>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>自定义日志</p>
+</td>
+<td>
+<p><img src="assets/05ca820bf02987c1.png" width="386" height="107" alt="image.jpeg"><img src="assets/b02355403758f369.png" width="431" height="176" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/collabpage/1366107270" title="https://km.sankuai.com/collabpage/1366107270">说明：画布 - 自定义日志配置及查看</a></p>
+<ul>
+<li>用于辅助业务指定调试表达式/代码某部分内容</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>画布拨测</p>
+</td>
+<td style="background-color:#F4F5F7">
+<p></p>
+</td>
+<td style="background-color:#F4F5F7">
+<p>待上线功能</p>
+<ul>
+<li>支持用户自定义流量调用画布获取决策，判断结果是否满足用户诉求的任务配置，确保线上环境作业的有效性</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(244, 245, 247)">
+<p>表达式调试小工具</p>
+</td>
+<td style="background-color:#F4F5F7">
+<p></p>
+</td>
+<td style="background-color:#F4F5F7">
+<p>待上线功能</p>
+<ul>
+<li>支持用户在一个界面对aviator表达式的调试单测</li>
+</ul>
+</td>
+</tr>
+</table>
+<h2 id="section-718">3.4 监控治理</h2>
+<table>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>告警治理</p>
+</td>
+<td style="background-color:#FFF">
+<p><img src="assets/5abf25465f79d140.png" width="1116.83" height="600" alt="image.jpeg"><img src="assets/5760f4fe65156e39.png" width="1113.16" height="600" alt="image.jpeg"></p>
+</td>
+<td style="background-color:#FFF">
+<p><a href="https://km.sankuai.com/collabpage/1445116887" title="https://km.sankuai.com/collabpage/1445116887">说明：画布 - 异常监控治理</a></p>
+<ul>
+<li>对于画布异常错误类型进行告警阈值及类型配置</li>
+<li>
+<p>告警排查实践文档：</p>
+<ul>
+<li><a href="https://km.sankuai.com/collabpage/1445730774" title="https://km.sankuai.com/collabpage/1445730774">画布错误日志排查实践</a></li>
+<li><a href="https://km.sankuai.com/collabpage/1445740701" title="https://km.sankuai.com/collabpage/1445740701">数据源任务错误日志排查实践</a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>熔断配置</p>
+</td>
+<td>
+<p><img src="assets/530363abe9d23b23.png" width="926" height="600" alt="image.jpeg"><img src="assets/925fac04c1800dee.png" width="1011" height="508" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/collabpage/1354627337" title="https://km.sankuai.com/collabpage/1354627337">说明：画布 - 熔断配置</a></p>
+<ul>
+<li>用于当监控对象（场景规则 / 画布组件）命中情况产生异常，达到预设的熔断阈值时，将该对象由人工或系统进行降级（生效转标记 / 组件阻断），以此规避风险</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>近线日志</p>
+</td>
+<td>
+<p><img src="assets/8b7723cc0af8098e.png" width="1050" height="600" alt="image.jpeg"><img src="assets/c2de5e2e19c4b952.png" width="1229" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/collabpage/1357527347" title="https://km.sankuai.com/collabpage/1357527347">说明：画布 - 近线日志查询及配置</a></p>
+<ul>
+<li>记录了各业务方使用近线画布做决策的详细数据，包括：画布内的数据流转过程，各组件节点中间数据，命中数据等等相关信息；用于业务做数据分析、异常排查和问题定位等</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7">
+<p>作业分级</p>
+</td>
+<td style="background-color:#FFF">
+<p><img src="assets/6d537b464b72682c.png" width="457" height="292" alt="image.jpeg"><img src="assets/6142eb0a7f0cb912.png" width="457" height="381" alt="image.jpeg"></p>
+</td>
+<td style="background-color:#FFF">
+<p><a href="https://km.sankuai.com/collabpage/1418019888" title="https://km.sankuai.com/collabpage/1418019888">说明：画布 - 作业优先级</a></p>
+<ul>
+<li>支持用户对不同的画布作业进行分级，rd同学根据不同的作业级别进行分类运维</li>
+</ul>
+</td>
+</tr>
+</table>
+<h1 id="section-775">四、各业务画布使用最佳实践</h1>
+<ul>
+<li>基础安全最佳实践：<a href="https://km.sankuai.com/page/1332336758" title="https://km.sankuai.com/page/1332336758">学城文档 1332336758（无权限读取标题）</a><strong>限制权限文档，非基础安全同事请勿申请</strong></li>
+<li>账号安全最佳实践：<a href="https://km.sankuai.com/collabpage/1393670059" title="https://km.sankuai.com/collabpage/1393670059">画布最佳实践：账号安全</a></li>
+</ul>
+<h1 id="section-782">五、画布性能调优最佳实践</h1>
+<p><a href="https://km.sankuai.com/page/1403737289" title="https://km.sankuai.com/page/1403737289">学城文档 1403737289（无权限读取标题）</a></p>
+<p>【同时，我们正在做...】</p>
+<ul>
+<li>数据源自定义schema</li>
+<li>自助性能调优工具，一期将聚焦于性能相关数据采集</li>
+</ul>
+<h1 id="section-789">六、FAQ</h1>
+<h2 id="section-790">1.我更新完画布，版本显示生效但作业启动失败，过几分钟又通知作业启动成功是什么情况</h2>
+<p>现象：用户更新完画布-&gt;作业上线-&gt;zeus-mis侧显示版本生效，但是zeusRobot通知作业失败。过了几分钟，zeusRobot又通知，作业启动成功。</p>
+<p>结论：</p>
+<p>（1）我们调用rt平台的接口，启动作业，需要提交codeVersionID这个参数（即选择哪个代码分支启动）</p>
+<p>（2）对于画布作业的更新，我们其实是会先去rt平台上查询作业上次用的代码版本，并将上次代码版本作为本次代码版本。（如果是第一次创建的作业，提交的代码分支是通过lion配置的）</p>
+<p>（3）但是该作业上次运行的代码版本是一个特殊分支，已经被删除了，所以rt平台在执行作业时，失败了。</p>
+<p>这里有两个问题：</p>
+<p>（1）rt平台上作业执行失败了，为什么zues-mis上作业生效了？</p>
+<p>答：向RT平台提交作业，是一个异步的过程，提交后作业是否执行成功，是通过一个定时任务去检测的。因此作业提交后，当时我们任务作业就成功了。之后定时任务会去向rt平台验证该作业是否成功，然后通知用户。</p>
+<p>（2）为什么用户过几分钟又收到作业上线成功的消息？</p>
+<p>答：rt平台那边有自动拉起的机制，检查到我们的作业启动失败后，自动回滚了作业，因此在几分钟后，该作业又启动成功了。</p>
+<h2 id="section-801">2.仿真测试kafka报错说解析为空怎么解决</h2>
+<p><img src="assets/f56e05207ece5e1a.png" width="368" height="168" alt="image.jpeg"></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">出现该处报错时，组件输出为空，数据没法往下走了，Zeus编译和执行过程没有报错。用户需检查下是不是自己配置的代码里try catch错误了</span></p>
+<h2 id="section-806"><span style="color:rgba(0, 0, 0, 0.87)">3.日志中心为什么看不到我配置的kafka topic中的某个字段</span></h2>
+<p><span style="color:rgba(0, 0, 0, 0.87)">归因：</span>业务方在日志中心没有配置相应的字段，导致该字段被过滤掉了，查询不到</p>
+<p>日志中心使用文档参考：<a href="http://logcenter.test.data.sankuai.com/docs/brief_intro.html" title="http://logcenter.test.data.sankuai.com/docs/brief_intro.html">http://logcenter.test.data.sankuai.com/docs/brief_intro.html</a></p>
+<p><img src="assets/f7a8388281462854.png" width="873.21" height="600" alt="image.jpeg"></p>
+<h2 id="section-814">4.我最近修改了某个画布的内容，点保存的时候出现了我没有修改的组件的报错怎么办</h2>
+<p>归因：2022年7月画布上线了布控自助专项，其中对于绝大部分组件的填写内容进行了校验，导致在该需求上线前能够正常运行的画布在修改后因为无法通过校验的问题而出现报错无法保存。详细校验内容可参照上方每个组件的配置方式说明</p>
+<p>解决方法：当前组件的校验能规避线上运行过程中出现的一些问题。尽可能的根据提示修改组件内容，若有特殊情况无法修改，可提tt至rd辅助修改</p>
+<h2 id="section-817">5.想要使用画布或体验画布，如何操作？</h2>
+<p>目前只面向信安下的风险团队提供该功能，需要具备Zeus上的空间权限（businessid），支持按照空间开通。开通后可在Zeus-测试环境体验。具体操作流程见 <a href="index.html" title="https://km.sankuai.com/collabpage/1352098872#id-3.1%20%E4%BA%8B%E5%89%8D%E5%87%86%E5%A4%87">3.1 事前准备</a>部分</p>
+<p>交流👉 进群</p>
+<p><img src="assets/4372f63fdf34bbc4.png" width="242" height="331" alt="image.jpeg"></p>
+<h1 id="section-823">七、宣讲记录</h1>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/1352098872/14225218699?contentType=1">video1507794297.mp4</a></figcaption></figure>
+<p></p>
+</article></main></body></html>

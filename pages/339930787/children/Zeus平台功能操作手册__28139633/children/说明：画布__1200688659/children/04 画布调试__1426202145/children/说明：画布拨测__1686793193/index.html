@@ -1,0 +1,130 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布拨测</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-6">二、名称解释</a><a href="#section-11">三、操作指南</a><a href="#section-12">3.1 用户操作流程说明</a><a href="#section-14">3.2 具体页面操作说明</a><a href="#section-85">3.3 涉及窗口类拨测content配置说明</a><a href="#section-87">3.4 拨测告警</a><a href="#section-129">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">04 画布调试</a> / <a href="index.html">说明：画布拨测</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1686793193">查看学城原文</a></p><article>
+<h1>说明：画布拨测</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>在部分安全领域，基于全量数据进行异常行为，当规则命中率或决策命中率比例较低时，无法直接通过线上的命中数据确定策略部署是否正常。需要通过模拟数据命中量统计的方式保障生产策略正常运行。即旁路拨测建设</p>
+<p>在基础安全类的对抗场景，拨测逻辑应用较多，本次支持画布布控策略的逻辑拨测。即支持画布输出决策-决策附加信息、旁路输出逻辑的拨测。</p>
+<h1 id="section-6">二、名称解释</h1>
+<p><span style="color:rgb(170, 170, 170)">拨测：用户自定义流量调用场景规则/画布获取决策，判断结果是否满足用户诉求的任务配置，确保线上环境作业的有效性</span><br><span style="color:rgb(170, 170, 170)">半链路拨测：用户可针对画布决策选择kafka topic数据源进行拨测，只能监测从Zeus处理到金丝雀告警的后半段数据的处理情况</span></p>
+<h1 id="section-11">三、操作指南</h1>
+<h2 id="section-12">3.1 用户操作流程说明</h2>
+<img src="assets/7fc2f941c1106c70.svg" width="1176" height="289" alt="流程图">
+<h2 id="section-14">3.2 具体页面操作说明</h2>
+<p>【入口1】</p>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>页面</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>安全管理--&gt;拨测管理</p>
+<ol>
+<li>在拨测管理列表页面，支持删除拨测任务，下线拨测任务</li>
+<li>拨测任务的删除需要现将拨测任务下线</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/ad777d75ddf0a114.png" width="1399" height="520.61" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【配置拨测】</p>
+<ol>
+<li>当前仅支持半链路拨测</li>
+<li>
+<p>支持对数据源作业（数据映射--&gt;场景--&gt;规则）和画布两种对象的拨测</p>
+<p>**注：规则在画布中的拨测，是画布拨测范围；规则在场景中的拨测是规则拨测范围。后续规则拨测随着数据源作业迁移下线将逐步下线</p>
+</li>
+<li>画布：支持模糊搜索已经生效的画布，非生效画布因逻辑尚未明确，无法配置拨测</li>
+<li>画布拨测支持对画布输出的决策-决策附加信息/旁路输出-topic进行拨测</li>
+<li>默认超时时间为1800秒，可进行修改</li>
+<li>拨测数据-信息，输入改组数据标题，将在拨测告警中、仿真测试中便于提示用户</li>
+<li>具体MQ对应的日志类型与画布、schema中的类型一致。content信息为字符串信息</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/5d95f9cb1e3073c6.png" width="1193" height="600" alt="image.jpeg"></p>
+<p><img src="assets/35ee2d27ac7ef46d.png" width="1283.86" height="600" alt="image.jpeg"></p>
+<ul>
+<li>窗口逻辑拨测配置</li>
+</ul>
+<p><img src="assets/0c2e603e068ded26.png" width="1153.38" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p>入口2</p>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>页面</p>
+</th>
+<th>
+<p></p>
+</th>
+</tr>
+<tr>
+<td>
+<p>画布详情--&gt;配置拨测</p>
+</td>
+<td>
+<p><img src="assets/e3b2541d48c76c03.png" width="1399" height="336" alt="image.jpeg"></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【配置拨测】</p>
+<ol>
+<li>添加拨测任务，需要用户选择针对什么逻辑进行拨测配置，可支持选择决策/旁路数据</li>
+<li>唤起拨测的编辑/添加页面，若该逻辑历史上未配置过拨测，则是添加页面；若该逻辑历史上配置过拨测，则是编辑页面</li>
+<li>拨测的编辑页面，仅支持超时时间、状态和拨测数据的修改，其他信息不支持修改</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/eca0c8a05d2fdc3e.png" width="1376.64" height="600" alt="image.jpeg"></p>
+<p><img src="assets/633f5d407dd471a2.png" width="1140.13" height="600" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/e3b2541d48c76c03.png" width="1399" height="336" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-85">3.3 涉及窗口类拨测content配置说明</h2>
+<p>--待补充--</p>
+<h2 id="section-87">3.4 拨测告警</h2>
+<ul>
+<li>单次异常告警</li>
+</ul>
+<div class="note">
+<strong>告警模板</strong>
+<div>
+<p>近线引擎拨测告警: running拨测结果和预期不符。过去半个小时钟内，拨测设置:<span style="color:rgba(0, 0, 0, 0.35)">画布名称 -拨测任务名称-数据信息</span> 不符合预期的结果或者结果接收超时： 符合预期拨测个数<span style="color:rgb(170, 170, 170)">:0</span>，不符合预期拨测个数:<span style="color:rgb(170, 170, 170)">2</span>。 [拨测设置|<a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_inspect_setting_by_name?name=autotest_rasp_8186_RASP_Base64%E7%BC%96%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C]" title="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_inspect_setting_by_name?name=autotest_rasp_8186_RASP_Base64%E7%BC%96%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C]">https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_inspect_setting_by_name?name=autotest_rasp_8186_RASP_Base64%E7%BC%96%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C]</a>。[最近的不符合预期的拨测详情|<a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_attempt?inspectId=20220720110432-b559608b-9d3a-4f3e-a0c0-2556a52bbe3c]" title="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_attempt?inspectId=20220720110432-b559608b-9d3a-4f3e-a0c0-2556a52bbe3c]">https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_attempt?inspectId=20220720110432-b559608b-9d3a-4f3e-a0c0-2556a52bbe3c]</a>。 报警关注人zhanghaoyi02,yucongxiang (已聚合报警)</p>
+<p><span style="color:rgba(0, 0, 0, 0.84)">快速解决：[</span><span style="color:rgb(10, 112, 245)">静默24小时</span>]<span style="color:rgba(0, 0, 0, 0.84)">[</span><span style="color:rgb(10, 112, 245)">静默6小时</span>]<span style="color:rgba(0, 0, 0, 0.84)">[</span><span style="color:rgb(10, 112, 245)">静默1小时</span>]</p>
+<p></p>
+</div>
+</div>
+<ul>
+<li>按日统计告警（每天下午4点 统计24小时内的拨测情况）</li>
+</ul>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.87)">标签dbaudit的数据源 拨测本日（昨日16:00至今天16:00）生效拨测成功率为NaN,拨测总数为0。详情参考产品线下各个拨测设置成功率【</span><a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_statistic?productLine=dbaudit&amp;fromTime=2022-07-18%2016:00&amp;toTime=2022-07-19%2016:00" title="统计情况">统计情况</a><span style="color:rgba(0, 0, 0, 0.87)">】。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">标签dbaudit的画布 拨测本日（昨日16:00至今天16:00）生效拨测成功率为NaN,拨测总数为0。详情参考产品线下各个拨测设置成功率【</span><a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_statistic?productLine=dbaudit&amp;fromTime=2022-07-18%2016:00&amp;toTime=2022-07-19%2016:00" title="统计情况">统计情况</a><span style="color:rgba(0, 0, 0, 0.87)">】。</span><br><span style="color:rgba(0, 0, 0, 0.87)">标签dns的 数据源 拨测本日（昨日16:00至今天16:00）生效拨测成功率为99.96%,拨测总数为2381。详情参考产品线下各个拨测设置成功率【</span><a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_statistic?productLine=dns&amp;fromTime=2022-07-18%2016:00&amp;toTime=2022-07-19%2016:00" title="统计情况">统计情况</a><span style="color:rgba(0, 0, 0, 0.87)">】。</span><br><span style="color:rgba(0, 0, 0, 0.87)">标签dns的 画布拨测本日（昨日16:00至今天16:00）生效拨测成功率为99.96%,拨测总数为2381。详情参考产品线下各个拨测设置成功率【</span><a href="https://zeus.sankuai.com/zeus-server/ajax/rule_platform/dial/get_dial_statistic?productLine=dns&amp;fromTime=2022-07-18%2016:00&amp;toTime=2022-07-19%2016:00" title="统计情况">统计情况</a><span style="color:rgba(0, 0, 0, 0.87)">】。</span></p>
+</div>
+</div>
+<p></p>
+<h1 id="section-129">四、FAQ</h1>
+<p>--待补充--</p>
+</article></main></body></html>
