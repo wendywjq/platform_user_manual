@@ -1,0 +1,43 @@
+<km-doc>
+<km-title nodeId="258166d188b0478cb58d606e8e77e9b1">画布错误日志排查实践</km-title>
+<p nodeId="7e128e0b50e54095a7614f433e63f633"><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=346&amp;version=1" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=346&amp;version=1" nodeId="58f674c694c44089baafcbf4bd67d672">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=346&amp;version=1</a></p>
+<p align="start" nodeId="807aa32c8b1d4e74b26845590c0df09a">日志中心链接</p>
+<p align="start" nodeId="92b3cea1f1f14956840d482c20fa23b3"><a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-15m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:346%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-15m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:346%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" nodeId="742d2bf1582447419c27bc74d96a1765">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-15m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:346%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D</a></p>
+<p align="start" nodeId="0111018d102a405285ec0890b7b60940" />
+<p align="start" nodeId="7c42f069a8984bca9d5b3edc9c2a88b7"><img src="https://km.sankuai.com/api/file/cdn/1445730774/13063797344?contentType=1&amp;isNewContent=false" name="" width="1408" height="490" nodeId="a21b1ff888664d82967a81f98c9ba877" /></p>
+<p align="start" nodeId="237b0baef23b4759a973a5a0e6d13496" />
+<p align="start" nodeId="075ddea2caee4ea6a317145281560f74">几个关键的参数：</p>
+<p align="start" nodeId="a41174646e2445ca8251d093983d1440">sourceId : 实时作业ID</p>
+<p align="start" nodeId="f3115d74b3244536974157d561604953">operatorID： 画布算子ID</p>
+<p align="start" nodeId="f424a986ec7e4833b33600252ebea346">config：如果select算子中有多条表达式，报出是哪条表达式报错</p>
+<p align="start" nodeId="ef63769589664e8e9b9cd1ec7b31cd1b">contextData : 报错的数据</p>
+<p align="start" nodeId="f2f3b3df41fc4231b737084c77a6b63d" />
+<p align="start" nodeId="a4319493032d409dad10370722cc32fb">以此任务为例，找到四号算子的 atribetes.reponse 表达式</p>
+<p align="start" nodeId="395c1468d88c4a28b95b1078a8d4089a"><img src="https://km.sankuai.com/api/file/cdn/1445730774/13066327694?contentType=1&amp;isNewContent=false" name="" width="1098" height="600" nodeId="2dfbc759c0e944028d8193e559b1d4f2" /></p>
+<p align="start" nodeId="5d1ae9062acb486fa451307c8877f50a">是 attributes.response 为nil 影响了正常数据，将其丢弃</p>
+<p align="start" nodeId="821931adc7d147eea5ff170311b5b43a"><img src="https://km.sankuai.com/api/file/cdn/1445730774/13063791017?contentType=1&amp;isNewContent=false" name="" width="1076" height="600" nodeId="b666a52eef6642dcb3c1f1a6b6ce7986" /></p>
+<p align="start" nodeId="4a52eb3006714c77b3c22586b6845ba3">question</p>
+<km-collapse active="false" nodeId="8a643eac6c074d84a7cc2f72ee6d9975">
+<km-title><span color="rgb(77, 77, 77)">点击展开内容</span></km-title>
+<km-content>
+<p align="start" nodeId="ddec2803226d408e919ea1f70f2d6593" />
+<p align="start" nodeId="daffdf0944a84b118a8b0457915fb0f9">【问题1 ，提示内容堆叠到一起】</p>
+<p align="start" nodeId="74b03c2698894f2b88de5a6c5838ffc6"><img src="https://km.sankuai.com/api/file/cdn/1445730774/13063791015?contentType=1&amp;isNewContent=false" name="" width="919" height="600" nodeId="dd186e595d7e453a9cd7539ab1797b4d" /></p>
+<p align="start" nodeId="1ac117b328ae48ba8999ae4a9f743377">【问题2，此处自动<span color="rgb(245, 35, 45)">重启</span>了，且自动重启后一段时间内不能<span color="rgb(245, 35, 45)">保存</span>，但是我仿真测试需要先保存再仿真】</p>
+<p align="start" nodeId="f61f5418605440bc9bc99f977d103ca9">只修改了select一个内容</p>
+<p align="start" nodeId="558d998e818f4de1ba3c1a38442f67eb" />
+<p align="start" nodeId="3cae57e32104483db1d8750802ef6b02" />
+<p align="start" nodeId="1f88c9ff89ea46f1938e56b5f415131e"><img src="https://km.sankuai.com/api/file/cdn/1445730774/13065379529?contentType=1&amp;isNewContent=false" name="" width="1307" height="600" nodeId="e4ce02725a8748ae92377ab2609a4add" /></p>
+</km-content>
+</km-collapse>
+<p align="start" nodeId="48a3fa8e7a334cb1b5c402490a1c5cba" />
+<p align="start" nodeId="350ee37ccf9c4c8cba23ea034918f720" />
+<p align="start" nodeId="83f7e556fac24a41837b590cdf5c6bcd">在此用 contextData 数据仿真</p>
+<p align="start" nodeId="0e5efc8fda734ae3a8518de160251c37"><img src="https://km.sankuai.com/api/file/cdn/1445730774/13063637613?contentType=1&amp;isNewContent=false" name="" width="594" height="600" nodeId="e11216a722744ee8ae40493b7ca74bbc" /></p>
+<p align="start" nodeId="8db456a9f54c4f8cbaaf73804d2850c0" />
+<p align="start" nodeId="7510cf3c9f2046e7b7e9b21b22f48495">自动重启后</p>
+<p align="start" nodeId="29882519ba144bd7aace614a93f50da3"><img src="https://km.sankuai.com/api/file/cdn/1445730774/13066327691?contentType=1&amp;isNewContent=false" name="" width="1320" height="600" nodeId="977f690aface42efa2e4d6e2a7ccdb34" /></p>
+<p nodeId="32a4d625c10641c79576da0d3bc73c26" />
+<p nodeId="334f6fc49dde48aca38f6c7b6815e60b"><br /></p>
+<p nodeId="f22dec0e0bec4e47a410bd10b00ad294" />
+</km-doc>

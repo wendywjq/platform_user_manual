@@ -1,0 +1,708 @@
+<km-doc>
+<km-title nodeId="da76872ace46437693e02b1ba5334415">说明：画布 - 熔断配置</km-title>
+<km-catalog style="none" nodeId="691eb0d2ee7d4ca6b617b4f99899e80d" />
+<h1 nodeId="521078be02244468a21603cc8f5ea320">一、背景</h1>
+<p nodeId="89945b30ba8f48a18b4a7ab79df98699">随着业务发展，通过画布部署的近线策略也对熔断功能提出诉求。</p>
+<p align="start" nodeId="eb67db4743684a0d822847badd2645c6">Zeus平台定义的熔断功能：当监控对象（场景规则 / 画布组件）命中情况产生异常，达到预设的熔断阈值时，将该对象由人工或系统进行降级（生效转标记 / 组件阻断），以此规避风险。画布熔断即为在画布中，支持用户对其中部分组件进行熔断配置，通过熔断能力监控其执行情况，达到阈值告警用户，可一键将该组件的运行状态变为阻断。</p>
+<p nodeId="6ac3e88f33b6416281cdc52feff89e7f">过去，熔断功能仅支持实时链路中，场景-规则模式部署的策略，现在能力进一步扩展到近线链路的画布中。</p>
+<h1 align="start" nodeId="b4774207567749878c40ed630cf2192c">二、名词解释</h1>
+<h2 nodeId="9a057bc8c5464dc78e6d19ae91fa545f">2.1 概念</h2>
+<table responsive="false" nodeId="36a2cb3cf3c8435c950b2ea4dae7e17a">
+<tr nodeId="9b63c71548d84bf3b5afddcdf706ea3e">
+<th colwidth="[96]" nodeId="24e6bff0996744589ece2f0e66bbb562">
+<p nodeId="cc4ddf34f26a43909b46c8c60d6c51ca">名词</p>
+</th>
+<th colwidth="[759]" nodeId="ae2ef1fd343f4b6e9b305bb7c219fc97">
+<p nodeId="a0449f13489e4aa194c16934d5375b72">解释</p>
+</th>
+</tr>
+<tr nodeId="ab3fcbda9cf94bb0a3c1fe23c63b9211">
+<td colwidth="[96]" nodeId="e19937421b2b48d89ced0f0346eca7a4">
+<p nodeId="3455821cd0e74582bf368bba42cc9a70">画布</p>
+</td>
+<td colwidth="[759]" nodeId="340a8a5d21414aaf85ffc5a21cde407e">
+<p nodeId="b20f6344f38f4ba2aaf53d9445ab89cf">策略部署的一种模式，用户可以在画布中通过拖拽的方式自定义配置一条数据处理流，以多个数据源组件作为起始，以多个决策类组件作为终止。当用户完成策略的配置之后，画布会自动生成一个flink任务用来执行用户所配置的逻辑。<a href="https://km.sankuai.com/page/1200688659" title="https://km.sankuai.com/page/1200688659" autoUpdate="true" nodeId="1db05012c0dd4e33a8556396a37836b3">https://km.sankuai.com/page/1200688659</a></p>
+</td>
+</tr>
+<tr nodeId="aea896c832204fe9bec135d09fbdd431">
+<td colwidth="[96]" nodeId="d77bff852617409fa0321476c79cc03c">
+<p nodeId="0da1169360e340bb966f20e0a9e1baaf">组件</p>
+</td>
+<td colwidth="[759]" nodeId="d9a287413b1a496fadc8576d7afb9d27">
+<p align="start" nodeId="b73232dd1f2f41fe9ed82f8d64f050e6">组成画布的功能块，包括常规的流数据处理（join,groupby,distinct，数据拆分等）逻辑判断（if-else等），规则与自定义代码执行，决策（金丝雀告警，落kafka，丢弃等）。</p>
+</td>
+</tr>
+<tr nodeId="8e882ce847c64fe0add8ab19c9b5f320">
+<td colwidth="[96]" nodeId="66753e52ed1645f0b63db00bc4b634c9">
+<p nodeId="7da57022c1de45b9a8a61783e4ead637">熔断配置</p>
+</td>
+<td colwidth="[759]" nodeId="12470dbf6e8942588839d54433109b99">
+<p nodeId="2fb66e97ff5940ce8123a25cd2ce34b5">基于画布组件/组件内规则 配置的熔断内容，包括熔断对象（组件/组件内的规则）、熔断作用时间、熔断监控规则、告警人等。</p>
+</td>
+</tr>
+</table>
+<h2 nodeId="05b2416371364ce88650ad973bdef26e">2.2 各组件的熔断语义</h2>
+<p nodeId="29b3f45f0af946f0b0aac488dd2d4222">目前，画布熔断 支持下方5种组件的熔断配置</p>
+<table borderColor="#cccccc" responsive="false" nodeId="e99975231d60441399585431c3b27754">
+<tr nodeId="a4e0637d3f2e4828a030ff170b89dcc5">
+<th colwidth="[50]" nodeId="6146964a54ba4bd2aa6036c946f78ccd">
+<p nodeId="846a1f50a05d4e359186407d256ce47f" />
+</th>
+<th colwidth="[128]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="af4785f762f84033b7288897f5f6805e">
+<p nodeId="8ef2c3a87750404585b30e4f083602e8">组件</p>
+</th>
+<th colwidth="[96]" nodeId="50cd970cd7ba4096af42f74f9ef80977">
+<p nodeId="9cfecc37f99246f1865599a2a015b556">组件类型</p>
+</th>
+<th colwidth="[434]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="2de2e935727947b0bd64692326dbe003">
+<p nodeId="1648772570ef4334abcc4a64e1405178">熔断语义</p>
+</th>
+<th colwidth="[299]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="90c9feaa45d94f83b52ccbca14453ab4">
+<p nodeId="80bece422e06481d97e7f5248eadfb1d">配置</p>
+</th>
+</tr>
+<tr nodeId="3c3481ffbefa45fb902134373f74b324">
+<td colwidth="[50]" numCell="true" nodeId="4272e93eb116496493c11119e81f758e">
+<p nodeId="322db8f0070848e3a9c0c2a14df7bcbd" />
+</td>
+<td colwidth="[128]" nodeId="78747fa2926f49cdb591f370b3debdd4">
+<p nodeId="30a1e7f4d1834015ad76bc6ab2e2ac88">规则集合组件</p>
+</td>
+<td rowspan="2" colwidth="[96]" nodeId="f04dee0a93c0463da9bf3a85ffc86656">
+<p nodeId="72e9df2c8f074210ae6e58fca2e5995d">自定义</p>
+</td>
+<td colwidth="[434]" nodeId="d0ba531271f34bcfb6bb3d081299b921">
+<p nodeId="3fac113139a14c6882096fa40d5328dd">根据规则集合组件中该条【规则】的<span color="rgb(255, 74, 71)">【命中量】</span>判断是否达到阈值而熔断，使流量在<span color="rgb(255, 74, 71)">【输入】</span>该组件后<span color="rgb(245, 35, 45)">不再执行该规则</span>。</p>
+<km-note type="note" hiddenTitle="true" nodeId="62d9b921bde743d7b832f33ac648482b">
+<km-title></km-title>
+<km-content>
+<p nodeId="e6c3baa9b1f740498c0a8045982f8134"><span color="rgba(0, 0, 0, 0.9)">若组件中所有规则都被熔断后，该组件就完全熔断，即流量在</span><span color="rgb(255, 74, 71)">【输入】</span><span color="rgba(0, 0, 0, 0.9)">该组件前被阻断。</span></p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[299]" nodeId="36502ade6e2149909139d40ec3f265bd">
+<p nodeId="0c18d3f0b777404d972b707f7e27fd7c">需要指定画布ID、组件ID和<span color="rgb(255, 74, 71)">规则ID</span>。</p>
+<p nodeId="09f4f662ec93468ea4509610df4d3233"><span color="rgb(255, 74, 71)">不支持条件过滤，默认含义为某条规则的命中量。</span></p>
+</td>
+</tr>
+<tr nodeId="a2d558156ab04f4dbfb78382faa5ef9d">
+<td colwidth="[50]" numCell="true" nodeId="c044364e2f724179a94619a01d479ede">
+<p nodeId="3dcd53ec75c44d5dad2e5eb3ecedd230" />
+</td>
+<td colwidth="[128]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="04f275409136413a8d1f94a1ae0c6013">
+<p align="start" nodeId="a4c8af8d7d304c1498daec5728bc40a5">代码组件</p>
+</td>
+<td colwidth="[434]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b73283b1d9cb4cddab5ca7210ddae2c7">
+<p align="start" nodeId="77678d9b5a554d78b88a03810bd7133c">根据代码组件<span color="#FF4A47">【输出】</span>的【流量数】判断是否达到阈值而熔断，使流量在<span color="#FF4A47">【输入】</span>该组件前被阻断。</p>
+</td>
+<td rowspan="4" colwidth="[299]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="35be51a63e964cc1bc2d302e5e35d070">
+<p align="start" nodeId="a8dff77fa8ed4eed9e7e7babda47c693">需要指定画布ID、组件ID<br />条件过滤可选全量或自定义输入。</p>
+<p align="start" nodeId="169bb6b13a264aefac9b8c51049feb65" />
+</td>
+</tr>
+<tr nodeId="439e1d03955640109f59f209e7976e98">
+<td colwidth="[50]" numCell="true" nodeId="1c0098c4337a4316befbd551f7f2bb3d">
+<p nodeId="5202d5c8c5314e45935b1f99131f32a3" />
+</td>
+<td colwidth="[128]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="908b93a2a7fc4fb2a4110d16719076fe">
+<p align="start" nodeId="62234dedbb4c401bba3e3eaac505eea8">旁路输出组件</p>
+</td>
+<td rowspan="2" colwidth="[96]" nodeId="aa00ea89e16842b784cf0e3ab8fbcfb3">
+<p nodeId="e251cb29a98e48598e24c12b9579f05d">数据输出</p>
+</td>
+<td colwidth="[434]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b82db1117c214866a896e8a04ce58b5a">
+<p align="start" nodeId="8f6d2a03e6854fa8ba68b21b26e196b2">根据旁路输出组件<span color="#FF4A47">【输出】</span>到MQ的【流量数】判断是否达到阈值而熔断，使后续流量的<span color="#FF4A47">【输出】</span>被阻断。</p>
+</td>
+</tr>
+<tr nodeId="49e5f2c3027b4e87a8da77402005bcb3">
+<td colwidth="[50]" numCell="true" nodeId="26fef776225d403c832f3129d28d1106">
+<p nodeId="29b72f102c41458fb7dc6f71f21be6af" />
+</td>
+<td colwidth="[128]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6fca2b41535447e9a9f788c2a864be2d">
+<p align="start" nodeId="06407434523447a28d2634eee429d683">数据存储组件</p>
+</td>
+<td colwidth="[434]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="99e78a01175b4bf5b209e6d7411a311c">
+<p align="start" nodeId="c32b15802ffc492aab06521ed55207fb">根据输出存储组件<span color="#FF4A47">【写入】</span>到存储的【流量数】判断是否达到阈值而熔断，使后续数据的<span color="#FF4A47">【写入】</span>被阻断。</p>
+</td>
+</tr>
+<tr nodeId="4d6924007d69422f8da2d36d255ada77">
+<td colwidth="[50]" numCell="true" nodeId="34f4a0c0a78e47b7bc6e8dc1549362c4">
+<p nodeId="abf32f02a4f949cfbcb07897eea2e5db" />
+</td>
+<td colwidth="[128]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="65bc29b850cf4f3c9df60023902b6e25">
+<p align="start" nodeId="3c5cba47562b4e269140f582fa824da1">决策信息组件</p>
+</td>
+<td colwidth="[96]" nodeId="89e3724c1cf343ef83fec110f8de5dc6">
+<p nodeId="4b35bfee918d476483d2c4b06c4a41f6">决策处置</p>
+</td>
+<td colwidth="[434]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4dbcc7fbf7ab4722bd8ec5834277bff0">
+<p align="start" nodeId="09855e478bbc4a6d9df5aa306139c2d7">根据决策信息组件<span color="#FF4A47">【输出】</span>给告警平台/MQ的【流量数】判断是否达到阈值而熔断，使后续流量的<span color="#FF4A47">【输出】</span>被阻断。</p>
+</td>
+</tr>
+</table>
+<h1 align="start" nodeId="a5ba175b9eb14f6897955a881a098c2c">三、操作指南</h1>
+<h2 nodeId="01f08098d5794e0bbeeaaeb0b1c9f58a">3.1 操作流程图</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1354627337/4071270726?contentType=0&amp;isNewContent=false" width="528" height="351" nodeId="50a890ec1572476082a00c6372a6b13f" />
+<h2 nodeId="b01379baa6b14c80b25b96d600130598">3.2 详细步骤</h2>
+<table responsive="false" nodeId="10f0124b7e724590b8e61058064cc21c">
+<tr nodeId="64f2fddcb07d4d178cc835182c6a2325">
+<th colwidth="[119]" nodeId="8c4070df91a2411c898ca0f6d93c546f">
+<p nodeId="b092a9e073ec49ea814a471b401d0396">模块</p>
+</th>
+<th colwidth="[499]" nodeId="a40185f6e8084e7e93614bfa5a5a70cb">
+<p nodeId="2526b10cb0bb4105b42cf4a728fb6fdb">说明</p>
+</th>
+<th colwidth="[607]" nodeId="8d59ef42e2d444579bad2736c6d0dd4b">
+<p nodeId="f26b85b5665948b0a92a2988ff1a5808">图例</p>
+</th>
+</tr>
+<tr nodeId="21e6a780fe1b4173bae974937549f60c">
+<td colwidth="[119]" nodeId="5388de1dc7d44b3a97b978e73b8af3dd">
+<p nodeId="8f0a367b74fb4dfe8f698f538470328e">熔断配置入口</p>
+</td>
+<td colwidth="[499]" nodeId="a1c2138539674556b03eb09dbabdee35">
+<p nodeId="4be9d5f9cd404f7ea917bb8cc44805f6">在画布详情预览页，选择需要配置熔断的组件。在组件详情中，点击熔断配置，将打开熔断配置页。</p>
+<p nodeId="b646041221ce4f29952c3b2ba100e84d"><span color="rgba(0, 0, 0, 0.9)">画布熔断新建的唯一入口是从画布中打开，不支持在熔断菜单页进行画布熔断的新建。</span></p>
+<km-note type="note" hiddenTitle="true" nodeId="d44aef0a24c14f879427685a93d00673">
+<km-title></km-title>
+<km-content>
+<p nodeId="a935cbb2c03548d7a5039862521242ea">画布熔断只对画布ID当前的<span color="rgb(255, 74, 71)">生效版本</span>作用。</p>
+<ul nodeId="340b44e583364cc1bb172a05f95beef7">
+<li nodeId="ad1fb4542baf4f9e8955f2f16c5eefd2">若切换生效版本后，原来配置熔断的组件不再存在（被删除），则该熔断配置也<span color="rgb(255, 74, 71)">不再有效</span>。</li>
+<li nodeId="a9d3bf2c9b3d452a96df006c6e84e2d9">若切换生效版本后，原来配置熔断的组件的内容有变更，熔断配置依旧有效，<span color="rgb(255, 74, 71)">用户需确认熔断配置内容也同样适配</span>，以免出现不符合预期的报出。</li>
+</ul>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[607]" nodeId="61c34c0f5a8f48739f0f2d4943604948">
+<p nodeId="87c9fa7a174e425a9c3e6560061b1f27"><img src="https://km.sankuai.com/api/file/cdn/1354627337/4008238164?contentType=1&amp;isNewContent=false" name="image.jpeg" width="952.47" height="600" nodeId="aaa447610dec4d72b264193a00334a9f" /></p>
+</td>
+</tr>
+<tr nodeId="d8ff3f69a4e548958547a3cb90a034dd">
+<td colwidth="[119]" nodeId="9ee7a78cd9854c129bd61a7f89b1988f">
+<p nodeId="e10540dced6441ffadea81e9bcc70207">画布熔断配置</p>
+</td>
+<td colwidth="[499]" nodeId="2af3e4d01fbb4efc8eaefa25851f2393">
+<p nodeId="037e1572405c40778a365d7b27924661"><strong>1.熔断名称</strong>可编辑，熔断模式、作用范围默认已经选好当前组件，不可更改。</p>
+<p nodeId="8099af04459943bc98dda225436706a0"><strong>2.过滤条件</strong>：默认全量计数，即所有流出该组件的数据都会进行计数。用户可根据需要选择条件过滤模式，输入aviator表达式作为过滤条件。执行时，满足表达式的数据，才会进行熔断计数。如图中，当<span color="rgb(44, 62, 80)">userid 不为空时候 ，才计数。</span></p>
+<p nodeId="34fb07d1cb284e96aded8355a7fd6c3f"><span color="rgb(44, 62, 80)"><strong>3.作用时间</strong></span><span color="rgb(44, 62, 80)">：可选择熔断监控的时间范围，</span>系统将在设置的作用时间内检查数据，从而触发熔断；</p>
+<p align="start" nodeId="48d7eca105ec4ac59aea3abc495e93a3">时间类型包括：自由时间段（自由选择时间范围）与星期模式（设置每天的统一时间段，自由选择一周中的星期数）。</p>
+<p align="start" nodeId="66eb852b73de41c59bab836b5ec60b77">勾选排除节假日后，节假日不检查数据，例如设置了周六，同时勾选了排除节假日，则周六不检查数据</p>
+<p align="start" nodeId="7be3d6a05d784af584338a54053101d9">添加作用时间：以‘和’的逻辑关系增加作用时间，即可通过添加多条作用时间，获得一个作用时间的并集。</p>
+<p align="start" nodeId="fbe1ac97d9854740a1b19263677092ae"><span color="rgb(44, 62, 80)"><strong>4.熔断规则</strong></span><span color="rgb(44, 62, 80)">：以且条件（添加子规则）和或条件（添加熔断规则）来组织。</span></p>
+<p align="start" nodeId="d5f9b5b28a5c44e6bde0e9bf56e3db79">单条熔断规则需要设置如下项：</p>
+<ul nodeId="1a05c3b2775f4d9f9bf070bc0a805f55">
+<li nodeId="ea80a5ce6d2d40d1960868cf379bdfec">
+<p align="start" nodeId="4e00ff61e0ac4403ad7bd22ea967158e">时间周期（最近x分钟）：默认1分钟，支持输入</p>
+</li>
+<li nodeId="4f2325f66e81441aa532ce1f2f1e1f6c">
+<p align="start" nodeId="27951c5713be46a79b60879071b3e308">计算函数：<span color="">下拉列表选择，默认选择“命中量”，其余计算函数见下方附表。</span></p>
+</li>
+<li nodeId="ced5a9a3376f4f08af37f984a80eca63">
+<p align="start" nodeId="eb9465772f90451b9410a1661feab48e">对比关系：<span color="">下拉列表选择，&gt;, &gt;=, =, &lt;, &lt;=，默认为“&gt;=”</span></p>
+</li>
+<li nodeId="61887ffe77934617aef0de82ecffb78d">
+<p align="start" nodeId="bfa2b3f6c0e248d0839356113b1b6aaf">阈值：<span color="">直接输入数值，系统根据指标匹配单位</span></p>
+</li>
+</ul>
+<p nodeId="05ef1e3cbb2c400392e625fe06e2341f"><strong>5.熔断动作</strong></p>
+<p nodeId="319591fd69764fc3be95cc1b1f9d7da5">人工熔断：方式为达到阈值产生大象告警，人工可点击一键熔断将组件进行熔断。</p>
+<p nodeId="ac55bb5aa76549eb850b10aab8e4584a">频次上限：默认无。可配置按间隔，每一次通知发送后的设置时间间隔内，不发送触发的熔断告警通知。</p>
+<p align="start" nodeId="2554b5cd1f734801ac9003edccf97723">通知人<strong>：</strong>可选择业务空间负责人、业务空间变更通知人、自定义。自定义：支持手动输入mis号，多个使用英文逗号隔开</p>
+<km-note type="warning" hiddenTitle="true" nodeId="670657b199f24dc4964a6ca383cb2cd2">
+<km-title></km-title>
+<km-content>
+<p nodeId="d1fe6612d5ad4ebda744b81f8b05862d">当前配置熔断的同学若希望收到熔断告警，别忘记在自定义中加上自己的mis号～</p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[607]" nodeId="942d42747a484a48a949f44ca3d4369f">
+<p nodeId="4f31be9ba84248f19f1df409d2d9581c"><img src="https://km.sankuai.com/api/file/cdn/1354627337/4007449252?contentType=1&amp;isNewContent=false" name="image.jpeg" width="926.54" height="600" nodeId="34e4d8cdc5d546f6b0580615613eff99" /></p>
+<p nodeId="4932626e52044f35a2b206368b0811cf"><img src="https://km.sankuai.com/api/file/cdn/1354627337/4020116351?contentType=1" name="image.jpeg" width="871" height="600" nodeId="e9de9005513b4ac18b8061df0bd65012" /></p>
+</td>
+</tr>
+<tr nodeId="39a3dee3520544dc9af6623026a51a69">
+<td colwidth="[119]" nodeId="136858f1a17149c3bd652f8fddcbd85d">
+<p nodeId="9363bcde476c4dc8a81768912e212cc3">熔断配置列表</p>
+</td>
+<td colwidth="[499]" nodeId="ae05dee9773c49b2a9bd4a2fa2f82419">
+<p nodeId="d002ea34fb9d47acb4fdc62e450723c0">提交完成配置后，将会在熔断配置列表出现一条配置记录。</p>
+<p nodeId="42d3299f2d2b416cb5148786f7c4f12b">熔断模式：单点熔断 （场景-规则）/  画布熔断（画布-组件）</p>
+<p nodeId="1a5181351cab4d8483a1809d97a220ff">单点熔断的一二三级范围代表：场景-规则-决策</p>
+<p nodeId="c2c8e047e4504aa6bd66d59c782fb9d5">画布熔断的一二三级范围代表：画布-组件-规则（-1代表无，规则集合组件的熔断才会有对应id）</p>
+<km-note type="note" hiddenTitle="true" nodeId="f62b2d71922d4cf085fc880a399d1248">
+<km-title></km-title>
+<km-content>
+<p nodeId="1a1045fb17b341bc9845b1a2f30416cd">记得在此处拨亮状态开关，开启熔断监控的状态！熔断才会正式运作。</p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[607]" nodeId="1401bf9a7d9c46d896a74d5a10b425b2">
+<p nodeId="bb3dcb8f38a34ccb84d9d23bc9a94d72"><img src="https://km.sankuai.com/api/file/cdn/1354627337/4071198664?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1122.42" height="600" nodeId="33353d8d55424c1892277ef44d87fdac" /></p>
+</td>
+</tr>
+<tr nodeId="965fb92e50a2455380566a6c782ccd51">
+<td colwidth="[119]" nodeId="cead4c87880244028e7a955a9c8ce166">
+<p nodeId="92dbcbf736194317b357e99887850bdb">画布预览页</p>
+</td>
+<td colwidth="[499]" nodeId="986d5775519043e98875a16ec798c5e0">
+<p nodeId="87f73c89465c4b83a93e7f846dd712fc">配置了熔断的组件，在画布预览中（记得更新一下），可以看到组件后方有一个【火焰状】的标识符。表明该组件目前已经有对应的熔断配置。</p>
+<p nodeId="c3133fe458bc4e0baece7e3044809a74">组件详情中，右上角由配置熔断变为【查看熔断】，同时出现组件状态开关。默认为：<span color="#FF4A47">执行中，不可拨动。</span></p>
+<p nodeId="1bccd6887e624cedb14dd4f87374ef98" />
+<p nodeId="a044cd8d4b3743129c3342cb6d52d723"><span color="rgba(0, 0, 0, 0.9)">当熔断触发，用户点击一键熔断后，会使组件置灰，不再执行，此时组件状态变为关闭态。</span></p>
+<p nodeId="6e9da418331b4561aa5437a997ac6a96"><span color="rgba(0, 0, 0, 0.9)">用户调整完有问题的策略后，手动将组件状态拨为执行中。即可再次使组件进入执行，并恢复熔断监控。</span></p>
+</td>
+<td colwidth="[607]" nodeId="c270178cb0b744ea976eabee3c8cff60">
+<p nodeId="b14feeb32d37448ba62fd80ccaee36f6"><img src="https://km.sankuai.com/api/file/cdn/1354627337/4010804407?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1053.11" height="600" nodeId="6bd182ea959346e6a391304d1a59f6a1" /></p>
+<p nodeId="84556bb91bea416497f30c24df33cdb0"><img src="https://km.sankuai.com/api/file/cdn/1354627337/4024076359?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1011" height="508.16" nodeId="e3b49a8138914838b0a9ca87ab206b88" /></p>
+</td>
+</tr>
+<tr nodeId="1cf3aad131a34aa5b9d5d3a233a07ef9">
+<td colwidth="[119]" nodeId="1eb497a86f71420894510d8cdb2f355d">
+<p nodeId="9054fcac643f4b3ea5d2d747b5ab4c87">大象通知</p>
+</td>
+<td colwidth="[499]" nodeId="1b9e091ec5734de7b7b2550b6feba371">
+<p nodeId="de572394ec754ce1a4a381db1c51e8f2">如右图展示的是大象通知的内容</p>
+<p nodeId="22386cf0af744ea8b011aa2daa0d1b0b">【监控单位流量】即为对应组件在过去时间周期内的计数。</p>
+<p nodeId="a25a7bcaa8d64134b81acd11d2eda80d">点击【一键熔断】可直接使该组件不再执行。</p>
+<p nodeId="a8a5d8001fb6472a97cdf13950df3db1">点击【熔断记录 】可打开zeus熔断的记录详情</p>
+<p nodeId="7f37a1c4772645c08bb25d32cd628500">点击【画布详情】可打开zeus画布的详情预览页</p>
+<p nodeId="bb0f87ce8b9c4a95ac512fcab6324dee">点击【熔断ID/名称】可打开zeus熔断配置预览页</p>
+<p nodeId="b5c47dee22b1465b9d71db95b2acafd7">点击【ACK】可使熔断在对应时间内不再反复告出。</p>
+</td>
+<td colwidth="[607]" nodeId="66ee00263d3f427fa44b541406ad091a">
+<p nodeId="b3cc2ea365cd458aad071a1722df9983"><img src="https://km.sankuai.com/api/file/cdn/1354627337/4024430281?contentType=1&amp;isNewContent=false" name="image.jpeg" width="310" height="344" nodeId="87a2c4cfbee34af5aaa3061e9082674d" /></p>
+</td>
+</tr>
+</table>
+<km-collapse active="false" nodeId="56de96e4dcc04a999582a6a95a92fd63">
+<km-title>画布熔断支持的计算函数</km-title>
+<km-content>
+<table responsive="false" nodeId="58f4ea3f6c2a406c89c10cab4d6de3b3">
+<tr nodeId="f6ccf7872de742768addfe60445bc551">
+<th colwidth="[50]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="7835525f85114bc28264b87c4d2b8c4b">
+<p nodeId="2890ffafdc1945ba8959c2485e35892e" />
+</th>
+<th colwidth="[162]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="7a2df5854f66421ba42bacc0127bf382">
+<p nodeId="19fb603b14b84aa7802808916a4dd414">时间周期/最近N分钟</p>
+</th>
+<th colwidth="[305]" verticalAlign="top" bgColor="rgb(247, 247, 247)" nodeId="1a8b7ddb0ee04c9d8c4fa975502d7037">
+<p nodeId="2bc99793ef904253b89e3c0fa36350c2"><span font-size="14">计算函数</span></p>
+</th>
+<th colwidth="[262]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="2d9e4bda10674ce184a8a9e5406b7fe2">
+<p nodeId="4605a894172a4cfa81592d4274aeaa1e">对比关系</p>
+</th>
+<th colwidth="[101]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="fd1bd19623994cbc8ff07c722c9f1065">
+<p nodeId="3fd6d65c05744954a9996670cd70aba0">阈值</p>
+</th>
+</tr>
+<tr nodeId="f5bddca32a074a9f9601a84f6cf69ec1">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="90fd7f87ff8240baac17ef56b4a463e8">
+<p align="center" nodeId="fcdb3eefe4484cdf95babdf3b6b05f51" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="69538515407941f984e66993255e829f">
+<p align="start" nodeId="758ee311259445fa8b7bb7b90af433a4">用户输入</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" color="rgba(0, 0, 0, 0.87)" nodeId="d39f78fd0c9b447fa7c79e66f7ffe241">
+<p align="start" nodeId="7422ec77d8da423e9498b8d3a8c83669"><span font-size="14">当前命中量</span></p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="5f757ca9723a4073afbbbb736d781030">
+<p align="start" nodeId="196b8fcb3c154dfa8fd04ed29179554f">用户自选：&gt;、  =、  &lt;、  &gt;=、  &lt;=</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="0eff93a5352e4819ad7360f54efe3cdf">
+<p align="start" nodeId="fe989e9b518b4348b63ba443f8818df7">单位（个）</p>
+</td>
+</tr>
+<tr nodeId="d52e257403964e14aea1c5c9db7e77e4">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="84ac8489ad8647d18ceb158aefc79630">
+<p align="center" nodeId="f36a84f74cc846f4aa7a5ce890d4b8a2" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="d3974479a2d643818182821b9929dbf1">
+<p align="start" nodeId="b82080c918c74b0dbf987125620dbf6f">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="685368ecf56b4dc7adc822c3840e804f">
+<p align="start" nodeId="4f094488f2304466afe6dec1822bc6d8">当前命中量比上个周期上升值</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="028614b1def346738072d4ceb0da7866">
+<p align="start" nodeId="3c74eb3c4a9b4c92b84e6b9b19ad8e8f">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="89eb1d8bc8ce401791a8fa40057f1abe">
+<p align="start" nodeId="03052d16eb38438298af95bb58ddf0a5">单位（个）</p>
+</td>
+</tr>
+<tr nodeId="20531c23cf2948a7a7ca1a8d072dce27">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="7e461f982f494052b38668f032017d60">
+<p align="center" nodeId="8032f761aeca497b8ebc46439a260fb8" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="58dcdaf029ea402ba429f1737327dee0">
+<p align="start" nodeId="c68a0147b44a4c1ca17cc95a400457b2">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="fedf0c58c39048d3a2cb69defa083b96">
+<p align="start" nodeId="24b19cdbb1f44426af9855a41d58047a">当前命中量比上个周期下降值</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="e6de00d0f7a54d00bf0580a12a20a694">
+<p align="start" nodeId="cb1c42ab7c61489382592879858a1b71">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="05e25d8f2f954367b868cd2094f2626b">
+<p align="start" nodeId="cf54f8f35e8044b1975479482a448866">单位（个）</p>
+</td>
+</tr>
+<tr nodeId="621cf8dd2c35470f84766c0abed298c9">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="a0aacbe127a94545a2b9e5f02cd5005e">
+<p align="center" nodeId="dba5d0ce52474cdd8bfe8dbda86f68fa" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="6d3290e30c5b4c5281d4b2ee7b79b3f2">
+<p align="start" nodeId="c1ca8171df36408d856c4786663a7399">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="997ed1a8336546449e8d8bb2e37ca315">
+<p align="start" nodeId="567b39f0c1264fbf9bee5ab651d611d4">当前命中量比上个周期上升百分比</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="a5d03f4a73444f58adad84cba0e0e18b">
+<p align="start" nodeId="8de1da3c2ba24e8681a5ec9b2c01571f">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="60e776d89be44893abad3df3b7903e37">
+<p align="start" nodeId="782c7bff0aae4960a485eaa8d269e725">单位（%）</p>
+</td>
+</tr>
+<tr nodeId="a5553955ce764ce784064f33830de806">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="c4cdf739fae649b09c9dfde6ad289ff0">
+<p align="center" nodeId="f9a649bd4cb341499773a4a7d55569bc" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="4615e42af55c4f98864aaff5b2015837">
+<p align="start" nodeId="5b796ccf24e64dacbc8e70cd0ca11532">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="f62abc4e37e54d7a8ffb60987619a520">
+<p align="start" nodeId="fff16caccff94e4bbe3753462041ad72">当前命中量比上个周期下降百分比</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="a47dc0b3399f43058bd3d68a7d452593">
+<p align="start" nodeId="247eb403b5514623854022777470ac35">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="1a274a094ac74e879f384c86a631c899">
+<p align="start" nodeId="8b95031b45fa4921ab021a0b164565a4">单位（%）</p>
+</td>
+</tr>
+<tr nodeId="f9494c7e05444a95995a64ccc37ff762">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="af9e1f0cdb404b209df3e007040ce2ac">
+<p align="center" nodeId="a88448332f4c4661a82e3d722492050c" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="289812b743214edb922a51e8d991da5c">
+<p align="start" nodeId="6625e4c3d5dd4d17b2315d452d0744b4">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="61dcff644d7e4f13b176a6bad0e9cbd8">
+<p align="start" nodeId="42f50cc521bb433081374b7d731e463e">当前命中量比昨天同一时间上升值</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="65eaae0781f045d3b64e1ff52a599885">
+<p align="start" nodeId="fdf4203b4b934e6ba06aa03f760cd01f">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="c455e6b1a3dc4008b22ed00dde8cc6cb">
+<p align="start" nodeId="720b0716eb264372a42abba882260d0f">单位（个）</p>
+</td>
+</tr>
+<tr nodeId="2c71dbbf268046f1b11b61c5a4d6fc43">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="283c6f821cb149b4a01fcb8989007d1a">
+<p align="center" nodeId="3fe1d48498f341b08d433457addecd44" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="f0c53ea614fe46acb1bad057e4b09943">
+<p align="start" nodeId="22e6e8d64506408089621eeb47e77edc">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="ddbc6a1adb1e422a85770e4787088ddc">
+<p align="start" nodeId="c9e00e25331e428780f5ee28c2d0bf31">当前命中量比昨天同一时间下降值</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="86fb10e9a9694052b676f2013ddd017d">
+<p align="start" nodeId="5beb290643124703a2cd317f37bfad49">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="fb05be498067462a80c17f44efa513f7">
+<p align="start" nodeId="a14b265a93c9401c914ea587a5dd8a08">单位（个）</p>
+</td>
+</tr>
+<tr nodeId="42ccebca742e46cb9a3a2ed33d51eaa4">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="bc75faaf02a44b1899bba9c8595d232b">
+<p align="center" nodeId="f063267775dc41f5a9e2649efdfb1a9c" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="b92669e107434dd786e52b9e5dd76ae0">
+<p align="start" nodeId="ca87998205a54ffa8e8ac1ae834695bd">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="c7e4f8a8127841589ccf42121dd49f04">
+<p align="start" nodeId="60a3324d6ae147e799d00e42a328df4f">当前命中量比昨天同一时间上升百分比</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="4e5d076c4f1b411d82b8ffb2aa6f5ce3">
+<p align="start" nodeId="fc017606a9004144add063451ee47622">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="2f06e1e5bbd7426e91677ea6a2651988">
+<p align="start" nodeId="80cae299d2de420cba08c7b2f5c65bfd">单位（%）</p>
+</td>
+</tr>
+<tr nodeId="5ce63510e983475ea98c02a12e958ffc">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="f948060fcd404b809c76393eb4c2a662">
+<p align="center" nodeId="65a312e05ce34fd390e7c413be029c2c" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="5d3f78b4dfde42ce8d672bb3259c9232">
+<p align="start" nodeId="0bc9c8e0efd54c8fa52e6c9c5c17390d">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="1cf85058bd494268a75e242060db940d">
+<p align="start" nodeId="a949803767504331a85b7d16d5b5938e">当前命中量比昨天同一时间下降百分比</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="572cfba34b6241d39ed134ef459a85a4">
+<p align="start" nodeId="5ea945f15a154701a1ddce1ef41ea390">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="3fadcb63712947bc8e023debc7da5872">
+<p align="start" nodeId="2b40eb7148e246c3b484a5f254f2a1ed">单位（%）</p>
+</td>
+</tr>
+<tr nodeId="3914562633e040c49c0eea910c7e551d">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="bb44ac43d54e4f5ea25ba107fe5c0381">
+<p align="center" nodeId="7432d53330024b9fbfaf7aaad889449c" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="c1251e3fc7c74cc99215aef22cb90a0b">
+<p align="start" nodeId="8dbb29af3d20444594b4a3c2bb3e22fb">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="729aa12a0fbf40bda56fca43998799e3">
+<p align="start" nodeId="16e833dee1284f5cba9c3e0fcbabb7e7">当前命中量比上周同一时间上升值</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="d34927c99b00408eb2f13d84b3506574">
+<p align="start" nodeId="8ee545ed7af0431f80adf5d9553a939a">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="833670abacdd4791b778f089257c97d5">
+<p align="start" nodeId="9fa587e967424eec93f3f2b80efbcae3">单位（个）</p>
+</td>
+</tr>
+<tr nodeId="e5860bf77269444f83424cde5bb89c1b">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="db625acd2bd04df7a3322ff0b860dc23">
+<p align="center" nodeId="707ce23ba3b441428eb32c655618b149" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="8b8c2520b8454bccbfa97138059b6c66">
+<p align="start" nodeId="c14664d19f7f4eaca0f2fe417e7e436f">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="106d6cf63d0a4c349afc1bfb35af32af">
+<p align="start" nodeId="c5087cb2bb3e4490980ee4e8c8d35753">当前命中量比上周同一时间下降值</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="95a1803191cf4d43a962bd1a80cd2a0f">
+<p align="start" nodeId="de29bfe3321e491c9fb903d1bbc72860">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="2d5927ed903c48b0b6a8d6faa0eeb705">
+<p align="start" nodeId="27389ad3b3f04892812396dd1932877e">单位（个）</p>
+</td>
+</tr>
+<tr nodeId="8b858f58f0c0492ea2f4df01f3950f2f">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="62fc8e68036f409db0d37dbccf9ff529">
+<p align="center" nodeId="c1ff56c25aca4277ac1d01e1efb6c422" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="c9dee3d81ace45b6ae5abc11861b6ec5">
+<p align="start" nodeId="49fa14ef8044403fae3620232c85035f">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="7a717e0c34874fd9896a00559f4cc8e1">
+<p align="start" nodeId="5ef1f61c8b7d4c66b94b3ee7bfd59bd3">当前命中量比上周同一时间上升百分比</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="edc5efa3e2e74a05ae1385f836b1fded">
+<p align="start" nodeId="702be055852e49d5ba28d7344724b123">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="4b967ed214994d55a20151b02388eee3">
+<p align="start" nodeId="c54ebbc05e854ae5b2d83f7196a75c51">单位（%）</p>
+</td>
+</tr>
+<tr nodeId="3f891004c1fd4b688ce2eae8a05bd0fb">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="11c764a3e4924afb89ef87f6899ead19">
+<p align="center" nodeId="6059d729c9264ec0aec26ce30d2f4ed4" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="81c73e557f0c485fb7fb7b6428672638">
+<p align="start" nodeId="a6fc3df402cc4f4d9ce9dafa07831f36">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="05edfeadea0b486da50c2efa6a7198fa">
+<p align="start" nodeId="d0691b4f2da44c27a3c6c9a24ce2da9b">当前命中量比上周同一时间下降百分比</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="1ec2ea44dab94fedbcd84cfc7cc19bc7">
+<p align="start" nodeId="f2945e26d6f04f75bd7239f2110e65f3">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="00ba7f8ed412408d9146c9e5b54c31a7">
+<p align="start" nodeId="4563b72ce6524c7e926480a9a7e1dfaf">单位（%）</p>
+</td>
+</tr>
+<tr nodeId="4875141bd8be4289bde0199ba415c7bf">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="5f95773b763541019239e8ae2a0c0395">
+<p align="center" nodeId="a0f1d62d8e7641f8ba9ddf55e9d14b3c" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="01e6c435e6ad4bc2873a47cbc03c0efb">
+<p align="start" nodeId="537b5dcac3724de38fa1d06d37bee1cc">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="2ac495c604114902be66ec780b89b1c9">
+<p align="start" nodeId="78254a7044c146c290f3734d0f8eac48">当前命中量比基线上升值</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="2cf12481487746af9eb8e78c0c84164f">
+<p align="start" nodeId="b0c1d854b6fa44df85b4a6392540a3ec">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="c577b079eb5447de95a10446cf2b135e">
+<p align="start" nodeId="ec43780932e8418ebe1129f581bc0fdc">单位（个）</p>
+</td>
+</tr>
+<tr nodeId="62d45c24c84c4550845833dffcb71ebf">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="916335f93966468eab47c46034d5e321">
+<p align="center" nodeId="cd1515da486442ad806861c1e512be24" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="43f123bc672c4e0c88c3b12540bc9351">
+<p align="start" nodeId="60aa16d1b3f14b40825e7c34ab868ad5">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="241f07e545bf40d69835ba43eff1c406">
+<p align="start" nodeId="12e11f69afb4466fa21cf68579a0e4e3">当前命中量比基线下降值</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="4fae7a4feea34018b228862c38828da9">
+<p align="start" nodeId="cd0c98d845844b9cadefac6b4d6f033f">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="e95d2863f083434090953a9745b596dc">
+<p align="start" nodeId="909a349c20b643c499521d9c2d269403">单位（个）</p>
+</td>
+</tr>
+<tr nodeId="3f27820e7996414098128ebaaf1ba715">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="2fec2126f0124060b159f208fe138f98">
+<p align="center" nodeId="c5f462641c0e4738bead376d782ec8c8" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="b067696856a14e48bb97d00f2da6d651">
+<p align="start" nodeId="9e45821b621a4b93bf8b6861236ab0be">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="869aba8e7d91465f90560bdeebae5fcb">
+<p align="start" nodeId="1d6a375aa16649b79597b5d83665d35c">当前命中量基线上升百分比</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="55cffc8782be43dc8d734bc625096997">
+<p align="start" nodeId="1bf0326f5b0f41898174fe0340cacdeb">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="04f2279bf121424498aeef765f4368e9">
+<p align="start" nodeId="bb3eacf3bbf14773a0c3e398999cda0d">单位（%）</p>
+</td>
+</tr>
+<tr nodeId="9bd920a9b5164948b5bddccb56cf327f">
+<td colwidth="[50]" verticalAlign="top" color="rgb(0, 0, 0)" numCell="true" nodeId="839203f65ecb44308f01edcc02431bf8">
+<p align="center" nodeId="64bded86b5664091823c723667ecb559" />
+</td>
+<td colwidth="[162]" verticalAlign="top" bgColor="#FFF" nodeId="83fd49612e1a45bfab4b1b93c9d3c171">
+<p align="start" nodeId="12ef6a58e91241c983e34f4ef36a66aa">同上</p>
+</td>
+<td colwidth="[305]" verticalAlign="top" bgColor="#FFF" nodeId="6b60ed5f7d7748c29a53f335b75dbadf">
+<p align="start" nodeId="3454d786d87b4be58c2a8d1914e69220">当前命中量比基线下降百分比</p>
+</td>
+<td colwidth="[262]" verticalAlign="top" bgColor="#FFF" nodeId="c4dc3a9ec3514504ba79e45d37efce53">
+<p align="start" nodeId="f317da8ef7984b2a8493cf3c8733f78a">同上</p>
+</td>
+<td colwidth="[101]" verticalAlign="top" bgColor="#FFF" nodeId="986eff8d1c914023a9a88222955e62c8">
+<p align="start" nodeId="47dbf9a25b2248f19246eafaf5463810">单位（%）</p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h2 nodeId="233467efca1d491f86dd1503dd1b7a69">3.3 规则集合组件的熔断配置</h2>
+<p nodeId="0e09613b597c4d78a1b6c3e44b869af7">规则集合组件和其他组件的熔断语义有些区别，即：根据规则集合组件中该条【规则】的<span color="rgb(255, 74, 71)">【命中量】</span>判断是否达到阈值而熔断，使流量在<span color="rgb(255, 74, 71)">【输入】</span>该组件后<span color="rgb(245, 35, 45)">不再执行该规则</span>。</p>
+<km-note type="note" hiddenTitle="true" nodeId="a36b72621fe84ea9ae7c17aa19e3cd84">
+<km-title></km-title>
+<km-content>
+<p nodeId="34c73a56463b4f979f2195d576212fb0"><span color="rgba(0, 0, 0, 0.9)">若组件中所有规则都被熔断后，该组件就完全熔断，即流量在</span><span color="rgb(255, 74, 71)">【输入】</span><span color="rgba(0, 0, 0, 0.9)">该组件前被阻断。</span></p>
+</km-content>
+</km-note>
+<table responsive="false" nodeId="1c277843953f4a72a1050b541640a5e2">
+<tr nodeId="10303c1ec8144ca38b27d00c9bd4618e">
+<th colwidth="[119]" nodeId="aab0458672ac48cc867d92823194f42f">
+<p nodeId="f4190a1388ad495487bab4e501679cd0">模块</p>
+</th>
+<th colwidth="[529]" nodeId="0a73ac4d7ca8445cbdb20dee5cafc1ae">
+<p nodeId="109ef2909f6641c2954439459f1a1187">说明</p>
+</th>
+<th colwidth="[587]" nodeId="1cd759630a2b4f7a9da4818bbb05aeb4">
+<p nodeId="e9d5bcbf24a24b3c95d503c1f48ba949">图例</p>
+</th>
+</tr>
+<tr nodeId="8e5922a00ba34d3280ab60694ce5d499">
+<td colwidth="[119]" nodeId="a5d110f16994499981da7d0efce4bd33">
+<p nodeId="70cf0f1ef023438392244494f7fa6f29">熔断配置入口</p>
+</td>
+<td colwidth="[529]" nodeId="93b7dc971c8b483ea51d8b552989dcc1">
+<p nodeId="dabf98320bc646a0b96f4fe97642039c">在画布详情预览页，选择需要配置熔断的 规则集合组件。</p>
+<p nodeId="40550a0967d6404fbded266c3dc76fd7">在组件详情中，在对应规则后方，点击熔断配置，将打开熔断配置页；</p>
+<p nodeId="d36b17106377445eb98acfe72fe3d5f3">若组件下配置的是规则组，支持对规则组中的规则快速全选全部规则 创建熔断逻辑，也支持单条规则配置熔断。</p>
+<p nodeId="c03a649799c641d2a79c7cca14ed5963" />
+<p nodeId="7fa13381b6de40faa7814f3c7113d9f9"><span color="rgb(255, 74, 71)">注：画布熔断新建的唯一入口是从画布中打开，不支持在熔断菜单页进行画布熔断的新建。</span></p>
+</td>
+<td colwidth="[587]" nodeId="eeeaa563056044d78e10da049ab0a434">
+<p nodeId="4747b6204797485eaa9e23203b8c8bce"><img src="https://km.sankuai.com/api/file/cdn/1354627337/4072781640?contentType=1&amp;isNewContent=false" name="image.jpeg" width="942.32" height="600" nodeId="d001d65aec044f1c83389dabd9e69dcb" /></p>
+<p nodeId="49a160fc8e22422fbe799e1b09119b6b"><img src="https://km.sankuai.com/api/file/cdn/1354627337/21185063796?contentType=1&amp;isNewContent=false" name="image.jpeg" width="551" height="376" nodeId="ff8dee51e01347d190775c6446b7e756" /></p>
+</td>
+</tr>
+<tr nodeId="0261fdd522484129a1b2fed82c917a42">
+<td colwidth="[119]" nodeId="3efa70f30d8441eb9f54961cf7917022">
+<p nodeId="c333e4196a684508947671434c1a471d">画布熔断配置</p>
+</td>
+<td colwidth="[529]" nodeId="29464e8b426c407483634b57b6d07c68">
+<p nodeId="116f100114404bb8a28463afbd0d3120">熔断配置页与其他组件类似，此处不赘述。</p>
+<p nodeId="d36eb8ec87f44a449eb5ef3919a59422">仅下述区别：</p>
+<p nodeId="f185a7eb093a4f1d91c5a618a0714e50"><span color="rgba(0, 0, 0, 0.9)">1.不支持条件过滤，默认含义为某条规则的命中量。</span></p>
+<p nodeId="4efc8a973540496592de208cf61367f8"><span color="rgba(0, 0, 0, 0.9)">2.需要选择配置熔断的规则，默认选中入口所属规则，也可多选该组件中</span><span color="#FF4A47">还未配置熔断</span><span color="rgba(0, 0, 0, 0.9)">的其他规则。</span></p>
+<km-note type="info" hiddenTitle="true" nodeId="3a41b61f7e9b45dda2658ff5615b7bf4">
+<km-title></km-title>
+<km-content>
+<p nodeId="19aa9c318017439d857202bfa8622f6e"><span color="rgba(0, 0, 0, 0.9)">多选的含义：针对选择的多条规则，</span><span color="rgb(255, 74, 71)">分别</span><span color="rgba(0, 0, 0, 0.9)">按照下方的配置进行熔断监控。</span><span color="rgb(255, 74, 71)">注意，不是计算多条规则的命中总和，而是分别计算命中。</span>共享下方的熔断规则、通知等配置。</p>
+</km-content>
+</km-note>
+<p nodeId="d2d9502a14db4db48ee4bf449a497228" />
+</td>
+<td colwidth="[587]" nodeId="bb0ef9181c124b9083d21a4a0eb5aadc">
+<p nodeId="5305258af6f041528319f6d04a2abdac"><img src="https://km.sankuai.com/api/file/cdn/1354627337/4071054578?contentType=1&amp;isNewContent=false" name="image.jpeg" width="958.94" height="600" nodeId="20c15614b39447c88b21289b2a49d856" /></p>
+</td>
+</tr>
+<tr nodeId="56a4dabaf4994885abaaf248bb7775e4">
+<td colwidth="[119]" nodeId="20729797232d48a69da5170bde2cb0c0">
+<p nodeId="4807630aea1140808933e4594dd51539">其他</p>
+</td>
+<td colwidth="[529]" nodeId="7514ef995a4a4edf94a57afe69e97bce">
+<p nodeId="b6f34f2ffd494f3dbaca3c01045da1f1">1.完成配置后，列表会出现熔断配置记录。</p>
+<p nodeId="41355cff99f24560b9a7c0c3fe0ab62e">在画布预览-组件详情中（记得更新一下），对应规则后方由【配置熔断】变为【查看熔断】，同时出现组件状态开关。默认为：<span color="rgb(255, 74, 71)">执行中，不可拨动。</span></p>
+<p nodeId="6b07349146b64b93bd8e079b800accf3"><span color="rgba(0, 0, 0, 0.9)">2.当熔断触发，用户点击一键熔断后，会使流量经过组件时，不再执行</span><span color="#FF4A47">该规则</span><span color="rgba(0, 0, 0, 0.9)">，此时组件状态变为【关闭态】。</span></p>
+<p nodeId="0b2daaca16754b03b07100d574925082"><span color="rgba(0, 0, 0, 0.9)">3.若组件中所有规则都被熔断后，该组件就完全熔断，即流量在</span><span color="rgb(255, 74, 71)">【输入】</span><span color="rgba(0, 0, 0, 0.9)">该组件前被阻断。</span></p>
+<p nodeId="425dfb5ff36c406fb8c661789ecf7e52"><span color="rgba(0, 0, 0, 0.9)">4.用户调整完有问题的策略后，手动将规则状态拨为执行中。即可再次使规则进入执行，并恢复熔断监控。</span></p>
+</td>
+<td colwidth="[587]" nodeId="e3364ccf28fb47a5b855354bcc056f70">
+<p nodeId="11ac4fec30934802a02cab9f42195501"><img src="https://km.sankuai.com/api/file/cdn/1354627337/4199019122?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1100" height="600" nodeId="cab5fab0fde1451f8f7c258f399c7759" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="7f2fce53daaa4a8daf6f19026d50f389">四、FAQ</h1>
+<table responsive="false" nodeId="fb4252d9610146739c1b2b6c63bb58a5">
+<tr nodeId="da739a8e6e974f4fbecab701c632b25f">
+<th colwidth="[50]" nodeId="66414fc6f0564ebab49e365aef1b10a5">
+<p nodeId="d0ca8df4b0fe49c8bd4e6b2638d0fd84" />
+</th>
+<th colwidth="[282]" nodeId="8e0204ef1a0b4d0e92979939a0a1b96b">
+<p nodeId="3d30c2766b7445aba1cc5cc368c90cee">问题</p>
+</th>
+<th colwidth="[827]" nodeId="6b2ba828024e4de4bcdcffea488b71ce">
+<p nodeId="6ccc50e1a61c4ed78d340985fdc8e5c3">答</p>
+</th>
+</tr>
+<tr nodeId="90f62420d55641f2a97d157bbd3d2dc0">
+<td colwidth="[50]" numCell="true" nodeId="3287ca31aeb84519b6dfd04f13c01912">
+<p nodeId="233629c6e199424ca93ed74783469046" />
+</td>
+<td colwidth="[282]" nodeId="2ba9ee6a552a4b3ca15844a37e897c10">
+<p nodeId="226541ebaf9248a7a45ea70084506b09">画布切换版本后，原来组件的熔断配置如何处理？</p>
+</td>
+<td colwidth="[827]" nodeId="9ff807628b924a8c82cb25d4a6f7af50">
+<p nodeId="2b7854fff60e49b0855e36d5cdf7f947">画布熔断只对画布ID当前的<span color="#FF4A47">生效版本</span>作用。</p>
+<ul nodeId="fb8db685de2f4841bbd4684681e2214d">
+<li nodeId="244c55b00fc5451db9be69f26dbb2c5c">若切换生效版本后，原来配置熔断的组件不再存在（被删除），则该熔断配置也<span color="#FF4A47">不再有效</span>（但还在配置列表里躺着）</li>
+<li nodeId="1f2c1279cf6a4315b225bfb2169dfd67">若切换生效版本后，原来配置熔断的组件的内容有变更，熔断配置依旧有效，<span color="#FF4A47">需要用户确认熔断配置内容也同样适配</span>，以免出现不符合预期的报出。</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="3dd3583717044cddb4e4ede88bad1d09">
+<td colwidth="[50]" numCell="true" nodeId="7011bddcec1d4a22a86216674509f730">
+<p nodeId="b051ed74fc534bbeb68be06d31bb6b52" />
+</td>
+<td colwidth="[282]" nodeId="30ce4f7d48c4423b8979602ac8ff1370">
+<p nodeId="cf1a021ca7dd4fa0af3a625c65f74011">画布熔断配置 支持复制么？</p>
+</td>
+<td colwidth="[827]" nodeId="78cafdd514a2420a83034e3c9920c60c">
+<p nodeId="bd969b1fe7ee46428b80f11ad0169eb7">不支持，一个配置对应一个画布组件。</p>
+<p nodeId="e6e829669ce14409bc5e94d76c6f6bad">其中规则集合组件特殊，因其中有多条规则，可能涉及多个熔断配置。但是组件中每条规则最多只能对应1个配置。</p>
+<p nodeId="6a49a82d8f5d4e10b0e210b14a5eebc3">（表现为：如果组件里1个规则A配了熔断，就不能在组件内另一个规则<strong>B</strong>配熔断时，下拉多选该条规则A）</p>
+</td>
+</tr>
+</table>
+<p nodeId="e48f756736414fe388a4af5c781a434f" />
+<p nodeId="2427ac5b1aaf498e97e58de9a5e34b05"><span color="rgba(0, 0, 0, 0.87)"><span font-size="22">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+</km-doc>

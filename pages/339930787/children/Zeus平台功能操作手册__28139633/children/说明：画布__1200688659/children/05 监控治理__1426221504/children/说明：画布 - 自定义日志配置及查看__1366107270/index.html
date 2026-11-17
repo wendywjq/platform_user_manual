@@ -1,0 +1,98 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布 - 自定义日志配置及查看</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名称解释</a><a href="#section-7">三、操作指南</a><a href="#section-8">3.1 日志定义</a><a href="#section-38">3.2 日志查看</a><a href="#section-39">使用效果：测试画布354</a><a href="#section-83">四、常见Q&amp;A</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">05 监控治理</a> / <a href="index.html">说明：画布 - 自定义日志配置及查看</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1366107270">查看学城原文</a></p><article>
+<h1>说明：画布 - 自定义日志配置及查看</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>在日常画布调试中，存在Zeus缺少调试导致配置的规则/画布结果不符合预期或者运行报错时，需要Zeus rd 介入调试，降低业务方debug效率，浪费 Zeus rd 人力情况。期望Zeus建设自定义日志，辅助业务debug</p>
+<h1 id="section-5">二、名称解释</h1>
+<p>无</p>
+<h1 id="section-7">三、操作指南</h1>
+<h2 id="section-8">3.1 日志定义</h2>
+<ul>
+<li>aviator表达式中进行使用</li>
+</ul>
+<div class="note">
+<strong></strong>
+<div>
+<p>##exp-5</p>
+<p><span style="color:rgb(255, 74, 71)">print(zeus_output, "hello, AviatorScript!"); </span></p>
+<p>"test"</p>
+<p>//<span style="color:rgb(255, 74, 71)"> </span><span style="color:#FF4A47"><em>增加一行输出日志，输出的信息以字符串展示，要是输出多个变量，可以自己字符串拼接，也可以多次print，多次print系统内部自动进行字符串拼接</em></span></p>
+</div>
+</div>
+<ul>
+<li>代码组件中进行使用</li>
+</ul>
+<div class="note">
+<strong></strong>
+<div>
+<p></p>
+<p>import com.meituan.rc.zeus.computing.engine.util.NearlineLogUtil;</p>
+<p><span style="color:#FF4A47">//该种方法适合画布组件使用，传组件id,仿真测试的时候，报错直接映射到组件上，不过message不能是空字符串</span></p>
+<p><span style="color:#FF4A47"> //</span><span style="color:#FF4A47"><em>只需要填充message和组件id</em></span></p>
+<p>1.NearlineLogUtil.customizedLog(message,componentId);</p>
+<p></p>
+</div>
+</div>
+<p></p>
+<h2 id="section-38">3.2 日志查看</h2>
+<h5 id="section-39">使用效果：测试画布<span style="color:rgba(0, 0, 0, 0.84)">354</span></h5>
+<table>
+<tr>
+<th>
+<p>配置</p>
+</th>
+<th colspan="2">
+<p>效果</p>
+</th>
+</tr>
+<tr>
+<td>
+<ul>
+<li>表达式配置1：<img src="assets/6d024ada2f0a7987.png" width="386" height="107" alt="image.jpeg"></li>
+</ul>
+</td>
+<td>
+<ul>
+<li>仿真测试展示：</li>
+</ul>
+<p><img src="assets/44bb1311d55960c5.png" width="431" height="176" alt="image.jpeg"></p>
+</td>
+<td rowspan="3">
+<ul>
+<li>
+<p>线上作业日志中心展示：<img src="assets/8716384b66406122.png" width="817" height="350" alt="image.jpeg"></p>
+<p></p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<ul>
+<li>表达式配置2：<img src="assets/ac5be924b701dc5a.png" width="428" height="199" alt="image.jpeg"></li>
+</ul>
+</td>
+<td>
+<ul>
+<li>仿真测试展示：</li>
+</ul>
+<p><img src="assets/eddc5bfef1f321f8.png" width="444" height="207" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ul>
+<li>代码组件配置：<img src="assets/25c47c9600457194.png" width="468" height="212" alt="image.jpeg"></li>
+</ul>
+</td>
+<td>
+<p>仿真测试展示：</p>
+<p><img src="assets/22259732638bbcbd.png" width="479" height="267" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-83">四、常见Q&amp;A</h1>
+<p>Q1：仿真测试可以通过日志中心查看吗？</p>
+<p>A1：正常情况下，仿真测试过程中的自定义日志效果通过仿真测试组件的弹窗中查看，线上过程中的自定义日志效果通过日志中心查看。特殊情况下可能遇到如画布功能仿真测试无法展示内容等bug，可提TT到RD同学，通过lion配置发送仿真测试消息到日志中心</p>
+</article></main></body></html>

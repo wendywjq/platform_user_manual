@@ -1,0 +1,26 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据源任务错误日志排查实践</title><link rel="stylesheet" href="../../../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">查找数据</a><a href="#section-18">定位问题</a><a href="#section-25">解决问题</a></aside><main><div class="bread"><a href="../../../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../../../index.html">说明：画布</a> / <a href="../../../../../../index.html">05 监控治理</a> / <a href="../../../../index.html">说明：画布 - 异常监控治理</a> / <a href="../../index.html">数据源作业告警治理</a> / <a href="index.html">数据源任务错误日志排查实践</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1445740701">查看学城原文</a></p><article>
+<h1>数据源任务错误日志排查实践</h1>
+<div style="none"></div>
+<h3 id="section-3">查找数据</h3>
+<p>1.点击查看作业  比如第一个任务<a href="https://zeus.sankuai.com/data_zeus_static/#/dataKafkaDetails?id=128" title="https://zeus.sankuai.com/data_zeus_static/#/dataKafkaDetails?id=128">https://zeus.sankuai.com/data_zeus_static/#/dataKafkaDetails?id=128</a><br></p>
+<p><img src="assets/3c8e4da30d21e8ff.png" width="501" height="275.5755873340143" alt="image.jpeg"><br></p>
+<p>2.查看报错信息<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:128%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:128%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:128%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D</a><br></p>
+<p>关键的参数：</p>
+<p>sourceId : 实时作业ID</p>
+<p>sourceData: kafka数据</p>
+<p>config：报错的表达式</p>
+<p>contextData : 报错表达式使用的上下文数据</p>
+<h3 id="section-18">定位问题</h3>
+<ol>
+<li>找到报错规则:复制config数据，去负责列表页面搜索<img src="assets/97c61af59a8f43e7.png" width="1477" height="317.63440860215053" alt="image.jpeg"><br></li>
+</ol>
+<p><br></p>
+<h3 id="section-25">解决问题</h3>
+<p>  将contextData数据带入测试用例测试，确认报错点  </p>
+<p>    <br></p>
+<p></p>
+<p>1.通过使用zeus页面测试用例测试的方式排查问题点</p>
+<p>2.通过本地idea调试该问题</p>
+<p>3.后面会上线一个表达式执行工具，来帮忙调试这个问题</p>
+<p>观察修复情况</p>
+</article></main></body></html>

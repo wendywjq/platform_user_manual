@@ -1,0 +1,214 @@
+<km-doc>
+<km-title nodeId="90c975633b104a7fb720eb742561a90e">说明：性能调试工具</km-title>
+<km-catalog style="none" nodeId="e63c74ae3f9a4c22b1a740959810ecf2" />
+<h1 nodeId="b6c5c1f1fd2e40349fa220f66809757a">一、背景</h1>
+<p nodeId="8e9ee236bfeb42b7897ea1b82c95e5fe">近线画布作业，当性能表现比较差时，无法直观快速定位为题，一般需要依赖值班研发定位问题，整体性能治理效率不高。提供性能调试工具，可以帮助业务快速定位配置类的性能问题，及时定位、修正画布性能。</p>
+<p nodeId="4f287dca11eb4467bfd4c5924a7708aa"><span font-size="12">*长期规划，性能调优工具实现链路包含 性能告警感知-&gt;问题归因-&gt;性能调优意见反馈-&gt;自动/一键处理 四步，但当前期由于对于每类问题的解决方式缺乏经验规律沉淀，无法完成归因后的调优步骤，故本期只聚焦于性能调优参数采集和基础归因上</span></p>
+<h1 nodeId="7b9df73e6e14458da6d942e925266de1">二、名称解释</h1>
+<p nodeId="f7bc05d50f804d07b1679ed6f17424cd">无</p>
+<h1 nodeId="ddf58e5f4cb44febaf7cdefef4259a6a">三、操作指南</h1>
+<h2 nodeId="19a502f6ac334b6bb86a7d0420271403">3.1 用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1672334028/38024422478?contentType=0&amp;isNewContent=false" width="713" height="386" nodeId="a9ba0fb992a44a189ffbf637f88ff7d8" />
+<h2 nodeId="ed19ba741d7442d1a458372d1a71002a">3.2 采集信息内容</h2>
+<table responsive="false" nodeId="3d1a5bdf0d074472a71dc76ae63333a8">
+<tr nodeId="9ab5407a866d4798be681e59b8f8b9a9">
+<th colwidth="[50]" nodeId="bc052b1eacdb4d3c90df4e3f6ab21e03">
+<p nodeId="083f84869e194a5b8a69bfec5f381392" />
+</th>
+<th colwidth="[82]" nodeId="49bc7b430bd44e948af95634606c519c">
+<p nodeId="e7d100aeab814f08b0705923527a129b"><span font-size="12">组件</span></p>
+</th>
+<th colwidth="[123]" nodeId="6f5dc69bc7be4096a4e48e1f332ea687">
+<p nodeId="af1a031935e942638581590adcf58a75"><span font-size="12">组件性能</span></p>
+</th>
+</tr>
+<tr nodeId="c48ade556ff4487abd593e284b3299e4">
+<td colwidth="[50]" numCell="true" nodeId="840e4d1c716d4742b0368a2d2978d543">
+<p nodeId="653c7854276b4f5badc543bd8681e667" />
+</td>
+<td colwidth="[82]" nodeId="ebaf96ec33a64ee5b603af904d9b7213">
+<p nodeId="16ba0876f4cf4a4bb5d29b2744cc482d"><span font-size="12">kafka1</span></p>
+</td>
+<td rowspan="17" colwidth="[123]" nodeId="7361268e0a1449c3b0e22864c2f73ecb">
+<p nodeId="3ee08a7609d54210b13829eb1b33f77a"><span font-size="12">输入流量</span></p>
+<p nodeId="3ba2585df29040209a516be629f31bdf"><span font-size="12">输出流量</span></p>
+<p nodeId="78fcfeddbf59466a80ee663995ff1fd9"><span font-size="12">执行耗时</span></p>
+<p nodeId="a1bb06233d114864b5dc018bc49dba0e"><span font-size="12">节点状态大小</span></p>
+</td>
+</tr>
+<tr nodeId="4508a53a543a4a0f94d04080eb8a0939">
+<td colwidth="[50]" numCell="true" nodeId="a9fb0d2f163245f0849ada491a661bca">
+<p nodeId="e8c8222dc6b042fa8a73f9bbd0e813c0" />
+</td>
+<td colwidth="[82]" nodeId="8c769c5b480644099f6470ac2747aa9a">
+<p nodeId="75eb992ff1834ed18fbd40f9fd4cbe60"><span font-size="12">kafka2</span></p>
+</td>
+</tr>
+<tr nodeId="5664bf4e00654bd08284c212f200dae9">
+<td colwidth="[50]" numCell="true" nodeId="1a3a765ac3544d8b8e9a4dc8ac310f40">
+<p nodeId="9057b2c513ac4b82bb75b5cf0a307dc6" />
+</td>
+<td colwidth="[82]" nodeId="b33c88d6b0cf4eb1b596f9db21ff7c14">
+<p nodeId="6edc4e77d01247bc91954299efc3e586"><span font-size="12">Makfka</span></p>
+</td>
+</tr>
+<tr nodeId="b758227f14ed40e3b2223bf3999a8631">
+<td colwidth="[50]" numCell="true" nodeId="0d5249e878254c77a86c3ef71d7762a7">
+<p nodeId="30d03a563ec44f1bbecc6b323cc73186" />
+</td>
+<td colwidth="[82]" nodeId="990951f6f9d145dda63a0e277a7a7e83">
+<p nodeId="04fb6a5018184903884d2f081700399a"><span font-size="12">Select</span></p>
+</td>
+</tr>
+<tr nodeId="437b9bcf2c0a4a87b6a0b41020f87c60">
+<td colwidth="[50]" numCell="true" nodeId="2a3f6b57e07f44cfa9a8e5de5bb55026">
+<p nodeId="41b086e5245b4fbc95000d1ba3e51878" />
+</td>
+<td colwidth="[82]" nodeId="0c5200d82f9a41799ce8d57c03876942">
+<p nodeId="52467f9cecc0494f95e806b0d55c1ece"><span font-size="12">GroupBy</span></p>
+</td>
+</tr>
+<tr nodeId="e275336dc4474556988217b7e54cc263">
+<td colwidth="[50]" numCell="true" nodeId="b7f2de3645604d86b4fc9e8518f5f86f">
+<p nodeId="a5387694c87446d9b022dab4228e2672" />
+</td>
+<td colwidth="[82]" nodeId="0202d38b488e40bb9cf7a3b6c392acb2">
+<p nodeId="800a3b2d9a3d4ccaa328c261a314d162"><span font-size="12">Join</span></p>
+</td>
+</tr>
+<tr nodeId="7169c06acaad4572badeafbf6bfbe230">
+<td colwidth="[50]" numCell="true" nodeId="b9968b3366bc4823a31cf35dc39f6d08">
+<p nodeId="724bcf7d77d1488daa1776f8304b6600" />
+</td>
+<td colwidth="[82]" nodeId="e86098e142fb4f9d98944dbcccc4837f">
+<p nodeId="2318ea1226074964bb794f8c98894eb5"><span font-size="12">Distinct</span></p>
+</td>
+</tr>
+<tr nodeId="c3b9cdd81899410696933bf88d6f905e">
+<td colwidth="[50]" numCell="true" nodeId="c9b2cbe173e8493ca2cc794ac40ea5e8">
+<p nodeId="f8d238843e4241888092a65c336a5979" />
+</td>
+<td colwidth="[82]" nodeId="b69de8e16f5c411ea432f12f0d03e8df">
+<p nodeId="1e71fe10cfd14663a0ea4c250cf8d69b"><span font-size="12">数据拆分</span></p>
+</td>
+</tr>
+<tr nodeId="914fd6522f1247848f62d2c6ca787155">
+<td colwidth="[50]" numCell="true" nodeId="89d3b67f67674600a714e613c09f32e0">
+<p nodeId="ba4960be040c45a4a789cdeae155cab6" />
+</td>
+<td colwidth="[82]" nodeId="5066cfc1ddc64252b8f62ee031e7419a">
+<p nodeId="ccb6a3241b254674a3496c787dee443b"><span font-size="12">union</span></p>
+</td>
+</tr>
+<tr nodeId="d5e748c5b4df4f668460d6f0124d37d2">
+<td colwidth="[50]" numCell="true" nodeId="0da45cdc131d438ab639ef166ca4d36f">
+<p nodeId="20f5e58f23744041a6df1cc0a13444d9" />
+</td>
+<td colwidth="[82]" nodeId="0230b3bebcb64cfa8bffb2411bfda410">
+<p nodeId="a54bea95bcb342ec863df1426816ada2"><span font-size="12">数据获取</span></p>
+</td>
+</tr>
+<tr nodeId="0dc6b961dfab423b888802327f93af29">
+<td colwidth="[50]" numCell="true" nodeId="7bd7b0f02ba14a8c937479161a0f7f43">
+<p nodeId="7dc24a39102d4a68930010646b297044" />
+</td>
+<td colwidth="[82]" nodeId="3c742882cb55408da1422efb84d2462e">
+<p nodeId="e5dfa0f87a0747df8912a7232c49c24c"><span font-size="12">If..else</span></p>
+</td>
+</tr>
+<tr nodeId="a615fca4ce164294bc1a8ac06e6e2c06">
+<td colwidth="[50]" numCell="true" nodeId="c29e5f413e7f47d9ba470e7ba688bff3">
+<p nodeId="b41bf5144f1c4fe3bc7d049d812ee485" />
+</td>
+<td colwidth="[82]" nodeId="d78312d33e2a44d483db07903f2693d4">
+<p nodeId="4ce9809d765049178867be3341ec490a"><span font-size="12">代码组件</span></p>
+</td>
+</tr>
+<tr nodeId="caf7874f3fdc43a9a320dd5dbbc03ce5">
+<td colwidth="[50]" numCell="true" nodeId="e382178282cb43b394967657dabf41ef">
+<p nodeId="b0159525ab9f4497b52702253db7bcd5" />
+</td>
+<td colwidth="[82]" nodeId="b15a1ae4c26b4232ba73f7ee350ee9e0">
+<p nodeId="337f7d3a0cb846e1a9b1878d01d98638"><span font-size="12">规则集合</span></p>
+</td>
+</tr>
+<tr nodeId="01445b7b443b4a3dbecd747152c6580f">
+<td colwidth="[50]" numCell="true" nodeId="c6d82a4dde3a46a3bdadf3fdbe453d2d">
+<p nodeId="78d17b5187464a6c8fd14792894e09ce" />
+</td>
+<td colwidth="[82]" nodeId="d1c82b9462d94fd4b51adb26a9f68060">
+<p nodeId="ad1905534bbc447495bb97d148a34cfb"><span font-size="12">旁路输出</span></p>
+</td>
+</tr>
+<tr nodeId="bd33105fad9b434a9a13d04a8dd74970">
+<td colwidth="[50]" numCell="true" nodeId="64d1e22df8f842f29e1b19870dced762">
+<p nodeId="8743fd3abe6c4e84a4066a842c823c30" />
+</td>
+<td colwidth="[82]" nodeId="f8ed373701a641a3b2342bc5ea181357">
+<p nodeId="338c4502e74142ff8e731578b1718989"><span font-size="12">数据存储</span></p>
+</td>
+</tr>
+<tr nodeId="7cebdbbbb86648d595c42cb3f2f6adca">
+<td colwidth="[50]" numCell="true" nodeId="b6d87d4d9ccf416bb3b938663c57f11d">
+<p nodeId="43e6d79987ab49ea8d0a62541fd66c77" />
+</td>
+<td colwidth="[82]" nodeId="e172d91a200a45949ed64406a3998f36">
+<p nodeId="54046c1901954488a3b58de2edeeea0a"><span font-size="12">丢弃</span></p>
+</td>
+</tr>
+<tr nodeId="48f2bb43561247b2b005e53c156aee20">
+<td colwidth="[50]" numCell="true" nodeId="bbcfa01db22944418f8487ba2d138398">
+<p nodeId="b0756868ede04748b093ac8d3c6e52e0" />
+</td>
+<td colwidth="[82]" nodeId="a8a7fe8f6aa24c1ea117e073e322b502">
+<p nodeId="0a9744f554314848b1d97b1b6afd7dee"><span font-size="12">决策</span></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="aff8cf08d2d14befa40e0a66d64ca783">3.3 具体页面操作说明</h2>
+<table responsive="false" nodeId="a3e03716292d4bfbbb28e49a20423cdc">
+<tr nodeId="352a1be9b835487291ebba47f6e4e5b8">
+<th colwidth="[252]" nodeId="0d567da6a27b4fd4ac646b903ec2bf44">
+<p nodeId="8b7d78307fa84218b6f512307deec79d">说明</p>
+</th>
+<th colwidth="[950]" nodeId="6c5eeaf5e7c6407d899a4eeddb9941fb">
+<p nodeId="0e6932bab6684c1e816aa2b477050433">页面</p>
+</th>
+</tr>
+<tr nodeId="d94f5cce074e4c308380844839a2516c">
+<td colwidth="[252]" nodeId="b5495bb4b81441bd847291d27e5fbec4">
+<p nodeId="31dd10cb214949e3b3a2c63a7d979f88">【入口】</p>
+<p nodeId="1413e774af7b4b7294d20664dec87a54">对于“运行中”的画布作业可以进行性能调优</p>
+<p nodeId="896628b1ae4949e89eadb2c1040b8834">点击“性能调优” 系统后台进行性能数据采集，采集周期10分钟</p>
+<p nodeId="b5241451e8ef4380af812012d05fec86">采集完成后将会以大象消息进行通知</p>
+<p nodeId="d7268d34c54348969d4c1a0f7e4855c1" />
+</td>
+<td colwidth="[950]" nodeId="982f3b077d9f41bb95eb5a769ddf6d41">
+<p nodeId="fa9facaf7ffb49219e72d66f3706e09c"><img src="https://km.sankuai.com/api/file/cdn/1672334028/38026845559?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1152" height="326.67" nodeId="2b5dcf024e874f8b87f6bb0333743b76" /></p>
+</td>
+</tr>
+<tr nodeId="1767e86bfd6c4e3fa11757138040045a">
+<td colwidth="[252]" nodeId="bb6a82750e404c17ae9991eda66b716e">
+<p nodeId="2e5ab45b2ee146358a3a8241c1d6a682">【采集报告】</p>
+<ul nodeId="ae457106aa8b455f9b8c3711cb3c9260">
+<li nodeId="0b705bfcc51841c6b89262080da2aef9">大象消息中， 有采集报告的链接</li>
+<li nodeId="c3176fddcada40b294d9b5bb3dd145a0">画布详情业务 性能调优列表中有采集报告详情</li>
+</ul>
+</td>
+<td colwidth="[950]" nodeId="0dcd3e3bcd1a44f5a2c58856fc4bedb4">
+<p nodeId="a7f260292e8a412ca09b1ce6429052ff"><img src="https://km.sankuai.com/api/file/cdn/1672334028/38028810886?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399" height="424.43" nodeId="d99e15f3d26b482bafa6a4f2a4c0d847" /></p>
+</td>
+</tr>
+<tr nodeId="6f6fdba8c09c4e169aef0cc117d58f91">
+<td colwidth="[252]" nodeId="48118fe5cd7c4f1f81e3d0e6d9c92c9b">
+<p nodeId="c00847e899514166bb026aacba5b2d09">【指标大盘】</p>
+<p nodeId="3780313ad5de49449067c43db4079ca8">对于采集报告中更多细节内容可以进入指标大盘查看全局占比以及分布趋势</p>
+</td>
+<td colwidth="[950]" nodeId="ff5c23d27d244a4aadfc13149a3e3b4c">
+<p nodeId="442280ab9a9d4cc78163c4be65b6502c" />
+</td>
+</tr>
+</table>
+<h1 nodeId="4f1e0703231f48f298b2a55632706bed">四、FAQ</h1>
+<p nodeId="92bba43eb51a4ddab873ce4387216a1a">1.待补充</p>
+</km-doc>

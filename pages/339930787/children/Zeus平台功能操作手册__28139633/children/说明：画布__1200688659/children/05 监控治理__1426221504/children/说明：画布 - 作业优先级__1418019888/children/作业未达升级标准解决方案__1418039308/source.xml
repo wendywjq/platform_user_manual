@@ -1,0 +1,63 @@
+<km-doc>
+<km-title nodeId="1db3572e8e4245a8a9011bea2332baf9">作业未达升级标准解决方案</km-title>
+<table responsive="false" nodeId="0f44c6668dab409bac1f118a16bbf155">
+<tr nodeId="4a0d1608fc5d4e6ab132a8ebd29c921e">
+<th colwidth="[318]" nodeId="744f7a0b934b4c2ba9be7a48d4137077">
+<p align="center" nodeId="7dd7c19dbf194fac80385787137783e4"><strong>指标</strong></p>
+</th>
+<th colwidth="[566]" nodeId="3091a8accb4e41eda6301a1739e091a1">
+<p align="center" nodeId="12866bd646df4a60b6e473db00bc3017"><strong>解决方案</strong></p>
+</th>
+</tr>
+<tr nodeId="38c83563a4224dfcae2056b5d950d5f8">
+<td colwidth="[318]" nodeId="75dc2ec211a14cae90c6822ba88abfb0">
+<p nodeId="09bdfddf16d3413c858313cbe2aba4c0"><strong>告警数量</strong></p>
+</td>
+<td colwidth="[566]" nodeId="74f58ec344c449acb9ff324f2c0279a5">
+<p nodeId="e0bba264b8e34e4ea1c4d7d7e2d6eb3e"><span color="rgba(0, 0, 0, 0.87)">业务自行解决告警问题，若告警无法短时间内解决且业务认为该类报警影响不大，可取消该类告警配置（指路：策略排查-监控告警）</span></p>
+</td>
+</tr>
+<tr nodeId="9dd05d8ed3b047e4ab5c8495aa213969">
+<td colwidth="[318]" nodeId="cb594e64b4f643b7aac15128ce9c99d4">
+<p nodeId="5b3e599733014d2ebcaf970e3537ff1e"><strong>变更频率</strong></p>
+</td>
+<td colwidth="[566]" nodeId="35608967a9894828b80fbf0a8ff70df2">
+<p nodeId="cb9e41601dd9420db6286d168cb7d7a1">观察作业最后修改时间，待当前时间-最后修改时间&gt;变更频率标准后，即可升级<img src="https://km.sankuai.com/api/file/cdn/1418039308/11083200668?contentType=1&amp;isNewContent=false" name="image.jpeg" width="456" height="347" nodeId="aadcd37db02b4bfbb49c7df50be29b20" /></p>
+</td>
+</tr>
+<tr nodeId="b6aa80a0828d4a5a8951e1bbebd3c109">
+<td colwidth="[318]" nodeId="a8d3ddf256d84c518345be9c2335fb46">
+<p nodeId="8d13d17cb387480b8f706fd343d4aa03"><strong>低可用时长</strong></p>
+</td>
+<td colwidth="[566]" nodeId="d552b632b2b843b1931eb10846fd0015">
+<p nodeId="e769521b381449419e5e817215ae6091"><span color="rgba(0, 0, 0, 0.87)">提tt至近离值班RD，优化作业提高稳定性</span></p>
+</td>
+</tr>
+<tr nodeId="99e3a19f97284c96ae1f2cff8058bf43">
+<td colwidth="[318]" nodeId="fa3114afa9c04ddb8e6b1f28a494caa5">
+<p nodeId="d866c786c7d348398634fd40ebde6372"><strong>延迟时间</strong></p>
+</td>
+<td colwidth="[566]" nodeId="1d39debd31b541ba96fb790f5bd9fbff">
+<p nodeId="79d658f033304e2f9d32b2a367e0bbab"><span color="rgba(0, 0, 0, 0.87)">提tt至近离值班RD，优化作业提高稳定性</span></p>
+</td>
+</tr>
+<tr nodeId="3ea62e4eefa1450aaeecb6a52b286621">
+<td colwidth="[318]" nodeId="0bb528a0d85343059d2f4ae02cf1ccd4">
+<p nodeId="2bb5209aaf7c47b0ab030e24e5edf1e7"><strong>队列容量足够</strong></p>
+</td>
+<td colwidth="[566]" nodeId="960a12bccbf64a51916320e042de363a">
+<p nodeId="e221e1ca838e48c5aeccff47fcd03a22"><span color="rgba(0, 0, 0, 0.87)">提tt至近离值班RD，重新规划作业队列资源</span></p>
+</td>
+</tr>
+<tr nodeId="c305f7cbf0704f2e9acc7c7793657785">
+<td colwidth="[318]" nodeId="f75fc039b88b44628360588496a64110">
+<p nodeId="38d8d7fa46184fcd97218029ea30ace2"><strong>核心队列作业比例</strong></p>
+<p nodeId="8bc87d2c27574085ab109fb5b6928bf5"><strong>(新增任务+S级任务数)/总数*100 &lt;=30%</strong></p>
+</td>
+<td colwidth="[566]" nodeId="27471e62a7424bca82650bbf7bfa500f">
+<p nodeId="0de88a23d60e471eb9a05592b69f5aa6"><span color="rgba(0, 0, 0, 0.87)">排查本业务空间核心队列作业，保证核心队列作业数&lt;30%</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="d219ed88a29043e5ad3b1e5d59063d5c" />
+</km-doc>

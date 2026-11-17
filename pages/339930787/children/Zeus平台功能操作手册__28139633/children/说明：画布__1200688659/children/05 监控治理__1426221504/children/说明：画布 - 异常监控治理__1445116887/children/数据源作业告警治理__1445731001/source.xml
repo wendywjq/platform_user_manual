@@ -1,0 +1,147 @@
+<km-doc>
+<km-title nodeId="bc8663c071f2453891b1404ea66d079a">数据源作业告警治理</km-title>
+<table responsive="false" nodeId="50a001c376014130a159c32220d5b88d">
+<tr nodeId="4ce7c1914682478f8a14901c52bbff1b">
+<th colwidth="[235]" nodeId="c0e490537abc431c8dd08529138a927d">
+<p nodeId="34e4c197d05a48d09dec3bc3cf86364f">作业类型</p>
+</th>
+<th colwidth="[235]" nodeId="c08dcfb19ffc4f5889ed2602007f9d06">
+<p nodeId="8af20e3ee21645ec995509135f454580">类型</p>
+</th>
+<th colwidth="[290]" nodeId="084566b7b9a6449a94d027b786c82172">
+<p nodeId="9ca0200dd2014a3491868967ed4bbc3c">报错原因</p>
+</th>
+<th colwidth="[290]" nodeId="8de7e992dc6244f2954a635e24232bca">
+<p nodeId="8e09f7f11efa487487e8f6e43ab6e121">解决方案</p>
+</th>
+<th colwidth="[300]" nodeId="17aed9c9c8c64a9b81fbb76ba4af9d20">
+<p nodeId="3739d17709004dac871f05c0a5a82bec">参考case</p>
+</th>
+</tr>
+<tr nodeId="013fd1c524af472b82a9b77f8da5feb2">
+<td rowspan="5" colwidth="[235]" nodeId="e3b5204869394605ba91513e8ccc0dd4">
+<p nodeId="e9b711c02ff04716bcba949d223032a3">画布作业</p>
+</td>
+<td colwidth="[235]" nodeId="cf70e89e3a3b43ed8b3d0398d2ef5d4b">
+<p nodeId="238494ecfd3b49ee879250548ded7ac7"><span color="rgba(0, 0, 0, 0.87)">select表达式结果是空</span></p>
+</td>
+<td colwidth="[290]" nodeId="95f893a216a34471a625ad38d8ac988a">
+<p nodeId="0b7cbf665ea74180bea1d239c85e40f4">表达式空指针</p>
+</td>
+<td colwidth="[290]" nodeId="c172c8fb52944738a24419bbe091ade2">
+<p nodeId="6fdacc77a4aa4b76bb4a0dd9219ca60f" />
+</td>
+<td colwidth="[300]" nodeId="d3468531f6c04c54b344f36cf6ad1ce8">
+<p nodeId="c3ddc885b0804fe8a844242c30b81b8f" />
+</td>
+</tr>
+<tr nodeId="d9f653ea4a874d339a8df229b781fd60">
+<td colwidth="[235]" nodeId="29c854493f5141ff9cee5d3392acaa50">
+<p nodeId="8354c0e304fe4aa2b55272674b0729d2"><span color="rgba(0, 0, 0, 0.87)">code代码执行失败</span></p>
+</td>
+<td colwidth="[290]" nodeId="26ff4ff1541c4ca9a890e2d1fe05a965">
+<p nodeId="b82023f566e74b5e81b0891152f0a78a">代码组件报错，可以在<span color="">exceptionMessage 字段查看堆栈</span></p>
+</td>
+<td colwidth="[290]" nodeId="f168ddb2c3e24dfc84d074bce879be27">
+<p nodeId="db4afd3509e54bb28fd52ecccda73d83" />
+</td>
+<td colwidth="[300]" nodeId="2378d10d2b4b4856a2af407f6a22dc6e">
+<p nodeId="2450393a944548f99a2acd3c3e993e45" />
+</td>
+</tr>
+<tr nodeId="28680e1c19c149e394387e6d5add9cce">
+<td colwidth="[235]" nodeId="af783f7c9cfa4dc4b989bcf40af61f1c">
+<p nodeId="69a84445ec2e46c59109bb785d0a3933">join表达式结果是空</p>
+</td>
+<td colwidth="[290]" nodeId="c80a5f863c914d2fa16745d4cb81e9cc">
+<p nodeId="8018201b988c437cb0d5060c6af924b1">jion 表达式报错</p>
+</td>
+<td colwidth="[290]" nodeId="bd05497baa9b46759c83c6c957d99362">
+<p nodeId="af1b57c0aae94863af5835731800949b">是否表达式左边右边有一个变量为nil</p>
+</td>
+<td colwidth="[300]" nodeId="ac113a2234a149bc9169d9b29f988677">
+<p nodeId="33d431ce9dcf40069b2a833cf774aafd" />
+</td>
+</tr>
+<tr nodeId="702b0e71a1104811b137d3660f8af57e">
+<td colwidth="[235]" nodeId="242ace960fcb4d72bd194f3f233502a0">
+<p nodeId="7660c461c9e44445bc0887338ec35bf6">窗口累计流量</p>
+</td>
+<td colwidth="[290]" nodeId="de0af5ad507d4ceba71a610c0d99a910">
+<p nodeId="2b1da76d1298402e841d0de3bafd3b55">窗口超限异常附带异常，不需要关注（建议配置去掉此监控）</p>
+</td>
+<td colwidth="[290]" nodeId="e8f9d69dfe7b40748eed46f88579f7b0">
+<p nodeId="dbe4676d98ab44f791b962e836bd28bf" />
+</td>
+<td colwidth="[300]" nodeId="9cd29de80a814c218862164bf07f7087">
+<p nodeId="a5ce63030c79481584b7070b843701ab" />
+</td>
+</tr>
+<tr nodeId="96d6dc957b3a4b059f5d000205f804fc">
+<td colwidth="[235]" nodeId="0e39d58eb1cf477ba90704462aacd115">
+<p nodeId="2efa959876684e9189e9f6c84f7af759">窗口超限异常</p>
+</td>
+<td colwidth="[290]" nodeId="1f2fb3e872ef4304914d1384b06e85d2">
+<p nodeId="c77380bea8f0431d907eb8b229becddb">可能导致后果：窗口内数据被丢弃，具体丢弃数据在错误告警内展示。<img src="https://km.sankuai.com/api/file/cdn/1445731001/13069013326?contentType=1&amp;isNewContent=false" name="image.jpeg" width="250" height="600" nodeId="0967e4f390074475b5573ebd1b53aaa7" /></p>
+</td>
+<td colwidth="[290]" nodeId="c8bdb35efaaa4f40aab206afd52e3d17">
+<ul nodeId="c1e2390325b6426dab29c579e25efeaf">
+<li nodeId="6c53ee5864cc453682cf5c21c17e1c3c">减少进入窗口的数据</li>
+<li nodeId="4a40f63916504538aeaedeea0fea636e">减小时间窗口</li>
+<li nodeId="d45356e82f7f455a9bf7d410a9c0c08a">（增加需求：超限和窗口数）</li>
+</ul>
+</td>
+<td colwidth="[300]" nodeId="d851bd4f9a2243c38b83ce48e99d0f0b">
+<p nodeId="85bedd3e7b454471aa432f533bcaf160" />
+</td>
+</tr>
+<tr nodeId="4095d71643244509b14420a233cce5db">
+<td rowspan="2" colwidth="[235]" nodeId="e651b3b046f64572a4eaad0d4fd13100">
+<p nodeId="8a890460c9e34e32a166164ab723806c">数据源作业</p>
+</td>
+<td colwidth="[235]" nodeId="3e96927bd02e48bb97e2182d3d2249c2">
+<p nodeId="dcd2005aacf94dc79801bc7760688f94">表达式执行异常</p>
+</td>
+<td colwidth="[290]" nodeId="9ae4175c76574e018d13117fe4aee84f">
+<p nodeId="03aa3ef9551c4ff7972e8ab392fe9f17">表达式写的不符合规范</p>
+</td>
+<td colwidth="[290]" nodeId="6c15f73c38604fb58cab910a82dcb16a">
+<p nodeId="f4fdbba8de164640afa297c81bc6ec2f">将上下文数据contextData带入表达式里</p>
+</td>
+<td colwidth="[300]" nodeId="7edd877f7da9495797afdb8320396ef0">
+<p nodeId="355730c89fba4e539363d4cb6ffa9cd9"><a href="https://km.sankuai.com/collabpage/1437911166" title="https://km.sankuai.com/collabpage/1437911166" autoUpdate="true" nodeId="5035b9499ac5437db9b79a5d2aadf79d">https://km.sankuai.com/collabpage/1437911166</a></p>
+</td>
+</tr>
+<tr nodeId="2687a53cae744374bcf9f23a0f33c3d7">
+<td colwidth="[235]" nodeId="4d094a799b5e49e3b97a2a1ad787eb65">
+<p nodeId="caea2b6be2234b6baa497a13ea1013ba" />
+</td>
+<td colwidth="[290]" nodeId="1b35283aa39f4dc0b6c1ce43bc1113a7">
+<p nodeId="5ffcc51aa9284f6ca216395936c8ab10" />
+</td>
+<td colwidth="[290]" nodeId="c6b644e5022a4887bebd52e11da35e1f">
+<p nodeId="10c8a281e32d467799eeece0ab8d3978" />
+</td>
+<td colwidth="[300]" nodeId="d5b9fb04de0343fabd33d130d652730f">
+<p nodeId="573a9ab3b99448749bfe8751fe4506ac" />
+</td>
+</tr>
+<tr nodeId="d8a9a6f1eb2f4ec48b94f5ade0546668">
+<td colwidth="[235]" nodeId="2d730fab277d4941934e176f34f7fa0f">
+<p nodeId="ed8b21a0961f4fce8b7a31b3b7d4bb6b">cep作业</p>
+</td>
+<td colwidth="[235]" nodeId="9e41c6cecdfd448e9af26dea8333411a">
+<p nodeId="820ef3ba0aee47f6b567599a84dd27f4" />
+</td>
+<td colwidth="[290]" nodeId="be5a5c253acb45e9b91588c7fe234203">
+<p nodeId="4879a180b85d45afa56572f6b10f2941" />
+</td>
+<td colwidth="[290]" nodeId="ffb479f01a1546468bdadb7668f2299c">
+<p nodeId="39fce68e472c450abbd3ed024c018cdf" />
+</td>
+<td colwidth="[300]" nodeId="607ae28324d2486fbbdf31572b64874a">
+<p nodeId="300978ce99ab4473b7cb49941d030537" />
+</td>
+</tr>
+</table>
+</km-doc>

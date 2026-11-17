@@ -1,0 +1,276 @@
+<km-doc>
+<km-title nodeId="e941e5c887b7434da7842b7b0df653f9">说明：画布 - 近线日志查询及配置</km-title>
+<h1 nodeId="275b96e8892446cfac82c16ed5ab8b6e">一、背景</h1>
+<ol nodeId="b9b32cd128cf4ef0bf9f485d70ddf34d">
+<li nodeId="7b2e1c941cf3498c8394bfe55ddf4593">
+<p align="start" nodeId="35e85db8ab63491193979cbbd5f91c77"><strong>问题排查成本高</strong>：当规则命中时业务可以拿到告警详情数据，但是由于告警数据只是记录了一份画布最终的执行结果，所以不能反向推导出当时画布的执行链路。对于组件比较多，配置比较复杂的画布，当遇到不符合预期的告警比较难准确定位到问题组件，只能通过不断的微调，仿真测试来尝试复现问题</p>
+</li>
+<li nodeId="959c39ae691c4c17a3a16332ac878b2c"><strong>规则测试成本高</strong>：当前只有生效的规则命中才会发送告警/写kafka，所以业务方在调试过程中需要不断的在规则的标记和生效状态之间反复切换，并且可能由于规则逻辑有问题在被切换为生效状态之后出现大量告警，影响下游服务</li>
+<li nodeId="6e8c70d7311d43ed84e2534bc6294563"><strong>平台本身能力要求：</strong>zeus近线引擎本身也需要具备“自我证明”的能力，用户可以在平台上查到任何一条命中规则的执行日志以及当时的画布执行链路</li>
+</ol>
+<p nodeId="90f1e9733c254be9adaba76471540278">Zeus日志记录了各业务方使用近线画布做决策的详细数据，包括：画布内的数据流转过程，各组件节点中间数据，命中数据等等相关信息；业务方可使用日志做数据分析、异常排查和问题定位等</p>
+<p nodeId="c448b33bd05846f69fa1d1973b5b8450" />
+<p nodeId="0ed63ea123e4472c89522cfa0fc61b00">当前非全量记录，具体记录逻辑参考下表</p>
+<table responsive="false" nodeId="5ffb3955e9a64a47aa4f357774be30ab">
+<tr nodeId="7bbdaf3fefe54bd598636a81a1ef9212">
+<th colwidth="[120]" nodeId="e8b5cee30efb49e1ab6c192bce3d8dfa">
+<p nodeId="3e2752db3d8844b5a5ab18815e909756">业务域</p>
+</th>
+<th colwidth="[245]" nodeId="8530a0ede3ec4d968016bb1ab2b2bc0c">
+<p nodeId="966738aaa3b64f23b229e09b4cac1b09">记录日志逻辑</p>
+</th>
+<th colwidth="[359]" nodeId="79b989b1257f4d968a18d46b4f5f9474">
+<p nodeId="2202e9057db748d8bc3aa91c46631cca">无日志画布(性能考虑，联系rd放开或添加)</p>
+</th>
+</tr>
+<tr nodeId="6b0a453f04f7417db3df8277e00e7d1c">
+<td colwidth="[120]" nodeId="9f3d70ead9de43a1a6401b709d88efc8">
+<p nodeId="a56c7025f03043c0a6aac8a462fad351">3</p>
+</td>
+<td colwidth="[245]" nodeId="76e9b095a5fa450db18518c01acead2b">
+<p nodeId="99b7e7dcd2de46719c88142f861503ea">命中kafka告警或旁路输出</p>
+</td>
+<td colwidth="[359]" nodeId="f628f3dd893f410180b75d3c153c9afb">
+<p nodeId="eeb56debfd6242b28ca3b469c941b991">143</p>
+</td>
+</tr>
+<tr nodeId="bcc339f4ab7e4445b72b5b7ea5de6bd1">
+<td colwidth="[120]" nodeId="64e2f7a31b104dc9b1c92b5c6edb2e4b">
+<p nodeId="399a7fa9437c43d686cde8ae53a47546">35</p>
+</td>
+<td colwidth="[245]" nodeId="d5eabd49e766412b890f677e368d7c66">
+<p nodeId="cae3f718874b459c95b23774e2e124f3">1075和1107画布 全量记录</p>
+</td>
+<td colwidth="[359]" nodeId="4c13992aa53d4aa69fc44a53295a646d">
+<p nodeId="320f6bea38e64ff48f8f49ae60c0d76f" />
+</td>
+</tr>
+<tr nodeId="7830c5b549c4469eb4c6a4728c3fb146">
+<td colwidth="[120]" nodeId="1169eec245ea4edeb1b1dfc99ceef7e1">
+<p nodeId="d95004b0ce5543bcb957dd33aa8f15ab"><span color="rgba(0, 0, 0, 0.84)">38</span></p>
+</td>
+<td colwidth="[245]" nodeId="635769cba9194bd4aa90b1e7a3f7b0cb">
+<p nodeId="f28501413f9d432a8a58bfc7eb549324">命中kafka告警或旁路输出</p>
+</td>
+<td colwidth="[359]" nodeId="37474267f5b14fd89753eea6ceb9ded6">
+<p nodeId="ab6beb4b64d447d1a921bcaedeb2185f" />
+</td>
+</tr>
+<tr nodeId="7d9daeefc42142f599c14a139f75e55a">
+<td colwidth="[120]" nodeId="0385aee8a1824213b9ec0dc386869b4e">
+<p nodeId="11b993d603004f709e557faacea1ab90">130</p>
+</td>
+<td colwidth="[245]" nodeId="59b6694d57bd4d92bada94ebfab3b718">
+<p nodeId="80b6093ba57d413a8f70b4c2d17b1fdf">命中金丝雀</p>
+</td>
+<td colwidth="[359]" nodeId="c3ff2d80280a4db1a87507df2d47eb17">
+<p nodeId="8b425f31f1174f159d46dd2e44da9fa3">19,520,15,38,4,18,39</p>
+</td>
+</tr>
+</table>
+<h1 nodeId="3cb99a4946594dbeb682acc1ce44e057">二、名词解释</h1>
+<p nodeId="f84ea8239b5a4df7a21682df73de45cd">无</p>
+<h1 align="start" nodeId="924066b3261d4f77811ad2ba24b26f4a">三、操作指南</h1>
+<h3 align="start" nodeId="244eb83e510f463b80d8b7c3bf1fe68e">1、web页面：单条、批量查询</h3>
+<ul nodeId="e39fca3d7d47461e86623b9b725a89f7">
+<li nodeId="be9c143ff55b49d7903da0ea489d28cb">
+<p align="start" nodeId="97155f665d7c4c63acaedfd458d25d16"><strong>近线画布线上执行查询</strong></p>
+<p align="start" nodeId="d417043369f447bdb3e45630a31a9363">可通过日志查询-近线任务日志查询线上画布执行明细数据。<span color="">当前默认发送日志条件：“命中任意一条规则 || 命中任意一个决策组件 || 命中任意一个旁路输出组件”；除此之外还支持自定义条件，需要提tt工单找研发后台配置</span></p>
+</li>
+<li nodeId="fd1e3e7509354fa193fe38a4421daafc">
+<p align="start" nodeId="8ceb630297c74a6bb868be643a18329a"><strong>自定义查询字段</strong></p>
+<p align="start" nodeId="0699ecb3185a44db923c9ac56cbf4099">在日志配置中自定义配置查询条件<a href="https://km.sankuai.com/page/62096766" title="https://km.sankuai.com/page/62096766" autoUpdate="true" nodeId="2e35df2753b1401cb642440265f9cdd9">https://km.sankuai.com/page/62096766</a></p>
+</li>
+</ul>
+<ul nodeId="e32e6f1e8f804098be3e401db229b85d">
+<li nodeId="f9354c63b13540d581ce24a40c7a1580">
+<p align="start" nodeId="54f04964860a4635b7470548269f971f"><strong>明细数据单条查询</strong></p>
+<p align="start" nodeId="c53e51b7c96e4cba8872c52eceb30fa8">可通过指定条件查询近15天的明细数据</p>
+</li>
+<li nodeId="42e92d047a7d459baa3caf2e19ee94ce">
+<p align="start" nodeId="7611c9ac8ac7422db82063e80814098e"><strong>明细数据批量查询</strong></p>
+<p align="start" nodeId="50b4592f712549248ece02834cfc1f3a">可通过指定画布、命中规则等条件查询近15天分箱数据（group by）,例如：指定画布按命中规则、生效规则group by</p>
+</li>
+</ul>
+<p align="start" nodeId="13a633167acb4becb675269f213ef094"><img src="https://km.sankuai.com/api/file/cdn/1357527347/4215086746?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1050.12" height="600" nodeId="3e690768b0784528b0aadb6b6dd2f5b4" /></p>
+<ul nodeId="23fe56aeea63460ab7c118246aae6c23">
+<li nodeId="94cde297205f4ae9b35ddaf1c4f05940">
+<p align="start" nodeId="0ea7dbab488c417998db5f445b9aab2a"><strong>画布执行数据流转过程透出</strong></p>
+</li>
+</ul>
+<p nodeId="d5a69bd9bb0d47c6ac5396c458a520c4">      将<span color="">清楚记录画布最终执行到了哪个组件，哪个组件没有执行通过，原因是什么等画布的执行过程，所</span>有组件会记录它们自身逻辑生产的输出内容</p>
+<table responsive="false" nodeId="29391cfdb5274339b2cdbfb03b98c704">
+<tr nodeId="a940a434d612434eb6525f312f453049">
+<th colwidth="[454]" nodeId="db0c1439274a47b2b5a7180f0882f69d">
+<p nodeId="96aa5fbb5f784062b97aa958f5460364" />
+</th>
+<th colwidth="[877]" nodeId="1c43b763e72c47e69dacf05fc28861ad">
+<p align="center" nodeId="e12a869d34554b01a554e3ae1ec39d1c">页面</p>
+</th>
+</tr>
+<tr nodeId="4ac188c1e6024609bb1d89f3cb713ad9">
+<td colwidth="[454]" nodeId="ec55372f12204632a480964960166c11">
+<p nodeId="ada14b08cbbd4a13b1ab5268c18f22a1">【入口】</p>
+</td>
+<td colwidth="[877]" nodeId="cd7e37fe2ca94117835a30f9e9ab7d52">
+<p nodeId="ddf2e0eabb1a46a29145d6b39cd274ec"><img src="https://km.sankuai.com/api/file/cdn/1357527347/4214119951?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1050.12" height="600" nodeId="9c66e47c0814423ea1ebb04c57929e92" /></p>
+</td>
+</tr>
+<tr nodeId="400c92900e3f4329a4e8220e699e9c36">
+<td colwidth="[454]" nodeId="8119651a14c34b07b154dac385b35584">
+<p nodeId="b1c12976b8314c9b87e869593d80d8ba">【线上作业执行数据流转详情页】</p>
+</td>
+<td colwidth="[877]" nodeId="2633133215324a63ba46f190df4d20ec">
+<p nodeId="4e4e69f8f98b4efebea46e4a575ce1dd"><img src="https://km.sankuai.com/api/file/cdn/1357527347/4200204481?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1229.46" height="600" nodeId="61234b7623a2490ebe64099b3f8ba31f" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="36b593dcf0fd492a8d97b0227bdd3284" />
+<p nodeId="dd89b2398db94c81820178135babc395" />
+<h3 align="start" nodeId="e09a0cf423fa48e7a78640ecebd1469e">2、hive表：全量数据查询</h3>
+<ul nodeId="702df6bbdf4549c4bf2b9355b89998ac">
+<li nodeId="c81cafcc5abf49378f9643afed0880de">
+<p align="start" nodeId="1906670a17564e82be16817d1e7c3c0f">自定义保存时间：默认hive表保存时间为6个月，若有特殊要求：业务可在上线前同步Zeus侧；</p>
+</li>
+<li nodeId="2da7fa41e4ff41399e29e5a4a2ab187c">
+<p align="start" nodeId="6c4c2d31c7564ed2984474aaac083156">独立存储：为保证数据安全，每个接入业务方独立使用一张hive表，基于该表的业务定制化需求请通过ETL实现</p>
+</li>
+<li nodeId="69a19a65a01b4df79ee626845165c951">
+<p align="start" nodeId="87266ecd734e4f1cbf0a47265418fd43">敏感数据加密：Zeus将对敏感数据进行统一加密，为便于业务使用，会提供解密函数</p>
+</li>
+</ul>
+<p align="start" nodeId="eebf09a4ff23419c9f8894cf2efaca94">      表单详情如下：</p>
+<table responsive="false" nodeId="339d561626024678a01eeb2a56208004">
+<tr nodeId="2545fdb170fd4eca94c9607932cb0c82">
+<th colwidth="[153]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="791df7d40ee04be28c08a028ef245472">
+<p nodeId="3195eade7dac4503ae98d2389a3d2ffe">字段</p>
+</th>
+<th colwidth="[220]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="0bce671b041e48489d541529ccce1bd9">
+<p nodeId="fc62645c067a4043b7f00ec714e703e8">含义</p>
+</th>
+<th colwidth="[992]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="b1eebe725c214979a25a80af52229522">
+<p nodeId="58ca4fa17e6a4293bc194a9e72d208f8">举例</p>
+</th>
+</tr>
+<tr nodeId="a86483cedb2548d286529f01b7fc5748">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6eeb8899f1bd488d96884f847799f6f6">
+<p align="start" nodeId="b22561f132b4455e9a74e9023ec6b652">businessId</p>
+</td>
+<td colwidth="[220]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fa3ab9227eca43cba76aa9a9ce8f4323">
+<p align="start" nodeId="94cff897f47c4e1da5537d4940148b7c">业务线</p>
+</td>
+<td colwidth="[992]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3604513860a34938b18e36ce66242fce">
+<p align="start" nodeId="19d6ebf242dd4124a92c25a82ffc4dba">3=账号安全业务</p>
+</td>
+</tr>
+<tr nodeId="a5cd757ba96d463e859574318efea17b">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="495f8e86c6fb49eea34d81477a6fa67e">
+<p align="start" nodeId="2bdc8257132b49c08d93c6d133b300af">executeTime</p>
+</td>
+<td colwidth="[220]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="540c193536874382be207ee2a6571993">
+<p align="start" nodeId="37a63be66bd6473dbd544356eb9d1116">近线请求开始执行的时间</p>
+</td>
+<td colwidth="[992]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f30d9bc5464d42a2924d98ee6745dca8">
+<p align="start" nodeId="ef4d994e4c104feea5cfbff5a83d733b">unix时间戳（秒）：1659064903</p>
+</td>
+</tr>
+<tr nodeId="a3450a57d2774a6ab25476a7f4d79b56">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="048e75c705d34f07a56279f535eda315">
+<p align="start" nodeId="aa577b31c20643bb9c08c8c05b3fb812">requestId</p>
+</td>
+<td colwidth="[220]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a03274bf989b4c13b47ee7821482bbc8">
+<p align="start" nodeId="9e41e57fc86c4ba6a6f9a53291aeac40">近线请求执行日志唯一标识</p>
+</td>
+<td colwidth="[992]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dabf694e0ba043d1838f86295317e5c2">
+<p align="start" nodeId="ef1e2dc679124e1fbb0d89de5e199399">UUID串：95c8aca1-ad20-4f2b-b128-72308b531c4e</p>
+<km-note type="note" hiddenTitle="true" nodeId="f73d5b9435a44418a24df66cf4aa1578">
+<km-title></km-title>
+<km-content>
+<p align="start" nodeId="1b074a77a82e4128b028b9ebca1241c7">该字段不是zeus实时流量的requestId，后者在context字段中</p>
+</km-content>
+</km-note>
+</td>
+</tr>
+<tr nodeId="24514c07903b45b1937fa1ec4e166495">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c72f70ef6e234a7eb750ffccec6777c0">
+<p align="start" nodeId="f3cd8ba57eb944f7b66d8f1b4fb19317">logType</p>
+</td>
+<td colwidth="[220]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="652d9213f9724065b6c30652db157ea9">
+<p align="start" nodeId="ea10fd84def14279a98ae64a39d00d47">近线日志类型</p>
+</td>
+<td colwidth="[992]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="607e2978c23f4d49bc0f51a606404e73">
+<p align="start" nodeId="8d92a193fe4d41878faeeed3f507fb0b">0=画布</p>
+</td>
+</tr>
+<tr nodeId="bc92b0dc549046eea3d9abdac5adcb26">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3bb67f9f37d042b989e5cfdcaec4741b">
+<p align="start" nodeId="120496ccc07349b188979f4be0cdf500">metaConf</p>
+</td>
+<td colwidth="[220]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0134588a62494708bc8eeafeae7eb9cd">
+<p align="start" nodeId="ad14934932894743b321530d9a55a8a7">近线配置</p>
+</td>
+<td colwidth="[992]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fc47747b6c134a7ca5e524991020fea6">
+<p align="start" nodeId="a3f55385cc93480c86486ffaf2a5b03e">当logType=0时，该字段结构为json字符串：</p>
+<pre language="Plain Text" nodeId="d822525c97d8477a83ef021a0aab2c22"><code>
+{
+  "canvasId": 76,
+  "canvasVersion": 3,
+  "canvasName": "delay_punish"
+}
+</code></pre>
+<p align="start" nodeId="8f5899a0d57b4a0485202694725d3870">Hive Sql取数逻辑为：<strong>get_json_object(metaConf, '$.canvasId')</strong></p>
+</td>
+</tr>
+<tr nodeId="2d8fa5b7d0344ce596927638190e3b4f">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7ff398f3f40747a481625c59939e447b">
+<p align="start" nodeId="f955f1fe3ce74b03a57d7d7ee386d8be">hitRuleDetails</p>
+</td>
+<td colwidth="[220]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="606088bce6ba49a3a9d2c5cd8e7660fc">
+<p align="start" nodeId="4135449ef7894e9888d35415b93f192d">命中的规则详情</p>
+<p align="start" nodeId="eabed730d2114421b93ca3e1ab76b679" />
+</td>
+<td colwidth="[992]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="53c62d7791f34774ab35261afaf3ee7b">
+<p align="start" nodeId="480550f980f04e36b13572a0d33fd6fe">当logType=0时，该字段结构为json字符串：</p>
+<pre language="Plain Text" nodeId="6385c6b37ec94b68a8240feb693bf601"><code>
+{
+  "hitRuleIds": "1,2,3"
+}
+</code></pre>
+<km-note type="note" hiddenTitle="true" nodeId="61bd61dbf9c449efa4caa3cfae562936">
+<km-title></km-title>
+<km-content>
+<p align="start" nodeId="97977afac5e94f19914a32c5d92c53ae">只有画布包含<strong>“规则集合”</strong>组件并且<strong>“命中规则”</strong>时该字段才会有值</p>
+</km-content>
+</km-note>
+</td>
+</tr>
+<tr nodeId="6f1a481c2ae5499bbdcb771ce194cb58">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5ee89558c3a64637a8ba35e7bb7ac078">
+<p align="start" nodeId="79300da39a9d43e8a0d30144fe3b304b">context</p>
+</td>
+<td colwidth="[220]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a487fa147a2c4504ac966e001f64703f">
+<p align="start" nodeId="1e9c642d6a3140279bdcb35449831978">近线执行日志</p>
+</td>
+<td colwidth="[992]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bb740d7c2cec4a059f823d13c47bbb61">
+<p align="start" nodeId="b2d56305b7124924a6ab76f01f7a546e">以账号安全为例，字段<strong>zeuscontext</strong>, <strong>userid</strong>, <strong>requestId</strong>, <strong>ruleId</strong>, <strong>source</strong>, <strong>debug</strong>都会在context字段中</p>
+</td>
+</tr>
+</table>
+<ul nodeId="f8a8fc5e5d8c4b1a9cc939d9fdc690b3">
+<li nodeId="64bd74a014784f3ba5ee52afbea43b88">
+<p align="start" nodeId="9e69f2d302f94b23bf85bc6c57ab0c42">原始hive表：log.zeus_nearline_log（其他业务后续都可基于这张表写etl洗出自己业务的数据）<br />账号安全hive表：ba_rc.base_zeus_nearline_log_account<br /></p>
+</li>
+</ul>
+<h1 align="start" nodeId="844dd075db44473bb5f1dcd7d2ed598d">三、使用说明</h1>
+<p align="start" nodeId="daec16ea41514b42b00b560622bf7ed3">1、web页面：新接入业务方在开通账号后、<span color="rgb(245, 34, 45)">业务上线前</span>，在Zeus--&gt;配置中心--&gt;日志配置中配置需要的字段，配置后即可使用。 <a href="https://km.sankuai.com/page/62096766" title="说明：日志配置使用文档" nodeId="f5c8f048ac234de3b71b0dfffb1dd471">说明：日志配置使用文档</a></p>
+<p align="start" nodeId="e69aa9cf5e7643cfa651a2aede6ea625"><a href="https://km.sankuai.com/page/62096766" nodeId="f66e07c83f804867b7b9df521844ed49"></a>2、hive表：在<span color="rgb(245, 34, 45)">业务上线前</span><span color="">通知Zeus侧，由RD配置hive表单信息和保存时长，配置后反馈业务表名。</span></p>
+<h1 align="start" nodeId="16a5e166ad0a43b79224898dd0cffa63"><span color="">四、常见Q&amp;A</span></h1>
+<p nodeId="c466ad3fd86b4be8adc70bd416843f94">Q1：近线日志与画布仿真测试日志的区别是什么</p>
+<p align="start" nodeId="f7ff91c33d1141288f5076f464cdf412">A1：当前画布仿真测试执行日志收集采用了全量收集的方式，简单粗暴地展示了每个组件的输入和输出，没有区分出某些数据是哪些组件产生的，给业务排查问题带来了一些困惑，另外这套逻辑的改造风险和成本也比较高，所以需要重新实现一套能够灵活支持多种存储条件、方便日志查询和画布执行链路还原的功能</p>
+<p align="start" nodeId="d1136f463ae743de81602cf596e0fea2">Q2：聚合组件记录的聚合值包括以前所有历史聚合详情吗？</p>
+<p align="start" nodeId="78bf53eee2cd4172a52e6abd4db7eee8">A2：不包括</p>
+<p nodeId="b49359f4e5ff41d7a03788e3a557e4ff">Q3：<span color="rgba(0, 0, 0, 0.87)">关于查询条件，后续业务能自己配置查询条件字段吗？</span></p>
+<p nodeId="158f0923e3c845da95fc0d335b03d1f4"><span color="rgba(0, 0, 0, 0.87)">A3：可以，详细的操作参考</span><a href="https://km.sankuai.com/page/62096766" title="https://km.sankuai.com/page/62096766" autoUpdate="true" nodeId="90036e0f48be488b8c246ae30046e8c9">https://km.sankuai.com/page/62096766</a></p>
+<p nodeId="832954d7c2b94b78a18668658f6ca471">Q4：<span color="">满足什么条件的画布日志能搜到？</span></p>
+<p nodeId="2da9c5c0e72f461a82f2ef2300b8f280">A4：<span color="">当前默认条件：“命中任意一条规则 || 命中任意一个决策组件 || 命中任意一个旁路输出组件”；除此之外还支持自定义条件，需要提tt工单找研发后台配置</span></p>
+</km-doc>

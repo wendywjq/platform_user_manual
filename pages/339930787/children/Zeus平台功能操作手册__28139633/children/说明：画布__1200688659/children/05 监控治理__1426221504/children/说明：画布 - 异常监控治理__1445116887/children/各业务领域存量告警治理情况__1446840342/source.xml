@@ -1,0 +1,545 @@
+<km-doc>
+<km-title nodeId="254377837b424deeb733c74e1301c72c">各业务领域存量告警治理情况</km-title>
+<km-catalog style="none" nodeId="4eae33b56aa542b18caf512defe007e0" />
+<h2 nodeId="b5af7352516744f08d736aa51da61893">基础安全</h2>
+<h5 nodeId="66dd5bca78b842f2a0170740c535a22c"> 业务价值：</h5>
+<table responsive="false" nodeId="d5f31fd7ee494126997dd2f5e6d28f26">
+<tr nodeId="31f627757c564a928ec1c04718ec5901">
+<th colwidth="[68]" nodeId="6367ede166704137bc8f9c2c290f30a2">
+<p nodeId="9391d6010c024bd0bf6cbf87f97bf592">序号</p>
+</th>
+<th colwidth="[197]" nodeId="ac4821f0dce44ae5bccdcaf2fc5f05bc">
+<p nodeId="35ab166815d646249e3c297d63d7c1b5">案例</p>
+</th>
+<th colwidth="[198]" nodeId="e82a26a456c748eabf559f761209b4e0">
+<p nodeId="12564e710af04ad58273864ad296eaf2">价值收集</p>
+</th>
+</tr>
+<tr nodeId="5328a8f3f4c94bd682d823b26e7bf706">
+<td colwidth="[68]" nodeId="8b4b50a284da4845a7fa9c345f5ce58a">
+<p nodeId="cc3fbbf953ed426f9acdb240a0728020">1</p>
+</td>
+<td colwidth="[197]" nodeId="2ad64742f0b149ab9bef93e57e7939d0">
+<p nodeId="7126296e52884d29850a6e51f198d80d">业务自己排查</p>
+<p nodeId="c2cd3ca051924c4889925246c50f5682"><img src="https://km.sankuai.com/api/file/cdn/1446840342/14019937929?contentType=1" name="image.jpeg" width="79" height="50" nodeId="5e63784f4ec145aab913837b02775607" /></p>
+</td>
+<td colwidth="[198]" nodeId="20b21c4fe1d44b3294bd06561444ec41">
+<p nodeId="101e77c129c848e2b588aeb89ab39cb6">业务通过告警发现bug</p>
+</td>
+</tr>
+<tr nodeId="7ca2bb7e663c47bf9e95d948c8ddaa36">
+<td colwidth="[68]" nodeId="52c228582fa84691beed520a03348225">
+<p nodeId="9f82592121c74c1cab3e77b684dddf5a">2</p>
+</td>
+<td colwidth="[197]" nodeId="74d47c61cae94f2b9dc9504736aa1abe">
+<p nodeId="c8af946a681e4589b814aff0eda8dfb9">作业性能优化</p>
+<p nodeId="a383af64f76d43d19639aaa07159f8f2"><img src="https://km.sankuai.com/api/file/cdn/1446840342/14020293223?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1385" height="513.73" nodeId="ad4850b909b142c194272c54735a9c49" /></p>
+</td>
+<td colwidth="[198]" nodeId="d1864a4bced3472c85eb1daebba846e9">
+<p nodeId="b9326b55660547a1b24106beaaabc703">业务优化后，通过火焰图看，性能提升5%以上</p>
+</td>
+</tr>
+</table>
+<h5 nodeId="4a51f99686634c77baff93a4b1c5722d">本周：当前治理率：3%  </h5>
+<km-note type="info" hiddenTitle="true" nodeId="41474e8cfd43428992679ff2245a8676">
+<km-title></km-title>
+<km-content>
+<p nodeId="ec6d4cd23dfb46a89f1a5b1e7a38f6c2">指标统计口径  已经治理/总量</p>
+<p nodeId="58a03715eaac49f3b6698bd1e294371b"> 本双周有222个风险事件，已经治理的6个</p>
+</km-content>
+</km-note>
+<p nodeId="a56c907afc3c433d8ea77aa4eb9738f3"><a href="https://km.sankuai.com/collabpage/1436017431" title="https://km.sankuai.com/collabpage/1436017431" autoUpdate="true" nodeId="e13ce2c9b2ba437696087e78562dd69b">https://km.sankuai.com/collabpage/1436017431</a></p>
+<p nodeId="d6c6dec379634e268e03bb690f527eb1"><a href="https://km.sankuai.com/collabpage/1436404524" title="https://km.sankuai.com/collabpage/1436404524" autoUpdate="true" nodeId="2f09f910df4c4b96a239925329d29b04">https://km.sankuai.com/collabpage/1436404524</a></p>
+<h5 nodeId="8f323e8c6b2d472e94596623ddbc8172"> 业务治理进度</h5>
+<table responsive="false" nodeId="0fe724ee24bd4c719f6168fdc89dd34b">
+<tr nodeId="1883917858414ec493f89b7491b5cd68">
+<th colwidth="[52]" nodeId="6e0bd65fae16418ebe37589ce1aea479">
+<p nodeId="080a741cfa714a2fa47b4e6ac1217da8" />
+</th>
+<th colwidth="[84]" nodeId="625e487a25ba47f4840c57a7788c7ef5">
+<p nodeId="a12b82f7fae947fa8cf30f6ec37265e4">处理时间</p>
+</th>
+<th colwidth="[132]" nodeId="21f4b1ef8e114b3194e22336785acb13">
+<p nodeId="2be5c3a7180b4aa69e28a627030b29da">治理状态</p>
+</th>
+<th colwidth="[235]" nodeId="2179209a219444e989a038cd8fd5b226">
+<p nodeId="c3ccd08d25fa4a88a06911e189192aa2">告警问题分类【bug,脏数据等】</p>
+</th>
+<th colwidth="[332]" nodeId="4450c01049fc4c9e9c34d2b49da77c5d">
+<p nodeId="a2a2d697a1d24284afcdeebf1feb7631">作业名称</p>
+</th>
+<th colwidth="[332]" nodeId="c990e3585e1b436ea6a0573851405995">
+<p nodeId="7e55b3c56579494f803b6a94ff1f1219">告警信息</p>
+</th>
+</tr>
+<tr nodeId="54d5949508c949c88934332b6126d53f">
+<td colwidth="[52]" numCell="true" nodeId="cfe6e65d02ff458799a68c8cbd186fc0">
+<p nodeId="dbf65183cb8c43dfa0387193383f3357" />
+</td>
+<td colwidth="[84]" nodeId="baa9629605c14678aad60b1c518a862d">
+<p nodeId="70077aaedc3d4963b2705f3630b84a50" />
+</td>
+<td colwidth="[132]" nodeId="35be6c1aec724afd90d70362920aba29">
+<p nodeId="7c1b664c76e34989adbef40106db0804" />
+</td>
+<td colwidth="[235]" nodeId="d76964cb940a453c960aa94ca31f99f4">
+<p nodeId="d7d8e11d796348bb9e190812b9d7eace" />
+</td>
+<td colwidth="[332]" nodeId="ebea7442e9d84f8faa97fb46109efd30">
+<p nodeId="f43bc9fd8ac148b7b3339346bc9e27e2" />
+</td>
+<td colwidth="[332]" nodeId="b7f7d5e9a7e14df5a8d03ec72f07e4d2">
+<p nodeId="812b55c46f0b4c6e818221c2cbb700ca" />
+</td>
+</tr>
+<tr nodeId="317deb2aa7f54b8c81aeff63e85cf36e">
+<td colwidth="[52]" numCell="true" nodeId="17f93f1106cc4ed7b6f1170f49ff40b4">
+<p nodeId="dd92b623cb44413fb130571b215848d4" />
+</td>
+<td colwidth="[84]" nodeId="39514683588546faaff2892a878440c7">
+<p nodeId="769cf3ec0e3642aa84338a89043215f6" />
+</td>
+<td colwidth="[132]" nodeId="ba3a1ee0a2e94ee6aee1788ca94bdf65">
+<p nodeId="80cbba913e9f4c35a0d75b2d63573f32" />
+</td>
+<td colwidth="[235]" nodeId="a3d84f4f39ac422bb146d6d6f950e35b">
+<p nodeId="2ebb0775a7bf4d66bca49a6a512a503b" />
+</td>
+<td colwidth="[332]" nodeId="9e98cb3aa6b94da7a68403f70fb61ec3">
+<p nodeId="c2a1d43a0391490bb3efdbb47456ad46" />
+</td>
+<td colwidth="[332]" nodeId="306fa85891b841dfa5f7683b7ad19cfb">
+<p nodeId="bf6547611f204b4ead82479022936c0b" />
+</td>
+</tr>
+<tr nodeId="7cb6f03553d240cbabb104bdf7feaf29">
+<td colwidth="[52]" numCell="true" nodeId="a9d217276d3e45f6a5252bafcde19d05">
+<p nodeId="8dfb16c286bd4e2496a9159445297284" />
+</td>
+<td colwidth="[84]" nodeId="4a491662b83c4f0291b565785dbcc33c">
+<p nodeId="403000523fe54324954c2cd9d60b5444" />
+</td>
+<td colwidth="[132]" nodeId="a73d3a377d84414e936ca93fe8e93003">
+<p nodeId="cabeaf44a3284d33a24d3cc11e4540b1" />
+</td>
+<td colwidth="[235]" nodeId="7cb38d1dc9ac40ed9bcdebd7ceac1366">
+<p nodeId="b3fbba82d0c14380bd75d0c3226930ad" />
+</td>
+<td colwidth="[332]" nodeId="d4ccb47c846b43c486a32b5214f809f2">
+<p nodeId="01e48ccfa64d435abee49d3300137f1f" />
+</td>
+<td colwidth="[332]" nodeId="fdd3bdc91040441a8a676131859111cb">
+<p nodeId="ed0175d5e6d4449283f22cb75941432e" />
+</td>
+</tr>
+<tr nodeId="bb659cbc9d9045cf8c555c538ef99cd1">
+<td colwidth="[52]" numCell="true" nodeId="351499a6efb144afa1efefede4774df8">
+<p nodeId="fd26644ad8e34b48abbbcd2e888ae335" />
+</td>
+<td colwidth="[84]" nodeId="f1e454ca6153417cb2942df91915fd6a">
+<p nodeId="5f3d7967ef914d429990dfddfa7ab8fc" />
+</td>
+<td colwidth="[132]" nodeId="cd88d9db97914fe2bd5b2002ce269b0e">
+<p nodeId="9775273840c249e3982d7e65be9c66c4" />
+</td>
+<td colwidth="[235]" nodeId="08cf5af448184e4b9bc62fab21dbd87d">
+<p nodeId="140ef7b8947d488794d10913f132d0f2" />
+</td>
+<td colwidth="[332]" nodeId="dd6eb3ece8b445dd9a8033b0f6908c41">
+<p nodeId="4f451afe66e94b42aecdf5fb5f708a5a" />
+</td>
+<td colwidth="[332]" nodeId="aaccc8b668f9419aa169e5de85ffebbb">
+<p nodeId="cf9e85120b434e08a7a6f0fcebabb52a" />
+</td>
+</tr>
+<tr nodeId="85a3844d238d4de78ba71afe2efd149e">
+<td colwidth="[52]" numCell="true" nodeId="4fab2f67cbad45ae95b0b6fdb5fff120">
+<p nodeId="b6a147be6c7240f1be31a5b8d1e7f2ff" />
+</td>
+<td colwidth="[84]" nodeId="b34ab7ecc4b94253acc341efcbc3eff3">
+<p nodeId="15f77c3f13a44ab28f4e125c3961a04b" />
+</td>
+<td colwidth="[132]" nodeId="b6cba8e04a6043638f597136c0475765">
+<p nodeId="634656b56bda40bd9319c966100c7f1e" />
+</td>
+<td colwidth="[235]" nodeId="5602b1460e3042c7af913af0a9e69daf">
+<p nodeId="a1162d88f6d446aea0795f979659c6c4" />
+</td>
+<td colwidth="[332]" nodeId="3e3e6e0525db494ba31b1e8abff49a69">
+<p nodeId="c2918fe00d7242459acb9c7cf7939311" />
+</td>
+<td colwidth="[332]" nodeId="ca5a13e33442432ebd566c85961330e9">
+<p nodeId="f545266e14ac4ac097f15edd88fac18f" />
+</td>
+</tr>
+</table>
+<h2 nodeId="710694fb029e4c2d87bea415965afdf4">账户安全</h2>
+<h5 nodeId="0ccd4f2c9fa44eeb94382be7a4bc8257">本周：当前治理率：5%  </h5>
+<km-note type="info" hiddenTitle="true" nodeId="5ae50555a9ee45f4b4f91701d0a59068">
+<km-title></km-title>
+<km-content>
+<p nodeId="39bda06e096b4de09efaa2b2e697d2cc">进展：11.23号和<km-mention name="汤洲" uid="tangzhou02" empId="" nodeId="a46acc0f8260480aa4df5d519ac7ca38" /> 汤洲沟通了，拉上本组的同事一起治理，治理完毕时间，待确认</p>
+</km-content>
+</km-note>
+<p nodeId="5d09cc85347c485f99fbb948b3ec5539" />
+<table responsive="false" nodeId="6b837c6489cb42b182d96bd240072826">
+<tr nodeId="b8e1994d516048c795eb54c9c3a9cb38">
+<th colwidth="[52]" nodeId="44bd346c5f464ab2a10a95c11a21c4a8">
+<p nodeId="1258f728bf5d44db8136b60a9ab65538" />
+</th>
+<th colwidth="[84]" nodeId="8b60801e10d647298bbdaf65e316b10d">
+<p nodeId="07f5e0e6f2184746a386e124b7a52fa6">处理时间</p>
+</th>
+<th colwidth="[132]" nodeId="4dae1629678246e190ab40e456535b3c">
+<p nodeId="b1e11e6dbea947dbb13ad5d676f60af8">治理状态</p>
+</th>
+<th colwidth="[300]" nodeId="1cd406c13bf54a88b989fb04000153ec">
+<p nodeId="c0ed2588ada74f009f805c6037044a0d">告警问题分类【bug,脏数据等】</p>
+</th>
+<th colwidth="[332]" nodeId="831b899fcb0e48da883120b34256968a">
+<p nodeId="2347e663015f4884b3fc9ed873a01eb2">作业名称</p>
+</th>
+<th colwidth="[332]" nodeId="bf93886c021f4deba856b99e2250814c">
+<p nodeId="162137eb8d91490683b2b12f13beeef6">告警信息</p>
+</th>
+<th colwidth="[332]" nodeId="2fad7986b67e4fb1bef8439c10b6756b">
+<p nodeId="70eee3c702504be4ade4f6fc2c5fc901">备注</p>
+</th>
+</tr>
+<tr nodeId="76d27f0b620648f3b1847be24cf0c5e7">
+<td colwidth="[52]" numCell="true" nodeId="d20721e033b64914b5643dcfc32d752a">
+<p nodeId="a0e3056250f2415d9c4ad7a676b69353" />
+</td>
+<td colwidth="[84]" nodeId="0a5d11a30eb74df2a8f14b2bbe123f49">
+<p nodeId="ce8615a4e6064b63bec73533e8e04e4a"><span color="rgba(0, 0, 0, 0.87)">2022-11-18</span></p>
+</td>
+<td colwidth="[132]" nodeId="420e13a918244043b33fb2fb87f9146d">
+<p nodeId="6c8580ec5bd44eaea7191494d9b5e983">静默7天</p>
+</td>
+<td colwidth="[300]" nodeId="b68a2827828a49e2ab6eb26b2f40ef9d">
+<p nodeId="4b0e6789c9db48709f0c528457dcce19">脏数据</p>
+<p nodeId="cbec4849f1f042129e169237e47f7660" />
+</td>
+<td colwidth="[332]" nodeId="6786242b718e494ba477bb1dd93499a6">
+<p nodeId="221d875ba65f4a5d91d4436e7d212e27">画布：238</p>
+</td>
+<td colwidth="[332]" nodeId="9eea6a11c47d43d0bb673da88e92fa57">
+<p nodeId="7e70cea5a566419a8e763deb2fb32cd9"><span color="rgba(0, 0, 0, 0.87)">2022-11-18 06:29:57-2022-11-18 10:29:57 异常作业巡检，发现如下作业存在【作业异常报错】问题，请关注处理:</span><br /><span color="rgba(0, 0, 0, 0.87)">1.【</span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=238&amp;version=5" title="【累计类】规则2350898_同unionid登录多账号" nodeId="17b95e1682b543fbbec22dd45859d160">【累计类】规则2350898_同unionid登录多账号</a><span color="rgba(0, 0, 0, 0.87)">】 作业最后修改人: tangzhou02</span><br /><span color="rgba(0, 0, 0, 0.87)">出现了852120 次if..else表达式结果是空【</span><a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:238%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" title="错误详情" nodeId="b166df85ba1c477d8c2762ec74716b15">错误详情</a><span color="rgba(0, 0, 0, 0.87)">】;【</span><a href="https://mis.zeus.rc.st.sankuai.com/zeus-server/ajax/rule_platform/nearline_alarm/quick_solve?alarmId=4391&amp;quickSolveName=%E9%9D%99%E9%BB%981%E5%A4%A9" title="静默1天" nodeId="f1e5ea73f1e347f99c14c980474b9ad6">静默1天</a><span color="rgba(0, 0, 0, 0.87)">】 【</span><a href="https://mis.zeus.rc.st.sankuai.com/zeus-server/ajax/rule_platform/nearline_alarm/quick_solve?alarmId=4391&amp;quickSolveName=%E9%9D%99%E9%BB%987%E5%A4%A9" title="静默7天" nodeId="bbfd7f03d7504006aeb8cb3afed4fd25">静默7天</a><span color="rgba(0, 0, 0, 0.87)">】 【</span><a href="https://mis.zeus.rc.st.sankuai.com/zeus-server/ajax/rule_platform/nearline_alarm/quick_solve?alarmId=4391&amp;quickSolveName=%E9%9D%99%E9%BB%9830%E5%A4%A9" title="静默30天" nodeId="341451526d4a4c86a32ca667c54927a5">静默30天</a><span color="rgba(0, 0, 0, 0.87)">】</span></p>
+</td>
+<td colwidth="[332]" nodeId="55d34d78698e485b9db90f81ea16bb7c">
+<p nodeId="bdfa0758ed604cafa0a426fd1c69cd32">脏数据是不是可以过滤下呢</p>
+</td>
+</tr>
+<tr nodeId="3272366eea3a4822a2012837774bb169">
+<td colwidth="[52]" numCell="true" nodeId="2c2b868e7967450fa1d47e54124fc0d9">
+<p nodeId="04db8afd52c54097a72894ffdc98274f" />
+</td>
+<td colwidth="[84]" nodeId="6345bba158a64b3bbdf146b4346872de">
+<p nodeId="4faf7ddbe54e4f24a14fdbcd3891d685">2022-11-24</p>
+</td>
+<td colwidth="[132]" nodeId="97b8889f3f5647c5803f2a4b6efc5c37">
+<p nodeId="b84a1a0fa88841c080fd49a21245f633">静默30天</p>
+</td>
+<td colwidth="[300]" nodeId="b4791ce0e0004737b7893380c420d18a">
+<p nodeId="4b86d6541945467fb1838076f57059f3">userid转换的代码逻辑一直有问题，之前笑千帮忙看过，但一直没改</p>
+<km-collapse active="false" nodeId="a92d540b45584c868240100550cdf71b">
+<km-title>点击展开内容</km-title>
+<km-content>
+<p nodeId="0baca5af13bf444786f4181dcd32704c">package com.meituan.rc.zeus.nearline.account;</p>
+<p nodeId="be84c9c284ec475f9e0f60e0f26a68fb">import com.google.common.collect.Maps;</p>
+<p nodeId="a9084debde7a4596b7bc855d40ae6de3">import com.meituan.rc.zeus.dynamic.script.runtime.IProcessor;</p>
+<p nodeId="41fbe5dde5484b3d97459ac2bbb8002d">import com.meituan.rc.zeus.thrift.fetcher.FetchRequest;</p>
+<p nodeId="562d6b3a7d5f4ff4a57d899c05f2aa5c">import com.meituan.rc.zeus.thrift.fetcher.FetchResult;</p>
+<p nodeId="9c69225a830b4a0995ab84adcb3874e1">import com.meituan.rc.zeus.thrift.fetcher.ZeusFetcherService;</p>
+<p nodeId="265735fb190c418a9b3a15fbf2148450">import com.meituan.service.mobile.mtthrift.proxy.ThriftClientProxy;</p>
+<p nodeId="18ffc348a7c94daf88bbcd9d1a94f344">import org.apache.commons.collections.MapUtils;</p>
+<p nodeId="bfd2c00d393e4af6a1652fd64db7e722">import org.apache.commons.lang.StringUtils;</p>
+<p nodeId="0576153c86c445879167b994e8b0eb29">import org.slf4j.Logger;</p>
+<p nodeId="ea01a164c78e401294b27470df3a8921">import org.slf4j.LoggerFactory;</p>
+<p nodeId="77a5cf41bd4c491891b9204435ea6ae9">import java.util.Map;</p>
+<p nodeId="8bc45ae47d6e4119b4d648472ec6625d">public class UserIdTranslate extends IProcessor {</p>
+<p nodeId="c102a033a5b845018780e95c9fd3a3ea">    private static final Logger LOGGER = LoggerFactory.getLogger(UserIdTranslate.class);</p>
+<p nodeId="7b9f62bab0244e18b900f25711d56cde">    private static ThriftClientProxy thriftClientProxy;</p>
+<p nodeId="33195bcb585c4493b43c6e5c41400e8a">    private static ZeusFetcherService.Iface service;</p>
+<p nodeId="d18bf4ad5fd14d8bb2b26bf3edd04f7d">    private static final String remoteAppkey = "com.sankuai.rc.tatooine.fetcher";</p>
+<p nodeId="168e079348f84685a06a22a498882fc7">    public static final String appkey = "com.sankuai.zeus.nearline";</p>
+<p nodeId="824fdc26399d466ab938d8c07eb6497a">    static {</p>
+<p nodeId="ade95ff311d3454da2c27507bc5b35ec">        try {</p>
+<p nodeId="e44a86f0fbaa44d28cb50729c183a27e">            //初始化thrift客户端</p>
+<p nodeId="8bf28b427c8f41d4b96ee735c43e1e0b">            thriftClientProxy = new ThriftClientProxy();</p>
+<p nodeId="6a75e4e3f09b4341adcf6a996796a2fe">            thriftClientProxy.setServiceInterface(ZeusFetcherService.class);</p>
+<p nodeId="fe34a23a32e6423497fd6c5e5e7bab31">            thriftClientProxy.setAppKey(appkey);</p>
+<p nodeId="2eb2f7e2ccaa48d19b1a818498e5c5d1">            thriftClientProxy.setRemoteAppkey(remoteAppkey);</p>
+<p nodeId="adb2c38f75354ed2a7a8476e094321f1">            thriftClientProxy.setRemoteServerPort(9222);</p>
+<p nodeId="83cc188df5464733a7d1d8bb2d982d1b">            thriftClientProxy.setTimeout(3000);</p>
+<p nodeId="38ef753bd09d4f7cac9a4b8e044ecf2a">            thriftClientProxy.afterPropertiesSet();</p>
+<p nodeId="a152f8145008468989a824da37a63b76">            service = (ZeusFetcherService.Iface) thriftClientProxy.getObject();</p>
+<p nodeId="af7d2a4513ec43c6b81d40cff5e44125">        } catch (Exception e) {</p>
+<p nodeId="d172a0da73a949998e7c10266da91741">            LOGGER.info("INIT_FETCER_ERROR", e);</p>
+<p nodeId="27cf3541778f4307919f5bba088d1669">        }</p>
+<p nodeId="269bf78bcca74c5fa8bca92d6473fd2c">    }</p>
+<p nodeId="5a55e83cb2e840b09735adfaaa371ae3">    public String  queryMtRealUserID(String dpUserId,String accountSystem,String zeusRequestId)  {</p>
+<p nodeId="24b43f21fa9b44cbba22de109640dd96">        Map&lt;String,Object&gt; returnResult = Maps.newHashMap();</p>
+<p nodeId="45b1659fb1ff48d9a28069bdfad23fb0">        try {</p>
+<p nodeId="dfdbbe59e0d245ec9654e844ed4880f2">            FetchRequest request = new FetchRequest();</p>
+<p nodeId="98efcbb0e60c42059c08ae688cd39945">            Map&lt;String,String&gt; queryContext = Maps.newHashMap();</p>
+<p nodeId="39f240ed64ab41a1b8834e05d6bc7622">            request.setMethodName("userIdFetcher");</p>
+<p nodeId="b62bc51c21d94651bf0b9d9361be25dd">            queryContext.put("dpUserid", dpUserId);</p>
+<p nodeId="1800a908dbc447f4bb3117b56b4b16ed">            queryContext.put("accountSystem", accountSystem);</p>
+<p nodeId="1e811c3b705440b084dec55e94faec5d">            request.setContext(queryContext).setRequestId(zeusRequestId);</p>
+<p nodeId="ba8b26b40ae54cf0834627319444df51">            FetchResult result = service.query(request);</p>
+<p nodeId="d028b0b5a0b445bd9db49cde297b0f0a">            if (StringUtils.isNotEmpty(result.getErrMsg())) {</p>
+<p nodeId="1cb0a8986c3442b881155a5342480f9d">                LOGGER.error("queryMtRealUserID {}", result.getErrMsg());</p>
+<p nodeId="7e50d67b57fb4ff0851fe7cec3312c2e">                return null;</p>
+<p nodeId="49b4b966ac29420e9f75aebf5d70dd67">            }</p>
+<p nodeId="afd18d50c905429caa3c086ea059cd18">            Map&lt;String,String&gt; resultMap = result.getResultMap();</p>
+<p nodeId="e865e59d0e4547318cf8d6948d0302fb">            if (MapUtils.isEmpty(resultMap)) {</p>
+<p nodeId="8fc38711733e4e2ab99811a246755572">                LOGGER.info("queryMtRealUserID empty context:{}", queryContext);</p>
+<p nodeId="77f456e2bf994f409c56badebcec95be">                return null;</p>
+<p nodeId="69972cf55478439692091eafc6dc2859">            }</p>
+<p nodeId="be2f84973c4b4adbb15528f84dd6d99b">            return String.valueOf(resultMap.get("userid"));</p>
+<p nodeId="b19b831359d5463d9df28e036e2880d2">        } catch (Exception e) {</p>
+<p nodeId="61092847a88b4fe3801769b7e586ff82">            LOGGER.error("INVOKE_FETCHER_ERROR method:{} msg:{}", "dfpidOrUuidRiskFetcher", e.getMessage(), e);</p>
+<p nodeId="0475c35987384c208a7b3c42777701ae">        }</p>
+<p nodeId="9ddcbacf7e194e6e9bdd402681002379">        return null;</p>
+<p nodeId="1c323b98ff2946a1892e15f955c9f308">    }</p>
+<p nodeId="0d1ed233588d42a2a75687088b589bca">    @Override</p>
+<p nodeId="4b97a334d32a4eb3b17714c1a2029ee1">    public Map&lt;String, Object&gt; process(Map&lt;String, Object&gt; map) {</p>
+<p nodeId="1acd4a6cf1ee4871aea8fc9a31756ed3">        String dpUserId = String.valueOf(map.get("dpUserid"));</p>
+<p nodeId="a15da310d8904a968250d650da34ab23">        String accountSystem = String.valueOf(map.get("accountSystem"));</p>
+<p nodeId="368f5f98ece348ac9d7c7bd0f0b39a8a">        String zeusRequestId = (String)map.get("zeusRequestId");</p>
+<p nodeId="5dd0db747eb24957bc382dfcced6608a">        LOGGER.error("UserIdTranslate :{},{},{}",dpUserId,accountSystem,zeusRequestId);</p>
+<p nodeId="98d912fcd3bb4c6e8e1775e45a2aecaa">        if("8".equals(accountSystem) &amp;&amp; StringUtils.isNotEmpty(dpUserId)){</p>
+<p nodeId="78188fd816064b358ca2cd22670b7a01">            Long current = System.currentTimeMillis();</p>
+<p nodeId="7e9cf0dfcc314ad5b5330a892101294c">            Long eventTime = Long.valueOf(String.valueOf(map.get("eventTime")));</p>
+<p nodeId="1d5bf5f4869d475386108aee14d62083">            if(eventTime != null &amp;&amp; current &lt; eventTime + 10000){</p>
+<p nodeId="cabd1a457f734f07ac035be414d3ab7a">                try {</p>
+<p nodeId="d7c7f0da07e1494c80556ce1741a2442">                    Thread.sleep(10000);</p>
+<p nodeId="f425522707a04b5fb0c71ee141fbeb3e">                }catch (Exception ex){</p>
+<p nodeId="8231538569574d1c8b242b2b7c155030">                }</p>
+<p nodeId="df969756d7da4ef5b26c57c8ce3f1373">            }</p>
+<p nodeId="f82445a6507048119dc666f13a012e02">            String realUserId = queryMtRealUserID(dpUserId,accountSystem,zeusRequestId);</p>
+<p nodeId="cfc4cfd511914e8ba583a64dde04cb37">            if(StringUtils.isNotEmpty(realUserId)){</p>
+<p nodeId="bf63f4f6c0134340b0a12c8dcf68ab5d">                map.put("oriUserid",map.get("userid"));</p>
+<p nodeId="923b954ced0640b4a888a1afd8e9bbd8">                map.put("userid",realUserId);</p>
+<p nodeId="a5daef1f055249c0a9150a4b27246da4">            }</p>
+<p nodeId="610df886831b44abaaf8cc4a74cb6105">        }</p>
+<p nodeId="b65fa3c51d6d46a5b47e4cc669dcfc17">        return map;</p>
+<p nodeId="877e0de7c06b49ab8a0275eb6478afe2">    }</p>
+<p nodeId="06ebe579486243369a3bcafaf0b9ad22">}</p>
+</km-content>
+</km-collapse>
+<p nodeId="a8bd04f3921140e4b89c15b7f93f709c" />
+</td>
+<td colwidth="[332]" nodeId="a50afe325c1c4010ab10bece1383c386">
+<p nodeId="5f41b81f220d4c2ab7e2c4584e1d9ea9">画布：189</p>
+</td>
+<td colwidth="[332]" nodeId="d2c8f1ee21f040dfaa89655140edaf7d">
+<p nodeId="6cc6f097f2b248deae0c3c1e147493d6"><span color="rgba(0, 0, 0, 0.87)">2022-11-24 16:01:22-2022-11-24 20:01:22 异常作业巡检，发现如下作业存在【作业异常报错】问题，请关注处理:</span><br /><span color="rgba(0, 0, 0, 0.87)">1.【</span><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=189&amp;version=7" title="【累计类】规则2350900_同dfpid频繁注册" nodeId="1a7a8fb8362f4dd5a8b1f2f13d420e32">【累计类】规则2350900_同dfpid频繁注册</a><span color="rgba(0, 0, 0, 0.87)">】 作业最后修改人: tangzhou02</span><br /><span color="rgba(0, 0, 0, 0.87)">出现了22 次code代码执行失败【</span><a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:189%20AND%20exceptionType:%20code%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%A4%B1%E8%B4%A5%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" title="错误详情" nodeId="24224bb96d2d496c92df6abcfd100b57">错误详情</a><span color="rgba(0, 0, 0, 0.87)">】;【</span><a href="https://mis.zeus.rc.st.sankuai.com/zeus-server/ajax/rule_platform/nearline_alarm/quick_solve?alarmId=4373&amp;quickSolveName=%E9%9D%99%E9%BB%981%E5%A4%A9" title="静默1天" nodeId="178decf534c3444b862844155d93da5f">静默1天</a><span color="rgba(0, 0, 0, 0.87)">】 【</span><a href="https://mis.zeus.rc.st.sankuai.com/zeus-server/ajax/rule_platform/nearline_alarm/quick_solve?alarmId=4373&amp;quickSolveName=%E9%9D%99%E9%BB%987%E5%A4%A9" title="静默7天" nodeId="0e16a157467249c2a835e89d38709dbe">静默7天</a><span color="rgba(0, 0, 0, 0.87)">】 【</span><a href="https://mis.zeus.rc.st.sankuai.com/zeus-server/ajax/rule_platform/nearline_alarm/quick_solve?alarmId=4373&amp;quickSolveName=%E9%9D%99%E9%BB%9830%E5%A4%A9" title="静默30天" nodeId="fbe6c7e41eed4150bb57d826e297c8f1">静默30天</a><span color="rgba(0, 0, 0, 0.87)">】</span></p>
+</td>
+<td colwidth="[332]" nodeId="5414b42cf580482ebf7bfd32b56bd38c">
+<p nodeId="dae4f0a3e88d4dbd86c0f606e4a1f03b">评估过流量中基本已不存在userid传成点评userid的情况，直接把组件删除</p>
+</td>
+</tr>
+<tr nodeId="2445b03c02d04391a5a136036933269b">
+<td colwidth="[52]" numCell="true" nodeId="059a267811c94eef84a1bb73e7ef1bab">
+<p nodeId="ef603d9f468b49c68ad6b237eb3a5a8d" />
+</td>
+<td colwidth="[84]" nodeId="41bec37dee6b44ceb587d723cc1263d0">
+<p nodeId="e14a188b53754d168108ee07cff294e0" />
+</td>
+<td colwidth="[132]" nodeId="f1441bf4b1e044f1b784fce466fc3cf7">
+<p nodeId="aeab11136ec6477fb12df22ff53fb315" />
+</td>
+<td colwidth="[300]" nodeId="96f431d632924eb181f4e89ff622b03f">
+<p nodeId="49446985405c439e8edec37132db2e4e" />
+</td>
+<td colwidth="[332]" nodeId="19a3907e7d93418e98bfcefb85299404">
+<p nodeId="ff3a153949154cf3880b2e5a077ad59a" />
+</td>
+<td colwidth="[332]" nodeId="4f80f991edc443b98e6e74b708bc9de3">
+<p nodeId="a1abbe7d71f149a2b0344e9174b5a5b9" />
+</td>
+<td colwidth="[332]" nodeId="98182f315fda48e1b4874d59b983cf11">
+<p nodeId="47e4568700b24913b9bef122628f8640" />
+</td>
+</tr>
+<tr nodeId="c0ae22f93dc44bb4bcd13328eb8c24c1">
+<td colwidth="[52]" numCell="true" nodeId="4ec4f286c21d4644942a2fcc17c0f941">
+<p nodeId="f7a30a0a16974f0f8d7527d468105ed5" />
+</td>
+<td colwidth="[84]" nodeId="ed096af565c64b20a2385b317298d9a5">
+<p nodeId="6a42752c9fe444c1a80e5bb0a7515de6" />
+</td>
+<td colwidth="[132]" nodeId="1484db360a52434d816137e801d113de">
+<p nodeId="5dec9dacba61449884bfecdb47df71b2" />
+</td>
+<td colwidth="[300]" nodeId="db70dcedce0b4a7baf9db2dee9534651">
+<p nodeId="88fd115e23d441e08e420aba482c0348" />
+</td>
+<td colwidth="[332]" nodeId="5ab32a02bce3453e96846955434fd63f">
+<p nodeId="454ffa1274a8435eaef8ea69cc2f38b3" />
+</td>
+<td colwidth="[332]" nodeId="50901fdd66084645bfaec61ba323b240">
+<p nodeId="28f81f0472054f24aec0f4092ee2f37e" />
+</td>
+<td colwidth="[332]" nodeId="5774f570c4134e3bac7b6d7ced2c5353">
+<p nodeId="a49180bee1fc425fab1bd48bc00226d3" />
+</td>
+</tr>
+<tr nodeId="2da98b73c4cd4778ae5d7b49860e0a6d">
+<td colwidth="[52]" numCell="true" nodeId="27df72f23ccc4ac58268082cc8e6d6b3">
+<p nodeId="f718520c0128404e9d7038ff18e9b6b9" />
+</td>
+<td colwidth="[84]" nodeId="b81e8f8a20924002a45a968d5064ffcf">
+<p nodeId="dbb4ef0af5e54529a19bf63a6c3e3485" />
+</td>
+<td colwidth="[132]" nodeId="c3f4899af6f94787893a8dfcff7454d3">
+<p nodeId="b923dc167cc546c392be63d4e2a4ce80" />
+</td>
+<td colwidth="[300]" nodeId="6a9d18c826934daa8bd83bd3b0569146">
+<p nodeId="eec6ec6e433f4650a0d8a2a4a123cf30" />
+</td>
+<td colwidth="[332]" nodeId="2618d9e5fac34b72976a74753825273c">
+<p nodeId="2f6477efad0b4b029a0978c4246861c4" />
+</td>
+<td colwidth="[332]" nodeId="0067dd1ecc7a43fa96fcd26f5062bc66">
+<p nodeId="186b1a4707cb4d36bd3861cf419a1655" />
+</td>
+<td colwidth="[332]" nodeId="079311ccb45e4101a2131933a3842a66">
+<p nodeId="ca7a3e73056e4b62a75d9069e2b6e9cc" />
+</td>
+</tr>
+</table>
+<h2 nodeId="ea23016d746d4e889b3e099de88d86a7">可信数字</h2>
+<h5 nodeId="12e50db1371e44499b04003f96d8b129">本周：当前治理率：0%  </h5>
+<km-note type="info" hiddenTitle="true" nodeId="5b646a6e69484161bc2d0228da866ada">
+<km-title></km-title>
+<km-content>
+<p nodeId="0c744032e5cb4d2783031c0dfdab3fbb">11.23号开始治理，已经找<km-mention name="张二强" uid="zhangerqiang" empId="" nodeId="e8d72d8029704bc0bcc6d321381314bf" />二强沟通了，开始治理，治理完毕时间待确认，会先静默</p>
+</km-content>
+</km-note>
+<p nodeId="e52981803eb34dbfa49c06e1a0e1e47b" />
+<table responsive="false" nodeId="965448cc7bdb4ca8ac4308b440aa3689">
+<tr nodeId="1f8cf4c8eec44b90b05b19635afe00d4">
+<th colwidth="[52]" nodeId="1410d68b58e84056a7e9af3e27354413">
+<p nodeId="f91cdf7010024e4f9ba6ae837f27eabe" />
+</th>
+<th colwidth="[84]" nodeId="7fe1014b8715403c8839bcddbbf590f1">
+<p nodeId="0d4dbee437794a80b3a1efddf4b93d8f">处理时间</p>
+</th>
+<th colwidth="[132]" nodeId="8a4e2f3db8bc4769972cef29768d0fb9">
+<p nodeId="84a48c5ddac04e71815bb2c375ed27fc">治理状态</p>
+</th>
+<th colwidth="[235]" nodeId="a1649cb98bee427bb1915149e9ffed19">
+<p nodeId="9308efdf4be74c9cbc19884828f040e8">告警问题分类【bug,脏数据等】</p>
+</th>
+<th colwidth="[332]" nodeId="b06825dc2b8d478bad52d84fa19d33d6">
+<p nodeId="370f1d69958e4de08a32812fe42ee0e8">作业名称</p>
+</th>
+<th colwidth="[332]" nodeId="8c8267cc8ccf49d1a6295c26fd3b60b1">
+<p nodeId="0f5796140e614b22a6e18b55e9033eed">告警信息</p>
+</th>
+</tr>
+<tr nodeId="f60a7997aacb40ea974ebb5707a62530">
+<td colwidth="[52]" numCell="true" nodeId="cbcc389cd6c2417a98f7c515946931fb">
+<p nodeId="e36927c38d184241a94deb6df6578f9f" />
+</td>
+<td colwidth="[84]" nodeId="048812a6c4d1489c9a5e3839ab36fb0e">
+<p nodeId="b4d1c326f78141ae94b7e29b7e3af847" />
+</td>
+<td colwidth="[132]" nodeId="a025abafe56d4e74b6cdccddf07757dd">
+<p nodeId="a853bb8fd22149a0bc1a4376e2477049" />
+</td>
+<td colwidth="[235]" nodeId="20d92e72c30642418b4062631291693d">
+<p nodeId="a29deeda53794a9ba5aa285906c6dc3b" />
+</td>
+<td colwidth="[332]" nodeId="e6bad36f75da4f5384cb3c779b420ea3">
+<p nodeId="67c303b0f59d4b7c87952d3240ff4ba9" />
+</td>
+<td colwidth="[332]" nodeId="726c6ea840624f67bf4fb7b87e95fe34">
+<p nodeId="f48b0bdadb5e44559ed13797b4e19d0b" />
+</td>
+</tr>
+<tr nodeId="81b94034f72f40069d8cf919ce93054b">
+<td colwidth="[52]" numCell="true" nodeId="391744f8fc2b4d4a9af24eaf4fc42099">
+<p nodeId="f45363ec2799433784ee4be80473ab52" />
+</td>
+<td colwidth="[84]" nodeId="d9f1751a97784805a2b23ed3d8e2f1d7">
+<p nodeId="b00f9c0def6346e08365f94efbb4d692" />
+</td>
+<td colwidth="[132]" nodeId="ed20c3ce99d841eabcbfd3b3a3b452c7">
+<p nodeId="55de1e9b978544379051c25a0a1efedb" />
+</td>
+<td colwidth="[235]" nodeId="e1e02f2a9d5f4019856b6c109e3a6161">
+<p nodeId="e155817aec934bfab8e69ffc37e36054" />
+</td>
+<td colwidth="[332]" nodeId="1a415376cec6478c9373c94216a10cb9">
+<p nodeId="7a7d6cb666794dccbbb35adfc8a812c4" />
+</td>
+<td colwidth="[332]" nodeId="f92d235ebad143f89701bb56b50a64d8">
+<p nodeId="a6bf7566f988490f833d8ec69aee1b87" />
+</td>
+</tr>
+<tr nodeId="b415a92509b140919a7d77af3581e53b">
+<td colwidth="[52]" numCell="true" nodeId="a0657f4e5dcc4e22b10f791f4f421903">
+<p nodeId="97ee1c956a81478d91e85d2b18295a3f" />
+</td>
+<td colwidth="[84]" nodeId="85ab14c72be24710a8bb001276590075">
+<p nodeId="eb7a8e65962c4f23828d457501f24111" />
+</td>
+<td colwidth="[132]" nodeId="a461447960c04e07be27be0f7dc862ea">
+<p nodeId="c36b04218794451cac1312a65df00fdf" />
+</td>
+<td colwidth="[235]" nodeId="e993c7c5ab084dee9945a45d9359340d">
+<p nodeId="656bd75737a4445e92cd0c8b3b98ba0b" />
+</td>
+<td colwidth="[332]" nodeId="4d8f120f9450453f8459e45b8c90e862">
+<p nodeId="39646c20bf2740438b490f17861e06d2" />
+</td>
+<td colwidth="[332]" nodeId="fcf17f923df94db79b223ce174c23147">
+<p nodeId="a90bbcd9e2284acfb42041e13015c24a" />
+</td>
+</tr>
+<tr nodeId="f191e81bb59a47d781178564a12db7e8">
+<td colwidth="[52]" numCell="true" nodeId="312cf450b7d6424c93ab2d0419b359e6">
+<p nodeId="37c09d1a6b1549afb8dd826f9830bb0c" />
+</td>
+<td colwidth="[84]" nodeId="5172816b9968473cba62e9bb9afb3f6c">
+<p nodeId="ad1bae953ea7451896121e66d7698fce" />
+</td>
+<td colwidth="[132]" nodeId="f0ad26d1c08b4a25ae3f22b25895a986">
+<p nodeId="4a23758b6c654793a991e1c75b9b9c3a" />
+</td>
+<td colwidth="[235]" nodeId="f1d7e26efe3e44368797c4bd520a76b6">
+<p nodeId="9fbd950872e5453faf0c8af306bf0008" />
+</td>
+<td colwidth="[332]" nodeId="c9b44b1b3e5a42078df23e6c2ffbf845">
+<p nodeId="d020d334c3f4461491583eb74ef6ac1a" />
+</td>
+<td colwidth="[332]" nodeId="1af6d9f8dfe54d7888e7e8da39f7cec0">
+<p nodeId="798db8e05b2940bca4c36ca7ff857e58" />
+</td>
+</tr>
+<tr nodeId="39593444131f496090dfc94009186955">
+<td colwidth="[52]" numCell="true" nodeId="313e7d643da047fbbd7831dd745a01fb">
+<p nodeId="1fbfdd64f7604dd0a9f6474ffbc20584" />
+</td>
+<td colwidth="[84]" nodeId="3fdbaf94b36c413ea904d5d205e253c5">
+<p nodeId="11c918c6473f4dc9889d5e8e81b968e8" />
+</td>
+<td colwidth="[132]" nodeId="8c53b0126716450bb17df37f5e27b206">
+<p nodeId="b14d2962b2514d2887ec2d28bfdd9bab" />
+</td>
+<td colwidth="[235]" nodeId="e0599c83e07644e0b2560e8730f59de9">
+<p nodeId="63a6d34836784f8090dcfe208f0c4f7e" />
+</td>
+<td colwidth="[332]" nodeId="b2bb373e68cb417399b48140a8e8dd78">
+<p nodeId="20b2185de9814c39a903ea5eb80bdf57" />
+</td>
+<td colwidth="[332]" nodeId="161a77b8efc246ac8eb09400ac48d967">
+<p nodeId="da44729b49894b50aa50d679b74e9c12" />
+</td>
+</tr>
+</table>
+</km-doc>

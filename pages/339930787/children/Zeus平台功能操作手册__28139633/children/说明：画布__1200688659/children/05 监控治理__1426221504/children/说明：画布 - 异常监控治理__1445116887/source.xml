@@ -1,0 +1,226 @@
+<km-doc>
+<km-title nodeId="c22065c52dc1468ba7764d54649b99f1">说明：画布 - 异常监控治理</km-title>
+<km-catalog style="none" nodeId="0fe97c7d02634d5eb61f6cc7655ccc64" />
+<h1 nodeId="a035f15a4c684fd2ba6b05b8cefdd009">一、背景</h1>
+<ul nodeId="f63aa9eb0d2146b68021eeed85b7ecb7">
+<li nodeId="966eb7779c0649f8817fbf685b26df71">
+<p align="start" nodeId="bdb2987f15564944bc4a88e38ac76890">存量告警多且杂乱，业务治理无从下手，告警治理效率低</p>
+</li>
+<li nodeId="76e808de5f604daa958e2f36d391602f">告警量较大需要一定维度的聚合告出，便于业务查看处理</li>
+<li nodeId="b7378f92bf324d48a40c474927b71ad2">未明确各类作业异常类型，业务无法自行配置满足需求的告警信息</li>
+</ul>
+<h1 nodeId="f3013571f52d45d68cb4c209759edad3">二、名词释义</h1>
+<p nodeId="3f6ce1f5a9ad475cae4e0f8502d90b5f">异常类型：即各作业配置、执行、结果过程中出现的异常情况信息。具体可参考<a href="https://km.sankuai.com/collabpage/1445694255" title="https://km.sankuai.com/collabpage/1445694255" autoUpdate="true" nodeId="c6c18d2b17b04b7e964d6214478a966b">https://km.sankuai.com/collabpage/1445694255</a></p>
+<p nodeId="b25af959fd9d4a9299f56e192611ef33">监控治理：对各作业配置监控信息并对告警信息进行压制或治理</p>
+<h1 nodeId="242fcdf15897437fa7adc8862197efb3">三、操作指南</h1>
+<h2 nodeId="eadc70f32c6b43d9a587e5776af4e6a0">3.1 配置告警</h2>
+<table responsive="false" nodeId="aec8858878a44640aabff3f9f256e374">
+<tr nodeId="e51da1a678bb4cdaa11bb36d148fab75">
+<th colwidth="[516]" nodeId="353480bfc9704719b03f6d7586e907a7">
+<p nodeId="454372e2e4234bf0b70197e40d3487cb">说明</p>
+</th>
+<th colwidth="[718]" nodeId="f6a731c07aa444fc95ff167c2ab43956">
+<p nodeId="3676e35876874b6182f70b361cc61e31">示例图</p>
+</th>
+</tr>
+<tr nodeId="7367cdf616ca4bc494996217dc3c7061">
+<td colwidth="[516]" nodeId="b78550cf853e4f14a7d7063d7bcdc155">
+<ol nodeId="67dec78912354c87a79f60f4b49e4592">
+<li nodeId="da98367e70214e8abb8689a2737bafca">新增告警配置</li>
+</ol>
+</td>
+<td colwidth="[718]" nodeId="2516772f047049218408589665db8745">
+<p nodeId="85a13ccb1fb94e69a4bb889d4a406a7f"><img src="https://km.sankuai.com/api/file/cdn/1445116887/13017581210?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1111.81" height="600" nodeId="b2b1857dbc7f4074bb95ded98aa04782" /></p>
+</td>
+</tr>
+<tr nodeId="4f5e8a21ba07407786827cd5c141ee9d">
+<td colwidth="[516]" nodeId="45d0399c795541deb7e6796ed97c9ba2">
+<p nodeId="d13bf824643b47db922bc7a7b1213b45">2. 指定配置的作业类型和作业id，可按照右侧规则进行批量配置</p>
+</td>
+<td colwidth="[718]" nodeId="7f8204c1a5444561b7a20d1a976d7e38">
+<p nodeId="e2fe80c7027c4f9fabb9708a01b8914f"><img src="https://km.sankuai.com/api/file/cdn/1445116887/13016698387?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1050.12" height="600" nodeId="c7edaf35600c4013802fe40cbb21c635" /></p>
+</td>
+</tr>
+<tr nodeId="defb27ece4734018ad914187ee623937">
+<td colwidth="[516]" nodeId="f3e4efd58fd743bfbb9c72369fe1e432">
+<p nodeId="7be00422670e4559a29e6479d5764a75">3. 选择错误类型进行配置</p>
+<p nodeId="6d861205eb7f4753b4ffbeebdf369815">        添加子规则：规则间关系为 且</p>
+<p nodeId="0776c4d2f86d4c94866abd4e9cbcdde7">        添加规则：规则间关系为 或</p>
+<km-note type="tip" hiddenTitle="true" nodeId="d050dbb31b8b49b28ed3539d98882f6b">
+<km-title></km-title>
+<km-content>
+<p nodeId="037273645a3f4280a35e968e91c477fa">由于窗口超限告警形式同其他异常类告警形式不同，窗口超限类异常须单独配置</p>
+</km-content>
+</km-note>
+<p nodeId="94ea200a28894ae79aace4f000cb5ec2" />
+</td>
+<td colwidth="[718]" nodeId="4f125ff69cb24da486953c73bbfabb57">
+<p nodeId="e59857d93e9e43c7a1213f009adde378"><img src="https://km.sankuai.com/api/file/cdn/1445116887/13017636077?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1167.81" height="600" nodeId="53c3ec2898d64966abb95d854f5e82b0" /></p>
+</td>
+</tr>
+<tr nodeId="b4e01c0111f74cf7896b6c552154b1fd">
+<td colwidth="[516]" nodeId="fa84cb6ff8c14f21be289c954d167bf4">
+<p nodeId="a0c3f0f31a754497a4124efe9c552173">4. 告出方式进行配置</p>
+<ul nodeId="31da149007064b3eafdb8546ec0c2f4d">
+<li nodeId="b8e4028a01ca4d4996c6d16fff571f4d">定时告出：告警消息时隔多长时间通知一次</li>
+</ul>
+<ul nodeId="d651da86c072425696ff8bbd04646d40">
+<li nodeId="02f6f37597994c7db0b70fc2a4bbb0be">聚合维度：如聚合作业维度，则每个作业发一个消息，如聚合全部数据，则全部告警发一个消息</li>
+<li nodeId="392d97e674e94669a42837fc12c48960">
+<p nodeId="b54fd5257fbf49149b6818c117c0a277">通知方式：必选可多选。</p>
+<ul nodeId="3891b6b23fa9446fa688e99f422d40b1">
+<li nodeId="a27e2098551b45b0a095a878d3f90346">大象群通知-近线引擎告警群</li>
+<li nodeId="93e5b4ec87d345cca938ec9d3728d93c">
+<p nodeId="9b3a58dd68b24b3db12acc886a3609c7">大象通知（个人）：</p>
+<ul nodeId="e6569b49498f4008987c6248edbc46bb">
+<li nodeId="35fae2696da84202b7c36e4d83371308">告警负责人：用户可自定义告警负责人，若不填则默认为值班研发</li>
+<li nodeId="d614a8809bad497ca7fae75755127b98">告警通知人：包括任务创建人、任务最后修改人、自定义通知人。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td>
+<td colwidth="[718]" nodeId="9bb8ee5fa6404d96952c118e7722b61e">
+<p nodeId="639c367e98094f35a63c1e9ebbe923c1"><img src="https://km.sankuai.com/api/file/cdn/1445116887/13020012209?contentType=1&amp;isNewContent=false" name="image.jpeg" width="873" height="357" nodeId="d769e95ee8d34a059f7f3d5e494c92a1" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="837316d42b6f4dc9a4142386322ff1de">3.2 告警通知</h2>
+<p nodeId="b0d23b175458480096bc338996796e86">   <img src="https://km.sankuai.com/api/file/cdn/1445116887/13010731915?contentType=1&amp;isNewContent=false" name="image.jpeg" width="525" height="375" nodeId="dafbcfee350d42d9babc18147d1aabde" /></p>
+<h2 nodeId="bff7f20626dd465984c6e0fab4e41a1d">3.3 告警治理</h2>
+<h3 nodeId="c55ba5009b3a4df8ba7a80a479479801">3.3.1 处理方式</h3>
+<table responsive="false" nodeId="0f7a1d60ccf546098c4c48f4fe91e474">
+<tr nodeId="d54b5442cf464716ae277050e93f4efc">
+<th colwidth="[379]" nodeId="714d65c745d449cc876b2a838017fc45">
+<p nodeId="2ad74ff491cd4591af82c62dc9898ece">说明</p>
+</th>
+<th colspan="2" colwidth="[543,602]" nodeId="5625f858de994bfab6e48071095efb63">
+<p nodeId="1efaf2a1f63f4b75b6fac1fbec9ba9a8">示例图</p>
+</th>
+</tr>
+<tr nodeId="44b91fb5fde94fd4a2033276daa1cd3e">
+<td colwidth="[379]" nodeId="b5830f154369487e8f07cc7b8492387b">
+<p nodeId="0c0dc585827a471caf8577460a53c219">点击静默<span color="rgb(255, 74, 71)">【点击静默，减少重复的报，减少噪音】</span></p>
+</td>
+<td colwidth="[543]" nodeId="119738492cc844a1a80693820629f64c">
+<p nodeId="062b20db7ca24413917f953377d93ea4"><img src="https://km.sankuai.com/api/file/cdn/1445116887/13022748432?contentType=1&amp;isNewContent=false" name="image.jpeg" width="520" height="450" nodeId="3049cb69102048f187d321312546a68f" /></p>
+</td>
+<td colwidth="[602]" nodeId="44ab4e9c63254d26be37d939ad7f2241">
+<p nodeId="604a1a2023e64cb187cb53c3690f8bdc"><img src="https://km.sankuai.com/api/file/cdn/1445116887/13026454930?contentType=1&amp;isNewContent=false" name="image.jpeg" width="581" height="332" nodeId="5a4ca40365854faeaf774933397e0b86" /></p>
+</td>
+</tr>
+<tr nodeId="e2dfa735338d406b81449e487432f1e7">
+<td colwidth="[379]" nodeId="d78e90d321cd41e4b97da08bd1db64e2">
+<p nodeId="9e8e920996c346f593e028f96d6aaaad">打开错误详情拿到相关报错的数据</p>
+<km-collapse active="false" nodeId="c3d25ba137b94d8a9c1aa0ccfc45ea05">
+<km-title>详细的报错数据</km-title>
+<km-content>
+<p nodeId="f08020fbc8344df691ae39c135602a3c">{</p>
+<p nodeId="f012e8ba10c04d2889a979d6b1d00d30">2</p>
+<p nodeId="636a77d357f44421b61f56cde2f663bd"> "<span font-size="15"><strong>count</strong></span>": 16612,</p>
+<p nodeId="c40c40908ce54867822e8a12f5d3d986">3</p>
+<p nodeId="d53f8eb0c7104c35997cdb2873f5fe3f"> "<span font-size="15"><strong>contextData</strong></span>": "{"factor_ex_prod_oceanus_fliter":false,"factor_webids_decode_request_body_and_decode_url_lower":"/show?dcp=vjhjn1rmvhuns9ktwcg90gn4etkpb1a3eov0xhl1ueviegmaztv8edywu4mhynheqzne37-wsi8we9n9d_ffvynn2_4n2icuecv96at2w_vklwskjnj6ob3l32r_umcpkzzagljodh33riqgah3ownslv8mqwpxjliesuts4lnruztw0onz96ynuhjqdkuhz4krjgrlcsz_-xipgiti5duulq32al5vx6t74qonmximtiptawbnjuwbm08edxxg2slclshnyz4ps0zokvpef7zpxsbxcpmcbejrtawxqnwqoiryjriyd9gm30yngtebyp5ily_xtxeqexfbxpe7a3zrmx2havhovuirp-ukpu3a4bewvv_vy7etd37h-xpmcf5dm_f8kas5cz3f16qnaxw==&amp;driverid=9cd34ea6db5fdadb653e68f2b44f21b6","referer":"","factor_webids_response_body_lower":"","factor_webids_decode_url":"/show?dcp=vjhjn1rmvHUnS9kTWcG90GN4eTkpB1A3EOV0XHL1uevIEgmAztV8edYWU4MHynHEqZne37-WsI8WE9N9d_ffvyNN2_4n2IcueCv96at2w_vkLwSKJNJ6ob3L32r_umcpKZZaGLJodh33riqgah3ownSLV8MqWpxjliESUTS4LnruZTW0Onz96ynUHJqdKuhZ4KRJgRLcSz_-XIpGiTi5dUUlQ32AL5VX6t74QoNmximtIpTAwbNJuWBm08edXxg2SLCLShnyZ4Ps0ZOKvPEF7zpXSBxCPmCBeJrTawXQnwqOiryjriYD9gm30yNgtEbYp5Ily_XTXeQEXfbXpe7a3zrmX2havhoVUirP-UKPU3a4BEWVV_vy7etd37h-XpMCF5dm_F8Kas5Cz3f16qNAXw==&amp;driverid=9cd34ea6db5fdadb653e68f2b44f21b6","factor_webids_sensitive":false,"_mt_logger_name":"_wpt-giant_out","body_bytes_sent":"0","response_body":"","source":"outer","ua":"SpaHttpPing/1.0","factor_webids_decode_request_body_and_decode_url":"/show?dcp=vjhjn1rmvHUnS9kTWcG90GN4eTkpB1A3EOV0XHL1uevIEgmAztV8edYWU4MHynHEqZne37-WsI8WE9N9d_ffvyNN2_4n2IcueCv96at2w_vkLwSKJNJ6ob3L32r_umcpKZZaGLJodh33riqgah3ownSLV8MqWpxjliESUTS4LnruZTW0Onz96ynUHJqdKuhZ4KRJgRLcSz_-XIpGiTi5dUUlQ32AL5VX6t74QoNmximtIpTAwbNJuWBm08edXxg2SLCLShnyZ4Ps0ZOKvPEF7zpXSBxCPmCBeJrTawXQnwqOiryjriYD9gm30yNgtEbYp5Ily_XTXeQEXfbXpe7a3zrmX2havhoVUirP-UKPU3a4BEWVV_vy7etd37h-XpMCF5dm_F8Kas5Cz3f16qNAXw==&amp;driverid=9cd34ea6db5fdadb653e68f2b44f21b6","slb_name":"set-zf-nginx-wpt-giant03.mt","response_content_type":"text/html","client_ip":"101.89.14.154","slb_ip":"::ffff:10.188.3.113","factor_webids_output_app_zeus_inspect_data":false,"method":"GET","cookie":"","slb_port":"80","webidsenv":"prodextranet","__SOURCE_TOPIC__":"org.webids_oc_ng-wpt-giant","factor_webids_emergency":false,"response_length":"0","_mt_datetime":"2022-11-09 15:06:23","domain":"impdsp.meituan.com","oceanus_domains_all_domain_s3":1,"request_head":{},"status":"200","factor_webids_waimai_sensitive_response":false,"factor_webids_header_location":"None","var_vuln_matched":"unknown","oceanus_domains_all_ex_domain_s3":-1,"factor_webids_decode_request_body":"","domain_head":"i","sceneIds":[7936,7873,7465,14155,7276,10415,7253,12501,22134,16858,16859,7743,22367],"client_port":"41365","request_time":"0.006","factor_webids_output_app_zeus_kafka_to_cep":false,"factor_webids_decode_request_body_and_decode_url_and_ua":"/show?dcp=vjhjn1rmvHUnS9kTWcG90GN4eTkpB1A3EOV0XHL1uevIEgmAztV8edYWU4MHynHEqZne37-WsI8WE9N9d_ffvyNN2_4n2IcueCv96at2w_vkLwSKJNJ6ob3L32r_umcpKZZaGLJodh33riqgah3ownSLV8MqWpxjliESUTS4LnruZTW0Onz96ynUHJqdKuhZ4KRJgRLcSz_-XIpGiTi5dUUlQ32AL5VX6t74QoNmximtIpTAwbNJuWBm08edXxg2SLCLShnyZ4Ps0ZOKvPEF7zpXSBxCPmCBeJrTawXQnwqOiryjriYD9gm30yNgtEbYp5Ily_XTXeQEXfbXpe7a3zrmX2havhoVUirP-UKPU3a4BEWVV_vy7etd37h-XpMCF5dm_F8Kas5Cz3f16qNAXw==&amp;driverid=9cd34ea6db5fdadb653e68f2b44f21b6SpaHttpPing/1.0","upstream_ip":"10.180.34.101","factor_webids_mt_datetime_range":true,"url_path":"/show","cluster_name":"_wpt-giant","httptype":"http","cacheVersion":19923178,"mt_datetime":"2022-11-09 15:06:23","message":" \\n","request_body_length":0,"url":"/show?dcp=vjhjn1rmvHUnS9kTWcG90GN4eTkpB1A3EOV0XHL1uevIEgmAztV8edYWU4MHynHEqZne37-WsI8WE9N9d_ffvyNN2_4n2IcueCv96at2w_vkLwSKJNJ6ob3L32r_umcpKZZaGLJodh33riqgah3ownSLV8MqWpxjliESUTS4LnruZTW0Onz96ynUHJqdKuhZ4KRJgRLcSz_-XIpGiTi5dUUlQ32AL5VX6t74QoNmximtIpTAwbNJuWBm08edXxg2SLCLShnyZ4Ps0ZOKvPEF7zpXSBxCPmCBeJrTawXQnwqOiryjriYD9gm30yNgtEbYp5Ily_XTXeQEXfbXpe7a3zrmX2havhoVUirP-UKPU3a4BEWVV_vy7etd37h-XpMCF5dm_F8Kas5Cz3f16qNAXw%3D%3D&amp;driverid=9cd34ea6db5fdadb653e68f2b44f21b6","factor_webids_extract_log4j_payload_regex":"unknown","request_body":"","response_head":{},"factor_webids_output_app_webids_upload_files":false,"upstream_name":"com.sankuai.giant.dsp.imp","response_encoding_type":"","time":"09/Nov/2022:15:06:22 +0800","factor_webids_output_app_webids_backup_01":false,"factor_webids_output_app_webids_backup_02":false,"upstream_port":"8418"}",</p>
+<p nodeId="ddcd9973dc3c4883b39877ac52723e56">4</p>
+<p nodeId="f7ddadd477574e048f2220378460b22e"> "<span font-size="15"><strong>operatorId</strong></span>": -1,</p>
+<p nodeId="c8d5a21982b8490b9f12c8a69a031ebc">5</p>
+<p nodeId="f36bea37faf2451c927a22ff5d584df3"> "<span font-size="15"><strong>sourceId</strong></span>": 193,</p>
+<p nodeId="b04756484abe4a4996f6cecd6ef2f370">6</p>
+<p nodeId="02254916a03e43e0b22f23c93dfe51ec"> "<span font-size="15"><strong>timestamp</strong></span>": 1667977583149,</p>
+<p nodeId="d68c57855d4945b3a186b4a83d06ea53">7</p>
+<p nodeId="56d33c54e69d4a69a1294cf7a899a944"> "<span font-size="15"><strong>mt_datetime</strong></span>": "2022-11-09 15:07:23+0800",</p>
+<p nodeId="f14aba5054be4e24953d0689cabdfe24">8</p>
+<p nodeId="a7f49a3b07814d4fba676a5e56c504d1"> "<span font-size="15"><strong>sourceData</strong></span>": null,</p>
+<p nodeId="e1d4d13d606d47bb9d6199b503c9072e">9</p>
+<p nodeId="c42749fd951b46d1926e375f7f43a0e6"> "<span font-size="15"><strong>errorCode</strong></span>": "05035",</p>
+<p nodeId="89f2a26a58a743fe90e596e924bfb126">10</p>
+<p nodeId="50b2a2b16bae4340a12c090538b0f467"> "<span font-size="15"><strong>exceptionMessage</strong></span>": "",</p>
+<p nodeId="7de07f304a6243569ddad6804a87f213">11</p>
+<p nodeId="11862cb0a9564ac4a78d184dc7ee0fc2"> "<span font-size="15"><strong>jobType</strong></span>": "dataSource",</p>
+<p nodeId="1d85736bf9184c1ca1cc238de61f2a39">12</p>
+<p nodeId="14146557c51d4d55a1b909bee818cf7e"> "<span font-size="15"><strong>exceptionType</strong></span>": "表达式执行异常",</p>
+<p nodeId="64d01b244bde44b2885e9c41560865c1">13</p>
+<p nodeId="073a06523520425794499a33c0bf9505"> "<span font-size="15"><strong>phase</strong></span>": "dataSource.expression",</p>
+<p nodeId="b65512551a9c426c888c3b846b93a6c5">14</p>
+<p nodeId="4ecca996610e4b1e826e95f4bafdff1c"> "<span font-size="15"><strong>es_timestamp</strong></span>": "2022/11/09 15:07:23 +0800",</p>
+<p nodeId="c125858c21744ee799f8fa410e884606">15</p>
+<p nodeId="e42666332c914b928aab838c3bd67c80"> "<span font-size="15"><strong>message</strong></span>": "Execute expression error",</p>
+<p nodeId="83e387df37be4a29a73a47f78b4fc1ec">16</p>
+<p nodeId="f9c63c4387d34c048552f3122849b657"> "<span font-size="15"><strong>config</strong></span>": "!(domain == "") &amp;&amp; ((string.substring(request_body,1,4) == "PNG" &amp;&amp; string.substring(response_body,1,4) == "PNG" &amp;&amp; (string.contains(request_body, "-(Ljava/lang/String;)Ljava/lang/StringBuilder") || string.contains(request_body, "java/lang/Object"))))",</p>
+<p nodeId="67623eb265c14c53a5ca483bc5d72ea4">17</p>
+<p nodeId="81202818535b404fbc3223db1c3d874e"> "<span font-size="15"><strong>requestId</strong></span>": "yg-data-hdp-dn-rtyarn5517-202211081021-26670064",</p>
+<p nodeId="43d27f81aa1b468fb510f1a93f53385d">18</p>
+<p nodeId="7cceca2983634bb6a807b34a1da92214"> "<span font-size="15"><strong>alarmType</strong></span>": "异常类监控",</p>
+<p nodeId="c805e0e5145d438889315c7eef6e7eb2">19</p>
+<p nodeId="04f508a8c99f4c9893db8ba2e44326fb"> "<span font-size="15"><strong>es_datetime</strong></span>": "2022-11-09 15:07:23.208"</p>
+<p nodeId="22c1680eb65f457daa25b4b5aadf5f6f">20</p>
+<p nodeId="5e9575b588384ee7a4e91ceae09d36a6">}</p>
+</km-content>
+</km-collapse>
+</td>
+<td colwidth="[543]" nodeId="a70d0e7b409543978ee0137c6e59d765">
+<p nodeId="e735360e5d6c417d961e00918fea9551">{</p>
+<p align="start" nodeId="f149b7b9e63645e4bbf43a1505522b21"><strong>"jobId":</strong>107,// <span color="rgb(255, 74, 71)">Zeus平台任务id</span></p>
+<p align="start" nodeId="7dff8a5962ff4970894f2925f1a409b5"><strong>"jobType":</strong>"canvas", // <span color="rgb(255, 74, 71)">任务类型   canvas:画布、dataSource:数据源、cep:cep作业</span></p>
+<p align="start" nodeId="c9c93010bd9c40a1b7dbb25fa8abed12"><strong>"operatorId":</strong>12 //具体的报错算子<span color="rgb(255, 74, 71)">【画布作业有用】</span></p>
+<p align="start" nodeId="f85d0aca607c4a028ca6866061759b62"><strong>"phase":</strong>"SIDE_OUTPUT", //操作类型</p>
+<p align="start" nodeId="970e3920b18b45ec807c48b2b1473492"><strong>"msg":</strong>"表达式执行异常", //  错误信息的描述</p>
+<p align="start" nodeId="fe6846a2c07a401ba709d53b58cf36c3"><strong>"contextData":</strong>{\\"ifElseRule3\\":false,\\"ifElseRule2\\":false,\\"ifElseRule1\\":null}, //上下文处理的数据<span color="rgb(255, 74, 71)">【可以带入表达式里面执行】</span></p>
+<p align="start" nodeId="092ae6d31fd04c48bdef904108778c31"><strong>"sourcedata":</strong>{\\"ifElseRule3\\":false,\\"ifElseRule2\\":false,\\"ifElseRule1\\":null}, //源数据<span color="rgb(255, 74, 71)">【导致此次报错的kafka数据，可以仿真测试使用】</span></p>
+<p align="start" nodeId="2d09069ea6e64e30a012dcfe4d8d46a9"><strong>"config":</strong>"ifElseRule1 &amp;&amp; ifElseRule2\\",//配置信息（JSON）</p>
+<p align="start" nodeId="d3f8884388e547dca9d57b56a9ee4432"><strong>"exception":</strong>"",//异常栈</p>
+<p align="start" nodeId="271fb427955b458aaf85eae0e4f5079f"><strong>"logType":</strong>"exception",<span color="">//异常类型</span></p>
+<p align="start" nodeId="42e78a65f3f4463f874f433bcd05d2b4"><span color="">“</span><span color=""><strong>mt_datetime”：“</strong></span><span color="">2022-06-02 11:28:08+0800”//时间戳</span></p>
+<p align="start" nodeId="1076f37ef5054c52b71b440dd38018ea">}</p>
+</td>
+<td colwidth="[602]" nodeId="356c49fe81664731a1156c864d5bbbc8">
+<p nodeId="ebf254474a844c61a14899593701b098"><img src="https://km.sankuai.com/api/file/cdn/1445116887/13026884189?contentType=1&amp;isNewContent=false" name="image.jpeg" width="812.57" height="600" nodeId="2acb4be56a354e9a8699242e050edc5a" /></p>
+</td>
+</tr>
+<tr nodeId="78ce8983e23247b5bc0c098dee60603a">
+<td colwidth="[379]" nodeId="1e20a6d3feff44b8b69bc64e712f6e58">
+<p nodeId="fc30cf571495457880a3fdc6b523d38c">点击相关的任务，排查相关报错【<a href="https://km.sankuai.com/collabpage/1436543798" title="错误类型介绍" nodeId="516bda230c5848b5977265bc9a6ca529">错误类型介绍</a>】</p>
+<p nodeId="7d83ebb1acf54ae3afecc4f1beecad20">   <a href="https://km.sankuai.com/collabpage/1445730774" title="https://km.sankuai.com/collabpage/1445730774" autoUpdate="true" nodeId="919f7f8ebed647c09e8f51e5f5d67dcd">https://km.sankuai.com/collabpage/1445730774</a></p>
+<p nodeId="79f5bde460c248a6a5eaf01bb747072b">  <a href="https://km.sankuai.com/collabpage/1445740701" title="https://km.sankuai.com/collabpage/1445740701" autoUpdate="true" nodeId="000fadc7b1124e9790248b61060224db">https://km.sankuai.com/collabpage/1445740701</a></p>
+</td>
+<td colwidth="[543]" nodeId="3096587689b04dd08cb5724b7367810f">
+<p nodeId="b75173376ff54f6a8ba75bc97bbff739" />
+</td>
+<td colwidth="[602]" nodeId="87ddefa768d444198629189a628d7988">
+<p nodeId="16d8f342d4654e3a9023452f7e28d817" />
+</td>
+</tr>
+</table>
+<h3 nodeId="c1ae92bc45cf49a48f8e683159e33eaa">3.3.2 存量告警处理</h3>
+<km-note type="info" hiddenTitle="true" nodeId="d59f2f2961cc4aeabdf25e91b7140ce0">
+<km-title></km-title>
+<km-content>
+<p nodeId="c7f0b167bc6646278a43c574fefd7922">治理目标：</p>
+<ol nodeId="ffdbfd25820f4f3c99e681f43f2eebc0">
+<li nodeId="9f8bae854f2040cab3e984935a2111d0">【存量作业】：业务同学名下负责作业发现一次告警处理一次，对作业有影响的告警按照排查实践文档解决问题，对作业影响不大的作业可前往监控配置模块删除配置，已治理作业及时同步至列表<a href="https://km.sankuai.com/collabpage/1446840342" title="https://km.sankuai.com/collabpage/1446840342" autoUpdate="true" nodeId="28cac3df3b9f4e81b135973f963ef578">https://km.sankuai.com/collabpage/1446840342</a>，最终达到存量告警逐渐收敛的目标</li>
+<li nodeId="3488ec06e3894e77993471b84a072e1b">【增量作业】：对作业有影响的告警按照排查实践文档解决问题，对作业影响不大的作业可前往监控配置模块删除配置，尽量降低增量作业告警</li>
+</ol>
+</km-content>
+</km-note>
+<ul nodeId="861cd227ae4b403ba7070fb0501e1440">
+<li nodeId="c2a93dd0fb7e4e9f936673d408ef75a3">存量作业的报错列表</li>
+</ul>
+<p nodeId="54868068591b4cbda22e88d16f406fc2">      <a href="https://km.sankuai.com/collabpage/1445675277" title="https://km.sankuai.com/collabpage/1445675277" autoUpdate="true" nodeId="7574332e5728406f9a4562b3fedc470d">https://km.sankuai.com/collabpage/1445675277</a></p>
+<p nodeId="840d71f759834545ab34eb9e7bc42b75">      <a href="https://km.sankuai.com/collabpage/1445731001" title="https://km.sankuai.com/collabpage/1445731001" autoUpdate="true" nodeId="64f24ab5462d4eee8b12279d30504b2c">https://km.sankuai.com/collabpage/1445731001</a></p>
+<h1 nodeId="a8483f5282594f5aaa483031561967bf">四、FAQ</h1>
+<ol nodeId="9756ba57494c475bbbf41daaf16318a7">
+<li nodeId="bc20ebd713414102bc0441c9b0fdad29">
+<p nodeId="e774be0c59dd4e41afde6644a8aa413b"><strong>当前的异常类型及导致的原因有哪些？</strong></p>
+<p nodeId="6449e72e714e49b282e2a9b19abd8fcf"><a href="https://km.sankuai.com/collabpage/1445694255" title="https://km.sankuai.com/collabpage/1445694255" autoUpdate="true" nodeId="2af1800b6ae942d2808ab7225e287c95">https://km.sankuai.com/collabpage/1445694255</a></p>
+</li>
+<li nodeId="76e1e6cf6b024a3b9bedb436aa9c33a9">
+<p nodeId="110a260101fa4dbab5aa2e0a93459c33"><strong>我是新业务，RD提示新业务做兜底告警，如何配置？</strong></p>
+<p nodeId="f482878649a64a21a8c008d5bcf1e834">A：RD提示新业务做兜底告警，即将全部错误类型配置成 30分钟错误类型&gt;0 即可，<span color="rgb(44, 62, 80)">大象群通知:66386558140；告警负责人填写对接的RD。注意窗口类异常需要独立一个告警配置。如图所示：</span></p>
+<p nodeId="ecacdab05c284b02b2f06969146c21e6"><img src="https://km.sankuai.com/api/file/cdn/1445116887/42502091372?contentType=1&amp;isNewContent=false" name="image.jpeg" width="900" height="160" nodeId="9df81d36f8c7435389dfe11b36bd5a4d" /></p>
+</li>
+</ol>
+<p nodeId="7e2cd461144a4c6bac2c43373dd0304b" />
+<h1 nodeId="f1af1afd814d457c8ce0c63a508eb658">五、宣讲记录</h1>
+<km-video src="https://km.sankuai.com/api/file/cdn/1445116887/13223835984?contentType=1" name="video1799857055.mp4" size="78.96MB" width="0" height="0" nodeId="757b0fbeb70d49d8832b8d9363724db5" />
+<p nodeId="2f1d9318e7084ea8abb52e4ce80f1e8a" />
+</km-doc>

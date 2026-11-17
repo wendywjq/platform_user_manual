@@ -1,0 +1,276 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布 - 近线日志查询及配置</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-2">一、背景</a><a href="#section-51">二、名词解释</a><a href="#section-53">三、操作指南</a><a href="#section-54">1、web页面：单条、批量查询</a><a href="#section-103">2、hive表：全量数据查询</a><a href="#section-197">三、使用说明</a><a href="#section-205">四、常见Q&amp;A</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">05 监控治理</a> / <a href="index.html">说明：画布 - 近线日志查询及配置</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1357527347">查看学城原文</a></p><article>
+<h1>说明：画布 - 近线日志查询及配置</h1>
+<h1 id="section-2">一、背景</h1>
+<ol>
+<li>
+<p><strong>问题排查成本高</strong>：当规则命中时业务可以拿到告警详情数据，但是由于告警数据只是记录了一份画布最终的执行结果，所以不能反向推导出当时画布的执行链路。对于组件比较多，配置比较复杂的画布，当遇到不符合预期的告警比较难准确定位到问题组件，只能通过不断的微调，仿真测试来尝试复现问题</p>
+</li>
+<li><strong>规则测试成本高</strong>：当前只有生效的规则命中才会发送告警/写kafka，所以业务方在调试过程中需要不断的在规则的标记和生效状态之间反复切换，并且可能由于规则逻辑有问题在被切换为生效状态之后出现大量告警，影响下游服务</li>
+<li><strong>平台本身能力要求：</strong>zeus近线引擎本身也需要具备“自我证明”的能力，用户可以在平台上查到任何一条命中规则的执行日志以及当时的画布执行链路</li>
+</ol>
+<p>Zeus日志记录了各业务方使用近线画布做决策的详细数据，包括：画布内的数据流转过程，各组件节点中间数据，命中数据等等相关信息；业务方可使用日志做数据分析、异常排查和问题定位等</p>
+<p></p>
+<p>当前非全量记录，具体记录逻辑参考下表</p>
+<table>
+<tr>
+<th>
+<p>业务域</p>
+</th>
+<th>
+<p>记录日志逻辑</p>
+</th>
+<th>
+<p>无日志画布(性能考虑，联系rd放开或添加)</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>命中kafka告警或旁路输出</p>
+</td>
+<td>
+<p>143</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>35</p>
+</td>
+<td>
+<p>1075和1107画布 全量记录</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)">38</span></p>
+</td>
+<td>
+<p>命中kafka告警或旁路输出</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>130</p>
+</td>
+<td>
+<p>命中金丝雀</p>
+</td>
+<td>
+<p>19,520,15,38,4,18,39</p>
+</td>
+</tr>
+</table>
+<h1 id="section-51">二、名词解释</h1>
+<p>无</p>
+<h1 id="section-53">三、操作指南</h1>
+<h3 id="section-54">1、web页面：单条、批量查询</h3>
+<ul>
+<li>
+<p><strong>近线画布线上执行查询</strong></p>
+<p>可通过日志查询-近线任务日志查询线上画布执行明细数据。<span>当前默认发送日志条件：“命中任意一条规则 || 命中任意一个决策组件 || 命中任意一个旁路输出组件”；除此之外还支持自定义条件，需要提tt工单找研发后台配置</span></p>
+</li>
+<li>
+<p><strong>自定义查询字段</strong></p>
+<p>在日志配置中自定义配置查询条件<a href="../../../../../说明：日志配置使用文档__62096766/index.html" title="https://km.sankuai.com/page/62096766">说明：日志配置使用文档</a></p>
+</li>
+</ul>
+<ul>
+<li>
+<p><strong>明细数据单条查询</strong></p>
+<p>可通过指定条件查询近15天的明细数据</p>
+</li>
+<li>
+<p><strong>明细数据批量查询</strong></p>
+<p>可通过指定画布、命中规则等条件查询近15天分箱数据（group by）,例如：指定画布按命中规则、生效规则group by</p>
+</li>
+</ul>
+<p><img src="assets/00a92b2cefc0f0a5.png" width="1050.12" height="600" alt="image.jpeg"></p>
+<ul>
+<li>
+<p><strong>画布执行数据流转过程透出</strong></p>
+</li>
+</ul>
+<p>      将<span>清楚记录画布最终执行到了哪个组件，哪个组件没有执行通过，原因是什么等画布的执行过程，所</span>有组件会记录它们自身逻辑生产的输出内容</p>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>页面</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【入口】</p>
+</td>
+<td>
+<p><img src="assets/5b02aa43d6719afc.png" width="1050.12" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【线上作业执行数据流转详情页】</p>
+</td>
+<td>
+<p><img src="assets/b8fbfee478c6139b.png" width="1229.46" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p></p>
+<h3 id="section-103">2、hive表：全量数据查询</h3>
+<ul>
+<li>
+<p>自定义保存时间：默认hive表保存时间为6个月，若有特殊要求：业务可在上线前同步Zeus侧；</p>
+</li>
+<li>
+<p>独立存储：为保证数据安全，每个接入业务方独立使用一张hive表，基于该表的业务定制化需求请通过ETL实现</p>
+</li>
+<li>
+<p>敏感数据加密：Zeus将对敏感数据进行统一加密，为便于业务使用，会提供解密函数</p>
+</li>
+</ul>
+<p>      表单详情如下：</p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>字段</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>含义</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>举例</p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>businessId</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>业务线</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>3=账号安全业务</p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>executeTime</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>近线请求开始执行的时间</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>unix时间戳（秒）：1659064903</p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>requestId</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>近线请求执行日志唯一标识</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>UUID串：95c8aca1-ad20-4f2b-b128-72308b531c4e</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>该字段不是zeus实时流量的requestId，后者在context字段中</p>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>logType</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>近线日志类型</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>0=画布</p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>metaConf</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>近线配置</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>当logType=0时，该字段结构为json字符串：</p>
+<pre><code>
+{
+  "canvasId": 76,
+  "canvasVersion": 3,
+  "canvasName": "delay_punish"
+}
+</code></pre>
+<p>Hive Sql取数逻辑为：<strong>get_json_object(metaConf, '$.canvasId')</strong></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>hitRuleDetails</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>命中的规则详情</p>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>当logType=0时，该字段结构为json字符串：</p>
+<pre><code>
+{
+  "hitRuleIds": "1,2,3"
+}
+</code></pre>
+<div class="note">
+<strong></strong>
+<div>
+<p>只有画布包含<strong>“规则集合”</strong>组件并且<strong>“命中规则”</strong>时该字段才会有值</p>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>context</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>近线执行日志</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>以账号安全为例，字段<strong>zeuscontext</strong>, <strong>userid</strong>, <strong>requestId</strong>, <strong>ruleId</strong>, <strong>source</strong>, <strong>debug</strong>都会在context字段中</p>
+</td>
+</tr>
+</table>
+<ul>
+<li>
+<p>原始hive表：log.zeus_nearline_log（其他业务后续都可基于这张表写etl洗出自己业务的数据）<br>账号安全hive表：ba_rc.base_zeus_nearline_log_account<br></p>
+</li>
+</ul>
+<h1 id="section-197">三、使用说明</h1>
+<p>1、web页面：新接入业务方在开通账号后、<span style="color:rgb(245, 34, 45)">业务上线前</span>，在Zeus--&gt;配置中心--&gt;日志配置中配置需要的字段，配置后即可使用。 <a href="../../../../../说明：日志配置使用文档__62096766/index.html" title="https://km.sankuai.com/page/62096766">说明：日志配置使用文档</a></p>
+<p><a href="../../../../../说明：日志配置使用文档__62096766/index.html" title="https://km.sankuai.com/page/62096766">说明：日志配置使用文档</a>2、hive表：在<span style="color:rgb(245, 34, 45)">业务上线前</span><span>通知Zeus侧，由RD配置hive表单信息和保存时长，配置后反馈业务表名。</span></p>
+<h1 id="section-205"><span>四、常见Q&amp;A</span></h1>
+<p>Q1：近线日志与画布仿真测试日志的区别是什么</p>
+<p>A1：当前画布仿真测试执行日志收集采用了全量收集的方式，简单粗暴地展示了每个组件的输入和输出，没有区分出某些数据是哪些组件产生的，给业务排查问题带来了一些困惑，另外这套逻辑的改造风险和成本也比较高，所以需要重新实现一套能够灵活支持多种存储条件、方便日志查询和画布执行链路还原的功能</p>
+<p>Q2：聚合组件记录的聚合值包括以前所有历史聚合详情吗？</p>
+<p>A2：不包括</p>
+<p>Q3：<span style="color:rgba(0, 0, 0, 0.87)">关于查询条件，后续业务能自己配置查询条件字段吗？</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">A3：可以，详细的操作参考</span><a href="../../../../../说明：日志配置使用文档__62096766/index.html" title="https://km.sankuai.com/page/62096766">说明：日志配置使用文档</a></p>
+<p>Q4：<span>满足什么条件的画布日志能搜到？</span></p>
+<p>A4：<span>当前默认条件：“命中任意一条规则 || 命中任意一个决策组件 || 命中任意一个旁路输出组件”；除此之外还支持自定义条件，需要提tt工单找研发后台配置</span></p>
+</article></main></body></html>

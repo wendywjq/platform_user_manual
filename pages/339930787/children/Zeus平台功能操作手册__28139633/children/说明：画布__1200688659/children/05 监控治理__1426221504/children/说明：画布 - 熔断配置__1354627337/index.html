@@ -1,0 +1,708 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布 - 熔断配置</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-7">二、名词解释</a><a href="#section-8">2.1 概念</a><a href="#section-31">2.2 各组件的熔断语义</a><a href="#section-113">三、操作指南</a><a href="#section-114">3.1 操作流程图</a><a href="#section-116">3.2 详细步骤</a><a href="#section-443">3.3 规则集合组件的熔断配置</a><a href="#section-522">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">05 监控治理</a> / <a href="index.html">说明：画布 - 熔断配置</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1354627337">查看学城原文</a></p><article>
+<h1>说明：画布 - 熔断配置</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>随着业务发展，通过画布部署的近线策略也对熔断功能提出诉求。</p>
+<p>Zeus平台定义的熔断功能：当监控对象（场景规则 / 画布组件）命中情况产生异常，达到预设的熔断阈值时，将该对象由人工或系统进行降级（生效转标记 / 组件阻断），以此规避风险。画布熔断即为在画布中，支持用户对其中部分组件进行熔断配置，通过熔断能力监控其执行情况，达到阈值告警用户，可一键将该组件的运行状态变为阻断。</p>
+<p>过去，熔断功能仅支持实时链路中，场景-规则模式部署的策略，现在能力进一步扩展到近线链路的画布中。</p>
+<h1 id="section-7">二、名词解释</h1>
+<h2 id="section-8">2.1 概念</h2>
+<table>
+<tr>
+<th>
+<p>名词</p>
+</th>
+<th>
+<p>解释</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>画布</p>
+</td>
+<td>
+<p>策略部署的一种模式，用户可以在画布中通过拖拽的方式自定义配置一条数据处理流，以多个数据源组件作为起始，以多个决策类组件作为终止。当用户完成策略的配置之后，画布会自动生成一个flink任务用来执行用户所配置的逻辑。<a href="../../../../index.html" title="https://km.sankuai.com/page/1200688659">说明：画布</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>组件</p>
+</td>
+<td>
+<p>组成画布的功能块，包括常规的流数据处理（join,groupby,distinct，数据拆分等）逻辑判断（if-else等），规则与自定义代码执行，决策（金丝雀告警，落kafka，丢弃等）。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>熔断配置</p>
+</td>
+<td>
+<p>基于画布组件/组件内规则 配置的熔断内容，包括熔断对象（组件/组件内的规则）、熔断作用时间、熔断监控规则、告警人等。</p>
+</td>
+</tr>
+</table>
+<h2 id="section-31">2.2 各组件的熔断语义</h2>
+<p>目前，画布熔断 支持下方5种组件的熔断配置</p>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>组件</p>
+</th>
+<th>
+<p>组件类型</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>熔断语义</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>配置</p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>规则集合组件</p>
+</td>
+<td rowspan="2">
+<p>自定义</p>
+</td>
+<td>
+<p>根据规则集合组件中该条【规则】的<span style="color:rgb(255, 74, 71)">【命中量】</span>判断是否达到阈值而熔断，使流量在<span style="color:rgb(255, 74, 71)">【输入】</span>该组件后<span style="color:rgb(245, 35, 45)">不再执行该规则</span>。</p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.9)">若组件中所有规则都被熔断后，该组件就完全熔断，即流量在</span><span style="color:rgb(255, 74, 71)">【输入】</span><span style="color:rgba(0, 0, 0, 0.9)">该组件前被阻断。</span></p>
+</div>
+</div>
+</td>
+<td>
+<p>需要指定画布ID、组件ID和<span style="color:rgb(255, 74, 71)">规则ID</span>。</p>
+<p><span style="color:rgb(255, 74, 71)">不支持条件过滤，默认含义为某条规则的命中量。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>代码组件</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>根据代码组件<span style="color:#FF4A47">【输出】</span>的【流量数】判断是否达到阈值而熔断，使流量在<span style="color:#FF4A47">【输入】</span>该组件前被阻断。</p>
+</td>
+<td rowspan="4" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>需要指定画布ID、组件ID<br>条件过滤可选全量或自定义输入。</p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>旁路输出组件</p>
+</td>
+<td rowspan="2">
+<p>数据输出</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>根据旁路输出组件<span style="color:#FF4A47">【输出】</span>到MQ的【流量数】判断是否达到阈值而熔断，使后续流量的<span style="color:#FF4A47">【输出】</span>被阻断。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>数据存储组件</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>根据输出存储组件<span style="color:#FF4A47">【写入】</span>到存储的【流量数】判断是否达到阈值而熔断，使后续数据的<span style="color:#FF4A47">【写入】</span>被阻断。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>决策信息组件</p>
+</td>
+<td>
+<p>决策处置</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>根据决策信息组件<span style="color:#FF4A47">【输出】</span>给告警平台/MQ的【流量数】判断是否达到阈值而熔断，使后续流量的<span style="color:#FF4A47">【输出】</span>被阻断。</p>
+</td>
+</tr>
+</table>
+<h1 id="section-113">三、操作指南</h1>
+<h2 id="section-114">3.1 操作流程图</h2>
+<img src="assets/ee6e6e3389c29bba.svg" width="528" height="351" alt="流程图">
+<h2 id="section-116">3.2 详细步骤</h2>
+<table>
+<tr>
+<th>
+<p>模块</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>熔断配置入口</p>
+</td>
+<td>
+<p>在画布详情预览页，选择需要配置熔断的组件。在组件详情中，点击熔断配置，将打开熔断配置页。</p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">画布熔断新建的唯一入口是从画布中打开，不支持在熔断菜单页进行画布熔断的新建。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>画布熔断只对画布ID当前的<span style="color:rgb(255, 74, 71)">生效版本</span>作用。</p>
+<ul>
+<li>若切换生效版本后，原来配置熔断的组件不再存在（被删除），则该熔断配置也<span style="color:rgb(255, 74, 71)">不再有效</span>。</li>
+<li>若切换生效版本后，原来配置熔断的组件的内容有变更，熔断配置依旧有效，<span style="color:rgb(255, 74, 71)">用户需确认熔断配置内容也同样适配</span>，以免出现不符合预期的报出。</li>
+</ul>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/32ebb2772f5482b5.png" width="952.47" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>画布熔断配置</p>
+</td>
+<td>
+<p><strong>1.熔断名称</strong>可编辑，熔断模式、作用范围默认已经选好当前组件，不可更改。</p>
+<p><strong>2.过滤条件</strong>：默认全量计数，即所有流出该组件的数据都会进行计数。用户可根据需要选择条件过滤模式，输入aviator表达式作为过滤条件。执行时，满足表达式的数据，才会进行熔断计数。如图中，当<span style="color:rgb(44, 62, 80)">userid 不为空时候 ，才计数。</span></p>
+<p><span style="color:rgb(44, 62, 80)"><strong>3.作用时间</strong></span><span style="color:rgb(44, 62, 80)">：可选择熔断监控的时间范围，</span>系统将在设置的作用时间内检查数据，从而触发熔断；</p>
+<p>时间类型包括：自由时间段（自由选择时间范围）与星期模式（设置每天的统一时间段，自由选择一周中的星期数）。</p>
+<p>勾选排除节假日后，节假日不检查数据，例如设置了周六，同时勾选了排除节假日，则周六不检查数据</p>
+<p>添加作用时间：以‘和’的逻辑关系增加作用时间，即可通过添加多条作用时间，获得一个作用时间的并集。</p>
+<p><span style="color:rgb(44, 62, 80)"><strong>4.熔断规则</strong></span><span style="color:rgb(44, 62, 80)">：以且条件（添加子规则）和或条件（添加熔断规则）来组织。</span></p>
+<p>单条熔断规则需要设置如下项：</p>
+<ul>
+<li>
+<p>时间周期（最近x分钟）：默认1分钟，支持输入</p>
+</li>
+<li>
+<p>计算函数：<span>下拉列表选择，默认选择“命中量”，其余计算函数见下方附表。</span></p>
+</li>
+<li>
+<p>对比关系：<span>下拉列表选择，&gt;, &gt;=, =, &lt;, &lt;=，默认为“&gt;=”</span></p>
+</li>
+<li>
+<p>阈值：<span>直接输入数值，系统根据指标匹配单位</span></p>
+</li>
+</ul>
+<p><strong>5.熔断动作</strong></p>
+<p>人工熔断：方式为达到阈值产生大象告警，人工可点击一键熔断将组件进行熔断。</p>
+<p>频次上限：默认无。可配置按间隔，每一次通知发送后的设置时间间隔内，不发送触发的熔断告警通知。</p>
+<p>通知人<strong>：</strong>可选择业务空间负责人、业务空间变更通知人、自定义。自定义：支持手动输入mis号，多个使用英文逗号隔开</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>当前配置熔断的同学若希望收到熔断告警，别忘记在自定义中加上自己的mis号～</p>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/a5dd62ded9e1a93e.png" width="926.54" height="600" alt="image.jpeg"></p>
+<p><img src="assets/d3fe9612d102e5e8.png" width="871" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>熔断配置列表</p>
+</td>
+<td>
+<p>提交完成配置后，将会在熔断配置列表出现一条配置记录。</p>
+<p>熔断模式：单点熔断 （场景-规则）/  画布熔断（画布-组件）</p>
+<p>单点熔断的一二三级范围代表：场景-规则-决策</p>
+<p>画布熔断的一二三级范围代表：画布-组件-规则（-1代表无，规则集合组件的熔断才会有对应id）</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>记得在此处拨亮状态开关，开启熔断监控的状态！熔断才会正式运作。</p>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/f3a2167f0db9b3ef.png" width="1122.42" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>画布预览页</p>
+</td>
+<td>
+<p>配置了熔断的组件，在画布预览中（记得更新一下），可以看到组件后方有一个【火焰状】的标识符。表明该组件目前已经有对应的熔断配置。</p>
+<p>组件详情中，右上角由配置熔断变为【查看熔断】，同时出现组件状态开关。默认为：<span style="color:#FF4A47">执行中，不可拨动。</span></p>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">当熔断触发，用户点击一键熔断后，会使组件置灰，不再执行，此时组件状态变为关闭态。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">用户调整完有问题的策略后，手动将组件状态拨为执行中。即可再次使组件进入执行，并恢复熔断监控。</span></p>
+</td>
+<td>
+<p><img src="assets/50d49f60519c2580.png" width="1053.11" height="600" alt="image.jpeg"></p>
+<p><img src="assets/894496eb8b659eb6.png" width="1011" height="508.16" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>大象通知</p>
+</td>
+<td>
+<p>如右图展示的是大象通知的内容</p>
+<p>【监控单位流量】即为对应组件在过去时间周期内的计数。</p>
+<p>点击【一键熔断】可直接使该组件不再执行。</p>
+<p>点击【熔断记录 】可打开zeus熔断的记录详情</p>
+<p>点击【画布详情】可打开zeus画布的详情预览页</p>
+<p>点击【熔断ID/名称】可打开zeus熔断配置预览页</p>
+<p>点击【ACK】可使熔断在对应时间内不再反复告出。</p>
+</td>
+<td>
+<p><img src="assets/8c9caddf4ce9967f.png" width="310" height="344" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<details>
+<summary>画布熔断支持的计算函数</summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>时间周期/最近N分钟</p>
+</th>
+<th style="background-color:rgb(247, 247, 247);vertical-align:top">
+<p><span style="font-size:14px">计算函数</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>对比关系</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>阈值</p>
+</th>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>用户输入</p>
+</td>
+<td style="color:rgba(0, 0, 0, 0.87);background-color:#FFF;vertical-align:top">
+<p><span style="font-size:14px">当前命中量</span></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>用户自选：&gt;、  =、  &lt;、  &gt;=、  &lt;=</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（个）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比上个周期上升值</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（个）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比上个周期下降值</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（个）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比上个周期上升百分比</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（%）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比上个周期下降百分比</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（%）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比昨天同一时间上升值</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（个）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比昨天同一时间下降值</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（个）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比昨天同一时间上升百分比</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（%）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比昨天同一时间下降百分比</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（%）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比上周同一时间上升值</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（个）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比上周同一时间下降值</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（个）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比上周同一时间上升百分比</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（%）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比上周同一时间下降百分比</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（%）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比基线上升值</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（个）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比基线下降值</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（个）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量基线上升百分比</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（%）</p>
+</td>
+</tr>
+<tr>
+<td style="color:rgb(0, 0, 0);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>当前命中量比基线下降百分比</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#FFF;vertical-align:top">
+<p>单位（%）</p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<h2 id="section-443">3.3 规则集合组件的熔断配置</h2>
+<p>规则集合组件和其他组件的熔断语义有些区别，即：根据规则集合组件中该条【规则】的<span style="color:rgb(255, 74, 71)">【命中量】</span>判断是否达到阈值而熔断，使流量在<span style="color:rgb(255, 74, 71)">【输入】</span>该组件后<span style="color:rgb(245, 35, 45)">不再执行该规则</span>。</p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.9)">若组件中所有规则都被熔断后，该组件就完全熔断，即流量在</span><span style="color:rgb(255, 74, 71)">【输入】</span><span style="color:rgba(0, 0, 0, 0.9)">该组件前被阻断。</span></p>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p>模块</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>熔断配置入口</p>
+</td>
+<td>
+<p>在画布详情预览页，选择需要配置熔断的 规则集合组件。</p>
+<p>在组件详情中，在对应规则后方，点击熔断配置，将打开熔断配置页；</p>
+<p>若组件下配置的是规则组，支持对规则组中的规则快速全选全部规则 创建熔断逻辑，也支持单条规则配置熔断。</p>
+<p></p>
+<p><span style="color:rgb(255, 74, 71)">注：画布熔断新建的唯一入口是从画布中打开，不支持在熔断菜单页进行画布熔断的新建。</span></p>
+</td>
+<td>
+<p><img src="assets/ac8540f1361ab8dd.png" width="942.32" height="600" alt="image.jpeg"></p>
+<p><img src="assets/5a7d2108017e4fdb.png" width="551" height="376" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>画布熔断配置</p>
+</td>
+<td>
+<p>熔断配置页与其他组件类似，此处不赘述。</p>
+<p>仅下述区别：</p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">1.不支持条件过滤，默认含义为某条规则的命中量。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">2.需要选择配置熔断的规则，默认选中入口所属规则，也可多选该组件中</span><span style="color:#FF4A47">还未配置熔断</span><span style="color:rgba(0, 0, 0, 0.9)">的其他规则。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.9)">多选的含义：针对选择的多条规则，</span><span style="color:rgb(255, 74, 71)">分别</span><span style="color:rgba(0, 0, 0, 0.9)">按照下方的配置进行熔断监控。</span><span style="color:rgb(255, 74, 71)">注意，不是计算多条规则的命中总和，而是分别计算命中。</span>共享下方的熔断规则、通知等配置。</p>
+</div>
+</div>
+<p></p>
+</td>
+<td>
+<p><img src="assets/6ae6c5423af376c2.png" width="958.94" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>其他</p>
+</td>
+<td>
+<p>1.完成配置后，列表会出现熔断配置记录。</p>
+<p>在画布预览-组件详情中（记得更新一下），对应规则后方由【配置熔断】变为【查看熔断】，同时出现组件状态开关。默认为：<span style="color:rgb(255, 74, 71)">执行中，不可拨动。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">2.当熔断触发，用户点击一键熔断后，会使流量经过组件时，不再执行</span><span style="color:#FF4A47">该规则</span><span style="color:rgba(0, 0, 0, 0.9)">，此时组件状态变为【关闭态】。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">3.若组件中所有规则都被熔断后，该组件就完全熔断，即流量在</span><span style="color:rgb(255, 74, 71)">【输入】</span><span style="color:rgba(0, 0, 0, 0.9)">该组件前被阻断。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">4.用户调整完有问题的策略后，手动将规则状态拨为执行中。即可再次使规则进入执行，并恢复熔断监控。</span></p>
+</td>
+<td>
+<p><img src="assets/35e0c3081118e98f.png" width="1100" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-522">四、FAQ</h1>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>问题</p>
+</th>
+<th>
+<p>答</p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>画布切换版本后，原来组件的熔断配置如何处理？</p>
+</td>
+<td>
+<p>画布熔断只对画布ID当前的<span style="color:#FF4A47">生效版本</span>作用。</p>
+<ul>
+<li>若切换生效版本后，原来配置熔断的组件不再存在（被删除），则该熔断配置也<span style="color:#FF4A47">不再有效</span>（但还在配置列表里躺着）</li>
+<li>若切换生效版本后，原来配置熔断的组件的内容有变更，熔断配置依旧有效，<span style="color:#FF4A47">需要用户确认熔断配置内容也同样适配</span>，以免出现不符合预期的报出。</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>画布熔断配置 支持复制么？</p>
+</td>
+<td>
+<p>不支持，一个配置对应一个画布组件。</p>
+<p>其中规则集合组件特殊，因其中有多条规则，可能涉及多个熔断配置。但是组件中每条规则最多只能对应1个配置。</p>
+<p>（表现为：如果组件里1个规则A配了熔断，就不能在组件内另一个规则<strong>B</strong>配熔断时，下拉多选该条规则A）</p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:22px">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+</article></main></body></html>

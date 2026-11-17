@@ -1,0 +1,67 @@
+<km-doc>
+<km-title nodeId="198fac44f29d47d08aa225e47b9aea19">作业升级标准</km-title>
+<ul nodeId="caa8acbe99734943b26eab03be1b04b3">
+<li nodeId="66119ed6eeb041d0af3e787b6027287a"><strong>该标准基于当前作业各指标水准情况，按照各指标数据作业分布率制定，若与实际业务使用不符，可提tt至近线研发</strong></li>
+</ul>
+<table responsive="false" nodeId="e027d348d6354897ab039b3f799742a7">
+<tr nodeId="8d67a1e61f7745faa7078b98068f0444">
+<th colwidth="[132]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="cf8ea030ecb042679f5e59dc0134105e">
+<p align="center" nodeId="cc2820c2e52f4c1db525a0e5f024ec38"><span color=""><strong>作业级别</strong></span></p>
+</th>
+<td colspan="3" colwidth="[282,297,342]" verticalAlign="top" bgColor="rgb(247, 247, 247)" nodeId="5388ee9c1c2f46b088b6f223e0062cb0">
+<p align="center" nodeId="f864a3eb319e4f2e97ba37ba7808c166"><span color=""><strong>标准</strong></span></p>
+</td>
+</tr>
+<tr nodeId="98c82945520645b6a809ceccfd53cd3f">
+<td colwidth="[132]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f10873c2d1e4411cb5ab2246708489fc">
+<p align="start" nodeId="f203b555d87244bbbc0256b22c737a35">B级升级至A级</p>
+</td>
+<td colspan="3" colwidth="[282,297,342]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a249a26660a34ea887c44a1ebe0dc06c">
+<ul nodeId="ea62bbca54e543d5a353d8f2d874e514">
+<li nodeId="30a25a9666844e909459e0a562082a5a">
+<p align="start" nodeId="5ab5a46d07ca470da5dcd4ad97cd17d9"><em>告警数量【近2天无错误类型告警】</em></p>
+</li>
+<li nodeId="8143e14aa77946e08282596b08ecf5e9">
+<p align="start" nodeId="62066d10c7964ae1a843730b9a043dd5">变更频率【近2天无迭代】</p>
+</li>
+<li nodeId="59599782b2e4408695382856f64451c7">
+<p align="start" nodeId="da68e87ed52242c6b14a43189ae701c7">低可用时长【小于3%】</p>
+</li>
+<li nodeId="ce540fbcb25544279b67324d7ddfe388">
+<p align="start" nodeId="1bab0e6480c84d6cb04953c672cd5465">延迟时间【小于5】</p>
+</li>
+<li nodeId="3b05be4860c044dbaf4712973c3cd462">
+<p align="start" nodeId="975a4c83cb424689b875959925108c02">队列容量足够【以任务在前一级队列使用的数据为基准】</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="a6098a77eeb74ab6a5286a806ff7bb4d">
+<td colwidth="[132]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9f5bd70590ef418d98aa82c179ba4163">
+<p align="start" nodeId="9409a40910a1462bb4952d5960a91170">A级升级至S级</p>
+</td>
+<td colspan="3" colwidth="[282,297,342]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="78b0d102d3084a008ce96fa7a4798195">
+<ul nodeId="44d1a92398c74a7fac81bf8ace4e4286">
+<li nodeId="a4f28940806d4239af8efb0a07118dfd">
+<p align="start" nodeId="f19cac5390b14ed9958cd4b9384d0b5d"><em>告警数量【近5天无错误类型告警】</em></p>
+</li>
+<li nodeId="7955e1bdf42b4b75b5a1e2f45004f191">
+<p align="start" nodeId="03ff033d57b14a0789712c103cb07e03">变更频率【近5天无迭代】</p>
+</li>
+<li nodeId="b17102229ccd434b9b991fb6fe0dd32c">
+<p align="start" nodeId="1c38ecfefa8448c3a4e9024bba6adc6b">低可用时长【小于1%】</p>
+</li>
+<li nodeId="8412e2a457044f65a2c978ef473372ba">
+<p align="start" nodeId="b1a3c1acc31144b4803cdd354d42597c">延迟时间【小于1】</p>
+</li>
+<li nodeId="c053e57cb13342cea2e59b3e5cf2de62">
+<p align="start" nodeId="436624e93f124544b4ce0e1a115bce75">队列容量足够【以任务在前一级队列使用的数据为基准】</p>
+</li>
+<li nodeId="bb008bc702bc4ba5aee36b7cd9647c5c">
+<p align="start" nodeId="4c76d4d27e45474b856c7e3d3b1ead7a">(新增任务+S级任务数)/总数*100 &lt;=30%</p>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+</km-doc>

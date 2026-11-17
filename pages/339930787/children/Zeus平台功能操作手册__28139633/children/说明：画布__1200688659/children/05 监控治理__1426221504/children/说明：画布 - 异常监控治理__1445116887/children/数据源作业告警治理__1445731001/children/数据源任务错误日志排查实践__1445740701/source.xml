@@ -1,0 +1,26 @@
+<km-doc>
+<km-title nodeId="00a4e2f7336a400caa90f1d35ac59e07">数据源任务错误日志排查实践</km-title>
+<km-catalog style="none" nodeId="cbac8fa594774b5a89f70ea24790fccb" />
+<h3 nodeId="34602426ff634cc98d6529519b620682">查找数据</h3>
+<p nodeId="3d39f67d8c2942c6876a604cf8432a4d">1.点击查看作业  比如第一个任务<a href="https://zeus.sankuai.com/data_zeus_static/#/dataKafkaDetails?id=128" title="https://zeus.sankuai.com/data_zeus_static/#/dataKafkaDetails?id=128" nodeId="cdf62303081f4461bca2a7c14a985f24">https://zeus.sankuai.com/data_zeus_static/#/dataKafkaDetails?id=128</a><br /></p>
+<p nodeId="fe83c50251354ee7aa066c0d608de486"><img src="https://km.sankuai.com/api/file/cdn/1445740701/13063804279?contentType=1&amp;isNewContent=false" name="image.jpeg" width="501" height="275.5755873340143" nodeId="fafac12e1ce24a828545fab76ed7171d" /><br /></p>
+<p nodeId="396d32afd7244e10ae063e43629732b2">2.查看报错信息<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:128%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:128%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" nodeId="51bfa143b904450a9fa8d664bb9d0715">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:128%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D</a><br /></p>
+<p nodeId="e7f1378e4cff41a993c9879cffccdddb">关键的参数：</p>
+<p align="start" nodeId="a41174646e2445ca8251d093983d1440">sourceId : 实时作业ID</p>
+<p nodeId="01580fa0fa3844c688f6338098c6081a">sourceData: kafka数据</p>
+<p align="start" nodeId="f424a986ec7e4833b33600252ebea346">config：报错的表达式</p>
+<p align="start" nodeId="919ba24a41514229943774c8c1534104">contextData : 报错表达式使用的上下文数据</p>
+<h3 nodeId="a8237e58dec9401f9389f45dbcd37007">定位问题</h3>
+<ol nodeId="ce2d78d59a2c408f86bf13a934fae9af">
+<li nodeId="d120d8207712479e94f8cb9171b95fab">找到报错规则:复制config数据，去负责列表页面搜索<img src="https://km.sankuai.com/api/file/cdn/1445740701/13069030190?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1477" height="317.63440860215053" nodeId="7b991a8406a14b1b9563479097363967" /><br /></li>
+</ol>
+<p align="start" nodeId="ef63769589664e8e9b9cd1ec7b31cd1b"><br /></p>
+<h3 nodeId="79651ecd14ea479eb399e7489d5ec271">解决问题</h3>
+<p nodeId="fdb0ea6860754d0d8e027fb15f477d6c">  将contextData数据带入测试用例测试，确认报错点  </p>
+<p nodeId="183a9e8d0f9d4b6c83568ea66ee7e280">    <br /></p>
+<p nodeId="0994160f06194ee6a40952acf751c783" />
+<p nodeId="5149092404684796b07a32059965a1ab">1.通过使用zeus页面测试用例测试的方式排查问题点</p>
+<p nodeId="287c130cbd4e456dadcc6fbcea77dc81">2.通过本地idea调试该问题</p>
+<p nodeId="a809b6a9dfb04dec9ed238261fdaa305">3.后面会上线一个表达式执行工具，来帮忙调试这个问题</p>
+<p nodeId="0f5ebf9f65674453a398556b05010c7b">观察修复情况</p>
+</km-doc>

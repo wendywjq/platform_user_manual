@@ -1,0 +1,98 @@
+<km-doc>
+<km-title nodeId="4a743aee3b144d3ba8359ec50fdf1b81">说明：画布 - 自定义日志配置及查看</km-title>
+<km-catalog style="none" nodeId="f65ee97a474245dc9c6444c7536e0d7c" />
+<h1 nodeId="7b87b576108345feb8cbadf044875e1c">一、背景</h1>
+<p nodeId="7f7171c2d89d4ed4ab3d7896a13d58c1">在日常画布调试中，存在Zeus缺少调试导致配置的规则/画布结果不符合预期或者运行报错时，需要Zeus rd 介入调试，降低业务方debug效率，浪费 Zeus rd 人力情况。期望Zeus建设自定义日志，辅助业务debug</p>
+<h1 nodeId="7dd674dc17434206be06e35849ab8479">二、名称解释</h1>
+<p nodeId="10c0bd296c794e4f99b3199118412a5d">无</p>
+<h1 nodeId="8ff80332b40941cd8455f5d714430817">三、操作指南</h1>
+<h2 nodeId="544f7ebbb3944e64a765d85c1857a037">3.1 日志定义</h2>
+<ul nodeId="88440c9987324648a1e6ed4b13cf288a">
+<li nodeId="153dec5dc57d4f5385af8e334f20b3f4">aviator表达式中进行使用</li>
+</ul>
+<km-note type="info" hiddenTitle="true" nodeId="157dc8e332724eff934baa96015c5156">
+<km-title></km-title>
+<km-content>
+<p nodeId="2891673d0d9744a9b367488384ed77a7">##exp-5</p>
+<p nodeId="e9515a2e54a04f28ab1896cfb82a1374"><span color="rgb(255, 74, 71)">print(zeus_output, "hello, AviatorScript!"); </span></p>
+<p nodeId="82e8f9c191f648e7b8bf88c68abaf42f">"test"</p>
+<p nodeId="3163f61c2b9f47d0ac825d8a30a353a9">//<span color="rgb(255, 74, 71)"> </span><span color="#FF4A47"><em>增加一行输出日志，输出的信息以字符串展示，要是输出多个变量，可以自己字符串拼接，也可以多次print，多次print系统内部自动进行字符串拼接</em></span></p>
+</km-content>
+</km-note>
+<ul nodeId="072429edf6a74942b083975eb1bb8049">
+<li nodeId="0cbb9a76a190457bbc8a93511ebff22e">代码组件中进行使用</li>
+</ul>
+<km-note type="info" hiddenTitle="true" nodeId="7720e24fe71646478c6698a904900070">
+<km-title></km-title>
+<km-content>
+<p nodeId="f8339ae51a3f4dd3b76fa4df354152ec" />
+<p nodeId="254bb5d2fc5d458ca4e1fdabe2f41daf">import com.meituan.rc.zeus.computing.engine.util.NearlineLogUtil;</p>
+<p nodeId="77470b6451674ddd8f049ee09d3c2803"><span color="#FF4A47">//该种方法适合画布组件使用，传组件id,仿真测试的时候，报错直接映射到组件上，不过message不能是空字符串</span></p>
+<p nodeId="07abd02a34cd48909be4bbb254017ff4"><span color="#FF4A47"> //</span><span color="#FF4A47"><em>只需要填充message和组件id</em></span></p>
+<p nodeId="a597a6e347424558af001cb687d4105f">1.NearlineLogUtil.customizedLog(message,componentId);</p>
+<p nodeId="a7cd1338d26f459f90f318433d5fb750" />
+</km-content>
+</km-note>
+<p nodeId="1510b7bedc83466b9179aa9311c8edd7" />
+<h2 nodeId="8d15412958a8437fa91583c7baa81471">3.2 日志查看</h2>
+<h5 nodeId="0ef6745037a447b8b7fe5224c0efeff4">使用效果：测试画布<span color="rgba(0, 0, 0, 0.84)">354</span></h5>
+<table responsive="false" nodeId="3813cb2d37434de4931b9e5b30ce0d36">
+<tr nodeId="9733df7b54854c43addbc3dc8d3ea6a3">
+<th colwidth="[411]" nodeId="0678519e86294cada1665e3778417607">
+<p align="center" nodeId="ce72a02dacdb4b52abfedd6232670864">配置</p>
+</th>
+<th colspan="2" colwidth="[438,838]" nodeId="dc57505a419f47338ed973f1d2451aaa">
+<p align="center" nodeId="f423b87946c0462abc0497412444a8a9">效果</p>
+</th>
+</tr>
+<tr nodeId="540a5b5577c343ee91c1ce32763af708">
+<td colwidth="[411]" nodeId="568e6405d4bf4071b94446b41849a418">
+<ul nodeId="39fafa9911574130b1c1730758e8cfa8">
+<li nodeId="7aad3df09262495f9d92f4ee298d7e8e">表达式配置1：<img src="https://km.sankuai.com/api/file/cdn/1366107270/4956043618?contentType=1&amp;isNewContent=false" name="image.jpeg" width="386" height="107" nodeId="f1ec01f82d03461cb9d89560aaecf223" /></li>
+</ul>
+</td>
+<td colwidth="[438]" nodeId="d571725c636a4146bb4ee14b1e176157">
+<ul nodeId="df6f81433f7c4807a07a651028d9f256">
+<li nodeId="599716559653478c81a9981b312294fb">仿真测试展示：</li>
+</ul>
+<p nodeId="1e4b251f24ab4acc89ec3952023ab738"><img src="https://km.sankuai.com/api/file/cdn/1366107270/4956803609?contentType=1&amp;isNewContent=false" name="image.jpeg" width="431" height="176" nodeId="7ad2a254b8ec4327b39dd91a7f85ca9a" /></p>
+</td>
+<td rowspan="3" colwidth="[838]" nodeId="f99473db53624ee5a599c3dc199c8fcf">
+<ul nodeId="78c675325e774d29a91c2eaaf8e9bc8d">
+<li nodeId="f8e119d2fabe4dda87decf966a7c8218">
+<p nodeId="620b861919f04773813540d5f11f018a">线上作业日志中心展示：<img src="https://km.sankuai.com/api/file/cdn/1366107270/4956355387?contentType=1&amp;isNewContent=false" name="image.jpeg" width="817" height="350" nodeId="460b718eb7d34cd591f778d32ee9faf8" /></p>
+<p nodeId="7ef7b8ad2cce416c8e1c480625cb4f37" />
+</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="9d12299d1dd34c1385570e0f96d41d09">
+<td colwidth="[411]" nodeId="0cc400ef79654da48c3eede235187fb2">
+<ul nodeId="4d22d723e58f47cc8032b9010a08c5db">
+<li nodeId="56b9421c5454442d9ba490040c65260d">表达式配置2：<img src="https://km.sankuai.com/api/file/cdn/1366107270/4957918886?contentType=1&amp;isNewContent=false" name="image.jpeg" width="428" height="199" nodeId="57beaef2013f4c99b03e9742b100363a" /></li>
+</ul>
+</td>
+<td colwidth="[438]" nodeId="0a62b9344a494bba99f03515bee661b2">
+<ul nodeId="4cfc9fb574714df1a27e140508af7bf0">
+<li nodeId="738a3e4e9f51494c89d28a071e927895">仿真测试展示：</li>
+</ul>
+<p nodeId="2058836ecde3466985de9860aba4dbd3"><img src="https://km.sankuai.com/api/file/cdn/1366107270/4956357797?contentType=1&amp;isNewContent=false" name="image.jpeg" width="444" height="207" nodeId="f5036b89b790408ab0d498b6ed180644" /></p>
+</td>
+</tr>
+<tr nodeId="4f6c553e0f8f4a30b6fcc769e32d05a6">
+<td colwidth="[411]" nodeId="1e7cf6a10a3c4e84bcdde52ea7ae72ae">
+<ul nodeId="4917d6a26d6d47b8ad1a988ea0dbba7e">
+<li nodeId="9a5699e4c87b4b3f8e8c3bcc280c6cce">代码组件配置：<img src="https://km.sankuai.com/api/file/cdn/1366107270/4956482760?contentType=1&amp;isNewContent=false" name="image.jpeg" width="468" height="212" nodeId="671dc1b13b28412ab7527d63ad24e2a2" /></li>
+</ul>
+</td>
+<td colwidth="[438]" nodeId="ce6dc0b9006f4ee5a62fd3f3727ed566">
+<p nodeId="495a5b36a20a4f958e0bae2219b0ca33">仿真测试展示：</p>
+<p nodeId="b0663abcd2a444df9664c7f002aef50e"><img src="https://km.sankuai.com/api/file/cdn/1366107270/4956803610?contentType=1&amp;isNewContent=false" name="image.jpeg" width="479" height="267" nodeId="f78dece2dcd743d59e643156e6101f83" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="83647954a17944128cc76046d7983834" />
+<h1 nodeId="b300210c5107437ba72f932bc345b6f0">四、常见Q&amp;A</h1>
+<p nodeId="10821b8634864dddb250bca3a2555ac0">Q1：仿真测试可以通过日志中心查看吗？</p>
+<p nodeId="7cdc0509d835463e944b89fdfc385a3a">A1：正常情况下，仿真测试过程中的自定义日志效果通过仿真测试组件的弹窗中查看，线上过程中的自定义日志效果通过日志中心查看。特殊情况下可能遇到如画布功能仿真测试无法展示内容等bug，可提TT到RD同学，通过lion配置发送仿真测试消息到日志中心</p>
+</km-doc>

@@ -1,0 +1,67 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>作业升级标准</title><link rel="stylesheet" href="../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b></aside><main><div class="bread"><a href="../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../index.html">说明：画布</a> / <a href="../../../../index.html">05 监控治理</a> / <a href="../../index.html">说明：画布 - 作业优先级</a> / <a href="index.html">作业升级标准</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1418167724">查看学城原文</a></p><article>
+<h1>作业升级标准</h1>
+<ul>
+<li><strong>该标准基于当前作业各指标水准情况，按照各指标数据作业分布率制定，若与实际业务使用不符，可提tt至近线研发</strong></li>
+</ul>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><strong>作业级别</strong></span></p>
+</th>
+<td colspan="3" style="background-color:rgb(247, 247, 247);vertical-align:top">
+<p><span><strong>标准</strong></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>B级升级至A级</p>
+</td>
+<td colspan="3" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<ul>
+<li>
+<p><em>告警数量【近2天无错误类型告警】</em></p>
+</li>
+<li>
+<p>变更频率【近2天无迭代】</p>
+</li>
+<li>
+<p>低可用时长【小于3%】</p>
+</li>
+<li>
+<p>延迟时间【小于5】</p>
+</li>
+<li>
+<p>队列容量足够【以任务在前一级队列使用的数据为基准】</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>A级升级至S级</p>
+</td>
+<td colspan="3" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<ul>
+<li>
+<p><em>告警数量【近5天无错误类型告警】</em></p>
+</li>
+<li>
+<p>变更频率【近5天无迭代】</p>
+</li>
+<li>
+<p>低可用时长【小于1%】</p>
+</li>
+<li>
+<p>延迟时间【小于1】</p>
+</li>
+<li>
+<p>队列容量足够【以任务在前一级队列使用的数据为基准】</p>
+</li>
+<li>
+<p>(新增任务+S级任务数)/总数*100 &lt;=30%</p>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+</article></main></body></html>

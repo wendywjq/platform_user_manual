@@ -1,0 +1,43 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>画布错误日志排查实践</title><link rel="stylesheet" href="../../../../../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b></aside><main><div class="bread"><a href="../../../../../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../../../../../index.html">说明：画布</a> / <a href="../../../../../../index.html">05 监控治理</a> / <a href="../../../../index.html">说明：画布 - 异常监控治理</a> / <a href="../../index.html">画布作业告警治理</a> / <a href="index.html">画布错误日志排查实践</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1445730774">查看学城原文</a></p><article>
+<h1>画布错误日志排查实践</h1>
+<p><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=346&amp;version=1" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=346&amp;version=1">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=346&amp;version=1</a></p>
+<p>日志中心链接</p>
+<p><a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-15m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:346%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-15m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:346%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-15m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:346%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D</a></p>
+<p></p>
+<p><img src="assets/fa1920acb45050dd.png" width="1408" height="490" alt="原文图片"></p>
+<p></p>
+<p>几个关键的参数：</p>
+<p>sourceId : 实时作业ID</p>
+<p>operatorID： 画布算子ID</p>
+<p>config：如果select算子中有多条表达式，报出是哪条表达式报错</p>
+<p>contextData : 报错的数据</p>
+<p></p>
+<p>以此任务为例，找到四号算子的 atribetes.reponse 表达式</p>
+<p><img src="assets/c710e2f9c0c83779.png" width="1098" height="600" alt="原文图片"></p>
+<p>是 attributes.response 为nil 影响了正常数据，将其丢弃</p>
+<p><img src="assets/f9a93af1b77480ed.png" width="1076" height="600" alt="原文图片"></p>
+<p>question</p>
+<details>
+<summary><span style="color:rgb(77, 77, 77)">点击展开内容</span></summary>
+<div>
+<p></p>
+<p>【问题1 ，提示内容堆叠到一起】</p>
+<p><img src="assets/e6b3bb2e083a8571.png" width="919" height="600" alt="原文图片"></p>
+<p>【问题2，此处自动<span style="color:rgb(245, 35, 45)">重启</span>了，且自动重启后一段时间内不能<span style="color:rgb(245, 35, 45)">保存</span>，但是我仿真测试需要先保存再仿真】</p>
+<p>只修改了select一个内容</p>
+<p></p>
+<p></p>
+<p><img src="assets/bd6159971326b900.png" width="1307" height="600" alt="原文图片"></p>
+</div>
+</details>
+<p></p>
+<p></p>
+<p>在此用 contextData 数据仿真</p>
+<p><img src="assets/b63fb774ba466199.png" width="594" height="600" alt="原文图片"></p>
+<p></p>
+<p>自动重启后</p>
+<p><img src="assets/8cad074c5d4ae109.png" width="1320" height="600" alt="原文图片"></p>
+<p></p>
+<p><br></p>
+<p></p>
+</article></main></body></html>

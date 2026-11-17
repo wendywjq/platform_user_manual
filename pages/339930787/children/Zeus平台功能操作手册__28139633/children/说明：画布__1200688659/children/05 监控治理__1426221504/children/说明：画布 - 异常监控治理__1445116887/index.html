@@ -1,0 +1,226 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布 - 异常监控治理</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-9">二、名词释义</a><a href="#section-13">三、操作指南</a><a href="#section-14">3.1 配置告警</a><a href="#section-66">3.2 告警通知</a><a href="#section-69">3.3 告警治理</a><a href="#section-70">3.3.1 处理方式</a><a href="#section-217">3.3.2 存量告警处理</a><a href="#section-232">四、FAQ</a><a href="#section-247">五、宣讲记录</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">05 监控治理</a> / <a href="index.html">说明：画布 - 异常监控治理</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1445116887">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：画布 - 异常监控治理</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<ul>
+<li>
+<p>存量告警多且杂乱，业务治理无从下手，告警治理效率低</p>
+</li>
+<li>告警量较大需要一定维度的聚合告出，便于业务查看处理</li>
+<li>未明确各类作业异常类型，业务无法自行配置满足需求的告警信息</li>
+</ul>
+<h1 id="section-9">二、名词释义</h1>
+<p>异常类型：即各作业配置、执行、结果过程中出现的异常情况信息。具体可参考<a href="children/错误类型介绍__1445694255/index.html" title="https://km.sankuai.com/collabpage/1445694255">错误类型介绍</a></p>
+<p>监控治理：对各作业配置监控信息并对告警信息进行压制或治理</p>
+<h1 id="section-13">三、操作指南</h1>
+<h2 id="section-14">3.1 配置告警</h2>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>示例图</p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li>新增告警配置</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/d85f53bc8568850e.png" width="1111.81" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>2. 指定配置的作业类型和作业id，可按照右侧规则进行批量配置</p>
+</td>
+<td>
+<p><img src="assets/9b655757c1b41853.png" width="1050.12" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>3. 选择错误类型进行配置</p>
+<p>        添加子规则：规则间关系为 且</p>
+<p>        添加规则：规则间关系为 或</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>由于窗口超限告警形式同其他异常类告警形式不同，窗口超限类异常须单独配置</p>
+</div>
+</div>
+<p></p>
+</td>
+<td>
+<p><img src="assets/8d8fb7e013841f55.png" width="1167.81" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>4. 告出方式进行配置</p>
+<ul>
+<li>定时告出：告警消息时隔多长时间通知一次</li>
+</ul>
+<ul>
+<li>聚合维度：如聚合作业维度，则每个作业发一个消息，如聚合全部数据，则全部告警发一个消息</li>
+<li>
+<p>通知方式：必选可多选。</p>
+<ul>
+<li>大象群通知-近线引擎告警群</li>
+<li>
+<p>大象通知（个人）：</p>
+<ul>
+<li>告警负责人：用户可自定义告警负责人，若不填则默认为值班研发</li>
+<li>告警通知人：包括任务创建人、任务最后修改人、自定义通知人。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td>
+<td>
+<p><img src="assets/beba6f1d472e34c8.png" width="873" height="357" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-66">3.2 告警通知</h2>
+<p>   <img src="assets/327ec4b922ffbd9e.png" width="525" height="375" alt="image.jpeg"></p>
+<h2 id="section-69">3.3 告警治理</h2>
+<h3 id="section-70">3.3.1 处理方式</h3>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th colspan="2">
+<p>示例图</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>点击静默<span style="color:rgb(255, 74, 71)">【点击静默，减少重复的报，减少噪音】</span></p>
+</td>
+<td>
+<p><img src="assets/75df99a675a55079.png" width="520" height="450" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/8e334db0e3ec1495.png" width="581" height="332" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>打开错误详情拿到相关报错的数据</p>
+<details>
+<summary>详细的报错数据</summary>
+<div>
+<p>{</p>
+<p>2</p>
+<p> "<span style="font-size:15px"><strong>count</strong></span>": 16612,</p>
+<p>3</p>
+<p> "<span style="font-size:15px"><strong>contextData</strong></span>": "{"factor_ex_prod_oceanus_fliter":false,"factor_webids_decode_request_body_and_decode_url_lower":"/show?dcp=vjhjn1rmvhuns9ktwcg90gn4etkpb1a3eov0xhl1ueviegmaztv8edywu4mhynheqzne37-wsi8we9n9d_ffvynn2_4n2icuecv96at2w_vklwskjnj6ob3l32r_umcpkzzagljodh33riqgah3ownslv8mqwpxjliesuts4lnruztw0onz96ynuhjqdkuhz4krjgrlcsz_-xipgiti5duulq32al5vx6t74qonmximtiptawbnjuwbm08edxxg2slclshnyz4ps0zokvpef7zpxsbxcpmcbejrtawxqnwqoiryjriyd9gm30yngtebyp5ily_xtxeqexfbxpe7a3zrmx2havhovuirp-ukpu3a4bewvv_vy7etd37h-xpmcf5dm_f8kas5cz3f16qnaxw==&amp;driverid=9cd34ea6db5fdadb653e68f2b44f21b6","referer":"","factor_webids_response_body_lower":"","factor_webids_decode_url":"/show?dcp=vjhjn1rmvHUnS9kTWcG90GN4eTkpB1A3EOV0XHL1uevIEgmAztV8edYWU4MHynHEqZne37-WsI8WE9N9d_ffvyNN2_4n2IcueCv96at2w_vkLwSKJNJ6ob3L32r_umcpKZZaGLJodh33riqgah3ownSLV8MqWpxjliESUTS4LnruZTW0Onz96ynUHJqdKuhZ4KRJgRLcSz_-XIpGiTi5dUUlQ32AL5VX6t74QoNmximtIpTAwbNJuWBm08edXxg2SLCLShnyZ4Ps0ZOKvPEF7zpXSBxCPmCBeJrTawXQnwqOiryjriYD9gm30yNgtEbYp5Ily_XTXeQEXfbXpe7a3zrmX2havhoVUirP-UKPU3a4BEWVV_vy7etd37h-XpMCF5dm_F8Kas5Cz3f16qNAXw==&amp;driverid=9cd34ea6db5fdadb653e68f2b44f21b6","factor_webids_sensitive":false,"_mt_logger_name":"_wpt-giant_out","body_bytes_sent":"0","response_body":"","source":"outer","ua":"SpaHttpPing/1.0","factor_webids_decode_request_body_and_decode_url":"/show?dcp=vjhjn1rmvHUnS9kTWcG90GN4eTkpB1A3EOV0XHL1uevIEgmAztV8edYWU4MHynHEqZne37-WsI8WE9N9d_ffvyNN2_4n2IcueCv96at2w_vkLwSKJNJ6ob3L32r_umcpKZZaGLJodh33riqgah3ownSLV8MqWpxjliESUTS4LnruZTW0Onz96ynUHJqdKuhZ4KRJgRLcSz_-XIpGiTi5dUUlQ32AL5VX6t74QoNmximtIpTAwbNJuWBm08edXxg2SLCLShnyZ4Ps0ZOKvPEF7zpXSBxCPmCBeJrTawXQnwqOiryjriYD9gm30yNgtEbYp5Ily_XTXeQEXfbXpe7a3zrmX2havhoVUirP-UKPU3a4BEWVV_vy7etd37h-XpMCF5dm_F8Kas5Cz3f16qNAXw==&amp;driverid=9cd34ea6db5fdadb653e68f2b44f21b6","slb_name":"set-zf-nginx-wpt-giant03.mt","response_content_type":"text/html","client_ip":"101.89.14.154","slb_ip":"::ffff:10.188.3.113","factor_webids_output_app_zeus_inspect_data":false,"method":"GET","cookie":"","slb_port":"80","webidsenv":"prodextranet","__SOURCE_TOPIC__":"org.webids_oc_ng-wpt-giant","factor_webids_emergency":false,"response_length":"0","_mt_datetime":"2022-11-09 15:06:23","domain":"impdsp.meituan.com","oceanus_domains_all_domain_s3":1,"request_head":{},"status":"200","factor_webids_waimai_sensitive_response":false,"factor_webids_header_location":"None","var_vuln_matched":"unknown","oceanus_domains_all_ex_domain_s3":-1,"factor_webids_decode_request_body":"","domain_head":"i","sceneIds":[7936,7873,7465,14155,7276,10415,7253,12501,22134,16858,16859,7743,22367],"client_port":"41365","request_time":"0.006","factor_webids_output_app_zeus_kafka_to_cep":false,"factor_webids_decode_request_body_and_decode_url_and_ua":"/show?dcp=vjhjn1rmvHUnS9kTWcG90GN4eTkpB1A3EOV0XHL1uevIEgmAztV8edYWU4MHynHEqZne37-WsI8WE9N9d_ffvyNN2_4n2IcueCv96at2w_vkLwSKJNJ6ob3L32r_umcpKZZaGLJodh33riqgah3ownSLV8MqWpxjliESUTS4LnruZTW0Onz96ynUHJqdKuhZ4KRJgRLcSz_-XIpGiTi5dUUlQ32AL5VX6t74QoNmximtIpTAwbNJuWBm08edXxg2SLCLShnyZ4Ps0ZOKvPEF7zpXSBxCPmCBeJrTawXQnwqOiryjriYD9gm30yNgtEbYp5Ily_XTXeQEXfbXpe7a3zrmX2havhoVUirP-UKPU3a4BEWVV_vy7etd37h-XpMCF5dm_F8Kas5Cz3f16qNAXw==&amp;driverid=9cd34ea6db5fdadb653e68f2b44f21b6SpaHttpPing/1.0","upstream_ip":"10.180.34.101","factor_webids_mt_datetime_range":true,"url_path":"/show","cluster_name":"_wpt-giant","httptype":"http","cacheVersion":19923178,"mt_datetime":"2022-11-09 15:06:23","message":" \\n","request_body_length":0,"url":"/show?dcp=vjhjn1rmvHUnS9kTWcG90GN4eTkpB1A3EOV0XHL1uevIEgmAztV8edYWU4MHynHEqZne37-WsI8WE9N9d_ffvyNN2_4n2IcueCv96at2w_vkLwSKJNJ6ob3L32r_umcpKZZaGLJodh33riqgah3ownSLV8MqWpxjliESUTS4LnruZTW0Onz96ynUHJqdKuhZ4KRJgRLcSz_-XIpGiTi5dUUlQ32AL5VX6t74QoNmximtIpTAwbNJuWBm08edXxg2SLCLShnyZ4Ps0ZOKvPEF7zpXSBxCPmCBeJrTawXQnwqOiryjriYD9gm30yNgtEbYp5Ily_XTXeQEXfbXpe7a3zrmX2havhoVUirP-UKPU3a4BEWVV_vy7etd37h-XpMCF5dm_F8Kas5Cz3f16qNAXw%3D%3D&amp;driverid=9cd34ea6db5fdadb653e68f2b44f21b6","factor_webids_extract_log4j_payload_regex":"unknown","request_body":"","response_head":{},"factor_webids_output_app_webids_upload_files":false,"upstream_name":"com.sankuai.giant.dsp.imp","response_encoding_type":"","time":"09/Nov/2022:15:06:22 +0800","factor_webids_output_app_webids_backup_01":false,"factor_webids_output_app_webids_backup_02":false,"upstream_port":"8418"}",</p>
+<p>4</p>
+<p> "<span style="font-size:15px"><strong>operatorId</strong></span>": -1,</p>
+<p>5</p>
+<p> "<span style="font-size:15px"><strong>sourceId</strong></span>": 193,</p>
+<p>6</p>
+<p> "<span style="font-size:15px"><strong>timestamp</strong></span>": 1667977583149,</p>
+<p>7</p>
+<p> "<span style="font-size:15px"><strong>mt_datetime</strong></span>": "2022-11-09 15:07:23+0800",</p>
+<p>8</p>
+<p> "<span style="font-size:15px"><strong>sourceData</strong></span>": null,</p>
+<p>9</p>
+<p> "<span style="font-size:15px"><strong>errorCode</strong></span>": "05035",</p>
+<p>10</p>
+<p> "<span style="font-size:15px"><strong>exceptionMessage</strong></span>": "",</p>
+<p>11</p>
+<p> "<span style="font-size:15px"><strong>jobType</strong></span>": "dataSource",</p>
+<p>12</p>
+<p> "<span style="font-size:15px"><strong>exceptionType</strong></span>": "表达式执行异常",</p>
+<p>13</p>
+<p> "<span style="font-size:15px"><strong>phase</strong></span>": "dataSource.expression",</p>
+<p>14</p>
+<p> "<span style="font-size:15px"><strong>es_timestamp</strong></span>": "2022/11/09 15:07:23 +0800",</p>
+<p>15</p>
+<p> "<span style="font-size:15px"><strong>message</strong></span>": "Execute expression error",</p>
+<p>16</p>
+<p> "<span style="font-size:15px"><strong>config</strong></span>": "!(domain == "") &amp;&amp; ((string.substring(request_body,1,4) == "PNG" &amp;&amp; string.substring(response_body,1,4) == "PNG" &amp;&amp; (string.contains(request_body, "-(Ljava/lang/String;)Ljava/lang/StringBuilder") || string.contains(request_body, "java/lang/Object"))))",</p>
+<p>17</p>
+<p> "<span style="font-size:15px"><strong>requestId</strong></span>": "yg-data-hdp-dn-rtyarn5517-202211081021-26670064",</p>
+<p>18</p>
+<p> "<span style="font-size:15px"><strong>alarmType</strong></span>": "异常类监控",</p>
+<p>19</p>
+<p> "<span style="font-size:15px"><strong>es_datetime</strong></span>": "2022-11-09 15:07:23.208"</p>
+<p>20</p>
+<p>}</p>
+</div>
+</details>
+</td>
+<td>
+<p>{</p>
+<p><strong>"jobId":</strong>107,// <span style="color:rgb(255, 74, 71)">Zeus平台任务id</span></p>
+<p><strong>"jobType":</strong>"canvas", // <span style="color:rgb(255, 74, 71)">任务类型   canvas:画布、dataSource:数据源、cep:cep作业</span></p>
+<p><strong>"operatorId":</strong>12 //具体的报错算子<span style="color:rgb(255, 74, 71)">【画布作业有用】</span></p>
+<p><strong>"phase":</strong>"SIDE_OUTPUT", //操作类型</p>
+<p><strong>"msg":</strong>"表达式执行异常", //  错误信息的描述</p>
+<p><strong>"contextData":</strong>{\\"ifElseRule3\\":false,\\"ifElseRule2\\":false,\\"ifElseRule1\\":null}, //上下文处理的数据<span style="color:rgb(255, 74, 71)">【可以带入表达式里面执行】</span></p>
+<p><strong>"sourcedata":</strong>{\\"ifElseRule3\\":false,\\"ifElseRule2\\":false,\\"ifElseRule1\\":null}, //源数据<span style="color:rgb(255, 74, 71)">【导致此次报错的kafka数据，可以仿真测试使用】</span></p>
+<p><strong>"config":</strong>"ifElseRule1 &amp;&amp; ifElseRule2\\",//配置信息（JSON）</p>
+<p><strong>"exception":</strong>"",//异常栈</p>
+<p><strong>"logType":</strong>"exception",<span>//异常类型</span></p>
+<p><span>“</span><span><strong>mt_datetime”：“</strong></span><span>2022-06-02 11:28:08+0800”//时间戳</span></p>
+<p>}</p>
+</td>
+<td>
+<p><img src="assets/c734115835d8fd72.png" width="812.57" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>点击相关的任务，排查相关报错【<a href="https://km.sankuai.com/collabpage/1436543798" title="https://km.sankuai.com/collabpage/1436543798">错误类型介绍</a>】</p>
+<p>   <a href="children/画布作业告警治理__1445675277/children/画布错误日志排查实践__1445730774/index.html" title="https://km.sankuai.com/collabpage/1445730774">画布错误日志排查实践</a></p>
+<p>  <a href="children/数据源作业告警治理__1445731001/children/数据源任务错误日志排查实践__1445740701/index.html" title="https://km.sankuai.com/collabpage/1445740701">数据源任务错误日志排查实践</a></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<h3 id="section-217">3.3.2 存量告警处理</h3>
+<div class="note">
+<strong></strong>
+<div>
+<p>治理目标：</p>
+<ol>
+<li>【存量作业】：业务同学名下负责作业发现一次告警处理一次，对作业有影响的告警按照排查实践文档解决问题，对作业影响不大的作业可前往监控配置模块删除配置，已治理作业及时同步至列表<a href="children/各业务领域存量告警治理情况__1446840342/index.html" title="https://km.sankuai.com/collabpage/1446840342">各业务领域存量告警治理情况</a>，最终达到存量告警逐渐收敛的目标</li>
+<li>【增量作业】：对作业有影响的告警按照排查实践文档解决问题，对作业影响不大的作业可前往监控配置模块删除配置，尽量降低增量作业告警</li>
+</ol>
+</div>
+</div>
+<ul>
+<li>存量作业的报错列表</li>
+</ul>
+<p>      <a href="children/画布作业告警治理__1445675277/index.html" title="https://km.sankuai.com/collabpage/1445675277">画布作业告警治理</a></p>
+<p>      <a href="children/数据源作业告警治理__1445731001/index.html" title="https://km.sankuai.com/collabpage/1445731001">数据源作业告警治理</a></p>
+<h1 id="section-232">四、FAQ</h1>
+<ol>
+<li>
+<p><strong>当前的异常类型及导致的原因有哪些？</strong></p>
+<p><a href="children/错误类型介绍__1445694255/index.html" title="https://km.sankuai.com/collabpage/1445694255">错误类型介绍</a></p>
+</li>
+<li>
+<p><strong>我是新业务，RD提示新业务做兜底告警，如何配置？</strong></p>
+<p>A：RD提示新业务做兜底告警，即将全部错误类型配置成 30分钟错误类型&gt;0 即可，<span style="color:rgb(44, 62, 80)">大象群通知:66386558140；告警负责人填写对接的RD。注意窗口类异常需要独立一个告警配置。如图所示：</span></p>
+<p><img src="assets/dd12f740586e311d.png" width="900" height="160" alt="image.jpeg"></p>
+</li>
+</ol>
+<p></p>
+<h1 id="section-247">五、宣讲记录</h1>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/1445116887/13223835984?contentType=1">video1799857055.mp4</a></figcaption></figure>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/错误类型介绍__1445694255/index.html">错误类型介绍</a> <span class="status">已保存</span></li><li><a href="children/各业务领域存量告警治理情况__1446840342/index.html">各业务领域存量告警治理情况</a> <span class="status">已保存</span></li><li><a href="children/画布作业告警治理__1445675277/index.html">画布作业告警治理</a> <span class="status">已保存</span></li><li><a href="children/数据源作业告警治理__1445731001/index.html">数据源作业告警治理</a> <span class="status">已保存</span></li></ul></section></main></body></html>

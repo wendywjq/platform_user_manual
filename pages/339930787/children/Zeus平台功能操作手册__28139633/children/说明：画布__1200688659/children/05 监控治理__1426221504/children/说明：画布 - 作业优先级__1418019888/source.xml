@@ -1,0 +1,355 @@
+<km-doc>
+<km-title nodeId="9b67424aa3764bfd9ca491377ef4685f">说明：画布 - 作业优先级</km-title>
+<km-catalog style="none" nodeId="224aa903703246a1bb71019668501eed" />
+<h1 nodeId="a94ae21c5999479bacb06953377f8a1f">一、背景</h1>
+<ul nodeId="f338f1e31b43424eb0242d47185fa96e">
+<li nodeId="13e43a40de2b4438a46cd32c0004d0e2">
+<p align="start" nodeId="010d4bd034a24d0b969ef03ac2bdc972"><span color="">在作业异常告警运营的时候，往往需要研发同学判断处理作业的顺序。为提升告警运营效率，辅助研发同学判断，需要新增标志位来判定处理的优先级</span></p>
+</li>
+</ul>
+<h1 nodeId="82e379aac2324d6c9a27598e2d7249c7">二、名称解释</h1>
+<p nodeId="1e2da05adf9f4a4c9ed2a55eafebf04b">优先级：将作业分为S、A、B三级，研发同学将以不同的队列资源以及响应速度维护各级作业<br />            <span color="rgba(0, 0, 0, 0.87)">S: 稳定队列资源，适用于核心任务</span><br />           <span color="rgba(0, 0, 0, 0.87)">A: 普通队列资源，适用于非核心任务以及核心任务缓冲期</span><br />           <span color="rgba(0, 0, 0, 0.87)">B: 测试队列资源，适用于测试任务</span></p>
+<h1 nodeId="9233d775df184e36b380a9a02256a870">三、整体概览</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1418019888/10767058217?contentType=0&amp;isNewContent=false" width="1406" height="412" nodeId="9d59032f1a794b7e8a94f37c709136ac" />
+<h1 nodeId="e7f74819afbe4e35a6b629cd8261533f">四、操作说明</h1>
+<h2 nodeId="2f25719e4184445688acbe5d9807a18f">4.1 如何给作业升级</h2>
+<p nodeId="12ccdd9c154d4a5388ba5e5202bf6052"><strong>原则：待数据源作业就绪/画布作业运行后并且满足升级条件，才可进行升级</strong></p>
+<table responsive="false" nodeId="aec8858878a44640aabff3f9f256e374">
+<tr nodeId="e51da1a678bb4cdaa11bb36d148fab75">
+<th colwidth="[391]" nodeId="353480bfc9704719b03f6d7586e907a7">
+<p nodeId="454372e2e4234bf0b70197e40d3487cb">说明</p>
+</th>
+<th colspan="2" colwidth="[480,527]" nodeId="f6a731c07aa444fc95ff167c2ab43956">
+<p nodeId="3676e35876874b6182f70b361cc61e31">示例图</p>
+</th>
+</tr>
+<tr nodeId="7367cdf616ca4bc494996217dc3c7061">
+<td colwidth="[391]" nodeId="b78550cf853e4f14a7d7063d7bcdc155">
+<ol nodeId="7b094e4532a84eeea7b3ee944b5308f0">
+<li nodeId="251fe58d494c4f2ea6387a6b91c6a8c4">点击画布作业右侧操作栏”修改“/数据源作业详情页右上角”编辑“</li>
+</ol>
+</td>
+<td colwidth="[480]" nodeId="2516772f047049218408589665db8745">
+<p nodeId="85a13ccb1fb94e69a4bb889d4a406a7f"><img src="https://km.sankuai.com/api/file/cdn/1418019888/10924286470?contentType=1&amp;isNewContent=false" name="image.jpeg" width="452" height="365" nodeId="a28c0157f03c4f779a83b6bd5d9a6b9b" /></p>
+</td>
+<td colwidth="[527]" nodeId="40d2fb968f6f4ba3a48e4b692bf3142c">
+<p nodeId="93278409ed0a4551bf0af0621cdf5cc3"><img src="https://km.sankuai.com/api/file/cdn/1418019888/11005917041?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1296.3" height="600" nodeId="df749764446245ca99c992a717ff7254" /></p>
+</td>
+</tr>
+<tr nodeId="defb27ece4734018ad914187ee623937">
+<td colwidth="[391]" nodeId="f3e4efd58fd743bfbb9c72369fe1e432">
+<p nodeId="7be00422670e4559a29e6479d5764a75">2. 根据需求调整优先级</p>
+<p nodeId="13c4d7b7bbdb4483be526a4cb470f79e">   注意：只可逐级进行升级，即B级不能直接升级到S级</p>
+<p nodeId="94ea200a28894ae79aace4f000cb5ec2" />
+</td>
+<td colwidth="[480]" nodeId="4f125ff69cb24da486953c73bbfabb57">
+<p nodeId="e59857d93e9e43c7a1213f009adde378"><img src="https://km.sankuai.com/api/file/cdn/1418019888/10924316120?contentType=1&amp;isNewContent=false" name="image.jpeg" width="457" height="292" nodeId="c7c6d314cac3459aa05c0c46e2e114ed" /></p>
+</td>
+<td colwidth="[527]" nodeId="425a7cb757b84ed49da36e2cb6cfcd20">
+<p nodeId="b73cd70f72f74015a51a8aafef2cb1d5"><img src="https://km.sankuai.com/api/file/cdn/1418019888/10940447960?contentType=1" name="image.jpeg" width="461" height="293" nodeId="935c06ac887d4bff84fbfcc5adccf52f" /></p>
+</td>
+</tr>
+<tr nodeId="9e6c59940e79422e9d797a9a3df2460a">
+<td colwidth="[391]" nodeId="f1e9f4742004455998964152de9d24fb">
+<p nodeId="86f638689d2547c495b5d7d5a045320a">3.查看作业升级检测结果，确认是否升级</p>
+<p nodeId="d991dea9bf594793814d4d0cc27b1663">  注意：如果和优先级同步修改了其他的内容，比如：中英文名等，但后续升级失败，则同步修改的其他内容无效，需要重新修改提交</p>
+</td>
+<td colwidth="[480]" nodeId="077f368c15154e82958545c7d2d037db">
+<p nodeId="d3a511dd91674c709cab05e3126364f9"><img src="https://km.sankuai.com/api/file/cdn/1418019888/11006073935?contentType=1&amp;isNewContent=false" name="image.jpeg" width="509" height="377" nodeId="43420dba95f1489f91f1914a8d54f888" /></p>
+</td>
+<td colwidth="[527]" nodeId="626e31c2ac624820a5833c944c7f68df">
+<p nodeId="0b2d2bc6a8c84897a2610c908b7b07a3"><img src="https://km.sankuai.com/api/file/cdn/1418019888/10956042148?contentType=1&amp;isNewContent=false" name="image.jpeg" width="457" height="381" nodeId="389a0189845e42289d2f0390f72ad45a" /></p>
+</td>
+</tr>
+<tr nodeId="559490d5b120446a904519dbd4caa282">
+<td colwidth="[391]" nodeId="e8045c19c55f43cda33fcb56fb29b8dd">
+<p nodeId="8d89e288cc8846298fb9ed0a8ac7b667">4.确认升级，升级成功，作业重启</p>
+</td>
+<td colwidth="[480]" bgColor="#F4F5F7" nodeId="e577b2e2085043edb2b1c7882f420456">
+<p nodeId="682284b1f76041718f414c7552b0296a" />
+</td>
+<td colwidth="[527]" bgColor="#F4F5F7" nodeId="76295f36f02a48528d69e19b83de93f1">
+<p nodeId="9ddb0e8a8b2a4ffc97603bdb784fa1ca" />
+</td>
+</tr>
+</table>
+<h2 nodeId="87139fab66934e67a3964b9f480e1a36">4.2 各优先级作业告警接收</h2>
+<km-note type="tip" hiddenTitle="true" nodeId="950157f129f54f71845e77c976712e83">
+<km-title></km-title>
+<km-content>
+<p nodeId="ed97e68c9ec94f6686d52ad00c851104"><span color="">后续告警负责处理人依旧是近线研发同学，业务同学可参考该表格了解告警原因及可能的处理方式</span></p>
+</km-content>
+</km-note>
+<table responsive="false" nodeId="b8896836886b4ea58ab89bee690ba91d">
+<tr nodeId="a8e86e5228694e67ac9dcd26b90a041b">
+<th colwidth="[254]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="254d34460fdc4944bf921baa46da1a3e">
+<p nodeId="4b8c932a55644268be10ab7d75ef66ce">告警名称</p>
+</th>
+<th colwidth="[143]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="11feda4a70044910a727ac2557804f76">
+<p nodeId="f190281f3a5e4cb4aa90c90f3fb2d476">含义</p>
+</th>
+<th colwidth="[234]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="4bcfa022c51a46aea8500ca84f8c3eb2">
+<p nodeId="a32ee5e51285438a842ed0261a3cd94c">          告警规则</p>
+</th>
+<th colwidth="[171]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="fce8c1ea73a84c8ba8283077e9f67546">
+<p nodeId="3611c9c0ff5d493d861991b3ad6e28c5">可能原因</p>
+</th>
+<th colwidth="[366]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="1389e61d84e4450290cfeb57f54ca11f">
+<p nodeId="459b9ad513aa46b2b4606008734770fd">处理方式</p>
+</th>
+<th colwidth="[122]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="c124edac81084daca079b36c4e23596c">
+<p nodeId="eb3675989d3d4ef284fba3cc383f0ac9">告警来源</p>
+</th>
+<th colwidth="[367]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="d13f21b354bc4fff8306f0ebc576eaa2">
+<p nodeId="3cebd678b812454ca18547850e1c4010"> 告警接收群【大象群】</p>
+</th>
+<th colwidth="[488]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="a86a32d9c21c4537be7e854074c62358">
+<p nodeId="d827c5c313624c55b6bc407c3a263a3b">告警接收人【大象个人、短信】</p>
+</th>
+</tr>
+<tr nodeId="76f3db2c3b574e928916018293283522">
+<td colwidth="[254]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f50f7831a91b466aa0879366f248a05d">
+<p align="start" nodeId="7ef311e12e33430793ec8aae6d8e3c54"><strong>平均延迟时间告警</strong></p>
+<p align="start" nodeId="03635d4eb7dd41eaab0897dd6ca0b403">近线告警群样式：</p>
+<p align="start" nodeId="5bedaedc628542f5a1a518317be3ee12"><img src="https://km.sankuai.com/api/file/cdn/1418019888/12479108358?contentType=1" name="" width="237" height="118" nodeId="33c0ae304b1849f0b334b2865a142e61" /></p>
+<p align="start" nodeId="b055482ac19b4670b4352e2f11989e5f">实时计算平台告警样式：</p>
+<p align="start" nodeId="a501350ae1b147348af91aab579d3800"><img src="https://km.sankuai.com/api/file/cdn/1418019888/12479103836?contentType=1" name="" width="237" height="141" nodeId="bd4b98c1719e4dda91bb0bc929d62a46" /></p>
+</td>
+<td colwidth="[143]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="35e88e1d646c4b41a2b4dd3b522db694">
+<p align="start" nodeId="9956fea848b14f47aaf3303d7e9bec24">作业吞吐下降；</p>
+<p align="start" nodeId="1d025a3472964aa3bc296d5d3165145b">消费能力不足；</p>
+</td>
+<td colwidth="[234]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c07118db24074452992bbe6c68a01c1f">
+<p align="start" nodeId="ee4cccf5a29f4eaebee9e59fc98c0e25">报警规则：平均延迟时间&gt;=10分钟</p>
+</td>
+<td colwidth="[171]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8d03b2a8528f48a5aef82e6d9c1b9717">
+<ol nodeId="34579958012449bd83e61f1b899c6646">
+<li nodeId="8a8965c894ad43f4a6739e93a7ee6b16">
+<p align="start" nodeId="fb7e8cec627c4e1faa5f271bb52b9e88">流量徒增</p>
+</li>
+<li nodeId="14de069b52b84a9294e3df0bc2b8c7ef">
+<p align="start" nodeId="f4a32825f0844874a9f79bfd5eacfff3">作业状态出现问题（作业挂掉，重启）</p>
+</li>
+<li nodeId="145e89a5e0714f02b6aff5deda63a451">
+<p align="start" nodeId="2cdd8bfb11454cb88a2d5e3de514fa04">作业性能低</p>
+</li>
+<li nodeId="3546824435e346a093503205615a28f7">
+<p align="start" nodeId="ae5ce50fb7e647788f03023b0391e443">作业资源不足</p>
+</li>
+</ol>
+</td>
+<td colwidth="[366]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="16efdf8fb03a4141acfce6e18746caef">
+<p align="start" nodeId="93edb3a637404a95b5265a8bd6ee5369">可在<a href="https://nau.sankuai.com/opt/job/1210182/1" title="NAU" nodeId="181d5731866343ac80e29cdf8ec60ae1">NAU</a>查看对比作业消费能力变化。</p>
+<ol nodeId="c709d87d578b4443b19507d65f48e8fd">
+<li nodeId="50aed75e70e940e299768b211afcb075">
+<p align="start" nodeId="2f67c45b308041978c551209e846ca13">若消费能力没有降低趋势，但生产流量突增，可自查流量是否符合预期；</p>
+</li>
+<li nodeId="bfc2f12da3534653b19d8e6fbd39d809">
+<p align="start" nodeId="752af9ae8d4f4f19a7cc1606edad7348">若消费能力突降或跌0，代表作业挂掉或重启，联系RD</p>
+</li>
+</ol>
+<p align="start" nodeId="8ad765db4e71472da3df5e92f99c22ee"><strong>操作方式</strong></p>
+<p align="start" nodeId="f53fa0699eff44b5b852554a2a239a37"><img src="https://km.sankuai.com/api/file/cdn/1418019888/12487278937?contentType=1" name="" width="453" height="187" nodeId="4aa7b80f85a14a79a5d83e605f909e66" /></p>
+<p align="start" nodeId="17ff852f8a0d43a1a07cd90ff1f310ab"><img src="https://km.sankuai.com/api/file/cdn/1418019888/12479103839?contentType=1" name="" width="453" height="233" nodeId="9b31811e6b3f416fa8e72794f7851be8" /></p>
+</td>
+<td colwidth="[122]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="42e7630117e34733af10bd59f9ba10f3">
+<p align="start" nodeId="0aefb961b03e439aa4d1a3d1efc07e8d">近线自身的告警</p>
+</td>
+<td colwidth="[367]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="51fd381d149c4d3f988a4fe98cc00683">
+<p align="start" nodeId="2f56604374b94fc8bb6794d6bc60dcc8">S级作业:</p>
+<p align="start" nodeId="c3a6df7660fc469c9608ce7415d260ab"> 基础安全高优作业运维群</p>
+<p align="start" nodeId="822eed024cd24fdbb8da695535d4ce4e"> 非基础安全高优作业运维群</p>
+<p align="start" nodeId="eb6df8a7329b438f969f17f29a1f2c0f">A级作业：</p>
+<p align="start" nodeId="ffa6b4d63f7d453cac707b1af4ad4625"> 非基础安全一般运维群</p>
+<p align="start" nodeId="0c17b778e56c4b52915aaf91fd846be9"> 近线引擎告警群</p>
+<p align="start" nodeId="3e4d9f7446e148e89bd2f4480caf092f" />
+</td>
+<td colwidth="[488]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f8714bb3e0a047a6bea8e0bb91059d85">
+<p align="start" nodeId="4de1fa07fb2a45758ea78cfad3fe9931">复用原来策略，发送给：</p>
+<p align="start" nodeId="46715e04661542cbad2af2cc04ac9ab1">作业的创建人和修改人、值班人、近线rd同事</p>
+</td>
+</tr>
+<tr nodeId="60ccf6ac1d21453ea02b1fc27e41049e">
+<td colwidth="[254]" verticalAlign="top" bgColor="#F4F5F7" nodeId="14a420489dcd47f098a47e8f8e41b062">
+<p align="start" nodeId="3f14d6731de445568c1802bbb5606172"><strong>任务频繁重启告警</strong></p>
+<p align="start" nodeId="08dde11f0a5445198d52d1226d954878"><strong>任务未正常运行告警</strong></p>
+<p align="start" nodeId="51c93814e3ff47c0930485499d979ce1"><img src="https://km.sankuai.com/api/file/cdn/1418019888/12480093343?contentType=1" name="" width="237" height="252" nodeId="d7b19c8a2a60461990d0d96568da42de" /><img src="https://km.sankuai.com/api/file/cdn/1418019888/12479103835?contentType=1" name="" width="237" height="213" nodeId="2aab107a3a4148fe9c17bbcabef6cf8e" /></p>
+</td>
+<td colwidth="[143]" verticalAlign="top" bgColor="#F4F5F7" nodeId="b492684bb0a04d6694ac26639c2382b7">
+<p align="start" nodeId="3e5537aeed064923b28a08fac6abc1cb">作业状态不健康</p>
+</td>
+<td colwidth="[234]" verticalAlign="top" bgColor="#F4F5F7" nodeId="10822f8ae72c4c1b8449dce02cbef948">
+<p align="start" nodeId="d0c994af180440f8a991328e68fca383">报警规则：过去1个数据增加&gt;0</p>
+<p nodeId="a5190e6f51024b2eb0ccf17470869800">（<span color="">过去1个数据是Nau平台概念，语义是</span><span color="rgba(0, 0, 0, 0.87)">一分钟的聚合数据</span>）</p>
+</td>
+<td colwidth="[171]" verticalAlign="top" bgColor="#F4F5F7" nodeId="be1d974730a6434299955381eb1de43a">
+<ol nodeId="980dc500a0f14ff79fd1dd8c31772b20">
+<li nodeId="61ee8bc821af4712b378b9dfe457c746">
+<p align="start" nodeId="a5ce6832dc614409bc9156fbada84e40">作业资源不足</p>
+</li>
+<li nodeId="747f763058f949f888f8db6380e8ab02">
+<p align="start" nodeId="dd3599f4db984f6e96f25978fd18a768">作业存在问题BUG</p>
+</li>
+</ol>
+</td>
+<td colwidth="[366]" verticalAlign="top" bgColor="#F4F5F7" nodeId="fa2830979e1f4fda8530d883befdaa27">
+<p align="start" nodeId="22fdc200cfbe47eb8332f6ad5eabf223">可在flink dashbroad 查看作业状态：</p>
+<p align="start" nodeId="4edf3f3e3b5d49fa9115c7ec17a8cbc7">不是ACTIVE，RUNNING代表作业存在问题，联系RD</p>
+<p align="start" nodeId="6d4fcbc2d5b04bbf8cc3fccd79f2f0af"><strong>具体操作</strong></p>
+<p align="start" nodeId="17e9f53a0f75479f800a9da86ba176e8"><img src="https://km.sankuai.com/api/file/cdn/1418019888/12487278938?contentType=1" name="" width="453" height="192" nodeId="10aac88b501e477db45a69da06dca049" /></p>
+<p align="start" nodeId="570d0b76c50446fda67255b34f1dd024"><img src="https://km.sankuai.com/api/file/cdn/1418019888/12487782797?contentType=1" name="" width="453" height="216" nodeId="1cf08fa60cbd468abb6c11a9ab803be5" /></p>
+</td>
+<td rowspan="3" colwidth="[122]" verticalAlign="top" bgColor="#F4F5F7" nodeId="2d1b1dda03dd4f68a78926e74f341934">
+<p align="start" nodeId="561f77724fbd4523b03681102ba25091"> NAU告警 </p>
+</td>
+<td rowspan="2" colwidth="[367]" verticalAlign="top" bgColor="#F4F5F7" nodeId="4559ca7b7e72448fb767b89a83e54d24">
+<p align="start" nodeId="3a8c1996ed62486dad0f24d428e6a1df">nau建设中，11.22上线</p>
+<p nodeId="2133d809a39d4437a92512d4a7f0dcf8">当前由实时计算平台报警机器人发送</p>
+</td>
+<td colwidth="[488]" verticalAlign="top" bgColor="#F4F5F7" nodeId="7dd7639072f942d892ef1ee93584e38c">
+<p align="start" nodeId="24564c5b39324e8db16d8e8ff34b025a">接收告警组：zeus近线rd</p>
+<p align="start" nodeId="eb2e6cbd674c4ce49ba44ac368a4df37">作业创建人</p>
+<p align="start" nodeId="d1440e6e87a54ebd8871165df490c174">作业更新人</p>
+</td>
+</tr>
+<tr nodeId="caa5aa0e007c4bfea9e047e3ef286129">
+<td colwidth="[254]" verticalAlign="top" bgColor="#F4F5F7" nodeId="866550e84afb4732a7f828fd8f9f04b1">
+<p align="start" nodeId="fd30d9f2a5544b95965285e6a527f570"><strong>checkpoint连续失败</strong></p>
+<p align="start" nodeId="59ce23e8fd3742b6b3a17cc7417eed01"><img src="https://km.sankuai.com/api/file/cdn/1418019888/12479103838?contentType=1" name="" width="237" height="221" nodeId="b00a884b13d14f718e3d23969d68586f" /></p>
+</td>
+<td colwidth="[143]" verticalAlign="top" bgColor="#F4F5F7" nodeId="1fbc34731de24faf8c3a8dae53d2bff9">
+<p align="start" nodeId="3c1b17c165b4496f874283d8d436023b">checkpoint失败</p>
+</td>
+<td colwidth="[234]" verticalAlign="top" bgColor="#F4F5F7" nodeId="93fe1976ec7b43a38ca1bed24f3d51f9">
+<p align="start" nodeId="74ae52e75dcf451689933fc005ac0acd">报警规则：过去1个数据增加&gt;0</p>
+</td>
+<td colwidth="[171]" verticalAlign="top" bgColor="#F4F5F7" nodeId="d790e3832c1341598def2df41eab797b">
+<ol nodeId="73210d5a82044bc18393011007cfdb75">
+<li nodeId="2e2a727250d14da8b325b917550a4c57">
+<p align="start" nodeId="30d9cadcd108429790496c5685cfd023">checkpoint状态过大，超时</p>
+</li>
+<li nodeId="5c232afe81b948e78c7118100a0d49dd">
+<p align="start" nodeId="b5b9fe3bdf234cc2828a8ea8e0e0c2f5">存在数据倾斜或反压</p>
+</li>
+</ol>
+</td>
+<td colwidth="[366]" verticalAlign="top" bgColor="#F4F5F7" nodeId="1bea98af0beb498498f7518b9bd77014">
+<p align="start" nodeId="4f189aa98cd74e1aa076beb43bfb5f8e">联系RD</p>
+</td>
+<td colwidth="[488]" verticalAlign="top" bgColor="#F4F5F7" nodeId="7dcc73ff657e4e9d83b5da57e3f2d9b3">
+<p align="start" nodeId="fd512ff6dd8244d2a624435f422508c9">接收告警组：zeus近线rd</p>
+<p align="start" nodeId="52901515f9974eda8920ff681deedced">作业创建人</p>
+<p align="start" nodeId="76c7c96204bc469787b14ed98fd1c7b3">作业更新人<span color="rgba(255, 255, 255, 0.6)">z</span></p>
+</td>
+</tr>
+<tr nodeId="8fc10b06dcfc4fd08c9c21ab0aa24b2c">
+<td colwidth="[254]" verticalAlign="top" bgColor="#F4F5F7" nodeId="5c8230af3c3746a6ad986bf70e31309f">
+<p align="start" nodeId="a1b9fd79b9654dcbbc30ef71fd2268e8"><strong>任务10分钟延迟条数告警</strong></p>
+</td>
+<td colwidth="[143]" verticalAlign="top" bgColor="#F4F5F7" nodeId="3797deb8ddcf4928a1e79f0905d88f89">
+<p align="start" nodeId="dcce02c8569f4faf8820894057925a6b">作业吞吐下降；</p>
+<p align="start" nodeId="9dafd56c27f74b8b84ad599884e6cb36">消费能力不足；</p>
+</td>
+<td colwidth="[234]" verticalAlign="top" bgColor="#F4F5F7" nodeId="4864a95cb13745b298b5bbe4db51d3ab">
+<p align="start" nodeId="33ef2cb3860a4662afa1dbca1e11932a">报警规则：过去延迟10分钟的条数&gt;=1万</p>
+</td>
+<td colwidth="[171]" verticalAlign="top" bgColor="#F4F5F7" nodeId="bd2e2aa05a1c4d03a875f0f774aad680">
+<ol nodeId="b16ad5269c3a4230b359b1eb5dcf61f6">
+<li nodeId="6ed30a1b00604e2c9e600effd4b6f927">
+<p align="start" nodeId="6766330850f74119a0bb657a4fd12615">流量徒增</p>
+</li>
+<li nodeId="0d1d710e1b2046b2a5b99346bda5ab1a">
+<p align="start" nodeId="0a38163c744f4f58ab4be942974f9aae">作业状态出现问题（挂掉，重启）</p>
+</li>
+<li nodeId="4a9f635676e84c81b54519c092e69fbd">
+<p align="start" nodeId="f9f2d61f4e274627aad04a7a521d313c">作业性能低</p>
+</li>
+<li nodeId="6f523f55d6a54d99aad3fae069dc67b1">
+<p align="start" nodeId="f0c59d3de1e04961a8ed1155e1860bbe">作业资源不足</p>
+</li>
+</ol>
+</td>
+<td colwidth="[366]" verticalAlign="top" bgColor="#F4F5F7" nodeId="1c0a63e6e3a246569ef119d145829ac6">
+<p align="start" nodeId="39a0e6b0477d4c1aaa234074b3609c68">同上</p>
+</td>
+<td colwidth="[367]" verticalAlign="top" bgColor="#F4F5F7" nodeId="a2dcee1e0f2448c88cfe676802a40bb9">
+<p align="start" nodeId="86eb22531e604387b839a6a40b8c778c">nau建设中，11.22上线</p>
+<p nodeId="0fc5cc3754b146df9217ce8986f2a276">当前由实时计算平台报警机器人发送</p>
+</td>
+<td colwidth="[488]" verticalAlign="top" bgColor="#F4F5F7" nodeId="e7224c57872b42dc99b7af4c0d1b4968">
+<p align="start" nodeId="583a3d41abb24c298d523620a082ec54">接收告警组：zeus近线rd<span color="rgba(255, 255, 255, 0.6)">z</span></p>
+<p align="start" nodeId="2fe9d7034dde4eeb89356cdeb0bf4ff5">作业创建人</p>
+<p align="start" nodeId="a9831da1b6e44339afa6fa6ca2c20371">作业更新人</p>
+</td>
+</tr>
+</table>
+<h1 nodeId="a2cdb8f6befb4bb6bbbee4513682674f">五、FAQ</h1>
+<ol nodeId="18b92d43b7fd4569b15fb4bf08e1af13">
+<li nodeId="fa621a7193a84832a9bfd15517d53265">
+<p nodeId="afdd2e0b95484778870d4177811519e1">我如何知道升级的标准是什么？</p>
+<p nodeId="bd85309e864a4f928b0ef6e9dd500542"><a href="https://km.sankuai.com/collabpage/1418167724" title="https://km.sankuai.com/collabpage/1418167724" autoUpdate="true" nodeId="631bcc88701143d8ba56b0bc5fa45868">https://km.sankuai.com/collabpage/1418167724</a></p>
+</li>
+<li nodeId="a2faebe833d64c4c904ead031f4fb51c">
+<p nodeId="4da01c09f99041d4b88a27ba2afc1b66">我如何知道我的作业是否符合升级标准？</p>
+<p nodeId="9c6ee85438934bce92a7f1ad37f92260">答：可以直接尝试升级，系统会判断告知是否符合升级标准，不符合的会告知作业现状   </p>
+</li>
+<li nodeId="e5436641da3c466d8a1b5ac603c9bf48">
+<p nodeId="1391cefea04246cf87b291b58642dd2d">我的作业不符合升级标准无法升级，我该怎么办？</p>
+<p nodeId="3051d062446541b1a80677dc5b217e1b"><a href="https://km.sankuai.com/collabpage/1418039308" title="https://km.sankuai.com/collabpage/1418039308" autoUpdate="true" nodeId="2afce4f23084405499d7cb7c3b8acd9c">https://km.sankuai.com/collabpage/1418039308</a></p>
+</li>
+<li nodeId="5268dc6c7c164c2988174e29c16b3adf">
+<p nodeId="a26c7ed6d18f4f2c9f210ec4f9974e03">我收到了告警，但不知道该如何处理？</p>
+<p nodeId="e9862722ab5f48aeaaf1c26fa75dd558"><a href="https://km.sankuai.com/page/1437750685" title="https://km.sankuai.com/page/1437750685" autoUpdate="true" nodeId="bc9c5dc8ceda48b2a4ae88f764dc63f5">https://km.sankuai.com/page/1437750685</a></p>
+</li>
+<li nodeId="9ffc8e9aaf3e4322be1b9986e49e9b19">
+<p nodeId="941ea0a5b33f48179a16b6a87fb54c6e">我的作业已经升级到S级后，还可能被降级吗？</p>
+<p nodeId="346ff212aa24427d9c84bfebb28fc533">答：有可能。考虑到研发S级别作业队列的稳定性，会对影响队列稳定的作业进行剔除队列治理，治理完后再放回S级。每周会统一和业务review需要降级的作业，周知业务后研发进行降级处理。具体标准如下：</p>
+<table responsive="false" nodeId="4274954fe08d4b64b3a12dd60d839942">
+<tr nodeId="12976e4c07d8483a98d80d23205d7d9b">
+<th colwidth="[150]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="56f7fab786c54256850aa860377c0901">
+<p nodeId="c015b17059784669842ec374780a698f"><span color="">队列</span></p>
+</th>
+<th colwidth="[176]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="70839e9abb4d4027bcafa3286cd461f0">
+<p nodeId="69329fdf1cb54650ab662669bd99adc1">校验逻辑</p>
+</th>
+<th colwidth="[167]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="9894c0d69b954d11b9b3afa6a11077b6">
+<p nodeId="a9ed308ca70c44ac980450fcaaff85ed">  标准</p>
+</th>
+<th colwidth="[167]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="b3549b8b5f214665b4f5c53c20b3bc81">
+<p nodeId="8e27502da34d45cab1ff6b26083ca021">        数据来源</p>
+</th>
+</tr>
+<tr nodeId="f46892b6c3dc404aaf82c65cb2967cf2">
+<td rowspan="2" colwidth="[150]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8e2905b5fe844dbd813c3b05a3a5db51">
+<p align="start" nodeId="12f7434b9a8146128e07426a50d9e9c0">S级任务</p>
+</td>
+<td colwidth="[176]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cd010e7a6ef8461ebbb5065d7b3f3fe6">
+<p align="start" nodeId="186d8e92424f477b940a31192362c618">流量波动比较大，超过一直持续增长</p>
+</td>
+<td colwidth="[167]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ba1c3845f7e346d297afa7a2c18bd5ae">
+<p align="start" nodeId="8db9bbf840214491b6b9a70de566399c"><span color="rgb(245, 35, 45)">t+1判断再降级</span>，数据量波动比较大。30%</p>
+</td>
+<td colwidth="[167]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="476861f9abab4f85b1666ee48a605ead">
+<p nodeId="5e748623c16f44ab866197e70892d9eb">       指标大盘</p>
+</td>
+</tr>
+<tr nodeId="b265dcf1f4954ba8b352f7fb7403b74e">
+<td colwidth="[176]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="41d654dd30cd41b6a6ac8ae7e7a659c1">
+<p align="start" nodeId="56e5e68be87b4bcbaab11f4b6fd551b7"><em>最近一周</em><span color="rgb(245, 35, 45)"><em>短期内无法恢复</em></span><em>告警数量&gt;=2</em></p>
+</td>
+<td colwidth="[167]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a7c1da2f58f64afe96f7a7daeb72f5af">
+<p align="start" nodeId="9e1935c709a04b7cb420547d72ae0476"><em>延迟告警</em></p>
+</td>
+<td colwidth="[167]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b8c205b23f0d4099a5eaa81993dae1ac">
+<p nodeId="91036f6b866f4110b2cd79fb73d00255">       告警治理表</p>
+</td>
+</tr>
+</table>
+<p nodeId="005ad7c46e1c411ea8a0422f5cbe4220" />
+</li>
+</ol>
+<h1 nodeId="83469869c577465586586a677a1a2566">六、宣讲记录</h1>
+<km-video src="https://km.sankuai.com/api/file/cdn/1418019888/12918017358?contentType=1" name="video1368986408.mp4" size="74.63MB" width="0" height="0" nodeId="41ad087e32bf413a91f621f325e37a91" />
+<p nodeId="58cb39f0ebbd47b3ae04d2c2dbd749e3" />
+<p nodeId="e79d2e5f92d64a72b38f0e78bbde167d" />
+</km-doc>

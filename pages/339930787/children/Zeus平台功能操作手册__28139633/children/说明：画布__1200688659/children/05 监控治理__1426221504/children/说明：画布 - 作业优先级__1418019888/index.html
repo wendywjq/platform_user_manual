@@ -1,0 +1,355 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布 - 作业优先级</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-8">二、名称解释</a><a href="#section-16">三、整体概览</a><a href="#section-18">四、操作说明</a><a href="#section-19">4.1 如何给作业升级</a><a href="#section-66">4.2 各优先级作业告警接收</a><a href="#section-234">五、FAQ</a><a href="#section-288">六、宣讲记录</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">05 监控治理</a> / <a href="index.html">说明：画布 - 作业优先级</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1418019888">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：画布 - 作业优先级</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<ul>
+<li>
+<p><span>在作业异常告警运营的时候，往往需要研发同学判断处理作业的顺序。为提升告警运营效率，辅助研发同学判断，需要新增标志位来判定处理的优先级</span></p>
+</li>
+</ul>
+<h1 id="section-8">二、名称解释</h1>
+<p>优先级：将作业分为S、A、B三级，研发同学将以不同的队列资源以及响应速度维护各级作业<br>            <span style="color:rgba(0, 0, 0, 0.87)">S: 稳定队列资源，适用于核心任务</span><br>           <span style="color:rgba(0, 0, 0, 0.87)">A: 普通队列资源，适用于非核心任务以及核心任务缓冲期</span><br>           <span style="color:rgba(0, 0, 0, 0.87)">B: 测试队列资源，适用于测试任务</span></p>
+<h1 id="section-16">三、整体概览</h1>
+<img src="assets/fe22a7fb8e42e90c.svg" width="1406" height="412" alt="流程图">
+<h1 id="section-18">四、操作说明</h1>
+<h2 id="section-19">4.1 如何给作业升级</h2>
+<p><strong>原则：待数据源作业就绪/画布作业运行后并且满足升级条件，才可进行升级</strong></p>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th colspan="2">
+<p>示例图</p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li>点击画布作业右侧操作栏”修改“/数据源作业详情页右上角”编辑“</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/2fd9cf94846b5581.png" width="452" height="365" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/9bf8099eab06457b.png" width="1296.3" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>2. 根据需求调整优先级</p>
+<p>   注意：只可逐级进行升级，即B级不能直接升级到S级</p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/35a15813b8bd1bc8.png" width="457" height="292" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/d1215bb8bd1c0ded.png" width="461" height="293" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>3.查看作业升级检测结果，确认是否升级</p>
+<p>  注意：如果和优先级同步修改了其他的内容，比如：中英文名等，但后续升级失败，则同步修改的其他内容无效，需要重新修改提交</p>
+</td>
+<td>
+<p><img src="assets/ad9bdd4ee44156db.png" width="509" height="377" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/71af4c33933ae20f.png" width="457" height="381" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>4.确认升级，升级成功，作业重启</p>
+</td>
+<td style="background-color:#F4F5F7">
+<p></p>
+</td>
+<td style="background-color:#F4F5F7">
+<p></p>
+</td>
+</tr>
+</table>
+<h2 id="section-66">4.2 各优先级作业告警接收</h2>
+<div class="note">
+<strong></strong>
+<div>
+<p><span>后续告警负责处理人依旧是近线研发同学，业务同学可参考该表格了解告警原因及可能的处理方式</span></p>
+</div>
+</div>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>告警名称</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>含义</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>          告警规则</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>可能原因</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>处理方式</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>告警来源</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p> 告警接收群【大象群】</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>告警接收人【大象个人、短信】</p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><strong>平均延迟时间告警</strong></p>
+<p>近线告警群样式：</p>
+<p><img src="assets/48312af767f1c7a3.png" width="237" height="118" alt="原文图片"></p>
+<p>实时计算平台告警样式：</p>
+<p><img src="assets/4fe4c1ad2f74d924.png" width="237" height="141" alt="原文图片"></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>作业吞吐下降；</p>
+<p>消费能力不足；</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>报警规则：平均延迟时间&gt;=10分钟</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<ol>
+<li>
+<p>流量徒增</p>
+</li>
+<li>
+<p>作业状态出现问题（作业挂掉，重启）</p>
+</li>
+<li>
+<p>作业性能低</p>
+</li>
+<li>
+<p>作业资源不足</p>
+</li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>可在<a href="https://nau.sankuai.com/opt/job/1210182/1" title="NAU">NAU</a>查看对比作业消费能力变化。</p>
+<ol>
+<li>
+<p>若消费能力没有降低趋势，但生产流量突增，可自查流量是否符合预期；</p>
+</li>
+<li>
+<p>若消费能力突降或跌0，代表作业挂掉或重启，联系RD</p>
+</li>
+</ol>
+<p><strong>操作方式</strong></p>
+<p><img src="assets/714482d94699e1e0.png" width="453" height="187" alt="原文图片"></p>
+<p><img src="assets/3a698b1bff7d5beb.png" width="453" height="233" alt="原文图片"></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>近线自身的告警</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>S级作业:</p>
+<p> 基础安全高优作业运维群</p>
+<p> 非基础安全高优作业运维群</p>
+<p>A级作业：</p>
+<p> 非基础安全一般运维群</p>
+<p> 近线引擎告警群</p>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>复用原来策略，发送给：</p>
+<p>作业的创建人和修改人、值班人、近线rd同事</p>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p><strong>任务频繁重启告警</strong></p>
+<p><strong>任务未正常运行告警</strong></p>
+<p><img src="assets/3be4329787a40bb2.png" width="237" height="252" alt="原文图片"><img src="assets/956aa7c3305db87a.png" width="237" height="213" alt="原文图片"></p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>作业状态不健康</p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>报警规则：过去1个数据增加&gt;0</p>
+<p>（<span>过去1个数据是Nau平台概念，语义是</span><span style="color:rgba(0, 0, 0, 0.87)">一分钟的聚合数据</span>）</p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<ol>
+<li>
+<p>作业资源不足</p>
+</li>
+<li>
+<p>作业存在问题BUG</p>
+</li>
+</ol>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>可在flink dashbroad 查看作业状态：</p>
+<p>不是ACTIVE，RUNNING代表作业存在问题，联系RD</p>
+<p><strong>具体操作</strong></p>
+<p><img src="assets/3e80e214a5b3501f.png" width="453" height="192" alt="原文图片"></p>
+<p><img src="assets/aac0bef9b90b6695.png" width="453" height="216" alt="原文图片"></p>
+</td>
+<td rowspan="3" style="background-color:#F4F5F7;vertical-align:top">
+<p> NAU告警 </p>
+</td>
+<td rowspan="2" style="background-color:#F4F5F7;vertical-align:top">
+<p>nau建设中，11.22上线</p>
+<p>当前由实时计算平台报警机器人发送</p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>接收告警组：zeus近线rd</p>
+<p>作业创建人</p>
+<p>作业更新人</p>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p><strong>checkpoint连续失败</strong></p>
+<p><img src="assets/360541ec2af2b99d.png" width="237" height="221" alt="原文图片"></p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>checkpoint失败</p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>报警规则：过去1个数据增加&gt;0</p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<ol>
+<li>
+<p>checkpoint状态过大，超时</p>
+</li>
+<li>
+<p>存在数据倾斜或反压</p>
+</li>
+</ol>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>联系RD</p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>接收告警组：zeus近线rd</p>
+<p>作业创建人</p>
+<p>作业更新人<span style="color:rgba(255, 255, 255, 0.6)">z</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p><strong>任务10分钟延迟条数告警</strong></p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>作业吞吐下降；</p>
+<p>消费能力不足；</p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>报警规则：过去延迟10分钟的条数&gt;=1万</p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<ol>
+<li>
+<p>流量徒增</p>
+</li>
+<li>
+<p>作业状态出现问题（挂掉，重启）</p>
+</li>
+<li>
+<p>作业性能低</p>
+</li>
+<li>
+<p>作业资源不足</p>
+</li>
+</ol>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>同上</p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>nau建设中，11.22上线</p>
+<p>当前由实时计算平台报警机器人发送</p>
+</td>
+<td style="background-color:#F4F5F7;vertical-align:top">
+<p>接收告警组：zeus近线rd<span style="color:rgba(255, 255, 255, 0.6)">z</span></p>
+<p>作业创建人</p>
+<p>作业更新人</p>
+</td>
+</tr>
+</table>
+<h1 id="section-234">五、FAQ</h1>
+<ol>
+<li>
+<p>我如何知道升级的标准是什么？</p>
+<p><a href="children/作业升级标准__1418167724/index.html" title="https://km.sankuai.com/collabpage/1418167724">作业升级标准</a></p>
+</li>
+<li>
+<p>我如何知道我的作业是否符合升级标准？</p>
+<p>答：可以直接尝试升级，系统会判断告知是否符合升级标准，不符合的会告知作业现状   </p>
+</li>
+<li>
+<p>我的作业不符合升级标准无法升级，我该怎么办？</p>
+<p><a href="children/作业未达升级标准解决方案__1418039308/index.html" title="https://km.sankuai.com/collabpage/1418039308">作业未达升级标准解决方案</a></p>
+</li>
+<li>
+<p>我收到了告警，但不知道该如何处理？</p>
+<p><a href="https://km.sankuai.com/page/1437750685" title="https://km.sankuai.com/page/1437750685">学城文档 1437750685（无权限读取标题）</a></p>
+</li>
+<li>
+<p>我的作业已经升级到S级后，还可能被降级吗？</p>
+<p>答：有可能。考虑到研发S级别作业队列的稳定性，会对影响队列稳定的作业进行剔除队列治理，治理完后再放回S级。每周会统一和业务review需要降级的作业，周知业务后研发进行降级处理。具体标准如下：</p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span>队列</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>校验逻辑</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>  标准</p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p>        数据来源</p>
+</th>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>S级任务</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>流量波动比较大，超过一直持续增长</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)">t+1判断再降级</span>，数据量波动比较大。30%</p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>       指标大盘</p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><em>最近一周</em><span style="color:rgb(245, 35, 45)"><em>短期内无法恢复</em></span><em>告警数量&gt;=2</em></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><em>延迟告警</em></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>       告警治理表</p>
+</td>
+</tr>
+</table>
+<p></p>
+</li>
+</ol>
+<h1 id="section-288">六、宣讲记录</h1>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/1418019888/12918017358?contentType=1">video1368986408.mp4</a></figcaption></figure>
+<p></p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/作业升级标准__1418167724/index.html">作业升级标准</a> <span class="status">已保存</span></li><li><a href="children/作业未达升级标准解决方案__1418039308/index.html">作业未达升级标准解决方案</a> <span class="status">已保存</span></li></ul></section></main></body></html>

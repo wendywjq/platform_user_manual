@@ -1,0 +1,398 @@
+<km-doc>
+<km-title nodeId="4f833a719e12402abdff7ad3fbdfc530">画布作业告警治理</km-title>
+<km-note type="info" hiddenTitle="true" nodeId="fcf1d5a4089d4a5d84a103b880f1ffe0">
+<km-title></km-title>
+<km-content>
+<p nodeId="3e2c3d6c72274ab19a42ecc566658da4">治理的时候最好通过作业名称搜索zeusRobot，可以看到详细的报错信息，并点击下治理</p>
+</km-content>
+</km-note>
+<p nodeId="6404d964a3194d289b6a2e8c909d5e88" />
+<table responsive="false" nodeId="0fe724ee24bd4c719f6168fdc89dd34b">
+<tr nodeId="1883917858414ec493f89b7491b5cd68">
+<th colwidth="[52]" nodeId="6e0bd65fae16418ebe37589ce1aea479">
+<p nodeId="080a741cfa714a2fa47b4e6ac1217da8" />
+</th>
+<th colwidth="[132]" nodeId="21f4b1ef8e114b3194e22336785acb13">
+<p nodeId="2be5c3a7180b4aa69e28a627030b29da">治理状态</p>
+</th>
+<th colwidth="[111]" nodeId="2179209a219444e989a038cd8fd5b226">
+<p nodeId="c3ccd08d25fa4a88a06911e189192aa2">告警问题分类【bug,脏数据等】</p>
+</th>
+<th colwidth="[688]" nodeId="4450c01049fc4c9e9c34d2b49da77c5d">
+<p nodeId="a2a2d697a1d24284afcdeebf1feb7631">作业名称</p>
+</th>
+<th colwidth="[146]" nodeId="8042945d637d49b0be65b4ebefe7f02c">
+<p nodeId="b3850a3e0c4f4ed3a16104f5b49c123a">最新修改人</p>
+</th>
+<th colwidth="[2485]" nodeId="0b8014491da44533b85a4f10485f78f6">
+<p nodeId="76505768ad2847cebb6a9d6b3b06ec5d">错误类型1</p>
+</th>
+<th colwidth="[2906]" nodeId="7fb506a4407b4fc99c5a4bdd8c9964c2">
+<p nodeId="d006a55644d74029b30a17db37b1b585">错误类型2</p>
+</th>
+<th colwidth="[1700]" nodeId="5d51d91303784f118af78a783b3c1d0e">
+<p nodeId="9fac62df8f474d60bd09d042735c5216">错误类型3</p>
+</th>
+<th colwidth="[1700]" nodeId="aa39048fd4b2427b874439554ca8ab87">
+<p nodeId="2628d961af284f409ba4e876c98085d3">错误类型4</p>
+</th>
+<th colwidth="[1700]" nodeId="7324bca0f0a3443db81ef3902c851f24">
+<p nodeId="a59c3bdc314140989272382ca48e7b8c">错误类型5</p>
+</th>
+<th colwidth="[1700]" nodeId="7f0e0c61c9df49cdb71f8ca03dbb0763">
+<p nodeId="d1792f738044417db8f4f7ef917f4311">错误类型6</p>
+</th>
+</tr>
+<tr nodeId="54d5949508c949c88934332b6126d53f">
+<td colwidth="[52]" numCell="true" nodeId="cfe6e65d02ff458799a68c8cbd186fc0">
+<p nodeId="dbf65183cb8c43dfa0387193383f3357" />
+</td>
+<td colwidth="[132]" nodeId="35be6c1aec724afd90d70362920aba29">
+<p nodeId="7c1b664c76e34989adbef40106db0804" />
+</td>
+<td colwidth="[111]" nodeId="d76964cb940a453c960aa94ca31f99f4">
+<p nodeId="d7d8e11d796348bb9e190812b9d7eace" />
+</td>
+<td colwidth="[688]" nodeId="ebea7442e9d84f8faa97fb46109efd30">
+<p nodeId="d87697fcca024c2791a721ee6694d86b">1.【[org.sec_dns_log|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=418&amp;version=5]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=418&amp;version=5]" nodeId="557f0653f6d84195a9d40a398331b769">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=418&amp;version=5]</a></p>
+</td>
+<td colwidth="[146]" nodeId="402b19804b5d49c68bdfe256f574453b">
+<p nodeId="7b31618ded6c4416a454d5f2ccc1aa9b">作业最后修改人: yucongxiang</p>
+</td>
+<td colwidth="[2485]" nodeId="e60bf86825404532a47a145ea4edd786">
+<p nodeId="e218199601f1441dbc4027c23c8123b2">出现了46584 次if..else表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:418%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:418%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="93e4d2fd639346b08741383f59edf562">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:418%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colspan="5" colwidth="[2906,1700,1700,1700,1700]" nodeId="9c20ee37b71a433d892a96197dc6891d">
+<p nodeId="ce3142e32fb24c67894f4c92bda2b1f3">出现了136249168 次表达式执行异常【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:418%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:418%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="2d4f1eea58414f708055c4490b3bd8b2">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:418%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="317deb2aa7f54b8c81aeff63e85cf36e">
+<td colwidth="[52]" numCell="true" nodeId="17f93f1106cc4ed7b6f1170f49ff40b4">
+<p nodeId="dd92b623cb44413fb130571b215848d4" />
+</td>
+<td colwidth="[132]" nodeId="ba3a1ee0a2e94ee6aee1788ca94bdf65">
+<p nodeId="80cbba913e9f4c35a0d75b2d63573f32" />
+</td>
+<td colwidth="[111]" nodeId="a3d84f4f39ac422bb146d6d6f950e35b">
+<p nodeId="2ebb0775a7bf4d66bca49a6a512a503b" />
+</td>
+<td colwidth="[688]" nodeId="9e98cb3aa6b94da7a68403f70fb61ec3">
+<p nodeId="139b42ad2eae4d5591f7abbbb88e2bd9">2.【[waf_ip_nids_flow_cep|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=67&amp;version=1]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=67&amp;version=1]" nodeId="c8b53845beec4fab887357156b6de180">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=67&amp;version=1]</a></p>
+</td>
+<td colwidth="[146]" nodeId="c442f196f6a8424e9b41e5579435dac8">
+<p nodeId="455f8e4c94f143cca448835fc724f252">作业最后修改人: qinyin02</p>
+</td>
+<td colwidth="[2485]" nodeId="27d57e5f13c44cbeac4b0c1a8214a694">
+<p nodeId="a556aa9b8f644969bba4bd96aabc107e">出现了684892 次if..else表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="811ab09bc9434ecbbc032f8b8fb505c1">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colwidth="[2906]" nodeId="29d7f0e77b954d82b4bbbca81194d421">
+<p nodeId="867f3272dbf74ab6836c4a2eef30791a">出现了344227 次规则规则表达式执行结果为空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="e9d519a01cfa41349649eedcf42ea96c">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colwidth="[1700]" nodeId="fbfe04b511cb4de9925a6a64be3ad4cf">
+<p nodeId="a71925fde2c645a188d927c7e97a132f">出现了1482 次组件配置Key值不存在【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AEKey%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AEKey%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="af9db206686644cea69da2f61fb49c22">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AEKey%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colspan="3" colwidth="[1700,1700,1700]" nodeId="1a3655c126dd42a5949c8f74877f6e4a">
+<p nodeId="a3e2d2282601491680db6c08aa0d1b99">出现了343347 次表达式执行异常【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="f4fb2d232dbd4673802037709e44ec1a">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:67%20AND%20exceptionType:%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="7cb6f03553d240cbabb104bdf7feaf29">
+<td colwidth="[52]" numCell="true" nodeId="a9d217276d3e45f6a5252bafcde19d05">
+<p nodeId="8dfb16c286bd4e2496a9159445297284" />
+</td>
+<td colwidth="[132]" nodeId="a73d3a377d84414e936ca93fe8e93003">
+<p nodeId="cabeaf44a3284d33a24d3cc11e4540b1">已治理</p>
+</td>
+<td colwidth="[111]" nodeId="7cb38d1dc9ac40ed9bcdebd7ceac1366">
+<p nodeId="b3fbba82d0c14380bd75d0c3226930ad">脏数据</p>
+</td>
+<td colwidth="[688]" nodeId="d4ccb47c846b43c486a32b5214f809f2">
+<p nodeId="906edea4bfa241869584cc09be772547">3.【[MOA证书风控|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=261&amp;version=14]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=261&amp;version=14]" nodeId="57df323fb8cf4db5bdbf5b058b51e6c2">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=261&amp;version=14]</a></p>
+</td>
+<td colwidth="[146]" nodeId="85e389b3bad64ce7902d56122e394f58">
+<p nodeId="11201bb6d63c4b2bbd4f4ba0d5da6597">作业最后修改人: hudi08</p>
+</td>
+<td colwidth="[2485]" nodeId="30d31347a7164778b4ad47c0087a8dc5">
+<p nodeId="824872e04e7a45a99b764c7727dbd478">出现了395765 次select表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:261%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:261%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="62a2dfd13e62483cb7c7b694ec00a197">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:261%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colwidth="[2906]" nodeId="e41c3716a8e24713b16d75fb64c05ce1">
+<p nodeId="48b99f9888e148d2b1a2b92625a92739">出现了22509 次group by value值不存在【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:261%20AND%20exceptionType:%20group+by+value%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:261%20AND%20exceptionType:%20group+by+value%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="787abc181d0c4a53a535a1e6d8ff5d3e">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:261%20AND%20exceptionType:%20group+by+value%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colspan="4" colwidth="[1700,1700,1700,1700]" nodeId="342b64b31cf74d8297348a9be0ea096e">
+<p nodeId="53d782877fcb48859e63549f7801889e">出现了157343 次组件配置Key值不存在【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:261%20AND%20exceptionType:%20%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AEKey%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:261%20AND%20exceptionType:%20%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AEKey%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="6f8e4c4d677041e395f9716e1ab7c88f">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:261%20AND%20exceptionType:%20%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AEKey%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="bb659cbc9d9045cf8c555c538ef99cd1">
+<td colwidth="[52]" numCell="true" nodeId="351499a6efb144afa1efefede4774df8">
+<p nodeId="fd26644ad8e34b48abbbcd2e888ae335" />
+</td>
+<td colwidth="[132]" nodeId="cd88d9db97914fe2bd5b2002ce269b0e">
+<p nodeId="9775273840c249e3982d7e65be9c66c4" />
+</td>
+<td colwidth="[111]" nodeId="08cf5af448184e4b9bc62fab21dbd87d">
+<p nodeId="140ef7b8947d488794d10913f132d0f2" />
+</td>
+<td colwidth="[688]" nodeId="dd6eb3ece8b445dd9a8033b0f6908c41">
+<p nodeId="44d61c0aac814db19b40c5b866ed0bce">4.【[webids_app01_jumper_service|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=357&amp;version=1]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=357&amp;version=1]" nodeId="1a7f7757a47849879f7fb3755802aa8e">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=357&amp;version=1]</a></p>
+</td>
+<td colwidth="[146]" nodeId="cd4802e0ce694e7badeb065ad5c57842">
+<p nodeId="2c01294505b146d7af214b6d6c7e3814">作业最后修改人: yucongxiang</p>
+</td>
+<td colwidth="[2485]" nodeId="1a29fbf42aa146a5be2212c5ae546a4f">
+<p nodeId="40c855ed4bc24d20a3494b6d37243b31">出现了122739 次Kafka日志解析数据异常【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:357%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:357%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="f5e5e2baae46403789f34a30cd5d20ee">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:357%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colspan="5" colwidth="[2906,1700,1700,1700,1700]" nodeId="a105914dcac64c47808eda5bdf3aae16">
+<p nodeId="f395eba5274245159343a14c83196f6b">出现了122738 次Kafka日志解析数据为空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:357%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:357%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="18a4849ccbb545c2a231e60685f7e905">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:357%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="85a3844d238d4de78ba71afe2efd149e">
+<td colwidth="[52]" numCell="true" nodeId="4fab2f67cbad45ae95b0b6fdb5fff120">
+<p nodeId="b6a147be6c7240f1be31a5b8d1e7f2ff" />
+</td>
+<td colwidth="[132]" nodeId="b6cba8e04a6043638f597136c0475765">
+<p nodeId="634656b56bda40bd9319c966100c7f1e" />
+</td>
+<td colwidth="[111]" nodeId="5602b1460e3042c7af913af0a9e69daf">
+<p nodeId="a1162d88f6d446aea0795f979659c6c4" />
+</td>
+<td colwidth="[688]" nodeId="3e3e6e0525db494ba31b1e8abff49a69">
+<p nodeId="4b3c8bac7a5f4aa8887d18df196a93e4">5.【[file前置基线|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=39&amp;version=6]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=39&amp;version=6]" nodeId="d2050af791094321a72d4ed00ed8c8f8">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=39&amp;version=6]</a></p>
+</td>
+<td colwidth="[146]" nodeId="b47fc171ccda41d8867e3bce4f5fcdd7">
+<p nodeId="628d3a65d8134f8984ca62aebf1246e0">作业最后修改人: yuyang86</p>
+</td>
+<td colwidth="[2485]" nodeId="5efd2de35e8b4160bc154dbff0e9f82f">
+<p nodeId="918381675e3246c3a7da485cadcd31cd">出现了71407 次select表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:39%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:39%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="b23e067a192c4813a90bd09001c46949">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:39%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colwidth="[2906]" nodeId="00da024ca9734f209d222d79fca0a5e4">
+<p nodeId="9ae14e1fe698482aa91c0b613868a5d4">出现了2 次if..else表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:39%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:39%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="ccfb647e93f94748a606a71413a01674">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:39%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colspan="4" colwidth="[1700,1700,1700,1700]" nodeId="1520e8cecf1c4769b8d71a62f9f21e81">
+<p nodeId="081c0ad93e2446c68f5cf4556b1c41c0">出现了1 次规则规则表达式执行结果为空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:39%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:39%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="e887b6c6ea9249ad845e8c1fbd4e9dde">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:39%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="6d32220e7e9d452ab65a17b311b6a5b6">
+<td colwidth="[52]" numCell="true" nodeId="65cfb84fb149450f8034d023ac18ded3">
+<p nodeId="4bddff51b565473eb4d613f8beeedefa" />
+</td>
+<td colwidth="[132]" nodeId="58cd111caa334e9cb06d842a57c899d6">
+<p nodeId="3f5f66808468492697a8e064c21b5ce3" />
+</td>
+<td colwidth="[111]" nodeId="50ce575e0db34e53bc5af7ae963ceee7">
+<p nodeId="1b5bb997026e41feb81f1fb4eb71f08d" />
+</td>
+<td colwidth="[688]" nodeId="abee6ff13d084a08bfab6a4f885d0946">
+<p nodeId="851237b0a46d49edad80ea095c3efdeb">6.【[webids_cep_ssrf_dnsnet_alert|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=488&amp;version=1]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=488&amp;version=1]" nodeId="09d964e7af7644ef9f6ae50e2f5fea2e">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=488&amp;version=1]</a></p>
+</td>
+<td colwidth="[146]" nodeId="debb730cf6884e1092df28bf7934e337">
+<p nodeId="880c81642d3c42a89175b73291d5b056">作业最后修改人: yucongxiang</p>
+</td>
+<td colspan="6" colwidth="[2485,2906,1700,1700,1700,1700]" nodeId="8ec18203789b4fe9a31a13ebc61c679e">
+<p nodeId="bf236cde98cf49ff8a27c6331ef8815b">出现了24 次group by value值不存在【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:488%20AND%20exceptionType:%20group+by+value%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:488%20AND%20exceptionType:%20group+by+value%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="a977372c87e04d16b29962d486cd92b9">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:488%20AND%20exceptionType:%20group+by+value%E5%80%BC%E4%B8%8D%E5%AD%98%E5%9C%A8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="f51cb27a6793469480d243fc71474d4f">
+<td colwidth="[52]" numCell="true" nodeId="38d1ecb376a34e3b982c0dd58bb0ed65">
+<p nodeId="3b3da993cb6248979d38584ed9067e60" />
+</td>
+<td colwidth="[132]" nodeId="22c94adc2a994ae49e6702ffacf9f663">
+<p nodeId="8b15215bd1e644849faf6c3a0473e997" />
+</td>
+<td colwidth="[111]" nodeId="08f06abe6dca439eb69e618b7d6b2754">
+<p nodeId="ffe0d772239f4f1cba563d45dc59ae65" />
+</td>
+<td colwidth="[688]" nodeId="ae60a958d387423baf6c55ef0967e7ca">
+<p nodeId="7070f00286064e05a3b8ab8b3d364ca9">7.【[k8sApiServer审计日志|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11]" nodeId="54a0a35a35fb4a969937fd4b50cc67c8">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=107&amp;version=11]</a></p>
+</td>
+<td colwidth="[146]" nodeId="b3110e2ac2494ce89f3d1930a732a564">
+<p nodeId="25384dbc4fd54ee8a530840bc9294f7a">作业最后修改人: yuyang86</p>
+</td>
+<td colspan="6" colwidth="[2485,2906,1700,1700,1700,1700]" nodeId="5ff1a1b572a24ff3bf3965e9844a5e2b">
+<p nodeId="f52df3f31fa545e0874942d3852634e6">出现了260910239 次select表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:107%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:107%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="2de3f114d39e41d2932925b2cf5af5f7">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:107%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="b108aed4e62841ba8162c6be645d1969">
+<td colwidth="[52]" numCell="true" nodeId="880c47d0f76840e58c9e9ce5ca79498c">
+<p nodeId="9704488564674efdbe3c1485ce8c20fe" />
+</td>
+<td colwidth="[132]" nodeId="f3082a3b638c49d8b04e11a35173f42b">
+<p nodeId="01d0f78ebf1b4417b65c19b19694a753" />
+</td>
+<td colwidth="[111]" nodeId="93b15d098b2a4d74bff0c27c70a78fae">
+<p nodeId="8e2ea6d668194b2ca9991926c2a69d8b" />
+</td>
+<td colwidth="[688]" nodeId="7a8d4ae5b2274ec68636e927baf6edfc">
+<p nodeId="c85c5d6ffee1443980d7dab8e9f2d989">8.【[webids_cep_dns_common_ssrf|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=398&amp;version=4]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=398&amp;version=4]" nodeId="309a67f85b9e42d9a90576da1d0b36ce">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=398&amp;version=4]</a></p>
+</td>
+<td colwidth="[146]" nodeId="49a18bf388284a0b916f8d7bab4d8724">
+<p nodeId="cdef7868d13e4e9fbe8639d7a6ce413f">作业最后修改人: yucongxiang</p>
+</td>
+<td colspan="6" colwidth="[2485,2906,1700,1700,1700,1700]" nodeId="f5ed1166242f4fc1a78949b0212c240e">
+<p nodeId="c21db9b44c684d4fa953e5c96bba4379">出现了96 次join表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:398%20AND%20exceptionType:%20join%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:398%20AND%20exceptionType:%20join%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="668cdfd81035486bab2ac4a4d1b47fb0">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:398%20AND%20exceptionType:%20join%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="fafc7de0f0564064a49b46243574df67">
+<td colwidth="[52]" numCell="true" nodeId="019f740cc91b47fe83f1fdb9c5ae6661">
+<p nodeId="3e675d7d40124e2885e832335066ff10" />
+</td>
+<td colwidth="[132]" nodeId="bff90fd988924cee9da4a26cf6763511">
+<p nodeId="b19688cc6a004baba4bbb989bdf20294" />
+</td>
+<td colwidth="[111]" nodeId="79ad6696116c41ac90c90dd58761c34d">
+<p nodeId="bb2a98425656485e91ce3611a0f0b4b2" />
+</td>
+<td colwidth="[688]" nodeId="5bdc5cf7e4d24bdf9aa7d5a14f8f77ec">
+<p nodeId="95b441f18764445e9e77e5f25e1dcb5f">9.【[file_基线_正式|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=20&amp;version=6]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=20&amp;version=6]" nodeId="930537238df14e798ba22c5d70e894b8">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=20&amp;version=6]</a></p>
+</td>
+<td colwidth="[146]" nodeId="49610f3057654042b75f522d972912b6">
+<p nodeId="9863bcbbf6b44c7d9964ced2f100e1bb">作业最后修改人: yuyang86</p>
+</td>
+<td colwidth="[2485]" nodeId="4095967f55414ed6b9c9f9dbc6c05f9d">
+<p nodeId="4143d5366a23486bbba556687c5918ed">出现了16258 次select表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:20%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:20%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="3912ae96fc2c4da1a781e8672ea8500b">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:20%20AND%20exceptionType:%20select%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colwidth="[2906]" nodeId="82d9257de5934c6e9e2067b1386fad69">
+<p nodeId="9e66a3c1df77460aaad3cbc90d19ae69">出现了32374 次if..else表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:20%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:20%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="4a6e875fd5db4775b3f6596aca4e7b06">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:20%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colspan="4" colwidth="[1700,1700,1700,1700]" nodeId="a2d3099b52ea4983987d58eb5ebc0a23">
+<p nodeId="feab490b32b2481c97abc9ffd8d3d913">出现了16025 次配置缺失【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:20%20AND%20exceptionType:%20%E9%85%8D%E7%BD%AE%E7%BC%BA%E5%A4%B1%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:20%20AND%20exceptionType:%20%E9%85%8D%E7%BD%AE%E7%BC%BA%E5%A4%B1%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="92f26af2dd634ad5aeb1263d8fc032a7">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:20%20AND%20exceptionType:%20%E9%85%8D%E7%BD%AE%E7%BC%BA%E5%A4%B1%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="3b1939b3a93443ba8e04a4b80c09bfbb">
+<td colwidth="[52]" numCell="true" nodeId="c71aacc742d848a59d0de0bd81d26e32">
+<p nodeId="c1ce530c8a2941f3933747b7b79e82e9" />
+</td>
+<td colwidth="[132]" nodeId="afc6986bd959482f8a27a0145914bf81">
+<p nodeId="c5573fa15b0d441cb64948b14f485ace" />
+</td>
+<td colwidth="[111]" nodeId="904235f2984f4ddeadf36a032f42ed3a">
+<p nodeId="1f799a4b1928491899be3e7f92b2943e" />
+</td>
+<td colwidth="[688]" nodeId="b4686159f4e94e978c54fe488f02b3f2">
+<p nodeId="a55617a6909d4b329b4b5c45ecc08fb9">10.【[SSH日志（hids日志文件采集）|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=213&amp;version=16]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=213&amp;version=16]" nodeId="a538dd3004294aa3a4029a1ad5823c52">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=213&amp;version=16]</a></p>
+</td>
+<td colwidth="[146]" nodeId="60fb3b14842044ee8f57fb111ab69ae1">
+<p nodeId="2b7e2055bf8a46738f320426997342e1">作业最后修改人: zhaobeibei05</p>
+</td>
+<td colwidth="[2485]" nodeId="a49a64543e8b468483479cace2f74da8">
+<p nodeId="27a4a5b886ad4060a9b0e77bd44e4343">出现了21908 次Kafka日志解析数据异常【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:213%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:213%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="f1e78e376ec2485e9ff05cfd808007c8">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:213%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colspan="5" colwidth="[2906,1700,1700,1700,1700]" nodeId="4494558a6f034072b096ffed1bc6f997">
+<p nodeId="b70fa00878714bf39679cfaddc9e2209">出现了21733 次Kafka日志解析数据为空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:213%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:213%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="05a6cc82e9c34c3cb674753f7c608db2">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:213%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="72ea1f094ab34460b2a0c2b72fa4331b">
+<td colwidth="[52]" numCell="true" nodeId="f414efc896784f5d9b0194abf4d6fdf0">
+<p nodeId="35b7c8812e9c44679ab7497db3454e7d" />
+</td>
+<td colwidth="[132]" nodeId="53a37d699c9249faa52ace101920b79f">
+<p nodeId="8632384747934df8b59ce9e5ad5efb37" />
+</td>
+<td colwidth="[111]" nodeId="8170d30eb5844fe7a3b2369746b7a1e8">
+<p nodeId="7be7c4b1997a4f4680c4c985fc18560b" />
+</td>
+<td colwidth="[688]" nodeId="492b40bb95d94f00ba26276f38fd6f99">
+<p nodeId="ac9998fcb80e450986f46f3f3a0b0271">11.【[webids_cep_dns_common|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=182&amp;version=2]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=182&amp;version=2]" nodeId="aef5f09c7a9049d29a67e86637ed4e0a">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=182&amp;version=2]</a></p>
+</td>
+<td colwidth="[146]" nodeId="47806b1ce2cd4eceb011bf8e8b75080c">
+<p nodeId="6d6414beb2a1447b81e8cc4c9099a5ca">作业最后修改人: yucongxiang</p>
+</td>
+<td colwidth="[2485]" nodeId="8d5c41f8dfce4cfeb798d58f2a60be2a">
+<p nodeId="fffb1a803624418ba72349f5747afdbc">出现了45 次join表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:182%20AND%20exceptionType:%20join%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:182%20AND%20exceptionType:%20join%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="ee1553f0383f47748dd0ae56a615dbb1">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:182%20AND%20exceptionType:%20join%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colwidth="[2906]" nodeId="cee0367ec2764cb6b7d9725cf6016ef2">
+<p nodeId="3b1a700917404069a2b4d56b852703e8">出现了2 次if..else表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:182%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:182%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="9a601d2fea2741ed90e5aa4a73c18a71">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:182%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colspan="4" colwidth="[1700,1700,1700,1700]" nodeId="1bc3820dd8954ee38753754813579f38">
+<p nodeId="6bfdaba2380540e4949efd15c6885b05">出现了1 次规则规则表达式执行结果为空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:182%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:182%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="81619e9059ff4f94ba6c9f35fdadbfa8">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:182%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="ce6abfc444474b22b5e54459001b9012">
+<td colwidth="[52]" numCell="true" nodeId="0d72f6c5d9fc41618e91640aa0dc9eb3">
+<p nodeId="a1e549252ef54470bfe7482eeef8bbf9" />
+</td>
+<td colwidth="[132]" nodeId="46ff66a2092a48c28761bd0f96cece05">
+<p nodeId="792ef8a8ba0c404ca3bb83fae6cc5a8b" />
+</td>
+<td colwidth="[111]" nodeId="205648554cfb4f278099063619b1c904">
+<p nodeId="0c2b0cfc141e4ef1947aac82a449da16" />
+</td>
+<td colwidth="[688]" nodeId="f8a338e8809743099e899cd2ff231a48">
+<p nodeId="04e143212724419a9178eecff71f8167">12.【[webids_cep_net_common|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=183&amp;version=4]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=183&amp;version=4]" nodeId="5217f757f5534e6895cb8091243c6e79">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=183&amp;version=4]</a></p>
+</td>
+<td colwidth="[146]" nodeId="fcc4338b41d949e595335ff77caa2284">
+<p nodeId="8915d47a659f466d936260b63e78a48e">作业最后修改人: yucongxiang</p>
+</td>
+<td colwidth="[2485]" nodeId="6a8aaa89fb6f46b984ef02ef896a5bd1">
+<p nodeId="247fb2fa8d3b47a9bc4c142cf12aaf15">出现了45 次join表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:183%20AND%20exceptionType:%20join%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:183%20AND%20exceptionType:%20join%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="8965a8bf41f74951b0b566c33c3b5803">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:183%20AND%20exceptionType:%20join%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colwidth="[2906]" nodeId="458e0959daf24e2a83e263b5dd785b1f">
+<p nodeId="95cc54a3d79940fb830f194bb2616ca0">出现了2 次if..else表达式结果是空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:183%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:183%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="f89f7d05f2e74e97aa4d90834f64fe36">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:183%20AND%20exceptionType:%20if..else%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%9C%E6%98%AF%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colspan="4" colwidth="[1700,1700,1700,1700]" nodeId="2bef2fa593514109a57672f5013a574c">
+<p nodeId="0a6be19329b04b73815fc58b4e4b48d6">出现了1 次规则规则表达式执行结果为空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:183%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:183%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="cee8a4ea88e8474d80b3147dbe269af5">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:183%20AND%20exceptionType:%20%E8%A7%84%E5%88%99%E8%A7%84%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="bb9f2aecf8d74bc0aec12f2a23e8b274">
+<td colwidth="[52]" numCell="true" nodeId="e44c49c6b81f4784a8ae05498f72faff">
+<p nodeId="5db5b1b9968349e2963f51fb6e2a4564" />
+</td>
+<td colwidth="[132]" nodeId="4b34a81180cd4966b62006dfc906e910">
+<p nodeId="300acdab0c084a0fa2e19c3def97ecdd" />
+</td>
+<td colwidth="[111]" nodeId="50b8750f1dca4818907ae4850d880bdb">
+<p nodeId="ea9d8514f8db429cb0bf50a0cbd730a7" />
+</td>
+<td colwidth="[688]" nodeId="4075429bb3c6451e9e2732ed50786aaa">
+<p nodeId="9b9d0f89e4b24670983bc5c3fd414445">13.【[画布熔断测试1|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=376&amp;version=1]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=376&amp;version=1]" nodeId="dd68e1bbf7914d409eecd36773de6edf">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=376&amp;version=1]</a></p>
+</td>
+<td colwidth="[146]" nodeId="7824a46f673740ac98bf09c671687ced">
+<p nodeId="3ea1b7992a9947ed900c1efeb5bf0081">作业最后修改人: wangwensheng03</p>
+</td>
+<td colspan="6" colwidth="[2485,2906,1700,1700,1700,1700]" nodeId="7b5211d4c2b8407993254b3c04e67b47">
+<p nodeId="2cef5b6af9f541f1b015c9e4014c9bbe">出现了2623820 次Kafka日志解析数据异常【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:376%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:376%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="f9cd38ffb1584448a5234076f3fbd442">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:376%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="4eb4d1c89e4d452baa21f6c9d22d0995">
+<td colwidth="[52]" numCell="true" nodeId="4a7dbeb806614a9aa1adc7cb7d647d79">
+<p nodeId="67a60a6b08884f659fd67ffd3648260f" />
+</td>
+<td colwidth="[132]" nodeId="078e5eb2311340ccba6553d820d47ffd">
+<p nodeId="1557eab7dcd84dbdbe57584cffc65c69" />
+</td>
+<td colwidth="[111]" nodeId="ec8f7c7c29ae438c8d3a1748ddc0c0e7">
+<p nodeId="8a638fd4bd364f9aa95de0156bfba6f7" />
+</td>
+<td colwidth="[688]" nodeId="aeeb77168e5747729122e2c42cfd242c">
+<p nodeId="c00c25ef0d484eabae25e5a009c71e13">14.【[webids01_start_from_authentication|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=345&amp;version=4]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=345&amp;version=4]" nodeId="b1f5d99ca5a34df28205aaf0cc81b88c">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=345&amp;version=4]</a></p>
+</td>
+<td colwidth="[146]" nodeId="78ec663079dc41929187dd112d12fdbf">
+<p nodeId="f341cd3d7eb44432a00ddefa7b185af2">作业最后修改人: yucongxiang</p>
+</td>
+<td colspan="6" colwidth="[2485,2906,1700,1700,1700,1700]" nodeId="1e4f6221c9bc4181affb2975168491fb">
+<p nodeId="f4da77c81fcf40a0b484c5a04d715da5">出现了2576 次code代码执行失败【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:345%20AND%20exceptionType:%20code%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%A4%B1%E8%B4%A5%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:345%20AND%20exceptionType:%20code%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%A4%B1%E8%B4%A5%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="9cfcadfe5b55489795a6b76c18395c26">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:345%20AND%20exceptionType:%20code%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%A4%B1%E8%B4%A5%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+<tr nodeId="92b9f4b753554174b3bd9b22cb5ebbcb">
+<td colwidth="[52]" numCell="true" nodeId="515416d9085944aaa4df4261b9643c69">
+<p nodeId="f920c03487434c5882ac8f48aa1e4422" />
+</td>
+<td colwidth="[132]" nodeId="df3edf3af92f483f9ff74cea581a1fef">
+<p nodeId="457897df2f014776a495bcc57303af2c" />
+</td>
+<td colwidth="[111]" nodeId="c728bbce836748fc9c6154e1aff95905">
+<p nodeId="e9ebfc67f2f04561a631d75c86c8be2a" />
+</td>
+<td colwidth="[688]" nodeId="ef0f829f560740e793d843097751ab96">
+<p nodeId="9918b9b00fa54db7b98cfca10164eda5">15.【[proc老数据源|<a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=409&amp;version=4]" title="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=409&amp;version=4]" nodeId="8912ec62f5fb4dc69107f33e66a9b2e6">https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=409&amp;version=4]</a></p>
+</td>
+<td colwidth="[146]" nodeId="bac3e896b72441ab90245fdcbc61d63e">
+<p nodeId="73f25a4e097f470d9e179e89a3bd1938">作业最后修改人: gelei05</p>
+</td>
+<td colwidth="[2485]" nodeId="c049def370494415b8334bff7df3c0b2">
+<p nodeId="0e57e66ba25d4eeba11f006f08a9719a">出现了15844 次Kafka日志解析数据异常【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:409%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:409%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="dfee1df534b34596b03d849ac4ddca99">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:409%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BC%82%E5%B8%B8%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+<td colspan="5" colwidth="[2906,1700,1700,1700,1700]" nodeId="7dc30982e6d442bdb5cd1781368bba97">
+<p nodeId="0b76b23895c9480bb0f9fd86b2feb981">出现了15706 次Kafka日志解析数据为空【[错误详情|<a href="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:409%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" title="http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:409%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]" nodeId="095df95bec6a49a49d1f7b6e83e9b373">http://logcenter.data.sankuai.com/search/app.rc_zeus_nearline_log_report/query/%7B%22start_time%22:%22now-30m%22,%22end_time%22:%22now%22,%22keyword%22:%22sourceId:409%20AND%20exceptionType:%20Kafka%E6%97%A5%E5%BF%97%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE%E4%B8%BA%E7%A9%BA%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D]</a>】</p>
+</td>
+</tr>
+</table>
+</km-doc>

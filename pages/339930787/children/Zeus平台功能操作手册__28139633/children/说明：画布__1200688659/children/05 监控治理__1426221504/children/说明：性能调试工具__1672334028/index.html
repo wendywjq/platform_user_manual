@@ -1,0 +1,214 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：性能调试工具</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-7">二、名称解释</a><a href="#section-9">三、操作指南</a><a href="#section-10">3.1 用户操作流程说明</a><a href="#section-12">3.2 采集信息内容</a><a href="#section-134">3.3 具体页面操作说明</a><a href="#section-166">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">05 监控治理</a> / <a href="index.html">说明：性能调试工具</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1672334028">查看学城原文</a></p><article>
+<h1>说明：性能调试工具</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>近线画布作业，当性能表现比较差时，无法直观快速定位为题，一般需要依赖值班研发定位问题，整体性能治理效率不高。提供性能调试工具，可以帮助业务快速定位配置类的性能问题，及时定位、修正画布性能。</p>
+<p><span style="font-size:12px">*长期规划，性能调优工具实现链路包含 性能告警感知-&gt;问题归因-&gt;性能调优意见反馈-&gt;自动/一键处理 四步，但当前期由于对于每类问题的解决方式缺乏经验规律沉淀，无法完成归因后的调优步骤，故本期只聚焦于性能调优参数采集和基础归因上</span></p>
+<h1 id="section-7">二、名称解释</h1>
+<p>无</p>
+<h1 id="section-9">三、操作指南</h1>
+<h2 id="section-10">3.1 用户操作流程说明</h2>
+<img src="assets/d47e24721ca3a6c4.svg" width="713" height="386" alt="流程图">
+<h2 id="section-12">3.2 采集信息内容</h2>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:12px">组件</span></p>
+</th>
+<th>
+<p><span style="font-size:12px">组件性能</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">kafka1</span></p>
+</td>
+<td rowspan="17">
+<p><span style="font-size:12px">输入流量</span></p>
+<p><span style="font-size:12px">输出流量</span></p>
+<p><span style="font-size:12px">执行耗时</span></p>
+<p><span style="font-size:12px">节点状态大小</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">kafka2</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">Makfka</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">Select</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">GroupBy</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">Join</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">Distinct</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">数据拆分</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">union</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">数据获取</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">If..else</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">代码组件</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">规则集合</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">旁路输出</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">数据存储</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">丢弃</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">决策</span></p>
+</td>
+</tr>
+</table>
+<h2 id="section-134">3.3 具体页面操作说明</h2>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>页面</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【入口】</p>
+<p>对于“运行中”的画布作业可以进行性能调优</p>
+<p>点击“性能调优” 系统后台进行性能数据采集，采集周期10分钟</p>
+<p>采集完成后将会以大象消息进行通知</p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/461e0258740e68cb.png" width="1152" height="326.67" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【采集报告】</p>
+<ul>
+<li>大象消息中， 有采集报告的链接</li>
+<li>画布详情业务 性能调优列表中有采集报告详情</li>
+</ul>
+</td>
+<td>
+<p><img src="assets/41ee27e7cfb4e899.png" width="1399" height="424.43" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【指标大盘】</p>
+<p>对于采集报告中更多细节内容可以进入指标大盘查看全局占比以及分布趋势</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<h1 id="section-166">四、FAQ</h1>
+<p>1.待补充</p>
+</article></main></body></html>
