@@ -1,0 +1,82 @@
+<km-doc>
+<km-title nodeId="f4b96cb60a2f438996be61d2cedae6bf">说明：画布- 决策信息配置指南</km-title>
+<km-catalog style="none" nodeId="e9067cb2dd3c46a98121aeeda97cf07a" />
+<h3 align="start" nodeId="e2497d8c0e1242cfa2779c025e172b09">一、背景</h3>
+<p align="start" nodeId="d8063432cf2140829c68c9e79c143eb7">见画布背景</p>
+<h3 align="start" nodeId="4d781266bafa44d889c0530f0e821f4c">二、名词解释</h3>
+<p align="start" nodeId="77771d82a3b64f3087fabe87e8a8852d"><span color=" ">决策信息</span>：<span color=" ">命中画布之后的结果及动作</span></p>
+<h3 align="start" nodeId="949ad51dde1a40ec8b8febd28826c1ab">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="3650504a48564f86a1840bc603c9bb9b">
+<tr nodeId="3eff17fd004e49efb5476effd8ed1639">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="be59d17eb1c94d59a2fab88a5aa980c6">
+<p nodeId="b06b022ff7cc442f833efc1af4092447"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="44c4a81ea2414bfa90b528a881c6a6bd">
+<p nodeId="f5c33015dfd64c3a98f971756d6948a2"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="d0c0a340be5f48468b9b1819557cb28f">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c3efdd9f6d074e11a43af64800d8187c">
+<p nodeId="ca954790ab1a41e6bdd1035bc0419ca3"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="6256a1f80c8041159020b51c7d89f0eb"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="06afebcb12a442bf890b6ed6816ca7d6"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="e08ae86fa0544b30acc665fff2c78617">
+<li nodeId="ec1f15d5419b462ca8cab812cb4abbd8"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="b0770f5ae2d943feacf29f7e549bd73a"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="830b9c5a6a924ccd9821d76bb0cf8e76">
+<p nodeId="f12e717fe5df4c5982e4c079fc3d87f2"><span font-size="14">将</span><span color=" "><span font-size="14">决策信息</span></span><span font-size="14">组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块</span></p>
+<ol nodeId="4a59eedd15204a938216f51e0bc0551d">
+<li nodeId="2554488c40ad4a309c594133c0d59dfb">
+<p nodeId="0af2847a82d94c039dcf2f0c462f510b"><span font-size="14">直接配置：</span></p>
+<ol nodeId="6a93cde7273f47b1bb669bd2e4dcf8bc">
+<li nodeId="da985db339de42d5bde2d6cd8c5051f7"><span font-size="14">执行逻辑说明：配置什么就执行什么信息</span></li>
+<li nodeId="1a932a0edd54439fbbbef037abd0b290"><span font-size="14">配置说明：支持空间下决策、决策附加信息和决策理由的配置</span></li>
+<li nodeId="5e25d423413f47fdaee52e6fa0f40dae"><span font-size="14">新增决策、决策附加信息和决策理由操作说明</span><a href="https://km.sankuai.com/page/312514906" title="https://km.sankuai.com/page/312514906" autoUpdate="true" nodeId="aad5d08905804501838e89246aaa3c88"><span font-size="14">https://km.sankuai.com/page/312514906</span></a><span font-size="14">、</span><a href="https://km.sankuai.com/page/304311873" title="https://km.sankuai.com/page/304311873" autoUpdate="true" nodeId="7723b298233344799a587854c429eb99"><span font-size="14">https://km.sankuai.com/page/304311873</span></a></li>
+</ol>
+</li>
+<li nodeId="7c49f944f73d4c0a8fa88a234b5a00dd">
+<p nodeId="11eb2141d20143bc93ea1e28f1dbb268"><span font-size="14">从上下文获取：</span></p>
+<ol nodeId="2f096da8686c4813a673a01ec5a843bf">
+<li nodeId="8377e30648744a1eab14c4d0858b5b93"><span font-size="14">执行逻辑说明：上下文获取决策信息 主要用做画布中的规则集合组件中引用了规则组，规则组中规则的决策信息。支持使用默认的配置信息，可以选择不使用；</span></li>
+<li nodeId="8d06dc28dd7443b9bb48e50362cfb0dd">
+<p nodeId="34bb6602467b42c2ab16f8986deb3aac"><span font-size="14">配置说明：</span></p>
+<ol nodeId="c1348e1d17ca43568751c1329a0ff4c0">
+<li nodeId="12d49bea74db4c61bcb46e1870d7d8f3"><span font-size="14">信息1-条件1:支持aviator表达式撰写，满足条件即输出配置的决策信息</span></li>
+<li nodeId="b76e596e958441f8aeb9a023a4d437cc">
+<p nodeId="6027b3f99c71420ab1940371e4961210"><span font-size="14">决策/附加信息/理由</span></p>
+<ol nodeId="08e5805ca3ca44c9a3fc49ce615feb92">
+<li nodeId="b4bef8861130423ab98e625d930bb860"><span font-size="14">全选：使用默认的配置信息，执行上</span><span font-size="14"><strong>会输出规则组中命中规则对应的决策信息，同时满足决策组件下配置的条件；</strong></span></li>
+<li nodeId="93fc9c0a7dc043f9bfc610caffd8b373"><span font-size="14">单选：可选择规则组下配置的决策信息，执行上</span><span font-size="14"><strong>会规则组中配置该决策对应规则命中 且满足决策组件下配置的条件 输出该决策。</strong></span></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2b6f161dd100444c9e37578b70f03e35">
+<p nodeId="f574765e9b874289a79f0debd79214fc"><img src="https://km.sankuai.com/api/file/cdn/1200629952/20986652293?contentType=1&amp;isNewContent=false" name="image.jpeg" width="552" height="331" nodeId="a5c168bb539545718dc05c831f1a1ba9" /></p>
+<p nodeId="3e219eea6a5c498dbafd1e707605cd3a"><span font-size="14">直接配置：</span></p>
+<p nodeId="69496ce55a2b4ed6a0db7075e13285c8"><img src="https://km.sankuai.com/api/file/cdn/1200629952/20986344790?contentType=1&amp;isNewContent=false" name="image.jpeg" width="223" height="243" nodeId="b047c2808db04091b5791c73d5fc4373" /><img src="https://km.sankuai.com/api/file/cdn/1200629952/20988703559?contentType=1&amp;isNewContent=false" name="image.jpeg" width="180" height="244" nodeId="2d65475cea66448886089cf8b136b8aa" /></p>
+<p nodeId="3e68ec39f9bb401c8ad3579a704d7ac0"><span font-size="14">从上下文获取</span></p>
+<p nodeId="9fc5b8f310384764b205803c05598a58"><img src="https://km.sankuai.com/api/file/cdn/1200629952/20988219917?contentType=1&amp;isNewContent=false" name="image.jpeg" width="222" height="237" nodeId="939a13f499834cadbd27214336ee542f" /><img src="https://km.sankuai.com/api/file/cdn/1200629952/20986525624?contentType=1&amp;isNewContent=false" name="image.jpeg" width="166" height="237" nodeId="c63a997b6afe48c1a24af6e31b79a5c1" /></p>
+</td>
+</tr>
+</table>
+<h3 align="start" nodeId="1c2189f5fe5248e989214445dcc36629">四、执行信息说明</h3>
+<p nodeId="436d611beb7545fdb34bb7ffdb45aa22">1.单选决策：与原决策组件逻辑相同:<br />2.上下文获取：上下文的加工逻辑，仍是以命中规则 对应的决策</p>
+<p nodeId="3ef6ddcb42ad40e88450dcb3662157f8"><span color="rgba(0, 0, 0, 0.54)">   </span><img src="https://km.sankuai.com/api/file/cdn/1200629952/21004209903?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1033" height="600" nodeId="881461cd11424ee3bff6e7ea6b378bdc" /></p>
+<p nodeId="ad3760fb447b47cfbe7ced49847db696"><br /></p>
+<p nodeId="50609a3ed1044ed3a030ca659b3a3131" />
+<h3 nodeId="dbb1e2fbcec149be9908d13733962c0a">五、FAQ</h3>
+<p nodeId="6b2655c49f6047c4a18908c9398d219b"><strong>1.在规则集合+决策组件的组合逻辑说明：</strong></p>
+<p nodeId="15ff7b8134934cdb97c3c2a9ef4542d1">A：规则集合-规则，后面决策输出 需 if-else+直接配置决策</p>
+<p nodeId="f9b2c49bc64145a381fa0a9ba9c2d21d">      规则集合-规则组，后面决策输出 需 if-else+直接配置决策 或者 上下文决策</p>
+<p nodeId="b6355986fe534d488895ea4826b6f699">      规则集合-规则组+规则，后面决策输出 需 if-else+直接配置决策，此时若仍想使用上下文决策，此时规则集合中的规则命中信息是没有独立决策的。</p>
+<p nodeId="bf66431b8e6a48a6b9f9ec338d4ab7cf" />
+<p nodeId="fd333981808a444490c78e47fb051edc"><br /></p>
+<p nodeId="486b90c84b0d427fa8d07ffe83ff743e" />
+</km-doc>

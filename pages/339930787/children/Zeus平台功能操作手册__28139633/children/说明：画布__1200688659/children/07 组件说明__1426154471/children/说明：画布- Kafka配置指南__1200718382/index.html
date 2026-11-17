@@ -1,0 +1,112 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布- Kafka配置指南</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-8">三、操作指南</a><a href="#section-106">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">07 组件说明</a> / <a href="index.html">说明：画布- Kafka配置指南</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1200718382">查看学城原文</a></p><article>
+<h1>说明：画布- Kafka配置指南</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<p>见画布背景</p>
+<h3 id="section-5">二、名词解释</h3>
+<p>kafka：<span style="color: ">配置Kafka数据源Topic</span></p>
+<h3 id="section-8">三、操作指南</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p><span style="font-size:14px"><strong>【基础配置】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li><span style="font-size:14px">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li>
+<p><span style="font-size:14px">将kafka组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol>
+<li><span style="font-size:14px">名称：支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></li>
+<li><span style="font-size:14px">namespace：支持中英文，为topic所在的space组，必填</span></li>
+<li><span style="font-size:14px">Topic：指过整个画布配置的kafka topic的名称，必填</span></li>
+<li><span style="font-size:14px">时间维度：指画布任务执行的时间戳，如果不填topic中的时间字段，则默认系统时间戳，即画布开始运行的时间字段，非必填</span></li>
+<li>
+<p><span style="font-size:14px">时间维度格式：支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</span></p>
+<p><span style="font-size:14px">默认原格式说明：</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">只处理时间戳格式字段且被格式化成秒级别</span></span><br><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">文档这样描述就没有歧义了是吧？</span></span></p>
+</li>
+<li><span style="font-size:14px">备注：用户可对该kafka组件进行备注，非必填</span></li>
+<li><span style="font-size:14px">日志类型：即确定所选kafka topic的日志类型，支持Log、NewLog、Snappy，必选</span></li>
+</ol>
+</li>
+</ol>
+<p></p>
+<p><span style="font-size:14px">【自定义数据源解析】</span></p>
+<p><img src="assets/478da6af4ba5013c.png" width="463" height="558" alt="image.jpeg"></p>
+<p><span style="font-size:14px">选择自定义数据源解析，并在代码块中填写相关解析代码。</span></p>
+<p><span style="font-size:14px">代码需要继承IParser抽象类，并实现parse方法：</span></p>
+<pre><code>package com.meituan.rc.zeus.nearline.flink;
+
+import com.google.common.collect.Maps;
+import com.meituan.rc.zeus.dynamic.script.runtime.IParser;
+
+import java.util.Map;
+
+public class TestParser implements IParser {
+    @Override
+    public Map&lt;String, Object&gt; parse(String s) {
+        Map&lt;String,Object&gt; map =  Maps.newHashMap();
+        map.put("name", 12212);
+        return map;
+    }
+}</code></pre>
+<p></p>
+<p><span style="font-size:14px">如果自定义数据源解析希望输出多条数据，需要继承IFlatParser抽象类，并实现flatParse方法：</span></p>
+<pre><code>package com.meituan.rc.zeus.nearline.flink;
+
+import com.google.common.collect.Maps;
+import com.meituan.rc.zeus.dynamic.script.runtime.IFlatParser;
+
+import java.util.Map;
+
+public class TestParser extends IFlatParser {
+    @Override
+    public List&lt;Map&lt;String, Object&gt;&gt; flatParse(String src) {
+        List&lt;Map&lt;String, Object&gt;&gt; ret = new ArrayList&lt;&gt;();
+        Map&lt;String,Object&gt; map =  Maps.newHashMap();
+        map.put("name", 12212);
+        ret.add(map);
+        return ret;
+    }
+}</code></pre>
+<p></p>
+<p><span style="font-size:14px">IParser和IFlatParser所在jar包：</span></p>
+<pre><code>            &lt;dependency&gt;
+                &lt;groupId&gt;com.meituan.rc.zeus&lt;/groupId&gt;
+                &lt;artifactId&gt;zeus-dynamic-script&lt;/artifactId&gt;
+                &lt;version&gt;1.1.9-nearline&lt;/version&gt;
+            &lt;/dependency&gt;</code></pre>
+<p></p>
+<p><span style="font-size:14px">【参数配置】</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">参数配置模块（高级配置）：当用户选择多个kafka 数据源时，可能存在不同数据源有相同的字段，在后面进行逻辑编写时可能存在字段重复导致逻辑配置有问题，所以可以在参数配置模块对topic里的字段进行重命名</span></p>
+<ol>
+<li><span style="font-size:14px">参数名：topic里的字段名</span></li>
+<li><span style="font-size:14px">别名：原topic中的字段名在该画布中的映射，如果进行了参数别名配置，在该画布中编写逻辑时，请直接使用别名</span></li>
+<li><span style="font-size:14px">类型：字段类型</span></li>
+<li><span style="font-size:14px">备注：可对该参数进行备注</span></li>
+<li><span style="font-size:14px">点击右上角「+」号可以新增一个参数配置，也支持删除参数配置</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/f6fa8e37440fd3ff.png" width="546" height="164" alt="image.png"></p>
+<p><img src="assets/64d7cc70c845d71d.png" width="546" height="266" alt="image.png"></p>
+<p><img src="assets/02bfa38f6bb376fe.png" width="546" height="266" alt="image.png"></p>
+<p><img src="assets/03a46b2f059cca4a.png" width="546" height="266" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-106">四、FAQ</h3>
+</article></main></body></html>

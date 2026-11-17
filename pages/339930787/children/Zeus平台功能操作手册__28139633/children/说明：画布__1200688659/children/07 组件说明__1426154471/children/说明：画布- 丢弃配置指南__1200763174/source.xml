@@ -1,0 +1,39 @@
+<km-doc>
+<km-title nodeId="c7e174e55c1f4a6790001613fc13e64f">说明：画布- 丢弃配置指南</km-title>
+<km-catalog style="none" nodeId="ca2ef447ac9c4783b2b2731e1fed0718" />
+<h3 align="start" nodeId="30c08834ec4a4e3dae346ff2bb40e2f4">一、背景</h3>
+<p align="start" nodeId="555290dab19b4b0080b4e7f6e0d6a28e">见画布背景</p>
+<h3 align="start" nodeId="edc19496e93842abb74f3618de44486c">二、名词解释</h3>
+<p align="start" nodeId="e5cdd4ac5ca84df18b427304dbba3726"><span color=" ">丢弃</span>：<span color=" ">代表直接将该部分数据丢弃</span></p>
+<h3 align="start" nodeId="9b34f06a96374803872165845d64a80f">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="0894db29e9c84585ba8969e0030719cf">
+<tr nodeId="815846c1a4624a8e962c329708b9f7a6">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="90642d6415f74932b0a98d9e929db1ed">
+<p nodeId="0962dc5c83d74eb980b9f3898093c5a9"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="586b7c99410e4be9815d10a38367e7c1">
+<p nodeId="a4efd2ed71554382b8ceec11604cbafd"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="56c8be2a8cec40428d9e13c29298851f">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f9563943e9754d1eb7501fc093af56db">
+<p nodeId="9dc69949f6544684814920e68302c74f"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="f1d52fa2fbaa4a889ee821cae5096944"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="e4a43ac40f274142bdda166b3f9f0602"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="55c59f0eb6b942ab8c143513fc123963">
+<li nodeId="7bfea06c1fe2452fbe7b91fe0dc6b36e"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="885c5a58e4ad447fb19c0e4460b3c97d"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="aff440fa7b754b43a518fe5938abf899"><span font-size="14">将</span><span color=" "><span font-size="14">丢弃</span></span><span font-size="14">组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></li>
+<li nodeId="07eb37cdbe60443cb1dcabe03192d44c"><span color="rgb(44, 62, 80)"><span font-size="14">无配置信息，代表直接将该部分数据丢弃</span></span></li>
+</ol>
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="db232058e2154a0ab6c1df2eed2e6aa0">
+<p nodeId="6f8651e86274489ba3b668406665c985"><span font-size="14">​​​​​​​​​​​​​​​​​</span><img src="https://km.sankuai.com/api/file/cdn/1200763174/1266321293?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="279" nodeId="5c098d0d8217423da74a0c2d7a767792" /><span font-size="14">​</span></p>
+</td>
+</tr>
+</table>
+<h3 align="start" nodeId="8612a1e6ae194f7a86d366e0e364c753">四、FAQ</h3>
+<p nodeId="fb23851129d34f25911dab723ca4e437" />
+<p nodeId="083319131c9c4dac9ea4ae0f37f53ab4"><br /></p>
+<p nodeId="fb52e7f26a6c49c5af01e599482ca86f" />
+</km-doc>

@@ -1,0 +1,70 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布- Select组件</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-8">三、操作指南</a><a href="#section-70">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">07 组件说明</a> / <a href="index.html">说明：画布- Select组件</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1200639384">查看学城原文</a></p><article>
+<h1>说明：画布- Select组件</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<p>对画布中的数据进行变量处理、赋值和参数过滤，可以使用select组件，与sql 中的select...as...逻辑一致；支持逐一填写的“选填模式”和json 复制粘贴的“批量模式”</p>
+<h3 id="section-5">二、名词解释</h3>
+<p>select：<span style="color: ">（1）可重新自定义画布所需字段；（2）选择指定数据进入下一个组件</span></p>
+<h3 id="section-8">三、操作指南</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p><span style="font-size:14px"><strong>【基础配置】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li><span style="font-size:14px">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li>
+<p><span style="font-size:14px">将select组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol>
+<li><span style="font-size:14px">名称：支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></li>
+<li>
+<p><span style="font-size:14px">配置信息：</span></p>
+<ol>
+<li><span style="font-size:14px">支持选填配置和批量配置两种方式，其中选填配置，是逐一填写select...as...逻辑；批量配置是支持json串填写的批量配置模式</span></li>
+<li><span style="font-size:14px">select模块：可以输入topic中的字段（如果在kafka中被重命名过，则填写重命名的字段）、或者对topic中的字段进行计算，比如字段拼接、count计数等重新输出一个新的字段</span></li>
+<li><span style="font-size:14px">as：选填，取决于用户是否需要对select的对象进行重命名；</span></li>
+<li><span style="font-size:14px">丢弃其余变量：单选，非必选，选择后，则select模块未选择的变量会在此环节丢弃</span></li>
+<li><span style="font-size:14px">点击右上角「+」号可以新增一个select配置，也支持删除select配置</span></li>
+<li><span style="font-size:14px">一个select配置智能重命名一个变量，如果涉及需要重命名多个变量的，需要通过新增select配置实现</span></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<ul>
+<li><span style="font-size:14px">选填配置</span></li>
+</ul>
+<p><img src="assets/bc1e4e0499036e54.png" width="513" height="303" alt="image.jpeg"></p>
+<ul>
+<li><span style="font-size:14px">批量配置</span></li>
+</ul>
+<p><img src="assets/a458f8dbd254805c.png" width="514" height="297" alt="image.jpeg"></p>
+<p></p>
+<pre title="批量配置json格式模版"><code>[
+ {"select":"aviator1","as":"parameter1"},
+ {"select":"aviator2","as":"parameter2"},
+ {"select":"aviator3","as":"parameter3"},
+ {"select":"aviator4","as":"parameter4"},
+ {"select":"aviator5","as":"parameter5"}
+]</code></pre>
+<p></p>
+</td>
+</tr>
+</table>
+<h3 id="section-70">四、FAQ</h3>
+<p><strong>1.批量配置 保存是遇到报错提示怎么处理？</strong></p>
+<p>A：可以使用<a href="https://www.json.cn/" title="https://www.json.cn/">https://www.json.cn/</a> 标准化json工具检验 json拼写问题，调试json </p>
+</article></main></body></html>

@@ -1,0 +1,134 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布 - 数据存储</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-7">三、操作指南</a><a href="#section-178">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">07 组件说明</a> / <a href="index.html">说明：画布 - 数据存储</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1316510919">查看学城原文</a></p><article>
+<h1>说明：画布 - 数据存储</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<p>在画布类策略部署的时候，存在需要将执行过程中某些关键数据进行外存。</p>
+<h3 id="section-5">二、名词解释</h3>
+<p>无</p>
+<h3 id="section-7">三、操作指南</h3>
+<p><a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1"></a>目前数据存储仅支持squrrile存储（<strong>仅支持redis-rc-public_product集群</strong>）</p>
+<img src="assets/e3bce6c189eec7cd.svg" width="696" height="326" alt="流程图">
+<p></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<ol>
+<li><span style="font-size:14px">基本信息：名称必填，备注非必填</span></li>
+<li>
+<p><span style="font-size:14px">配置信息：</span></p>
+<ol>
+<li><span style="font-size:14px">英文名称：支持小些字母、数字和下划线、最多128字符</span></li>
+<li><span style="font-size:14px">数据类型：支持Squrriel、Tair</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/24647b99deddd663.png" width="776" height="346" alt="image.jpeg"></p>
+<p><img src="assets/49ffbdc595a7bdde.png" width="552" height="441" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">Squirrel配置</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">存储集群：近线默认存储集群为redis-rc-nearline-public_product，若用户存储在自己的集群上，此处请填写数据所存储的集群英文名称</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">存储类：为用户在Squirrel上创建的存储名称，若是填写未创建的存储类执行会异常</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">Squirrel</span><span style="color: "><span style="font-size:14px">类型：hash/string</span></span></p>
+</li>
+<li>
+<p><span style="color: "><span style="font-size:14px">存储类型：</span></span></p>
+<ol>
+<li><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">当选择string时，</span></span><span style="color: "><span style="font-size:14px">仅支持</span></span><span style="font-size:14px"><strong>获取 key 下单 field 的 value 值</strong></span></li>
+<li>
+<p><span style="color: "><span style="font-size:14px">当选择hash时，可支持</span></span><span style="font-size:14px"><strong>获取 key 下单 field 的 value 值</strong></span><span style="font-size:14px">/</span><span style="font-size:14px"><strong>获取 key 下所有 field 值</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">/</span></span><span style="font-size:14px"><strong>获取 key 下所有 value 值</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">/</span></span><span style="font-size:14px"><strong>获取所有的 k-v 键值对</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">；</span></span></p>
+</li>
+</ol>
+</li>
+<li>
+<p><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></p>
+</li>
+<li>
+<p><span style="font-size:14px">熔断配置：</span></p>
+<ol>
+<li><span style="font-size:14px">时间周期：默认为30分钟，写入量超过500就熔断写入，支持用户自定义时间周期、指标和阈值；</span></li>
+<li><span style="font-size:14px">熔断执行逻辑说明：</span></li>
+<li><span style="font-size:14px">熔断告警人：默认为画布的配置人</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/74e1e8fccc5058ca.png" width="776" height="380" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">Tair配置</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">存储集群：近线默认存储集群为com.sankuai.cellar.mtsi.zeusoffline，若用户存储在自己的集群上，此处请填写数据所存储的集群英文名称</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">area：为用户在Tair上创建的area，若是填写未创建的area执行会异常</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">Tair</span><span style="color: "><span style="font-size:14px">类型：hash/string</span></span></p>
+</li>
+<li>
+<p><span style="color: "><span style="font-size:14px">存储类型：</span></span></p>
+<ol>
+<li><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">当选择string时，</span></span><span style="color: "><span style="font-size:14px">仅支持</span></span><span style="font-size:14px"><strong>获取 key 下单 field 的 value 值</strong></span></li>
+<li>
+<p><span style="color: "><span style="font-size:14px">当选择hash时，可支持</span></span><span style="font-size:14px"><strong>获取 key 下单 field 的 value 值</strong></span><span style="font-size:14px">/</span><span style="font-size:14px"><strong>获取 key 下所有 field 值</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">/</span></span><span style="font-size:14px"><strong>获取 key 下所有 value 值</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">/</span></span><span style="font-size:14px"><strong>获取所有的 k-v 键值对</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">；</span></span></p>
+</li>
+</ol>
+</li>
+<li>
+<p><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></p>
+</li>
+<li>
+<p><span style="font-size:14px">熔断配置：</span></p>
+<ol>
+<li><span style="font-size:14px">时间周期：默认为30分钟，写入量超过500就熔断写入，支持用户自定义时间周期、指标和阈值；</span></li>
+<li><span style="font-size:14px">熔断执行逻辑说明：将配置逻辑摊到每分钟，比如上述为每分钟超过16就熔断，则超过部分熔断不写入，会通过错误日志提供出来；</span></li>
+<li><span style="font-size:14px">熔断告警人：默认为画布的配置人</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/faef235b7b68c563.png" width="776" height="390" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>仿真测试 样例说明</strong></span></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/67c05a6eef4643eb.png" width="776" height="441" alt="image.jpeg"></p>
+<p><br></p>
+</td>
+</tr>
+</table>
+<h3 id="section-178">四、FAQ</h3>
+<ol>
+<li></li>
+</ol>
+<p><br></p>
+<p></p>
+</article></main></body></html>

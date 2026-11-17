@@ -1,0 +1,112 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布- 代码组件</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-9">三、操作指南</a><a href="#section-90">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">07 组件说明</a> / <a href="index.html">说明：画布- 代码组件</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1200639574">查看学城原文</a></p><article>
+<h1>说明：画布- 代码组件</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<p>见画布背景</p>
+<h3 id="section-5">二、名词解释</h3>
+<p><span style="color: ">代码组件</span>：<span style="color: ">支持Java代码逻辑</span></p>
+<h3 id="section-9">三、操作指南</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p><span style="font-size:14px"><strong>【基础配置】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li><span style="font-size:14px">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li>
+<p><span style="font-size:14px">将</span><span style="color: "><span style="font-size:14px">代码组件</span></span><span style="font-size:14px">组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">基本信息：</span></p>
+<ol>
+<li><span style="font-size:14px">名称：</span><span style="color: "><span style="font-size:14px">支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">配置信息：</span></p>
+<ol>
+<li><span style="font-size:14px">可直接在代码块中填写java代码，在整个画布配置完成后，会对代码进行校验，非必填</span></li>
+<li>
+<p><span style="font-size:14px">如果要实现“一进一出”的逻辑，则继承抽象类IProcessor，并实现process方法。</span></p>
+<p><span style="font-size:14px">如果要实现“一进多出”的逻辑，则继承抽象类IFlatProcessor，并实现flatProcess方法。</span></p>
+<p><span style="font-size:14px">抽象类所在包为：</span></p>
+<pre><code>&lt;dependency&gt;   
+  &lt;groupId&gt;com.meituan.rc.zeus&lt;/groupId&gt;  
+  &lt;artifactId&gt;zeus-dynamic-script&lt;/artifactId&gt; 
+  &lt;version&gt;1.1.6-nearline&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p><span style="font-size:14px">可以在本地引入上述依赖包并进行代码编写，正式配置时需要把类中所有代码(包括包名粘贴到代码块中)</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">process方法入参为传入该组件的上下文，出参为经过该组件处理后的上下文。</span></p>
+<p><span style="font-size:14px">flatProcess方法入参为传入该组件的上下文，出参为经过该组件处理后的多条上下文。</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">demo：</span></p>
+<pre><code>package com.meituan.rc.zeus.nearline.flink;
+
+import com.meituan.rc.zeus.dynamic.script.runtime.IProcessor;
+
+import java.util.Map;
+
+public class DemoProcessor extends IProcessor {
+    @Override
+    public Map&lt;String, Object&gt; process(Map&lt;String, Object&gt; map) {
+        String firstName = String.valueOf(map.get("firstName")); //从原始上下文中获取firstName字段并转为字符串型
+        String lastName = String.valueOf(map.get("lastName")); //从原始上下文中获取lastName字段并转为字符串型
+        map.put("fullName", firstName + " " + lastName); //将firstName和lastName拼接赋值给fullName
+        return map; //将上下文返回
+    }
+}</code></pre>
+<pre><code>package com.meituan.rc.zeus.nearline.flink;
+
+import com.google.common.collect.Lists;
+import com.meituan.rc.zeus.dynamic.script.runtime.IFlatProcessor;
+import org.apache.curator.shaded.com.google.common.collect.Maps;
+
+import java.util.List;
+import java.util.Map;
+
+public class DemoFlatProcessor extends IFlatProcessor {
+    @Override
+    public List&lt;Map&lt;String, Object&gt;&gt; flatProcess(Map&lt;String, Object&gt; map) {
+        List&lt;Map&lt;String,Object&gt;&gt; resultList = Lists.newArrayList();
+        for (int i = 0; i &lt; 3; i ++) {
+            resultList.add(Maps.newHashMap(map));
+        }
+        return resultList;
+    }
+}</code></pre>
+<p></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p></p>
+<p></p>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+<p><img src="assets/6d838ed21108a855.png" width="546" height="266" alt="image.png"></p>
+<p><img src="assets/d145e98e76dfac32.png" width="546" height="268" alt="image.png"></p>
+<p></p>
+<p></p>
+<p></p>
+</td>
+</tr>
+</table>
+<h3 id="section-90">四、FAQ</h3>
+</article></main></body></html>

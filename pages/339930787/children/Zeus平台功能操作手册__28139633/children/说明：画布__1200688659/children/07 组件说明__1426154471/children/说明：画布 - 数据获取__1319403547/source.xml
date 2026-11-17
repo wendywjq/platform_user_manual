@@ -1,0 +1,200 @@
+<km-doc>
+<km-title nodeId="48b77e5166a94faaade700ff5a1f4e6b">说明：画布 - 数据获取</km-title>
+<km-catalog style="none" nodeId="04d5b99a68aa466cb8aca15cfa24fa60" />
+<h3 align="start" nodeId="cb5c356349734cfcbe3897e72448ca10">一、背景</h3>
+<p align="start" nodeId="0dc7e7cedbd44e7485518adadcb31313">在画布作业部署、运行时，已有的kafka数据源中数据不全，需要通过Squirrel/S3/Rpc/Http/Tair等模式获取增量补充数据用于策略执行。</p>
+<h3 align="start" nodeId="f2954529fefe47ce8162ae24dbc8ac7a">二、名词解释</h3>
+<p nodeId="f8bfb8ed4da2428da4c088d4afc7608b"><span color=" ">请求幂等建：当数据接口配置缓存时，需要明确按何key进行缓存，该key就是请求幂等建</span></p>
+<h3 align="start" nodeId="d734d1c11da24ebebaa72f8e2989df6b">三、操作指南</h3>
+<p nodeId="5586b48d328044128aad749f5dbef07b">⚠️：三方数据的调用测试，需要保存后方可进行测试。配置修改后也需要保存后才能更新数据进行测试。Squirrel/S3/Rpc/Http等数据自身存储链路请参考上述服务平台操作文档。</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1319403547/1876048099?contentType=0&amp;isNewContent=false" width="986" height="194" nodeId="22d25a31f53740a283d7ce1d1dad8d90" />
+<table borderColor="#cccccc" responsive="false" nodeId="8ea999b84bf6444f9f841f2278d0b2ab">
+<tr nodeId="a610474bb21b450f8f53407bf22f9993">
+<th colwidth="[396]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="e45dc4cf4418409092d650b17ebeddd0">
+<p nodeId="7d7e2878fa9b453eac044c66463865f1"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[903]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="f9d07d463b3b47e79f2544a66087312b">
+<p nodeId="abb05ea24f644b89a8c21157ce702a3d"><span font-size="14">添加配置页面</span></p>
+</th>
+</tr>
+<tr nodeId="2cff1e66cbf74bbb8b1610c7a108ce51">
+<td colwidth="[396]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="46ab4ffe83b249a7b2f205b8cdec0334">
+<ol nodeId="b1634ec3825e4cb099d300e272256a59">
+<li nodeId="54a289aa1ca1427a81ee20e10e3fc38c"><span font-size="14">基本信息：名称必填，用于在画布中提示该组件的主要逻辑说明</span></li>
+<li nodeId="07dcbb311e624577ae467693c2c80662">
+<p nodeId="35ba76c4029c42cab2d25421bdd14e9e"><span font-size="14">配置信息：</span></p>
+<ol nodeId="8b3f4083b3d8464187ca3bbc25745a69">
+<li nodeId="cb2bd3d4c3aa4856a49869133ecbf44b"><span font-size="14">英文名称：支持小些字母、数字和下划线、最多128字符，</span><span color="rgb(245, 35, 45)"><span font-size="14">用于上下文组件逻辑配置</span></span></li>
+<li nodeId="24b7214399b04062b82fca3ebf77b24b"><span font-size="14">数据类型：Squirrel/S3/Rpc/Http，选择不同的数据类型，下方展示模块不一样</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[903]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dcadbcfee15c4fd7b3bcef9083e5ed04">
+<p nodeId="c8924371f156413bb1d2ff2360c7b1ad"><img src="https://km.sankuai.com/api/file/cdn/1319403547/1876243669?contentType=1&amp;isNewContent=false" name="image.jpeg" width="701" height="417" nodeId="5825e0c6791e42378c5586057db506db" /></p>
+</td>
+</tr>
+<tr nodeId="f3a39df741a34510aa5e4525db4b8c3a">
+<td colwidth="[396]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1cd42b8acd454ba6b71e6a06b9f4f00c">
+<h4 nodeId="e93c483270414180991f08585555b0ee"><span font-size="14">Squirrel配置</span></h4>
+<ol nodeId="3f13c6dad0254bebab9baf56ae18f47c">
+<li nodeId="f63abf0d28404d6ab008cafd7c22bb70"><span font-size="14">存储集群：近线默认存储集群为redis-rc-nearline-public_product，若用户存储在自己的集群上，此处请填写数据所存储的集群英文名称</span></li>
+<li nodeId="25947a6d43a049c295cbba483be05b85"><span font-size="14">存储类：为用户在Squirrel上创建的存储名称</span></li>
+<li nodeId="96e58f6b4bce4fd097fb8dfe166abaea"><span font-size="14">缓存配置：时间加减，默认30分钟，最长X H；</span></li>
+<li nodeId="caf702f5e9c449a8941b4e6109ada63b"><span font-size="14">结果类型：</span><span color=" "><span font-size="14">int/string/map/array</span></span></li>
+<li nodeId="1c72cf23ec2f468faf46667651426165"><span color=" "><span font-size="14">查询类型：hash/string</span></span></li>
+<li nodeId="48a9752ccf0e4a3bbdc51aea33007d2e">
+<p nodeId="2ac843deb0e1436699eae6dfe77db9c2"><span color=" "><span font-size="14">查询方式：</span></span></p>
+<p nodeId="3bb3ee822ac445d683fde6c83be97ab7"><span color=" "><span font-size="14">当选择hash时，可支持</span></span><span font-size="14"><strong>获取 key 下单 field 的 value 值</strong></span><span font-size="14">/</span><span font-size="14"><strong>获取 key 下所有 field 值</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">/</span></span><span font-size="14"><strong>获取 key 下所有 value 值</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">/</span></span><span font-size="14"><strong>获取所有的 k-v 键值对</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">；</span></span></p>
+<p nodeId="3d3ad85856224387a8b0fc86ddd7febd"><span color="rgb(44, 62, 80)"><span font-size="14">当选择string时，</span></span><span color=" "><span font-size="14">仅支持</span></span><span font-size="14"><strong>获取 key 下单 field 的 value 值</strong></span></p>
+</li>
+<li nodeId="22a452acacd24fa1a92c6459a0e24d8b"><span color="rgb(250, 84, 29)"><span font-size="14">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></li>
+<li nodeId="83fa916dda6d4ed18eb266bd37e4ce25">
+<p nodeId="84e8dc112acd4d319433b4fbe66556bc"><span font-size="14">高级配置（默认收起）：</span></p>
+<ol nodeId="8161733faac848da8ad34293c3bb129e">
+<li nodeId="9d2a9bb3e9c246d18e7485864227fc91"><span color=" "><span font-size="14">大象通知人：直接输入misid，多个请用逗号隔开，用于熔断、缓存失败进行通知；</span></span></li>
+</ol>
+</li>
+<li nodeId="5d88b89f73b54082986d34af8f03f746">
+<p nodeId="115415f0b0c94747ac5148d80a593ee5"><span font-size="14">调用测试：</span></p>
+<p nodeId="dad56593d8104ac29bf4a7bcba292261"><span font-size="14">点击保存后，点击“去测试”，进行测试</span></p>
+</li>
+<li nodeId="2998c35f417f4e968a4a5826e1f0ada1"><span font-size="14">平台限流值: 6w/min</span><span color="rgb(250, 84, 29)"><span font-size="14">，如需更高流量，请联系近离值班rd</span></span></li>
+</ol>
+</td>
+<td colwidth="[903]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="040c0dadebf14ebcb79b6cf44603232e">
+<p nodeId="4e952a142eeb45cd88fd15ce0f47e8c5"><img src="https://km.sankuai.com/api/file/cdn/1319403547/41301386254?contentType=1&amp;isNewContent=false" name="image.jpeg" width="881" height="437" nodeId="a0177abcd910408698cae79b15e4bf1f" /></p>
+<p nodeId="77369247b286461781e06ebebfdd0a99"><img src="https://km.sankuai.com/api/file/cdn/1319403547/1877007912?contentType=1&amp;isNewContent=false" name="image.jpeg" width="401" height="271" nodeId="5b1f1015896548fba56d3d5681004bd2" /><img src="https://km.sankuai.com/api/file/cdn/1319403547/1877007973?contentType=1&amp;isNewContent=false" name="image.jpeg" width="371" height="276" nodeId="a2df169744be482d934cae294740b733" /></p>
+</td>
+</tr>
+<tr nodeId="2d714457928b4b09996135f8661a117a">
+<td colwidth="[396]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e4bbfbc44f734956b60d2c9410f7a33f">
+<h4 nodeId="f23263bad6ac4b07b298738d3a72dbbe"><span font-size="14">S3配置</span></h4>
+<ol nodeId="e36dbe5a03a84b0e9662a4cc566977e7">
+<li nodeId="029826d3119f447f9962620fd3fb37e0"><span font-size="14">缓存配置：时间加减，默认30分钟，最长X H；</span></li>
+<li nodeId="2f9f94837cca45ff85d1c3c213513722"><span font-size="14">结果类型：</span><span color=" "><span font-size="14">int/string/map/array</span></span></li>
+<li nodeId="4e36b46d8eb04d8d922349780d8cdd32"><span color=" "><span font-size="14">查询方式：</span></span><span font-size="14"><strong>获取 key 下单 field 的 value 值</strong></span><span font-size="14">/</span><span font-size="14"><strong>获取 key 下所有 field 值</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">/</span></span><span font-size="14"><strong>获取 key 下所有 value 值</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">/</span></span><span font-size="14"><strong>获取所有的 k-v 键值对</strong></span></li>
+<li nodeId="3d6bd6bfd58e44c2872b848ecb7b9411"><span color=" "><span font-size="14">key</span></span><span color="rgb(250, 84, 29)"><span font-size="14">可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></li>
+<li nodeId="5b3da8443f87442e82e3fbd21e282a51">
+<p nodeId="0ed48cf463a545fa844e6b41b707f655"><span font-size="14">高级配置（默认收起）：</span></p>
+<ol nodeId="ab4b9380fc844d1a8ba1376eb7ba7d51">
+<li nodeId="6e65a5e8a0a94891a415635fc4653fe0"><span color=" "><span font-size="14">大象通知人：直接输入misid，多个请用逗号隔开，用于熔断、缓存失败进行通知；</span></span></li>
+</ol>
+</li>
+<li nodeId="ac89ccf77bc043e48f3625b56db95e46">
+<p nodeId="1e1511f7e95b45f987820c07354135c0"><span font-size="14">调用测试：</span></p>
+<p nodeId="dab4c6dea0854865b9dc79f68985e03e"><span font-size="14">点击保存后，点击“去测试”，进行测试，测试结果会展示在当前页面中</span></p>
+</li>
+<li nodeId="e222ee4646724fb186fda4441eee6f04"><span font-size="14">平台限流值：6k/min</span><span color="rgb(250, 84, 29)"><span font-size="14">，如需更高流量，请联系近离值班rd</span></span></li>
+</ol>
+</td>
+<td colwidth="[903]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b68d1b8aa63646b8b55b92ecdb75aa05">
+<p nodeId="ad5efc58aff948688f255dba62cfbc28"><img src="https://km.sankuai.com/api/file/cdn/1319403547/1876243669?contentType=1" name="image.jpeg" width="701" height="562" nodeId="0768e2faea3249f28fd6f4370ac75f4d" /></p>
+<p nodeId="75f3a628ab0f403f968239a4c22fb1ca"><img src="https://km.sankuai.com/api/file/cdn/1319403547/1875777810?contentType=1" name="image.jpeg" width="340" height="241" nodeId="230b9cdadb4a479f863c46ef8c485d6d" /></p>
+</td>
+</tr>
+<tr nodeId="b6c6c21058b24681998e8c96396a9cac">
+<td colwidth="[396]" nodeId="ab4ca870a6de4ed4b92bbe9440b2fb91">
+<h4 nodeId="44e912c765394f3cabdfd5b355eb61ce"><span font-size="14">RPC配置</span></h4>
+<ol nodeId="0e61adbdddc0402cab2833c835d54372">
+<li nodeId="3f8ab044437f4192ab4e4fd3cb27e05f"><span font-size="14">缓存配置：时间加减，默认30分钟，最长X H；</span></li>
+<li nodeId="fee115d1a4cd4489834532cbe84d2bef">
+<p nodeId="23ad5c65324a4d67aacafa1c6b10610d"><span font-size="14">限流量：</span></p>
+<p nodeId="cd9ac38c9fe746e397126f7aa6355d04"><span font-size="14">时间单位：可选秒/分/小时；</span></p>
+<p nodeId="6e87c9905fec4b7ebf1dae6c2dabbf98"><span font-size="14">数据量：表明取最近X S/min/H请求量；</span></p>
+</li>
+<li nodeId="0ab5804455264517ace3ffd59d93ca42"><span font-size="14">超时时间：单位默认ms</span></li>
+<li nodeId="7872a56f97d44fc8873bb0c5506be584"><span font-size="14">结果类型：</span><span color=" "><span font-size="14">map</span></span></li>
+<li nodeId="8efc01b7cbae4ac092d1c6713c8ec7a3"><span color=" "><span font-size="14">Appkey：文本输入</span></span></li>
+<li nodeId="20ab810fee584b848cbb15eb87e4a724"><span color=" "><span font-size="14">入参value、请求幂等建：</span></span><span color="rgb(250, 84, 29)"><span font-size="14">可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></li>
+<li nodeId="ef6f7f1d2231459a8484036c9fff26c3"><span color=" "><span font-size="14">大象通知人：直接输入misid，多个请用逗号隔开，用于熔断、缓存失败进行通知；</span></span></li>
+<li nodeId="021888385b834e7e91aaca642a176e26">
+<p nodeId="3a6a41c7294a4f2f9e4fe3be45301d40"><span font-size="14">调用测试：</span></p>
+<p nodeId="3818e5f3ccdf43d692054c6cbacadf44"><span font-size="14">点击保存后，点击“去测试”，进行测试，测试结果会展示在当前页面中</span></p>
+</li>
+<li nodeId="cea4c9655930423eadab2b75bdf8cf10"><span font-size="14">平台限流值:3w/min</span><span color="rgb(250, 84, 29)"><span font-size="14">，如需更高流量，请联系近离值班rd</span></span></li>
+</ol>
+</td>
+<td colwidth="[903]" nodeId="902fa60fc05142368c944791e2a07272">
+<p nodeId="735a9db3df2b4624aff22ad2b9c91b29"><img src="https://km.sankuai.com/api/file/cdn/1319403547/1876973050?contentType=1&amp;isNewContent=false" name="image.jpeg" width="719" height="564" nodeId="48f93ab9f46f4e21bf1e63ce37c3ba44" /></p>
+<p nodeId="437484e9c00746138e23dfb2b2182729"><img src="https://km.sankuai.com/api/file/cdn/1319403547/1877070828?contentType=1&amp;isNewContent=false" name="image.jpeg" width="392" height="266" nodeId="f8b9aba044c3484eb76ab9d2049caf33" /><span font-size="14"> </span><img src="https://km.sankuai.com/api/file/cdn/1319403547/1877005048?contentType=1&amp;isNewContent=false" name="image.jpeg" width="323" height="264" nodeId="06e711e5c6e64a43a589d4412ed4d69a" /></p>
+</td>
+</tr>
+<tr nodeId="54c0edbd93db4748ad562dc746cf9037">
+<td colwidth="[396]" nodeId="1a3d66dfcdd14d30ba70b8cba74b8e1e">
+<h4 nodeId="33900cfa94fc464e96f6c73b31c93aee"><span font-size="14">Http配置</span></h4>
+<ol nodeId="d31c755f57004165995b336585f91c74">
+<li nodeId="3a873ab0ad6c49e8a749a244663f2498"><span font-size="14">缓存配置：时间加减，默认30分钟，最长X H；</span></li>
+<li nodeId="ebad72dcb33b4b0d84eee7b8f0a9c4de"><span font-size="14">结果类型：</span><span color=" "><span font-size="14">string</span></span></li>
+<li nodeId="3b13c170a4e34b9b92a6addbf4715aec"><span font-size="14">限流量：时间单位：可选秒/分/小时；表明取最近X S/min/H请求量</span></li>
+<li nodeId="6398db10f48c4480b36301a49192b527"><span color=" "><span font-size="14">url：需要先下拉选 get还是post请求</span></span></li>
+<li nodeId="6e55dc85c7f244c59e1f5f2428d3b280"><span color=" "><span font-size="14">Header：map格式</span></span></li>
+<li nodeId="b490a741d4cb4513a3faa7b272761977"><span color=" "><span font-size="14">请求体：string格式</span></span></li>
+<li nodeId="a35f22c6f7c349c3872e666e86e08d22"><span color=" "><span font-size="14">url、header的value、请求幂等建、请求体</span></span><span color="rgb(250, 84, 29)"><span font-size="14">可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></li>
+<li nodeId="983a7c57a55d45a6904a3721d48c81a6"><span color="rgb(250, 84, 29)"><span font-size="14">平台限流值: 6k/min，如需更高流量，请联系近离值班rd</span></span></li>
+<li nodeId="bdd1398ddb954d9db4b24fb0844491e7">
+<p nodeId="345de621f40c451d918efa324ab81b31"><span font-size="14">高级配置（默认收起）：</span></p>
+<ol nodeId="9a4bc4977f14435fbfb07ed5d99e69a4">
+<li nodeId="a727884fa783471db1cc0f9f0499fe6c"><span color=" "><span font-size="14">大象通知人：直接输入misid，多个请用逗号隔开，用于熔断、缓存失败进行通知；</span></span></li>
+<li nodeId="21d1ef9b169a430d935dc673099a7b54">
+<p nodeId="ae6f6d6f9bcf482bac9fc543f862d9df"><span font-size="14">调用测试：</span></p>
+<p nodeId="4257e469e5db4222891f706dd18001fa"><span font-size="14">点击保存后，点击“去测试”，进行测试，测试结果会展示在当前页面中</span></p>
+<p nodeId="41607ddcebc24446816224fe12f4acef" />
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[903]" nodeId="202427a4385646c8bfffa3d1f8f57315">
+<p nodeId="0ba31110cc274cbda8f50962e5400b46"><img src="https://km.sankuai.com/api/file/cdn/1319403547/1876971718?contentType=1&amp;isNewContent=false" name="image.jpeg" width="754" height="549" nodeId="958c27abf6f14774b87b377564fc8b24" /></p>
+<p nodeId="0babc42c59b140ea9577a0ba2d401c84"><img src="https://km.sankuai.com/api/file/cdn/1319403547/1876947316?contentType=1&amp;isNewContent=false" name="image.jpeg" width="394" height="346" nodeId="1688113e0d0944c29a1a4b15c4e68802" /><img src="https://km.sankuai.com/api/file/cdn/1319403547/1876992880?contentType=1&amp;isNewContent=false" name="image.jpeg" width="370" height="345" nodeId="07e6472499234d4f8d5269377cf95b4d" /></p>
+</td>
+</tr>
+<tr nodeId="8300935644964216ad92a8fb9014c2a7">
+<td colwidth="[396]" nodeId="198ce39e7b784c8d8739e1cd7c682c22">
+<h4 nodeId="cf6f2f88852f4f9699bbaaaacc0ee7dd"><span font-size="14">Tair配置</span></h4>
+<ol nodeId="85dbd84859be41ab82493c72f74e0609">
+<li nodeId="b7595a477a2f4ff1a9c0af197cb2c32f"><span font-size="14">存储集群：近线默认存储集群为rcom.sankuai.cellar.mtsi.zeusoffline，若用户存储在自己的集群上，此处请填写数据所存储的集群英文名称，即tair侧的RemoteAppkey值</span></li>
+<li nodeId="e6bdace8bd084db9ac3703fffa35f9a1"><span font-size="14">area：近线默认为5，若用户存储在自己的集群上且设置了自己的area，此处请填写数据所存储area；</span></li>
+<li nodeId="ff4d333de63844429109c7c0ddc25fae"><span font-size="14">缓存配置：时间加减，默认30分钟，最长X H；</span></li>
+<li nodeId="f794ca9527ae4785a47da3701b0a2c92"><span font-size="14">结果类型：</span><span color=" "><span font-size="14">int/string/map/array</span></span></li>
+<li nodeId="cdf30b77e78e4ee0a9b9dae0e7a0aaa4"><span color=" "><span font-size="14">查询类型：hash/string</span></span></li>
+<li nodeId="65a726b91af74f07885fd7877d53c1d2">
+<p nodeId="a3e693734a864141bd25a62809bbefbc"><span color=" "><span font-size="14">查询方式：</span></span></p>
+<p nodeId="d6189b2ff30a4d029a8271455a262aa1"><span color=" "><span font-size="14">当选择hash时，可支持</span></span><span font-size="14"><strong>获取 key 下单 field 的 value 值</strong></span><span font-size="14">/</span><span font-size="14"><strong>获取 key 下所有 field 值</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">/</span></span><span font-size="14"><strong>获取 key 下所有 value 值</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">/</span></span><span font-size="14"><strong>获取所有的 k-v 键值对</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">；</span></span></p>
+<p nodeId="eaf4a96a709249b28601eac00de57cd6"><span color="rgb(44, 62, 80)"><span font-size="14">当选择string时，</span></span><span color=" "><span font-size="14">仅支持</span></span><span font-size="14"><strong>获取 key 下单 field 的 value 值</strong></span></p>
+</li>
+<li nodeId="d809d7d178524755bb7d51ee6da06ec0"><span color="rgb(250, 84, 29)"><span font-size="14">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></li>
+<li nodeId="7b76b82068d441deb72b40e69ff3cd10">
+<p nodeId="8d49d07b83e1495ab25b02fb40928482"><span font-size="14">调用测试：</span></p>
+<p nodeId="f02d3cbc029d4273868ad6022a6397ac"><span font-size="14">点击保存后，点击“去测试”，进行测试</span></p>
+</li>
+<li nodeId="bf1d4ad97f8143bebb5c39ce31d0b2d3"><span font-size="14">平台限流值: 6w/min</span><span color="rgb(250, 84, 29)"><span font-size="14">，如需更高流量，请联系近离值班rd</span></span></li>
+</ol>
+</td>
+<td colwidth="[903]" nodeId="753e604577bc43dfba9499bf4af778b0">
+<p nodeId="c918b67728d04145a72f2ce082c8a8f0"><img src="https://km.sankuai.com/api/file/cdn/1319403547/41305319357?contentType=1&amp;isNewContent=false" name="image.jpeg" width="881" height="431" nodeId="aab3e58042dc4a8ba84d092728cb3127" /></p>
+</td>
+</tr>
+<tr nodeId="9a492adf5b6e4f4ea28b92a431fdf8c3">
+<td colwidth="[396]" nodeId="4798f2ed9e774ed29cf5877d97260c80">
+<p nodeId="acccc574f56140f9841e1cc6bc03b08e"><span font-size="14">仿真测试样例 说明</span></p>
+</td>
+<td colwidth="[903]" nodeId="b7d5e6f1eee445e79bd86f5fd5507566">
+<p nodeId="dc5bb263089042b7ab578446eae780ca"><img src="https://km.sankuai.com/api/file/cdn/1319403547/1877055244?contentType=1&amp;isNewContent=false" name="image.jpeg" width="851" height="600" nodeId="f560dfaec94a4218bd95852df71f2a97" /></p>
+</td>
+</tr>
+</table>
+<h3 align="start" nodeId="5b879201150248678500fb44bb107dd2">四、FAQ</h3>
+<h4 nodeId="2e065f0defb6480bafc4297bb7f026e8">1.配置样例</h4>
+<p nodeId="454ad884ee6e475ea72d48d0237e080f">http get:  <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" nodeId="492ab60079e54a6eba7b878fbd5b2b80">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1</a></p>
+<p nodeId="bc8d97fa051c4cfda0a0c1b630c45625">http post: <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" nodeId="cc4cf3f11969487381e88e40f1b1fe7b">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1</a></p>
+<p nodeId="58e4000f952546f5b2c99265f7d1b4e9">rpc : <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" nodeId="42a1cbd6780a44c19a5af73631d0a8f7">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1</a></p>
+<h4 nodeId="2fe4b7475fb648dca4d4844a137e1dff"><strong>2.在数据获取组件中http </strong><span color="rgba(0, 0, 0, 0.87)"><strong>对于url前缀拼接动态配置方式</strong></span></h4>
+<p nodeId="b95661ca124040258310b0bb6505dbe5"><span color="rgba(0, 0, 0, 0.87)">对于url前缀拼接动态获取的参数的场景，可以使用+进行字符串常量和动态参数的拼接，样例："</span><a href="https://sa.sankuai.com/api/idc/ops/" title="https://sa.sankuai.com/api/idc/ops/" nodeId="e50cfafc2e33422b9aee4bc2c76dd9f4">https://sa.sankuai.com/api/idc/ops/</a><span color="rgba(0, 0, 0, 0.87)">"+_mt_servername</span></p>
+<h4 nodeId="8a95b97551844462a29fc3b053b45f62"><strong>3.业务如何开发一个rpc接口跟Zeus对接</strong></h4>
+<p nodeId="7f7b01a168214c2cb34fdaa4d69805aa"><a href="https://km.sankuai.com/page/1323587933" title="https://km.sankuai.com/page/1323587933" autoUpdate="true" nodeId="36849a71cdc746bcb9a912f67d14b1d9">https://km.sankuai.com/page/1323587933</a></p>
+<p nodeId="b6d4199ade7d42daa446582126a7f5c4"><a href="https://km.sankuai.com/page/1322547118" title="https://km.sankuai.com/page/1322547118" autoUpdate="true" nodeId="b551b0b820e94274af172a84bcd1f1cf">https://km.sankuai.com/page/1322547118</a></p>
+<p nodeId="e4ddd0bac0604787a95647a9d94e52c4"><a href="https://km.sankuai.com/page/28253533#id-%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E7%8E%B0" title="https://km.sankuai.com/page/28253533#id-%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E7%8E%B0" autoUpdate="true" nodeId="4fd32b4b28074830bfab71b19d92ec7d">https://km.sankuai.com/page/28253533#id-%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E7%8E%B0</a><br /></p>
+<p nodeId="18793dd458ef4b8495c58f4940a8ed8e" />
+</km-doc>

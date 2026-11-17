@@ -1,0 +1,79 @@
+<km-doc>
+<km-title nodeId="e964915ef4d4421eabf787dee31e5010">说明：画布- 旁路输出组件</km-title>
+<km-catalog style="none" nodeId="c1607cb924214c83ba2e8f8b53ad15bf" />
+<h3 align="start" nodeId="ce47d7bda5804a7a8d311cdeca73b552">一、背景</h3>
+<p align="start" nodeId="abf4846530c24dfb9c4269fdc987519b">见画布背景</p>
+<h3 align="start" nodeId="b32fce5c64cf48deac841b1a98cc112c">二、名词解释</h3>
+<p align="start" nodeId="1729c86a8f8c48eab1e3048c2e5c111c"><span color=" ">旁路输出</span>：<span color=" ">将流转至该节点的数据全部输出至指定topic</span></p>
+<h3 align="start" nodeId="3789cb83ef354106a7823ce1d95524f7">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="7bfd67e27ff1435caa8df7272915b9ff">
+<tr nodeId="cc32d3e18ddf4254a50dd1d5d51c9b27">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="76b84cf5f38c4ff78bf771af96957c14">
+<p nodeId="5fc78b2a3a174dd49f7bd30a75a5f14f"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="2af8d064867544beaea33b47994d0f6f">
+<p nodeId="33f33da436e441659f6b4cc4ea2de0d9"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="46403e8ada2e495ba09f15e7a744c2c9">
+<td colwidth="[485]" nodeId="8730683b29cc455bb16ea0b041eb22f5">
+<p nodeId="c0571288a11341a6b26f95e7a484f1e7"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="dafc2b73263d4b9eba3548ffc46046d0"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="ccde8796f7f24c24a943bc38b8e7a414" />
+<ol nodeId="30f5ea3678a14cfaa48b4cdbec0e9828">
+<li nodeId="9c747c2beed14d8794a9c49bc971561d"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="7cdceacc9fa6498e92768d892b5ae207"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="8198a89d761a44a0a61e26e87e532b15"><span font-size="14">将</span><span color=" "><span font-size="14">旁路输出</span></span><span font-size="14">组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="cfd92b2271154b3baa6d356c69bfa4ee">
+<p nodeId="d2397853363b4a79a4130452fbc60df7" />
+</td>
+</tr>
+<tr nodeId="80fca403ca3b4bc2944b30846eaaae76">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cef007761cb64dfdaff7d1dfbe921ea4">
+<ol nodeId="580627ca62b64a53b8ce8bcdf206f3bb">
+<li nodeId="f10d9a5faa744c80854a90cee814158d">
+<p nodeId="9191986eb6be436ea111f3d0f8a7daba"><span font-size="14">基本信息：</span></p>
+<ol nodeId="174895b32f614f0aad5775b5b0a1e88a">
+<li nodeId="44ab7685893d48b2b2c4d8ca9066121e">
+<p nodeId="ce73a484615b44d5a425cd18595161fb"><span font-size="14">类型：Kafka / Mafka</span></p>
+<ol nodeId="764dc50c527c4ae0a2904386487ec5ea">
+<li nodeId="8b5ee03b37ac4fd688ae512031250c58">
+<p nodeId="15bce2a0eaa14cb89c43915201192061"><span font-size="14">Kafka</span></p>
+<ol nodeId="80a42f1c68ea4b1a923991a969af3588">
+<li nodeId="f80f1da735254988813c63cf67f3f6ac"><span font-size="14">名称：</span><span color=" "><span font-size="14">支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></span></li>
+<li nodeId="470c9771599c4adbb16f59f727c86270"><span color=" "><span font-size="14">Topic：输入kafka Topic名，需要填写有权限的topic，否则保存画布时会报错；</span></span></li>
+<li nodeId="94051fe3b54f41de99e5a68500d36bcf"><span color=" "><span font-size="14">输出格式：单选，支持RAW/JSON/XMD</span></span></li>
+</ol>
+</li>
+<li nodeId="2320347ab1c14b64bf1455e8bcbbc27a">
+<p nodeId="bd5c064953f14627bab8c8f197cd592e"><span font-size="14">Mafka</span></p>
+<ol nodeId="30c7e552fea444e5810309214e58ba71">
+<li nodeId="a5de34943a18445ebf3730c48aeff143"><span font-size="14">名称：</span><span color=" "><span font-size="14">支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></span></li>
+<li nodeId="118fb1336283422abef9657114dd7df8"><span color=" "><span font-size="14">Topic：输入kafka Topic名，需要填写有权限的topic，否则保存画布时会报错；</span></span></li>
+<li nodeId="d3f457f1f3c441518a2c1fb4c22191e8"><span color=" "><span font-size="14">namespace</span></span></li>
+<li nodeId="ecd43b452dbb44c895231dee44ad5d04"><span color=" "><span font-size="14">消费组appkey</span></span></li>
+<li nodeId="0d38656683554cefab50af19f857baf3"><span color=" "><span font-size="14">输出格式：单选，支持RAW/JSON/XMD</span></span></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p nodeId="46ac26329a944155b044d8210c87e3d7" />
+<p nodeId="c96aa104c1ea4e6ebd3b722b0396118e" />
+<p nodeId="5a27b49805e740fa90a7e6b1e60aa7c9" />
+<p nodeId="20c056d677e94d5e880c3a9f35eb48cb" />
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dd63bd2c82b34ceea103ce0a1b7dbdb1">
+<p nodeId="3c67b3e826ef43ef9cb0bfd9f5e2d3ea"><img src="https://km.sankuai.com/api/file/cdn/1200659710/13856794257?contentType=1&amp;isNewContent=false" name="image.jpeg" width="552" height="399" nodeId="f11dd8b27fa34d068860423b866b3e12" /></p>
+<p nodeId="f9de0426aad04a89b65d162f7d111b5f"><img src="https://km.sankuai.com/api/file/cdn/1200659710/13856321333?contentType=1&amp;isNewContent=false" name="image.jpeg" width="552" height="336" nodeId="aff57bd127794780a37dd48e80bac652" /></p>
+<p nodeId="54b23dbf88b34eec87235318f09820b5" />
+</td>
+</tr>
+</table>
+<h3 align="start" nodeId="c64a5afd6bb94d478da875e140bc5bed">四、FAQ</h3>
+<p nodeId="a8af5368eede4f4fbc9c28d701bb3f44" />
+</km-doc>

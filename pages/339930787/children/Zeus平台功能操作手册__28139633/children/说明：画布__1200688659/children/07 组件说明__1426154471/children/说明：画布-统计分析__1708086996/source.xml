@@ -1,0 +1,101 @@
+<km-doc>
+<km-title nodeId="0d7e868c1fa543ee992458026b9afbc6">说明：画布-统计分析</km-title>
+<km-catalog style="none" nodeId="7a4179366ff14aacb1dafab2804af100" />
+<h3 nodeId="2ca035e1fd1a447dba92caaad8372224">一、背景</h3>
+<p align="start" nodeId="640a03088a914ff0890a524865f42ac5">统计分析组件主要针对一些数据统计类的计算函数做了整体产品化，目前仅支持同比和环比的逻辑，降低用户配置该部分计算逻辑时的操作成本。</p>
+<h3 align="start" nodeId="8ddfea6caf14405e9ee555c750ce64fd">二、名词解释</h3>
+<p align="start" nodeId="2d644ba3bd264246a02408465491a092">同比：指与历史同期的一个统计段进行对比。反映的是事物发展的相对情况。比如，2022年3月与2021年3月，今天与前天。</p>
+<p align="start" nodeId="4a62fd4f0fb94d39b43f9e7cf7378573">环比：指与相连续的上一个统计周期进行对比。反映的是事物逐期发展的情况。比如，2022年1月与2021年12月的数据，今天与昨天，2022年与2021年。</p>
+<p align="start" nodeId="c729f26bd0444c41b696bc6ba3d8af27">区别1：核心区别：是否连续。同比是不连续的，环比是连续的。</p>
+<p align="start" nodeId="5fc77a7023fb42fca323fd69d743fbc7">区别2：同比前一般会加限定词。2022年3月的月活与2021年3月的同比。如果是环比，可以直说2022年3月环比提高了多少。</p>
+<p nodeId="d4bc77d191cc4817ae6970aa59aef68e" />
+<p nodeId="53379ae2583a4187ac403332b471e328"><span font-size="15">增长率是指两个时间点之间的数据增长量与前一个时间点的数据值的比率。增长率可以帮助我们了解数据的增长速度和趋势。例如，如果某个产品在去年销售了1000件，今年销售了1200件，那么增长率为20%。</span></p>
+<p align="start" nodeId="e79f3b0d2e6f414b995ec9f6e7d6f3e3"><span font-size="15">增长值是指两个时间点之间的数据增长量。增长值可以帮助我们了解数据的绝对变化量。例如，如果某个产品在去年销售了1000件，今年销售了1200件，那么增长值为200件。</span></p>
+<p align="start" nodeId="dc3e3f59751a4fdb835d5b265d9849f7"><span font-size="15">原始值是指某个时间点的数据值。原始值可以帮助我们了解数据的绝对水平。例如，某个产品去年销售了1000件</span></p>
+<h3 align="start" nodeId="a452bf781a07426489ec22a746163fc8">三、计算逻辑说明</h3>
+<table responsive="false" nodeId="69251f52b0394412ad2f4f10dd55fc48">
+<tr nodeId="a57ba5cd511544619ecd7e51d45a7b56">
+<th colwidth="[90]" nodeId="5837b0a2eb6c4e58a216ae893c6abb9f">
+<p nodeId="dba618e944ac4ed0ab7da3f6ada95eb7">函数名称</p>
+</th>
+<th colwidth="[876]" nodeId="0e4d3c6be7d54946b56a7dc6c3262a7a">
+<p nodeId="c0137b844baf4b7b95ac4ae5075d1de9">逻辑</p>
+</th>
+</tr>
+<tr nodeId="61202aba151f4a81969791d544abe9c5">
+<td colwidth="[90]" nodeId="f8c93d650dde42d4b38415da45f19c50">
+<p nodeId="8303f06830e04ee383a7b59a583e30aa">同比</p>
+</td>
+<td colwidth="[876]" nodeId="2a047e843b014a258f8e7a44008287f6">
+<p nodeId="ca97c921a5c843eea82f472b382bca17"><span color="rgba(0, 0, 0, 0.87)">【指标逻辑】近10分钟的流量与昨天同时间的流量同比&gt;50%：</span></p>
+<p nodeId="fecdee9284574f168dc35099b8d8552a">【数据信息】 <span color="rgba(0, 0, 0, 0.87)">2023.5.30 11:00-11:10 流量为a    2023.5.31 11:00-11:10 流量为b </span></p>
+<p nodeId="4f5935f4afc5430c9deebd27558d0524">【计算公式】增长率：<span color="rgba(0, 0, 0, 0.87)">(b-a)/a  ；增长值：b-a；原始值：a</span></p>
+</td>
+</tr>
+<tr nodeId="ab41ddb63873457aa00264d0d018f1d1">
+<td colwidth="[90]" nodeId="c0a70eb5b9b14583babeb53198d0a096">
+<p nodeId="5da5bcac9d51433c988a01dfb724ad0c">环比</p>
+</td>
+<td colwidth="[876]" nodeId="74ab751962d1485e86a49156b5850389">
+<p nodeId="91c0d3876cdf4a3f985e0bf9ccd2d0c7"><span color="rgba(0, 0, 0, 0.87)">【指标逻辑】</span>近10分钟流量环比&gt;50%</p>
+<p nodeId="a5ed6122848746c7a1cf58b18280aaa7">【数据信息】11:00-11:10 流量为a 11:10-11:20 流量为b </p>
+<p nodeId="67111edd41f2434d9b0fa97775ebc9e8">【计算公式】增长率：<span color="rgba(0, 0, 0, 0.87)">(b-a)/a  ；增长值：b-a；原始值：a</span></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="bec423feb0b8419e9c2a74521cdce38e">四、操作指南</h3>
+<table responsive="false" nodeId="9f66cd83fda7419eab77f6c8dafbd060">
+<tr nodeId="ab8f4f7c0ca84ff7b056bc7d94a78c74">
+<th colwidth="[417]" nodeId="3707294a2166445592956bce6ea56dbf">
+<p nodeId="2a20671c342d4d0fb29a657bedc1da73">操作说明</p>
+</th>
+<th colwidth="[906]" nodeId="cb353481d0d2451da039bc177c26ab67">
+<p nodeId="865f985bec3a4d9aadbc201fbe840ab6">页面</p>
+</th>
+</tr>
+<tr nodeId="0140658ff0624782a942bc8b09cb334a">
+<td colwidth="[417]" nodeId="a947bd0abef04c4fa042d12be0b6d339">
+<ol nodeId="9df7e57db0484902b669883aa1d33928">
+<li nodeId="682e9a85a525450ea6ad251dd79a1da9">组件入口：画布工具栏--&gt;数据处理--&gt;统计分析组件</li>
+<li nodeId="eaba9dbdabb14b26b8545f0dc5305a05">组件应用：拖拽至画布上，即可配置信息</li>
+<li nodeId="100efe5865b9469d8a18ad0eae0481f7">
+<p nodeId="cf844bebc90e436583d654127fe1dd15">组件配置：</p>
+<ol nodeId="9e2b6cda98bb4899836b1ce7888a7d64">
+<li nodeId="3b139a3d454441eeada2c61f35bb730e">变量名：为该组件执行结果的变量名称，可在下游组件引用该名称做逻辑判断，支持输入小写、数字和下划线、第一个字符必须是英文字母或下标符号"_"；提示用户，该变量值类型为double</li>
+<li nodeId="151e3ede72944e3ca2d94bf554269c15">计算函数：环比、同比，具体计算逻辑见“三、计算逻辑说明”</li>
+<li nodeId="d1e815f4fd9648b5af8af412f81e309b">逻辑类型：增长率、增长值、原始值</li>
+<li nodeId="ae4047ce56fc475e95645ff428dba331">统计Key：支持输入参数/因子/变量</li>
+<li nodeId="635cdc66d6b741809cac0ad2a00669c2">统计指标：支持输入参数/因子/变量，提示用户，值类型必须是int/double/long</li>
+<li nodeId="0c198a489dc1460ca8176060e617b867">时间周期：为同环比计算时的时间周期，该处需要与统计指标的时间周期一致</li>
+<li nodeId="b39dfe77e6e84fa2a8a38ebd3bd988d7">
+<p nodeId="41afe805a2c545cd8263f9babdedc3cf">当计算函数为同比时，增量填写信息：</p>
+<ol nodeId="b3b9e3ca6e024eb0ae46e52ef46b6a40">
+<li nodeId="4a86020aa60d4a9da59b1970a039e114">偏移周期：默认“1”，单位支持时/日/周/月</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[906]" nodeId="487ac5abd6a74899bfced2de7693b6a9">
+<p nodeId="2ba1fd29ba1546e3a78ad03d6e260e98"><img src="https://km.sankuai.com/api/file/cdn/1708086996/50382404263?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1007.68" height="600" nodeId="a09f448c503b40c889768a7ce4331aa0" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="df7cb08002d94bc5940764a4e12e73b4">五、配置示例</h3>
+<p nodeId="b14820a8522d4516a6fc33405d7ba86f"><span color="rgba(0, 0, 0, 0.87)">策略逻辑：近10分钟的流量与昨天同时间的流量同比&gt;50%</span></p>
+<p nodeId="63f7d1f3236349ad8ff2244e0a93e86b"><span color="rgba(0, 0, 0, 0.87)">配置实现拆分：</span></p>
+<p nodeId="d9b1d7094ba24bb98d1c62d94fc1f685"><span color="rgba(0, 0, 0, 0.87)">（1）“近10分钟的流量统计” 指标--&gt;近线groupby组件/累计因子</span></p>
+<p nodeId="33cfa87b989148aaa413bb73d04681cb"><span color="rgba(0, 0, 0, 0.87)">（2）“近10分钟的流量与昨天同时间的流量同比” 指标--&gt;近线统计分析组件</span></p>
+<p nodeId="a682feb074c14b8a8d4e4bc6a280cd7c"><span color="rgba(0, 0, 0, 0.87)">（3）“近10分钟的流量与昨天同时间的流量同比&gt;50%”规则--&gt;近线规则集合组件+规则</span></p>
+<h3 nodeId="9c4a9c7b56d24848839b1b530098a94d"><span color="rgba(0, 0, 0, 0.87)">六、FAQ</span></h3>
+<p nodeId="61c56705e868455095a26ba76449f2df"><span color="rgba(0, 0, 0, 0.87)">Q1.统计指标什么时候用近线groupby组件，什么时候用累计因子？</span></p>
+<p nodeId="6cfb296aa6674a41835a1553b66ed84e"><span color="rgba(0, 0, 0, 0.87)">A：近线groupby组件 仅能支持1天以内的时间窗口统计，若统计时间超过1天以上，建议使用累计因子。累计因子为滑动时间窗口计算逻辑，若统计时间超过1天且计算逻辑为滚动窗口则需要联系Zeus RD沟通。</span></p>
+<p nodeId="29bed4fea5554bbabbc29be9bf78a2e3"><span color="rgba(0, 0, 0, 0.87)">Q2.近线统计指标使用累计因子，但累计因子依赖的累计事件流量没有接入过Zeus 怎么处理？</span></p>
+<p nodeId="1aa3d87e3b164ee193a2fcb63dbfcacf"><span color="rgba(0, 0, 0, 0.87)">A：请联系Zeus RD</span></p>
+<p nodeId="2aff950d97fa4f76a85b301f6b6f1f36" />
+<p nodeId="08428ac73b8d47278b6c621f0fe7c49d" />
+<km-footnote-list nodeId="19c23dffb8a4438aa184f83eab3ddef4">
+
+</km-footnote-list>
+</km-doc>

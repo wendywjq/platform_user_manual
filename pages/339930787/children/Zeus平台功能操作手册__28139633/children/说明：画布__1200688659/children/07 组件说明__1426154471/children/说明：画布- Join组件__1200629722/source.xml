@@ -1,0 +1,67 @@
+<km-doc>
+<km-title nodeId="6e654bf0c7a6459fa335c6f00cff0795">说明：画布- Join组件</km-title>
+<km-catalog style="none" nodeId="8d23ba3fcd3141c094b7d3c9e16dc5ef" />
+<h3 nodeId="45ce39bd3d2f468e8c76179abea42e07">一、背景</h3>
+<p align="start" nodeId="b0c74139136d47f39e69b56e9d244c41">见画布背景</p>
+<h3 align="start" nodeId="f22a7001e2634377bb41e052c8c1afa4">二、名词解释</h3>
+<p align="start" nodeId="2ad41adb525f400e9f12209c9a925fcd">Join：<span color=" ">两个流间的数据交叉匹配，满足条件的输出</span></p>
+<h3 align="start" nodeId="fb7b21f070cb4f4282e0c7118de9d799">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="bb883d44350c412a9aa3d5373045c84c">
+<tr nodeId="5af38771d0cd4550a6e0e6342d931bcd">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="62ef943a57dd49ab95f7f745adac7129">
+<p nodeId="53da740a87314562bdb517781e2e46ec"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="b04ee4d7a6df4becb09231ccdd61e4c6">
+<p nodeId="70fef05d60cd4d4eb9c5788b7d47eec8"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="c4aa11592a0741679b7f1e70c8020f31">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d81abde2f5634e9fa652c241669198df">
+<p nodeId="c8ce7f609f9b4be7aed1ede409cdc86a"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="9b1c84b43cb144ed9037bcc16c1c0aa6"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="aaedb086ac1e4b5f8b23d89c5f0558fb"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="447f861377d34ba683376456a379896f">
+<li nodeId="7530c1a590eb450c9a5f6c2006073bdd"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="2717d6ec83714772b0a2331b3dfb8ae3"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="0ae9039e774a40f785438f18a9c5d5ce">
+<p nodeId="21487e4a723345398cf2c90a7c3c7234"><span font-size="14">将kafka组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol nodeId="4c998a8286644b9789426b05307561ce">
+<li nodeId="54fde660b77b46139b1a918088a797d9">
+<p nodeId="e0c720acf0e9441d9f41f842fe513602"><span font-size="14">基本信息：</span></p>
+<ol nodeId="a86f8d32f4324774b6abd58aee7b8869">
+<li nodeId="196e8c07cf12420e9dcbea4586bbf2b4"><span font-size="14">名称：支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></li>
+</ol>
+</li>
+<li nodeId="49a40d14aaf64573b70a2ec599cce71c">
+<p nodeId="e50505b6f12d4af2870d9158a7eb2f4b"><span font-size="14">配置信息：</span></p>
+<ol nodeId="be4ff4f1d7654a1f9eabd37da4a2fb34">
+<li nodeId="61401938c8a845618f1ff72a03e8a83c"><span font-size="14">条件：类似于sql中交表条件on 后面的配置，示例：userid=uuid，默认等号左侧为左流的字段，右侧为右流的字段。如果等号两侧字段名称相同，同样也是通过左右区分。必填</span></li>
+<li nodeId="03bc503def6c4afcb2faab361b4444e3"><span font-size="14">左流时间维度：可填写左流中的时间字段，不填默认系统时间戳，非必填</span></li>
+<li nodeId="d12d395eb774433a97bf76d0ca08379b"><span font-size="14">左流时间维度：</span><span color=" "><span font-size="14">支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</span></span></li>
+<li nodeId="52a97879ab4b46ddbd655608fd30936d"><span font-size="14">右流时间维度：可填写右流中的时间字段，不填默认系统时间戳，非必填</span></li>
+<li nodeId="8807f1f19ed64c8ebbe6acc42d40d2d1"><span font-size="14">右流时间维度：</span><span color=" "><span font-size="14">支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</span></span></li>
+<li nodeId="7f347e084a39458483bad811846ea9fa">
+<p nodeId="b3c8ef5930bf4655a8c09c767c3a751e"><span color=" "><span font-size="14">时间窗口：即计算从时间戳往前滑动多少时间区间进行计算，支持选择分/时/日/月/年，文本框中为数字，必填</span></span></p>
+<p nodeId="1535c745cd724ba094b89a638bf62512" />
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p nodeId="0bc528e1d7d741ceb919c89fa9b4adf1" />
+<p nodeId="54fedf5b8b8643b7b7afea892611ebdc" />
+<p nodeId="26a4679cbd1a425b892130f9b7115c4a" />
+<p nodeId="23805f5c1bc1480eae43ae21177b0a86" />
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ebfd5f9264cb4ca59d8e2174c9858091">
+<p nodeId="22432154b2854aea8b3da1060b745de1"><img src="https://km.sankuai.com/api/file/cdn/1200629722/1258506897?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="267" nodeId="c558470270114b45b55dec6511a9c6e7" /></p>
+<p nodeId="d7496c719f7146c8a05ea324ec2ca35f" />
+<p nodeId="86cdb6f584df4dac897b5d736579bcc3"><img src="https://km.sankuai.com/api/file/cdn/1200629722/1258540527?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="268" nodeId="45dc555839eb441091232b2cd5aafe97" /></p>
+<p nodeId="0ba8c6f2a0d04939baf1fef435a3ee9f" />
+<p nodeId="e9aedb9e823449d4ab4950d5b6ee8217" />
+</td>
+</tr>
+</table>
+<h3 nodeId="ca29a8c1fa8d47d6aba298a97df688f0">四、FAQ</h3>
+</km-doc>

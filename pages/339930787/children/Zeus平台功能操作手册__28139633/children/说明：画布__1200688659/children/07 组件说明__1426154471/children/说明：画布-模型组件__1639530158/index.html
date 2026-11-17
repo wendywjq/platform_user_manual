@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布-模型组件</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-7">三、操作指南</a><a href="#section-8">3.1 操作流程说明</a><a href="#section-19">3.2 具体配置信息说明</a><a href="#section-49">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">07 组件说明</a> / <a href="index.html">说明：画布-模型组件</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1639530158">查看学城原文</a></p><article>
+<h1>说明：画布-模型组件</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>在部分风险领域，需要在近线上支持模型的调用，与数据获取组件不同，模型的调用需要与模型平台适配，独立接口设置成本比较高，通过模型组件可以简化模型调用/模型结果获取的复杂度。</p>
+<h1 id="section-5">二、名词解释</h1>
+<p>MLP：机器学习平台</p>
+<h1 id="section-7">三、操作指南</h1>
+<h2 id="section-8"><strong>3.1 操作流程说明</strong></h2>
+<img src="assets/d68985ce0b98900d.svg" width="868" height="387" alt="流程图">
+<p>*执行说明：</p>
+<ul>
+<li>用户在select组件完成，模型依赖的入参全部映射，则使用映射参数调用</li>
+<li>用户在select组件完成，模型依赖的入参部分映射，则映射的部分和数据流中有同名参数，一同作为入参调用模型</li>
+<li>用户未在select组件进行入参映射，则数据流中有同名参数，作为入参调用模型</li>
+</ul>
+<p>*模型迭代说明：</p>
+<ul>
+<li>因近线引擎当前没有血缘关系建设，本期模型服务，在迭代的时候暂无校验。待血缘关系建设完支持模型迭代输入输出变更的血缘卡控</li>
+</ul>
+<h2 id="section-19"><strong>3.2 具体配置信息说明</strong></h2>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>页面</p>
+</th>
+</tr>
+<tr>
+<td>
+<p><strong>模型组件配置</strong></p>
+<ol>
+<li>基本信息：支持用户自定义填写名称，可填写中文、大小写、括号数字和下划线、-@/，最多可支持128个字符</li>
+<li>
+<p>配置信息</p>
+<ol>
+<li>模型：支持用户选择在模型平台上已经注册的「近线」的模型，支持模型名称、服务ID的搜索</li>
+<li>非填写信息：模型的入参和出参说明</li>
+</ol>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/b81b49990621c48a.png" width="1096" height="553.77" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>仿真测试 数据样例</strong></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/ccf95630b5268024.png" width="1118.62" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-49">四、FAQ</h1>
+<p><strong>1.如何在模型平台部署模型？</strong></p>
+<p>A：<a href="https://km.sankuai.com/collabpage/1228146848" title="https://km.sankuai.com/collabpage/1228146848">风控模型服务平台（Arceus）使用指南</a></p>
+</article></main></body></html>

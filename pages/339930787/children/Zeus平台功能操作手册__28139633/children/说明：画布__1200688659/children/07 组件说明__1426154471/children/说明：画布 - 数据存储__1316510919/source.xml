@@ -1,0 +1,134 @@
+<km-doc>
+<km-title nodeId="bac0dd19ccdc4d81b37d0e82a2aa0ebd">说明：画布 - 数据存储</km-title>
+<km-catalog style="none" nodeId="aafd11066b8443cdaa085813730a2e13" />
+<h3 align="start" nodeId="b182c4aaa0d14587a9882ece15313a43">一、背景</h3>
+<p align="start" nodeId="72609c7494614ca986d3d41db8e44e54">在画布类策略部署的时候，存在需要将执行过程中某些关键数据进行外存。</p>
+<h3 align="start" nodeId="0f0f5bcaf99d4120a51a9e2f64ef997e">二、名词解释</h3>
+<p nodeId="8a10d9a668454744b0916c12a303adda">无</p>
+<h3 align="start" nodeId="bf1dedf834064a39b66468fb30509720">三、操作指南</h3>
+<p nodeId="c4b65bf8d27f444aa4fcb0ef418a6a69"><a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" nodeId="bd709258b78146d1b149231463115e5a"></a>目前数据存储仅支持squrrile存储（<strong>仅支持redis-rc-public_product集群</strong>）</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1316510919/1878237787?contentType=0&amp;isNewContent=false" width="696" height="326" nodeId="57476d8a97414baca942bf7052102c87" />
+<p nodeId="b336702d7db44e9693fc658d645879ca" />
+<table borderColor="#cccccc" responsive="false" nodeId="7a768e08d8ea4f2389395a56eb5dc5fa">
+<tr nodeId="84ee559b91fb465aad670d06682fb47b">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="0573280fe35946e6946ac9655665889b">
+<p nodeId="b06caca704fe4dcf83cbebd7b6d7751f"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[798]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="083fb3b7d29b47e89ae30c5422721aac">
+<p nodeId="bb2d2a760e3642e9a7075a295802fc72"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="afb2e4e6022b4de982f3304d8ebdb476">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b1e920788be0421984a3f2a616491db3">
+<ol nodeId="fbbb6988cc5c4adf8b041a475b1bd6bd">
+<li nodeId="d9b3697018b247fc9637089d9e512ab7"><span font-size="14">基本信息：名称必填，备注非必填</span></li>
+<li nodeId="b5d44ec4f1f3424691782438a6f32c50">
+<p nodeId="dd8c3a7bb21c40c08bd4ef726ab8de85"><span font-size="14">配置信息：</span></p>
+<ol nodeId="83cf38ab5f8e41d8bb7c103871a6b62b">
+<li nodeId="62bd53a9c4f44dc6826c36deaf0dedb8"><span font-size="14">英文名称：支持小些字母、数字和下划线、最多128字符</span></li>
+<li nodeId="09b5ff1789604c7ea7e4db9e267e7dde"><span font-size="14">数据类型：支持Squrriel、Tair</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[798]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5337efca50c14c068f1cf30190ecfa85">
+<p nodeId="2920c0f3b6934bc6800902f82b929d7c"><img src="https://km.sankuai.com/api/file/cdn/1316510919/41336064576?contentType=1&amp;isNewContent=false" name="image.jpeg" width="776" height="346" nodeId="82f85bf70cab46ddb6224e500e024f7a" /></p>
+<p nodeId="a4f194dc4a43496fb7c3723b6a67b12f"><img src="https://km.sankuai.com/api/file/cdn/1316510919/1878237573?contentType=1&amp;isNewContent=false" name="image.jpeg" width="552" height="441" nodeId="3461349fc14a48378d165a7e61e9b94f" /></p>
+</td>
+</tr>
+<tr nodeId="ea0f7d63142b4b6085bbb1b2087f463f">
+<td colwidth="[485]" nodeId="d9dc0dc26ccd44e1a50ef5df61e69196">
+<p nodeId="39a80f95541e4455b7b264dcc8b31958"><span font-size="14">Squirrel配置</span></p>
+<ol nodeId="0a96fedf79244fd69944c205299f1d56">
+<li nodeId="5aac3007f8b74b53ad3749d22db64220">
+<p align="start" nodeId="20ab4d989bef431eb3458dea407e2699"><span font-size="14">存储集群：近线默认存储集群为redis-rc-nearline-public_product，若用户存储在自己的集群上，此处请填写数据所存储的集群英文名称</span></p>
+</li>
+<li nodeId="30c27f410c00458ea1c025a78ca4ebc9">
+<p align="start" nodeId="a97b4183040b4cbe83e3df684a4a8658"><span font-size="14">存储类：为用户在Squirrel上创建的存储名称，若是填写未创建的存储类执行会异常</span></p>
+</li>
+<li nodeId="1137f2133dce409da46de07fe6250063">
+<p align="start" nodeId="423a25a6aa88484795cd0abaa8dcd18b"><span font-size="14">Squirrel</span><span color=" "><span font-size="14">类型：hash/string</span></span></p>
+</li>
+<li nodeId="9f87b0242fef4377ae91263588cab7be">
+<p align="start" nodeId="44447969e1a247b98acbd6bc7c18b03c"><span color=" "><span font-size="14">存储类型：</span></span></p>
+<ol nodeId="7f53bc4d312e45c9beae91335eae9df7">
+<li nodeId="aba83799387b49b398c7f6a4377dd4ba"><span color="rgb(44, 62, 80)"><span font-size="14">当选择string时，</span></span><span color=" "><span font-size="14">仅支持</span></span><span font-size="14"><strong>获取 key 下单 field 的 value 值</strong></span></li>
+<li nodeId="b306ce273f56471a806ff21f97ee4849">
+<p align="start" nodeId="a0ed723be6b3447ea3208813852fcf1c"><span color=" "><span font-size="14">当选择hash时，可支持</span></span><span font-size="14"><strong>获取 key 下单 field 的 value 值</strong></span><span font-size="14">/</span><span font-size="14"><strong>获取 key 下所有 field 值</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">/</span></span><span font-size="14"><strong>获取 key 下所有 value 值</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">/</span></span><span font-size="14"><strong>获取所有的 k-v 键值对</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">；</span></span></p>
+</li>
+</ol>
+</li>
+<li nodeId="32de990aaf434cb2bb84d220096b76ff">
+<p align="start" nodeId="cd4c6109152843df8f874bb2177c2a8d"><span color="rgb(250, 84, 29)"><span font-size="14">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></p>
+</li>
+<li nodeId="e4893db29bc5430588d19ff8d722a7c1">
+<p nodeId="b9b5cc8b9ac54330be846ff64266a87c"><span font-size="14">熔断配置：</span></p>
+<ol nodeId="bf2c8dfb9922498ab922a5db3c5a25b2">
+<li nodeId="037b65481dfe4308b91d421876b5e4ec"><span font-size="14">时间周期：默认为30分钟，写入量超过500就熔断写入，支持用户自定义时间周期、指标和阈值；</span></li>
+<li nodeId="b6f0846a9271490cb2e851337f3e4ed2"><span font-size="14">熔断执行逻辑说明：</span></li>
+<li nodeId="c00515dde711483486c4a36e8a7b2766"><span font-size="14">熔断告警人：默认为画布的配置人</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[798]" nodeId="4f47db130b4f45b4832b597f0e07dccd">
+<p nodeId="b043d427b1254969b0c00ffeb1ca18ce"><img src="https://km.sankuai.com/api/file/cdn/1316510919/41340489344?contentType=1&amp;isNewContent=false" name="image.jpeg" width="776" height="380" nodeId="ee4290a9551d48c785ba67414c00ab31" /></p>
+</td>
+</tr>
+<tr nodeId="f4e050c5c48b47f89b70b83d4b0615ae">
+<td colwidth="[485]" nodeId="1c30ce0e153643239e6dd1ae8e96c589">
+<p nodeId="d129913e15214c55bedf37d6df64e667"><span font-size="14">Tair配置</span></p>
+<ol nodeId="37fa41c28d0946e782ac02b4ae17f983">
+<li nodeId="ac99da4975c54d648be6af60650eb2c3">
+<p align="start" nodeId="7ae608a0819f4658aa7a94d8ab3de4bc"><span font-size="14">存储集群：近线默认存储集群为com.sankuai.cellar.mtsi.zeusoffline，若用户存储在自己的集群上，此处请填写数据所存储的集群英文名称</span></p>
+</li>
+<li nodeId="65d8fdebbf264507ab17adad9e072c44">
+<p align="start" nodeId="910b9d79fba64f36a08bfb1ecb7eeec7"><span font-size="14">area：为用户在Tair上创建的area，若是填写未创建的area执行会异常</span></p>
+</li>
+<li nodeId="c6fbefb7cbe04c86b58078d15983c786">
+<p align="start" nodeId="aab7f7714d0d42c585aa6a7b152e6c31"><span font-size="14">Tair</span><span color=" "><span font-size="14">类型：hash/string</span></span></p>
+</li>
+<li nodeId="541279a74f97477c9fb39e27a2b1b339">
+<p align="start" nodeId="6bec32bc19734af98a29f5083fd628fd"><span color=" "><span font-size="14">存储类型：</span></span></p>
+<ol nodeId="63356a253b9446708556b090abf8be2e">
+<li nodeId="4ead647b35954d4cb761dd9f883d0cb7"><span color="rgb(44, 62, 80)"><span font-size="14">当选择string时，</span></span><span color=" "><span font-size="14">仅支持</span></span><span font-size="14"><strong>获取 key 下单 field 的 value 值</strong></span></li>
+<li nodeId="47488c7483d94f689c1f5b25cd2edf04">
+<p align="start" nodeId="427b9a9cbac545638a0020572dbeda0c"><span color=" "><span font-size="14">当选择hash时，可支持</span></span><span font-size="14"><strong>获取 key 下单 field 的 value 值</strong></span><span font-size="14">/</span><span font-size="14"><strong>获取 key 下所有 field 值</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">/</span></span><span font-size="14"><strong>获取 key 下所有 value 值</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">/</span></span><span font-size="14"><strong>获取所有的 k-v 键值对</strong></span><span color="rgb(44, 62, 80)"><span font-size="14">；</span></span></p>
+</li>
+</ol>
+</li>
+<li nodeId="9977cbe04add45e7bb30872b96741824">
+<p align="start" nodeId="6de1d58383424acbb7ef22aae9a27456"><span color="rgb(250, 84, 29)"><span font-size="14">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></p>
+</li>
+<li nodeId="6748a54cf141466783a49e31277519e6">
+<p nodeId="f56216320409423596e7e38fc3f5ebf1"><span font-size="14">熔断配置：</span></p>
+<ol nodeId="2318ae57d65b4710b0cdf4720bb4d47d">
+<li nodeId="b344127d84df411dbc7f9a53018a1262"><span font-size="14">时间周期：默认为30分钟，写入量超过500就熔断写入，支持用户自定义时间周期、指标和阈值；</span></li>
+<li nodeId="a4b0a7a59def47c8b452f3a70cc87964"><span font-size="14">熔断执行逻辑说明：将配置逻辑摊到每分钟，比如上述为每分钟超过16就熔断，则超过部分熔断不写入，会通过错误日志提供出来；</span></li>
+<li nodeId="e0229a684a8d42e9bb8118f6dfa19081"><span font-size="14">熔断告警人：默认为画布的配置人</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[798]" nodeId="90ac3bccf222494ba5d42047ccb0e602">
+<p nodeId="ae7f555c760542289fb4b86a57f1d557"><img src="https://km.sankuai.com/api/file/cdn/1316510919/41346311743?contentType=1&amp;isNewContent=false" name="image.jpeg" width="776" height="390" nodeId="8b5dccecd38443abb666c8b7063bf99f" /></p>
+</td>
+</tr>
+<tr nodeId="2dd1a6a22279418bbe19c0e1ef3a8389">
+<td colwidth="[485]" nodeId="7bc787b7948c4bb0b13faeba5e15c1bd">
+<p nodeId="2606f9fa0e354b88a5642b2be3a0b2be"><span font-size="14"><strong>仿真测试 样例说明</strong></span></p>
+<p nodeId="5786a64e215c4d609b82be985faf40bc" />
+</td>
+<td colwidth="[798]" nodeId="2772cc6f5f394eb6a837857aa51f5df7">
+<p nodeId="629c0145c99c4739979c387b01900c59"><img src="https://km.sankuai.com/api/file/cdn/1316510919/41345843165?contentType=1&amp;isNewContent=false" name="image.jpeg" width="776" height="441" nodeId="0d69ee16403f4dc3902919fbbfb2ab80" /></p>
+<p nodeId="b7386a36df6e4edfa7ae0de87d2b7b35"><br /></p>
+</td>
+</tr>
+</table>
+<h3 align="start" nodeId="a93f182968ce4ce99c5aef60bc4f9bdd">四、FAQ</h3>
+<ol nodeId="52fcc389057d44fe94462210b47b5d7d">
+<li nodeId="ef28a59bae7c480483edd73b420171af"></li>
+</ol>
+<p nodeId="00eaf5cb1dd84fabb45bb56263893764"><br /></p>
+<p nodeId="eea3b8ed0d004070ad1f4edabfb6bb04" />
+</km-doc>

@@ -1,0 +1,70 @@
+<km-doc>
+<km-title nodeId="9e75c736857b49e98f7f5aa4142f9368">说明：画布- Select组件</km-title>
+<km-catalog style="none" nodeId="497bdce58b7e49159ed2631d5f4e1f41" />
+<h3 nodeId="c5af7439375d4467a90919e3c59b2ffc">一、背景</h3>
+<p align="start" nodeId="0ba4352bc8f6478c8cbe0393cd9222cf">对画布中的数据进行变量处理、赋值和参数过滤，可以使用select组件，与sql 中的select...as...逻辑一致；支持逐一填写的“选填模式”和json 复制粘贴的“批量模式”</p>
+<h3 align="start" nodeId="cc67a5b3400d4da99f2337d727bc2c56">二、名词解释</h3>
+<p align="start" nodeId="dd2d026ab2ba4d5baa942eef12d7a9bd">select：<span color=" ">（1）可重新自定义画布所需字段；（2）选择指定数据进入下一个组件</span></p>
+<h3 align="start" nodeId="577cd8908e914979b374508180985b26">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="a596a2358347473181b8a696dc1a1b6d">
+<tr nodeId="af7eda0905d84528863f436ec1698717">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="416ce0fe789c47d89a6c2eef68f8ec4d">
+<p nodeId="8b1a64b4fac54b1b9248c4843627fb86"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[643]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="7a4bed97c1e44a3eae09fd1599f7a26d">
+<p nodeId="e886e40a27a64db5af253a070fadd993"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="176cfd5a6e0b4dc586e2e2fee588e7a8">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="50caf254379b40ab91848acaf229a2be">
+<p nodeId="a633077204fd45fe8ecece228c81ea72"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="e41e0be3d7774a318dd5de4210ca1c62"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="798cf1ba61a040538896948ce7f8057a"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="d0673d6a33b444ce963b67b9cc001cfb">
+<li nodeId="ec1ec59e28754ee3b96730de8af49e1b"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="741cc47028084b14bedfdf5ea829dee0"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="86b3d046b598413d81d4c28e3fa6d664">
+<p nodeId="180f161bd3ea4868829145f3d07960d6"><span font-size="14">将select组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol nodeId="934a390d2fab49ca8239c2b41aba2f63">
+<li nodeId="578836dfbc5a477bb5b05dad345828d1"><span font-size="14">名称：支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></li>
+<li nodeId="a6c62d7c4c6640799e40296dc765d477">
+<p nodeId="fb14c0a7f50a470b8b06f2a4063de22f"><span font-size="14">配置信息：</span></p>
+<ol nodeId="49b0b50c5ca04277ab2781c26584d2a3">
+<li nodeId="699fb3d1fe024355b1ecd385d30b0216"><span font-size="14">支持选填配置和批量配置两种方式，其中选填配置，是逐一填写select...as...逻辑；批量配置是支持json串填写的批量配置模式</span></li>
+<li nodeId="0f2d0aa2103d423fa4dcde2f63c2d821"><span font-size="14">select模块：可以输入topic中的字段（如果在kafka中被重命名过，则填写重命名的字段）、或者对topic中的字段进行计算，比如字段拼接、count计数等重新输出一个新的字段</span></li>
+<li nodeId="bed9ae46d5e44483a739fd9d957b4b57"><span font-size="14">as：选填，取决于用户是否需要对select的对象进行重命名；</span></li>
+<li nodeId="5fdb5cf864e54840b34549877096b0ac"><span font-size="14">丢弃其余变量：单选，非必选，选择后，则select模块未选择的变量会在此环节丢弃</span></li>
+<li nodeId="ab83f35cbaaf45a39920f8ed81f94af6"><span font-size="14">点击右上角「+」号可以新增一个select配置，也支持删除select配置</span></li>
+<li nodeId="7a0e550a56f7470dbea986bd63a849c4"><span font-size="14">一个select配置智能重命名一个变量，如果涉及需要重命名多个变量的，需要通过新增select配置实现</span></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p nodeId="3b990f6bc81a4de88a597cb5c15ec1c6" />
+</td>
+<td colwidth="[643]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dc8457b8527b4d1c876730807fc821b8">
+<ul nodeId="4f58de454ec643ce904dfa158e698d16">
+<li nodeId="e0e6ac8ded234a59a548c7bffe138320"><span font-size="14">选填配置</span></li>
+</ul>
+<p nodeId="ac14bb6015fe432ea1b5575454eaee46"><img src="https://km.sankuai.com/api/file/cdn/1200639384/41302556530?contentType=1&amp;isNewContent=false" name="image.jpeg" width="513" height="303" nodeId="eba1a45424924fa4845cbbc2f78d732b" /></p>
+<ul nodeId="634108d6778b4dc2bd9fc667e57a6ae7">
+<li nodeId="71f3067d3f3f41fb960454326a860615"><span font-size="14">批量配置</span></li>
+</ul>
+<p nodeId="cd29fbaaa62348d7896ac91cc71ac074"><img src="https://km.sankuai.com/api/file/cdn/1200639384/41302177470?contentType=1&amp;isNewContent=false" name="image.jpeg" width="514" height="297" nodeId="c72c486cc3d941d885f900c1755f86d8" /></p>
+<p nodeId="53c619ff26f9444caac7aa5f7084ab6b" />
+<pre language="JSON" title="批量配置json格式模版" nodeId="2c80e416e5f94aa099dfb5e0f29c01a8"><code>[
+ {"select":"aviator1","as":"parameter1"},
+ {"select":"aviator2","as":"parameter2"},
+ {"select":"aviator3","as":"parameter3"},
+ {"select":"aviator4","as":"parameter4"},
+ {"select":"aviator5","as":"parameter5"}
+]</code></pre>
+<p nodeId="cb2e0a0d288740ae9c366efc5379a710" />
+</td>
+</tr>
+</table>
+<h3 nodeId="ce2427af4e1c4964951bea2c4e6fd982">四、FAQ</h3>
+<p nodeId="c32e0efe05f9414a887723ff4adb36fe"><strong>1.批量配置 保存是遇到报错提示怎么处理？</strong></p>
+<p nodeId="4d41d5dd03e340ca85cdcd1c6463e555">A：可以使用<a href="https://www.json.cn/" title="https://www.json.cn/" nodeId="6d041ef2f0894929b15a2618aa77a10e">https://www.json.cn/</a> 标准化json工具检验 json拼写问题，调试json </p>
+</km-doc>

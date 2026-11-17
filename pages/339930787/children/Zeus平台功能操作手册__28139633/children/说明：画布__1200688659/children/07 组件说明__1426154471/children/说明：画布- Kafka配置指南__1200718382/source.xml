@@ -1,0 +1,112 @@
+<km-doc>
+<km-title nodeId="bfa220312d784f24aacc8b0638178a1a">说明：画布- Kafka配置指南</km-title>
+<km-catalog style="none" nodeId="c9ef69a8326d4081b1205823c765260e" />
+<h3 nodeId="c2f56393c9f3427e90831f6299e3c2ea">一、背景</h3>
+<p nodeId="ed66940d3e584b3e8db3e4656ac1e36c">见画布背景</p>
+<h3 nodeId="1650bede4cf14c328008ab63051e8502">二、名词解释</h3>
+<p nodeId="e18dd96fa2ec4c9dbfb8ce34119960c5">kafka：<span color=" ">配置Kafka数据源Topic</span></p>
+<h3 nodeId="4ec5f3401d5c4e32a1f4668422ea8c9f">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="301e204f0b8244c99443fdc40543ffc8">
+<tr nodeId="d84ec2e9002a47c5a96dbfba421e95b6">
+<th colwidth="[485]" nodeId="fd4e0fc483ae4dd18f45e8358de1455c">
+<p nodeId="b097e803fc544adebef76e49463d3ff4"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" nodeId="0144f34bd2b34053ba9f8a90d23f755f">
+<p nodeId="9f8382921a404dc398c7f21f96f7cc56"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="707f46a1f23c446998582ee9a297fb64">
+<td colwidth="[485]" nodeId="5e1a3a0e0a1c401382e0de2ada6cd772">
+<p nodeId="843f1ac46db2483f82daa56cc3340bd3"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="1e2bc44e0ddd43a388ee0a32bb3a56db"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="a83c5ce5a4234caaa51d2a40b7c7eb6c"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="8ce03c733ead4910abb780fef1bcd962">
+<li nodeId="54c6ab4411fd40b89d4b3b6923b7129d"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="2288be37db7244c4b67c92a8295c24f2"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="a74b1d66f70c4eca9dc274c31d55a018">
+<p nodeId="d8d333afa9014115aba0c8d0c2b0724a"><span font-size="14">将kafka组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol nodeId="9c01884511894cfe85e723f5dc3364ea">
+<li nodeId="c7455e8a9f804830a85ede34da728248"><span font-size="14">名称：支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></li>
+<li nodeId="f233fb86b9e145e9b6643c1313dcbee8"><span font-size="14">namespace：支持中英文，为topic所在的space组，必填</span></li>
+<li nodeId="1a1de7ca89d545919f5a881f9aa9eb9c"><span font-size="14">Topic：指过整个画布配置的kafka topic的名称，必填</span></li>
+<li nodeId="962721df18a44b76a678701edacc9173"><span font-size="14">时间维度：指画布任务执行的时间戳，如果不填topic中的时间字段，则默认系统时间戳，即画布开始运行的时间字段，非必填</span></li>
+<li nodeId="eee256e6e2904145b1ac67b71b216f64">
+<p nodeId="fbd558b73f8b4074976a7461121ce3a4"><span font-size="14">时间维度格式：支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</span></p>
+<p nodeId="7cd0282035bc49c3a635d357b652f4ab"><span font-size="14">默认原格式说明：</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">只处理时间戳格式字段且被格式化成秒级别</span></span><br /><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">文档这样描述就没有歧义了是吧？</span></span></p>
+</li>
+<li nodeId="2f7d2b53df554675b3ef31e002ad79fe"><span font-size="14">备注：用户可对该kafka组件进行备注，非必填</span></li>
+<li nodeId="e67329f6b12c4c6396808c6b1ab8623f"><span font-size="14">日志类型：即确定所选kafka topic的日志类型，支持Log、NewLog、Snappy，必选</span></li>
+</ol>
+</li>
+</ol>
+<p nodeId="28baf948b139447eb69c402c8a1ea9a0" />
+<p nodeId="d78242f065984748895c5f8979a03b0e"><span font-size="14">【自定义数据源解析】</span></p>
+<p nodeId="0215d80c93e64f83b6f739bf78c839ed"><img src="https://km.sankuai.com/api/file/cdn/1200718382/1753116893?contentType=1&amp;isNewContent=false" name="image.jpeg" width="463" height="558" nodeId="9a392d8a0e1f4a02a1bfeaced919d98e" /></p>
+<p nodeId="8e75c29a40d24908897a4e9342fff10a"><span font-size="14">选择自定义数据源解析，并在代码块中填写相关解析代码。</span></p>
+<p nodeId="cfef4e36d0be45138bb83da3c4cdeb11"><span font-size="14">代码需要继承IParser抽象类，并实现parse方法：</span></p>
+<pre language="Plain Text" nodeId="318bf036d97e47a6848ce0d084ef5675"><code>package com.meituan.rc.zeus.nearline.flink;
+
+import com.google.common.collect.Maps;
+import com.meituan.rc.zeus.dynamic.script.runtime.IParser;
+
+import java.util.Map;
+
+public class TestParser implements IParser {
+    @Override
+    public Map&lt;String, Object&gt; parse(String s) {
+        Map&lt;String,Object&gt; map =  Maps.newHashMap();
+        map.put("name", 12212);
+        return map;
+    }
+}</code></pre>
+<p nodeId="3585d8681994467a831e9e012cf3ccf2" />
+<p nodeId="0043c8a514e3406693e6fd2cc46e6fe6"><span font-size="14">如果自定义数据源解析希望输出多条数据，需要继承IFlatParser抽象类，并实现flatParse方法：</span></p>
+<pre language="Plain Text" nodeId="cddd0625640a4e10bd819eca670fb527"><code>package com.meituan.rc.zeus.nearline.flink;
+
+import com.google.common.collect.Maps;
+import com.meituan.rc.zeus.dynamic.script.runtime.IFlatParser;
+
+import java.util.Map;
+
+public class TestParser extends IFlatParser {
+    @Override
+    public List&lt;Map&lt;String, Object&gt;&gt; flatParse(String src) {
+        List&lt;Map&lt;String, Object&gt;&gt; ret = new ArrayList&lt;&gt;();
+        Map&lt;String,Object&gt; map =  Maps.newHashMap();
+        map.put("name", 12212);
+        ret.add(map);
+        return ret;
+    }
+}</code></pre>
+<p nodeId="243b1ccb8998490796ace6e42b3c7fc8" />
+<p nodeId="e50b9cc6bfe24b40840ae80d67690ed0"><span font-size="14">IParser和IFlatParser所在jar包：</span></p>
+<pre language="Plain Text" nodeId="dc35e7b51de34bb7a1c7f0c7437d417d"><code>            &lt;dependency&gt;
+                &lt;groupId&gt;com.meituan.rc.zeus&lt;/groupId&gt;
+                &lt;artifactId&gt;zeus-dynamic-script&lt;/artifactId&gt;
+                &lt;version&gt;1.1.9-nearline&lt;/version&gt;
+            &lt;/dependency&gt;</code></pre>
+<p nodeId="fa36c5d7dabd4a57bab27b859e95edf4" />
+<p nodeId="473d53d2f89c451b9312eaa9793a6177"><span font-size="14">【参数配置】</span></p>
+<ol nodeId="59ee81d473554efdb6ac4ee3513476ff">
+<li nodeId="6ce42698d05f464a97f924db33dab5ec">
+<p nodeId="e2b6144ea1fe4e6699d19c828aacde54"><span font-size="14">参数配置模块（高级配置）：当用户选择多个kafka 数据源时，可能存在不同数据源有相同的字段，在后面进行逻辑编写时可能存在字段重复导致逻辑配置有问题，所以可以在参数配置模块对topic里的字段进行重命名</span></p>
+<ol nodeId="3379ef3971d3411ca0677865ea9c1aa0">
+<li nodeId="adcda25904004c558f309383fa0373a6"><span font-size="14">参数名：topic里的字段名</span></li>
+<li nodeId="11914c852c0a4414bfe4068033e0fde1"><span font-size="14">别名：原topic中的字段名在该画布中的映射，如果进行了参数别名配置，在该画布中编写逻辑时，请直接使用别名</span></li>
+<li nodeId="5531b9f079cf4b44875ce7847e38f735"><span font-size="14">类型：字段类型</span></li>
+<li nodeId="730d5ecb28694f0797a6b7dd574ed13e"><span font-size="14">备注：可对该参数进行备注</span></li>
+<li nodeId="3e0d98aef1ca4cb3b61ae4f6f7817707"><span font-size="14">点击右上角「+」号可以新增一个参数配置，也支持删除参数配置</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="05b82b25b7444280a9d039d686004c52">
+<p nodeId="29b999c1589e4f25b2167b08bec97b41"><img src="https://km.sankuai.com/api/file/cdn/1200718382/1256470673?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="164" nodeId="e61d02e888a24682b353c0937ef9abd8" /></p>
+<p nodeId="43643f3668b24be6bd32b93f49b5d167"><img src="https://km.sankuai.com/api/file/cdn/1200718382/1240870011?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="266" nodeId="555c2b1a686c45e4b34fbc0970ee2a7c" /></p>
+<p nodeId="18e83d732e66495ca6fe61325aaf354c"><img src="https://km.sankuai.com/api/file/cdn/1200718382/1240964687?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="266" nodeId="101d585a61f74143a911fd52a0e0a8be" /></p>
+<p nodeId="73936e6c6c8043b9b02309e061806b6f"><img src="https://km.sankuai.com/api/file/cdn/1200718382/1240981624?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="266" nodeId="9ad6158800c84e3eb42fbbedd3f53918" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="1f01fd3211f647458073c109754e7fd3">四、FAQ</h3>
+</km-doc>

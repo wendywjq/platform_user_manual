@@ -1,0 +1,672 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布- GroupBy组件</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-12">二、名词解释</a><a href="#section-15">三、Group By 多种类型的说明</a><a href="#section-224">四、操作指南</a><a href="#section-583">五、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">07 组件说明</a> / <a href="index.html">说明：画布- GroupBy组件</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1200659466">查看学城原文</a></p><article>
+<h1>说明：画布- GroupBy组件</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<p>Groupby 组件主要可多数据流中的数据按照用户设定的时间维度进行聚合以及聚合计算，类似累计的逻辑。近线Groupby 因技术架构实现模式，只能支持短周期的逻辑聚合，&lt;24小时；但可以支持多数据流的关联join。</p>
+<p>**实时的累计因子和近线的Groupby组件的区别**</p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">可支持的逻辑相似，但又有不同，</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">（1）实时-累计可以支持长周期（分钟～月），但不支持多数据join ，最多能通过数据接口单维关联。比如通过选择多个累计事件可实现行union，通过数据接口可支持单维度关联判断，但对数据接口时效性有较高的要求；</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">（2）近线-Groupby组件可以支持短周期（24小时内），多个数据流、指定时间维度的join，相较于累计可join的范围更多。</span></p>
+<h3 id="section-12">二、名词解释</h3>
+<p>GroupBy：<span style="color: ">根据key在一定时间维度内进行数据聚合</span></p>
+<h3 id="section-15"><span style="color: ">三、Group By 多种类型的说明</span></h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">窗口类型</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">自研/社区</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">结果触发机制</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">窗口分配机制</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">清理机制</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">窗口数据存储</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">计算函数</span></p>
+<p><span style="font-size:14px">(含去重)</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">水印机制</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">优势</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">劣势</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">典型使用案例</span></p>
+<p><span style="font-size:14px">**限制权限画布</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">配置信息</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>事件驱动</strong></span></p>
+</td>
+<td rowspan="2">
+<p><span style="font-size:14px">自研</span></p>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">来一条触发一次</span></p>
+</td>
+<td rowspan="2">
+<p><span style="font-size:14px">同keyby分组</span></p>
+<p></p>
+</td>
+<td rowspan="2">
+<p><span style="font-size:14px">基于处理时间定时触发清理</span></p>
+</td>
+<td rowspan="2">
+<p><span style="font-size:14px">内存</span></p>
+<p></p>
+</td>
+<td rowspan="2">
+<ul>
+<li><span style="font-size:14px">求和</span></li>
+<li><span style="font-size:14px">存值</span></li>
+<li><span style="font-size:14px">计数</span></li>
+</ul>
+</td>
+<td>
+<p><span style="font-size:14px">watermark = 最新一次触发数据时的水印</span></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">时效性高</span></li>
+<li><span style="font-size:14px">省内存</span></li>
+</ul>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">性能差</span></li>
+<li><span style="font-size:14px">积压恢复情况下，清理不及时导致内存崩溃</span></li>
+</ul>
+</td>
+<td>
+<p><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=564&amp;version=2" title="账户安全累积策略"><span style="font-size:14px">账户安全累积策略</span></a><span style="font-size:14px">- 满足阈值条件后立刻下发处置</span></p>
+</td>
+<td rowspan="2">
+<ul>
+<li><span style="font-size:14px">变量名称</span></li>
+<li><span style="font-size:14px">计算类型</span></li>
+<li><span style="font-size:14px">Value</span></li>
+<li><span style="font-size:14px">GroupKey</span></li>
+<li><span style="font-size:14px">聚合方式</span></li>
+<li><span style="font-size:14px">时间窗口</span></li>
+<li><span style="font-size:14px">剔除重复项</span></li>
+<li><span style="font-size:14px">按何剔除</span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px"><strong>时间驱动-非标窗</strong></span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">**仅限制130-反入侵使用**</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">keyby分组后，从收到第一条数据开始，按滑动步长间隔触发计算</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">watermark 和 数据的关系不好对应</span></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">省内存</span></li>
+</ul>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">不同keyby分组的窗口，时间范围不统一</span></li>
+<li><span style="font-size:14px">积压恢复情况下，清理不及时导致内存崩溃</span></li>
+</ul>
+<p></p>
+</td>
+<td>
+<p><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=727&amp;version=2" title="基础安全大数据量聚合模型"><span style="font-size:14px">基础安全大数据量聚合模型</span></a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>时间驱动-标准窗口</strong></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">社区</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">标准自然时间的滑动窗口</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">keyby分组后，再按滑动步长分配窗口</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">窗口触发计算后删除</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">内存</span></p>
+<p></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">求和</span></li>
+<li><span style="font-size:14px">存值</span></li>
+<li><span style="font-size:14px">计数</span></li>
+</ul>
+</td>
+<td>
+<p><span style="font-size:14px">watermark = 窗口触发时间</span></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">基于事件时间</span></li>
+</ul>
+<p></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">费内存</span></li>
+</ul>
+</td>
+<td>
+<p><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=752&amp;version=1" title="社区安全特征计算"><span style="font-size:14px">社区安全特征计算</span></a><span style="font-size:14px">- 每隔N分钟触发一次结果更新</span></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">变量名称</span></li>
+<li><span style="font-size:14px">计算类型</span></li>
+<li><span style="font-size:14px">Value</span></li>
+<li><span style="font-size:14px">GroupKey</span></li>
+<li><span style="font-size:14px">聚合方式</span></li>
+<li><span style="font-size:14px">时间窗口</span></li>
+<li><span style="font-size:14px">剔除重复项</span></li>
+<li><span style="font-size:14px">按何剔除</span></li>
+</ul>
+</td>
+</tr>
+</table>
+<p>***仍是看不懂，不理解，请联系研发<span>@姜涛</span>，或者提交TT工单@Zeus-nearline</p>
+<h3 id="section-224">四、操作指南</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p><span style="font-size:14px"><strong>【基础配置】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li><span style="font-size:14px">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li>
+<p><span style="font-size:14px">将kafka组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">基本信息：</span></p>
+<ol>
+<li><span style="font-size:14px">名称：支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">配置信息：</span></p>
+<ol>
+<li><span style="font-size:14px">变量名称：</span><span style="color: "><span style="font-size:14px">对该组件算子进行英文名定义，支持小写字母、数字和下划线</span></span><span style="font-size:14px">，即重新命名改组件的算子，并用于该画布任务的后续组件配置，必填</span></li>
+<li><span style="font-size:14px">计数类型：单选，可选项为次数、求和、存值；次数即类似sql中的count，求和即类似sql中的sum，存值即类似sql中的as</span></li>
+<li><span style="font-size:14px">Value：输入上文中的字段（含原始字段和自定义字段，如果原始字段被重新定义过，则填写自定义后的字段名），在选择次数和求和时，只允许填一个value，在选择存值时，支持选择多个value字段，用逗号隔开，即将多个字段的结果存给此次定义的字段中，必填</span></li>
+<li><span style="font-size:14px">GroupKey：类似于sql中的group by，文本框中填写上文传下来的字段，支持填多个字段，用逗号隔开，必填</span></li>
+<li><span style="font-size:14px">时间维度：</span><span style="color: "><span style="font-size:14px">指画布任务执行的时间戳，如果不填topic中的时间字段，则默认系统时间戳，即画布开始运行的时间字段，非必填</span></span></li>
+<li><span style="font-size:14px">时间维度格式：</span><span style="color: "><span style="font-size:14px">支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</span></span></li>
+<li><span style="color: "><span style="font-size:14px">时间窗口：即计算从时间戳往前滑动多少时间区间进行计算，支持选择分/时/日/月/年，文本框中为数字，必填</span></span></li>
+<li><span style="color: "><span style="font-size:14px">剔除重复项：单选剔除或者不剔除，如果选择剔除，则需要填写按何剔除，支持输入上文传下来的字段</span></span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">输出结果示例：</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">假设输入group by组件的消息为：</span></p>
+<pre><code>{
+    "name": "zhangsan",
+    "age": 29,
+    "sex": 1
+}
+{
+    "name": "lisi",
+    "age": 24,
+    "sex": 1
+}
+{
+    "name": "wangwu",
+    "age": 34,
+    "sex": 1
+}</code></pre>
+<p><span style="font-size:14px">按照sex字段进行group by，假设这3条数据都在同一个时间窗口内，变量名称为groupResult，则上述3条消息从组件输出的下文分别是：</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">次数：</span></p>
+<pre><code>{
+    "name": "zhangsan",
+    "age": 29,
+    "sex": 1,
+    "groupResult": 1
+}
+{
+    "name": "lisi",
+    "age": 24,
+    "sex": 1,
+    "groupResult": 2
+}
+{
+    "name": "wangwu",
+    "age": 34,
+    "sex": 1,
+    "groupResult": 3
+}</code></pre>
+</li>
+<li>
+<p><span style="font-size:14px">求和：value是age,sex （即按age和sex分别求和）</span></p>
+<pre><code>{
+    "name": "zhangsan",
+    "age": 29,
+    "sex": 1,
+    "groupResult": {
+    	"age":29,
+      "sex"：1
+    }
+}
+{
+    "name": "lisi",
+    "age": 24,
+    "sex": 1,
+    "groupResult": {
+    	"age":53,
+      "sex"：2
+    }
+}
+{
+    "name": "wangwu",
+    "age": 34,
+    "sex": 1,
+    "groupResult": {
+    	"age":87,
+      "sex"：3
+    }
+}</code></pre>
+</li>
+<li>
+<p><span style="font-size:14px">存值：value是age,name （即分别存age和name的值）</span></p>
+<pre><code>{
+    "name": "zhangsan",
+    "age": 29,
+    "sex": 1,
+    "groupResult": [{
+    	"age":29,
+      "name"："zhangsan"
+    }]
+}
+{
+    "name": "lisi",
+    "age": 24,
+    "sex": 1,
+    "groupResult": [
+    {
+    	"age":29,
+      "name"："zhangsan"
+    },
+    {
+    	"age":24,
+      "name": "lisi"
+    }
+    ]
+}
+{
+    "name": "wangwu",
+    "age": 34,
+    "sex": 1,
+    "groupResult": [
+    {
+    	"age":29,
+      "name"："zhangsan"
+    },
+    {
+    	"age":24,
+      "name": "lisi"
+    },
+    {
+    	"age":34,
+      "name": "wangwu"
+    }
+    ]
+}</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/2bbde51d8dc4ddc3.png" width="687" height="333" alt="image.jpeg"></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>仿真测试 数据样例--时间驱动标窗为例</strong></span></p>
+<ul>
+<li><span style="font-size:14px">逻辑解读：5分钟内同userid 参加活动消费金额求和event，不去重，每两分钟计算一次</span></li>
+<li><span style="font-size:14px">数据解读：</span></li>
+</ul>
+<p><span style="font-size:14px">**流量入参</span></p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:12px">请求时间</span></p>
+</th>
+<th>
+<p><span style="font-size:12px">userid</span></p>
+</th>
+<th>
+<p><span style="font-size:12px">event金额</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:12px">11：11：11</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">111</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">2</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:12px">11：13：13</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">111</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">3</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:12px">11：16：12</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">111</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">4</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:12px">11：26：12</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">111</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">5</span></p>
+</td>
+</tr>
+</table>
+<p><span style="font-size:14px">**计算逻辑：</span></p>
+<p><span style="font-size:12px"><em>时间驱动标窗的启动时间为首条数据的整点时间为起点</em></span></p>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:12px">计算时间</span></p>
+</th>
+<th>
+<p><span style="font-size:12px">计算窗口范围</span></p>
+</th>
+<th>
+<p><span style="font-size:12px">参与计算数据</span></p>
+</th>
+<th>
+<p><span style="font-size:12px">求和值</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:00:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:00:00-11::05:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">...</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">...</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:08:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:08:00-11:13:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">2</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">2</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:10:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:10:00-11:15:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">2、3</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">5</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:12:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:12:00-11:17:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">3、4</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">7</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:14:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:14:00-11:19:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">4</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">4</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:16:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:16:00-11:21:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">4</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">4</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">...</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">...</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:20:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">11:20:00-11:25:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:12px">11:22:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:12px">11:22:00-11:27:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:12px">5</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:12px">5</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:12px">11:24:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:12px">11:26:00-11:29:00</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:12px">5</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255)">
+<p><span style="font-size:12px">5</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:12px">11:26:00</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">11:26:00-11:31:00</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">5</span></p>
+</td>
+<td>
+<p><span style="font-size:12px">5</span></p>
+</td>
+</tr>
+</table>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px"><strong>在实际生产执行时，只会根据流的时间产出唯一值；仿真测试为支持用户能快速验证逻辑，将过程中涉及到的全部数据都取出来，即2、7、4、4、5。</strong></span></span></p>
+</td>
+<td>
+<p><img src="assets/eb0cd601d2608420.png" width="687" height="347" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-583">五、FAQ</h3>
+<p></p>
+</article></main></body></html>

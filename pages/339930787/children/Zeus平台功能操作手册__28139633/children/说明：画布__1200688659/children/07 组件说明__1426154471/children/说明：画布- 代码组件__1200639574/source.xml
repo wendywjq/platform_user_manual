@@ -1,0 +1,112 @@
+<km-doc>
+<km-title nodeId="198edb182750401e860009e4f3cba58e">说明：画布- 代码组件</km-title>
+<km-catalog style="none" nodeId="b0b2284ba9174fdca10ba8eef330b714" />
+<h3 nodeId="8fe01ff243c8494c8b367f4322d808e8">一、背景</h3>
+<p align="start" nodeId="c50dcbb59426497bb2061c34b93ebfd1">见画布背景</p>
+<h3 align="start" nodeId="32885346fe8041779256d593aa82540f">二、名词解释</h3>
+<p align="start" nodeId="8f09fee43722417cadae1e6be796effe"><span color=" ">代码组件</span>：<span color=" ">支持Java代码逻辑</span></p>
+<h3 align="start" nodeId="03f12e197379439dbd1a4926a9b67c1d">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="b55020a15f6d4c3c94d41671b0b8f100">
+<tr nodeId="0a94dd7d70e04a10aaaa26f7e02b6349">
+<th colwidth="[749]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="1691e34426b743aa946f84990308e73d">
+<p nodeId="85a0c32b027644abbe9cf31fdbaeebd0"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="bc0b1d65069440aa8dafec42a81136ad">
+<p nodeId="9f3135c23de749c39e45199bf40cd841"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="ae2aaa3ae4e54673b17b7591f41f814e">
+<td colwidth="[749]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6a174801d46744a690c1dc2efdef850d">
+<p nodeId="79fcaa8bc79e42019eab3f2bb0a167b0"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="b1d53f7d29a649b6a08743abc62216a0"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="13c964de03194b92b29374356f3d4488"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="74f60e31b91b4800bd9e1e3a15b27fbf">
+<li nodeId="a807c84fc9814bc5ae7e1bfe4b18b23c"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="c8e0badd3ff84918b892fa33fc522f85"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="de57fa8159634ce685e3cc592470e64b">
+<p nodeId="71753d9e523845bf9370c3e01e05c0d4"><span font-size="14">将</span><span color=" "><span font-size="14">代码组件</span></span><span font-size="14">组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol nodeId="200c876770544c8e8f377f538b59c6b9">
+<li nodeId="d0005d9660d0476894f1bd4fe7894a08">
+<p nodeId="eb950de17a8f43ceb52ca37f49c8343d"><span font-size="14">基本信息：</span></p>
+<ol nodeId="20f40af136d9455ba0c5d984cd9e4406">
+<li nodeId="fe6e9d2b8c4a4bd2bc4ee0da7414672c"><span font-size="14">名称：</span><span color=" "><span font-size="14">支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></span></li>
+</ol>
+</li>
+<li nodeId="09e2945827344f1ab652aaab916cd552">
+<p nodeId="e2df6a9df9974bed806811491e621dd5"><span font-size="14">配置信息：</span></p>
+<ol nodeId="da5dedbee3ed44d1aa88e42554a406b2">
+<li nodeId="536eaeaf025a4141938cc7589168ffb0"><span font-size="14">可直接在代码块中填写java代码，在整个画布配置完成后，会对代码进行校验，非必填</span></li>
+<li nodeId="f17a8496fc024b27baed48f165fe0396">
+<p nodeId="6831dc677a9844fc8121fa6f0e028290"><span font-size="14">如果要实现“一进一出”的逻辑，则继承抽象类IProcessor，并实现process方法。</span></p>
+<p nodeId="985d2b65d9514b14bc04a32848de5b63"><span font-size="14">如果要实现“一进多出”的逻辑，则继承抽象类IFlatProcessor，并实现flatProcess方法。</span></p>
+<p nodeId="cfd602067d9c411a9802351d870bea6c"><span font-size="14">抽象类所在包为：</span></p>
+<pre language="Plain Text" nodeId="5569f2b73b3a450d8e77cc5afa1bdf08"><code>&lt;dependency&gt;   
+  &lt;groupId&gt;com.meituan.rc.zeus&lt;/groupId&gt;  
+  &lt;artifactId&gt;zeus-dynamic-script&lt;/artifactId&gt; 
+  &lt;version&gt;1.1.6-nearline&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p nodeId="0fac51fa35564c2888054c4703273a4f"><span font-size="14">可以在本地引入上述依赖包并进行代码编写，正式配置时需要把类中所有代码(包括包名粘贴到代码块中)</span></p>
+</li>
+<li nodeId="8506d6f478b3473fa4d85c9e6dbfbc78">
+<p nodeId="14d7639ba841429893c00ff9066a61cc"><span font-size="14">process方法入参为传入该组件的上下文，出参为经过该组件处理后的上下文。</span></p>
+<p nodeId="70abd9224bd34d68be4fbb0341e5d9aa"><span font-size="14">flatProcess方法入参为传入该组件的上下文，出参为经过该组件处理后的多条上下文。</span></p>
+</li>
+<li nodeId="7ff64a3b34e84739ad2c2c62bc555846">
+<p nodeId="c79c5a51b3be474c91bc91f3997f9b12"><span font-size="14">demo：</span></p>
+<pre language="Plain Text" nodeId="d8e248d20b784a5c81b6daa8c72b29c7"><code>package com.meituan.rc.zeus.nearline.flink;
+
+import com.meituan.rc.zeus.dynamic.script.runtime.IProcessor;
+
+import java.util.Map;
+
+public class DemoProcessor extends IProcessor {
+    @Override
+    public Map&lt;String, Object&gt; process(Map&lt;String, Object&gt; map) {
+        String firstName = String.valueOf(map.get("firstName")); //从原始上下文中获取firstName字段并转为字符串型
+        String lastName = String.valueOf(map.get("lastName")); //从原始上下文中获取lastName字段并转为字符串型
+        map.put("fullName", firstName + " " + lastName); //将firstName和lastName拼接赋值给fullName
+        return map; //将上下文返回
+    }
+}</code></pre>
+<pre language="Plain Text" nodeId="c325e4327af44e1398c8c5b2a22ae363"><code>package com.meituan.rc.zeus.nearline.flink;
+
+import com.google.common.collect.Lists;
+import com.meituan.rc.zeus.dynamic.script.runtime.IFlatProcessor;
+import org.apache.curator.shaded.com.google.common.collect.Maps;
+
+import java.util.List;
+import java.util.Map;
+
+public class DemoFlatProcessor extends IFlatProcessor {
+    @Override
+    public List&lt;Map&lt;String, Object&gt;&gt; flatProcess(Map&lt;String, Object&gt; map) {
+        List&lt;Map&lt;String,Object&gt;&gt; resultList = Lists.newArrayList();
+        for (int i = 0; i &lt; 3; i ++) {
+            resultList.add(Maps.newHashMap(map));
+        }
+        return resultList;
+    }
+}</code></pre>
+<p nodeId="86c9923051b245d7819a4af13a3b7c25" />
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p nodeId="d44571e1f6f846b8bc1bb6f551fbc5e4" />
+<p nodeId="42893b81c2fd46e1b50142914bece4a4" />
+<p nodeId="794c57eedeb54ec2a8e7320595353474" />
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2cda1ef5d4014b48a01e55ea396e5ef8">
+<p nodeId="9bb0cd3fcb044102a8c631af2aff7152" />
+<p nodeId="1efd686a8c2440488fb66e1d0b89b417"><img src="https://km.sankuai.com/api/file/cdn/1200639574/1260785064?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="266" nodeId="8e454f562d2b4cf193669ab29f09d462" /></p>
+<p nodeId="78df18b34eea4974b268138a6f2378c3"><img src="https://km.sankuai.com/api/file/cdn/1200639574/1260703700?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="268" nodeId="8f5730ee4e0949769b37c09517b02027" /></p>
+<p nodeId="b558d4d1533a40d3994d557c77f60695" />
+<p nodeId="57d51635090449809f1498d470f500f7" />
+<p nodeId="887bf1f6321d4158a2c56c0a24008f0a" />
+</td>
+</tr>
+</table>
+<h3 nodeId="01071414051e479183408ebfc539ef13">四、FAQ</h3>
+</km-doc>

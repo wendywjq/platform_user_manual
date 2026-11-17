@@ -1,0 +1,65 @@
+<km-doc>
+<km-title nodeId="56cc45515b764082aed1855e9815fea1">说明：画布- Distinct组件</km-title>
+<km-catalog style="none" nodeId="902dbb8cb3c9494392ca6b0dd5e7f648" />
+<h3 nodeId="84f4a3f9d44b433084eb4cd442487a92">一、背景</h3>
+<p align="start" nodeId="8ea13db62f21420a88fc61337104fd3b">见画布背景</p>
+<h3 align="start" nodeId="905ef4b5f4c14d4aab12352d087859ef">二、名词解释</h3>
+<p align="start" nodeId="ce53f56c92434902add9a010c5cecd11">Distinct：<span color=" ">数据去重</span></p>
+<h3 align="start" nodeId="9d2155d4c23d435ab5f9a94f37db6fc0">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="07915b0a4b074c18b2cbc7c2d3383cc4">
+<tr nodeId="bdd5cfca3b034c8ca48498093ebd7e0f">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="4461dc4cd0d946d2b929d9fd600755ff">
+<p nodeId="b7630615003440eaa22ca6b3404da171"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="f536a54bad2b47efabbed8cefa4ede5f">
+<p nodeId="0594565265524bab835b84fd337a1ce5"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="51eee15c860b4a278d0a50577da4f6d9">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bb4371df6fdc443b836f775ebe6b4906">
+<p nodeId="f9869895e9cc438ba39a1ea514457755"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="ab1b1c487592463c9557b62327fcb95f"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="deba312ccdf54f22af68e47270e873cf"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="ef5c13342450476db4df5101fa6e2b96">
+<li nodeId="16a2b2d9dd7049288cde9f09b0413941"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="f1049b7d35a54ce79c000bd964e70c5c"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="a7b9661e5b7e45688646e72ec156deaf">
+<p nodeId="e343e2206aa6451ab02cc5b41d77a335"><span font-size="14">将Distinct组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol nodeId="6df72cbb800d469e8232eba380fbca5b">
+<li nodeId="b8d580fd922e442392f045b109cfbc91">
+<p nodeId="db17a54aabff4a9cafd9395cfb160208"><span font-size="14">基本信息：</span></p>
+<ol nodeId="317a12fb277c44e8b3ff7faa00a75be1">
+<li nodeId="c74136d8695d459ea3817b62eb8502bc"><span font-size="14">名称：</span><span color=" "><span font-size="14">支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></span></li>
+</ol>
+</li>
+<li nodeId="4428d5fe11eb47f982d11faa3de6fe0f">
+<p nodeId="9ffa997581dc4feb88e7af31f3e3f275"><span font-size="14">配置信息：</span></p>
+<ol nodeId="8bf080db09d943af8b7c06866777b617">
+<li nodeId="1d068966314d49aa911b864621787cb5"><span font-size="14">基本信息：</span><span color=" "><span font-size="14">支持输入单个或多个上文所传字段（含原始字段和自定义字段，如果原始字段被重新定义过，则填写自定义后的字段名），作为key进行去重，必填</span></span></li>
+<li nodeId="582f02270009424eb0d061cc38f10738"><span color=" "><span font-size="14">时间维度：指画布任务执行的时间戳，如果不填topic中的时间字段，则默认系统时间戳，即画布开始运行的时间字段，非必填</span></span></li>
+<li nodeId="a2d570b218cb4e5393d805cf80c5df76"><span color=" "><span font-size="14">时间维度格式：支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</span></span></li>
+<li nodeId="42861f6ad2df4b6b92205f4cf580d6dd"><span color=" "><span font-size="14">时间窗口：即计算从时间戳往前滑动多少时间区间进行计算，支持选择分/时/日，文本框中为数字，必填</span></span></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p nodeId="dc5390b2beb34483b7605ccb3d5e7f79" />
+<p nodeId="c102d428eb7e46e285f7b7457ab40864" />
+<p nodeId="f1d4c7bb43e34d2ebad19d8b87dc83d8" />
+<p nodeId="8bcdfe21946144ea8f0090518d03dc58" />
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2297257654524de68175b7ee8b6403a4">
+<p nodeId="29fa3c0fe56643f38c9a3501b57b9ace"><img src="https://km.sankuai.com/api/file/cdn/1200649532/1259914026?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="268" nodeId="55d6c06b03c24025ac3ab1cff971a680" /></p>
+<p nodeId="444d15fa9a1140709ed678611eb237c3"><img src="https://km.sankuai.com/api/file/cdn/1200649532/1259963077?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="268" nodeId="c83c8056691a49d39830560541d6d837" /></p>
+<p nodeId="c6f7d99738184462aa7ecffac37c764b" />
+<p nodeId="247f77397c094185aa2ca711dd9433da" />
+<p nodeId="c851f0289a38448a8b88ea050416d093" />
+<p nodeId="f01223ff3472459dab06f5ad4ef9591d" />
+</td>
+</tr>
+</table>
+<p nodeId="796acb59fb1f4d77afa3eb58e8ccfe94" />
+<h3 nodeId="bcb399bb520a4bacb0d515aab3a58228">四、FAQ</h3>
+<p nodeId="0a1669fe88774beea76bddcc67602b16"><br /></p>
+</km-doc>

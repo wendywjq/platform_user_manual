@@ -1,0 +1,89 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布- 规则集合组件</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-9">三、配置操作指南</a><a href="#section-94">四、执行输出数据说明</a><a href="#section-105">五、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">07 组件说明</a> / <a href="index.html">说明：画布- 规则集合组件</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1200669387">查看学城原文</a></p><article>
+<h1>说明：画布- 规则集合组件</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<p>见画布背景</p>
+<h3 id="section-5">二、名词解释</h3>
+<p><span style="color: ">规则集合</span>：<span style="color: ">可选择多个已定义规则执行</span></p>
+<h3 id="section-9">三、配置操作指南</h3>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>【入口】</strong></span></p>
+<p><span style="font-size:14px">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p><span style="font-size:14px"><strong>【基础配置】</strong></span></p>
+<ol>
+<li><span style="font-size:14px">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li><span style="font-size:14px">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li>
+<p><span style="font-size:14px">将</span><span style="color: "><span style="font-size:14px">规则集合</span></span><span style="font-size:14px">组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">基本信息：</span></p>
+<ol>
+<li><span style="font-size:14px">名称：</span><span style="color: "><span style="font-size:14px">支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">配置信息：</span></p>
+<ol>
+<li><span style="font-size:14px">可选择添加的是单条规则还是规则组</span></li>
+<li>
+<p><span style="font-size:14px">若选择的是规则</span></p>
+<ol>
+<li><span style="font-size:14px">在规则框里输入规则id或者规则名称，可以模糊匹配带出该业务空间下的规则进行点选；</span></li>
+<li><span style="font-size:14px">点击右上角「+」号，可输入多条规则id；</span></li>
+<li><span style="font-size:14px">如果规则集合中有多条规则，所有规则都会被执行；</span></li>
+<li><span style="font-size:14px">每条规则的执行结果（true/false）会写入到上下文中，key格式是：ruleResult_规则id。例如12345规则的结果key是ruleResult_12345；</span></li>
+<li><span style="font-size:14px">每个规则内部使用的因子执行结果都会被加入到上下文中，key是因子英文名。</span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">若选择的是规则组</span></p>
+<ol>
+<li><span style="font-size:14px">在规则框里输入规则组id或者规则组名称，可以模糊匹配带出该业务空间下的规则组进行点选；</span></li>
+<li><span style="font-size:14px">点击右上角「+」号，可输入多条规则组id；</span></li>
+<li><span style="font-size:14px">如果规则集合中有多个规则组，所有规则都会被执行；</span></li>
+<li><span style="font-size:14px">每个规则内部使用的因子执行结果都会被加入到上下文中，key是因子英文名。</span></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/eab48d6d849f4547.png" width="552" height="208" alt="image.jpeg"></p>
+<p><span style="font-size:14px">选择规则：</span></p>
+<p><img src="assets/400e4ac1fc0a3053.png" width="359" height="226" alt="image.jpeg"><img src="assets/c26851ef5e848c6e.png" width="168" height="226" alt="image.jpeg"></p>
+<p><span style="font-size:14px">选择规则组：</span></p>
+<p><img src="assets/4bf37b17a7dbcf68.png" width="205" height="232" alt="image.jpeg"><img src="assets/3a889a1c554b882b.png" width="123" height="233" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h3 id="section-94">四、执行输出数据说明</h3>
+<p><img src="assets/ae1b3d3bcdd9ea79.png" width="1242" height="600" alt="image.jpeg"></p>
+<p>规则组件输出信息说明：</p>
+<ul>
+<li>ruleSet_名称_target ：规则集合命中，命中了哪个规则会提示出来，不区分是独立规则还是规则组中的规则，样式[{"name":、"alias":、"remark":、"id":},{"name":、"alias":、"remark":、"id":}]</li>
+<li>event_id：12121代表是规则组类型</li>
+<li>hitRulesInRuleGroup：规则组中规则命中情况，会提示命中规则的ruleid， 样式[id1,id2,id3]</li>
+<li>HITRULE ：非规则组中的规则且配置在了规则集合中，命中了哪个规则会提示出来，样式[{"name":、"alias":、"remark":、"id":},{"name":、"alias":、"remark":、"id":}]，<span style="color:rgb(245, 35, 45)">这个字段会什么时候出现，样式是否可以调整成</span>[id1,id2,id3]<br></li>
+</ul>
+<h3 id="section-105">五、FAQ</h3>
+<p><strong>1.直接输出规则组中的决策怎么处理？</strong></p>
+<p>A：在规则集合组件中 使用规则组，在决策组件中，使用从上下文获取决策，若是不做条件过滤则配置全选，若需要做过滤，则添加相应的表达式逻辑</p>
+<p><strong>2.若只是用了规则，想要输出命中规则对应的决策怎么配置？</strong></p>
+<p>A：Step1规则集合组件-选择规则-配置相关的规则ID--&gt;Step2 在规则集合组件后 增加if-else组件，if条件“命中规则”--&gt;Step3 if-else组件后面配置决策组件，选择直接配置决策</p>
+<p></p>
+</article></main></body></html>

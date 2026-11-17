@@ -1,0 +1,89 @@
+<km-doc>
+<km-title nodeId="b644892a0ce24375838cb38773a123f7">说明：画布- 规则集合组件</km-title>
+<km-catalog style="none" nodeId="2f2f2cac1a044f948a9e43b82f0655eb" />
+<h3 align="start" nodeId="2cf5a52cad8f4cfd8783273439240266">一、背景</h3>
+<p align="start" nodeId="3fb0d025396245fa82768e6a31a5f5c0">见画布背景</p>
+<h3 align="start" nodeId="02f64b37ed274b73a4d7facbd90bba74">二、名词解释</h3>
+<p align="start" nodeId="d54d061df1f04cf8a6bab6c1dc34c245"><span color=" ">规则集合</span>：<span color=" ">可选择多个已定义规则执行</span></p>
+<h3 align="start" nodeId="8c4d83ff69554c21a9ff5878e9a49abc">三、配置操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="340593fde8994d09a048469bd4e10b21">
+<tr nodeId="196ade5b23fe4663965b58996f58ae8a">
+<th colwidth="[507]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="80d9c7bef850467db47a0d3682b9c5aa">
+<p nodeId="13f1409aa6084f80827e5ea1c82a053a"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="af95bb5ca1834b81b2300b110ebd5645">
+<p nodeId="4e94ad5374754b038cc3ea5796cd18db"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="57149fe6376a4da1a21e0ac83d1f562f">
+<td colwidth="[507]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="baf0f110fa8a47d39e470752185ddaec">
+<p nodeId="e5b249e0197141edaf647a416f7ce89f"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="5e4c107ae8d54213ad0749846f9776d9"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="7256ad945c0b437eadfcea3668680b36"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="1a2f1d5f61cd40c5a74976f36cc8ccdd">
+<li nodeId="2a303d1067de49ec9497e3f795c315ee"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="bc7828a5d5b641528937375ce78b66ed"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="da8c960a974e43f3884ed1058c73a036">
+<p nodeId="dad5ff3aefc84cb49b28e54e099ff270"><span font-size="14">将</span><span color=" "><span font-size="14">规则集合</span></span><span font-size="14">组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol nodeId="915c2ee6e53a4f099288f5051e5d2f05">
+<li nodeId="8ae638a5464046268a111dddc1942af8">
+<p nodeId="f65d28718523485ea9058be789b2eaba"><span font-size="14">基本信息：</span></p>
+<ol nodeId="a3d03b9931cc4bd7979d579f2c960bba">
+<li nodeId="b498eb18fdb3465396087642756a5ad8"><span font-size="14">名称：</span><span color=" "><span font-size="14">支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></span></li>
+</ol>
+</li>
+<li nodeId="0235bc09a19144909776383d933665a2">
+<p nodeId="6e322e0a4e0249058502bc3354ec91df"><span font-size="14">配置信息：</span></p>
+<ol nodeId="0a48ac163d0c42a0a3adac968a731cbb">
+<li nodeId="e4071dbc0d774eb7becdd86fadfdbb0a"><span font-size="14">可选择添加的是单条规则还是规则组</span></li>
+<li nodeId="e2b29335b2ba4ac1897c7cfb10f3ecc9">
+<p nodeId="2fd066eab9784207bc174d248fe448ea"><span font-size="14">若选择的是规则</span></p>
+<ol nodeId="b349410f2e8146b3a88489dfa1a96dce">
+<li nodeId="7fc982b50ce847b59199f36ee32c3585"><span font-size="14">在规则框里输入规则id或者规则名称，可以模糊匹配带出该业务空间下的规则进行点选；</span></li>
+<li nodeId="191e02d43ae849fd933528e6a49bce80"><span font-size="14">点击右上角「+」号，可输入多条规则id；</span></li>
+<li nodeId="fb1d17909e1c4577a3853b39e717c6e0"><span font-size="14">如果规则集合中有多条规则，所有规则都会被执行；</span></li>
+<li nodeId="6b9b4576a3fe4d8da313f5b07007a173"><span font-size="14">每条规则的执行结果（true/false）会写入到上下文中，key格式是：ruleResult_规则id。例如12345规则的结果key是ruleResult_12345；</span></li>
+<li nodeId="eb02ebd180a84b8da44f7a9f12d9ac69"><span font-size="14">每个规则内部使用的因子执行结果都会被加入到上下文中，key是因子英文名。</span></li>
+</ol>
+</li>
+<li nodeId="a9b1abbf42a7408785f2074750355c93">
+<p nodeId="06858bb7ffe044fb90af1cb147f19b86"><span font-size="14">若选择的是规则组</span></p>
+<ol nodeId="c1792faebcfc44b29163da8821190394">
+<li nodeId="d11d96656db849cf9f7b806103d2bb78"><span font-size="14">在规则框里输入规则组id或者规则组名称，可以模糊匹配带出该业务空间下的规则组进行点选；</span></li>
+<li nodeId="b79ea8af2f8745d485e57bb220cf2ab2"><span font-size="14">点击右上角「+」号，可输入多条规则组id；</span></li>
+<li nodeId="c972d91ef0144c5d954c9f383f967b7d"><span font-size="14">如果规则集合中有多个规则组，所有规则都会被执行；</span></li>
+<li nodeId="120468f8b01b4a1a9b51bb8518463503"><span font-size="14">每个规则内部使用的因子执行结果都会被加入到上下文中，key是因子英文名。</span></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="92b99078f1af4e9b95ee81d327540a0c">
+<p nodeId="14625b7e905a44f49cd35eb579fcb46d"><img src="https://km.sankuai.com/api/file/cdn/1200669387/20913666375?contentType=1&amp;isNewContent=false" name="image.jpeg" width="552" height="208" nodeId="fdc835a4b665465d9a03774b4ed0ed43" /></p>
+<p nodeId="b4950ff0c9464a31a04e1a826ff1ca1f"><span font-size="14">选择规则：</span></p>
+<p nodeId="f5ccfb61de214dc39aee2a339c3309db"><img src="https://km.sankuai.com/api/file/cdn/1200669387/20978347227?contentType=1&amp;isNewContent=false" name="image.jpeg" width="359" height="226" nodeId="174d4ba850664e5285856a89a3fbe7e4" /><img src="https://km.sankuai.com/api/file/cdn/1200669387/20980585874?contentType=1&amp;isNewContent=false" name="image.jpeg" width="168" height="226" nodeId="e6fff0941c2444adab89b5f4b886a835" /></p>
+<p nodeId="ac5478171ffb408cabed1f26456fd4ce"><span font-size="14">选择规则组：</span></p>
+<p nodeId="ab7dda8663fb4675956abe491c3c177f"><img src="https://km.sankuai.com/api/file/cdn/1200669387/20925799153?contentType=1&amp;isNewContent=false" name="image.jpeg" width="205" height="232" nodeId="d0d36e0c5ab0439d9ed30c024a5f9fa9" /><img src="https://km.sankuai.com/api/file/cdn/1200669387/20919126979?contentType=1&amp;isNewContent=false" name="image.jpeg" width="123" height="233" nodeId="198e289b0a9143bc9ac03ef178e388a9" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="66c23c890cfc441088d77ea9da367b39" />
+<h3 align="start" nodeId="f7a9bf0a33ce42fe93879e29cb472934">四、执行输出数据说明</h3>
+<p nodeId="a280d3550c6842e684787d8ee96a87fe"><img src="https://km.sankuai.com/api/file/cdn/1200669387/20898981299?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1242" height="600" nodeId="da4a35fe05d54c7786b7481d5e3860e5" /></p>
+<p nodeId="684e0bf51b6944e8a1bbf0650f1b5555">规则组件输出信息说明：</p>
+<ul nodeId="b6253352503e40e58d0d75532c0a69f4">
+<li nodeId="40a50acf6b6f4ca389b220be2e8f4477">ruleSet_名称_target ：规则集合命中，命中了哪个规则会提示出来，不区分是独立规则还是规则组中的规则，样式[{"name":、"alias":、"remark":、"id":},{"name":、"alias":、"remark":、"id":}]</li>
+<li nodeId="9309a54a2d4d42a88a292504e7494acd">event_id：12121代表是规则组类型</li>
+<li nodeId="492e53dfa410467b9102beaeda43a4a9">hitRulesInRuleGroup：规则组中规则命中情况，会提示命中规则的ruleid， 样式[id1,id2,id3]</li>
+<li nodeId="e3d204ab013340d9a2ccc2de1320f3a8">HITRULE ：非规则组中的规则且配置在了规则集合中，命中了哪个规则会提示出来，样式[{"name":、"alias":、"remark":、"id":},{"name":、"alias":、"remark":、"id":}]，<span color="rgb(245, 35, 45)">这个字段会什么时候出现，样式是否可以调整成</span>[id1,id2,id3]<br /></li>
+</ul>
+<h3 nodeId="00cb29410ec4433e882724356a0f8abe">五、FAQ</h3>
+<p nodeId="c130b370f9b649a2ae29c3f1877487ca"><strong>1.直接输出规则组中的决策怎么处理？</strong></p>
+<p nodeId="b6da9984030341a2b1aef435f67564f2">A：在规则集合组件中 使用规则组，在决策组件中，使用从上下文获取决策，若是不做条件过滤则配置全选，若需要做过滤，则添加相应的表达式逻辑</p>
+<p nodeId="fb8f4442c70947f394051c2882aceb71"><strong>2.若只是用了规则，想要输出命中规则对应的决策怎么配置？</strong></p>
+<p nodeId="b2aaf47c996243358ef7e13dc373cad5">A：Step1规则集合组件-选择规则-配置相关的规则ID--&gt;Step2 在规则集合组件后 增加if-else组件，if条件“命中规则”--&gt;Step3 if-else组件后面配置决策组件，选择直接配置决策</p>
+<p nodeId="32ff4c2ddbcb418b8495f77aee64d0b3" />
+</km-doc>

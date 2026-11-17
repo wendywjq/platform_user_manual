@@ -1,0 +1,45 @@
+<km-doc>
+<km-title nodeId="2f9cf03b834a46328c515b4c25aad410">说明：画布- 数据拆分组件</km-title>
+<km-catalog style="none" nodeId="7ee160f1ce87452585e04a15ca0d117a" />
+<h3 align="start" nodeId="36d2cb02d142487985251df5f31bc295">一、背景</h3>
+<p align="start" nodeId="301759a876af4176a66c49d16dca5bff">见画布背景</p>
+<h3 align="start" nodeId="9b795999ad4b457e84cb99d6693a6ad0">二、名词解释</h3>
+<p align="start" nodeId="8aabfdeb0331464dbf7ac8116c0c0862"><span color=" ">数据拆分</span>：<span color=" ">将数据流复制后拆分流转至后续各节点</span></p>
+<h3 align="start" nodeId="0de94a9fc0d74e0c8bcad107073f621e">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="895a98df31bf4439a95429467c2533ca">
+<tr nodeId="1723e88be0b148bfbed0ff656a96892e">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="fb6b50402f7941a0a7128d67bfb4881a">
+<p nodeId="0b1e0421411d422aaefd60976f17d1c7"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="5e8f0f06f4794b4ca261fb896d1a3761">
+<p nodeId="876f7c22083049a3af02e679da2e0105"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="e8bbd0bee8464fd482fcae80b2865875">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f1e046ca406f4bcc9c83c3f1d3a39096">
+<p nodeId="148f91e24975424598880a9f5965dbb3"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="b6fef79c7ef84ef68483a36174ef60d2"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="0b699fbd2a974454b597220c7711e502"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="572ac9a590a3429f99a4fb34fa64584c">
+<li nodeId="4bec56eb582e46e39f3f72270d69f6e1"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="512d4d772a1d40b0a6d3407580c2f75b"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="6674a294572048a0beddedf0b1477890"><span font-size="14">将</span><span color=" "><span font-size="14">数据拆分</span></span><span font-size="14">组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></li>
+<li nodeId="37da08e7b2864156b668a6d97a035734"><span color=" "><span font-size="14">数据拆分：</span></span><span color="rgb(44, 62, 80)"><span font-size="14">无配置信息，拖拽该组件至画布中央，该组件前连线与组件后连线比例为1：2，代表可将上一组件流转的数据复制，流转至后面连接的各组件</span></span></li>
+</ol>
+<p nodeId="4ab38549031945c7b2597b6df71a217d" />
+<p nodeId="b6fee423a13e499fa6e183e9bbf8a5f1" />
+<p nodeId="7fb143658fa8484c85ab5eed45fb18e4" />
+<p nodeId="ff48252fa33d47f3a44651f8cac4339a" />
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bc1f0474a96c4ac4b410d1fd1be7310b">
+<p nodeId="1042d322f6ab4c15894e0dbeb461548f"><img src="https://km.sankuai.com/api/file/cdn/1200639511/1260088310?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="280" nodeId="5b2d937bd40d4384b9dd260e6869a421" /><span font-size="14">​​​​​​</span></p>
+<p nodeId="ea573c2bed73418dacc6821690a5ca1d"><span font-size="14">​</span></p>
+<p nodeId="3241f6275e71461a888a64e27b9f719e"><span font-size="14">​​​</span></p>
+<p nodeId="c691985bec5e4eb9a48046d0e5c952d6" />
+<p nodeId="911d20be35784477911f888cc24be94f" />
+</td>
+</tr>
+</table>
+<h3 align="start" nodeId="5ff24c2946ef43f892cb0e45144e17ee">四、FAQ</h3>
+<p nodeId="df50954eedfc435ebb0655741236ff0b" />
+</km-doc>

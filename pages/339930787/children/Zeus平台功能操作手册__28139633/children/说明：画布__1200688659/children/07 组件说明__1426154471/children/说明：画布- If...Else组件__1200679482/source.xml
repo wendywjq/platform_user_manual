@@ -1,0 +1,64 @@
+<km-doc>
+<km-title nodeId="2e6a7d8b319a41c98fe0e8a7f0c5220a">说明：画布- If...Else组件</km-title>
+<km-catalog style="none" nodeId="fed35605c90d40d094bda2ad5f4a5317" />
+<h3 nodeId="bd850deca4df4e0abdfc49163ffe48fb">一、背景</h3>
+<p align="start" nodeId="c1273ebe7b944b9095f8dce525bb8aa6">见画布背景</p>
+<h3 align="start" nodeId="58e1ef3b2f9a41b48d605a15b18f369e">二、名词解释</h3>
+<p align="start" nodeId="9387d325d7484ab284a7777e0da3d5fa"><span color=" ">If...Else</span>：<span color=" ">逻辑判断分流</span></p>
+<h3 align="start" nodeId="9d2c8ca61b6148cf8d4023b82db9d14a">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="14ffc5af5457471abdfcef047ebbab4e">
+<tr nodeId="934a085ecb244470856a494afaae3454">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="eeb333c8314446809c9cef81455d27f1">
+<p nodeId="4af3b4c3f3ef499b9c366715649de9e5"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="5ace2db112994052ac82754ce327eea5">
+<p nodeId="53ab4ef157a0492087c677365bf69012"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="9728bb1ea28a4112a27ffbed4ad43162">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="94a29b146ce04fc88bef628dc0bac48f">
+<p nodeId="9145b60894da4bab95eef2ef37f418a9"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="87a356c54888438eb62df7144e7bbd34"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="b5c3996c580c4bd0900d262123f572ae"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="13f0d586691f46d2be95487e34e94d96">
+<li nodeId="b0d9e1ffa3db4212a7bae6c10b3fac2f"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="a2c0e86340be49909cb48252dbfc9e09"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="bfe8d7931e50492b86b9165c7e99c2d5">
+<p nodeId="f676e1514eed4d9b99a5738e8390ff03"><span font-size="14">将</span><span color=" "><span font-size="14">If...Else</span></span><span font-size="14">组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol nodeId="1bf0b13750164f319f87d9e9c63e2c49">
+<li nodeId="a1e2f99788ad4626bbfdea297f98627c"><span font-size="14">基本信息：</span></li>
+</ol>
+<ol nodeId="2d6a514c103e47f09175a835f4ff40ff">
+<li nodeId="009f3667ef744c399b8529c594acc0ea">
+<ol nodeId="f4e9391228554248b2c51f5a3cf93f50">
+<li nodeId="9283c69f71e546f8bb5d5c8a9c598f15"><span font-size="14">名称：</span><span color=" "><span font-size="14">支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></span></li>
+</ol>
+</li>
+<li nodeId="1bf2cb62872b4bbc84862b8cf0f8870c">
+<p nodeId="a902daff87914ca78ca366bd7200adea"><span font-size="14">配置信息：</span></p>
+<ol nodeId="155d112373a44a4cacb8bca5681cce45">
+<li nodeId="592861380c834da6b0d37036a0bb4e78"><span font-size="14">rule模块：默认有一条rule配置模块，在文本框里可以填写</span><span color=" "><span font-size="14">输入aviator表达式，表达式字段为上文所传字段（含原始字段和自定义字段，如果原始字段被重新定义过，则填写自定义后的字段名），非必填</span></span></li>
+<li nodeId="f3100f33ca9445769e36cb5ce5e099fa"><span color=" "><span font-size="14">一个rule框中支持填写简单条件，也支持填写复杂条件，点击右上角「+」可以新增rule配置框</span></span></li>
+<li nodeId="0df062d551d04a67a31139d150d444e9"><span color=" "><span font-size="14">当有两个及以上rule配置框时，需要明确多个rule之间的「与」「或」「非」关系</span></span></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p nodeId="3eb3359b2d1b4c2abb7e093dfb8ad68e" />
+<p nodeId="4d05f669972c4d79a7539125cbe96147" />
+<p nodeId="6198880a7dc0426e96393c0396667318" />
+<p nodeId="cf4f18f2e2504eaa8adbafe8583f3dfd" />
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fd28fa89bccb485080bf9248ec3d885d">
+<p nodeId="1a088f015a444a18ac9806a50f2bcad7"><img src="https://km.sankuai.com/api/file/cdn/1200679482/1260670031?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="266" nodeId="792a7d30a4434504875dfe53bad7fed8" /></p>
+<p nodeId="ddbe1c27d5464b23ac24b7dae03a9294"><img src="https://km.sankuai.com/api/file/cdn/1200679482/1260774796?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="282" nodeId="a09951d6996047218e1cd9db7a845e80" /></p>
+<p nodeId="2689a24920a24d80a21a2f212f020453"><img src="https://km.sankuai.com/api/file/cdn/1200679482/1260791986?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="268" nodeId="c814b51880984e7693932602ea8c560c" /></p>
+<p nodeId="c1d07c7dc64742f9a6f1ce082f681c9f" />
+<p nodeId="25e95f9281e84a1fb4db978cd99c3cb2" />
+<p nodeId="a25ee22e81fa47f2885c5befcfaac4ae" />
+</td>
+</tr>
+</table>
+<h3 nodeId="519b41c033a344d28471dc7483fefe04">四、FAQ</h3>
+</km-doc>

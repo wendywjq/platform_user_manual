@@ -1,0 +1,95 @@
+<km-doc>
+<km-title nodeId="1b9395a1ebb64d74bc1012b41ae92425">说明：画布-图数据库组件</km-title>
+<table responsive="false" nodeId="51cdc6fe28c44afda6a1cb7f88b34acd">
+<tr nodeId="ef79f23fee2547bca90ba8378491a50b">
+<th colwidth="[975]" nodeId="63c0861f333e4eba8fbedcea2dcd5652">
+<p nodeId="b3de3ba570fe44dfb4a5f6c13b7cb4a6" />
+</th>
+<th colwidth="[436]" nodeId="53ba0fe59c0549f1a90da76004762eff">
+<p nodeId="de2d45bf6a5a43c59016ea49c47b8c29" />
+</th>
+</tr>
+<tr nodeId="6b5c2d11bece463e9cefeda50ff9dde5">
+<td colwidth="[975]" nodeId="709c9910bff048d5a136179a13cfccf1">
+<p nodeId="ee8e7187c67b4c07a5a37dc21f5ff68a"><strong>基本信息</strong></p>
+<ol nodeId="fc266afe0372437885e3a9e70d5c4ea1">
+<li nodeId="8372f3d1dcf94af19085114bc2762f43">名称：用户可自定义该组件名称</li>
+</ol>
+<p nodeId="c6975c94193a4638a05ad390d280aa50"><strong>配置信息</strong></p>
+<ol nodeId="1c1c04506cba45808d3765aea0febd66">
+<li nodeId="8d89fdecc3d04ab8a04de48070efd075">
+<p nodeId="5c5ea366276a482788a44f02c4d4e8e9">图数据名称：</p>
+<ol nodeId="b3e94549e2ab41209c27cda7ddcd5fca">
+<li nodeId="ebcdbf996d01456c9f20101cb37282dc">创建该图数据服务的名称，保存后会在图数据服务列表中生成一条数据，后续图计算组件将通过该名称索引并使用。</li>
+<li nodeId="c157a3987fc64a6b9ffa7c0fee0e7ad7">问号鼠标hover提示信息：“图数据命名，可于后续图计算组件索引图数据的key”</li>
+<li nodeId="936e741f4e574917b47152f270402bc5">输入框默认提示“支持中文、大小写、数字、下划线，-@/”</li>
+</ol>
+</li>
+<li nodeId="5ef1198e275141b8bf8014eb291ae0f8">
+<p nodeId="e3e3bb8bbfd046bea1986c2962f7bda1">graph ID：</p>
+<ol nodeId="ab6afd2a629b4e349e3a0a3c88195873">
+<li nodeId="f40fe7dcafef415096bd1fcb490e2650">请联系RD提供</li>
+<li nodeId="6ab404221bd942f8841238d80bc8e8fc">输入框（string），提示信息“请输入graph ID”；</li>
+<li nodeId="129b1ff7a87d457b8d73f3111bbe16ca">问号鼠标hover提示信息：“图生产团队创建的graph ID，若无法确定请联系Zeus IT”</li>
+</ol>
+</li>
+<li nodeId="9843afe5b45f4b429df5f6fe90c88c48">
+<p nodeId="8ad1e59b39c743628c2d6f11875bba10">user</p>
+<ol nodeId="f637376a389f42a5ad2f7d66ff8f055f">
+<li nodeId="7dc132deba334a57b3ad28e012054e9c">请联系RD提供</li>
+<li nodeId="6c7f6e6a065c4ee48790b22eccf1d6ad">输入框（string），提示信息“请输user账号”；</li>
+</ol>
+</li>
+<li nodeId="92ce9b2915ee409a9315b55c71f9e548">
+<p nodeId="ce399b6558f744a19cbd897927615f4d">password</p>
+<ol nodeId="4a0816347a2f43fe94c207ee80f38826">
+<li nodeId="bf3d01d658bc473f9a6cfa469ebdbfea">请联系RD提供</li>
+<li nodeId="a824cf2a126346a0a3226066389db3b2">输入框（password），提示信息“请输入密码”。画布编辑态时用户输入时以“*”展示，默认不可见，鼠标点击查看图标时展示密码，松开即加密；预览态密码加密。</li>
+</ol>
+</li>
+<li nodeId="1ada54cea5844938857c984e8520de0a">
+<p nodeId="5cd29f19d205498f8703f7f03a398dac">点：</p>
+<ol nodeId="cbb5c8c8ea4840138a1e2bb6f8642050">
+<li nodeId="89d0ac227ff745698302acb977d76cbc">支持用户填写多个，点击“+”新增</li>
+<li nodeId="a34971a4f64c4456a42c1cf8d7a609d3">
+<p nodeId="981781be94e14abc9028af47e7f541eb">每个信息组可填写</p>
+<ol nodeId="fc113b2575e14d5a8fb7552810818550">
+<li nodeId="60c486d88cf545329a07c5d62cf29d11">点ID：表达式输入框，支持代码高亮等显示；<em><u>eg：userid</u></em></li>
+<li nodeId="92243412b6ec4ae1adbbdf9e059725a3">
+<p nodeId="34e95a1fa16c472cac7c0d88383fe157">点类型：<em><u>eg：user</u></em></p>
+<ol nodeId="e940b01daa3344099700d4dbb688f6d4">
+<li nodeId="63e77f53d94047af9f4cc16cf5a6bd8e">问号鼠标hover提示信息：“对点的类型进行声明，可为图的点和介质点”</li>
+<li nodeId="cd919f537e5644dd9d08c9723bc038ed">输入下拉框，支持模式匹配。下拉框中的内容是根据图的元信息反显而来</li>
+</ol>
+</li>
+<li nodeId="c4b8c892b557458396f06dee7fecf620">点属性：输入下拉框，支持模式匹配，支持多值。下拉框中的内容是根据图的元信息反显而来</li>
+</ol>
+</li>
+</ol>
+</li>
+<li nodeId="8a3ada23f212407b8eb93309351c8c36">
+<p nodeId="40a8d9e6bb284a87980d5705c880c692">方向定义</p>
+<ol nodeId="d25f98949d8f4199aedf9633d7d4840c">
+<li nodeId="00a0bb7ba46a49bbacf85de0dceb7703">支持用户填写多个，点击“+”新增</li>
+<li nodeId="f2aad71ecbce4780b5285b8b65da6482">
+<p nodeId="9b647d2965cb409cbef48b0c1ade0229">每个信息组可填写</p>
+<ol nodeId="0efcc14c6b0440668ecbd83de3ff9b7b">
+<li nodeId="e9f146aa1dc94aa0868a4d06e54985e6">*起点类型：输入下拉框，支持模式匹配，输入框默认提示“请输入起点类型”</li>
+<li nodeId="ca97b486045c45238816325f55c7af58">
+<p nodeId="4bcd3c11a1df4ce38aa2ca4ccd52307e">*终点类型：输入下拉框，支持模式匹配，输入框默认提示“请输入终点类型”</p>
+<p nodeId="a44cd972130a462cbed2b430ffbdd8d3">无向图：A-&gt;B B-&gt;A</p>
+</li>
+<li nodeId="937ce34c982f49bab4ee97c5297f753b">*边类型：选择下拉框，选项为图数据中已有类型，后端返回线下/RD原始注册内容中定义的插入边类型。选项。（eg. like/follow/login）</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[436]" nodeId="d88359cde718485dbc46550e14ecdc2c">
+<p nodeId="5e693e8cfae1430783b65182058b9ccb"><img src="https://km.sankuai.com/api/file/cdn/1924772793/109837760549?contentType=1&amp;isNewContent=false" name="image.jpeg" width="349" height="1100" nodeId="15119cdc5e74481095ed158be7788155" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="13eae5d07fc649e69d1caa7663772462" />
+</km-doc>

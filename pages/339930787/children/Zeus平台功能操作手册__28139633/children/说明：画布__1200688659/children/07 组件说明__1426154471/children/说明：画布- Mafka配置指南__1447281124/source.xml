@@ -1,0 +1,191 @@
+<km-doc>
+<km-title nodeId="36895f0c78e5425dac09ff25e781cc97">说明：画布- Mafka配置指南</km-title>
+<km-catalog style="none" nodeId="131a021502644761a2bce299a108fd7e" />
+<h3 align="start" nodeId="8a64a58498d64ecd8181074c213c8dd3">一、背景</h3>
+<ul nodeId="f9c309a78e324ec88863bde545c1946a">
+<li nodeId="cc93ea5709cf49589f9147818af499d3">
+<p align="start" nodeId="d7a4c853bba44673accae2156274461a">数据安全、基础安全等相关风险领域需要在近线通过mafka传递日志消息等，当前近线画布缺少mafka消息通道，相关模型诉求无法平滑接入近线</p>
+</li>
+</ul>
+<h3 align="start" nodeId="47f8161c969b4323a251987d8c8af6a5">二、名词解释</h3>
+<p align="start" nodeId="51b683810e294268b5a76fdf8537c6eb">Mafka：<span color="">配置Mafka数据源Topic</span></p>
+<h3 align="start" nodeId="0db687848efd40ce9fc5c28eb8e07022">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="12069d785fcb4ac293d354f60ce9d5bd">
+<tr nodeId="60af8a4aecc845d5a7372ce22587c5ec">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="c3fac75a4ad7428ba876bc463603a143">
+<p nodeId="c92d26aeeed24446a75fbcbf9bf4ab07"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="8b92a182e6cc4fc28dcbd8e3c399dec0">
+<p nodeId="31fffb20c39045f4a0946525caf6984e"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="c1de6a6a910b4cf8abc8730e61a58ba5">
+<td colwidth="[485]" nodeId="2d1bde4b3dae42b5842d2c5d6feec0ee">
+<p nodeId="08c65531011140079c691583cb9a1d00"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="6d96ccf1e17841b3ad41da1fee6cc12f"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+</td>
+<td colwidth="[574]" nodeId="941f2bf63cc64e178b645ce9eb0143dc">
+<p nodeId="2edabb6f98ca445b88c22de2622ecfee"><img src="https://km.sankuai.com/api/file/cdn/1447281124/13800917367?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1404.594970703125" height="485.26" nodeId="07b1ddcad56e419d984f7e7f20dfdb8c" /></p>
+</td>
+</tr>
+<tr nodeId="f305859e91de40628d689ccc9159c4f0">
+<td colwidth="[485]" nodeId="98b3488bf73c43d79e20fa73818d9fff">
+<ol nodeId="08d6f5b23c904f1fa17645a23a63acfc">
+<li nodeId="b2a974fa34854b468d188a1ef26f73ad">
+<p align="start" nodeId="686bf53cc808443d8ef902709f9800f9"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></p>
+</li>
+<li nodeId="7e2670f0dbdf4d33ae2173a5690cc859">
+<p align="start" nodeId="b8d9b50e0d9b45fe996993053c042410"><span font-size="14">将Mafka组件拖拽到画布中央.</span></p>
+</li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="f37fe1d51657436cb5b456e372fcf079">
+<p nodeId="fe28c5a93689484dbf04d73441ab70a5"><img src="https://km.sankuai.com/api/file/cdn/1447281124/13803088928?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1050.12" height="600" nodeId="4ffe7584ed5c4f1184f72400b8b127d0" /></p>
+</td>
+</tr>
+<tr nodeId="0598454653ab4d7aae7a2d893c144139">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4ed68af853ec4acdb0d71ad732c9576f">
+<ol nodeId="bdce9c29cd8640cc9f3663e75d519eb3">
+<li nodeId="5ef0255de3604c96a697e3be557b2766">
+<p align="start" nodeId="2db833792ea74620a12adfa315cd8c97">基本信息：确定是哪个mafka topic，并确定消费方式和解析格式</p>
+</li>
+</ol>
+<ol nodeId="ef9e6ba5c7cd4932a84a9a186323cff2">
+<li nodeId="212e3714fdfc40f4a97e854633c75f1a">
+<p align="start" nodeId="f612c752bb544828a4cff9bd4ef59d0d"><span font-size="14">名称：支持中英文数字等，不超过128字符。填写后画布中央的组件名称会变更，必填</span></p>
+</li>
+<li nodeId="027823567e9840f5a65993d2f9c64808">
+<p align="start" nodeId="6fd49c09bab548fcbce7be17d3c66082"><span font-size="14">namespace：支持中英文，为topic所在的space组，必填</span></p>
+</li>
+<li nodeId="e28510d2ea83483eb23e46b898ae8e17"><span color="">subscribeGroup：mafka消费组</span></li>
+<li nodeId="c4a948fc845e4509b394fca9a8a0c3f2">
+<p align="start" nodeId="c719bec8e555404ba5d0877f5622c3c1"><span font-size="14">Topic：指整个画布配置的topic的名称，必填</span></p>
+</li>
+<li nodeId="a885783c18224bb7ada5ec43d497ef05"><span font-size="14">消费组appkey</span></li>
+<li nodeId="1c1379d08aae4238812fbc76b98735bc">
+<p nodeId="54c8d45771824b7992289a3184d3d2ee"><span font-size="14">是否配置set消费：默认不配置set消费</span></p>
+<ol nodeId="22cc4d26c12e4df7b528adcb4ebd8eba">
+<li nodeId="11d4d283830a4b3089fa531172d2ddcc">跨set消费：选中后，将消费所有set</li>
+<li nodeId="038cbadec3e649d6b0a80fc4acb2536c">指定set<span color="">消费</span>：选中后，需指定一个cell</li>
+</ol>
+</li>
+<li nodeId="c3f12ef7567f41a0ae07258bdff48f56">
+<p nodeId="202f3edc966b4752b8da8d51a08a9539"><span color="">消费起点：默认选中从最新消费</span></p>
+<ol nodeId="2860001b0f1d42a186ecfc2fc0a5a8bb">
+<li nodeId="3104d47c453d41fea1d7f4a60657fcdf">从最新消费</li>
+<li nodeId="d05a3070a09d4fd287291e68868c4223">指定消费起始时间：需选择<span color="rgb(0, 0, 0)">消费起始的时间，默认回溯一天。如果需要回溯多天消息，请先前往</span><a href="http://mafka.mws-test.sankuai.com/consumer/95119569/detail/track?showPriority=1&amp;topicId=26027805&amp;consumerId=95119572&amp;buId=5&amp;action=monitor" title="mafka平台申请白名单" nodeId="e65f1965423e43788dbf143f3540eb2f">mafka平台申请白名单</a><span color="rgb(0, 0, 0)">，若未申请白名单但选择多天，系统将自动只回溯一天消息</span></li>
+<li nodeId="7a24329877754ffaa4f868194f79cd9a">接上次消费</li>
+</ol>
+</li>
+<li nodeId="920f1d5a4a9040e995c3203197d32140">
+<p align="start" nodeId="b7121af487474ee3834ff6c130501855"><span font-size="14">时间维度：指画布任务执行的时间戳，如果不填topic中的时间字段，则默认系统时间戳，即画布开始运行的时间字段，非必填</span></p>
+</li>
+<li nodeId="712afc4d460d4e97b8aaf869becdd39d">
+<p align="start" nodeId="81d8b897c02240daa455322e579812ff"><span font-size="14">时间维度格式：支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</span></p>
+</li>
+<li nodeId="546aa4f65b034e0f822a743b27565407">
+<p align="start" nodeId="98ed8a607d3b4ab79bb22a64bf0da3c6"><span font-size="14">备注：用户可对该组件进行备注，非必填</span></p>
+</li>
+<li nodeId="cd10fd89009e439180afcb30bd6a4e85">
+<p align="start" nodeId="17fc284f60564fd29f7282fff572f32e"><span font-size="14">日志类型：即确定所选topic的日志类型，支持Log、NewLog、Snappy，必选</span></p>
+</li>
+</ol>
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="29ca494717ec4eb2ae47cdd0e0e76f70">
+<p align="start" nodeId="289d1b00d8374a539350c27495392a74" />
+<p align="start" nodeId="b53b91391b3a49b19103f9b88521f62f"><img src="https://km.sankuai.com/api/file/cdn/1447281124/13803094445?contentType=1&amp;isNewContent=false" name="image.jpeg" width="246.27" height="600" nodeId="c7c0ef34eb3f4fca8a4d270e8f551f53" /></p>
+<p align="start" nodeId="c08cdbd51c9e4daea40347c528780be8" />
+<p align="start" nodeId="4e98eee5d2b34365811e3224dfb35a36" />
+</td>
+</tr>
+<tr nodeId="9571da006bef458386fc755aa2afa9df">
+<td colwidth="[485]" nodeId="4f830794074f4c8b9a2d13943eb12de5">
+<p nodeId="3f9af2f7d9e1478ea69bc648739add4a"><span font-size="14">【自定义数据源解析】</span></p>
+<p align="start" nodeId="f97477d9ffe1410abf328102024a2584"><span font-size="14">选择自定义数据源解析，并在代码块中填写相关解析代码。</span></p>
+<p align="start" nodeId="1e058f93503b457da24f61e0d11d7c15"><span font-size="14">代码需要继承IParser抽象类，并实现parse方法：</span></p>
+<pre language="Plain Text" nodeId="86bffcc7ba634ca789ea12b75d7da779"><code>
+package com.meituan.rc.zeus.nearline.flink;
+
+import com.google.common.collect.Maps;
+import com.meituan.rc.zeus.dynamic.script.runtime.IParser;
+
+import java.util.Map;
+
+public class TestParser implements IParser {
+    @Override
+    public Map&lt;String, Object&gt; parse(String s) {
+        Map&lt;String,Object&gt; map =  Maps.newHashMap();
+        map.put("name", 12212);
+        return map;
+    }
+}
+</code></pre>
+<p align="start" nodeId="b91aebfa98ad41bebf52147ceb5a5b1b" />
+<p align="start" nodeId="a945809de388453e88cb7c20a12b48f3"><span font-size="14">如果自定义数据源解析希望输出多条数据，需要继承IFlatParser抽象类，并实现flatParse方法：</span></p>
+<pre language="Plain Text" nodeId="bbdff6553ae64e0fac2b549dff5d78ae"><code>
+package com.meituan.rc.zeus.nearline.flink;
+
+import com.google.common.collect.Maps;
+import com.meituan.rc.zeus.dynamic.script.runtime.IFlatParser;
+
+import java.util.Map;
+
+public class TestParser extends IFlatParser {
+    @Override
+    public List&lt;Map&lt;String, Object&gt;&gt; flatParse(String src) {
+        List&lt;Map&lt;String, Object&gt;&gt; ret = new ArrayList&lt;&gt;();
+        Map&lt;String,Object&gt; map =  Maps.newHashMap();
+        map.put("name", 12212);
+        ret.add(map);
+        return ret;
+    }
+}
+</code></pre>
+<p align="start" nodeId="fbbdf6f83e4649cb98d6b9e535c6869a" />
+<p align="start" nodeId="3268f6b974cb4212a71f4cc8a97ada9a"><span font-size="14">IParser和IFlatParser所在jar包：</span></p>
+<pre language="Plain Text" nodeId="ab9c5c72a8b541bea22e2d135a540eb3"><code>
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.meituan.rc.zeus&lt;/groupId&gt;
+                &lt;artifactId&gt;zeus-dynamic-script&lt;/artifactId&gt;
+                &lt;version&gt;1.1.9-nearline&lt;/version&gt;
+            &lt;/dependency&gt;
+</code></pre>
+<p align="start" nodeId="72833f189c3444aea266e5e3f320868e" />
+</td>
+<td colwidth="[574]" nodeId="3ecd35e135914d0bae030de3ab745ac6">
+<p nodeId="8e95b79ff292427a81f9cd1d7955d1f0"><img src="https://km.sankuai.com/api/file/cdn/1447281124/13801135282?contentType=1&amp;isNewContent=false" name="" width="463" height="558" nodeId="a106fe47781c458692e2279c714bd7b6" /></p>
+</td>
+</tr>
+<tr nodeId="28843981e351434787a932b5a6049d97">
+<td colwidth="[485]" nodeId="d0b367ccf7784547b5906ff81af67079">
+<p nodeId="3c1a1eb130db4b2d98e2f00721ba5031"><span font-size="14">【参数配置】</span></p>
+<ol nodeId="07df83a6b53c47a4b3df7247ed970b58">
+<li nodeId="df8de056367c4a28b6851a340b7f757b">
+<p align="start" nodeId="55af290881944b80a92493a555b12a89"><span font-size="14">参数配置模块（高级配置）：当用户选择多个kafka 数据源时，可能存在不同数据源有相同的字段，在后面进行逻辑编写时可能存在字段重复导致逻辑配置有问题，所以可以在参数配置模块对topic里的字段进行重命名</span></p>
+<ol nodeId="c900e423c0e04a46badebd127dfa64a7">
+<li nodeId="ea3e91dbf3fa487cb6df5e3dc950fe7f">
+<p align="start" nodeId="adb4f11b51a146fe91cdeb2fbbec82fc"><span font-size="14">参数名：topic里的字段名</span></p>
+</li>
+<li nodeId="3ce9cc81437147fc86444d4770906a72">
+<p align="start" nodeId="f0c2126e7c704e99be0541ff8fd3c697"><span font-size="14">别名：原topic中的字段名在该画布中的映射，如果进行了参数别名配置，在该画布中编写逻辑时，请直接使用别名</span></p>
+</li>
+<li nodeId="755b3fffccdb40bdb2cf62ad16a31e3f">
+<p align="start" nodeId="82ba545de5b2410b847d51ed873481ba"><span font-size="14">类型：字段类型</span></p>
+</li>
+<li nodeId="396993aa68094c8abfc510c752537267">
+<p align="start" nodeId="0ceba0209c8b4cf098a14629c2f71887"><span font-size="14">备注：可对该参数进行备注</span></p>
+</li>
+<li nodeId="895afae5c3454daba86ccb0cef32cd42">
+<p align="start" nodeId="1ada599960cd4cb9a6334e042dc02fc5"><span font-size="14">点击右上角「+」号可以新增一个参数配置，也支持删除参数配置</span></p>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[574]" nodeId="78dc87b26cb8482db78768c91faa21a9">
+<p nodeId="22848773da584c959755da80fdf9c870"><img src="https://km.sankuai.com/api/file/cdn/1447281124/13806931685?contentType=1&amp;isNewContent=false" name="image.jpeg" width="231.91" height="600" nodeId="1c42bcbbc4244435b813ae802334d4a4" /></p>
+</td>
+</tr>
+</table>
+<h3 align="start" nodeId="13a380726b6644deb929cdd4ac9a3993">四、FAQ</h3>
+</km-doc>

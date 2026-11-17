@@ -1,0 +1,200 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布 - 数据获取</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-8">三、操作指南</a><a href="#section-39">Squirrel配置</a><a href="#section-111">S3配置</a><a href="#section-164">RPC配置</a><a href="#section-211">Http配置</a><a href="#section-260">Tair配置</a><a href="#section-327">四、FAQ</a><a href="#section-328">1.配置样例</a><a href="#section-335">2.在数据获取组件中http 对于url前缀拼接动态配置方式</a><a href="#section-343">3.业务如何开发一个rpc接口跟Zeus对接</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">07 组件说明</a> / <a href="index.html">说明：画布 - 数据获取</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1319403547">查看学城原文</a></p><article>
+<h1>说明：画布 - 数据获取</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<p>在画布作业部署、运行时，已有的kafka数据源中数据不全，需要通过Squirrel/S3/Rpc/Http/Tair等模式获取增量补充数据用于策略执行。</p>
+<h3 id="section-5">二、名词解释</h3>
+<p><span style="color: ">请求幂等建：当数据接口配置缓存时，需要明确按何key进行缓存，该key就是请求幂等建</span></p>
+<h3 id="section-8">三、操作指南</h3>
+<p>⚠️：三方数据的调用测试，需要保存后方可进行测试。配置修改后也需要保存后才能更新数据进行测试。Squirrel/S3/Rpc/Http等数据自身存储链路请参考上述服务平台操作文档。</p>
+<img src="assets/9c8f39cce70b890b.svg" width="986" height="194" alt="流程图">
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">添加配置页面</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<ol>
+<li><span style="font-size:14px">基本信息：名称必填，用于在画布中提示该组件的主要逻辑说明</span></li>
+<li>
+<p><span style="font-size:14px">配置信息：</span></p>
+<ol>
+<li><span style="font-size:14px">英文名称：支持小些字母、数字和下划线、最多128字符，</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">用于上下文组件逻辑配置</span></span></li>
+<li><span style="font-size:14px">数据类型：Squirrel/S3/Rpc/Http，选择不同的数据类型，下方展示模块不一样</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/f59bcc80382da19d.png" width="701" height="417" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<h4 id="section-39"><span style="font-size:14px">Squirrel配置</span></h4>
+<ol>
+<li><span style="font-size:14px">存储集群：近线默认存储集群为redis-rc-nearline-public_product，若用户存储在自己的集群上，此处请填写数据所存储的集群英文名称</span></li>
+<li><span style="font-size:14px">存储类：为用户在Squirrel上创建的存储名称</span></li>
+<li><span style="font-size:14px">缓存配置：时间加减，默认30分钟，最长X H；</span></li>
+<li><span style="font-size:14px">结果类型：</span><span style="color: "><span style="font-size:14px">int/string/map/array</span></span></li>
+<li><span style="color: "><span style="font-size:14px">查询类型：hash/string</span></span></li>
+<li>
+<p><span style="color: "><span style="font-size:14px">查询方式：</span></span></p>
+<p><span style="color: "><span style="font-size:14px">当选择hash时，可支持</span></span><span style="font-size:14px"><strong>获取 key 下单 field 的 value 值</strong></span><span style="font-size:14px">/</span><span style="font-size:14px"><strong>获取 key 下所有 field 值</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">/</span></span><span style="font-size:14px"><strong>获取 key 下所有 value 值</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">/</span></span><span style="font-size:14px"><strong>获取所有的 k-v 键值对</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">；</span></span></p>
+<p><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">当选择string时，</span></span><span style="color: "><span style="font-size:14px">仅支持</span></span><span style="font-size:14px"><strong>获取 key 下单 field 的 value 值</strong></span></p>
+</li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></li>
+<li>
+<p><span style="font-size:14px">高级配置（默认收起）：</span></p>
+<ol>
+<li><span style="color: "><span style="font-size:14px">大象通知人：直接输入misid，多个请用逗号隔开，用于熔断、缓存失败进行通知；</span></span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">调用测试：</span></p>
+<p><span style="font-size:14px">点击保存后，点击“去测试”，进行测试</span></p>
+</li>
+<li><span style="font-size:14px">平台限流值: 6w/min</span><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">，如需更高流量，请联系近离值班rd</span></span></li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/04595dda34dd1d3c.png" width="881" height="437" alt="image.jpeg"></p>
+<p><img src="assets/bceb2ef50d6b0dc5.png" width="401" height="271" alt="image.jpeg"><img src="assets/d81140371197c3fb.png" width="371" height="276" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<h4 id="section-111"><span style="font-size:14px">S3配置</span></h4>
+<ol>
+<li><span style="font-size:14px">缓存配置：时间加减，默认30分钟，最长X H；</span></li>
+<li><span style="font-size:14px">结果类型：</span><span style="color: "><span style="font-size:14px">int/string/map/array</span></span></li>
+<li><span style="color: "><span style="font-size:14px">查询方式：</span></span><span style="font-size:14px"><strong>获取 key 下单 field 的 value 值</strong></span><span style="font-size:14px">/</span><span style="font-size:14px"><strong>获取 key 下所有 field 值</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">/</span></span><span style="font-size:14px"><strong>获取 key 下所有 value 值</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">/</span></span><span style="font-size:14px"><strong>获取所有的 k-v 键值对</strong></span></li>
+<li><span style="color: "><span style="font-size:14px">key</span></span><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></li>
+<li>
+<p><span style="font-size:14px">高级配置（默认收起）：</span></p>
+<ol>
+<li><span style="color: "><span style="font-size:14px">大象通知人：直接输入misid，多个请用逗号隔开，用于熔断、缓存失败进行通知；</span></span></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">调用测试：</span></p>
+<p><span style="font-size:14px">点击保存后，点击“去测试”，进行测试，测试结果会展示在当前页面中</span></p>
+</li>
+<li><span style="font-size:14px">平台限流值：6k/min</span><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">，如需更高流量，请联系近离值班rd</span></span></li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/4d0114aa40e3678b.png" width="701" height="562" alt="image.jpeg"></p>
+<p><img src="assets/29fb03b89360d10a.png" width="340" height="241" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<h4 id="section-164"><span style="font-size:14px">RPC配置</span></h4>
+<ol>
+<li><span style="font-size:14px">缓存配置：时间加减，默认30分钟，最长X H；</span></li>
+<li>
+<p><span style="font-size:14px">限流量：</span></p>
+<p><span style="font-size:14px">时间单位：可选秒/分/小时；</span></p>
+<p><span style="font-size:14px">数据量：表明取最近X S/min/H请求量；</span></p>
+</li>
+<li><span style="font-size:14px">超时时间：单位默认ms</span></li>
+<li><span style="font-size:14px">结果类型：</span><span style="color: "><span style="font-size:14px">map</span></span></li>
+<li><span style="color: "><span style="font-size:14px">Appkey：文本输入</span></span></li>
+<li><span style="color: "><span style="font-size:14px">入参value、请求幂等建：</span></span><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></li>
+<li><span style="color: "><span style="font-size:14px">大象通知人：直接输入misid，多个请用逗号隔开，用于熔断、缓存失败进行通知；</span></span></li>
+<li>
+<p><span style="font-size:14px">调用测试：</span></p>
+<p><span style="font-size:14px">点击保存后，点击“去测试”，进行测试，测试结果会展示在当前页面中</span></p>
+</li>
+<li><span style="font-size:14px">平台限流值:3w/min</span><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">，如需更高流量，请联系近离值班rd</span></span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/db24acd2ad4d2bdc.png" width="719" height="564" alt="image.jpeg"></p>
+<p><img src="assets/ebe03e5230ce6b51.png" width="392" height="266" alt="image.jpeg"><span style="font-size:14px"> </span><img src="assets/6939b399237f05f2.png" width="323" height="264" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<h4 id="section-211"><span style="font-size:14px">Http配置</span></h4>
+<ol>
+<li><span style="font-size:14px">缓存配置：时间加减，默认30分钟，最长X H；</span></li>
+<li><span style="font-size:14px">结果类型：</span><span style="color: "><span style="font-size:14px">string</span></span></li>
+<li><span style="font-size:14px">限流量：时间单位：可选秒/分/小时；表明取最近X S/min/H请求量</span></li>
+<li><span style="color: "><span style="font-size:14px">url：需要先下拉选 get还是post请求</span></span></li>
+<li><span style="color: "><span style="font-size:14px">Header：map格式</span></span></li>
+<li><span style="color: "><span style="font-size:14px">请求体：string格式</span></span></li>
+<li><span style="color: "><span style="font-size:14px">url、header的value、请求幂等建、请求体</span></span><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">平台限流值: 6k/min，如需更高流量，请联系近离值班rd</span></span></li>
+<li>
+<p><span style="font-size:14px">高级配置（默认收起）：</span></p>
+<ol>
+<li><span style="color: "><span style="font-size:14px">大象通知人：直接输入misid，多个请用逗号隔开，用于熔断、缓存失败进行通知；</span></span></li>
+<li>
+<p><span style="font-size:14px">调用测试：</span></p>
+<p><span style="font-size:14px">点击保存后，点击“去测试”，进行测试，测试结果会展示在当前页面中</span></p>
+<p></p>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/e3db60d28ddddd85.png" width="754" height="549" alt="image.jpeg"></p>
+<p><img src="assets/df16205721c28b92.png" width="394" height="346" alt="image.jpeg"><img src="assets/8bfd8a3d2237438e.png" width="370" height="345" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<h4 id="section-260"><span style="font-size:14px">Tair配置</span></h4>
+<ol>
+<li><span style="font-size:14px">存储集群：近线默认存储集群为rcom.sankuai.cellar.mtsi.zeusoffline，若用户存储在自己的集群上，此处请填写数据所存储的集群英文名称，即tair侧的RemoteAppkey值</span></li>
+<li><span style="font-size:14px">area：近线默认为5，若用户存储在自己的集群上且设置了自己的area，此处请填写数据所存储area；</span></li>
+<li><span style="font-size:14px">缓存配置：时间加减，默认30分钟，最长X H；</span></li>
+<li><span style="font-size:14px">结果类型：</span><span style="color: "><span style="font-size:14px">int/string/map/array</span></span></li>
+<li><span style="color: "><span style="font-size:14px">查询类型：hash/string</span></span></li>
+<li>
+<p><span style="color: "><span style="font-size:14px">查询方式：</span></span></p>
+<p><span style="color: "><span style="font-size:14px">当选择hash时，可支持</span></span><span style="font-size:14px"><strong>获取 key 下单 field 的 value 值</strong></span><span style="font-size:14px">/</span><span style="font-size:14px"><strong>获取 key 下所有 field 值</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">/</span></span><span style="font-size:14px"><strong>获取 key 下所有 value 值</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">/</span></span><span style="font-size:14px"><strong>获取所有的 k-v 键值对</strong></span><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">；</span></span></p>
+<p><span style="color:rgb(44, 62, 80)"><span style="font-size:14px">当选择string时，</span></span><span style="color: "><span style="font-size:14px">仅支持</span></span><span style="font-size:14px"><strong>获取 key 下单 field 的 value 值</strong></span></p>
+</li>
+<li><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">key、value、field均可填写表达式，此处若填写常量需要增加引号比如：'a'</span></span></li>
+<li>
+<p><span style="font-size:14px">调用测试：</span></p>
+<p><span style="font-size:14px">点击保存后，点击“去测试”，进行测试</span></p>
+</li>
+<li><span style="font-size:14px">平台限流值: 6w/min</span><span style="color:rgb(250, 84, 29)"><span style="font-size:14px">，如需更高流量，请联系近离值班rd</span></span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/88554fdcf0596a32.png" width="881" height="431" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">仿真测试样例 说明</span></p>
+</td>
+<td>
+<p><img src="assets/cd4148059110d8a0.png" width="851" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-327">四、FAQ</h3>
+<h4 id="section-328">1.配置样例</h4>
+<p>http get:  <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=166&amp;version=1</a></p>
+<p>http post: <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=173&amp;version=1</a></p>
+<p>rpc : <a href="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1" title="https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1">https://mis.zeus.rc.st.sankuai.com/data_zeus_static/#/paint/detail?id=175&amp;version=1</a></p>
+<h4 id="section-335"><strong>2.在数据获取组件中http </strong><span style="color:rgba(0, 0, 0, 0.87)"><strong>对于url前缀拼接动态配置方式</strong></span></h4>
+<p><span style="color:rgba(0, 0, 0, 0.87)">对于url前缀拼接动态获取的参数的场景，可以使用+进行字符串常量和动态参数的拼接，样例："</span><a href="https://sa.sankuai.com/api/idc/ops/" title="https://sa.sankuai.com/api/idc/ops/">https://sa.sankuai.com/api/idc/ops/</a><span style="color:rgba(0, 0, 0, 0.87)">"+_mt_servername</span></p>
+<h4 id="section-343"><strong>3.业务如何开发一个rpc接口跟Zeus对接</strong></h4>
+<p><a href="https://km.sankuai.com/page/1323587933" title="https://km.sankuai.com/page/1323587933">学城文档 1323587933（无权限读取标题）</a></p>
+<p><a href="https://km.sankuai.com/page/1322547118" title="https://km.sankuai.com/page/1322547118">说明：如何开发rpc接口可被Zeus调用</a></p>
+<p><a href="https://km.sankuai.com/page/28253533#id-%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E7%8E%B0" title="https://km.sankuai.com/page/28253533#id-%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E7%8E%B0">说明：业务数据对接-数据接口</a><br></p>
+<p></p>
+</article></main></body></html>

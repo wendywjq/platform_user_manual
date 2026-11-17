@@ -1,0 +1,101 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：画布-统计分析</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-17">三、计算逻辑说明</a><a href="#section-43">四、操作指南</a><a href="#section-71">五、配置示例</a><a href="#section-82">六、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：画布</a> / <a href="../../index.html">07 组件说明</a> / <a href="index.html">说明：画布-统计分析</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1708086996">查看学城原文</a></p><article>
+<h1>说明：画布-统计分析</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<p>统计分析组件主要针对一些数据统计类的计算函数做了整体产品化，目前仅支持同比和环比的逻辑，降低用户配置该部分计算逻辑时的操作成本。</p>
+<h3 id="section-5">二、名词解释</h3>
+<p>同比：指与历史同期的一个统计段进行对比。反映的是事物发展的相对情况。比如，2022年3月与2021年3月，今天与前天。</p>
+<p>环比：指与相连续的上一个统计周期进行对比。反映的是事物逐期发展的情况。比如，2022年1月与2021年12月的数据，今天与昨天，2022年与2021年。</p>
+<p>区别1：核心区别：是否连续。同比是不连续的，环比是连续的。</p>
+<p>区别2：同比前一般会加限定词。2022年3月的月活与2021年3月的同比。如果是环比，可以直说2022年3月环比提高了多少。</p>
+<p></p>
+<p><span style="font-size:15px">增长率是指两个时间点之间的数据增长量与前一个时间点的数据值的比率。增长率可以帮助我们了解数据的增长速度和趋势。例如，如果某个产品在去年销售了1000件，今年销售了1200件，那么增长率为20%。</span></p>
+<p><span style="font-size:15px">增长值是指两个时间点之间的数据增长量。增长值可以帮助我们了解数据的绝对变化量。例如，如果某个产品在去年销售了1000件，今年销售了1200件，那么增长值为200件。</span></p>
+<p><span style="font-size:15px">原始值是指某个时间点的数据值。原始值可以帮助我们了解数据的绝对水平。例如，某个产品去年销售了1000件</span></p>
+<h3 id="section-17">三、计算逻辑说明</h3>
+<table>
+<tr>
+<th>
+<p>函数名称</p>
+</th>
+<th>
+<p>逻辑</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>同比</p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)">【指标逻辑】近10分钟的流量与昨天同时间的流量同比&gt;50%：</span></p>
+<p>【数据信息】 <span style="color:rgba(0, 0, 0, 0.87)">2023.5.30 11:00-11:10 流量为a    2023.5.31 11:00-11:10 流量为b </span></p>
+<p>【计算公式】增长率：<span style="color:rgba(0, 0, 0, 0.87)">(b-a)/a  ；增长值：b-a；原始值：a</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>环比</p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)">【指标逻辑】</span>近10分钟流量环比&gt;50%</p>
+<p>【数据信息】11:00-11:10 流量为a 11:10-11:20 流量为b </p>
+<p>【计算公式】增长率：<span style="color:rgba(0, 0, 0, 0.87)">(b-a)/a  ；增长值：b-a；原始值：a</span></p>
+</td>
+</tr>
+</table>
+<h3 id="section-43">四、操作指南</h3>
+<table>
+<tr>
+<th>
+<p>操作说明</p>
+</th>
+<th>
+<p>页面</p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li>组件入口：画布工具栏--&gt;数据处理--&gt;统计分析组件</li>
+<li>组件应用：拖拽至画布上，即可配置信息</li>
+<li>
+<p>组件配置：</p>
+<ol>
+<li>变量名：为该组件执行结果的变量名称，可在下游组件引用该名称做逻辑判断，支持输入小写、数字和下划线、第一个字符必须是英文字母或下标符号"_"；提示用户，该变量值类型为double</li>
+<li>计算函数：环比、同比，具体计算逻辑见“三、计算逻辑说明”</li>
+<li>逻辑类型：增长率、增长值、原始值</li>
+<li>统计Key：支持输入参数/因子/变量</li>
+<li>统计指标：支持输入参数/因子/变量，提示用户，值类型必须是int/double/long</li>
+<li>时间周期：为同环比计算时的时间周期，该处需要与统计指标的时间周期一致</li>
+<li>
+<p>当计算函数为同比时，增量填写信息：</p>
+<ol>
+<li>偏移周期：默认“1”，单位支持时/日/周/月</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/1d2c5ef2ff595fe9.png" width="1007.68" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-71">五、配置示例</h3>
+<p><span style="color:rgba(0, 0, 0, 0.87)">策略逻辑：近10分钟的流量与昨天同时间的流量同比&gt;50%</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">配置实现拆分：</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">（1）“近10分钟的流量统计” 指标--&gt;近线groupby组件/累计因子</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">（2）“近10分钟的流量与昨天同时间的流量同比” 指标--&gt;近线统计分析组件</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">（3）“近10分钟的流量与昨天同时间的流量同比&gt;50%”规则--&gt;近线规则集合组件+规则</span></p>
+<h3 id="section-82"><span style="color:rgba(0, 0, 0, 0.87)">六、FAQ</span></h3>
+<p><span style="color:rgba(0, 0, 0, 0.87)">Q1.统计指标什么时候用近线groupby组件，什么时候用累计因子？</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">A：近线groupby组件 仅能支持1天以内的时间窗口统计，若统计时间超过1天以上，建议使用累计因子。累计因子为滑动时间窗口计算逻辑，若统计时间超过1天且计算逻辑为滚动窗口则需要联系Zeus RD沟通。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">Q2.近线统计指标使用累计因子，但累计因子依赖的累计事件流量没有接入过Zeus 怎么处理？</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">A：请联系Zeus RD</span></p>
+<p></p>
+<p></p>
+<div>
+
+</div>
+</article></main></body></html>

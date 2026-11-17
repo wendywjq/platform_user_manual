@@ -1,0 +1,44 @@
+<km-doc>
+<km-title nodeId="66dba2d36829454ab07e8f0f870da915">说明：画布- Union组件</km-title>
+<km-catalog style="none" nodeId="fd318e2fe0df49939bfdd4b2dcf31139" />
+<h3 nodeId="952e8f52f02d463eb24e60a7e2f93c98">一、背景</h3>
+<p align="start" nodeId="0ee5dc95e76b4c4aae78d83ba70bb1dc">见画布背景</p>
+<h3 align="start" nodeId="6ffedfb1a9d04bee8d754cd01f95b688">二、名词解释</h3>
+<p align="start" nodeId="fa24edad694049b39f3021cf6d8068de">Union：<span color=" ">两个数据流的合并</span></p>
+<h3 align="start" nodeId="9bec8478a41f40fb852d3da5687af036">三、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="aae1617a2e0f4c618208216f1e661197">
+<tr nodeId="d9dad84af1c1460aa34b8a7a15add25f">
+<th colwidth="[485]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="36587a13710545faa4951dee8322152f">
+<p nodeId="a1d520ba503f498591a693f9360f9501"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[574]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="65e9f01e596741bb9d821a2439362592">
+<p nodeId="4fc068862ce5413b81d4514888955bbe"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="b472a88838cb4f27b7cec11eac02fa48">
+<td colwidth="[485]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c9ec051f93ce4d4c9208429bd607becc">
+<p nodeId="549ed28ce8534b78b6113fe5cbbf1603"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="b8a28aad92e44f65ba9d13193c33d6ca"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="e90d639a8c194a3387e01ee00228a095"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="20f5ac0f262140f4bb52d16444835d01">
+<li nodeId="8e7f7ee864214fde9c62eda94311dde0"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="200a8c16cb22486f870ff2f1461b7a9d"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="730cb63480184b7e88c791251eabbf93"><span font-size="14">将Union组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></li>
+<li nodeId="9e4c29a547764beeb7d8110528f0392c"><span font-size="14">Union</span><span color="rgb(44, 62, 80)"><span font-size="14">无配置信息，拖拽该组件至画布中央，该组件前连线与组件后连线比例为2：1，代表可将上一组件流转的数据复制，流转至后面连接的各组件</span></span></li>
+</ol>
+<p nodeId="ee738d539d194c0698bd74386686f865" />
+<p nodeId="4b8313ed4ad54ff0ba5bf4ee7eac798e" />
+<p nodeId="0c67b9e3edcb42a695c962c0ac0b5879" />
+<p nodeId="51e33a9423d0486bab42b9419c1d3a68" />
+</td>
+<td colwidth="[574]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="82faa1cb9a0c41479b3f038f68f660f0">
+<p nodeId="87645da004864710b47ae22f5055a8f1"><img src="https://km.sankuai.com/api/file/cdn/1200639529/1259579161?contentType=1&amp;isNewContent=false" name="image.png" width="546" height="269" nodeId="55ea33c5a9e9439299915a94ecea6983" /></p>
+<p nodeId="b13e003588ca4ef5bcdcd9aa34286002" />
+<p nodeId="442d785802004f2c9ed34c806896781e" />
+<p nodeId="1b0dbe3964ea4856bd95a2ed81fffef6" />
+<p nodeId="45fd7cc89cee40bd8129dc2d7fd1795f" />
+</td>
+</tr>
+</table>
+<h3 nodeId="e619509a4a774e8a81fac1b098f9299f">四、FAQ</h3>
+</km-doc>

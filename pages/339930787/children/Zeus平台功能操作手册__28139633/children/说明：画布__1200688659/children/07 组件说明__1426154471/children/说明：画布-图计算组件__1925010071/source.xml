@@ -1,0 +1,61 @@
+<km-doc>
+<km-title nodeId="1b9395a1ebb64d74bc1012b41ae92425">说明：画布-图计算组件</km-title>
+<table responsive="false" nodeId="e244be9cb9ca4a0d8b26567e4c5bd4c4">
+<tr nodeId="f4209df1f4c64b8e8a8001fac2f60e7f">
+<th colwidth="[784]" nodeId="c566041384d24e6f88f712568a422941">
+<p nodeId="2ae51051871d470a83c4c1ffe1f9703d" />
+</th>
+<th colwidth="[342]" nodeId="1c26bdabf2af4089a56242e1584512c0">
+<p nodeId="a299827db9d848108a1716d06a85c7f5" />
+</th>
+</tr>
+<tr nodeId="1410e3f7cd374954b7e937435686f51a">
+<td colwidth="[784]" nodeId="7b6e53c9bdfa47a8b05e403c9a4a7b94">
+<p nodeId="d95e7dfa5d6e4df98459fd1952eb76ab"><strong>基本信息</strong></p>
+<ol nodeId="dbbbfe4c9da5447f9321f0d5993c4408">
+<li nodeId="56d619e0160644b19aff0e23cbeaf5f0">名称：用户可自定义该组件名称</li>
+</ol>
+<p nodeId="e27df226cb4f49b984f1e993368b15b1"><strong>配置信息</strong></p>
+<ol nodeId="1ccccbb981a24854af1965326f7ab971">
+<li nodeId="dcb8051aa53e4e7b82fec1d04e86cf7d">
+<p nodeId="f5006dbae36e43219a69016eca6800f7">图数据库名称：</p>
+<ol nodeId="28a19908abca40e089e9be7dd92cc608">
+<li nodeId="2bcd599a98d44b0f930b9c02d1c8d624">通常会填写画布中图数据库组件中命名的：图数据名称</li>
+<li nodeId="ca9a541670bc4403875b6aa7298480eb">问号鼠标hover提示信息：“可以选择已经构建的图数据库名称”</li>
+<li nodeId="b0119d081c994f9092025091d214af6f">支持模糊搜索下拉框，单选。可填写已有图数据库名称，下拉展示已经创建的图数据库，按照时间倒序展示默认展示近10条。</li>
+</ol>
+</li>
+<li nodeId="c27ef6c77c264766a10262e5ab0759ff">
+<p nodeId="a8af5467afaf4b52919e2514e63cf2a0">点种类：与图数据库信息联动</p>
+<ol nodeId="9d5ad8ed8aa9463f9fb29e481d2f4c36">
+<li nodeId="7691d6142db5497a81c2af1706de10df">用户没有填写图数据库名称，则无筛选项</li>
+<li nodeId="bb5c58e7eec4458387f2df43e1e7eb90">用户填写了图数据库名称，则下拉框内可选图数据库中声明的点类型信息，需要去重展示</li>
+<li nodeId="abc62759a93241e1bbaab9f46dbe57b3">单选</li>
+</ol>
+</li>
+<li nodeId="69028ac1f43746028061ba9f42b3da57">起始点ID值：文本输入框。若用户选择了点种类，自动填充ID值表达式。未选择时提示信息“请输入走图数据库中的起始点ID”</li>
+<li nodeId="2cbf8e16b73349ef805a37a663d2f46d">算法种类：支持用户选择连通分量<del>和Louvain两种模式</del></li>
+<li nodeId="976f3276b0b747d7b935fc1f00f0af93">
+<p nodeId="ed7347bca1a24ffe8fec509b850a89d2">当选择为连通分量时：</p>
+<ol nodeId="2be5b604b35f489b8334e89b4a383120">
+<li nodeId="06b12c3f8dc5478aaed4de860928e351">
+<p nodeId="b7327c1d7add4339a01f1d05a5186a2b">节点度限制：逻辑操作符号+数值</p>
+<ol nodeId="545acb44202942dda351c3ebfd375bbf">
+<li nodeId="ae839dec85934a4db593562fe2d20136">逻辑操作符号：包含大于、大于等于、小于、小于等于 </li>
+<li nodeId="258dcd0ce30d437ebbfb4218e79e5c8d">数值：文本输入框，默认为空，空值时提示文案“请输入数字”</li>
+<li nodeId="f05945fb38874217b7a0b676c067ce73">支持用户添加一个逻辑，及可组成区间，最多只能添加一个，需要校验是否配置错误，本质上是X&gt;10 &amp;&amp; X&lt; 30 的配置实现逻辑</li>
+</ol>
+<p nodeId="777d8d77865b4197b149d2033d4d7db0">最大迭代次数：默认数值为100，用户清除默认值后，空白提示“请输入正整数”</p>
+</li>
+<li nodeId="1e34539e3fa24948aaf63b479bb9024f">最多扩展数据：默认数值为8，用户清除默认值后，空白提示“请输入正整数”</li>
+<li nodeId="18beea33405d4ddaa72b33ca9a8b8c21"><span bg="rgb(255, 255, 255)">连通</span>分量大小限制：默认数值为100，用户清除默认值后，空白提示“请输入正整数”</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[342]" nodeId="776fe9af7d39488b98da93cdce3e137c">
+<p nodeId="cd3cbbc71bb54a9db47bfcd54910c4d6"><img src="https://km.sankuai.com/api/file/cdn/1925010071/109843402969?contentType=1&amp;isNewContent=false" name="image.jpeg" width="302" height="650" nodeId="da202cf6a8624a678c6299eba571f2a3" /></p>
+</td>
+</tr>
+</table>
+</km-doc>

@@ -1,0 +1,672 @@
+<km-doc>
+<km-title nodeId="f611e7cb9b484623a5d8453bc8cfb3df">说明：画布- GroupBy组件</km-title>
+<km-catalog style="none" nodeId="e60d90097db844f0b45514befbaf9e07" />
+<h3 nodeId="4cbb60e70da14eb4b7f9a3be491ed840">一、背景</h3>
+<p align="start" nodeId="a430b7cbf13348c3a0da62d10b3117c1">Groupby 组件主要可多数据流中的数据按照用户设定的时间维度进行聚合以及聚合计算，类似累计的逻辑。近线Groupby 因技术架构实现模式，只能支持短周期的逻辑聚合，&lt;24小时；但可以支持多数据流的关联join。</p>
+<p nodeId="7e43e3e6870a48a89871ecea1d8b781c">**实时的累计因子和近线的Groupby组件的区别**</p>
+<p nodeId="8d3756476e124427bce69a9cee5591f0"><span color="rgba(0, 0, 0, 0.87)">可支持的逻辑相似，但又有不同，</span></p>
+<p nodeId="108268ac11ee471b9d888a5558fa049b"><span color="rgba(0, 0, 0, 0.87)">（1）实时-累计可以支持长周期（分钟～月），但不支持多数据join ，最多能通过数据接口单维关联。比如通过选择多个累计事件可实现行union，通过数据接口可支持单维度关联判断，但对数据接口时效性有较高的要求；</span></p>
+<p nodeId="e4838a4eded544f98983b637a28a55f3"><span color="rgba(0, 0, 0, 0.87)">（2）近线-Groupby组件可以支持短周期（24小时内），多个数据流、指定时间维度的join，相较于累计可join的范围更多。</span></p>
+<h3 align="start" nodeId="f227102d4270485aa38d19450a6cba59">二、名词解释</h3>
+<p align="start" nodeId="38e1f5b0274e45d2b08e16bc56364944">GroupBy：<span color=" ">根据key在一定时间维度内进行数据聚合</span></p>
+<h3 nodeId="af8f9712bc17424e99204bf2d36a6646"><span color=" ">三、Group By 多种类型的说明</span></h3>
+<table responsive="false" nodeId="9c9cdc3e41f6437aa22e9ae13bcddc81">
+<tr nodeId="e96e140c0a17496fbc4e42153eb2ee1e">
+<th colwidth="[90]" nodeId="f8a3260a9f234c6a8116ee9188b7854a">
+<p nodeId="f7547a046b7349a9875a9b7bed60ee1c"><span font-size="14">窗口类型</span></p>
+</th>
+<th colwidth="[67]" nodeId="fb5f7bd79c6746fb96afd90804e732a1">
+<p nodeId="ac13a5ba54954465b86f44e7bc784629"><span font-size="14">自研/社区</span></p>
+</th>
+<th colwidth="[125]" nodeId="e7fde51ec3a04cc1b41f0803518ec5da">
+<p nodeId="35d0d872738d49b7b59d7cbbbbfade7e"><span font-size="14">结果触发机制</span></p>
+</th>
+<th colwidth="[120]" nodeId="3874286daa224f73be2527935fd234ea">
+<p nodeId="2463e178a53f45a292e5da38226616d7"><span font-size="14">窗口分配机制</span></p>
+</th>
+<th colwidth="[118]" nodeId="06d6effaecde45a486fdd714d2ed294d">
+<p nodeId="79153b9ccf3b43d0a37862679635a49e"><span font-size="14">清理机制</span></p>
+</th>
+<th colwidth="[93]" nodeId="a19e69e8664f4b9e9500f899bc8992b0">
+<p nodeId="2cc28a4752874bff90be5d0e23f3203e"><span font-size="14">窗口数据存储</span></p>
+</th>
+<th colwidth="[93]" nodeId="cbbfb2255ddc421f850beea83f1cecfb">
+<p nodeId="307731996a5b44ada3d8cc3559ea0a55"><span font-size="14">计算函数</span></p>
+<p nodeId="bdb66bcb5bae4349908700252e9eda99"><span font-size="14">(含去重)</span></p>
+</th>
+<th colwidth="[122]" nodeId="45b7bf1ec489479b90036663cc91e68b">
+<p nodeId="c91782c03e0d46fc8269b80b161645ac"><span font-size="14">水印机制</span></p>
+</th>
+<th colwidth="[113]" nodeId="e9c65458de8745829b208304343ab2f2">
+<p nodeId="9941202a5eef49ef955dcb22184d0321"><span font-size="14">优势</span></p>
+</th>
+<th colwidth="[200]" nodeId="c1c265cf773c47abaec71c8807978ad5">
+<p nodeId="66e105e120b744488fa0cd4a8f346f44"><span font-size="14">劣势</span></p>
+</th>
+<th colwidth="[170]" nodeId="a74d146d71924ec4bd5920a04ab35a02">
+<p nodeId="6ca66e960bd94708a639e772300fa43b"><span font-size="14">典型使用案例</span></p>
+<p nodeId="98085b5366834cdea9430fc3b788886b"><span font-size="14">**限制权限画布</span></p>
+</th>
+<th colwidth="[125]" nodeId="0c448d1619f64d3eac20c7cadbd1882b">
+<p nodeId="943038aa19974299b9a4e68a3dd5ceaf"><span font-size="14">配置信息</span></p>
+</th>
+</tr>
+<tr nodeId="7af96af972cf400e874c06343697de43">
+<td colwidth="[90]" nodeId="7f6bb40668474f9ca01ac11a754f9fec">
+<p nodeId="3b9d36d34b574c4b8634a8e88205f0d5"><span font-size="14"><strong>事件驱动</strong></span></p>
+</td>
+<td rowspan="2" colwidth="[67]" nodeId="027821d0aecc460eb39d686efcc8cd57">
+<p nodeId="a0802ec08ea04c0cae89d302191f6685"><span font-size="14">自研</span></p>
+<p nodeId="c41f494f3f59400ebdcd061f4e1b77cf" />
+</td>
+<td colwidth="[125]" nodeId="0c5807966a5840e1980f2f3f9f54cb96">
+<p nodeId="de26881d856f4c9a95cac3ed007aa2cc"><span font-size="14">来一条触发一次</span></p>
+</td>
+<td rowspan="2" colwidth="[120]" nodeId="f535bb9b2fdd4629bd07897548ed3fb0">
+<p nodeId="d39f321d8e8040b1aa58b479410e9ad5"><span font-size="14">同keyby分组</span></p>
+<p nodeId="d2489488576646d080eb2aac29aae228" />
+</td>
+<td rowspan="2" colwidth="[118]" nodeId="332086948a114634831e3fc82f345a56">
+<p nodeId="ab4c3788d08e4374a355b998d816f6d4"><span font-size="14">基于处理时间定时触发清理</span></p>
+</td>
+<td rowspan="2" colwidth="[93]" nodeId="0ce2e9f362504b4bb6748aff14102d5c">
+<p nodeId="23943e0c627e46899e526081c2c0d10b"><span font-size="14">内存</span></p>
+<p nodeId="47bdccb8abce4649a47f2fb767e834ba" />
+</td>
+<td rowspan="2" colwidth="[93]" nodeId="af05169d65b74717b4f2b5989470b5e5">
+<ul nodeId="3369a6a472d4477b9dce64fbd6fbd3c8">
+<li nodeId="4b67ce281d24496b96bdecbefa40920c"><span font-size="14">求和</span></li>
+<li nodeId="b4dd4fcbcd2d4c76bd3bfda93f374fbd"><span font-size="14">存值</span></li>
+<li nodeId="e88ea0cdaae947b0abae2b42c00254d0"><span font-size="14">计数</span></li>
+</ul>
+</td>
+<td colwidth="[122]" nodeId="92cfe8f7f7c5485f83633e327d528cbb">
+<p nodeId="94c45b1e207543cc8f8a600c736b5f5b"><span font-size="14">watermark = 最新一次触发数据时的水印</span></p>
+</td>
+<td colwidth="[113]" nodeId="11d32f0fb8ae4a5da1a47390e7b0f652">
+<ul nodeId="7f272dd104e149369c990b3f47143fc2">
+<li nodeId="036d79da541e4efe9e6ccb695281e29c"><span font-size="14">时效性高</span></li>
+<li nodeId="d3e4bedd73074a1092da75ab1d550977"><span font-size="14">省内存</span></li>
+</ul>
+</td>
+<td colwidth="[200]" nodeId="1b5aef32a40d442399801abe639b1ed7">
+<ul nodeId="c8f86fcea2ca49b1bed5a78fbb8c0740">
+<li nodeId="2e3cc76902ef41d6a0aa3288c1c39485"><span font-size="14">性能差</span></li>
+<li nodeId="ac9f216e45594bcd8f665c7a40d9a651"><span font-size="14">积压恢复情况下，清理不及时导致内存崩溃</span></li>
+</ul>
+</td>
+<td colwidth="[170]" nodeId="47131c11cf764b8da326f780f21ff02e">
+<p nodeId="fcd3752e99414c06861031bf8bb4cbed"><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=564&amp;version=2" title="账户安全累积策略" nodeId="df9f053cf3644acf83166d219a99d600"><span font-size="14">账户安全累积策略</span></a><span font-size="14">- 满足阈值条件后立刻下发处置</span></p>
+</td>
+<td rowspan="2" colwidth="[125]" nodeId="42f85f0b159b40159271ae6651b5c92f">
+<ul nodeId="a5185546969d4777976e9a335116e996">
+<li nodeId="65403e8aee404111b78ac3e0f69d911e"><span font-size="14">变量名称</span></li>
+<li nodeId="e495cdba05f24ee187cd25c61c265350"><span font-size="14">计算类型</span></li>
+<li nodeId="998d551450cd4e81ac47d3866de9ed09"><span font-size="14">Value</span></li>
+<li nodeId="c6559564cffa478da7699e9e4aa45e25"><span font-size="14">GroupKey</span></li>
+<li nodeId="42d84f2f157a41a4885a50fb674fc0aa"><span font-size="14">聚合方式</span></li>
+<li nodeId="9eee8d05209049bf856c3ef3ec4aa8ba"><span font-size="14">时间窗口</span></li>
+<li nodeId="5843c50fd6824d77b7afbf74eccca0eb"><span font-size="14">剔除重复项</span></li>
+<li nodeId="d34beb23fcb64faea5b24d52f27c8880"><span font-size="14">按何剔除</span></li>
+</ul>
+</td>
+</tr>
+<tr nodeId="289c545ff4114260bc3ff4b6dc7d4c4a">
+<td colwidth="[90]" nodeId="fd1c919cb18d4dc6beca7e2809b03c46">
+<p nodeId="891aafd0be0a4b20b3ea7df5e4295f46"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"><strong>时间驱动-非标窗</strong></span></span></p>
+<p nodeId="b6d266ac4dff473b8b1a425997c8a6ad"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">**仅限制130-反入侵使用**</span></span></p>
+</td>
+<td colwidth="[125]" nodeId="96ed1921b47a4f6f8ece7788af95295c">
+<p nodeId="cdab889a35fe4f3f8576ffd7887074de"><span font-size="14">keyby分组后，从收到第一条数据开始，按滑动步长间隔触发计算</span></p>
+</td>
+<td colwidth="[122]" nodeId="218287e160a64d309ffb10fc9b8d8c26">
+<p nodeId="ba4e2262172a486c9542cc03e1adb892"><span font-size="14">watermark 和 数据的关系不好对应</span></p>
+</td>
+<td colwidth="[113]" nodeId="c73ab57866f5431a9d2252e04470c033">
+<ul nodeId="8d9933d7469646079a3d6e30997baffd">
+<li nodeId="45ea20cd8a4444519f7481df67022d49"><span font-size="14">省内存</span></li>
+</ul>
+</td>
+<td colwidth="[200]" nodeId="4323824436ee4e678d44a26fb7d753d7">
+<ul nodeId="b232c5263f9541c5a83631c01548950d">
+<li nodeId="3b4bc85d55db40998ed2595ff2f5c3d6"><span font-size="14">不同keyby分组的窗口，时间范围不统一</span></li>
+<li nodeId="33c3b302e4c24bbfae7691e80b0cc4fd"><span font-size="14">积压恢复情况下，清理不及时导致内存崩溃</span></li>
+</ul>
+<p nodeId="1e7f82358dbf4fcb81f17f97a2275895" />
+</td>
+<td colwidth="[170]" nodeId="e6674100b877458b805077fd09850562">
+<p nodeId="5544bb2058d1427f97bcea3330bc788a"><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=727&amp;version=2" title="基础安全大数据量聚合模型" nodeId="0ee6ca013d91483d89bae76d53751fa0"><span font-size="14">基础安全大数据量聚合模型</span></a></p>
+</td>
+</tr>
+<tr nodeId="ad115a6061bb4e0b8df189c22f1e139d">
+<td colwidth="[90]" nodeId="a3b53cc0b3804691acc57d016dc44226">
+<p nodeId="3a39701f31784639a6b1ac16f6e88f33"><span font-size="14"><strong>时间驱动-标准窗口</strong></span></p>
+</td>
+<td colwidth="[67]" nodeId="71e7922a509a45469c58aa38a80f1c99">
+<p nodeId="047de8f302554974aa40f3a5aa75df13"><span font-size="14">社区</span></p>
+</td>
+<td colwidth="[125]" nodeId="ffe53779e3264fb2ba0b93db702f3182">
+<p nodeId="5c2992071e7546cfaf466cccdbd7bcf7"><span font-size="14">标准自然时间的滑动窗口</span></p>
+</td>
+<td colwidth="[120]" nodeId="1670f3a3f7cd4298baef460e97df60c7">
+<p nodeId="717cdce89d0a42e89d296bd970bd9796"><span font-size="14">keyby分组后，再按滑动步长分配窗口</span></p>
+</td>
+<td colwidth="[118]" nodeId="e819bec3bd644c72b76ec94af7be780c">
+<p nodeId="986899f3d4d14596b3102b1edd55fccf"><span font-size="14">窗口触发计算后删除</span></p>
+</td>
+<td colwidth="[93]" nodeId="1c3276868a974b8b9f25e505fd70ac32">
+<p nodeId="8d8ca6679a82489facac66822d0a969c"><span font-size="14">内存</span></p>
+<p nodeId="154cd039715a4005975463983fb254b1" />
+</td>
+<td colwidth="[93]" nodeId="51d6ddcfbebb4e0495aa5798dada6bf7">
+<ul nodeId="5b52f6c0ce8e4f4ab60730c9eb344185">
+<li nodeId="1ce042fe5b4941bb8c085e0f0a57fd76"><span font-size="14">求和</span></li>
+<li nodeId="4b0282a6f0544473b72204be4183f6e0"><span font-size="14">存值</span></li>
+<li nodeId="ff3e67e166ae48e58999e7bcfc153508"><span font-size="14">计数</span></li>
+</ul>
+</td>
+<td colwidth="[122]" nodeId="7f5a23346fb042fcafeda4275a64607b">
+<p nodeId="6c53c724826442e88ddb150814e23b69"><span font-size="14">watermark = 窗口触发时间</span></p>
+</td>
+<td colwidth="[113]" nodeId="07336c4c936c4e60b7a4b772f6846987">
+<ul nodeId="75aac9f234b8491caf699c8ab8809541">
+<li nodeId="5a781973d81b4800b82b0c1e2c389558"><span font-size="14">基于事件时间</span></li>
+</ul>
+<p nodeId="c7c992f3eb4c426d9351137357e302c1" />
+</td>
+<td colwidth="[200]" nodeId="81572539cd36460390d90c85dc4c44d8">
+<ul nodeId="c8027c495b9a4108b36e61aa03a0e704">
+<li nodeId="b9ca14ed0d7042859564044174ebf423"><span font-size="14">费内存</span></li>
+</ul>
+</td>
+<td colwidth="[170]" nodeId="269df3aaebaf4083bc88cad21a15bab4">
+<p nodeId="15a73e6349864c759ebc89ca2163f1c5"><a href="https://zeus.sankuai.com/data_zeus_static/#/paint/detail?id=752&amp;version=1" title="社区安全特征计算" nodeId="f81dd35f51884838bb35e6918a63d1f1"><span font-size="14">社区安全特征计算</span></a><span font-size="14">- 每隔N分钟触发一次结果更新</span></p>
+</td>
+<td colwidth="[125]" nodeId="a245dc1e98c6406a97c64722fa16f0a6">
+<ul nodeId="a7f5c114df9c4d6c8f0cb41a3b72be77">
+<li nodeId="ed075ab72c9e4fe7b57adafb5ec41845"><span font-size="14">变量名称</span></li>
+<li nodeId="a8944504ae5f44ea8f78c352d0620e36"><span font-size="14">计算类型</span></li>
+<li nodeId="0c20f145e88b4d90bb13d1ccea0afc5b"><span font-size="14">Value</span></li>
+<li nodeId="5b70f94c369e43df8a91a0080c09a6ec"><span font-size="14">GroupKey</span></li>
+<li nodeId="2a07be2342de459aa297868670c10336"><span font-size="14">聚合方式</span></li>
+<li nodeId="25e76e61675842c5afa1358fc396f9e0"><span font-size="14">时间窗口</span></li>
+<li nodeId="894295bc763943f79c153ba7d089d6cd"><span font-size="14">剔除重复项</span></li>
+<li nodeId="a9832a472669483ea5bfa44e1443f343"><span font-size="14">按何剔除</span></li>
+</ul>
+</td>
+</tr>
+</table>
+<p nodeId="9412d08f01974215b6986fb550d3ebcb">***仍是看不懂，不理解，请联系研发<km-mention name="姜涛" uid="jiangtao59" empId="" nodeId="7e5375d189c7448a8a3ffdbc3c668912" />，或者提交TT工单@Zeus-nearline</p>
+<h3 align="start" nodeId="a35aabb19453482982036bcd7d778064">四、操作指南</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="b3edb04f9f5a483b9a3365054f61a03a">
+<tr nodeId="bde53adf245347dca0b870aaffdf9fe7">
+<th colwidth="[591]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="ae424160c4fb4bc6b57fb41be7f6cc7f">
+<p nodeId="b9ae7fd420db43368f65e707c9f6d8ef"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[709]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="90b3f7852ec4449e9070e9cfee5df5e6">
+<p nodeId="dcc4dc99b17f4f5f88eadaec0fae93a9"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="1c4b9861f92c446f8ec8c002b8953437">
+<td colwidth="[591]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="69325ad5f78b4bdb99f430a830818a2b">
+<p nodeId="c9917d652c784274aee51a68f6f9dfb0"><span font-size="14"><strong>【入口】</strong></span></p>
+<p align="start" nodeId="5d70b1e856754fc381793135b43032c7"><span font-size="14">Zeus--&gt;策略部署--&gt;画布</span></p>
+<p nodeId="7c015967995141e384e1ac4aae9a9d8a"><span font-size="14"><strong>【基础配置】</strong></span></p>
+<ol nodeId="bf4dc1e9408942ebbdeb34c1513fd72b">
+<li nodeId="de850ccb7f2f47d89bce8a7b9711a031"><span font-size="14">点击右上角「新建画布」，在弹框中按要求填写完成「画布中文名称」和「画布英文名称」并保存后，自动跳转到画布配置页面；</span></li>
+<li nodeId="e2da07e6782b48479fd6e569ae9666aa"><span font-size="14">左侧为工具栏，涵盖画布配置所需的所有支持的组件；</span></li>
+<li nodeId="571d7985ccae4b2cb7bd7ee5f2d2e4d2">
+<p nodeId="38f963ee26b34f32aaf6d7d02551a9ff"><span font-size="14">将kafka组件拖拽到画布中央，点击组件，右侧出现组件基本信息配置模块：</span></p>
+<ol nodeId="12b64a4cbd0945be86e81e6ae6d25d40">
+<li nodeId="ab4cddf3f6a44a40bb4142a017118c60">
+<p nodeId="251d05669bc04c7585fe477eab9d9853"><span font-size="14">基本信息：</span></p>
+<ol nodeId="26f36625deda4286b7bd9c779581ff38">
+<li nodeId="9c9191b9d67d4535bd8572c34cdb7ac0"><span font-size="14">名称：支持中英文，不超过10个字，填写后画布中央的组件名称会变更，必填</span></li>
+</ol>
+</li>
+<li nodeId="fa8f4634cb554f9692b5e348a3a25663">
+<p nodeId="803b71fbe732404aa9a3bcde36d33dae"><span font-size="14">配置信息：</span></p>
+<ol nodeId="475f68c7109b4b66a2ef507691927345">
+<li nodeId="25406a26bb91423fa6c67604223c2bfc"><span font-size="14">变量名称：</span><span color=" "><span font-size="14">对该组件算子进行英文名定义，支持小写字母、数字和下划线</span></span><span font-size="14">，即重新命名改组件的算子，并用于该画布任务的后续组件配置，必填</span></li>
+<li nodeId="acdba9ea741e4db6ae40ad30905c7ba5"><span font-size="14">计数类型：单选，可选项为次数、求和、存值；次数即类似sql中的count，求和即类似sql中的sum，存值即类似sql中的as</span></li>
+<li nodeId="a8493e490d3c443d9e0dcf2b63b2541c"><span font-size="14">Value：输入上文中的字段（含原始字段和自定义字段，如果原始字段被重新定义过，则填写自定义后的字段名），在选择次数和求和时，只允许填一个value，在选择存值时，支持选择多个value字段，用逗号隔开，即将多个字段的结果存给此次定义的字段中，必填</span></li>
+<li nodeId="f492a31e378d4bd69995acedf8263724"><span font-size="14">GroupKey：类似于sql中的group by，文本框中填写上文传下来的字段，支持填多个字段，用逗号隔开，必填</span></li>
+<li nodeId="f16b1e4230974a7b8348dc1741cb2607"><span font-size="14">时间维度：</span><span color=" "><span font-size="14">指画布任务执行的时间戳，如果不填topic中的时间字段，则默认系统时间戳，即画布开始运行的时间字段，非必填</span></span></li>
+<li nodeId="4eeda5f0f639401eacf6d2c767f79f21"><span font-size="14">时间维度格式：</span><span color=" "><span font-size="14">支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</span></span></li>
+<li nodeId="2856eaf2f3524865a87eaa1ac23f0d5f"><span color=" "><span font-size="14">时间窗口：即计算从时间戳往前滑动多少时间区间进行计算，支持选择分/时/日/月/年，文本框中为数字，必填</span></span></li>
+<li nodeId="57ddf872b87b45ab9e6162385866b284"><span color=" "><span font-size="14">剔除重复项：单选剔除或者不剔除，如果选择剔除，则需要填写按何剔除，支持输入上文传下来的字段</span></span></li>
+</ol>
+</li>
+<li nodeId="e0cfa02c9df2463b8bed747d5ae15ec3">
+<p nodeId="a429cd6dab85493c863a333a2ed8b4b7"><span font-size="14">输出结果示例：</span></p>
+<ol nodeId="df998faf69c9448183307849cc60ba4d">
+<li nodeId="42bb7f4db02b4021b24f6c4fd8064779">
+<p nodeId="92e9ed349e5144428d5d51d7fe4e6ddf"><span font-size="14">假设输入group by组件的消息为：</span></p>
+<pre language="Plain Text" nodeId="98fde1c106fc4d7e88f964854bf53938"><code>{
+    "name": "zhangsan",
+    "age": 29,
+    "sex": 1
+}
+{
+    "name": "lisi",
+    "age": 24,
+    "sex": 1
+}
+{
+    "name": "wangwu",
+    "age": 34,
+    "sex": 1
+}</code></pre>
+<p nodeId="50d1c359a1d948a6a36adba0374e13f2"><span font-size="14">按照sex字段进行group by，假设这3条数据都在同一个时间窗口内，变量名称为groupResult，则上述3条消息从组件输出的下文分别是：</span></p>
+</li>
+<li nodeId="2399c2887bc64073b09b66ed0432d834">
+<p nodeId="f86d6d1c1fa5411b99323681a3cc01ad"><span font-size="14">次数：</span></p>
+<pre language="Plain Text" nodeId="9ed04803544740e69a9efedb5f2ed1b8"><code>{
+    "name": "zhangsan",
+    "age": 29,
+    "sex": 1,
+    "groupResult": 1
+}
+{
+    "name": "lisi",
+    "age": 24,
+    "sex": 1,
+    "groupResult": 2
+}
+{
+    "name": "wangwu",
+    "age": 34,
+    "sex": 1,
+    "groupResult": 3
+}</code></pre>
+</li>
+<li nodeId="61eacc3d74ab47e7ae1656a5493606b1">
+<p nodeId="32501350aba44dc99fb440e0c4b2fb83"><span font-size="14">求和：value是age,sex （即按age和sex分别求和）</span></p>
+<pre language="Plain Text" nodeId="11e4aea1a2d5440684b9f512dd3dbf6a"><code>{
+    "name": "zhangsan",
+    "age": 29,
+    "sex": 1,
+    "groupResult": {
+    	"age":29,
+      "sex"：1
+    }
+}
+{
+    "name": "lisi",
+    "age": 24,
+    "sex": 1,
+    "groupResult": {
+    	"age":53,
+      "sex"：2
+    }
+}
+{
+    "name": "wangwu",
+    "age": 34,
+    "sex": 1,
+    "groupResult": {
+    	"age":87,
+      "sex"：3
+    }
+}</code></pre>
+</li>
+<li nodeId="ade0a2401e9e4ac99bf76bdfab9b3cdf">
+<p nodeId="e6c2447453b54697975fa429e1353287"><span font-size="14">存值：value是age,name （即分别存age和name的值）</span></p>
+<pre language="Plain Text" nodeId="5d60847b05fc4013bf37c916bd02253d"><code>{
+    "name": "zhangsan",
+    "age": 29,
+    "sex": 1,
+    "groupResult": [{
+    	"age":29,
+      "name"："zhangsan"
+    }]
+}
+{
+    "name": "lisi",
+    "age": 24,
+    "sex": 1,
+    "groupResult": [
+    {
+    	"age":29,
+      "name"："zhangsan"
+    },
+    {
+    	"age":24,
+      "name": "lisi"
+    }
+    ]
+}
+{
+    "name": "wangwu",
+    "age": 34,
+    "sex": 1,
+    "groupResult": [
+    {
+    	"age":29,
+      "name"："zhangsan"
+    },
+    {
+    	"age":24,
+      "name": "lisi"
+    },
+    {
+    	"age":34,
+      "name": "wangwu"
+    }
+    ]
+}</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[709]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6b2f6512e77d4a0abb3091314e566681">
+<p nodeId="2501ccdb3063436c837e81626c1be803"><img src="https://km.sankuai.com/api/file/cdn/1200659466/41382720240?contentType=1&amp;isNewContent=false" name="image.jpeg" width="687" height="333" nodeId="fb332c523ad5470fb5e2dc287f4d1929" /></p>
+<p nodeId="bbc5657094704d34ad36bcc02c4d477a" />
+<p nodeId="ae9abd08d710407b9c99d0dec93d9366" />
+<p nodeId="251fe0ef56d046339476e4afebfbe19d" />
+<p nodeId="7ff8c866906c404392c888b968d7d334" />
+</td>
+</tr>
+<tr nodeId="536888e764c347ddbf26928991160775">
+<td colwidth="[591]" nodeId="27d104d62d6b44a08503039f1db2c9da">
+<p nodeId="80cf4b56ffeb4e318541daf53bf84a49"><span font-size="14"><strong>仿真测试 数据样例--时间驱动标窗为例</strong></span></p>
+<ul nodeId="60f36fffdd294da5883e9c2ec0e28caf">
+<li nodeId="9e9422b7517f47a1be8b62e7246c81ce"><span font-size="14">逻辑解读：5分钟内同userid 参加活动消费金额求和event，不去重，每两分钟计算一次</span></li>
+<li nodeId="0d6edd80bd124996bfc3ac49a579d6db"><span font-size="14">数据解读：</span></li>
+</ul>
+<p nodeId="ba354b44393d4ac59ea75b46d94d8a5b"><span font-size="14">**流量入参</span></p>
+<table responsive="false" nodeId="393bb0241e404c239b45642165d8c826">
+<tr nodeId="d3d44deaec9349e79a9dbf228e1ce03c">
+<th colwidth="[113]" nodeId="6d8ac04b6da247ac8e2242b35fcf7037">
+<p nodeId="d2684b29ce684cdfbb80860beeaaf3f5"><span font-size="12">请求时间</span></p>
+</th>
+<th colwidth="[73]" nodeId="abef76edb3ef406e97028ee2e14aaab8">
+<p nodeId="a6ebb424b4b64527bd3f12711cfe2768"><span font-size="12">userid</span></p>
+</th>
+<th colwidth="[90]" nodeId="482e2bbd6f0946b98b73c876d2f481a5">
+<p nodeId="47736fda9bb14421bdd4308d3e7b0671"><span font-size="12">event金额</span></p>
+</th>
+</tr>
+<tr nodeId="3a7b0c6719344b608d4d66d8bc9a793f">
+<td colwidth="[113]" nodeId="bb2bcecb260a4427896dd41ab625ed88">
+<p nodeId="e6243388e648459298ea2d0a6aac4038"><span font-size="12">11：11：11</span></p>
+</td>
+<td colwidth="[73]" nodeId="029507ce8db247acaab5da362f7d85d9">
+<p nodeId="0f6c3b1efe854e3fb6ab60fd9a58cabd"><span font-size="12">111</span></p>
+</td>
+<td colwidth="[90]" nodeId="88a6c7be3db249728b51da57a451c654">
+<p nodeId="ffcbf37ebfa94da8babbe2d37747640a"><span font-size="12">2</span></p>
+</td>
+</tr>
+<tr nodeId="771bd02d8dde49098748b46fadcb2646">
+<td colwidth="[113]" nodeId="ee56626c19944f3882f37c31591e52af">
+<p nodeId="9c32dfb6c9b94721842cbb4a55cd53e8"><span font-size="12">11：13：13</span></p>
+</td>
+<td colwidth="[73]" nodeId="43f76bf99fde42c3af6420a59a62a052">
+<p nodeId="2b8a95c9bae84343bb75ff6bd610eaca"><span font-size="12">111</span></p>
+</td>
+<td colwidth="[90]" nodeId="f7eddec06d88423ba141c938e2101e13">
+<p nodeId="96dfb2384c80497bb64ac9cd70f3488d"><span font-size="12">3</span></p>
+</td>
+</tr>
+<tr nodeId="2ff12004aa2143e2990509613e903068">
+<td colwidth="[113]" nodeId="d7987f35c47c486f9b43d5728f5841ea">
+<p nodeId="bc912eabaacb40feaaddcaa55a17a397"><span font-size="12">11：16：12</span></p>
+</td>
+<td colwidth="[73]" nodeId="4adda105656f4603a53249e4f05b905d">
+<p nodeId="112f475b18114a1793d04b6116676111"><span font-size="12">111</span></p>
+</td>
+<td colwidth="[90]" nodeId="1f0a9e55a5ec45bf96a63c4876eed28c">
+<p nodeId="75f057d8698945399c53d8fbe3ba783d"><span font-size="12">4</span></p>
+</td>
+</tr>
+<tr nodeId="798608a27eba44bebc1dd59092b4fa99">
+<td colwidth="[113]" nodeId="62d1b444642c4b8b880cd0383ae10c28">
+<p nodeId="90cbcf48dd7b416690403591dccf5990"><span font-size="12">11：26：12</span></p>
+</td>
+<td colwidth="[73]" nodeId="f2534658720945d2b757971010973c22">
+<p nodeId="b488983defe14b3fbe51ad2c57ee5788"><span font-size="12">111</span></p>
+</td>
+<td colwidth="[90]" nodeId="90943be7b5074bb39859bb72c32831bd">
+<p nodeId="0261f32d87014a1e911a56f18c0f049b"><span font-size="12">5</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="a087e99d5c55439b9a1b23bb602764d2"><span font-size="14">**计算逻辑：</span></p>
+<p nodeId="948bc16449254aa4bd4d671788dda2b3"><span font-size="12"><em>时间驱动标窗的启动时间为首条数据的整点时间为起点</em></span></p>
+<table responsive="false" nodeId="5fdaaeda26e74c5c9674d1eab3c548d4">
+<tr nodeId="1eabe228d6af418d9831fa21e268479f">
+<th colwidth="[55]" nodeId="b9f246949d6e45238b5923ab0c50d696">
+<p nodeId="1a2ea9f901c6419780e4194319bb95f2" />
+</th>
+<th colwidth="[78]" nodeId="3b597b0a313c4399a3a6871dc52ad314">
+<p nodeId="d733aafd59404f4b828e5a3d054804d8"><span font-size="12">计算时间</span></p>
+</th>
+<th colwidth="[137]" nodeId="a362d074363e4cceb0ddaca2cb7edfdc">
+<p nodeId="b627b268f04a4d60ab8f7cce67aae8d2"><span font-size="12">计算窗口范围</span></p>
+</th>
+<th colwidth="[99]" nodeId="6124cd424cc94d97812c510a71108ac4">
+<p nodeId="54e3583b5eb24973b091b9ba64e99332"><span font-size="12">参与计算数据</span></p>
+</th>
+<th colwidth="[61]" nodeId="c19274a723504ea8b6242ce0d4d9eb73">
+<p nodeId="10746d05098c4e4faf2ece252938efc0"><span font-size="12">求和值</span></p>
+</th>
+</tr>
+<tr nodeId="a01123dbc4384377a7bb07dee9cf41c4">
+<td colwidth="[55]" numCell="true" nodeId="7533e4d40c8d4ea292aa703e9de63579">
+<p nodeId="30f95055b61142ab99f84555d2e19adb" />
+</td>
+<td colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ff54f8e9e1b44cad8c02b6233040bea9">
+<p nodeId="b622cfb1893b4e8183d706a30e7e3281"><span font-size="12">11:00:00</span></p>
+</td>
+<td colwidth="[137]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0230705614a347ed9af6f6ad4d05e394">
+<p nodeId="2a9e98446aef4f51bd6272f7d292404f"><span font-size="12">11:00:00-11::05:00</span></p>
+</td>
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6fc3672d8c02467aa8bf1505b7e15a9e">
+<p nodeId="aa8625742d854a98b2800ed40a07d6be" />
+</td>
+<td colwidth="[61]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="705532c5ae36456cad1c00253a1bbc1c">
+<p nodeId="c1d992e6354b4a2394e42e35e3b1e8ac" />
+</td>
+</tr>
+<tr nodeId="02017e36324d4e1f87d30a02dbaac218">
+<td colwidth="[55]" numCell="true" nodeId="8cab8d1bd86f4a5ca4cbed65ad6a4312">
+<p nodeId="389a1eebbb7d469f8e5a3cd6a7e7fa84" />
+</td>
+<td colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="185c1a2eeeac4157abc5805d846ff0d4">
+<p nodeId="a4cf5fdcec1343a382a8f39897dc1810"><span font-size="12">...</span></p>
+</td>
+<td colwidth="[137]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7d5dfa81dfaf4534b1581d3e9e08754c">
+<p nodeId="7954f446fdf844a4b9e529ee39c52207"><span font-size="12">...</span></p>
+</td>
+<td colwidth="[99]" nodeId="2a51918bb7eb4eaaa74a12dcbaac8974">
+<p nodeId="b9d71eff02eb420299196d2fa25b015c" />
+</td>
+<td colwidth="[61]" nodeId="8e8d102f9f484109a8d57e4e5308930c">
+<p nodeId="92c71cec42484be9b78dba41a0b3e988" />
+</td>
+</tr>
+<tr nodeId="9510d764bae7403b87855305632b79ca">
+<td colwidth="[55]" numCell="true" nodeId="4774a6cfbb8c40edbe870af42e9b822d">
+<p nodeId="88bb373579fa4a9ca5ef58122a438f6a" />
+</td>
+<td colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7371f99e8c374a74b59807433b33feec">
+<p nodeId="425037c41aaf4d0885e380efe408d3cb"><span font-size="12">11:08:00</span></p>
+</td>
+<td colwidth="[137]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8fe8e40d9bd94b71b5888b50c4b296de">
+<p nodeId="468eacd60ad148088ed43668ef3ec612"><span font-size="12">11:08:00-11:13:00</span></p>
+</td>
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a1e44d50f26545d89c59b98fa4100ccc">
+<p nodeId="b760250547664389b64e70e844c1573c"><span font-size="12">2</span></p>
+</td>
+<td colwidth="[61]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1826a9f4b20c41fea714a13399a5d4e8">
+<p nodeId="6b228a0f5f554990bbdab6a284c4182f"><span font-size="12">2</span></p>
+</td>
+</tr>
+<tr nodeId="61617f551c894a8e8707a6423fd2edca">
+<td colwidth="[55]" numCell="true" nodeId="7e922e45037240119cb2a2657ec215ef">
+<p nodeId="86ab43b52ca14583949d20794229a795" />
+</td>
+<td colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dd434018ab6f4e2bb2758924be6e26b1">
+<p nodeId="45cde09484d9473fba8ea624f2bba48c"><span font-size="12">11:10:00</span></p>
+</td>
+<td colwidth="[137]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="24c7df85dfa14d61a8d138f528c08cdd">
+<p nodeId="2c9148ad57074a408bcaa547e1ba79b8"><span font-size="12">11:10:00-11:15:00</span></p>
+</td>
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e306c4d9368246b8a14ce0f526b1c0f2">
+<p nodeId="42a16e93023b4dddbb6591d832457dfa"><span font-size="12">2、3</span></p>
+</td>
+<td colwidth="[61]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="41c6230653fb434985702f24300fa452">
+<p nodeId="0093da123b16455b8c644fb0fa46f8e2"><span font-size="12">5</span></p>
+</td>
+</tr>
+<tr nodeId="58628b74dd1449368d92675a1ff6022a">
+<td colwidth="[55]" numCell="true" nodeId="d1455ac51896499ba8bb8dbe2a1bbde8">
+<p nodeId="234c0e2cca1c4bd4a99f6adf6fb88cca" />
+</td>
+<td colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b3e1881f47644c3aa6af24f8dcf8be4d">
+<p nodeId="56746299358a4b798a57ed1008a64b6d"><span font-size="12">11:12:00</span></p>
+</td>
+<td colwidth="[137]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5b406c71a3ba4a08aeefa4a4fc8cb198">
+<p nodeId="fe0dcc5b0e6e4e138a87ab15c794863a"><span font-size="12">11:12:00-11:17:00</span></p>
+</td>
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a5dee521284b4a8fa1dc313a7a97df60">
+<p nodeId="1373701bfa1d49878a789c1e7bc40baf"><span font-size="12">3、4</span></p>
+</td>
+<td colwidth="[61]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="24f2352cf1bb4c0ba4c33f4ff2ba6074">
+<p nodeId="a1b16933019a474b99188413516abc41"><span font-size="12">7</span></p>
+</td>
+</tr>
+<tr nodeId="9646206f7d5241ee82dfb84422a05d6c">
+<td colwidth="[55]" numCell="true" nodeId="7b4c014fd6b143768f4c84b900f11495">
+<p nodeId="294c077af14c40649a6dcb434537ad61" />
+</td>
+<td colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ed874be269b4425cac78fe55d4e85ee2">
+<p nodeId="71c47ab2ac9e47cd91a92be7f8cb647f"><span font-size="12">11:14:00</span></p>
+</td>
+<td colwidth="[137]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="43453ff594d346a986e46bfc2c217965">
+<p nodeId="a3471b9c622e464cb0f3c17b93b0c48f"><span font-size="12">11:14:00-11:19:00</span></p>
+</td>
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="50a5e693d7df435082ab09163482283f">
+<p nodeId="80e117c097c04059824a034b67dbadfd"><span font-size="12">4</span></p>
+</td>
+<td colwidth="[61]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="74361949651c4044b845cb8192b83978">
+<p nodeId="48aa3d5e6f0b470a812ce1ed7a46b969"><span font-size="12">4</span></p>
+</td>
+</tr>
+<tr nodeId="d1833096d7c04c948408af6bdac74c9a">
+<td colwidth="[55]" numCell="true" nodeId="7dc08518c35e45999723e38d7a3efb66">
+<p nodeId="139c36e2ab894df08122cbffa886aac0" />
+</td>
+<td colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1ac7e95073d9491bac7ba4edd1c3ee61">
+<p nodeId="a768ba49f95b46a2a056271282971b82"><span font-size="12">11:16:00</span></p>
+</td>
+<td colwidth="[137]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6da4bcd344df4a96be97c9f679721a1d">
+<p nodeId="5fda04fbc8ec4b4cab16bab377a2fd74"><span font-size="12">11:16:00-11:21:00</span></p>
+</td>
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="93e7d4f947994b7782eb0aff446f4eb3">
+<p nodeId="fe2d3193c1c445339ba4d90a68e1ae80"><span font-size="12">4</span></p>
+</td>
+<td colwidth="[61]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="07a9517817af4c148976c3d595565727">
+<p nodeId="77ac6aa42bf94321907d439a4df618d4"><span font-size="12">4</span></p>
+</td>
+</tr>
+<tr nodeId="0c55b052c24a4b32a43d2b43224e10f9">
+<td colwidth="[55]" numCell="true" nodeId="3a1637ec419e429984309cf214bf8462">
+<p nodeId="095ab682cc7e42cb88e1abd904bbee8d" />
+</td>
+<td colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c49269079c3f4b809b1dfabeb78c19a1">
+<p nodeId="2ad5dc95-d591-414a-9fb1-ae03422e4068"><span font-size="12">...</span></p>
+</td>
+<td colwidth="[137]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2273656dc6ab4b5a9ef394e9f18193b0">
+<p nodeId="2d834364-dc39-4dd6-8db3-30f63085dba0"><span font-size="12">...</span></p>
+</td>
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a905299b1c03445ca85e6799c41c2411">
+<p nodeId="445402d13f2c4b399f55d9b7aaaa0a30" />
+</td>
+<td colwidth="[61]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ea6e327d4f9f49b29f23e24240b89798">
+<p nodeId="09c244fdda1e4860959cf5a9b0225223" />
+</td>
+</tr>
+<tr nodeId="db80b2f5da1049e8aa383422a4e8c455">
+<td colwidth="[55]" numCell="true" nodeId="a432f15a946647898aed51f686555266">
+<p nodeId="0679622766d34d03b90d2bc75e1223bc" />
+</td>
+<td colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="08723e37a4cf42148e8e97109596ae2d">
+<p nodeId="221fa6c0d1754c08b8f8c298fccfc1d1"><span font-size="12">11:20:00</span></p>
+</td>
+<td colwidth="[137]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c85b7f0bbae74132ae0a18d08981d45e">
+<p nodeId="acd7d203e4404b37ac9074f1dc8f5757"><span font-size="12">11:20:00-11:25:00</span></p>
+</td>
+<td colwidth="[99]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d44b109285364fe7a97c40fe2ac96a7c">
+<p nodeId="d3cc4280e2c7438f92976f339061414f" />
+</td>
+<td colwidth="[61]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="36742ad48a00443c9a21605ac1685398">
+<p nodeId="c5d3554730cb4faca6210b074d862d1d" />
+</td>
+</tr>
+<tr nodeId="6c9da9a4a8094dd3b7a37985e81ac1a1">
+<td colwidth="[55]" numCell="true" nodeId="0ede9b57305b4eb3b22f4ac9b52c433f">
+<p nodeId="6af45df399ca45d4a6d79468401bf808" />
+</td>
+<td colwidth="[78]" bgColor="rgb(255, 255, 255)" nodeId="2ed6fcc33fd444f5a56e625c89ddb65a">
+<p nodeId="c57e1f3e3645422b95ba1a6d53a4bed0"><span font-size="12">11:22:00</span></p>
+</td>
+<td colwidth="[137]" bgColor="rgb(255, 255, 255)" nodeId="6b2f3036f6424ec69d24842815582bbf">
+<p nodeId="f153ae571d6e4164b7d20e0fdf282cde"><span font-size="12">11:22:00-11:27:00</span></p>
+</td>
+<td colwidth="[99]" bgColor="rgb(255, 255, 255)" nodeId="34456e6651f4407e9b70391f62c4485d">
+<p nodeId="33c5f31fbbf94504bf3c36a72a3308b3"><span font-size="12">5</span></p>
+</td>
+<td colwidth="[61]" bgColor="rgb(255, 255, 255)" nodeId="1db90b33457a4839ad5f70bdfb6aea46">
+<p nodeId="77d28bfada5a451294b21ebbaa5de6ce"><span font-size="12">5</span></p>
+</td>
+</tr>
+<tr nodeId="adc2c4831b5b4b89ac9df5b563f999fc">
+<td colwidth="[55]" numCell="true" nodeId="5463a15004b748f6ab7376c7f722fb4d">
+<p nodeId="2ecdd29de227480cb5d89d29eca14d59" />
+</td>
+<td colwidth="[78]" bgColor="rgb(255, 255, 255)" nodeId="15624c8611b24fcbbcff524208533e2a">
+<p nodeId="c6ef0a5453b24337bc91052c50c42a74"><span font-size="12">11:24:00</span></p>
+</td>
+<td colwidth="[137]" bgColor="rgb(255, 255, 255)" nodeId="a4a27a83e73e47d893f4db27f644a16d">
+<p nodeId="89c00994d70240829ef25ce95602f74a"><span font-size="12">11:26:00-11:29:00</span></p>
+</td>
+<td colwidth="[99]" bgColor="rgb(255, 255, 255)" nodeId="7f3c60cc5bdd4041b38a7b36a49f574a">
+<p nodeId="4bb899cf850e48a199228e33adbefa74"><span font-size="12">5</span></p>
+</td>
+<td colwidth="[61]" bgColor="rgb(255, 255, 255)" nodeId="5b180ddef3714c27821141fff7a02077">
+<p nodeId="b10c9ad648c5428bba55db66a834fd95"><span font-size="12">5</span></p>
+</td>
+</tr>
+<tr nodeId="0ae1817b7cb94a9dbe776943ef81fa30">
+<td colwidth="[55]" numCell="true" nodeId="8f15e270935a4b6d97d3cca356d881e0">
+<p nodeId="1c5d91a105ef462b9f32617bc2577bee" />
+</td>
+<td colwidth="[78]" nodeId="cf646ad9db8a42659f58b71ca9b5b776">
+<p nodeId="d20d7373e55b416bb94c6ab4d8f11c3d"><span font-size="12">11:26:00</span></p>
+</td>
+<td colwidth="[137]" nodeId="1723a9c5305d493ca9a34c05122750c6">
+<p nodeId="3ad0f3ee071e48189deb669d3f7852a2"><span font-size="12">11:26:00-11:31:00</span></p>
+</td>
+<td colwidth="[99]" nodeId="c3c2a3825da74a6d96c0736d539af010">
+<p nodeId="e75ddbfd604a4be58366748c0c882587"><span font-size="12">5</span></p>
+</td>
+<td colwidth="[61]" nodeId="65788a03141d445ab2ac94efc22fe1aa">
+<p nodeId="da38ac599cc145139c6f283d1dd7e87e"><span font-size="12">5</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="10efa6b66c1040258aabe7cfb82b8138"><span color="rgb(245, 35, 45)"><span font-size="14"><strong>在实际生产执行时，只会根据流的时间产出唯一值；仿真测试为支持用户能快速验证逻辑，将过程中涉及到的全部数据都取出来，即2、7、4、4、5。</strong></span></span></p>
+</td>
+<td colwidth="[709]" nodeId="d50ed706ed1c475cb063a9700904604d">
+<p nodeId="8bd053d108924f2182556e43654b6e20"><img src="https://km.sankuai.com/api/file/cdn/1200659466/41383515779?contentType=1&amp;isNewContent=false" name="image.jpeg" width="687" height="347" nodeId="9b7087e9ad724286850e74cb1e0f697d" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="26921b83f30a40d5816a0ab1c14cffbb">五、FAQ</h3>
+<p nodeId="d99505ae7ad54eb6a653537bd6ce040f" />
+</km-doc>

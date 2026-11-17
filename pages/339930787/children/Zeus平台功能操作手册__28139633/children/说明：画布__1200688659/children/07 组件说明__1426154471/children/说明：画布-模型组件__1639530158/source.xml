@@ -1,0 +1,62 @@
+<km-doc>
+<km-title nodeId="f9a3ed098e40462dbffe6a2f9228e73f">说明：画布-模型组件</km-title>
+<km-catalog style="none" nodeId="7d2c2c5e6c6c4de2985efec3c9afebf0" />
+<h1 nodeId="e41802b9d7fa477d8be47e9bda1d6879">一、背景</h1>
+<p nodeId="bda6939efdcc4cfc9553f8530fbbef33">在部分风险领域，需要在近线上支持模型的调用，与数据获取组件不同，模型的调用需要与模型平台适配，独立接口设置成本比较高，通过模型组件可以简化模型调用/模型结果获取的复杂度。</p>
+<h1 nodeId="298f6ea586c84895a669b8404ab5891f">二、名词解释</h1>
+<p nodeId="0ae3100f93ee41059c2dd5f6cec7b168">MLP：机器学习平台</p>
+<h1 nodeId="a6b1850333e2479eaaf91bc48e35b2cc">三、操作指南</h1>
+<h2 nodeId="e4c9d604468a49c683149526906ec022"><strong>3.1 操作流程说明</strong></h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1639530158/41402863840?contentType=0&amp;isNewContent=false" width="868" height="387" nodeId="146b8b161e05424285035795b547fea8" />
+<p nodeId="ec2280712ee04fa8a5d1a18926969873">*执行说明：</p>
+<ul nodeId="47c792128e13490e9875a0d1edafc766">
+<li nodeId="7d4abcf16ac4483fa85c2d7a0f132d6d">用户在select组件完成，模型依赖的入参全部映射，则使用映射参数调用</li>
+<li nodeId="9cbd0f2032204bc98a5c007426d9e099">用户在select组件完成，模型依赖的入参部分映射，则映射的部分和数据流中有同名参数，一同作为入参调用模型</li>
+<li nodeId="47592c02aeb145d987cc2f4cb8b58b48">用户未在select组件进行入参映射，则数据流中有同名参数，作为入参调用模型</li>
+</ul>
+<p nodeId="defebbee191046c7aaf10f6038cad220">*模型迭代说明：</p>
+<ul nodeId="48999547693347798973e4f5927e6b5d">
+<li nodeId="3c7d367bd9a6458d85f1d9751829030f">因近线引擎当前没有血缘关系建设，本期模型服务，在迭代的时候暂无校验。待血缘关系建设完支持模型迭代输入输出变更的血缘卡控</li>
+</ul>
+<h2 nodeId="3d98dd0386074937aa51c32fd561214e"><strong>3.2 具体配置信息说明</strong></h2>
+<table responsive="false" nodeId="a0538888d422465e97c32c106c5e8e40">
+<tr nodeId="31e67c430ec64acb844dd00d9152467b">
+<th colwidth="[353]" nodeId="2c5a562bb74e439395ec0a52f37332fd">
+<p nodeId="056fcf4cacaa46488471495aee095941">说明</p>
+</th>
+<th colwidth="[784]" nodeId="ab6fa4a9eceb4a04bd67b440f7250212">
+<p nodeId="c40efeb7cac949d89f389e56e5c1a422">页面</p>
+</th>
+</tr>
+<tr nodeId="b42cfa9d1e46428ebc672ffaee88922a">
+<td colwidth="[353]" nodeId="36d450a63f224cd6b2d1fec6ccc79e9e">
+<p nodeId="c216da820b4742e982d0a373bab589c0"><strong>模型组件配置</strong></p>
+<ol nodeId="0d1641dfab7c4a3fb40a4a910142d355">
+<li nodeId="e0a3e31c497e4f8ba35de66f08f7ed16">基本信息：支持用户自定义填写名称，可填写中文、大小写、括号数字和下划线、-@/，最多可支持128个字符</li>
+<li nodeId="53ab861c1ee74155b51e30f62261bf2b">
+<p nodeId="b628d09a1d154beb9b13ba0bfd7042ab">配置信息</p>
+<ol nodeId="24a9f525a80640a4bceb63fec5ae1a4c">
+<li nodeId="0f90ae195f3e42eebb4c98f613629e97">模型：支持用户选择在模型平台上已经注册的「近线」的模型，支持模型名称、服务ID的搜索</li>
+<li nodeId="52d3d2db6c9346ecb5ad7bd71f9cda3c">非填写信息：模型的入参和出参说明</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[784]" nodeId="5fce48443ce84f7b8c4cf61987eda695">
+<p nodeId="530d4d4531c149348d0a1be8e0a956a9"><img src="https://km.sankuai.com/api/file/cdn/1639530158/41400954945?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1096" height="553.77" nodeId="314d7007af984132ba7d6cd138947080" /></p>
+</td>
+</tr>
+<tr nodeId="16a92042b3154bd794001301b5390391">
+<td colwidth="[353]" nodeId="9bc31535ac394a49aee94694836ef580">
+<p nodeId="27bba144eb994662ad2dfb0e2efd4520"><strong>仿真测试 数据样例</strong></p>
+<p nodeId="92ba155f7c00435ca33a33eaa59529b2" />
+</td>
+<td colwidth="[784]" nodeId="0b26368f360943aabdc51bd4c7e8080c">
+<p nodeId="dbbae2cfeb3042c9ba4ce81101e83dab"><img src="https://km.sankuai.com/api/file/cdn/1639530158/41413905865?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1118.62" height="600" nodeId="2a30b2575f984a5084c1313279432da8" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="3a01220d932f479db93053cd11abc9a0">四、FAQ</h1>
+<p nodeId="78ae27055c1e42e48909efcd2042355e"><strong>1.如何在模型平台部署模型？</strong></p>
+<p nodeId="1ac7a58015754c2fbfa56d78ffd89aff">A：<a href="https://km.sankuai.com/collabpage/1228146848" title="https://km.sankuai.com/collabpage/1228146848" autoUpdate="true" nodeId="1be968f197604b35b485b53b3a22dee1">https://km.sankuai.com/collabpage/1228146848</a></p>
+</km-doc>
