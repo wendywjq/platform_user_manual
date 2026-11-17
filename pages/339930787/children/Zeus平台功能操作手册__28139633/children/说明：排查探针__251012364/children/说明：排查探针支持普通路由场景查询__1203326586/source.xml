@@ -1,0 +1,120 @@
+<km-doc>
+<km-title nodeId="a94315aab2334bc6a905fb17e84aff53">说明：排查探针支持普通路由场景查询</km-title>
+<km-catalog style="none" nodeId="52c6a7ef80a94c589b2eb9ac26d57da7" />
+<h1 nodeId="b16fe9951d964ae1be3050e3c0f6392c">一、背景</h1>
+<p nodeId="7d676c56029d4cdd9f1bf272b4ec80a8">功能介绍：在实时日志中增加路由场景日志信息，同时增加普通路由场景执行回放拓扑图（入口：1. 策略排查--&gt;普通路由场景日志信息的场景模块--&gt;场景--&gt;排查探针（点击左侧放大镜进入）；2.策略排查--&gt; 排查探针tab--&gt;排查对象选择普通路由场景）</p>
+<h1 nodeId="7d08efb14afb4f1e939948e69fa8e90d">二、名词解释</h1>
+<ul nodeId="3147b60505554f9b8921c97ac2a94cfd">
+<li nodeId="56a9799f5d7a44b2b6600a6186c0dcc6">普通路由场景：相比于普通场景，普通路由场景<span color=" ">可支持双层，决策流模式，即一堆规则的集合，支持按照逻辑进行分流，满足指定条件可以指定走向在每个节点进行条件设置，实现最终流向</span></li>
+</ul>
+<h1 nodeId="f5cc1b4407ea4716a6d30b80cb188ef7">三、操作指南</h1>
+<h2 nodeId="1770e3b3707e41c8aaaafc30797b77ba">1.用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1203326586/1187407872?contentType=0&amp;isNewContent=true" width="421" height="371" nodeId="fc749e81ef6a4113afdb9783ad9abe13" />
+<h2 nodeId="93acacd085d041c2a0ef4b5820504759">2.详细操作流程说明</h2>
+<h3 nodeId="63812ef502a94668ac250effffdb53f3">方式1:策略排查--&gt;日志查询--&gt;普通路由场景日志信息的场景模块--&gt;场景--&gt;排查探针（点击左侧放大镜进入）</h3>
+<p nodeId="b2f232f5586e443a9ca60e5f52a0ad73" />
+<table borderColor="#cccccc" responsive="false" nodeId="1379f1e7bde14eefa3c507be9765c9c1">
+<tr nodeId="371b20aace2a4c618e577b5d7634979c">
+<th colwidth="[287]" nodeId="92199513749340f7985a40a032f4164e">
+<p nodeId="d1e8d76df1a947b9b841ace564e1871d"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[856]" nodeId="d4b42e86d6f74d5d85c29cf1170172d9">
+<p nodeId="e19b9a30dd4c4cbb89467842b8682ab6"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="862570de83184e49aec2808240b16f49">
+<td colwidth="[287]" nodeId="4a41966efc1346b899664a3a288f0303">
+<ol nodeId="888c87b4daae4fc8bf96ef5789fe162b">
+<li nodeId="b58dde4ba2c34814a3bcfa3baa43d012"><span font-size="14">进入日志查询页面，在「场景」字段输入普通路由场景ID</span></li>
+<li nodeId="e1d3b94344cc497a8dc2dd31de9ea3ce"><span font-size="14">点击查询，获取查询结果</span></li>
+</ol>
+</td>
+<td colwidth="[856]" nodeId="1b33bd0b5d9d4788993a75e91cac7dec">
+<p nodeId="79affebabb1d42baac6511a8ece0cc0c"><img src="https://km.sankuai.com/api/file/cdn/1203326586/1187672844?contentType=1&amp;isNewContent=true" name="image.png" width="828" height="404" nodeId="cd5ec808944044ea80e9b7bcea0f2276" /></p>
+</td>
+</tr>
+<tr nodeId="5becbdc021cb4ec18c1fef499090ced4">
+<td colwidth="[287]" nodeId="6c320bfa381b4cacb69eb32f8e83f974">
+<ol nodeId="0b42ee1fdf9241c4992022c06ef6e0f4">
+<li nodeId="0b8c43b644cb4b66b5c0a927ebf43a27"><span font-size="14">在查询结果栏找到scene字段，点击scene字段前的🔍，即可进行普通路由场景回放</span></li>
+</ol>
+</td>
+<td colwidth="[856]" nodeId="daddf514630b4623b22a32a4dfc68464">
+<p nodeId="11d62727804d435ea42a5e3a18144e91"><img src="https://km.sankuai.com/api/file/cdn/1203326586/1187526645?contentType=1&amp;isNewContent=true" name="image.png" width="828" height="462" nodeId="289cf6e3373e4a5482b16bd8f3252594" /></p>
+</td>
+</tr>
+<tr nodeId="c7b0b34441cb44c58b0052873097d55f">
+<td colwidth="[287]" nodeId="9417ffb24188415798e39fefe1e66b82">
+<ol nodeId="71fe5cb36c144251a5726083d60ad6f6">
+<li nodeId="4cdf0a1c78fd461a819a44734b36479f"><span font-size="14">进入回放页面</span></li>
+<li nodeId="2360a1e549bc4cd9a40e59c1d4310bed"><span font-size="14">由于普通路由场景只有根场景和一级子场景，因此，整个拓扑图会展示命中的路由场景和流量进入的子场景的所有规则命中情况</span></li>
+</ol>
+</td>
+<td colwidth="[856]" nodeId="83b33b697c0545a1851eaf1e85daf906">
+<p nodeId="2bce55c7835e47b4a881424c35bdbefa"><img src="https://km.sankuai.com/api/file/cdn/1203326586/1187672882?contentType=1&amp;isNewContent=true" name="image.png" width="828" height="355" nodeId="4ba7870ef6a8401db33e7d2e2a4d3a02" /></p>
+</td>
+</tr>
+<tr nodeId="63a2fb498de5460f834ce3752225f63d">
+<td colwidth="[287]" nodeId="b467fc0c874c4af59c533ab5c1f39932">
+<ol nodeId="12a50555a0b740a599273a8553d42f1c">
+<li nodeId="04b1b0bd8eb849fe92298ac508ce16e2"><span font-size="14">针对根场景和子场景，都支持直接跳转查看</span></li>
+</ol>
+</td>
+<td colwidth="[856]" nodeId="34ec5aed0d4642eeab702b4c2e2a7723">
+<p nodeId="4876f2562e1a4fe79f0c2aa402c63e91"><img src="https://km.sankuai.com/api/file/cdn/1203326586/1187526657?contentType=1&amp;isNewContent=true" name="image.png" width="828" height="189" nodeId="b747b1ab70a3481a8a180140155ea4b6" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="b122538db9274545aec7424d08a5a676" />
+<p nodeId="6e8d3c1ed3ba4dbfb3858eea46400b0f" />
+<h3 nodeId="ec7ffcb6362341acab053442d67f7307">方式2:策略排查--&gt; 排查探针tab--&gt;排查对象选择普通路由场景</h3>
+<h3 nodeId="a7ef84b0aba34fa2b0a985a2868d871b" />
+<table borderColor="#cccccc" responsive="false" nodeId="fdcc620ebd424bd5afe549c76c9375cd">
+<tr nodeId="5b656fc7ef074831933bbff3cea02f11">
+<th colwidth="[293]" nodeId="98dee868ea29406eae433de2ea4be42f">
+<p nodeId="79637a94126045a4b274d82f37dbb74a"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[850]" nodeId="00d90e0fcd50458cac19070a2fe53c6e">
+<p nodeId="aa241d364bb4444680bcaffa86de3d03"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="9d15cf5c3e074db68fabc3aa7c0f4068">
+<td colwidth="[293]" nodeId="3e14ccde7c154267a5d7c587e22c5cb7">
+<ol nodeId="73d46dbdf74a4b04b2ad3157a8c48979">
+<li nodeId="4e49d67cd86e4d4fb5f3f0eb5d2f097c"><span font-size="14">进入排查探针tab，排查对象选择「普通路由场景」，选定后输入requestid和场景，点击查询</span></li>
+</ol>
+</td>
+<td colwidth="[850]" nodeId="c1b61baae47c41a5a6e74ff6b17a1313">
+<p nodeId="9ae158b153294fe1b489d1fc8e1340f7"><img src="https://km.sankuai.com/api/file/cdn/1203326586/1187627263?contentType=1&amp;isNewContent=false" name="image.png" width="648" height="323" nodeId="035c69083a6042f4a9b3eb5a81a36b86" /></p>
+<p nodeId="aaeaed45e6f14a16bf3bc3adaffd5d6f"><img src="https://km.sankuai.com/api/file/cdn/1203326586/1187640370?contentType=1&amp;isNewContent=false" name="image.png" width="633" height="319" nodeId="385992fdab25421db83876e60c2f7b5a" /></p>
+</td>
+</tr>
+<tr nodeId="8c5e1241924e4fc8ab90fd1f290fdb27">
+<td colwidth="[293]" nodeId="eedb845b12334e3198caac5fbef40741">
+<ol nodeId="0b2daf6318cb42ab87ff662393b7df14">
+<li nodeId="6f47e404230746a489741b99f74b64cb"><span font-size="14">直接跳转至逻辑回放页面。该页面的操作与方式1一致</span></li>
+</ol>
+</td>
+<td colwidth="[850]" nodeId="ca06bdeb7aec4ee684b56174c3010543">
+<p nodeId="14ab6e68f87a4236ba5c5cf0dbabe904"><img src="https://km.sankuai.com/api/file/cdn/1203326586/1187672882?contentType=1" name="image.png" width="822" height="352" nodeId="59e0fd98502548588a569da574ea91b4" /></p>
+<p nodeId="432b2f11f85d424aa9301a5da85d314a"><img src="https://km.sankuai.com/api/file/cdn/1203326586/1187526657?contentType=1" name="image.png" width="822" height="188" nodeId="e2bb5c3048f64df5b03221029211814f" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="c16b79d96e4e473580fb2a99a1bc1741" />
+<p nodeId="502fb1a997c0481faf3da41900971807" />
+<h1 nodeId="f6d77b72845c4868bd802248be2fd21c">四、特殊说明</h1>
+<ol nodeId="51b0804ec7a741648ffc350fafb8b284">
+<li nodeId="c34cf46d091147c8ba778e7f95cc4e51">目前多极路由场景的逻辑回放信息入口仅可通过日志查询结果中的场景模块里面的多级路由场景左侧的放大镜点击进入，暂不支持像规则一样从排查探针入口进去</li>
+<li nodeId="5822c034f36f48e6a5e559829efb4c35">目前日志中路由规则前面的放大镜图标暂不支持点击，查看其逻辑回放信息可以先点击其所在路由场景前面的放大镜进入路由场景排查探针页面后再点击其逻辑回放</li>
+<li nodeId="8414a0141c09416aaca668a437e3e321">多极路由场景逻辑回放信息拓扑图会将命中的路由规则、子场景用红色框标记出来，对于路由规则，可以查看命中/没命中路由规则的逻辑回放信息；但是对于子场景，目前只支持查看命中子场景中配置的规则的逻辑回放信息</li>
+</ol>
+<h1 nodeId="135de87f402b4bbab6e1ecff76beba61">五、FAQ</h1>
+<h3 nodeId="ba2ed29f7571453c806009d89c544f99">Q1：<span color="rgba(0, 0, 0, 0.87)">multiLevelRouterSceneId是什么？</span></h3>
+<p nodeId="fbcb3bc606164ce3b4122c2295e26d07">--A：<span color="rgba(0, 0, 0, 0.87)">multiLevelRouterSceneId是多级路由场景在日志信息中的索引字段，如果想在日志查询页面根据多级路由场景ID查询目标日志信息，需要现在日志配置中配置一下multiLevelRouterSceneId字段</span></p>
+<p nodeId="2c4e96adfa2c4906aab2c8f4fc00e276"><span color="rgba(0, 0, 0, 0.87)">补充说明：multiLevelRouterSceneId是分词字段，支持输入多个多级路由场景ID查询</span></p>
+<p nodeId="6e58261738a44ea8b9d242d530f7807e" />
+<p nodeId="7d0742cd6d2d4b56a684fc614a007583" />
+<p nodeId="9b866627ba4d49f69d9fa5b4ef91fbcd" />
+<p nodeId="9aa70688692343359434d15462790705" />
+</km-doc>

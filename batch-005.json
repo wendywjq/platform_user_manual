@@ -1,0 +1,208 @@
+{
+  "root_id": "28139633",
+  "saved_date": "2026-11-17",
+  "batch": 5,
+  "document_count": 15,
+  "cumulative_document_count": 100,
+  "traversal": "depth_first_in_api_order",
+  "documents": [
+    {
+      "id": "1351327665",
+      "title": "说明：累计相关case问题排查",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：累计使用文档__28261902/children/说明：累计因子排查工具__233320099/children/说明：累计相关case问题排查__1351327665",
+      "parent_id": "233320099",
+      "source": "https://km.sankuai.com/collabpage/1351327665",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 13,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "248390725",
+      "title": "说明：累计因子线上回溯（已下线-升级中）",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：累计因子线上回溯（已下线-升级中）__248390725",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/248390725",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 21,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "183045156",
+      "title": "说明：离线数据应用到实时策略",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：离线数据应用到实时策略__183045156",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/183045156",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 9,
+      "remote_images": 0,
+      "diagrams": 2
+    },
+    {
+      "id": "28233963",
+      "title": "说明：路由决策使用文档",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：路由决策使用文档__28233963",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/28233963",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 3,
+      "remote_images": 1,
+      "diagrams": 1
+    },
+    {
+      "id": "251012364",
+      "title": "说明：排查探针",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：排查探针__251012364",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/251012364",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 13,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "618346668",
+      "title": "说明：排查探针支持路由场景查询",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：排查探针__251012364/children/说明：排查探针支持路由场景查询__618346668",
+      "parent_id": "251012364",
+      "source": "https://km.sankuai.com/collabpage/618346668",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 13,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "1203326586",
+      "title": "说明：排查探针支持普通路由场景查询",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：排查探针__251012364/children/说明：排查探针支持普通路由场景查询__1203326586",
+      "parent_id": "251012364",
+      "source": "https://km.sankuai.com/collabpage/1203326586",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 9,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "187978926",
+      "title": "说明：强制标记功能",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：强制标记功能__187978926",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/187978926",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 5,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "62096766",
+      "title": "说明：日志配置使用文档",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：日志配置使用文档__62096766",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/62096766",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 3,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "182702174",
+      "title": "说明：外部数据应用到实时策略",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：外部数据应用到实时策略__182702174",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/182702174",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 5,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "197981906",
+      "title": "说明：衍生参数使用文档",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：衍生参数使用文档__197981906",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/197981906",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 11,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "28253511",
+      "title": "说明：业务降级操作文档",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：业务降级操作文档__28253511",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/28253511",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "183062932",
+      "title": "说明：依赖关系查询使用手册",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：依赖关系查询使用手册__183062932",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/183062932",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 6,
+      "remote_images": 0,
+      "diagrams": 2
+    },
+    {
+      "id": "194006669",
+      "title": "说明：因子工具操作手册【功能已停服，请勿使用】",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：因子工具操作手册【功能已停服，请勿使用】__194006669",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/194006669",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 17,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "170920701",
+      "title": "说明：智能测试使用指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：智能测试使用指南__170920701",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/170920701",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 13,
+      "remote_images": 0,
+      "diagrams": 4
+    }
+  ],
+  "media": [
+    {
+      "document_id": "618346668",
+      "type": "video",
+      "name": "屏幕录制2021-01-25 下午8.29.37.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/618346668/618756263?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "194006669",
+      "type": "video",
+      "name": "因子工具应用示例.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/194006669/212145078?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "170920701",
+      "type": "video",
+      "name": "智能测试创建.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/170920701/177345765?contentType=1",
+      "status": "remote_only"
+    }
+  ],
+  "attachments": [],
+  "video_policy": "names_and_original_links_only",
+  "asset_errors": [
+    {
+      "id": "28233963",
+      "url": "https://123.sankuai.com/km/api/file/28233963/28233875",
+      "reason": "Official image reader returned text/plain: MISSING REQUIRED COOKIE; original legacy URL and canonical URL returned the same error."
+    }
+  ],
+  "pause_after_batch": true
+}

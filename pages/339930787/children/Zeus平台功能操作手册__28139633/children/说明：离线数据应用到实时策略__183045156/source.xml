@@ -1,0 +1,98 @@
+<km-doc>
+<km-title nodeId="b390f521e0034b3f83f42a6f15885766">说明：离线数据应用到实时策略</km-title>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/183045156/117353532379?contentType=0" width="676" height="76" nodeId="919c44ed0bc2444d8ce0948bddcb9426" />
+<p nodeId="0fc32d779d674d1d89b034e783be14d1">通过将离线数据写入KV库，并创建KV特征在Zeus中引用的方式。</p>
+<p nodeId="333e5e79d7c6445983700f24820e9cc7">KV库说明：<a href="https://km.sankuai.com/collabpage/1945114806#id-%E4%B8%80%E3%80%81%E5%B9%B3%E5%8F%B0%E8%AF%B4%E6%98%8E" title="https://km.sankuai.com/collabpage/1945114806#id-%E4%B8%80%E3%80%81%E5%B9%B3%E5%8F%B0%E8%AF%B4%E6%98%8E" autoUpdate="true" nodeId="aa25c7a5ea184f868dfde6c04156a94a">https://km.sankuai.com/collabpage/1945114806#id-%E4%B8%80%E3%80%81%E5%B9%B3%E5%8F%B0%E8%AF%B4%E6%98%8E</a></p>
+<p nodeId="1e1789af7c4942a489bcf5a893619585">创建KV库：<a href="https://km.sankuai.com/collabpage/1945114806#id-3.1%20KV%E5%BA%93%E5%88%97%E8%A1%A8" title="https://km.sankuai.com/collabpage/1945114806#id-3.1%20KV%E5%BA%93%E5%88%97%E8%A1%A8" autoUpdate="true" nodeId="e458513c0ee94c57b94fa99289a6c050">https://km.sankuai.com/collabpage/1945114806#id-3.1%20KV%E5%BA%93%E5%88%97%E8%A1%A8</a>-3.1 创建KV库</p>
+<p nodeId="94309f9c64ee40e7a15a812bb39ea5bc">XT写入KV库：<a href="https://km.sankuai.com/collabpage/1945114806#id-3.1%20KV%E5%BA%93%E5%88%97%E8%A1%A8" title="https://km.sankuai.com/collabpage/1945114806#id-3.1%20KV%E5%BA%93%E5%88%97%E8%A1%A8" autoUpdate="true" nodeId="da3ad66f42484dd2aaed186703cca77a">https://km.sankuai.com/collabpage/1945114806#id-3.1%20KV%E5%BA%93%E5%88%97%E8%A1%A8</a>-3.5.2 XT写KV库</p>
+<p nodeId="92d9af54cb9447dd9b08a21c5d585606">创建KV特征：<a href="https://km.sankuai.com/collabpage/1945114806#id-%E5%A6%82%E6%9E%9C%E5%9C%A8Zeus%E8%AF%BB%E5%8F%96KV%E5%BA%93" title="https://km.sankuai.com/collabpage/1945114806#id-%E5%A6%82%E6%9E%9C%E5%9C%A8Zeus%E8%AF%BB%E5%8F%96KV%E5%BA%93" autoUpdate="true" nodeId="7bad1e1de53d4b9cbccc12840ddc39a3">https://km.sankuai.com/collabpage/1945114806#id-%E5%A6%82%E6%9E%9C%E5%9C%A8Zeus%E8%AF%BB%E5%8F%96KV%E5%BA%93</a>-3.4.1 如何在Zeus读取KV库；如果所在Zeus空间未切换特征平台请参考：<a href="https://km.sankuai.com/collabpage/2031411628" title="https://km.sankuai.com/collabpage/2031411628" autoUpdate="true" nodeId="c1985c43f1c34c32bd4331b2eb618008">https://km.sankuai.com/collabpage/2031411628</a></p>
+<p nodeId="70c24a1d4fc44d8e9fd1e7c12f47e7ca">Zeus规则引用：<a href="https://km.sankuai.com/collabpage/1945114806#id-%E5%A6%82%E6%9E%9C%E5%9C%A8Zeus%E8%AF%BB%E5%8F%96KV%E5%BA%93" title="https://km.sankuai.com/collabpage/1945114806#id-%E5%A6%82%E6%9E%9C%E5%9C%A8Zeus%E8%AF%BB%E5%8F%96KV%E5%BA%93" autoUpdate="true" nodeId="ba031fa0ea3a45a88de27509d97ea944">https://km.sankuai.com/collabpage/1945114806#id-%E5%A6%82%E6%9E%9C%E5%9C%A8Zeus%E8%AF%BB%E5%8F%96KV%E5%BA%93</a>-3.4.1 如何在Zeus读取KV库</p>
+<p nodeId="100f9f7d5fb34daf80956c1c017216f8" />
+<p nodeId="c668f1df441d4c4ba844ac2d07f1dd7c" />
+<km-collapse active="false" nodeId="491bb07f33ad43e2ad9b8ef3e7dfc4fd">
+<km-title>历史解决方案备份</km-title>
+<km-content>
+<p nodeId="8d7ed9d462a84c99b8676e060ebbe69e">一、背景</p>
+<p nodeId="768c4f2db15f499eab70f9f3ec232edb">解决：</p>
+<ol nodeId="b8c2ebd472a344d0a4a0b47f6ef0f38e">
+<li nodeId="71cfb6a18f484f96ae8f9c9af3dc266d">离线数据需要应用到实时策略中，可通过与数据组对接，最终以数据接口的方式在Zeus上应用；</li>
+</ol>
+<p nodeId="7a11542aa985407d8d5d68a676b09c47">二、操作流程</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/183045156/183253509?contentType=0" width="943" height="101" nodeId="4068d60109494a40b19e90c5678b10b1" />
+<p nodeId="9a3d09c091da41a3b3c367264ba8e6b3">Step1: 策略PM提供离线数据、预估使用场景的QPS和测试数据一条</p>
+<p nodeId="8b92a609bce5478e98b16abbb62b83d5">Step2: 数据RD在Buffalo上配置API并完成数据验证及接口授权</p>
+<p nodeId="57ff0745eab34292b616e92ef0a91728">Buffalo线上网址：<a href="http://buffalo.sankuai.com/" title="http://buffalo.sankuai.com/" nodeId="2bd19d0c82f54a358ec45aa5dba72762">http://buffalo.sankuai.com/</a>， <a href="https://km.sankuai.com/page/62884150" title="可配置API(Buffalo)使用手册" nodeId="919cc94a8abe4a278bc40423a765a0c2">可配置API(Buffalo)使用手册</a></p>
+<p nodeId="57e8b202df1e4e36acc014a0d470978f">API配置完成后提供Zeus值班相关配置信息，包括：<span color="rgb(245, 34, 45)">Buffalo Domain，输入字段，输出字段、接口说明</span></p>
+<km-collapse nodeId="2f690cbf557f4b06b7c4a379b6ab160d">
+<km-title>数据验证及接口授权操作说明</km-title>
+<km-content>
+<p nodeId="beb9ead918294e4ebf69fae36aba6e6d">数据验证：</p>
+<p indent="2" nodeId="27a919ed79644daea50998c3fc43deb2"><img src="https://km.sankuai.com/api/file/cdn/183045156/183071200?contentType=2" name="" width="697" height="364" nodeId="6c01726f5a51407d976fc23765d7b44b" /></p>
+<p indent="2" nodeId="644b6c1083fb4b94a6907a272a177e5e"><del>接口授权：</del><span color="rgb(245, 34, 45)"><strong><del>找mengqingxi配置接口授权Appkey（com.sankuai.hbdata.riskcontrol.realtime）</del></strong></span><del>和QPS，10分钟延迟生效</del></p>
+<p indent="2" nodeId="5ad788e4b3fd4025b5a4eb03dcf406a9">目前Buffalo接受自助授权，点击申请授权后，填写相关信息即可完成授权：</p>
+<p indent="2" nodeId="424e47e601354bd3a04bacb989fcdc88">AppKey填写<span color=" "><strong>com.sankuai.hbdata.riskcontrol.realtime</strong></span></p>
+<p indent="2" nodeId="973172b29cea4b21978fe1434513ff8f"><span color=" ">最大QPS按需填写</span></p>
+<p indent="2" nodeId="d6e7833af65a4306bb97474b7813f012"><span color=" ">最大条件数跟业务方沟通后填写</span></p>
+<p indent="2" nodeId="1724756c9be44bfe8083412aa19fc9e3"><img src="https://km.sankuai.com/api/file/cdn/183045156/198521316?contentType=1" name="image.png" width="640" height="273" nodeId="3f70910f51554b319089eb69e9ca434f" /></p>
+<p indent="2" nodeId="e009219c48ba4c36831ee3e9ec511156"><img src="https://km.sankuai.com/api/file/cdn/183045156/183029115?contentType=2" name="" width="753" height="284" nodeId="cdef62f0bdf94196b1553aa0789cc140" /></p>
+</km-content>
+</km-collapse>
+<p nodeId="6fa898c1f29a4a3f989e5c649cfe5830">Step3: Zeus值班在OCTO上配置映射关系</p>
+<p nodeId="ec623c2c3bd645919bc67055d1f6260e">配置完成后，返回相关Zeus数据接口注册信息，包括：<span color="rgb(245, 34, 45)">methodName（接口名称），contextConfig.alias（输入字段），resultConfig.alias（输出字段）</span></p>
+<km-collapse nodeId="118316db9a9948ae8982771dbd338bce">
+<km-title>映射关系配置操作说明</km-title>
+<km-content>
+<p nodeId="f30ff037ee174fbf9907f3855ef215fc"><a href="https://octo.sankuai.com/serverOpt/operation?appkey=com.sankuai.hbdata.riskcontrol.realtime#config" title="https://octo.sankuai.com/serverOpt/operation?appkey=com.sankuai.hbdata.riskcontrol.realtime#config" nodeId="c000aed2d02b4865a6ffc54e9947b142">https://octo.sankuai.com/serverOpt/operation?appkey=com.sankuai.hbdata.riskcontrol.realtime#config</a></p>
+<p nodeId="e3078fac6ca54fe7bd9660b53c294dd4">MCC Key :<strong>dataServiceConfig</strong></p>
+<p nodeId="55b21a274cf745bfaaaab3e943d3ed3f"><strong>1.methodName Zeus RD自定义，不重复即可</strong></p>
+<p nodeId="2229b6765ceb4cba841a6fb1f16ba2c6"><strong>2.actionType一般为kv</strong></p>
+<p nodeId="5b7adc4a412e46bb875f8bdc49ef71ca"><strong>3.domainName和Buffalo Domain名称一致</strong></p>
+<p nodeId="77215838939347ac907ff31624ce4757"><strong>4.contextConfig为key配置</strong></p>
+<p nodeId="37baa81c1f424bffbeb44200dd0cea50"><strong>     a.field和Buffalo接口key一致</strong></p>
+<p nodeId="916e3642315c464fa5f85c031103f97b"><strong>     b.alias自定义，同一接口alias不重复即可</strong></p>
+<p nodeId="29b6206dffc046fd9589765d19de4733"><strong>5.resultConfig为结果配置</strong></p>
+<p nodeId="a470a7428ed14da1b67d743715f406d6"><strong>    a.field和Buffalo接口value一致</strong></p>
+<p nodeId="39a30085bc5843dfa2bc5ac46e731eb4"><strong>    b.alias自定义，同一接口alias不重复即可</strong></p>
+<p nodeId="c782d6603fd14b5c840050e5ccb6f094"><strong>6.toJsonResponse:是否转换为json格式返回 0 - 转换 1 - 不转换</strong></p>
+<p nodeId="87bf6120938948be9b3df1b02aa1a905"><strong>7.status:0 - 在线 1 - 下线</strong></p>
+<p nodeId="13e4d62a1b8648ac81919874b4084041"><img src="https://km.sankuai.com/api/file/cdn/183045156/183028991?contentType=2" name="" width="1086" height="600" nodeId="8d36eefc899a463f86f9c23e09014f1a" /></p>
+</km-content>
+</km-collapse>
+<p nodeId="01150cddd3734cf9babd18b4e31347f0">Step4: Zeus值班在Zeus上注册数据接口</p>
+<p nodeId="74edaf470ba3458780fe6a0876b8d0b0">Zeus线上网址：<a href="https://zeus.sankuai.com/fetcher/add" title="https://zeus.sankuai.com/fetcher/add" nodeId="f99c2da00a704ce5bb68e07495e8504a">https://zeus.sankuai.com/fetcher/add</a>，按Zeus提供信息配置，测试通过即可</p>
+<p indent="1" nodeId="5de2914ba74a4d08b2e5d5adfd2aeb1f"><strong>由PM提供业务线</strong></p>
+<p indent="1" nodeId="fb5c6ee12517464d8a1dbbcebe59ba55">AppKey选择：com.sankuai.hbdata.riskcontrol.realtime</p>
+<p indent="1" nodeId="a83ff47a320c4443a3cbb55bc6b21797">接口名：methodName（接口名称）</p>
+<p indent="1" nodeId="c9509446d8644200a3972527a589114a">输入字段：contextConfig.alias（输入字段）</p>
+<p indent="1" nodeId="d6dae22ea9d642d48f9000ba5a1bb3d1">返回字段：resultConfig.alias（输出字段）</p>
+<p indent="1" nodeId="376952cb91514a2897a7ad556b62827d">备注：接口说明</p>
+<p indent="1" nodeId="681e9c6c545d4ea1a98b082deb6df891">负责人：数据组PM、策略PM</p>
+<p indent="1" nodeId="8e5258c64e7f432a812372c4c5ed477d">超时时间：Zeus自定义</p>
+<p indent="1" nodeId="8265ddc6c0924230bfce79303faf7bd9">合法值和非法值：不清楚先不要填写</p>
+<p indent="1" nodeId="f34a1664aa01414580cf0deac09f9ec9"><img src="https://km.sankuai.com/api/file/cdn/183045156/183029202?contentType=2" name="" width="945" height="453" nodeId="c5df4fa2481e425da9a81c09ef82109e" /></p>
+<p indent="1" nodeId="c0bb35df5b414097bfdce3f8ca03445c"><img src="https://km.sankuai.com/api/file/cdn/183045156/183071286?contentType=2" name="" width="941" height="447" nodeId="e757c1f418004cdc82dcf48d1699217c" /></p>
+<km-collapse nodeId="0811c7683dc84749802c9fe674e83f57">
+<km-title>Zeus测试返回信息含义</km-title>
+<km-content>
+<p nodeId="bc7e8d965b104a9ebd269d9d55dbdec6"><span color="rgb(152, 118, 170)"><em>SUCCESS</em></span><span color="rgb(169, 183, 198)">(</span><span color="rgb(104, 151, 187)">0</span><span color="rgb(204, 120, 50)">, </span><span color="rgb(106, 135, 89)">"success"</span><span color="rgb(169, 183, 198)">)</span><span color="rgb(204, 120, 50)">,</span><br /><span color="rgb(152, 118, 170)"><em>METHOD_NOT_EXIST</em></span><span color="rgb(169, 183, 198)">(</span><span color="rgb(104, 151, 187)">1</span><span color="rgb(204, 120, 50)">, </span><span color="rgb(106, 135, 89)">"no such method"</span><span color="rgb(169, 183, 198)">)</span><span color="rgb(204, 120, 50)">,</span><br /><span color="rgb(152, 118, 170)"><em>METHOD_NOT_ONLINE</em></span><span color="rgb(169, 183, 198)">(</span><span color="rgb(104, 151, 187)">2</span><span color="rgb(204, 120, 50)">, </span><span color="rgb(106, 135, 89)">"method not online"</span><span color="rgb(169, 183, 198)">)</span><span color="rgb(204, 120, 50)">,</span><br /><span color="rgb(152, 118, 170)"><em>DATA_ACTION_ERROR</em></span><span color="rgb(169, 183, 198)">(</span><span color="rgb(104, 151, 187)">3</span><span color="rgb(204, 120, 50)">, </span><span color="rgb(106, 135, 89)">"fetch data error"</span><span color="rgb(169, 183, 198)">)</span><span color="rgb(204, 120, 50)">,</span><br /><span color="rgb(152, 118, 170)"><em>DATA_EMPTY</em></span><span color="rgb(169, 183, 198)">(</span><span color="rgb(104, 151, 187)">4</span><span color="rgb(204, 120, 50)">, </span><span color="rgb(106, 135, 89)">"data empty"</span><span color="rgb(169, 183, 198)">)</span><span color="rgb(204, 120, 50)">,</span><br /><span color="rgb(152, 118, 170)"><em>METHOD_CONFIG_ERROR</em></span><span color="rgb(169, 183, 198)">(</span><span color="rgb(104, 151, 187)">5</span><span color="rgb(204, 120, 50)">, </span><span color="rgb(106, 135, 89)">"method config error"</span><span color="rgb(169, 183, 198)">)</span><span color="rgb(204, 120, 50)">,</span><br /><span color="rgb(152, 118, 170)"><em>DATA_ACTION_CONFIG_ERROR</em></span><span color="rgb(169, 183, 198)">(</span><span color="rgb(104, 151, 187)">6</span><span color="rgb(204, 120, 50)">, </span><span color="rgb(106, 135, 89)">"data action config error"</span><span color="rgb(169, 183, 198)">)</span><span color="rgb(204, 120, 50)">,</span><br /><span color="rgb(152, 118, 170)"><em>UNKNOWN_ERROR</em></span><span color="rgb(169, 183, 198)">(-</span><span color="rgb(104, 151, 187)">1</span><span color="rgb(204, 120, 50)">, </span><span color="rgb(106, 135, 89)">"unknown error"</span><span color="rgb(169, 183, 198)">)</span><span color="rgb(204, 120, 50)">;</span><br /><span color="rgb(245, 34, 45)"><strong>Zeus测试返回“no such method”，尝试重新配置下MCC，稍等再重试</strong></span></p>
+<p nodeId="7cee8e5961684bd0a64515dbea22b4dd"><span color="rgb(245, 34, 45)"><strong>其他错误一般为配置错误，检查配置即可</strong></span></p>
+</km-content>
+</km-collapse>
+<p nodeId="875aaf601e024242a32b783cb0cda3d2">Step5: 策略PM在Zeus配置参数-数据接口映射关系</p>
+<p nodeId="4da10975966b426cb357bb40e4e20307">Zeus线上网址：<a href="https://zeus.sankuai.com/param/add_fetcher_dependent" title="https://zeus.sankuai.com/param/add_fetcher_dependent" nodeId="d158117b395648689329fd57b7667ce1">https://zeus.sankuai.com/param/add_fetcher_dependent</a></p>
+<p indent="1" nodeId="2258d998d0d54c90a76b01c33391a49e">AppKey选择：com.sankuai.hbdata.riskcontrol.realtime</p>
+<p indent="1" nodeId="b845f0abd19249e69365b107bec88e9c">数据接口：Zeus反馈的methodName（接口名称）</p>
+<p indent="1" nodeId="62cd5ee5764f445cb9e67a4fc59b506b">接口的输入、输出参数同已经在Zeus上配置的参数进行依赖映射配置</p>
+<p nodeId="c3828dd24cd543499db301659d31e7db"><img src="https://km.sankuai.com/api/file/cdn/183045156/183062443?contentType=1" name="image.png" width="1300" height="149" nodeId="718e024493124b71ac01726e9176ee60" /></p>
+<p nodeId="aa15d0c49c4345efb52c855cf4205bea" />
+<p nodeId="326c6a55f2284d8fa00cdb3964380e63">三、FAQ</p>
+<p nodeId="1bd26244dcb143d8b142f52913f1d1fb">Q1: 接口配置成功完成后，线上策略应用为什么参数值为空/或无值？</p>
+<p nodeId="90915c2499ac42a4aa9cefdb69640d35">A : 是否在Zeus上接口注册时配置了合法值和非法值</p>
+<p nodeId="e12b28dcc38b4c71a7d24d21384077df">Q1: 接口配置成功完成后，接口调用不通？</p>
+<p nodeId="ffeb1835429d410da1be4ab5c083d7d4">A：确认是否进行过buffalo授权。</p>
+<p nodeId="43af187adfb948e1a6c01596067c9330" />
+</km-content>
+</km-collapse>
+<p nodeId="b7bc9f21fb1e4fd5b14a2c523cc40eb3" />
+<h3 nodeId="f7023fa9c16f46599dc7a1511361ce0e" />
+</km-doc>

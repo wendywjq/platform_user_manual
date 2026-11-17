@@ -1,0 +1,25 @@
+<km-doc>
+<km-title nodeId="51ab66b38dbc483492b596ce17f49d4c">说明：衍生参数使用文档</km-title>
+<km-catalog style="none" nodeId="5f81a09422de411cba1d4c8fc0ffbdb6" />
+<h5 nodeId="40e5c83cc8f54d0286d2fc0caae6fc27">1、决策</h5>
+<p nodeId="d538302593a74dc8afe43218b21480ba"><img src="https://km.sankuai.com/api/file/cdn/197981906/197725869?contentType=1&amp;isNewContent=false" name="image.png" width="643" height="314" nodeId="bc4858cb270443749a1313cca959fc53" /></p>
+<h5 nodeId="8946d2157b7f4dbfb7496fcdaafa30fd">2、添加决策</h5>
+<p nodeId="d09e9a2cdae04d95b535836ecac734fd">​<img src="https://km.sankuai.com/api/file/cdn/197981906/197899486?contentType=1&amp;isNewContent=false" name="image.png" width="632" height="300" nodeId="9fcc9cd219f64a8f8f9d735469596d36" />​​​</p>
+<h5 nodeId="92df793bbdb9465a9fa9ccfe9869c6d5">3、是否使用衍生参数，选择“是”</h5>
+<p nodeId="e540faafc3fe42f2ae6776ee31520095"><img src="https://km.sankuai.com/api/file/cdn/197981906/198041329?contentType=1&amp;isNewContent=false" name="image.png" width="618" height="350" nodeId="4b9e79de4fba4cf5b4d1a9b12f133a56" />​</p>
+<h5 nodeId="8f4419b3aba046288ce808fe477fe801">4、在决策列表点击新建的决策，获取决策详情，配置衍生参数</h5>
+<p nodeId="151b313b0e51438bbfc7d221d72ec6d9"><img src="https://km.sankuai.com/api/file/cdn/197981906/197899498?contentType=1&amp;isNewContent=false" name="image.png" width="644" height="305" nodeId="2bbefef9f6494a6ea132863bf63112d6" />​</p>
+<h5 nodeId="d0edb5073053488dab0de9ad685f2968">5、配置衍生参数模板</h5>
+<p nodeId="1c3dfd4194cc496790cfe1add2cbab7b"><img src="https://km.sankuai.com/api/file/cdn/197981906/198041647?contentType=1&amp;isNewContent=false" name="image.png" width="641" height="378" nodeId="798778b5e72146c6b0293638eb980a20" />​</p>
+<h5 nodeId="e8a6cd849303465a9ff593cf16707f0e">6、添加衍生参数模板字段</h5>
+<p nodeId="32bab3c0ada1488d892deb7a7ebf4c1d"><img src="https://km.sankuai.com/api/file/cdn/197981906/198041655?contentType=1&amp;isNewContent=false" name="image.png" width="692" height="367" nodeId="17522f8834054957acda837970b27029" />​</p>
+<h5 nodeId="4431feb5b2254fb1af2c5974011e94e7">7、编辑衍生参数</h5>
+<p nodeId="be2deb7fba0342c18cb8359079a9bc44"><img src="https://km.sankuai.com/api/file/cdn/197981906/197899591?contentType=1&amp;isNewContent=false" name="image.png" width="769" height="351" nodeId="5477ca346b2e4e729ff15c3a71b0caee" />​</p>
+<h5 nodeId="4b4310f5d8b641f5b58f018b9c5a22bb">8、提交保存</h5>
+<p nodeId="8c741783b5734c39b447a02d39ecb3cb"><img src="https://km.sankuai.com/api/file/cdn/197981906/198041930?contentType=1&amp;isNewContent=false" name="image.png" width="684" height="435" nodeId="9862e16c3cac467391dbeb4eabc3f0e6" />​​​</p>
+<h5 nodeId="5f88e54eb90d42f0af086c73a30eb12c">9、使用。将携带该衍生参数的决策配给具体的规则即可。</h5>
+<p nodeId="8b00e11955654defa7bfd45ede144c0d"><img src="https://km.sankuai.com/api/file/cdn/197981906/198021786?contentType=1&amp;isNewContent=false" name="image.png" width="762" height="316" nodeId="2f04b33d4c52490fb320aeac0b99db47" />​</p>
+<p nodeId="3b1085dbe27b487692e2e2fd53e1fb6e"><img src="https://km.sankuai.com/api/file/cdn/197981906/197916220?contentType=1&amp;isNewContent=false" name="image.png" width="760" height="310" nodeId="98b26f39423140d0a4ade1274f79a474" />​</p>
+<h5 nodeId="7d0558b026854f3dbd193c7490f41fd6">10、日志查询显示衍生参数</h5>
+<p nodeId="5c71c871408a448b95a5fe3acdc2bcaa"><img src="https://km.sankuai.com/api/file/cdn/197981906/198042303?contentType=1&amp;isNewContent=false" name="image.png" width="759" height="368" nodeId="7aa00b9acf9744afbca313b795c447f1" />​</p>
+</km-doc>

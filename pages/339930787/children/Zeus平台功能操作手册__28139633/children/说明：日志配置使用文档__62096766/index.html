@@ -1,0 +1,79 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：日志配置使用文档</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-25">背景</a><a href="#section-27">解决方案</a><a href="#section-29">使用说明</a><a href="#section-42">关键点说明</a><a href="#section-43">关于分词和非分词字段的说明</a><a href="#section-59">关于配置生效的说明</a><a href="#section-63">关于配置时间的说明</a><a href="#section-66">关于配置决策理由查询字段的说明</a><a href="#section-70">关于演练日志的配置</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：日志配置使用文档</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/62096766">查看学城原文</a></p><article>
+<h1>说明：日志配置使用文档</h1>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意：</p>
+<ul>
+<li><span style="color:rgb(255, 77, 79)">日志配置是指对日志查询条件的配置。</span></li>
+<li><span style="color:rgb(240, 94, 80)">日志配置注册或更新之后，最多10分钟后生效，并且按照新增/更新字段来查询，只能查出最新日志，不支持历史日志查询！！！</span></li>
+</ul>
+<ul>
+<li>
+<p><span style="color:rgb(240, 94, 80)">对于日志字段的更新属于高危行为，请谨慎操作。</span></p>
+</li>
+<li>
+<p><span style="color:rgb(240, 94, 80)">业务负责人查看方法：</span></p>
+<ul>
+<li>
+<p>点击zeus平台最上方的“权限”-&gt;“业务管理”，即可根据相关业务查看对应负责人</p>
+</li>
+</ul>
+</li>
+<li>
+<p><span style="color:rgb(240, 94, 80)">目前zeus只支持线上日志的存储、查询。</span></p>
+</li>
+</ul>
+</div>
+</div>
+<div style="none"></div>
+<h1 id="section-25">背景</h1>
+<p>现阶段一个新的业务接入zeus之后，数据统计功能，即实时日志查询和离线日志查询这两个功能默认是未开通的，需要rd手动在线上数据表中进行配置，整个过程不是自动化的，而且手动操作数据库存在着比较大的安全隐患。综上所述，亟需提供一个前端入口来帮助配置日志字段，这样快速又安全。</p>
+<h1 id="section-27">解决方案</h1>
+<p>在zeus前端页面提供一个配置入口，在配置页面分别可以配置相应字段，填写完毕点击注册/更新按钮即可。</p>
+<h1 id="section-29">使用说明</h1>
+<p>首先入口如下图所示：</p>
+<p><img src="assets/f1c0a70401bdabda.png" width="191" height="338" alt="image.jpeg"></p>
+<p>点击进入，如下图所示：</p>
+<p><img src="assets/0234f823c0865e56.png" width="1320" height="600" alt="image.png"></p>
+<p>如果出现上述页面，说明您不是该业务的负责人。同样地，为了保证操作安全，只能由业务负责人来配置相关字段。</p>
+<p>如果你是该业务的负责人，则会显示如下页面：</p>
+<p><img src="assets/f6c62aa782725ff6.png" width="1229" height="600" alt="image.jpeg"></p>
+<p>接下来您可以根据自己的日志查询需求来配置相关字段即可。</p>
+<p></p>
+<h1 id="section-42">关键点说明</h1>
+<h2 id="section-43">关于分词和非分词字段的说明</h2>
+<p>分词字段（对应数据库中a_col_x字段）：</p>
+<ul>
+<li>该字段的值可以包含多个值，以逗号隔开，比如字段poiid的值可以是1,2,3,4</li>
+<li>对分词字段的搜索逻辑是：<strong>以</strong><span style="color:rgb(112, 177, 35)"><strong>“或”</strong></span><strong>的逻辑来匹配相应分词字段里边的所有分词</strong></li>
+<li>目前支持10个分词字段</li>
+<li>decisions, hitRules, markedRuleIds, takenEffectRuleIds 为默认字段，不可更改</li>
+</ul>
+<p>非分词字段（对应数据库中na_col_xx字段）：</p>
+<ul>
+<li>与分词字段相对，仅包含一个值，比如userId的值可以是123</li>
+<li>目前支持20个非分词字段</li>
+<li>requestId, sceneId 为默认字段，不可更改</li>
+</ul>
+<h2 id="section-59">关于配置生效的说明</h2>
+<ul>
+<li>日志配置注册或更新之后，新的日志数据需等待10分钟才可以正确查询出来。</li>
+<li>新增的配置字段，只能在后续的日志数据中作为字段查询。</li>
+</ul>
+<h2 id="section-63">关于配置时间的说明</h2>
+<ul>
+<li>目前日志配置的时间与相应业务的静默期配置保持一致。</li>
+</ul>
+<h2 id="section-66">关于配置决策理由查询字段的说明</h2>
+<ul>
+<li>若查询日志时需要根据决策理由查询，则需要配置reasonCodes字段，在数据统计-日志配置-分词字段中加入reasonCodes。</li>
+</ul>
+<p></p>
+<h2 id="section-70">关于演练日志的配置</h2>
+<p>目前尚无界面配置，需要RD手动在数据库中插入一条数据，参考</p>
+<pre><code>insert into common_log_config_extra (business_code, business_desc, config_data, extra_info, creator,addtime,  modifier, modtime)
+values (152, "优选风控","{\"a_col_11\":\"drillRuleEqual\",\"a_col_12\":\"drillRuleLessthan\",\"a_col_13\":\"drillRuleMorethan\",\"a_col_14\":\"drillDecisionEqual\",\"a_col_15\":\"drillDecisionLessthan\",\"a_col_16\":\"drillDecisionMorethan\",\"na_col_21\":\"drillTaskId\"}"
+,"","liyi49",1627031580, "liyi49", 1627031580);</code></pre>
+<p>config_data以及extra_info按照模板填写就行，其他麻烦使用真实数据。</p>
+</article></main></body></html>

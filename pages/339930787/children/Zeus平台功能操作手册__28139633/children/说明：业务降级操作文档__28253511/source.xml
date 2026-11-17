@@ -1,0 +1,19 @@
+<km-doc>
+<km-title nodeId="9946a93afd1744b0b6d3c1daccfc5c5d">说明：业务降级操作文档</km-title>
+<km-catalog style="none" nodeId="feb0c9919f2444158d2b4942fc113f65" />
+<h2 nodeId="a6f78b123a3f4d6ba784d44677bff587">适用情况</h2>
+<p nodeId="02f11f110f744b299d0ecf85d2948f58">1. 业务方（如tatooine）对某个决策的处理出现问题，希望Zeus暂停该决策的产生。</p>
+<p nodeId="6a7a58efe55448d4b66df7dc6f00c283">2.业务方对某个场景的处理出现问题，希望Zeus暂停执行该场景。</p>
+<h2 nodeId="bf6cac1ecfe54a229522ade599940127">降级作用</h2>
+<p nodeId="60699eae339041949fcdc326070ca815">如果场景或决策处于降级状态，那么对应的场景不再执行，对应的决策不再产生</p>
+<h2 nodeId="cf95ba95314c40218ea8fe0fc078f9d8">操作手册</h2>
+<h3 nodeId="78dc8b2b30db40cbae15488ac6d500e4">降级页面入口</h3>
+<p nodeId="3500220ab7324163b70615a4d77ba81b"><img src="https://123.sankuai.com/km/api/file/28253511/28253297" name="image2017-3-1 13:58:26.png" width="736" height="250" nodeId="7238014563294ce1949b316d3eb07488" /></p>
+<h3 nodeId="21193acf8ab94c6292d64b54ddd08bcd">场景和决策降级</h3>
+<p nodeId="8b521ca384ad49cdb1f5ddd640369b84"><img src="https://123.sankuai.com/km/api/file/28253511/28253291" name="image2017-3-1 13:59:23.png" width="1105" height="250" nodeId="ee0967bda2eb46df8191bb18cce8a912" /></p>
+<p nodeId="a39a6536338c471caf7f8854e942e951"><img src="https://123.sankuai.com/km/api/file/28253511/28253390" name="image2017-3-1 13:59:59.png" width="874" height="250" nodeId="2268e93bf231492fa3aa5548cd48c324" /></p>
+<h3 nodeId="82b3b716839c46e1aee4a9e1543133cd">停止降级</h3>
+<p nodeId="e64aa43745f24ec4915dd9154479f867"><img src="https://123.sankuai.com/km/api/file/28253511/28253389" name="image2017-3-1 14:0:55.png" width="1198" height="250" nodeId="4fe16b20256e420faadef521d7ecb874" /></p>
+<p nodeId="e151b6b492574d659c358bf4819bcdfe" />
+<p nodeId="567309416d6340c2aad79382e3a9fadf">注：其它问题请联系 <km-mention name="王东" uid="wangdong13" empId="" nodeId="dbab4be91e7d42afa513fefc22ff0ca9" /> <km-mention name="江先锋" uid="jiangxianfeng" empId="" nodeId="a198d236f7644786bc0bc43c58493db3" /> <km-mention name="肖慧云" uid="xiaohuiyun" empId="" nodeId="48e3b331ff624c0ba7b35361ec27d067" /></p>
+</km-doc>

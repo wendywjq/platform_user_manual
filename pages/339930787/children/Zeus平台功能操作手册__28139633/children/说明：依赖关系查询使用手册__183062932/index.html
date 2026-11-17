@@ -1,0 +1,45 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：依赖关系查询使用手册</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-7">二、操作说明</a><a href="#section-8">1、操作流程概述</a><a href="#section-10">2、操作流程详情</a><a href="#section-11">Step1:【入口】</a><a href="#section-15">Step2:【提交查询信息】</a><a href="#section-28">Step3:【查询结果及解读】</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：依赖关系查询使用手册</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/183062932">查看学城原文</a></p><article>
+<h1>说明：依赖关系查询使用手册</h1>
+<div style="none"></div>
+<h2 id="section-3">一、背景</h2>
+<p>解决：快速查询指定场景、规则、因子、参数的依赖的信息和被引用情况，提升人效。旧流程：查询参数被哪些场景引用，需要参数-因子-规则-场景一层层查询，现只需填写查询条件即可；</p>
+<p>适用场景-例如：（1）某数据接口要下线，需评估下线影响，并将依赖该接口的规则、因子、参数进行下线；</p>
+<p>                            （2）业务侧升级某参数字段，需评估升级的影响范围；</p>
+<h2 id="section-7">二、操作说明</h2>
+<h2 id="section-8">1、操作流程概述</h2>
+<img src="assets/b35aaa97668685ff.svg" width="546" height="46" alt="流程图">
+<h2 id="section-10">2、操作流程详情</h2>
+<h3 id="section-11">Step1:【入口】</h3>
+<p>首页--&gt;Plus+工具中心--&gt;依赖统计</p>
+<p><img src="assets/226f598c62384b18.png" width="910" height="354" alt="image.png">​</p>
+<h3 id="section-15">Step2:【提交查询信息】</h3>
+<p>输入查询条件，点击 <strong>提交</strong></p>
+<p><img src="assets/650baa5eed316074.png" width="976" height="394" alt="image.png">​</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>查询条件填写说明：</p>
+<p>查询起点：可为路由场景、场景、规则组、规则、普通因子、累计因子、累计事件、扩展因子、参数、数据接口、决策、决策理由、附加信息等</p>
+<p>起点详情：支持ID搜索</p>
+<p>被引用的/引用的：确定查询方向，向上查询或者向下查询，例如参数A被引用的参数--向上查询参数A被哪些参数引用；参数A引用的参数--向下查询参数A引用了哪些参数</p>
+<p>中间信息：选择是否需要在查询结果中展示中间详情，例如：查询参数被哪些场景引用，中间信息包含因子、规则</p>
+</div>
+</div>
+<h3 id="section-28">Step3:【查询结果及解读】</h3>
+<p>在查询结果中点击 <strong>下载</strong></p>
+<p><img src="assets/152253be963ad39e.png" width="475" height="277" alt="image.png">​</p>
+<p>下载的数据解读：</p>
+<p><img src="assets/1c35e7aa97343458.png" width="1716" height="217" alt="image.png"></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>起点信息、终点信息：包含类型、ID、英文名称和最后修改人，当无英文信息时将展示中文信息</p>
+<p>中间类型：仅展示类型和ID</p>
+<p>依赖路径详情：起点到终点的路径详情，json传格式{类型:英文名称，类型:英文名称，.....,类型:英文名称}</p>
+<p>例如：</p>
+<img src="assets/ea77412759961ed9.svg" width="1446" height="76" alt="流程图">
+<p></p>
+</div>
+</div>
+<p></p>
+</article></main></body></html>

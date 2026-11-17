@@ -1,0 +1,48 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：路由决策使用文档</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">路由决策要解决的问题</a><a href="#section-21">路由决策的价值</a><a href="#section-24">操作举例</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：路由决策使用文档</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/28233963">查看学城原文</a></p><p class="muted">1 张图片未能下载，保留原始图片链接，可在学城原文查看。</p><article>
+<h1>说明：路由决策使用文档</h1>
+<div style="none"></div>
+<h1 id="section-3">路由决策要解决的问题</h1>
+<p>举个例子：在登录时，若发现用户在非可信环境中（即符合人机识别特征），则根据当前环境支持的验证方式返回其中的一种。人机识别特征有10个，验证方式有2个。</p>
+<p>在没有路由决策之前，我们需要配置20条规则：</p>
+<ul>
+<li>规则1：（人机识别特征1）+（支持滑块验证） 对应决策1（滑块验证）</li>
+<li>规则2：（人机识别特征1）+（支持图片验证） 对应决策2（图片验证）</li>
+<li>规则3：（人机识别特征2）+（支持滑块验证） 对应决策1（滑块验证）</li>
+<li>规则4：（人机识别特征2）+（支持图片验证） 对应决策2（图片验证）</li>
+<li>：</li>
+<li>规则19：（人机识别特征10）+（支持滑块验证） 对应决策1（滑块验证）</li>
+<li>规则20：（人机识别特征10）+（支持滑块验证） 对应决策1（滑块验证）</li>
+</ul>
+<p>在有了路由决策之后，我们仅需配置10条规则：</p>
+<ul>
+<li>规则1：（人机识别特征1） 对应决策（路由决策：验证）</li>
+<li>规则2：（人机识别特征2） 对应决策（路由决策：验证）</li>
+<li>：</li>
+<li>规则10：（人机识别特征10） 对应决策（路由决策：验证）</li>
+</ul>
+<img src="https://123.sankuai.com/km/api/file/28233963/28233875" width="373" height="153" alt="流程图">
+<h1 id="section-21">路由决策的价值</h1>
+<p></p>
+<p>将与决策相关的逻辑从规则中拆分出来，提升规则配置的效率。</p>
+<h1 id="section-24">操作举例</h1>
+<ol>
+<li>
+<p>创建路由决策（决策/添加决策）<br></p>
+<p><img src="assets/78640c8b44f41b44.png" width="453" height="250" alt="image2017-11-14 17:13:9.png"></p>
+</li>
+<li>
+<p>创建登录验证场景，对于命中“非可信环境的”规则的用户触发“验证”决策，注意，验证决策为路由决策，没有指明具体返回哪种验证方式<br></p>
+<p><img src="assets/2d84eba9be9e8ae7.png" width="1263" height="150" alt="image2017-11-14 17:15:41.png"></p>
+</li>
+<li>编辑路由决策的路由逻辑<br>如果业务方支持图片验证，优先返回图片验证决策，否则判断业务是否支持短信验证，如果支持则返回短信验证决策，如果配置的规则都不命中则返回路由决策id，由业务方自己判断使用何种决策<br><span style="color:rgb(255, 0, 0)">注意：</span><br></li>
+</ol>
+<ul>
+<li>
+<ul>
+<li><span style="color:rgb(255, 0, 0)">该配置页面中规则、决策和优先级为必填项，且不能有重复。</span></li>
+<li><span style="color:rgb(255, 0, 0)">优先级取1~1000，数字越小优先级越高，zeus根据优先级由高到低依次执行规则，若命中则直接返回对应的决策和理由，并且该规则对应的理由会覆盖场景配置中的理由（后续会判断如果一行场景配置中使用的是路由决策，则不允许配置理由字段）</span></li>
+</ul>
+</li>
+</ul>
+<p><img src="assets/e62c3d6910185f0f.png" width="1274" height="400" alt="image2017-11-14 17:20:27.png"></p>
+</article></main></body></html>

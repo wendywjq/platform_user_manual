@@ -1,0 +1,247 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：因子工具操作手册【功能已停服，请勿使用】</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-8">一、背景</a><a href="#section-13">二、名词说明</a><a href="#section-18">三、操作指南</a><a href="#section-19">3.1使用因子工具提供服务的全流程概述</a><a href="#section-33">3.2 规则组生成因子工具</a><a href="#section-34">Step1:创建因子工具的输出参数</a><a href="#section-61">Step2:创建因子工具、自定义设置输出逻辑</a><a href="#section-137">Step3:设置因子工具的共享业务方和使用业务方</a><a href="#section-163">Step5:因子工具创建完成</a><a href="#section-165">3.3使用因子工具</a><a href="#section-166">Step1:创建因子（使用因子工具生成的因子）</a><a href="#section-204">Step2:因子的应用</a><a href="#section-206">3.4特殊说明</a><a href="#section-261">四、常见QA</a><a href="#section-262">1、若是修改了规则组，因子工具的逻辑是怎么变化的？</a><a href="#section-268">2、为什么规则组的生成因子工具有的显示内容，有的没有显示？</a><a href="#section-272">3、规则组后面操作的“同步配置”是什么意思？</a><a href="#section-276">4、规则组已经删除了因子工具还会存在么？</a><a href="#section-279">5、如何创建规则组？</a><a href="#section-284">6、如何查看因子工具执行数据详情？</a><a href="#section-289">7、为什么我看不到因子工具执行详情数据？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：因子工具操作手册【功能已停服，请勿使用】</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/194006669">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：因子工具操作手册【功能已停服，请勿使用】</h1>
+<div style="none"></div>
+<p></p>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:32px"><strong>⚠️为保障服务稳定，此功能不再开放，请勿使用！</strong></span></span></p>
+<h1 id="section-8">一、背景</h1>
+<p><span style="color: ">北京业务安全中心和其他长期使用Zeus用户，积累了很多风控经验，在风控经验输出和复用上zeus当前流程较为复杂，通过共享实现，但共享后仍存在被他方篡改问题存在安全隐患。由规则组生成因子工具可快速便捷提供集团内其他业务使用，相较于提供规则组直接服务可节省人力和提升安全性。</span></p>
+<p><span style="color: ">实现方式：策略PM可以自主定义规则组并打包成因子工具提供第三方使用，打包的逻辑可以自行配置</span></p>
+<h1 id="section-13">二、名词说明</h1>
+<p>因子工具：<span style="color: ">一类通用工具具备因子属性，可通过配置阈值等条件进行引用，</span><span style="color:rgb(250, 84, 29)">输出为评分</span><span style="color: ">。使用方不可进行修改只能使用，使用前类似与场景接入方式进行引用接入。例如虚拟设备评分就是对虚拟设备识别的因子工具；</span></p>
+<h1 id="section-18">三、操作指南</h1>
+<h2 id="section-19">3.1使用因子工具提供服务的全流程概述</h2>
+<ul>
+<li>基于规则组生成因子工具</li>
+</ul>
+<img src="assets/a7692e517b86472f.svg" width="1151" height="231" alt="流程图">
+<p><strong>Quick Start</strong></p>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/194006669/212145078?contentType=1">因子工具应用示例.mov</a></figcaption></figure>
+<p></p>
+<ul>
+<li><strong>固定逻辑模版的因子工具</strong></li>
+</ul>
+<p>类似于累计因子、决策表因子、K-V因子需业务提需求进行固定逻辑模版的定制化开发</p>
+<h2 id="section-33">3.2 规则组生成因子工具</h2>
+<h4 id="section-34">Step1:创建因子工具的输出参数</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：</span></p>
+<p><span style="font-size:14px">参数列表--&gt;添加参数</span></p>
+</td>
+<td>
+<p><img src="assets/2f49b8350333e9af.png" width="940" height="133" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">添加：</span></p>
+<p><span style="font-size:14px">当前因子工具输出参数仅有数字格式，可选择整型、长整型、浮点型、双精度型、高双精度型</span></p>
+</td>
+<td>
+<p><img src="assets/2320bdb1bfc4dd4d.png" width="656" height="313" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-61">Step2:创建因子工具、自定义设置输出逻辑</h4>
+<div class="note">
+<strong></strong>
+<div>
+<p>目前因子工具的输出，仅仅支持评分的配置，即规则组中的规则命中计分</p>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：</span></p>
+<p><span style="font-size:14px">（1）规则组列表页面--&gt;生成工具；</span></p>
+<p><span style="font-size:14px">（2）规则组列表页面--&gt;某个规则组操作--&gt;生成工具；</span></p>
+<p><span style="font-size:14px">（3）因子工具列表--&gt;添加因子工具</span></p>
+</td>
+<td>
+<p><img src="assets/cf6b5a20e3a4349f.png" width="990" height="191" alt="image.png"></p>
+<p><img src="assets/a9d6aa9d968b8a5e.png" width="768" height="263" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">创建：</span></p>
+<p><span style="font-size:14px">（1）填写中英文名称</span></p>
+<p><span style="font-size:14px">（2）选择基于哪个规则组创建</span></p>
+<p><span style="font-size:14px">（3）配置因子工具必选的入参</span></p>
+<p><span style="font-size:14px">⚠️</span><span style="color:rgb(245, 34, 45)"><span style="font-size:14px">该入参配置不影响规则的执行，仅作为提供给使用方的展示信息，用户告知使用方想要使用该因子工具必须要提供的参数字段保证逻辑的正常执行（类似于数据接口的输入字段）</span></span></p>
+</td>
+<td>
+<p><img src="assets/0de230cefe8977aa.png" width="952" height="600" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">创建：</span></p>
+<p><span style="font-size:14px">（4）添加输出参数，支持添加多个</span></p>
+<p><span style="font-size:14px">⚠️</span><span style="color:rgb(245, 34, 45)"><span style="font-size:14px">输出参数作为因子工具中规则执行逻辑结果的承载对象（类似于数据接口的输出字段）</span></span></p>
+<p><span style="color:rgb(51, 51, 51)"><span style="font-size:14px">（5）设置</span></span><span style="font-size:14px">输出参数的逻辑</span></p>
+<p><span style="font-size:14px">目前支持按照去重规则配置得分，类似于评分卡的逻辑实现（求和命中规则的计分项，优先级仅作为展示信息不参与计分）。</span></p>
+<p><span style="font-size:14px">默认分数为1分，用户可自定义调整</span></p>
+<p><span style="font-size:14px">⚠️</span><span style="color:rgb(245, 34, 45)"><span style="font-size:14px">若在规则组中新增规则，默认为空需要用户手动补充新增规则的分数</span></span></p>
+<p><span style="font-size:14px">(6)使用模版选择</span></p>
+<p><span style="font-size:14px">使用因子工具创建因子的时候，选择的配置模版。默认选择数字即可</span></p>
+</td>
+<td>
+<p><img src="assets/816d667f1bbd424c.png" width="990" height="141" alt="image.png"></p>
+<p><img src="assets/7df5507ff0bd20bd.png" width="659" height="456" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-137">Step3:设置因子工具的共享业务方和使用业务方</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">因子工具属性信息配置：</span></p>
+<p><span style="font-size:14px">（1）工具分类：非ZeusRD请选择业务工具</span></p>
+<p><span style="font-size:14px">（2）服务分类：非名单、非累计类工具，请选择行为</span></p>
+<p><span style="font-size:14px">（3）说明：按业务诉求填写，可为空</span></p>
+<p><span style="font-size:14px">（4）共享业务方：具有该因子工具输出逻辑修改权限的业务方</span></p>
+<p><span style="font-size:14px">（5）使用方：尽可以使用因子工具创建因子，但不可以修改因子工具的配置逻辑，例如输出逻辑、输入参数等；</span></p>
+</td>
+<td>
+<p><img src="assets/e0e0a2caaf8832bd.png" width="532" height="344" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-163">Step5:因子工具创建完成</h4>
+<p>点击“完成”后，即完成因子工具的创建。此时在因子工具列表页面中可看见新增的因子工具；</p>
+<h2 id="section-165">3.3使用因子工具</h2>
+<h4 id="section-166">Step1:创建因子（使用因子工具生成的因子）</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：</span></p>
+<p><span style="font-size:14px">（1）因子创建页面</span></p>
+<p><span style="font-size:14px">（2）因子工具列表页面</span></p>
+</td>
+<td>
+<p><img src="assets/a6e744cb30bdb7e7.png" width="806" height="245" alt="image.png"></p>
+<p><img src="assets/0427df425f90e49b.png" width="801" height="283" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">创建因子</span></p>
+<p><span style="font-size:14px">（1）选择因子工具</span></p>
+<p><span style="font-size:14px">（2）选择要使用哪个因子工具</span></p>
+<p><span style="font-size:14px">（3）基于因子工具的设置逻辑</span></p>
+<p><span style="font-size:14px">⚠️因子内容中目前仅支持因子工具的输出参数各种逻辑配置，暂不支持复合其他参数进行配置。</span></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/2563ce85593ec01b.png" width="558" height="465" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-204">Step2:因子的应用</h4>
+<p>在规则中引用配置的因子，正常配置即可，支持同其他因子复合配置；</p>
+<h2 id="section-206">3.4特殊说明</h2>
+<p>1、因子工具的输出参数目前仅支持数字格式，包含整型、长整型、浮点型、双精度型、高双精度型</p>
+<p>2、因子工具的执行日志说明：</p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">角色</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">角色说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">因子工具的日志</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">使用方</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">使用因子工具输出结果的业务方/通过因子工具创建了因子的业务方</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">只有因子工具输出参数的结果（无生成因子工具的规则组中规则具体执行信息）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">创建方</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">因子工具的创建方，维护因子工具输出参数逻辑</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">因子工具输出参数的结果、生成因子工具的规则组中规则的命中情况、生成因子工具的规则组中规则具体执行信息</span></p>
+</td>
+</tr>
+</table>
+<p>3、因子工具执行不符合预期的验证方式：</p>
+<p><strong>（1）查询某个请求因子工具的执行结果（单个请求）</strong></p>
+<ul>
+<li>
+<p>通过日志查询单条请求不符合预期的情况，查询方式如下：</p>
+<p>查询引用因子工具的规则，查看规则为什么命中</p>
+<p><img src="assets/075e40837d1b8763.png" width="986" height="362" alt="image.png"></p>
+</li>
+<li>
+<p><span style="color:rgb(38, 38, 38)">通过排查探针查询单条请求不符合预期的情况，查询方式；</span></p>
+<p>上图中的放大镜支持点击，可查看命中回放</p>
+<p><img src="assets/cca56a35102374cb.png" width="1109" height="324" alt="image.png"></p>
+</li>
+</ul>
+<p><strong>（2）查询某个因子工具近期请求的执行结果（批量请求）</strong></p>
+<p>在实时日志查询中，通过因子工具ID，查询因子工具在线上（被生效和标记规则引用）的执行情况，若您的日志查询中无该字段，请联系您的业务管理员在日志配置中进行配置</p>
+<p><img src="assets/fef8db50b774f4c3.png" width="974" height="600" alt="image.png"><img src="assets/9d8824108698ae03.png" width="976" height="299" alt="image.png"></p>
+<h1 id="section-261">四、常见QA</h1>
+<h4 id="section-262"><span style="color: ">1、若是修改了规则组，因子工具的逻辑是怎么变化的？</span></h4>
+<p><span style="color: ">--A：修改规则组逻辑不会直接影响因子工具的配置，需要用户手动触发同步配置信息，才会将修改后的逻辑同步至因子工具；</span></p>
+<p><img src="assets/3e23817127c8b0e3.png" width="924" height="264" alt="image.png"></p>
+<h4 id="section-268"><span style="color: ">2、为什么规则组的生成因子工具有的显示内容，有的没有显示？</span></h4>
+<p><span style="color: ">--A：有生成因子工具的规则组才会显示因子工具名称；</span></p>
+<h4 id="section-272"><span style="color: ">3、规则组后面操作的“同步配置”是什么意思？</span></h4>
+<p><span style="color: ">--A：对于生成因子工具的规则组，当规则组中的内容与因子工具内引用的规则组配置信息不同时（用户修改了规则组），就会显示同步配置；默认修改逻辑不会同步至因子工具；</span></p>
+<h4 id="section-276">4、规则组已经删除了因子工具还会存在么？</h4>
+<p>--A：规则组可以正常删除成功，因子工具仍会存在。若需要删除，可在因子工具列表页面删除因子工具。<span style="color:rgb(245, 34, 45)">若需要修改因子工具，因规则组已经删除无法修改；</span></p>
+<h4 id="section-279"><span style="color: ">5、如何创建规则组？</span></h4>
+<p><span style="color: ">--A：</span><a href="../说明：规则组使用文档__59203601/index.html" title="https://km.sankuai.com/page/59203601">说明：规则组使用文档</a></p>
+<h4 id="section-284"><span style="color: ">6、如何查看</span>因子工具执行数据详情<span style="color: ">？</span></h4>
+<p><span style="color: ">--A：见3.4-3中的说明</span></p>
+<h4 id="section-289"><span style="color: ">7、为什么我看不到因子工具执行详情数据？</span></h4>
+<p><span style="color: ">--A：若您是创建/维护因子工具逻辑的用户，在您的创建业务方空间下看不到因子工具执行详情数据，请联系Zeus值班；若您是使用因子工具的应用方（因子工具的逻辑不是您维护的，您只使用结果），那您正常就是看不到因子工具执行详情，仅能在日志-参数列中看到因子工具的执行结果、日志-因子列看到因子工具生成的因子值。</span></p>
+</article></main></body></html>

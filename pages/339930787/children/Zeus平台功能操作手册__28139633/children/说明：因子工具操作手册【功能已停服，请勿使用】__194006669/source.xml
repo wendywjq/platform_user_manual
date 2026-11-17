@@ -1,0 +1,247 @@
+<km-doc>
+<km-title nodeId="6bc920fbdec747bf97aef9f6ed686769">说明：因子工具操作手册【功能已停服，请勿使用】</km-title>
+<km-catalog style="none" nodeId="a8d25cb9f9ea42e789e78d16283aee68" />
+<p nodeId="14b36ae8a8b94616b1e43e289b4652a7" />
+<p nodeId="f0556edcf788440da169c4df8166001d"><span color="rgb(245, 35, 45)"><span font-size="32"><strong>⚠️为保障服务稳定，此功能不再开放，请勿使用！</strong></span></span></p>
+<h1 nodeId="f04fc9f38cc5444ca20cb81ac28bc79a">一、背景</h1>
+<p nodeId="dc423f0879094248a127b65ce489ee71"><span color=" ">北京业务安全中心和其他长期使用Zeus用户，积累了很多风控经验，在风控经验输出和复用上zeus当前流程较为复杂，通过共享实现，但共享后仍存在被他方篡改问题存在安全隐患。由规则组生成因子工具可快速便捷提供集团内其他业务使用，相较于提供规则组直接服务可节省人力和提升安全性。</span></p>
+<p nodeId="e214cdac3e3545dcb9ea9b3597689a40"><span color=" ">实现方式：策略PM可以自主定义规则组并打包成因子工具提供第三方使用，打包的逻辑可以自行配置</span></p>
+<h1 nodeId="381d17b1625a4b91b2b283b07f7c91cb">二、名词说明</h1>
+<p nodeId="515bd2797ba64a0ea56796258fa41c5c">因子工具：<span color=" ">一类通用工具具备因子属性，可通过配置阈值等条件进行引用，</span><span color="rgb(250, 84, 29)">输出为评分</span><span color=" ">。使用方不可进行修改只能使用，使用前类似与场景接入方式进行引用接入。例如虚拟设备评分就是对虚拟设备识别的因子工具；</span></p>
+<h1 nodeId="9b02506a8a184d10996259938d60e3e1">三、操作指南</h1>
+<h2 nodeId="0044ee293add4ca587201a4c86737447">3.1使用因子工具提供服务的全流程概述</h2>
+<ul nodeId="4f3b3ca39fb24213ba617a98d69b487f">
+<li nodeId="708ebf58723741889b81f9deb9521aa6">基于规则组生成因子工具</li>
+</ul>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/194006669/211604740?contentType=0&amp;isNewContent=false" width="1151" height="231" nodeId="76a3769d48a2439983566868f77456d6" />
+<p indent="1" nodeId="13e8499f7c5443e9a67e845dbf8abf9e"><strong>Quick Start</strong></p>
+<km-video src="https://km.sankuai.com/api/file/cdn/194006669/212145078?contentType=1" name="因子工具应用示例.mov" size="33.64MB" width="0" height="0" nodeId="f9528623d45342d69ff69f5cd20c4d9f" />
+<p nodeId="7a2c8920dc3e4a86985570af29281353" />
+<ul nodeId="a2bb1842e5e74d618b008447756470e4">
+<li nodeId="6399ea27ea7b46ba9c01d764fd402b13"><strong>固定逻辑模版的因子工具</strong></li>
+</ul>
+<p nodeId="1e1a927ad5e54838a83684170864d501">类似于累计因子、决策表因子、K-V因子需业务提需求进行固定逻辑模版的定制化开发</p>
+<h2 nodeId="78c0e7bc4b1d4e5680efee347f4ffeb7">3.2 规则组生成因子工具</h2>
+<h4 nodeId="5cddb7521f84470f9fd4396def3185ea">Step1:创建因子工具的输出参数</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="7686946bf901412ebffb6df866c2addf">
+<tr nodeId="9a486139a837426d9b6c8d234dd31320">
+<th colwidth="[275]" nodeId="54bdb0403b544dd1a553a5306987c58f">
+<p nodeId="0e23eae8298d42f7b342215db00134a7"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[969]" nodeId="a6fe705def4f4ff8bbf3357c91979b78">
+<p nodeId="c13eff583fc84fdabc4134b708617b47"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="c8d45e50728141ab8a70671607408768">
+<td colwidth="[275]" nodeId="9a02a48730364f3db8bf1402d76e58cb">
+<p nodeId="0ecfe42c24ad44a89b8428fec6c6c884"><span font-size="14">入口：</span></p>
+<p nodeId="4036034d5b6e4452ae807f172dedaeb0"><span font-size="14">参数列表--&gt;添加参数</span></p>
+</td>
+<td colwidth="[969]" nodeId="833f3989a4b24f8984eceadc96824351">
+<p nodeId="c922688c35674aaca85f2e350f84a7a8"><img src="https://km.sankuai.com/api/file/cdn/194006669/211687673?contentType=1" name="image.png" width="940" height="133" nodeId="13c01f3e2b9a453dbc35174bbc0a28ee" /></p>
+</td>
+</tr>
+<tr nodeId="82d3425fe21c446c9fefae26c0576317">
+<td colwidth="[275]" nodeId="9b3e260f0ad94c458cfee84095ab8dc0">
+<p nodeId="e6c2eedd846f49b7bb7cde80507373fe"><span font-size="14">添加：</span></p>
+<p nodeId="e991fcb3296444e4876180d24a36f0d9"><span font-size="14">当前因子工具输出参数仅有数字格式，可选择整型、长整型、浮点型、双精度型、高双精度型</span></p>
+</td>
+<td colwidth="[969]" nodeId="e1fb54a3f76141499c4f8c8007c2f541">
+<p nodeId="3fff7712e96544e281768ddf63bc6d3f"><img src="https://km.sankuai.com/api/file/cdn/194006669/211819149?contentType=1" name="image.png" width="656" height="313" nodeId="1f9dc5005bef46d39d9b020cc580d770" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="0d187e382b5441279f1faa5b0cea7c61">Step2:创建因子工具、自定义设置输出逻辑</h4>
+<km-note type="info" hiddenTitle="true" nodeId="d625efe25cce4cf5bd49ee9cb5f2c9f6">
+<km-title></km-title>
+<km-content>
+<p nodeId="c1b2aa1c14994ef88e587ce58d9e622c">目前因子工具的输出，仅仅支持评分的配置，即规则组中的规则命中计分</p>
+</km-content>
+</km-note>
+<table borderColor="#cccccc" responsive="false" nodeId="aa71938eb56e4cb6abbd8ebb344ffd88">
+<tr nodeId="3b4ee209682d449d89a3e4a19ae94435">
+<th colwidth="[232]" nodeId="07349c663f054b11b37bdcac1fc56d37">
+<p nodeId="9a5d89c3e8be46d4af56f31433fcb6a0"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[1019]" nodeId="82986f0dbbe745d89f70623526384848">
+<p nodeId="fe44e27eeb8b4afc9b5ece98bbe3287d"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="eff80ba132f34f16a10a2abedc64ae2d">
+<td colwidth="[232]" nodeId="0356b720747f4724bcc5f06734b9e83f">
+<p nodeId="a7e4ae3c6fa04d69ab695f9aa598c30b"><span font-size="14">入口：</span></p>
+<p nodeId="8097178168aa41c9ba0c2ba1d5687ab8"><span font-size="14">（1）规则组列表页面--&gt;生成工具；</span></p>
+<p nodeId="78a2cef691cf4e07a6e2468e7143aebd"><span font-size="14">（2）规则组列表页面--&gt;某个规则组操作--&gt;生成工具；</span></p>
+<p nodeId="549a5dcdc31f478eab37e65a1d93968b"><span font-size="14">（3）因子工具列表--&gt;添加因子工具</span></p>
+</td>
+<td colwidth="[1019]" nodeId="893c079a2ad842fa99ce56c7aebd3145">
+<p nodeId="38c550d23c4a4e09a057e332e0736db7"><img src="https://km.sankuai.com/api/file/cdn/194006669/211892475?contentType=1" name="image.png" width="990" height="191" nodeId="b9014bfb823e4a599ae930b96818b924" /></p>
+<p nodeId="a1a5c6a1b1f742bebcfc44a76766f6b6"><img src="https://km.sankuai.com/api/file/cdn/194006669/212065647?contentType=1" name="image.png" width="768" height="263" nodeId="702d0c70f821431ebde4d4bf77769507" /></p>
+</td>
+</tr>
+<tr nodeId="208d79046f9d49b594f4ca713a38e801">
+<td colwidth="[232]" nodeId="98f64ef05acd4dc0aea3bf22dfdd02eb">
+<p nodeId="f7f0c420b73e4739aa3a60dedfaaa672"><span font-size="14">创建：</span></p>
+<p nodeId="333b8f1e911048f3a29001e21e47ed00"><span font-size="14">（1）填写中英文名称</span></p>
+<p nodeId="0fef186b757c4e5e9c1b85db57bb9b44"><span font-size="14">（2）选择基于哪个规则组创建</span></p>
+<p nodeId="53d1f5f1e12f4bda88365de6c1c29139"><span font-size="14">（3）配置因子工具必选的入参</span></p>
+<p nodeId="56caa9967c66458c86267e367a397f95"><span font-size="14">⚠️</span><span color="rgb(245, 34, 45)"><span font-size="14">该入参配置不影响规则的执行，仅作为提供给使用方的展示信息，用户告知使用方想要使用该因子工具必须要提供的参数字段保证逻辑的正常执行（类似于数据接口的输入字段）</span></span></p>
+</td>
+<td colwidth="[1019]" nodeId="6b407fbdafbc4dfc8211314bb08ac05d">
+<p nodeId="a18f9f6e091a421184af380d043e1d72"><img src="https://km.sankuai.com/api/file/cdn/194006669/212095822?contentType=1" name="image.png" width="952" height="600" nodeId="09d54fb77d5c49518c2e879c46ef6cfc" /></p>
+</td>
+</tr>
+<tr nodeId="6a886c653cfd40e7bc548a7e02dd9176">
+<td colwidth="[232]" nodeId="408ca66f5c0c4a52afadde1ce0a120f0">
+<p nodeId="8a827e8000b84cca8f6c19d0bd32f61d"><span font-size="14">创建：</span></p>
+<p nodeId="94e0c23039a5436e91c043661f8775ea"><span font-size="14">（4）添加输出参数，支持添加多个</span></p>
+<p nodeId="4d0dca42f805460d84e3331dccdb365d"><span font-size="14">⚠️</span><span color="rgb(245, 34, 45)"><span font-size="14">输出参数作为因子工具中规则执行逻辑结果的承载对象（类似于数据接口的输出字段）</span></span></p>
+<p nodeId="5e1773f38fd64d5eb4d37259e25eda5c"><span color="rgb(51, 51, 51)"><span font-size="14">（5）设置</span></span><span font-size="14">输出参数的逻辑</span></p>
+<p nodeId="f4c951a55a0e41d2bd4308fd3dd0e520"><span font-size="14">目前支持按照去重规则配置得分，类似于评分卡的逻辑实现（求和命中规则的计分项，优先级仅作为展示信息不参与计分）。</span></p>
+<p nodeId="83a81cf575a24f1e979cf9dc47dbf605"><span font-size="14">默认分数为1分，用户可自定义调整</span></p>
+<p nodeId="8fe382c57d78422fa7308e8fc5ad5dfa"><span font-size="14">⚠️</span><span color="rgb(245, 34, 45)"><span font-size="14">若在规则组中新增规则，默认为空需要用户手动补充新增规则的分数</span></span></p>
+<p nodeId="3f38c6d2d84d45c6a4cb4605d28a5f09"><span font-size="14">(6)使用模版选择</span></p>
+<p nodeId="dce768bf65a243b88c8d06110c0fb0ed"><span font-size="14">使用因子工具创建因子的时候，选择的配置模版。默认选择数字即可</span></p>
+</td>
+<td colwidth="[1019]" nodeId="59b77fdf1aef49d3bc1933369f2c26a7">
+<p nodeId="1f5d32c4e01342f591d2ca6f92c82e44"><img src="https://km.sankuai.com/api/file/cdn/194006669/211997682?contentType=1&amp;isNewContent=false" name="image.png" width="990" height="141" nodeId="69d6fa1e34be4ce3b8d03af6184cf6ac" /></p>
+<p nodeId="62c37142e3c04300a1feec9502b2bf68"><img src="https://km.sankuai.com/api/file/cdn/194006669/212141948?contentType=1&amp;isNewContent=false" name="image.png" width="659" height="456" nodeId="b31d6041e35c41fcaaaca8b7daa16c38" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="41f82eea74d541b7b51e8308d0458160">Step3:设置因子工具的共享业务方和使用业务方</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="f35f3b600e144327b61cba8e38c3876d">
+<tr nodeId="db6d8cbf28824246b2c7cd743c9d98e0">
+<th colwidth="[230]" nodeId="9854d298cc544d3e8c9c3c427f7fc8bb">
+<p nodeId="418418f626234800a143e610a8b6a253"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[1020]" nodeId="6a2fbcfc650d428ca38d9ed5f4f8a3d2">
+<p nodeId="0cbb37aee5a34bdf9140884838ba4bf3"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="3a16a412b2c548c09179ade03a86049c">
+<td colwidth="[230]" nodeId="b4aecf26aeea4ea2b479a762bb986fcd">
+<p nodeId="6cdb7fef854c4a4493041b8183ba2a54"><span font-size="14">因子工具属性信息配置：</span></p>
+<p nodeId="f88d4ebc37854e8998b7773b7dd65ca8"><span font-size="14">（1）工具分类：非ZeusRD请选择业务工具</span></p>
+<p nodeId="d2abb69173f34f90882d957b4fb49870"><span font-size="14">（2）服务分类：非名单、非累计类工具，请选择行为</span></p>
+<p nodeId="2be6b4ddcd2d40ab82908dc8ddfc38c3"><span font-size="14">（3）说明：按业务诉求填写，可为空</span></p>
+<p nodeId="a9d188ef8e5e4e9393f17dbcc99541b4"><span font-size="14">（4）共享业务方：具有该因子工具输出逻辑修改权限的业务方</span></p>
+<p nodeId="003fac7238b84a1ab35569f94f5d18bb"><span font-size="14">（5）使用方：尽可以使用因子工具创建因子，但不可以修改因子工具的配置逻辑，例如输出逻辑、输入参数等；</span></p>
+</td>
+<td colwidth="[1020]" nodeId="f38b3050792d4ec39108c9d8beef198a">
+<p nodeId="4680911dd97d414884910765e5176c14"><img src="https://km.sankuai.com/api/file/cdn/194006669/212080208?contentType=1&amp;isNewContent=false" name="image.png" width="532" height="344" nodeId="ae1e7e8157cf49f49a06654e68a4a590" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="6b5bf192432740138f034f1336f3fc05">Step5:因子工具创建完成</h4>
+<p nodeId="c4c1965489924529ab747507c8735237">点击“完成”后，即完成因子工具的创建。此时在因子工具列表页面中可看见新增的因子工具；</p>
+<h2 nodeId="5ee6df384309410094985bbc196c0e96">3.3使用因子工具</h2>
+<h4 nodeId="cc3658740779485180ab3c90178568dd">Step1:创建因子（使用因子工具生成的因子）</h4>
+<table responsive="false" nodeId="e7569c00f1b94b73b2cf04248e0b84f6">
+<tr nodeId="d6f47994ed8c41208ce0f80f53a2fa6c">
+<th colwidth="[230]" nodeId="2d1b61af0e5b4c3fbdca1e135815ea92">
+<p nodeId="e53c235c9be04d6a8831e233eafb8246"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[1020]" nodeId="6d91be91e745491b90998fd85cecbede">
+<p nodeId="44200fe463894118ad72dcfe13c649c5"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="6a0dd752411448cfb4ff046a8149da59">
+<td colwidth="[230]" nodeId="867de288c80648d19e427f9510c15f64">
+<p nodeId="59fea767f87d435dbd750d4577a32ed2"><span font-size="14">入口：</span></p>
+<p nodeId="77c0464da32c4a8aa0a843b5a7b9ada5"><span font-size="14">（1）因子创建页面</span></p>
+<p nodeId="bbca5f876edf42f0b420168db6ff4e2b"><span font-size="14">（2）因子工具列表页面</span></p>
+</td>
+<td colwidth="[1020]" nodeId="91cf711d2df1441d8a5de98b11716fb1">
+<p nodeId="04d61b8ac70940328d6964d16aad26cd"><img src="https://km.sankuai.com/api/file/cdn/194006669/212117691?contentType=1&amp;isNewContent=false" name="image.png" width="806" height="245" nodeId="2a9194405e304e2eb5d199453c98769b" /></p>
+<p nodeId="7e4ae9c471e0494d93b65949d663e4a5"><img src="https://km.sankuai.com/api/file/cdn/194006669/212098709?contentType=1&amp;isNewContent=false" name="image.png" width="801" height="283" nodeId="0204a47a4d974ddfbd0f65df225a1ee7" /></p>
+</td>
+</tr>
+<tr nodeId="f2ddf61b830441c1929a30d87c9badde">
+<td colwidth="[230]" nodeId="2e8d43a87136460394bfaf2dfd53c644">
+<p nodeId="c890d71f171542689563dd1c5046c6cb"><span font-size="14">创建因子</span></p>
+<p nodeId="bdfb547b2d8c49ce9b8880802abafd8b"><span font-size="14">（1）选择因子工具</span></p>
+<p nodeId="811eaebe5b534c808c6b7efedf2f2242"><span font-size="14">（2）选择要使用哪个因子工具</span></p>
+<p nodeId="3cd0156d054b44338905574419109457"><span font-size="14">（3）基于因子工具的设置逻辑</span></p>
+<p nodeId="d728c119822949a7917f2ea5bf89aa0d"><span font-size="14">⚠️因子内容中目前仅支持因子工具的输出参数各种逻辑配置，暂不支持复合其他参数进行配置。</span></p>
+<p nodeId="8b1bde9441ce458abd416d6d7631b348" />
+</td>
+<td colwidth="[1020]" nodeId="82f3113154344440aa8171a4554d0491">
+<p nodeId="5f12c04630e444e6b149f925ac0723ba"><img src="https://km.sankuai.com/api/file/cdn/194006669/212107749?contentType=1&amp;isNewContent=false" name="image.png" width="558" height="465" nodeId="81041576356c43baa074901d15fd4131" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="5c8fd72595034825b780d0832ab2f4a1">Step2:因子的应用</h4>
+<p nodeId="484ec08c4f144322b2df376eaaddaead">在规则中引用配置的因子，正常配置即可，支持同其他因子复合配置；</p>
+<h2 nodeId="8e9308034f0349a19948e047634c279d">3.4特殊说明</h2>
+<p nodeId="51af87baa98140279b22a16a12a4f656">1、因子工具的输出参数目前仅支持数字格式，包含整型、长整型、浮点型、双精度型、高双精度型</p>
+<p nodeId="594f885c710340d99171d8f6404cecf6">2、因子工具的执行日志说明：</p>
+<table borderColor="#cccccc" responsive="false" nodeId="cd0a7f5746f74996a38b8dac36f6d590">
+<tr nodeId="03938c3f91344a678361d6bfbcf27eb7">
+<th colwidth="[73]" nodeId="0354ebe5c7a4416f9b9e5c42f4b66c71">
+<p nodeId="5897151608854861a010449ab819f655"><span font-size="14">角色</span></p>
+</th>
+<th colwidth="[453]" nodeId="f5812a9e0fca42d69560e90549089e4d">
+<p nodeId="bd97b05f12e7424db356d929c2ea04bc"><span font-size="14">角色说明</span></p>
+</th>
+<th colwidth="[756]" nodeId="f5b7d9584fdb47f085cec6814b7cb9a4">
+<p nodeId="a6daf85e833144c7931099e66784753a"><span font-size="14">因子工具的日志</span></p>
+</th>
+</tr>
+<tr nodeId="d6ff82f35ad24e658ece5d9dd100ed50">
+<td colwidth="[73]" nodeId="088133d5c33f4254bcc9ab3087c69e11">
+<p nodeId="ef7d7f06b40d47bab01397c70c3ad01f"><span font-size="14">使用方</span></p>
+</td>
+<td colwidth="[453]" nodeId="0cd6613420434f94ab6df9f78078a931">
+<p nodeId="d1e6ac8343bc462ab02664c57853c5b9"><span font-size="14">使用因子工具输出结果的业务方/通过因子工具创建了因子的业务方</span></p>
+</td>
+<td colwidth="[756]" nodeId="6c7954187acd4d62889bb93afbb40479">
+<p nodeId="a2644fe94b2541b796f4c71ca0a9c785"><span font-size="14">只有因子工具输出参数的结果（无生成因子工具的规则组中规则具体执行信息）</span></p>
+</td>
+</tr>
+<tr nodeId="daaf9c6703e142d6850889215001c479">
+<td colwidth="[73]" nodeId="e9b601f2094242949525ffe2732ca70c">
+<p nodeId="bd88afdb22e54297bbd63365574c9a32"><span font-size="14">创建方</span></p>
+</td>
+<td colwidth="[453]" nodeId="832ee77ffa3c4f0cabb5b44c2febc51c">
+<p nodeId="c5612b8df657413d8f417119705b2230"><span font-size="14">因子工具的创建方，维护因子工具输出参数逻辑</span></p>
+</td>
+<td colwidth="[756]" nodeId="c755a627edeb496a95ffe11cc8590a40">
+<p nodeId="091a6195485241dabdd1403558ddd5a9"><span font-size="14">因子工具输出参数的结果、生成因子工具的规则组中规则的命中情况、生成因子工具的规则组中规则具体执行信息</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="3417f6aa162e4e7c85719888d75ed0dd">3、因子工具执行不符合预期的验证方式：</p>
+<p nodeId="889e403e04ca4b9ca1ffacbf1f124aed"><strong>（1）查询某个请求因子工具的执行结果（单个请求）</strong></p>
+<ul nodeId="170e6d01d4394a4dab0c5b9f98c4efeb">
+<li nodeId="b0c06916c3424c44a08238db46870f7c">
+<p nodeId="ac8d4f9a08c542a98a3b739f6e7cf094">通过日志查询单条请求不符合预期的情况，查询方式如下：</p>
+<p nodeId="6ea17e14fe9c41d7bf380cbc3bd2c9b9">查询引用因子工具的规则，查看规则为什么命中</p>
+<p nodeId="b1ba105ec27e465dade1adea7f2b4c50"><img src="https://km.sankuai.com/api/file/cdn/194006669/274464950?contentType=1&amp;isNewContent=false" name="image.png" width="986" height="362" nodeId="eab9b9c292c24ae29ce93cd9b18ed9a4" /></p>
+</li>
+<li nodeId="7e1bb7bea4a342fbad888ca2fe7c8179">
+<p nodeId="a6c21cf133764f5fbff5a4cfd16afeeb"><span color="rgb(38, 38, 38)">通过排查探针查询单条请求不符合预期的情况，查询方式；</span></p>
+<p nodeId="c69e915033574fb197a8b780ebe41354">上图中的放大镜支持点击，可查看命中回放</p>
+<p nodeId="b1363f3c4324400eb9cda46a955aff1d"><img src="https://km.sankuai.com/api/file/cdn/194006669/274471957?contentType=1&amp;isNewContent=false" name="image.png" width="1109" height="324" nodeId="9f5322c7a8aa45d29e43630be0d32ad4" /></p>
+</li>
+</ul>
+<p nodeId="f6bfba441c954d3caf5ca03a86b86f78"><strong>（2）查询某个因子工具近期请求的执行结果（批量请求）</strong></p>
+<p nodeId="54378d90438343f39cf41a11e658ed49">在实时日志查询中，通过因子工具ID，查询因子工具在线上（被生效和标记规则引用）的执行情况，若您的日志查询中无该字段，请联系您的业务管理员在日志配置中进行配置</p>
+<p nodeId="9cefb829318b4421b1a0f3007c6f554f"><img src="https://km.sankuai.com/api/file/cdn/194006669/274400706?contentType=1&amp;isNewContent=false" name="image.png" width="974" height="600" nodeId="9b0bb40ea90446bfbba1eebd030e913a" /><img src="https://km.sankuai.com/api/file/cdn/194006669/280057876?contentType=1&amp;isNewContent=false" name="image.png" width="976" height="299" nodeId="f8400ad0223349ccab01c44c30cc3678" /></p>
+<h1 nodeId="29b7a374f9eb42f391825d66bf5bf655">四、常见QA</h1>
+<h4 nodeId="e66d5ce7063440769697c76e8c34c6fe"><span color=" ">1、若是修改了规则组，因子工具的逻辑是怎么变化的？</span></h4>
+<p nodeId="a85174433e744c17809764603585d1b7"><span color=" ">--A：修改规则组逻辑不会直接影响因子工具的配置，需要用户手动触发同步配置信息，才会将修改后的逻辑同步至因子工具；</span></p>
+<p nodeId="74268f8d3b3446808daa23e6c7d11af7"><img src="https://km.sankuai.com/api/file/cdn/194006669/212143290?contentType=1&amp;isNewContent=false" name="image.png" width="924" height="264" nodeId="e0815b7b91634d5a9a4a4e638c815e52" /></p>
+<h4 nodeId="594f0485925b4524b1b3912fdd1967e8"><span color=" ">2、为什么规则组的生成因子工具有的显示内容，有的没有显示？</span></h4>
+<p nodeId="7159a68be1a84f54a2f870ca251d0dbc"><span color=" ">--A：有生成因子工具的规则组才会显示因子工具名称；</span></p>
+<h4 nodeId="c2aa7f11dac14dfbb5266be55b07ad67"><span color=" ">3、规则组后面操作的“同步配置”是什么意思？</span></h4>
+<p nodeId="40f06e96c45e4b6aab91a82cf4df4d45"><span color=" ">--A：对于生成因子工具的规则组，当规则组中的内容与因子工具内引用的规则组配置信息不同时（用户修改了规则组），就会显示同步配置；默认修改逻辑不会同步至因子工具；</span></p>
+<h4 nodeId="50514e1992eb49a18a2bd2007afd8769">4、规则组已经删除了因子工具还会存在么？</h4>
+<p nodeId="61a13e4d0dd8462b8ca266b0421c67b8">--A：规则组可以正常删除成功，因子工具仍会存在。若需要删除，可在因子工具列表页面删除因子工具。<span color="rgb(245, 34, 45)">若需要修改因子工具，因规则组已经删除无法修改；</span></p>
+<h4 nodeId="e171a5b9dc3c46b284e1fc1086b629f2"><span color=" ">5、如何创建规则组？</span></h4>
+<p nodeId="9aba328967324712b52b8960c842e17e"><span color=" ">--A：</span><a href="https://km.sankuai.com/page/59203601" title="https://km.sankuai.com/page/59203601" autoUpdate="true" nodeId="d2aa10855185406399cf6d692b3d3253">https://km.sankuai.com/page/59203601</a></p>
+<h4 nodeId="1f06acf9a6b345379f96cd17be7ff953"><span color=" ">6、如何查看</span>因子工具执行数据详情<span color=" ">？</span></h4>
+<p nodeId="17ea5391073e497cb9d1fd69b1c94c7a"><span color=" ">--A：见3.4-3中的说明</span></p>
+<h4 nodeId="40513d8243d94021832233974a794b48"><span color=" ">7、为什么我看不到因子工具执行详情数据？</span></h4>
+<p nodeId="e9c0226fca794b3cab4102fa56cffd9f"><span color=" ">--A：若您是创建/维护因子工具逻辑的用户，在您的创建业务方空间下看不到因子工具执行详情数据，请联系Zeus值班；若您是使用因子工具的应用方（因子工具的逻辑不是您维护的，您只使用结果），那您正常就是看不到因子工具执行详情，仅能在日志-参数列中看到因子工具的执行结果、日志-因子列看到因子工具生成的因子值。</span></p>
+</km-doc>

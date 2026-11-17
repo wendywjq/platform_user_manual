@@ -1,0 +1,48 @@
+<km-doc>
+<km-title nodeId="dec66364156047b8a8b12581978acea7">说明：路由决策使用文档</km-title>
+<km-catalog style="none" nodeId="703f3126e7ec4370929c703af95e4839" />
+<h1 nodeId="e7280ab9ec72465ab19a8dde13568c8e">路由决策要解决的问题</h1>
+<p nodeId="af1ceb8111e84d80971b997d501e2395">举个例子：在登录时，若发现用户在非可信环境中（即符合人机识别特征），则根据当前环境支持的验证方式返回其中的一种。人机识别特征有10个，验证方式有2个。</p>
+<p nodeId="5ac76f713ded48c7b95d9b6f4d5fe308">在没有路由决策之前，我们需要配置20条规则：</p>
+<ul nodeId="365095b0eb2944f4aaa5c546227fe28d">
+<li nodeId="f807c0594f8843e3a1c38a2f82e8370e">规则1：（人机识别特征1）+（支持滑块验证） 对应决策1（滑块验证）</li>
+<li nodeId="9c4cc91da15a443794b293a553883a94">规则2：（人机识别特征1）+（支持图片验证） 对应决策2（图片验证）</li>
+<li nodeId="ccc3c4a240dd41149e27fd53e24015da">规则3：（人机识别特征2）+（支持滑块验证） 对应决策1（滑块验证）</li>
+<li nodeId="cff8d64ad9c348e8baf769c29b47c798">规则4：（人机识别特征2）+（支持图片验证） 对应决策2（图片验证）</li>
+<li nodeId="c7ed915bc7464219820cc272d954788d">：</li>
+<li nodeId="11a869da16de41718e8c6de8876887c5">规则19：（人机识别特征10）+（支持滑块验证） 对应决策1（滑块验证）</li>
+<li nodeId="d11de2eee4ac4ad58d8b232d04d2dcaf">规则20：（人机识别特征10）+（支持滑块验证） 对应决策1（滑块验证）</li>
+</ul>
+<p nodeId="9ef951c7243b4c91bd50a6c0a52c2036">在有了路由决策之后，我们仅需配置10条规则：</p>
+<ul nodeId="3ca57c7a6c3b4c67b8a95c8465db7477">
+<li nodeId="92f534813a8541d9ba11ac1bca809ee2">规则1：（人机识别特征1） 对应决策（路由决策：验证）</li>
+<li nodeId="6c7613bd857942ab9b4d7f26cf55aeff">规则2：（人机识别特征2） 对应决策（路由决策：验证）</li>
+<li nodeId="c69ac43ea66240ecaf9a7f247cbb41da">：</li>
+<li nodeId="0d45ecc05bb34940a1c2069975b9cc09">规则10：（人机识别特征10） 对应决策（路由决策：验证）</li>
+</ul>
+<km-drawio src="https://123.sankuai.com/km/api/file/28233963/28233875" width="373" height="153" nodeId="78fe3b008a5b4d7bbfde987f0c51beb9" />
+<h1 nodeId="3da30bfd09884a6e955f2d99396d2290">路由决策的价值</h1>
+<p nodeId="ce0ccefbc92241d482ad7d489b449ed9" />
+<p nodeId="0f221595a1c24951a0f4d92fe2a71f31">将与决策相关的逻辑从规则中拆分出来，提升规则配置的效率。</p>
+<h1 nodeId="3a1e3e9a03bc48469eb7d1a0c091be81">操作举例</h1>
+<ol nodeId="052ffc558de14186933a80ce263ee18a">
+<li nodeId="6fdd3c1dfc36426f9373de8d44b503a0">
+<p nodeId="742b9380c2ae44d8a755e073a8fe9a21">创建路由决策（决策/添加决策）<br /></p>
+<p nodeId="618cc6473c5b4c5694b0678797e2fb24"><img src="https://123.sankuai.com/km/api/file/28233963/28233776" name="image2017-11-14 17:13:9.png" width="453" height="250" nodeId="2fa73ab8198e4196a345d8dfa33b098a" /></p>
+</li>
+<li nodeId="53a25adeaf0647dfb60b9434405c66ed">
+<p nodeId="724712dfa9d446409f53ebcb9246a966">创建登录验证场景，对于命中“非可信环境的”规则的用户触发“验证”决策，注意，验证决策为路由决策，没有指明具体返回哪种验证方式<br /></p>
+<p nodeId="ee7bb32c93e4455691d08a00ed671886"><img src="https://123.sankuai.com/km/api/file/28233963/28233849" name="image2017-11-14 17:15:41.png" width="1263" height="150" nodeId="72031018529d4bcd8960f75b79cdf5a7" /></p>
+</li>
+<li nodeId="0f7232cf9d2744498758d88ed9fdf377">编辑路由决策的路由逻辑<br />如果业务方支持图片验证，优先返回图片验证决策，否则判断业务是否支持短信验证，如果支持则返回短信验证决策，如果配置的规则都不命中则返回路由决策id，由业务方自己判断使用何种决策<br /><span color="rgb(255, 0, 0)">注意：</span><br /></li>
+</ol>
+<ul nodeId="78dd31a1de6b42598583c95ccf60e8b1">
+<li nodeId="9dd4aee66268471da72f685ba22c1feb">
+<ul nodeId="3c5d57f0f6394d7db2611524c6766958">
+<li nodeId="e63265a367994b51a30e78e13051cd6f"><span color="rgb(255, 0, 0)">该配置页面中规则、决策和优先级为必填项，且不能有重复。</span></li>
+<li nodeId="5aaf3ecfc99449c195c84755ea8582b2"><span color="rgb(255, 0, 0)">优先级取1~1000，数字越小优先级越高，zeus根据优先级由高到低依次执行规则，若命中则直接返回对应的决策和理由，并且该规则对应的理由会覆盖场景配置中的理由（后续会判断如果一行场景配置中使用的是路由决策，则不允许配置理由字段）</span></li>
+</ul>
+</li>
+</ul>
+<p nodeId="352a18d0071b4232bd14a4f2e9d915c8"><img src="https://123.sankuai.com/km/api/file/28233963/28233690" name="image2017-11-14 17:20:27.png" width="1274" height="400" nodeId="45b56360fef7435083f1dc3918917782" /></p>
+</km-doc>

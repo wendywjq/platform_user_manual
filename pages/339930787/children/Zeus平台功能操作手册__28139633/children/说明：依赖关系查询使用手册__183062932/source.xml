@@ -1,0 +1,45 @@
+<km-doc>
+<km-title nodeId="ef6b34a83f1c4e5c949a7ff5e00ece9f">说明：依赖关系查询使用手册</km-title>
+<km-catalog style="none" nodeId="ffa100e4596a4436bfbbb136c09a489d" />
+<h2 nodeId="d94ff358299243fcbd9ec59d93e2dbfe">一、背景</h2>
+<p nodeId="9bd4b43f54ed4433bad7b3c9c37e646e">解决：快速查询指定场景、规则、因子、参数的依赖的信息和被引用情况，提升人效。旧流程：查询参数被哪些场景引用，需要参数-因子-规则-场景一层层查询，现只需填写查询条件即可；</p>
+<p nodeId="bbf65042d73e41c492605582370e9314">适用场景-例如：（1）某数据接口要下线，需评估下线影响，并将依赖该接口的规则、因子、参数进行下线；</p>
+<p nodeId="42732710b93e40fb97e3aa51ca514e21">                            （2）业务侧升级某参数字段，需评估升级的影响范围；</p>
+<h2 nodeId="2c178d562d17426f98b48f563ed777d4">二、操作说明</h2>
+<h2 nodeId="18336516f3b64b589bb3ff91b0f22809">1、操作流程概述</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/183062932/185752558?contentType=0&amp;isNewContent=false" width="546" height="46" nodeId="0e45e318878a4f46af50f1df1aa76663" />
+<h2 nodeId="8e93ee7642154897b7bad968296b06bc">2、操作流程详情</h2>
+<h3 nodeId="9f10b92cf95d43d080902ef2b0045293">Step1:【入口】</h3>
+<p nodeId="847f48909ca04ce1b86bd17ff117343a">首页--&gt;Plus+工具中心--&gt;依赖统计</p>
+<p nodeId="8db6c17db0cb450988770e50715a276f"><img src="https://km.sankuai.com/api/file/cdn/183062932/399017350?contentType=1&amp;isNewContent=false" name="image.png" width="910" height="354" nodeId="38160b376426416bb04df764ab35ac4c" />​</p>
+<h3 nodeId="49d7fb0638114fb2a45c087ab204c6ea">Step2:【提交查询信息】</h3>
+<p nodeId="f1ef9d616a754c0583624ef6f22fb5ab">输入查询条件，点击 <strong>提交</strong></p>
+<p nodeId="7426e2d130624aa4978628a139c823d9"><img src="https://km.sankuai.com/api/file/cdn/183062932/399020606?contentType=1&amp;isNewContent=false" name="image.png" width="976" height="394" nodeId="e80d865fbe4841aab213914baeafa776" />​</p>
+<km-note type="info" hiddenTitle="true" nodeId="181aeb78dca54d769c5f3ffbc77dc25f">
+<km-title></km-title>
+<km-content>
+<p nodeId="de06e5364d954869b20132d41b9b6975">查询条件填写说明：</p>
+<p nodeId="aa4902721fda4074af36afc496f49bf3">查询起点：可为路由场景、场景、规则组、规则、普通因子、累计因子、累计事件、扩展因子、参数、数据接口、决策、决策理由、附加信息等</p>
+<p nodeId="5c34188d8f694f7fa1d34aafb02c8617">起点详情：支持ID搜索</p>
+<p nodeId="9ddb03d88a2b4c3d9be4f3a3ad7f4912">被引用的/引用的：确定查询方向，向上查询或者向下查询，例如参数A被引用的参数--向上查询参数A被哪些参数引用；参数A引用的参数--向下查询参数A引用了哪些参数</p>
+<p nodeId="f69f98f97c66449495a596461c2d042b">中间信息：选择是否需要在查询结果中展示中间详情，例如：查询参数被哪些场景引用，中间信息包含因子、规则</p>
+</km-content>
+</km-note>
+<h3 nodeId="64e331ab43fe43e68949f7025fe554ab">Step3:【查询结果及解读】</h3>
+<p nodeId="571c855a71e641d49c4052fd2d64d1e1">在查询结果中点击 <strong>下载</strong></p>
+<p nodeId="191a9947a97340e98fc0a5569fcc0789"><img src="https://km.sankuai.com/api/file/cdn/183062932/399044528?contentType=1&amp;isNewContent=false" name="image.png" width="475" height="277" nodeId="e8554b4f6e16462b896ccb1ea707af4a" />​</p>
+<p nodeId="fcf194ad87af446b8d56cb25a56d7b7f">下载的数据解读：</p>
+<p nodeId="993bdfcab58b45e0a6ba36eea1106c99"><img src="https://km.sankuai.com/api/file/cdn/183062932/185059985?contentType=1&amp;isNewContent=false" name="image.png" width="1716" height="217" nodeId="03d84cdcbf8a41eb843535174dec4072" /></p>
+<km-note type="info" hiddenTitle="true" nodeId="e6f991c3aaa24d638cccf8a4dd5f0bb6">
+<km-title></km-title>
+<km-content>
+<p nodeId="680be05a20c841149522934d799ebbef">起点信息、终点信息：包含类型、ID、英文名称和最后修改人，当无英文信息时将展示中文信息</p>
+<p nodeId="b3cff3781f1e4bc9ae7bd77e5a73664e">中间类型：仅展示类型和ID</p>
+<p nodeId="b9e3113b83d545189a6c49a9a31b7a29">依赖路径详情：起点到终点的路径详情，json传格式{类型:英文名称，类型:英文名称，.....,类型:英文名称}</p>
+<p nodeId="fd5f1db6eaf144038fc49097f68fa972">例如：</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/183062932/185790699?contentType=0&amp;isNewContent=false" width="1446" height="76" nodeId="d133231b0f6149af93383e1ce8ae5085" />
+<p nodeId="1b4703d5e97f4c64a1864aad47451f6e" />
+</km-content>
+</km-note>
+<p nodeId="9e53fb486363484eb937a30086891b8f" />
+</km-doc>

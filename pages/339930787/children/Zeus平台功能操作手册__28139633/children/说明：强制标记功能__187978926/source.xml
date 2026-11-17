@@ -1,0 +1,33 @@
+<km-doc>
+<km-title nodeId="a31af71ae8b743f4a3448ccfee51a048">说明：强制标记功能</km-title>
+<km-catalog style="none" nodeId="d3f3a7591d174993b6960936ca82b9ff" />
+<h1 nodeId="3f908244f0d74f6090abe1ca2a468ec3">一、背景</h1>
+<p nodeId="879182540885410ea16f0e17222ed9d0">规则在场景中配置发生变动存在对线上产生直接影响的情况，因此需灰度一段时间后，再进行生效上线；</p>
+<p nodeId="76878f634f464fd3b21006bb50b8c292">解决：因误操作或灰度时间不足导致生产误伤case</p>
+<h1 nodeId="3e34133382a54366b064b3944c2b5292">二、名词解释</h1>
+<p nodeId="88516aaed3644a669520be997fadd447">标记：规则在场景中的状态，规则逻辑的灰度执行，即：与生效规则类似会实时执行，但决策信息不实时返回给上游业务方，不影响决策；策略PM可在实时日志查询中查看标记规则的命中情况</p>
+<p nodeId="e81bc07c5c914b21a470ba8106ae821b">强制标记：为避免误操作或灰度时间不足导致生产误伤case，因此在原有标记功能上增加计时要求，标记满足30分钟后方可进行规则在场景中“生效”的切换</p>
+<p nodeId="0c2fb9379f1f4edb9bb0d8d2005b053f">规则版本：规则表达式每次修改都会生成一个规则版本号</p>
+<h1 nodeId="1c4a83b31f7a4eefacc1872959efb6e6">三、操作说明</h1>
+<h3 nodeId="637e7157af734102b5ec204b7609d8fd">Step1：规则在场景中添加后，默认为标记状态</h3>
+<p nodeId="46b82625425b46aea3db98a4982e07dc"><img src="https://km.sankuai.com/api/file/cdn/187978926/188065777?contentType=1&amp;isNewContent=false" name="image.png" width="1360" height="139" nodeId="28dfea7023964a639df231baaafff292" /></p>
+<h3 nodeId="75e9224c48dc4d8c8619348ac047ce42">Step2：强制标记满足30分钟后，系统推送完成通知</h3>
+<p nodeId="4b60bb50d2094cc4b40a079d9dc56fbd"><img src="https://km.sankuai.com/api/file/cdn/187978926/188057727?contentType=1&amp;isNewContent=false" name="image.png" width="603" height="172" nodeId="97acf3c411734cadab76875499a40032" /></p>
+<p nodeId="7dab68bc87b7464aaa9b27e1ebb49179">策略PM可验证规则命中情况是否符合预期（在实时日志查询中）</p>
+<h3 nodeId="51fb843642a64a9e9154ffc0f5d8cc84">Step3：符合业务预期即可切换“生效”即可</h3>
+<p nodeId="5b8d10bca7e24338a7b7b99a3a3fe734">若不符合业务预期，可修改规则逻辑，<strong>但修改后仍需强制标记30分钟</strong></p>
+<h1 nodeId="90f3c5beaac24faca1f77daa8437f886">四、FQA</h1>
+<h3 nodeId="84585ae34a9a431cb4bbcdb13d29ad8a">Q1:时间统计错误？强制标记提示时间和规则在场景中最后修改时间有差异</h3>
+<p nodeId="31852486e09d47b39ff013f184edd629"><img src="https://km.sankuai.com/api/file/cdn/187978926/188058758?contentType=1&amp;isNewContent=false" name="image.png" width="521" height="318" nodeId="31876442bbbb45fc9b1f8f421c8f6245" /></p>
+<p nodeId="cea1e1e7089a4c2095aa04611615ba03">A：如上样例：规则在场景中最初标记时间20190813 14:05 ，用户预操作规则生效时间 20190815 21:06 ，但用户在20190815 21:03 修改过该规则，因此用户需要等待28分后方可切换生效</p>
+<p nodeId="c4c8b094d57f488c9b23d94352274e65">即：若已经在场景中配置，但后续修改过规则，仍会重新计时。计时标准：规则-规则版本-场景</p>
+<h3 nodeId="b50ee1b7e3784022a90e35e831b18370">Q2:强制标记的逻辑具体是什么？</h3>
+<p nodeId="72d6fb9f49bb48a3810f4cda82745383">A：场景-规则-规则版本</p>
+<h3 nodeId="3c47f2c58c5848989b07696a1e4556d3">Q3:怎么只有我的业务方有强制标记功能？</h3>
+<p nodeId="cf9398ebd56547a3b2787976f5ed57f1">A：强制标记功能是可按照业务方进行配置的，通常是业务负责人同Zeus沟通开通此功能；</p>
+<h3 nodeId="35680c60a4994da3a4b53b9402d7d618">Q4:已经有标记功能了为什么还有强制标记？</h3>
+<p nodeId="1a37500124d14e6eb3e8846e4941da66">A：通过历史发生case观察，存在PM标记较短时间就生效，未观察一段时间看更多数据情况，因此拍定30分钟作为约束；</p>
+<h3 nodeId="5f167ce1d1994fef8ac975dda9a7ec91">Q5:有强制更新的业务组，若需要将规则紧急生效怎么办？</h3>
+<p nodeId="1c8499b0d1b24d798f555bcdc446c527">A：可申请紧急生效流程，经业务负责人大象审批后即可生效；</p>
+<p nodeId="8d3ae41d843540d79b313a704f553a1b"><img src="https://km.sankuai.com/api/file/cdn/187978926/188069443?contentType=1" name="image.png" width="641" height="214" nodeId="4d7bc4fc0045465682ba4c8c70055cb3" /><img src="https://km.sankuai.com/api/file/cdn/187978926/188046677?contentType=1" name="image.png" width="336" height="217" nodeId="fd1baa8e9f684f248edb4d1c8084611d" /></p>
+</km-doc>

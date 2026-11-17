@@ -1,0 +1,30 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：外部数据应用到实时策略</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、操作流程</a><a href="#section-9">Step1: 数据服务注册</a><a href="#section-16">Step2: 数据接口注册</a><a href="#section-106">Step3: Zeus配置参数-数据接口映射关系</a><a href="#section-112"></a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：外部数据应用到实时策略</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/182702174">查看学城原文</a></p><article>
+<h1>说明：外部数据应用到实时策略</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>解决：需要使用第三方数据应用到实时策略中，可通过数据接口的方式在Zeus上应用；</p>
+<h1 id="section-5">二、操作流程</h1>
+<p><a href="https://km.sankuai.com/page/28253533" title="https://km.sankuai.com/page/28253533">说明：业务数据对接指南</a>（方法论说明，适合研发阅读）</p>
+<img src="assets/b0b011a1f95e227e.svg" width="593" height="146" alt="流程图">
+<h3 id="section-9">Step1: 数据服务注册</h3>
+<p>Zeus线上网址：<a href="https://zeus.sankuai.com/fetcher_app/add" title="https://zeus.sankuai.com/fetcher_app/add">https://zeus.sankuai.com/fetcher_app/add</a>，相关注册信息自定义</p>
+<p>（推荐使用新版页面：<a href="https://zeus.sankuai.com/data_zeus_static/#/fetcherApp" title="https://zeus.sankuai.com/data_zeus_static/#/fetcherApp">https://zeus.sankuai.com/data_zeus_static/#/fetcherApp</a>）</p>
+<p><img src="assets/85ffd5fa0280fea9.png" width="886" height="341" alt="image.jpeg"></p>
+<h3 id="section-16">Step2: 数据接口注册</h3>
+<p>Zeus线上网址：<a href="https://zeus.sankuai.com/fetcher/add" title="https://zeus.sankuai.com/fetcher/add">https://zeus.sankuai.com/fetcher/add</a>，相关注册信息自定义，测试通过即可，例如：</p>
+<p>（推荐使用新版页面：<a href="https://zeus.sankuai.com/data_zeus_static/#/fetcher" title="https://zeus.sankuai.com/data_zeus_static/#/fetcher">https://zeus.sankuai.com/data_zeus_static/#/fetcher</a>）</p>
+<p><img src="assets/c378b119e3d62672.png" width="945" height="454" alt="原文图片"></p>
+<p><img src="assets/7998bb5ee98b2dee.png" width="941" height="448" alt="原文图片"></p>
+<details>
+<summary>Zeus测试返回信息含义</summary>
+<div>
+<p><span style="color:rgb(152, 118, 170)"><em>SUCCESS</em></span><span style="color:rgb(169, 183, 198)">(</span><span style="color:rgb(104, 151, 187)">0</span><span style="color:rgb(204, 120, 50)">, </span><span style="color:rgb(106, 135, 89)">"success"</span><span style="color:rgb(169, 183, 198)">)</span><span style="color:rgb(204, 120, 50)">,</span><br><span style="color:rgb(152, 118, 170)"><em>METHOD_NOT_EXIST</em></span><span style="color:rgb(169, 183, 198)">(</span><span style="color:rgb(104, 151, 187)">1</span><span style="color:rgb(204, 120, 50)">, </span><span style="color:rgb(106, 135, 89)">"no such method"</span><span style="color:rgb(169, 183, 198)">)</span><span style="color:rgb(204, 120, 50)">,</span><br><span style="color:rgb(152, 118, 170)"><em>METHOD_NOT_ONLINE</em></span><span style="color:rgb(169, 183, 198)">(</span><span style="color:rgb(104, 151, 187)">2</span><span style="color:rgb(204, 120, 50)">, </span><span style="color:rgb(106, 135, 89)">"method not online"</span><span style="color:rgb(169, 183, 198)">)</span><span style="color:rgb(204, 120, 50)">,</span><br><span style="color:rgb(152, 118, 170)"><em>DATA_ACTION_ERROR</em></span><span style="color:rgb(169, 183, 198)">(</span><span style="color:rgb(104, 151, 187)">3</span><span style="color:rgb(204, 120, 50)">, </span><span style="color:rgb(106, 135, 89)">"fetch data error"</span><span style="color:rgb(169, 183, 198)">)</span><span style="color:rgb(204, 120, 50)">,</span><br><span style="color:rgb(152, 118, 170)"><em>DATA_EMPTY</em></span><span style="color:rgb(169, 183, 198)">(</span><span style="color:rgb(104, 151, 187)">4</span><span style="color:rgb(204, 120, 50)">, </span><span style="color:rgb(106, 135, 89)">"data empty"</span><span style="color:rgb(169, 183, 198)">)</span><span style="color:rgb(204, 120, 50)">,</span><br><span style="color:rgb(152, 118, 170)"><em>METHOD_CONFIG_ERROR</em></span><span style="color:rgb(169, 183, 198)">(</span><span style="color:rgb(104, 151, 187)">5</span><span style="color:rgb(204, 120, 50)">, </span><span style="color:rgb(106, 135, 89)">"method config error"</span><span style="color:rgb(169, 183, 198)">)</span><span style="color:rgb(204, 120, 50)">,</span><br><span style="color:rgb(152, 118, 170)"><em>DATA_ACTION_CONFIG_ERROR</em></span><span style="color:rgb(169, 183, 198)">(</span><span style="color:rgb(104, 151, 187)">6</span><span style="color:rgb(204, 120, 50)">, </span><span style="color:rgb(106, 135, 89)">"data action config error"</span><span style="color:rgb(169, 183, 198)">)</span><span style="color:rgb(204, 120, 50)">,</span><br><span style="color:rgb(152, 118, 170)"><em>UNKNOWN_ERROR</em></span><span style="color:rgb(169, 183, 198)">(-</span><span style="color:rgb(104, 151, 187)">1</span><span style="color:rgb(204, 120, 50)">, </span><span style="color:rgb(106, 135, 89)">"unknown error"</span><span style="color:rgb(169, 183, 198)">)</span><span style="color:rgb(204, 120, 50)">;</span><br><span style="color:rgb(245, 34, 45)"><strong>Zeus测试返回“no such method”，尝试重新配置下MCC，稍等再重试</strong></span></p>
+<p><span style="color:rgb(245, 34, 45)"><strong>其他错误一般为配置错误，检查配置即可</strong></span></p>
+</div>
+</details>
+<h3 id="section-106">Step3: Zeus配置参数-数据接口映射关系</h3>
+<p>Zeus线上网址：<a href="https://zeus.sankuai.com/param/add_fetcher_dependent" title="https://zeus.sankuai.com/param/add_fetcher_dependent">https://zeus.sankuai.com/param/add_fetcher_dependent</a>，相关信息自定义，例如</p>
+<p><img src="assets/07331b03f877f3c5.png" width="1300" height="149" alt="image.png"></p>
+<p></p>
+<h3 id="section-112"></h3>
+</article></main></body></html>

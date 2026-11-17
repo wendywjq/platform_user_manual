@@ -1,0 +1,209 @@
+<km-doc>
+<km-title nodeId="dfa3b5f549cb462993d519b58fc762ab">说明：累计因子线上回溯（已下线-升级中）</km-title>
+<km-catalog style="none" nodeId="3d182c6c151f4d848649813906c5351d" />
+<h1 nodeId="d07d5d7bdd0745a0b27f534ae209b0cd">一、解决问题</h1>
+<p nodeId="cfeb1afdc64b4d2488ae116e457afbe4">解决<span color=" ">新增的累计因子必须过了相应的累计时间才能上线生效，</span>无法根据历史日志数据进行回溯并将回溯结果应用在线上，导致即使特征构建完成但因<span color=" ">时效滞后，容易导致风险漏过。</span></p>
+<p nodeId="c6c1d8c5266448b992f9177301533290"><span color=" ">例如：20190403配置了同poi近7天支付订单数的累计，由于没有回溯功能，该因子只能等到20190410才有近7天的累计值</span></p>
+<h1 nodeId="0646bff719b8456e900a03cdc06a52b1">二、操作说明</h1>
+<ol nodeId="82e9520382bc410cb5aa660cd2fc9779">
+<li nodeId="b0db0abca09145b595d4de8d3180151e">
+<h2 nodeId="a35b3e3a5270479ea2013b09f65e412f">用户操作流程概述</h2>
+<h2 nodeId="17cc7ef48cc44af9b347ea3626e21d40"><km-drawio src="https://km.sankuai.com/api/file/cdn/248390725/445605722?contentType=0&amp;isNewContent=false" width="1164" height="126" nodeId="ba2dcac6ffdd4e5eafa93115f6952359" /></h2>
+</li>
+<li nodeId="28688e8f545043d5860e5ccad68bd662">
+<h2 nodeId="813b61ce68634772940bbebc6e8b70d0">操作流程详情</h2>
+</li>
+</ol>
+<h3 nodeId="7845001a24354adf942ba6979c4701a6">Step1:创建累计因子</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="55477f09eb3e453ca41e517446c3f052">
+<tr nodeId="658e442fb02946b4a7a9760c7800abfb">
+<th colwidth="[374]" nodeId="aa75f4d5d6a740f097d2a7f0b02a5b83">
+<p nodeId="addd6d7a6d3e4bdb9e427beee4b1f7ce"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[868]" nodeId="50b8346ba1d24dafaa9c15e2d156f983">
+<p nodeId="8747b24b24b24d848cb2d19ee894ff8f"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="7107900210254f0a8dd1d1fdae76c8ae">
+<td colwidth="[374]" nodeId="8366a892b7da4b238491aaa7b78bbf1d">
+<p nodeId="70dc0f5a9e18454987d132f7d11ae59c"><span font-size="14">【入口】</span></p>
+<p nodeId="408dad5ddc2444d5aaf5f1aba42b6930"><span font-size="14">因子--&gt; 选择工具（累计因子）</span></p>
+<p nodeId="84f6a72e72fe4643833931a6d60ad649" />
+</td>
+<td colwidth="[868]" nodeId="ee7c5e4638774045a3828174dd1d5c04">
+<p nodeId="46cc76b4eec548aea3428974b9bacbe6"><img src="https://km.sankuai.com/api/file/cdn/248390725/460341296?contentType=1&amp;isNewContent=false" name="image.png" width="840" height="437" nodeId="0a23abe417ce401fba58975df71f836f" /></p>
+</td>
+</tr>
+<tr nodeId="c6005d1edf824671a20dde8ce0d1d3fc">
+<td colwidth="[374]" nodeId="0e9ae97a51a246829675a8b216033d62">
+<p nodeId="4cbd64b527274d79bd629e374250429f"><span font-size="14">【创建累计因子】</span></p>
+<p nodeId="02fe1eb5a1db4b50ab89797de25fe914"><span font-size="14">同当前创建累计因子相同，创建完成回到因子列表页可以看到刚刚创建的累计因子状态为“未测试”</span></p>
+</td>
+<td colwidth="[868]" nodeId="659034ed19704bdabe2e5b4f53742ba2">
+<p nodeId="3719b4a7186c4506a5f04e4881e6fc62"><img src="https://km.sankuai.com/api/file/cdn/248390725/445762758?contentType=1&amp;isNewContent=false" name="image.png" width="840" height="355" nodeId="94d033ff6ef44fdfa6239c21556b436e" /></p>
+<p nodeId="377d4217e9b3410993e759daec86adfe"><img src="https://km.sankuai.com/api/file/cdn/248390725/445763202?contentType=1&amp;isNewContent=false" name="image.png" width="840" height="165" nodeId="5fa0330f4d474734a8741be02892663b" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="fb1510b942984d9bb8dcc51dabb06b6d">Step2:设置回溯</h3>
+<table responsive="false" nodeId="71ca75a7c89944869107e01cba58a109">
+<tr nodeId="64c9433fcd834a74b60aa1637973c4f4">
+<th colwidth="[374]" nodeId="0d80906916af48b487572c5b11bf2cd9">
+<p nodeId="5d5fd8447e3a4548b2505f5aed7b279d"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[964]" nodeId="2f8bb9d6cc64418ea0bf983772b9e4b7">
+<p nodeId="ddb4f1c093ca4bcbb057cac38ebf9e2c"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="9c67b6777fb74454858ecee334de5640">
+<td colwidth="[374]" nodeId="ac6f66fa9e0c4866bb1611e7a4389a14">
+<p nodeId="340c6b843abc4813a38cb3c4e194687a"><span font-size="14">【入口】</span></p>
+<p nodeId="cc6821b864b8423381e6ea6968797f6a"><span font-size="14">点击进入状态为“未测试”的累计因子详情中--&gt;添加有通过的测试用例后--&gt;点击 开始回溯</span></p>
+<p nodeId="3dddb25b19fd4774bda09a6583abe73e"><span font-size="14">⚠️</span></p>
+<p nodeId="65607c7b001541b789bee05931bda9f6"><span font-size="14">1.累计因子是未测试的状态（实际上已经测试成功了，此状态方可进行回溯）</span></p>
+<p nodeId="de4ea789b00c497d893056dfab879b3f"><span font-size="14">2.累计因子在回溯任务完成前是无法在规则中使用的</span></p>
+<p nodeId="f4956a4e93854bdd81ee61bd62167919"><span font-size="14">【大象提示】</span></p>
+<p nodeId="d1bbf84276e245c1bc214eb6a52a5a69"><span font-size="14">回溯任务完成后，会收到大象的回溯任务完成信息，详情如下：</span></p>
+<p nodeId="a5f447ceaed84fdea4f6f1e9b8ab96fb"><img src="https://km.sankuai.com/api/file/cdn/248390725/460185524?contentType=1&amp;isNewContent=false" name="image.png" width="346" height="64" nodeId="d21f1887111a4898ad528e70f849c07c" /></p>
+</td>
+<td colwidth="[964]" nodeId="8dd36fd273e64736a7434135923e817a">
+<p nodeId="4c9373602d8c40ed8f691e88efdf8f80"><img src="https://km.sankuai.com/api/file/cdn/248390725/460335161?contentType=1&amp;isNewContent=false" name="image.png" width="936" height="202" nodeId="29cf9e5c96434b6b980a43f67b2459bf" /></p>
+<p nodeId="df06e13adba145849a3e42ba78334c02"><img src="https://km.sankuai.com/api/file/cdn/248390725/460335155?contentType=1&amp;isNewContent=false" name="image.png" width="936" height="494" nodeId="508dcaabb46d4197af5d8d7fae36ae46" /></p>
+<p nodeId="b1ecdb698d2849febf532dd03d99ad25"><img src="https://km.sankuai.com/api/file/cdn/248390725/248297914?contentType=1" name="image.png" width="395" height="126" nodeId="ce7c1fa8051149d193589b232b1936cf" /><img src="https://km.sankuai.com/api/file/cdn/248390725/248425926?contentType=1&amp;isNewContent=false" name="image.png" width="483" height="124" nodeId="513686af388149f1a38122ba979100e2" /></p>
+</td>
+</tr>
+<tr nodeId="d64ed03c95c7431d8bfe3371ba60cb3e">
+<td colwidth="[374]" nodeId="4bd96d0a864c477f95b58c46840c0170">
+<p nodeId="5429fe471e834fb285148e8ed7d00374"><span font-size="14">【查看回溯任务详情】</span></p>
+<p nodeId="338b1d58bbb64c04a9ad9f1a52d30189"><span font-size="14">点击进入 规则回溯 页面，可以在回溯任务列表中查看到刚刚创建的累计因子回溯任务</span></p>
+<p nodeId="49f90dabc50146daa3f4545a7b289a79"><span font-size="14">点击进入回溯任务详情中后可以查看回溯任务详情以及回溯结果（发送累计请求量、满足写入条件命中量）</span></p>
+<p nodeId="d3670cd56905430bb898a771cf253b53" />
+<p nodeId="9e7036542acd4cceaeb546a69476ffd0" />
+</td>
+<td colwidth="[964]" nodeId="34a76ef34d4e454881d1be80934920fa">
+<p nodeId="1fa91e8a73044cd9b7f754de7f5de53d"><img src="https://km.sankuai.com/api/file/cdn/248390725/460370099?contentType=1&amp;isNewContent=false" name="image.png" width="823" height="373" nodeId="1d3e0271b1a54acdac9f7495ec16998e" /></p>
+<p nodeId="b7ead42dcbc749f986ae7c5688a1b85a" />
+<p nodeId="96f735e3269640d09dd5734e9f10c453"><img src="https://km.sankuai.com/api/file/cdn/248390725/460185570?contentType=1&amp;isNewContent=false" name="image.png" width="816" height="386" nodeId="2f857275078b4d46978e6d8edc63dc91" /></p>
+</td>
+</tr>
+<tr nodeId="9412ce73de044c2dba2506e2c4b6286f">
+<td colwidth="[374]" nodeId="8926898102bd41a6b1c68ee9e7bda452">
+<p nodeId="fbbc896dd6d74b3cb13c3c49b18c1966"><span font-size="14">【终止回溯】</span></p>
+<p nodeId="e9d12f3d457d4866adef44f96b9797dd"><span font-size="14">累计因子在回溯过程中，若时间过长或用户需要终止回溯：</span></p>
+<p nodeId="4568e48078ac4fa28ab7403d31ac73f6"><span font-size="14">1.可以在累计因子详情页点击“停止回溯”，填写 终止回溯原因 提交后即可终止回溯任务</span></p>
+<p nodeId="0003ae8b03344249995c1a652583f639"><span font-size="14">2.或者在规则回溯页面找到回溯任务，点击任务列表中的 终止 按钮，点击弹框中的确认终止按钮后也可终止回溯任务</span></p>
+<p nodeId="88eb23b70e554e7980d9fc799b8c4129" />
+<p nodeId="3c9e4cc8a8cd494d980b46d0626917be"><span font-size="14">⚠️</span><span color=" "><span font-size="14"><strong>回溯任务未完成前进行终止，任务终止后已经回溯的数据将不会保留</strong></span></span></p>
+<p nodeId="313e40707a0441caa07a60c2402f10e5"><span color=" "><span font-size="14">终止后，再次启动回溯不会引入脏数据</span></span></p>
+</td>
+<td colwidth="[964]" nodeId="bd44747601ce47d59be6cfacc0a6a2f8">
+<p nodeId="1ba16ae0e1724d4fb0cbeeb246c13c56"><img src="https://km.sankuai.com/api/file/cdn/248390725/460139849?contentType=1&amp;isNewContent=false" name="image.png" width="890" height="448" nodeId="4d7387db8ddc40619de6f512ae484d29" /></p>
+<p nodeId="2f1ce0d5b7e14f3cad2978dbe11547b2" />
+<p nodeId="2ca2d6242aaa48de823a4d432d06715b"><img src="https://km.sankuai.com/api/file/cdn/248390725/460336942?contentType=1&amp;isNewContent=false" name="image.png" width="936" height="572" nodeId="da4a4b66a73b41e09eab4d2cee775f42" /></p>
+<p nodeId="24e04a5df6fe46c094f31790b40ec086" />
+<p nodeId="320ddc0523b84ce8977b994c2437e9c2"><img src="https://km.sankuai.com/api/file/cdn/248390725/460283347?contentType=1&amp;isNewContent=false" name="image.png" width="906" height="219" nodeId="70829ac53d8a4b94aa550eb85ab03574" /></p>
+<p nodeId="a095e723522e4e4d8ac429dcc2895ced" />
+<p nodeId="13e34f2bc1b54219bbe15ea2af79b6a6"><img src="https://km.sankuai.com/api/file/cdn/248390725/460336972?contentType=1&amp;isNewContent=false" name="image.png" width="442" height="185" nodeId="4b633ee514a34694862c1f985df0a415" /></p>
+<p nodeId="d9d8c69ab0bf46b580dc3b1a2e751497" />
+<p nodeId="7364f59c465649408bf6250c51fcc098"><img src="https://km.sankuai.com/api/file/cdn/248390725/460375334?contentType=1&amp;isNewContent=false" name="image.png" width="776" height="193" nodeId="92eb21fa8ed8474992170482c5fc0431" /></p>
+</td>
+</tr>
+<tr nodeId="9cc65aabc3334bd4ba441605cf5bbe40">
+<td colwidth="[374]" nodeId="3862cb0765ee4070b27a4e5fd62f2417">
+<p nodeId="30a96414d32f44879a77563b9aaac627"><span font-size="14">【设置上线】</span></p>
+<p nodeId="1d7b4d0105ae4b008a671755e3dec9ef"><span font-size="14">回溯完成后，查看回溯结果没有问题后，点进去刚刚创建的累计因子详情页，点击 设置上线</span></p>
+<p nodeId="2a1028f4a91f43569a0ef8739bbe5502"><span font-size="14">回到累计因子列表页，刚刚创建的累计因子状态变为  就绪 状态，此时才可在规则中引用</span></p>
+</td>
+<td colwidth="[964]" nodeId="efa1e617fcfa442ab373a8ec9c257d6e">
+<p nodeId="905b074ce60340a2910291be76deaebd"><img src="https://km.sankuai.com/api/file/cdn/248390725/460336908?contentType=1" name="image.png" width="805" height="433" nodeId="7760c65f40104109988c795cd9a0b676" /></p>
+<p nodeId="1003290e4add431ba68f00522423c73a" />
+<p nodeId="9cb91d7e46bb4f5888fd92bd070fc86a"><img src="https://km.sankuai.com/api/file/cdn/248390725/460283299?contentType=1" name="image.png" width="814" height="179" nodeId="d8341619c74b4f44abe9391d2c06c6e9" /></p>
+</td>
+</tr>
+<tr nodeId="f40ae58c252c417ea9e733dce9de2b3a">
+<td colwidth="[374]" nodeId="8de141f692a943cba5931b3722fd881d">
+<p nodeId="2b1e1e084a204a489d553f391d179db3" />
+</td>
+<td colwidth="[964]" nodeId="8a9658e4d6b74cd195626db5625d2051">
+<p nodeId="8d2e2535bb9d42348a132359b52fab87" />
+</td>
+</tr>
+</table>
+<h3 nodeId="15e688ccdd8c41e4b021f7ab9e38a49f">Step3:回溯完成后创建规则标记在场景中</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="0454f4b68fe14a688b6870ab182677bb">
+<tr nodeId="379491c722f74cc2961f6ea5e9db6abf">
+<th colwidth="[377]" nodeId="f0475dae8a984008bb3f3467a75f7ee9">
+<p nodeId="1eb96909d8494f6d984482d1c07690e1"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[959]" nodeId="79efd3c36b57438d9a909fc0e19f1970">
+<p nodeId="3075621225f74e14bccd8397a7d0594e"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="9b8bde0fbaea4d418729cadb752c3bf6">
+<td colwidth="[377]" nodeId="21d32d258e44433a8d166999f050c589">
+<p nodeId="1b6aff0813ad4e0e83c80a3ff9cf1a32"><span font-size="14">【设置上线】</span></p>
+<ol nodeId="1d9e607607cd4075a6d0c06e75262ed9">
+<li nodeId="b5b73cb42e804712b71805ab59e656ed"><span font-size="14">回溯任务完成后，需要将累计因子”设置上线“后，方可在规则中引用</span></li>
+</ol>
+<p nodeId="c4f02847f9a848e891047f3d168b1aa9" />
+<p nodeId="97e0b6bd84d84ff1a2f9786c24ebf33b"><span font-size="14">【创建规则】</span></p>
+<p nodeId="ae8eafe9b10740ca9877181eac6dc8a3"><span font-size="14">正常创建规则即可</span></p>
+<p nodeId="30cad70f7c8f4ab9ab4909010e24b3e2"><span font-size="14">【规则在场景中标记】</span></p>
+<p nodeId="4daae7ad15ff4e9d9747c21e979509df"><span font-size="14">正常创建场景配置即可（规则添加到场景中）</span></p>
+</td>
+<td colwidth="[959]" nodeId="32705df25fa546dcb0b019c47b597b92">
+<p nodeId="5ee19e382e7c4864b2047df015d5f1b0"><img src="https://km.sankuai.com/api/file/cdn/248390725/460336908?contentType=1" name="image.png" width="496" height="267" nodeId="a6ec7321be5d48a7b1f6ef4172a53568" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="9bdd705decb84a689adf3d17ce7510f9">Step4:回溯结果验证</h3>
+<table responsive="false" nodeId="de5350cdc78f457589c1fb81a2e77746">
+<tr nodeId="81ac8de191de46a3adaec13b320886f1">
+<th colwidth="[377]" nodeId="ccd270daa7284088b94c584227e45778">
+<p nodeId="98dc969ff5b5411e97a63f22cdce7454"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[959]" nodeId="2425f6b560f7463dbe7f12b411b68ad4">
+<p nodeId="e7684c243fdd4a5ab4c8d8cba3441fb8"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="1a0d7c5368e74dc1b1e5b7c5c0a0b841">
+<td colwidth="[377]" nodeId="5dc53d44b7554dce819d5a2e66be3c1e">
+<p nodeId="7216e044ccb6450981e48aac68b262a5"><span font-size="14">【实时日志查询】</span></p>
+<p nodeId="da0e3f096c4745ae908183bce1fb1227"><span font-size="14">同正常因子、规则命中情况验证一致</span></p>
+<p nodeId="a0094d0b807a48de9b167b4370ab2b58" />
+</td>
+<td colwidth="[959]" nodeId="5e0d0f9d893a4ae9b1d205a23a8a34c1">
+<p nodeId="a89b6eb393674ead8c96b1f083f03ec0"><img src="https://km.sankuai.com/api/file/cdn/248390725/248490347?contentType=1&amp;isNewContent=false" name="image.png" width="930" height="219" nodeId="d5ddabd7bbe44c389893a0754c4e9783" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="6391e04f6f0c4eaba1a84bec09df70f4" />
+<km-note type="note" hiddenTitle="true" nodeId="15822702d36b490c8d380927f65fb0b9">
+<km-title></km-title>
+<km-content>
+<p nodeId="f0e7b8fb938740b79e85387d6e782bb0" />
+<ul nodeId="0ca6e01a6a4349da834d701335c2bbcb">
+<li nodeId="da3a0080d9bb4dff9cc19b29ba8a4679"><span color="rgb(245, 35, 45)"><strong>累计回溯可支持的最长回溯时间周期：近15天</strong></span>，超过15天的累计周期无法进行历史回溯（同线上实时日志查询相同）</li>
+<li nodeId="b175cdb0119245afb125003cd62a5031">累计回溯的信息，可通过读累计和写累计详情查看，具体👉<a href="https://km.sankuai.com/page/233320099" title="https://km.sankuai.com/page/233320099" autoUpdate="true" nodeId="d42515bb234b4f2b8776d0be4bfba83a">https://km.sankuai.com/page/233320099</a></li>
+</ul>
+</km-content>
+</km-note>
+<h1 nodeId="c0ce2aaa59c04149971db97c6a29f38d">三、FAQ</h1>
+<h4 nodeId="9199336d117242c39ef5d0f8a6154731">Q1 : 为什么在因子New页面中创建完累计因子，在因子页面中无法进行回溯？</h4>
+<p nodeId="9bad660581c34552960fcabd89362730">--A：在因子页面中点击设置离线后，可见回溯按钮（因前端资源瓶颈，该问题尚未解决，已排期）</p>
+<h4 nodeId="3c6652ad6bbf47cf86d789124f78532e">Q2：在大象中收到回溯完成通知，为什么在因子页面中无明确的信息展示？</h4>
+<p nodeId="cc4d80e930294e9282f21ca223fd243f">--A：回溯完成后因子状态恢复非回溯状态，目前缺失回溯管理页面暂无法有明确的历史状态信息展示</p>
+<h4 nodeId="2090d02df8ae409b80cbff919f1e92ae">Q3：累计因子可回溯的时间周期是否可延长？</h4>
+<p nodeId="ede7d498d6084df3b34df74232905526">--A：支持，操作手册见<a href="https://km.sankuai.com/page/28253556" title="https://km.sankuai.com/page/28253556" autoUpdate="true" nodeId="9aeeb4b5fe3942e896d63408b9228d91">https://km.sankuai.com/page/28253556</a>：</p>
+<h4 nodeId="e51782905fe0429ba7bd4023f3d2e79f">Q4：累计因子添加了测试用例，为什么还显示未测试？</h4>
+<p nodeId="d399bbc1732a4abda2f5c70e4cb507bc">--A：当前未测试和未就绪两个状态共用“未测试”信息，短期无法修复，请忽略该信息。</p>
+<h4 nodeId="7daaafa13d7c460886f4a5cb0e3f6009">Q4：如何修改线上生效累计因子？</h4>
+<p nodeId="03920a04c94747b1927e9f8a496fb77b">--A：先进入累计因子详情页，点击 设置离线 按钮，将累计因子设置离线后方可修改，如图所示--&gt; <img src="https://km.sankuai.com/api/file/cdn/248390725/460263732?contentType=1&amp;isNewContent=false" name="image.png" width="32" height="19" nodeId="2233c93dea5143a288c5214421e4025a" /></p>
+<p nodeId="c3ddfd62f19543279fa238b1d2dd6863" />
+<h2 nodeId="b688cdb3d415440abb441ceea6b39780">四、性能问题相关</h2>
+<ul nodeId="ae6392da3ea446cfab5ac202abd71f8a">
+<li nodeId="0ceb218c6c1a400d9d0e98ab827f2a24">由于可能影响累计服务的性能，所以只支持同时跑<span color="rgb(245, 35, 45)"><strong>3个</strong></span>累计因子线上回溯任务。如已有3个累计因子线上回溯任务，再创建新任务时，会提示【无法创建成功】</li>
+<li nodeId="8b4878b8c1424921b55e2ffc9d30035a">只支持累计周期在15日内的累计因子线上回溯，超出的天数由于无法从hbase中获取到源数据，所以无法进行回溯</li>
+<li nodeId="2e524466250a408986598c2bdcdedf31">如发现累计因子线上回溯失败的情况，请联系 <km-mention name="Zeus" uid="it_rc_zeus" empId="" nodeId="f7c38a21eba24dbc99c0793916b957b6" />查看原因</li>
+</ul>
+</km-doc>

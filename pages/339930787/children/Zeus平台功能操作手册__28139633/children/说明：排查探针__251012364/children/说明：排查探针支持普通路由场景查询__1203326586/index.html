@@ -1,0 +1,120 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：排查探针支持普通路由场景查询</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-9">三、操作指南</a><a href="#section-10">1.用户操作流程说明</a><a href="#section-12">2.详细操作流程说明</a><a href="#section-13">方式1:策略排查--&gt;日志查询--&gt;普通路由场景日志信息的场景模块--&gt;场景--&gt;排查探针（点击左侧放大镜进入）</a><a href="#section-61">方式2:策略排查--&gt; 排查探针tab--&gt;排查对象选择普通路由场景</a><a href="#section-62"></a><a href="#section-91"></a><a href="#section-93">四、特殊说明</a><a href="#section-98">五、FAQ</a><a href="#section-99">Q1：multiLevelRouterSceneId是什么？</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：排查探针</a> / <a href="index.html">说明：排查探针支持普通路由场景查询</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1203326586">查看学城原文</a></p><article>
+<h1>说明：排查探针支持普通路由场景查询</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>功能介绍：在实时日志中增加路由场景日志信息，同时增加普通路由场景执行回放拓扑图（入口：1. 策略排查--&gt;普通路由场景日志信息的场景模块--&gt;场景--&gt;排查探针（点击左侧放大镜进入）；2.策略排查--&gt; 排查探针tab--&gt;排查对象选择普通路由场景）</p>
+<h1 id="section-5">二、名词解释</h1>
+<ul>
+<li>普通路由场景：相比于普通场景，普通路由场景<span style="color: ">可支持双层，决策流模式，即一堆规则的集合，支持按照逻辑进行分流，满足指定条件可以指定走向在每个节点进行条件设置，实现最终流向</span></li>
+</ul>
+<h1 id="section-9">三、操作指南</h1>
+<h2 id="section-10">1.用户操作流程说明</h2>
+<img src="assets/c758b75e3fc1fad5.svg" width="421" height="371" alt="流程图">
+<h2 id="section-12">2.详细操作流程说明</h2>
+<h3 id="section-13">方式1:策略排查--&gt;日志查询--&gt;普通路由场景日志信息的场景模块--&gt;场景--&gt;排查探针（点击左侧放大镜进入）</h3>
+<p></p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">进入日志查询页面，在「场景」字段输入普通路由场景ID</span></li>
+<li><span style="font-size:14px">点击查询，获取查询结果</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/7ee1d34f6de5f5ea.png" width="828" height="404" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">在查询结果栏找到scene字段，点击scene字段前的🔍，即可进行普通路由场景回放</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/759e7ab5524adb0e.png" width="828" height="462" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">进入回放页面</span></li>
+<li><span style="font-size:14px">由于普通路由场景只有根场景和一级子场景，因此，整个拓扑图会展示命中的路由场景和流量进入的子场景的所有规则命中情况</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/196ebc83ccdeb4b8.png" width="828" height="355" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">针对根场景和子场景，都支持直接跳转查看</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/cbd4dcee0ba03748.png" width="828" height="189" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p></p>
+<h3 id="section-61">方式2:策略排查--&gt; 排查探针tab--&gt;排查对象选择普通路由场景</h3>
+<h3 id="section-62"></h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">进入排查探针tab，排查对象选择「普通路由场景」，选定后输入requestid和场景，点击查询</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/0c2c6637e41a3e70.png" width="648" height="323" alt="image.png"></p>
+<p><img src="assets/34c5803f3bcb1f76.png" width="633" height="319" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">直接跳转至逻辑回放页面。该页面的操作与方式1一致</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/6b71aff9d98203f1.png" width="822" height="352" alt="image.png"></p>
+<p><img src="assets/4eeb4cac7ecef5ae.png" width="822" height="188" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-91"></h3>
+<p></p>
+<h1 id="section-93">四、特殊说明</h1>
+<ol>
+<li>目前多极路由场景的逻辑回放信息入口仅可通过日志查询结果中的场景模块里面的多级路由场景左侧的放大镜点击进入，暂不支持像规则一样从排查探针入口进去</li>
+<li>目前日志中路由规则前面的放大镜图标暂不支持点击，查看其逻辑回放信息可以先点击其所在路由场景前面的放大镜进入路由场景排查探针页面后再点击其逻辑回放</li>
+<li>多极路由场景逻辑回放信息拓扑图会将命中的路由规则、子场景用红色框标记出来，对于路由规则，可以查看命中/没命中路由规则的逻辑回放信息；但是对于子场景，目前只支持查看命中子场景中配置的规则的逻辑回放信息</li>
+</ol>
+<h1 id="section-98">五、FAQ</h1>
+<h3 id="section-99">Q1：<span style="color:rgba(0, 0, 0, 0.87)">multiLevelRouterSceneId是什么？</span></h3>
+<p>--A：<span style="color:rgba(0, 0, 0, 0.87)">multiLevelRouterSceneId是多级路由场景在日志信息中的索引字段，如果想在日志查询页面根据多级路由场景ID查询目标日志信息，需要现在日志配置中配置一下multiLevelRouterSceneId字段</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">补充说明：multiLevelRouterSceneId是分词字段，支持输入多个多级路由场景ID查询</span></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+</article></main></body></html>

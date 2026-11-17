@@ -1,0 +1,183 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：排查探针支持路由场景查询</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-9">三、操作指南</a><a href="#section-10">1.用户操作流程说明</a><a href="#section-12">2.Quick Start</a><a href="#section-17">3.详细操作流程说明</a><a href="#section-18">Step1:配置多极路由场景日志字段</a><a href="#section-46">Step2: 查询多级路由场景的实时日志</a><a href="#section-71">Step3: 查看日志查询结果</a><a href="#section-90">Step4: 查看目标多极路由场景的逻辑回放信息</a><a href="#section-115">Step5: 查看命中/没命中路由规则的逻辑回放信息</a><a href="#section-141">Step6: 查看命中子场景的详情信息及其下配置规则的逻辑回放信息</a><a href="#section-173">四、特殊说明</a><a href="#section-178">五、FAQ</a><a href="#section-179">Q1：multiLevelRouterSceneId是什么？</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：排查探针</a> / <a href="index.html">说明：排查探针支持路由场景查询</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/618346668">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：排查探针支持路由场景查询</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>功能介绍：在实时日志中增加路由场景日志信息，同时增加多级路由场景执行回放拓扑图（入口：路由场景日志信息的场景模块--&gt;路由场景--&gt;排查探针（点击左侧放大镜进入））</p>
+<h1 id="section-5">二、名词解释</h1>
+<ul>
+<li>多级路由场景：相比于普通场景，多极路由场景<span style="color: ">可支持多层，决策流模式，即一堆规则的集合，支持按照逻辑进行分流，满足指定条件可以指定走向在每个节点进行条件设置，实现最终流向</span></li>
+</ul>
+<h1 id="section-9">三、操作指南</h1>
+<h2 id="section-10">1.用户操作流程说明</h2>
+<img src="assets/365668141ac85584.svg" width="421" height="436" alt="流程图">
+<h2 id="section-12">2.Quick Start</h2>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/618346668/618756263?contentType=1">屏幕录制2021-01-25 下午8.29.37.mov</a></figcaption></figure>
+<p></p>
+<h2 id="section-17">3.详细操作流程说明</h2>
+<h3 id="section-18">Step1:配置多极路由场景日志字段</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">入口：数据统计--&gt;日志配置</span></li>
+<li><span style="font-size:14px">将“</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">multiLevelRouterSceneId</span></span><span style="font-size:14px">”字段添加在 分词字段 中（也可添加到非分词字段中，添加在非分词字段处处不支持输入多个多极路由场景ID查询日志），点击 更新</span></li>
+</ol>
+</td>
+<td>
+<p><span style="font-size:14px">1.</span></p>
+<p><img src="assets/e29a6c1ada9d8a8e.png" width="420" height="152" alt="image.png"></p>
+<p><span style="font-size:14px">2.</span></p>
+<p><img src="assets/11763e4113b17aff.png" width="420" height="251" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-46">Step2: 查询多级路由场景的实时日志</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">入口：数据统计--&gt;日志查询</span></li>
+<li><span style="font-size:14px">在路由场景查询条件中输入要查询的目标多极路由场景ID（该查询条件是因为上一步进行日志配置之后才出现的），可以根据需要输入其他查询限制条件，点击查询</span></li>
+</ol>
+</td>
+<td>
+<p><span style="font-size:14px">1.</span></p>
+<p><img src="assets/6fa18cf5bf8f146a.png" width="420" height="161" alt="image.png"></p>
+<p><span style="font-size:14px">2.</span></p>
+<p><img src="assets/41d0b3c5dc21ba28.png" width="420" height="323" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-71">Step3: 查看日志查询结果</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">接上一步，点击 查询 之后，在日志查询结果中找到要查看的目标多极路由场景日志</span></li>
+</ol>
+</td>
+<td>
+<p><span style="font-size:14px">1.</span></p>
+<p><img src="assets/1efd4b72b605eded.png" width="420" height="279" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-90">Step4: 查看目标多极路由场景的逻辑回放信息</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">接上一步，找到目标多级路由场景日志之后，点击其左侧的 放大镜 图标，进入排查探针页面</span></li>
+<li><span style="font-size:14px">进入多极路由场景的排查探针页面，如图所示，被红色框标记的表示命中的路由规则及子场景</span></li>
+</ol>
+</td>
+<td>
+<p><span style="font-size:14px">1.</span></p>
+<p><img src="assets/d3e5dc8c1f5ebda3.png" width="420" height="283" alt="image.png"></p>
+<p><span style="font-size:14px">2.</span></p>
+<p><img src="assets/1471a6a34e38b505.png" width="420" height="289" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-115">Step5: 查看命中/没命中路由规则的逻辑回放信息</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">接上一步，找到目标路由规则，点击其右侧的 向下 图标--&gt;点击 逻辑回放</span></li>
+<li><span style="font-size:14px">点击 逻辑回放 后，进入路由规则的排查探针页面，查看其逻辑回放信息</span></li>
+</ol>
+</td>
+<td>
+<p><span style="font-size:14px">1.</span></p>
+<p><img src="assets/2cb2ade2766a55eb.png" width="420" height="279" alt="image.png"></p>
+<p></p>
+<p><span style="font-size:14px">2.</span></p>
+<p><img src="assets/8f9b1a4787183903.png" width="420" height="240" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-141">Step6: 查看命中子场景的详情信息及其下配置规则的逻辑回放信息</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li><span style="font-size:14px">找到目标子场景，点击其右侧的 向下 图标--&gt;点击 查看详情</span></li>
+<li><span style="font-size:14px">点击 查看详情 后，进入子场景的详情信息页面，可以查看目标规则的逻辑回放信息</span></li>
+<li><span style="font-size:14px">点击子场景下配置规则后面的 逻辑回放 之后，进入规则的排查探针页面，查看其逻辑回放信息</span></li>
+</ol>
+</td>
+<td>
+<p><span style="font-size:14px">1.</span></p>
+<p><img src="assets/94ba4339ba3241f2.png" width="420" height="214" alt="image.png"></p>
+<p><span style="font-size:14px">2.</span></p>
+<p><img src="assets/f9aac795c2e8f913.png" width="420" height="118" alt="image.png"></p>
+<p><span style="font-size:14px">3.</span></p>
+<p><img src="assets/509a22afb838eb25.png" width="420" height="239" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-173">四、特殊说明</h1>
+<ol>
+<li>目前多极路由场景的逻辑回放信息入口仅可通过日志查询结果中的场景模块里面的多级路由场景左侧的放大镜点击进入，暂不支持像规则一样从排查探针入口进去</li>
+<li>目前日志中路由规则前面的放大镜图标暂不支持点击，查看其逻辑回放信息可以先点击其所在路由场景前面的放大镜进入路由场景排查探针页面后再点击其逻辑回放</li>
+<li>多极路由场景逻辑回放信息拓扑图会将命中的路由规则、子场景用红色框标记出来，对于路由规则，可以查看命中/没命中路由规则的逻辑回放信息；但是对于子场景，目前只支持查看命中子场景中配置的规则的逻辑回放信息</li>
+</ol>
+<h1 id="section-178">五、FAQ</h1>
+<h3 id="section-179">Q1：<span style="color:rgba(0, 0, 0, 0.87)">multiLevelRouterSceneId是什么？</span></h3>
+<p>--A：<span style="color:rgba(0, 0, 0, 0.87)">multiLevelRouterSceneId是多级路由场景在日志信息中的索引字段，如果想在日志查询页面根据多级路由场景ID查询目标日志信息，需要现在日志配置中配置一下multiLevelRouterSceneId字段</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">补充说明：multiLevelRouterSceneId是分词字段，支持输入多个多级路由场景ID查询</span></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+</article></main></body></html>

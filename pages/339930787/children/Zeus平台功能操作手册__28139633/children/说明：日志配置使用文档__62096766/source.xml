@@ -1,0 +1,79 @@
+<km-doc>
+<km-title nodeId="284ee3f3c4a249b3bbd706434aa3f2cd">说明：日志配置使用文档</km-title>
+<km-note type="note" hiddenTitle="true" nodeId="3b397f0ed3e54eabb0e4497ceb3b7724">
+<km-title></km-title>
+<km-content>
+<p nodeId="909c52aa05524a569cd5691ca166a6fd">注意：</p>
+<ul nodeId="e9233eb9c57b48f8973f18fdfc40fa82">
+<li nodeId="eb6d1a4dd5dc437da0f5219c5b3b3012"><span color="rgb(255, 77, 79)">日志配置是指对日志查询条件的配置。</span></li>
+<li nodeId="259fc8316aab4a8ba957c15685cb6c4e"><span color="rgb(240, 94, 80)">日志配置注册或更新之后，最多10分钟后生效，并且按照新增/更新字段来查询，只能查出最新日志，不支持历史日志查询！！！</span></li>
+</ul>
+<ul nodeId="63c7ffecfa45464cbcee6ffc607492a8">
+<li nodeId="30fc519460ff4ba58f571b7834b84408">
+<p align="start" nodeId="fc788177af28476690112c03f73c271a"><span color="rgb(240, 94, 80)">对于日志字段的更新属于高危行为，请谨慎操作。</span></p>
+</li>
+<li nodeId="44834ce6154d4ef8a4522f7b38e4c902">
+<p align="start" nodeId="b29fa0f5d3e646f5ad9dff124e52dd52"><span color="rgb(240, 94, 80)">业务负责人查看方法：</span></p>
+<ul nodeId="0f6ee9918a824510ad9ce1126ef493a4">
+<li nodeId="3a75598545dc42ca8098ec10513edfca">
+<p align="start" nodeId="f1fb1d10c21d4a09829a4e6b47fbab50">点击zeus平台最上方的“权限”-&gt;“业务管理”，即可根据相关业务查看对应负责人</p>
+</li>
+</ul>
+</li>
+<li nodeId="eb450220452a404da542c1d9b802d4f5">
+<p align="start" nodeId="fdf9de6a230044569d2391a9de98ed70"><span color="rgb(240, 94, 80)">目前zeus只支持线上日志的存储、查询。</span></p>
+</li>
+</ul>
+</km-content>
+</km-note>
+<km-catalog style="none" nodeId="72ce33b800f94258b63b745acdee3f9f" />
+<h1 nodeId="18920df7ff5045c69322c18022567a56">背景</h1>
+<p nodeId="7e01910e41a141c2a6c14d060f6f5774">现阶段一个新的业务接入zeus之后，数据统计功能，即实时日志查询和离线日志查询这两个功能默认是未开通的，需要rd手动在线上数据表中进行配置，整个过程不是自动化的，而且手动操作数据库存在着比较大的安全隐患。综上所述，亟需提供一个前端入口来帮助配置日志字段，这样快速又安全。</p>
+<h1 nodeId="8ec6ab8469a4497a93b71a5e0e3ae129">解决方案</h1>
+<p nodeId="e85c5ce61837476ab4bb03e37647914a">在zeus前端页面提供一个配置入口，在配置页面分别可以配置相应字段，填写完毕点击注册/更新按钮即可。</p>
+<h1 nodeId="e5b55ea81b584f5b8e18b3f296ab89c7">使用说明</h1>
+<p nodeId="0c7528eec2364aaa81bf67f82f1082a6">首先入口如下图所示：</p>
+<p nodeId="ed0fea85208344c68ec4df5fb04068e6"><img src="https://km.sankuai.com/api/file/cdn/62096766/4201437745?contentType=1&amp;isNewContent=false" name="image.jpeg" width="191" height="338" nodeId="bcb243722d4845beaa193bafda762f06" /></p>
+<p nodeId="a4c184e91770425584fc083937dfffe1">点击进入，如下图所示：</p>
+<p nodeId="40d92d38841c407e8336ee823799ae74"><img src="https://km.sankuai.com/api/file/62096766/108705505" name="image.png" width="1320" height="600" nodeId="fb00a31d27024026bdc6e53c9044cdc6" /></p>
+<p nodeId="05cf35c5abf3462a8344efc5abc0a048">如果出现上述页面，说明您不是该业务的负责人。同样地，为了保证操作安全，只能由业务负责人来配置相关字段。</p>
+<p nodeId="06f91fb7607e4a2ea869c7170a8c3fdc">如果你是该业务的负责人，则会显示如下页面：</p>
+<p nodeId="d95d1207c07a4ed9bffb62a8779e3620"><img src="https://km.sankuai.com/api/file/cdn/62096766/4203078892?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1229" height="600" nodeId="809c94f813354e7ab90260e388122189" /></p>
+<p nodeId="86c698f681154fd18d110a8e509b1f74">接下来您可以根据自己的日志查询需求来配置相关字段即可。</p>
+<p nodeId="16d164a91b2044aeac8a3a7a77c2ac02" />
+<h1 nodeId="5e0b23e811ed42fe8caf9c651a82a034">关键点说明</h1>
+<h2 nodeId="fcc8723d85ab41eba4aef32df4f6fbd9">关于分词和非分词字段的说明</h2>
+<p nodeId="2a0c80ed25294fbb95959ac2dd41a90d">分词字段（对应数据库中a_col_x字段）：</p>
+<ul nodeId="8a8481ead66d4c8b8694a61dc9cd91c7">
+<li nodeId="88bc0cf2753d4d6385c1aebe99c99d89">该字段的值可以包含多个值，以逗号隔开，比如字段poiid的值可以是1,2,3,4</li>
+<li nodeId="4dfd61d2c76646b58217777651d42e5d">对分词字段的搜索逻辑是：<strong>以</strong><span color="rgb(112, 177, 35)"><strong>“或”</strong></span><strong>的逻辑来匹配相应分词字段里边的所有分词</strong></li>
+<li nodeId="3e166147a3fa4d5c98a95c313bce6413">目前支持10个分词字段</li>
+<li nodeId="6cd40c5e320f47b6973bf2bbfd62a303">decisions, hitRules, markedRuleIds, takenEffectRuleIds 为默认字段，不可更改</li>
+</ul>
+<p align="start" nodeId="cfa51a9aeec54b6cb50e483a4c93dc27">非分词字段（对应数据库中na_col_xx字段）：</p>
+<ul nodeId="37fd5ab9ad27479f9f62d1458a6f97ed">
+<li nodeId="dab40900319e4167afe3186cdf8498cd">与分词字段相对，仅包含一个值，比如userId的值可以是123</li>
+<li nodeId="d1b70813617640c2a9eda4856da7783e">目前支持20个非分词字段</li>
+<li nodeId="2e4d30f032b545b69777642c0e1e0b6b">requestId, sceneId 为默认字段，不可更改</li>
+</ul>
+<h2 nodeId="5ad79886f8034ba6a4c7a7f2e9cd5ae9">关于配置生效的说明</h2>
+<ul nodeId="466c76c4ea9b4709bb720680850b609a">
+<li nodeId="60c982a0da114a11b2f160108ca32050">日志配置注册或更新之后，新的日志数据需等待10分钟才可以正确查询出来。</li>
+<li nodeId="13be6fc2af56401eaba173581a6c7923">新增的配置字段，只能在后续的日志数据中作为字段查询。</li>
+</ul>
+<h2 nodeId="27fb8323c35849eba21c9f5ca413d8a9">关于配置时间的说明</h2>
+<ul nodeId="1313621a9c85413d834815565db2ebe0">
+<li nodeId="d00a34e8109a48ba9dd9767e5b7091d5">目前日志配置的时间与相应业务的静默期配置保持一致。</li>
+</ul>
+<h2 nodeId="11c54b6a8a20411caa6cb8b5752e5488">关于配置决策理由查询字段的说明</h2>
+<ul nodeId="d844966f09634655b9a488e2a60bf947">
+<li nodeId="3932ab60613549298386ccd71fa8f01d">若查询日志时需要根据决策理由查询，则需要配置reasonCodes字段，在数据统计-日志配置-分词字段中加入reasonCodes。</li>
+</ul>
+<p nodeId="821a853d6fd94564b9656172e403f690" />
+<h2 nodeId="e292c09a84c94edfb69c41c31e4465f1">关于演练日志的配置</h2>
+<p nodeId="73ddd15104384664a21836e23b2d0338">目前尚无界面配置，需要RD手动在数据库中插入一条数据，参考</p>
+<pre language="Java" nodeId="6bba330194cb454783fed633dad05eae"><code>insert into common_log_config_extra (business_code, business_desc, config_data, extra_info, creator,addtime,  modifier, modtime)
+values (152, "优选风控","{\"a_col_11\":\"drillRuleEqual\",\"a_col_12\":\"drillRuleLessthan\",\"a_col_13\":\"drillRuleMorethan\",\"a_col_14\":\"drillDecisionEqual\",\"a_col_15\":\"drillDecisionLessthan\",\"a_col_16\":\"drillDecisionMorethan\",\"na_col_21\":\"drillTaskId\"}"
+,"","liyi49",1627031580, "liyi49", 1627031580);</code></pre>
+<p nodeId="8e0f3dee54214ca2b6e86b2c54c10cdb">config_data以及extra_info按照模板填写就行，其他麻烦使用真实数据。</p>
+</km-doc>

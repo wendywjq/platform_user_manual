@@ -1,0 +1,209 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：累计因子线上回溯（已下线-升级中）</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、解决问题</a><a href="#section-9">二、操作说明</a><a href="#section-12">用户操作流程概述</a><a href="#section-13"></a><a href="#section-16">操作流程详情</a><a href="#section-17">Step1:创建累计因子</a><a href="#section-47">Step2:设置回溯</a><a href="#section-151">Step3:回溯完成后创建规则标记在场景中</a><a href="#section-179">Step4:回溯结果验证</a><a href="#section-209">三、FAQ</a><a href="#section-210">Q1 : 为什么在因子New页面中创建完累计因子，在因子页面中无法进行回溯？</a><a href="#section-212">Q2：在大象中收到回溯完成通知，为什么在因子页面中无明确的信息展示？</a><a href="#section-214">Q3：累计因子可回溯的时间周期是否可延长？</a><a href="#section-217">Q4：累计因子添加了测试用例，为什么还显示未测试？</a><a href="#section-219">Q4：如何修改线上生效累计因子？</a><a href="#section-223">四、性能问题相关</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：累计因子线上回溯（已下线-升级中）</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/248390725">查看学城原文</a></p><article>
+<h1>说明：累计因子线上回溯（已下线-升级中）</h1>
+<div style="none"></div>
+<h1 id="section-3">一、解决问题</h1>
+<p>解决<span style="color: ">新增的累计因子必须过了相应的累计时间才能上线生效，</span>无法根据历史日志数据进行回溯并将回溯结果应用在线上，导致即使特征构建完成但因<span style="color: ">时效滞后，容易导致风险漏过。</span></p>
+<p><span style="color: ">例如：20190403配置了同poi近7天支付订单数的累计，由于没有回溯功能，该因子只能等到20190410才有近7天的累计值</span></p>
+<h1 id="section-9">二、操作说明</h1>
+<ol>
+<li>
+<h2 id="section-12">用户操作流程概述</h2>
+<h2 id="section-13"><img src="assets/e88c037855fc0757.svg" width="1164" height="126" alt="流程图"></h2>
+</li>
+<li>
+<h2 id="section-16">操作流程详情</h2>
+</li>
+</ol>
+<h3 id="section-17">Step1:创建累计因子</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">因子--&gt; 选择工具（累计因子）</span></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/858e39750a87dd82.png" width="840" height="437" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【创建累计因子】</span></p>
+<p><span style="font-size:14px">同当前创建累计因子相同，创建完成回到因子列表页可以看到刚刚创建的累计因子状态为“未测试”</span></p>
+</td>
+<td>
+<p><img src="assets/5fd1b10abd697d68.png" width="840" height="355" alt="image.png"></p>
+<p><img src="assets/b022f845f9a1caac.png" width="840" height="165" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-47">Step2:设置回溯</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">点击进入状态为“未测试”的累计因子详情中--&gt;添加有通过的测试用例后--&gt;点击 开始回溯</span></p>
+<p><span style="font-size:14px">⚠️</span></p>
+<p><span style="font-size:14px">1.累计因子是未测试的状态（实际上已经测试成功了，此状态方可进行回溯）</span></p>
+<p><span style="font-size:14px">2.累计因子在回溯任务完成前是无法在规则中使用的</span></p>
+<p><span style="font-size:14px">【大象提示】</span></p>
+<p><span style="font-size:14px">回溯任务完成后，会收到大象的回溯任务完成信息，详情如下：</span></p>
+<p><img src="assets/ed041aca7fd834d2.png" width="346" height="64" alt="image.png"></p>
+</td>
+<td>
+<p><img src="assets/72a57721d52e9139.png" width="936" height="202" alt="image.png"></p>
+<p><img src="assets/e48fa25ba8467b07.png" width="936" height="494" alt="image.png"></p>
+<p><img src="assets/eee818d7b51d38c1.png" width="395" height="126" alt="image.png"><img src="assets/a1c11658df8b1f1f.png" width="483" height="124" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【查看回溯任务详情】</span></p>
+<p><span style="font-size:14px">点击进入 规则回溯 页面，可以在回溯任务列表中查看到刚刚创建的累计因子回溯任务</span></p>
+<p><span style="font-size:14px">点击进入回溯任务详情中后可以查看回溯任务详情以及回溯结果（发送累计请求量、满足写入条件命中量）</span></p>
+<p></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/11cb160dbaba3df6.png" width="823" height="373" alt="image.png"></p>
+<p></p>
+<p><img src="assets/56e6e9b12f6b060b.png" width="816" height="386" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【终止回溯】</span></p>
+<p><span style="font-size:14px">累计因子在回溯过程中，若时间过长或用户需要终止回溯：</span></p>
+<p><span style="font-size:14px">1.可以在累计因子详情页点击“停止回溯”，填写 终止回溯原因 提交后即可终止回溯任务</span></p>
+<p><span style="font-size:14px">2.或者在规则回溯页面找到回溯任务，点击任务列表中的 终止 按钮，点击弹框中的确认终止按钮后也可终止回溯任务</span></p>
+<p></p>
+<p><span style="font-size:14px">⚠️</span><span style="color: "><span style="font-size:14px"><strong>回溯任务未完成前进行终止，任务终止后已经回溯的数据将不会保留</strong></span></span></p>
+<p><span style="color: "><span style="font-size:14px">终止后，再次启动回溯不会引入脏数据</span></span></p>
+</td>
+<td>
+<p><img src="assets/480e3da8b0aefa2e.png" width="890" height="448" alt="image.png"></p>
+<p></p>
+<p><img src="assets/19f74790b275314e.png" width="936" height="572" alt="image.png"></p>
+<p></p>
+<p><img src="assets/294a6ecd7af7f7be.png" width="906" height="219" alt="image.png"></p>
+<p></p>
+<p><img src="assets/2fa89a8fe26add52.png" width="442" height="185" alt="image.png"></p>
+<p></p>
+<p><img src="assets/0c79bec363cee03d.png" width="776" height="193" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【设置上线】</span></p>
+<p><span style="font-size:14px">回溯完成后，查看回溯结果没有问题后，点进去刚刚创建的累计因子详情页，点击 设置上线</span></p>
+<p><span style="font-size:14px">回到累计因子列表页，刚刚创建的累计因子状态变为  就绪 状态，此时才可在规则中引用</span></p>
+</td>
+<td>
+<p><img src="assets/26b95645af36f2b0.png" width="805" height="433" alt="image.png"></p>
+<p></p>
+<p><img src="assets/d6f1b26dd53a7f45.png" width="814" height="179" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<h3 id="section-151">Step3:回溯完成后创建规则标记在场景中</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【设置上线】</span></p>
+<ol>
+<li><span style="font-size:14px">回溯任务完成后，需要将累计因子”设置上线“后，方可在规则中引用</span></li>
+</ol>
+<p></p>
+<p><span style="font-size:14px">【创建规则】</span></p>
+<p><span style="font-size:14px">正常创建规则即可</span></p>
+<p><span style="font-size:14px">【规则在场景中标记】</span></p>
+<p><span style="font-size:14px">正常创建场景配置即可（规则添加到场景中）</span></p>
+</td>
+<td>
+<p><img src="assets/26b95645af36f2b0.png" width="496" height="267" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-179">Step4:回溯结果验证</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【实时日志查询】</span></p>
+<p><span style="font-size:14px">同正常因子、规则命中情况验证一致</span></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/7740f3f3bc577185.png" width="930" height="219" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<div class="note">
+<strong></strong>
+<div>
+<p></p>
+<ul>
+<li><span style="color:rgb(245, 35, 45)"><strong>累计回溯可支持的最长回溯时间周期：近15天</strong></span>，超过15天的累计周期无法进行历史回溯（同线上实时日志查询相同）</li>
+<li>累计回溯的信息，可通过读累计和写累计详情查看，具体👉<a href="../说明：累计使用文档__28261902/children/说明：累计因子排查工具__233320099/index.html" title="https://km.sankuai.com/page/233320099">说明：累计因子排查工具</a></li>
+</ul>
+</div>
+</div>
+<h1 id="section-209">三、FAQ</h1>
+<h4 id="section-210">Q1 : 为什么在因子New页面中创建完累计因子，在因子页面中无法进行回溯？</h4>
+<p>--A：在因子页面中点击设置离线后，可见回溯按钮（因前端资源瓶颈，该问题尚未解决，已排期）</p>
+<h4 id="section-212">Q2：在大象中收到回溯完成通知，为什么在因子页面中无明确的信息展示？</h4>
+<p>--A：回溯完成后因子状态恢复非回溯状态，目前缺失回溯管理页面暂无法有明确的历史状态信息展示</p>
+<h4 id="section-214">Q3：累计因子可回溯的时间周期是否可延长？</h4>
+<p>--A：支持，操作手册见<a href="../说明：回溯功能__28253556/index.html" title="https://km.sankuai.com/page/28253556">说明：回溯功能</a>：</p>
+<h4 id="section-217">Q4：累计因子添加了测试用例，为什么还显示未测试？</h4>
+<p>--A：当前未测试和未就绪两个状态共用“未测试”信息，短期无法修复，请忽略该信息。</p>
+<h4 id="section-219">Q4：如何修改线上生效累计因子？</h4>
+<p>--A：先进入累计因子详情页，点击 设置离线 按钮，将累计因子设置离线后方可修改，如图所示--&gt; <img src="assets/5255e575a7d69f74.png" width="32" height="19" alt="image.png"></p>
+<p></p>
+<h2 id="section-223">四、性能问题相关</h2>
+<ul>
+<li>由于可能影响累计服务的性能，所以只支持同时跑<span style="color:rgb(245, 35, 45)"><strong>3个</strong></span>累计因子线上回溯任务。如已有3个累计因子线上回溯任务，再创建新任务时，会提示【无法创建成功】</li>
+<li>只支持累计周期在15日内的累计因子线上回溯，超出的天数由于无法从hbase中获取到源数据，所以无法进行回溯</li>
+<li>如发现累计因子线上回溯失败的情况，请联系 <span>@Zeus</span>查看原因</li>
+</ul>
+</article></main></body></html>

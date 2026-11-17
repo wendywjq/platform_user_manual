@@ -1,0 +1,223 @@
+<km-doc>
+<km-title nodeId="7d3ad2f3aa6c4660bb0b11d8ae933aea">说明：智能测试使用指南</km-title>
+<km-catalog style="none" nodeId="9dc221cf9b3849fab8d0df76b67ea6bd" />
+<h1 nodeId="d204016dbd3743d5983b7c356a020225">一、背景</h1>
+<p nodeId="42b2a6c093ed4da091dae8955f27a736">解决：</p>
+<p nodeId="5cc4ff5db0e6415ea5083bce496f145b">（1）线上生效因子、规则修改流程中因避免误操作影响线上规则执行涉及的强制更新巨大工作量</p>
+<p nodeId="83133db3655144fdbe6ebb9057ed77ed">（2）线上生效因子、规则被他方业务强制更新，使用方不知道问题</p>
+<p nodeId="d45fd37be1104df19202ee0a17579c68">（3）强制更新操作冗长，简化操作，由6步骤精简为4步</p>
+<km-collapse active="false" nodeId="a8791d78599642db9b8bb2cb993cf062">
+<km-title>新旧操作流程差异</km-title>
+<km-content>
+<table responsive="false" nodeId="7e1e8bb2e7644bd5add882826918c852">
+<tr nodeId="2de43a1522e74a929091e38f18b08eaa">
+<th colwidth="[134]" nodeId="5f55f56eafc945ea844a4119a20f64a6">
+<p nodeId="e1381601b3db4227a20e1e25cf4a3bdb" />
+</th>
+<th colwidth="[303]" nodeId="1bb9a329fafd4729b28ce142a97ba62d">
+<p nodeId="1f47e630848647a19e73d8f90e08cc2d"><span font-size="14"><strong>新版本</strong></span></p>
+</th>
+<th colwidth="[561]" nodeId="decb5088b71c45aca4adcba7f25130fd">
+<p nodeId="0ded4207fb3f4c4ab33841f720a60e65"><span font-size="14"><strong>旧版本</strong></span></p>
+</th>
+</tr>
+<tr nodeId="216f1477b839447dbe72f6ba8aaf02a2">
+<td colwidth="[134]" nodeId="e339d446f8ad4aa88051be769dbb5c1c">
+<p nodeId="6a4df4e3fe3b4978be34ebcd101b3a74"><span font-size="14">有强制更新权限</span></p>
+</td>
+<td rowspan="2" colwidth="[303]" nodeId="623b4037a82e48bca54c757f083a2a32">
+<p nodeId="4a48867effb543ff906566ae7e372024"><span font-size="14">以修改因子（属性信息）为例：</span></p>
+<p indent="1" nodeId="0ab52caab5c545498e4451be74db751a"><span font-size="14">1、修改因子属性信息--&gt;2、修改完成</span></p>
+<p nodeId="923db820e45144e5ae24bbc0f7ad2d40"><span font-size="14">以修改因子（逻辑信息）为例：</span></p>
+<p indent="1" nodeId="bc64b7e7c73c40db96149df64b96148c"><span font-size="14">1、修改因子逻辑信息--&gt;2、设置标记时间提交智能测试--&gt;3、验证双跑后对比数据是否复合预期--&gt;4、验证无误后公示上线</span></p>
+</td>
+<td colwidth="[561]" nodeId="5e4549bbfe1c4d3686e2958ee89bc42b">
+<p nodeId="3acd5abe48494629a9aaa007bf39695b"><span font-size="14">支持随时修改规则，无论是否已经在场景中生效，弊端：规则未经过生产数据验证，容易因人工误操作造成case；</span></p>
+</td>
+</tr>
+<tr nodeId="7f99e6d72b8b468493722005bdc6bab5">
+<td colwidth="[134]" nodeId="435cb086feb542fcae12ede1b60d8789">
+<p nodeId="eec03d2b50a54445912b52e98af1aaba"><span font-size="14">无强制更新权限</span></p>
+</td>
+<td colwidth="[561]" nodeId="96890e50167d4436ae437e8c743f2285">
+<p nodeId="a055fe2e331c48db956b6060cbde20e8"><span font-size="14">以修改因子（逻辑信息+属性信息）为例：</span></p>
+<p nodeId="bbc68ef5fe9e4a8bb59413614b54b73d"><span font-size="14"><strong>1、查询因子所引用的规则M个--&gt;2 、将规则在场景中生效修改为标记/离线*N次（M&gt;N ）</strong></span><span font-size="14">--&gt;3 、修改因子逻辑--&gt;4 、将引用因子的规则在场景中标记30分钟--&gt;5、验证修改后引用因子标记数据是否复合预期--&gt;6 、验证无误，将规则在场景中标记/离线修改生效*N次（M&gt;N ）</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="8ef5b2c1ddf9440a9b9baf5634faeff9" />
+</km-content>
+</km-collapse>
+<p nodeId="55363925e0124abba78a3425d611697b">（4）化解业务咨询投诉率的23.5%；</p>
+<h1 nodeId="0b2c0ea9871345ada8911024658a5560">二、名词解释</h1>
+<p nodeId="76a28ea5c5fd4c989c1b3c224a07146f">属性信息：规则备注、标签、共享业务方、客服备注（规则）、客服建议（规则）</p>
+<p nodeId="b42b39b5f1ee41d7bbfac7a20a37ccdc">逻辑信息：表达式、类型（因子）、英文名称（当前不可修改）</p>
+<p nodeId="a6f38a88cfef4804ad17b9d76279d9a5">强制更新：若本次操作影响线上表达式的执行结果，需先将线上状态取消后再进行操作或者强行变更信息；</p>
+<p nodeId="2307751e48784205a560221661b38198">智能测试：规则、因子修改时按系统安全执行的双跑测试流程管理，即：当修改规则、因子、因子工具时，若影响线上策略的执行，将会进入智能测试流程，进行修改生效前的双跑。双跑期间，线上仍按照修改前的规则、因子逻辑执行；修改的逻辑为标记状态执行。</p>
+<p nodeId="88f052a6ce4e4c948b3db4fca1de8139">公示：规则、因子修改生效前的系统信息公示，为修改生效前的信息同步机制，默认30分钟，系统自动执行；</p>
+<h1 nodeId="17791fcd749a442080b285cff02cf59a">三、操作指南</h1>
+<h2 nodeId="1ff5a4a451d348fcb99776a3c7002fc6"><strong>3.1 智能测试全流程概述</strong></h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/170920701/177333034?contentType=0&amp;isNewContent=false" width="1006" height="96" nodeId="8ba96f1b4ef045a7836925f45eaba252" />
+<p nodeId="57729e37607d4dc2bfb89e59418b71c3"><strong>Quick Start</strong></p>
+<km-video src="https://km.sankuai.com/api/file/cdn/170920701/177345765?contentType=1" name="智能测试创建.mov" size="9.25MB" width="0" height="0" nodeId="90e38189a4a94a7793a848d9c03b1b95" />
+<p nodeId="1a47f50f869849db96c75184803e0a6d" />
+<h2 nodeId="a883b9b20a28443f8fa5749e185e5481"><strong>3.2 智能测试详细操作流程</strong></h2>
+<h3 nodeId="f4d939f671514d22a2a61ed536eb8774"><strong>Step1：修改逻辑</strong></h3>
+<ul nodeId="8b4f49cd5b0b4bbca4024e541efacbff">
+<li nodeId="82d91264be1d4f9ba3c42197df021094">
+<h4 nodeId="b71d1f2690ef4ad29f95834085f06191"><strong>入口a --Plus工具中心的智能测试</strong></h4>
+</li>
+</ul>
+<p nodeId="4c648f62da37482c9e5f53d7339a148e"><img src="https://km.sankuai.com/api/file/cdn/170920701/176048981?contentType=1&amp;isNewContent=false" name="image.png" width="994" height="161" nodeId="cd40ae31589940bd924df4674fb228c7" /></p>
+<p nodeId="d9b4a80bed2a41219ed7f2789afc1bb1"><img src="https://km.sankuai.com/api/file/cdn/170920701/176514167?contentType=1&amp;isNewContent=false" name="image.png" width="412" height="189" nodeId="a3b09052e66040cf806bdd457b980c97" /></p>
+<ul nodeId="12fe850b19994d39bbe70f8172ff8bd6">
+<li nodeId="85d5d8f57fb04c1baee5204096b42475">
+<h4 nodeId="3c40162691f94a64a72b48f294e74943"><strong>入口b -- 因子/规则的编辑页面</strong></h4>
+</li>
+</ul>
+<p nodeId="98e0cdc493c94044b48924c1e2121ec3">在因子列表中找到需要修改的因子，并点击因子进入编辑页面，进入编辑页面后，修改因子仍需要经过测试，并且至少有一条新增的成功的测试用例方可提交修改，之后启动智能测试任务</p>
+<km-note type="info" hiddenTitle="true" nodeId="0c212d2c26344844b70a9ab3d6c83c9e">
+<km-title></km-title>
+<km-content>
+<p nodeId="2a5ed1a9c66c465b90af0f29d92e9cc0">注意：</p>
+<p nodeId="509651a1054e445484f7629d9e54e837">此时若有其他人正在编辑该因子/规则，您将收到提示xxmis号正在修改，需xx修改完成/退出编辑状态后，您方可修改。若您急于修改请大象联系该用户退出编辑状态。</p>
+<p nodeId="52e527b73c754074b88667e8a8a39320"><img src="https://km.sankuai.com/api/file/cdn/170920701/174381644?contentType=1" name="image.png" width="296" height="60" nodeId="6237ac23517b49d2a498439bc2f6770b" /></p>
+</km-content>
+</km-note>
+<h3 nodeId="fa98a080c04d457dbebcd1fde0240a54"><strong>Step2：设置标记时间提交智能测试</strong></h3>
+<p nodeId="440404e653a44cfc85ab4a97cd39b4b0">支持用户设置双跑标记时间，当前默认30分钟。点击“双跑标记”，将提示“后台已开始双跑标记，可在智能测试中查看”</p>
+<p nodeId="64ae5b0d473d46a3a52f195b4ed9358d"><img src="https://km.sankuai.com/api/file/cdn/170920701/176503533?contentType=1&amp;isNewContent=false" name="image.png" width="307" height="179" nodeId="fe20d8c986ec48acb6b7627a832b2cbf" /></p>
+<p nodeId="7fb9ed29dc4744ec827a76b60ed78862"><img src="https://km.sankuai.com/api/file/cdn/170920701/176495843?contentType=1&amp;isNewContent=false" name="image.png" width="979" height="305" nodeId="7dab342ea2fe4251b95efda76e54529a" /></p>
+<p nodeId="bd4e072742eb42918ecdadc7c39975d6">同时也支持将未完成的智能测试任务中止，</p>
+<km-note type="info" hiddenTitle="true" nodeId="2309925d274242f7b023e6e429496fda">
+<km-title></km-title>
+<km-content>
+<p nodeId="e4a7ac4b9c7142288d953e8f3631ce53">注意</p>
+<ul nodeId="17469d309e914de2bd742c642729876c">
+<li nodeId="19466db09bc54aeb841db14487094697">提交后，修改信息需要到智能测试页面中查看当前任务列表及任务状态；</li>
+<li nodeId="2dc1635908124a53bca683554033e1da">双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？本期不支持，若有需求后续二期增加。</li>
+<li nodeId="64d7a247944f40faade183dc96fd0302">修改需要紧急上线怎么办？--可选择紧急上线申请，可跳过双跑标记、公示期。</li>
+<li nodeId="c8c4afde528e4504a1f908e5cf83f8e4">双跑中的智能测试任务不支持紧急上线，需要双跑完成后或双跑前提交紧急上线申请</li>
+</ul>
+</km-content>
+</km-note>
+<h3 nodeId="844185d991744659b3d724724cfdb22b">Step3：验证双跑后对比数据是否复合预期</h3>
+<ol nodeId="438d4c1f92da4cc2ad04f8cc91f8a709">
+<li nodeId="732a7d254cc44da38ff0ec79d301eb37">双跑结束后，将收到大象通知，“您的智能测试任务ID：XXX已双跑完成，请及时查看结果  <span color="#096dd9"><u>查看数据结果</u></span>”</li>
+<li nodeId="d683d8345cc9466fb47f95b495b33604">
+<p nodeId="f6bc76e98b4a4dafba919f6bca2b6e88">可在智能测试列表页面中点击“结果”查看数据详情：规则在场景下标记30分钟的命中量统计，数据样例如下：</p>
+<p nodeId="a40edffdbd5d47babe89c157ac1056df"><img src="https://km.sankuai.com/api/file/cdn/170920701/176525222?contentType=1&amp;isNewContent=false" name="image.png" width="798" height="600" nodeId="fc61a0de17eb4a28ab9cd5c3933f5d90" /></p>
+</li>
+<li nodeId="9f79ad5466674ab497d16cf02c7eb504">修改因子，在智能测试中会依据引用因子的规则在其场景配置同期命中量作为对比数据</li>
+<li nodeId="143ebf16e91146e2bd840b2db451843f">每条规则详细数据查询：可在实时日志查询中查看，其中生效规则为原始逻辑，测试规则为修改后逻辑，支持按照用户/规则信息进行查询</li>
+<li nodeId="ea1b2b5fad3b4eccb86d43353a28b299">若双跑的数据结果不符合预期或者已不需要修改，可将智能测试任务终止</li>
+</ol>
+<h3 nodeId="a4a2bb521dcb4de485e47016d2ece95f">Step4：验证无误后公示上线</h3>
+<ol nodeId="5493c334544b4e1b8e4ff99a90b6532f">
+<li nodeId="b3291e3d847c409d9397f87afa6721d5">确认修改逻辑无误，双跑数据结果符合预期，点击“去公示”</li>
+<li nodeId="858d78c8d1a64325b144b77c37fe0030">
+<p nodeId="d4ddd8b9fb7a4ecc8db60cf58fae7bab">填写“公示说明”中的修改原因，该信息将会在公示时大象推送给修改该因子/规则影响到的业务方，业务方感知修改，默认无异议，若存疑会大象通知您，您将根据影响情况决策是否终止公示（即取消本次智能任务）</p>
+<p nodeId="e0ed52c1f5c843f29b2c5f9ca2764205"><img src="https://km.sankuai.com/api/file/cdn/170920701/176525323?contentType=1&amp;isNewContent=false" name="image.png" width="327" height="190" nodeId="d79c9983a4c04dc6885fa4b347421904" /></p>
+</li>
+<li nodeId="903b8d8f57c649018f91ab62cdad738b">修改该因子/规则影响到的业务方收到大象通知样例<br /><km-drawio src="https://km.sankuai.com/api/file/cdn/170920701/176505693?contentType=0&amp;isNewContent=false" width="290" height="241" nodeId="dccc2059d4684f6b91a42424c164cb95" /></li>
+<li nodeId="22fd20a05b3f43fc806b7a0cc1f8a4a7"><span color="#ccc">公示时间30分钟，完成后，系统将执行一键修改，完成智能测试任务，同时因子/规则修改生效（可能存在1分钟的延迟），同时将收到大象通知，“您的智能测试任务ID：XXX已公示完成修改成功，请及时查看结果  </span><span color="#ccc"><u>查看数据</u></span><span color="#ccc">”（本期未支持，下版本增加）</span></li>
+</ol>
+<h2 nodeId="90af0f0790764814b3e6b58c418dd37d">3.3 特殊说明</h2>
+<ul nodeId="efebd29eae0544338dcdd83feb2a778b">
+<li nodeId="6b16a44b584a4869ac4a38314e9bbedc">
+<h3 nodeId="0595d94a57df4726aa1d899a6b98f748">累计因子修改说明</h3>
+</li>
+</ul>
+<p nodeId="8224471250fb4c0785a4fadb3e356956">（1）修改读取条件：累计因子的数据无变化，直接进入双跑流程</p>
+<p nodeId="2f8f888d1e694514bef9fb8ae2018140">（2）修改  累计事件、累计周期、累计类型（本期不支持）、按何累计、累计值、满足何种条件累计 的配置条件时，涉及到累计数据的写入逻辑修改，需对累计数据进行重构</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/170920701/174341233?contentType=0&amp;isNewContent=false" width="706" height="180" nodeId="bed473e1d7e4473d90c49867d8dbab3c" />
+<p nodeId="d0db59cd2a494eb39f03f77938777c81">例如：近5天同ip注册用户数</p>
+<p nodeId="22d2d18d5ce54d34a271d2fb54c92ebf">假设每天同ip注册用户数分布如下，Day6 对“满足何种条件累计”进行了修改，此时累计数据的写入条件发生变化，第六天的数据由2个变为6个。</p>
+<p nodeId="f51060ab072b45f8aac57e9ef5a2beb8">当前版本实现的累计因子双跑，近5天同ip注册用户数，【线上生效】=3+4+2+5+<span color="#f5222d">2</span>=16个；【双跑】=3+4+2+5+<span color="#f5222d">6</span>=20个，【智能测试修改完成后】X个（生效时间点的旧逻辑数据）</p>
+<table borderColor="#cccccc" responsive="false" nodeId="6da2122e87e84321a04ba9862826dc80">
+<tr nodeId="90664de4d7d5453fb7280cfb9a21e962">
+<th colwidth="[132]" nodeId="679dd540099a45248b598cc744c18af3">
+<p nodeId="6160b522670f4b4bab97441d6f51a1b7" />
+</th>
+<th colwidth="[63]" nodeId="b60d51a4f25748f28e17bfa0c8b64e8c">
+<p nodeId="8a22e6c0bfd04769b553ee425e561a24"><span font-size="14">Day1</span></p>
+</th>
+<th colwidth="[73]" nodeId="07b2b08a592e4f10ab932d7009895017">
+<p nodeId="9c2b23b9c40549f9ad9678b6d2543739"><span font-size="14">Day2</span></p>
+</th>
+<th colwidth="[73]" nodeId="a78aca8b661c4ff192b3e46c2a4a9694">
+<p nodeId="59371813c6c449019a0b8d5131f9b86c"><span font-size="14">Day3</span></p>
+</th>
+<th colwidth="[73]" nodeId="80e4a80095304371802cc5b10d6f0fa9">
+<p nodeId="0fd80c83acd14ab5a96a184e52b89472"><span font-size="14">Day4</span></p>
+</th>
+<th colwidth="[73]" nodeId="abb5dc6efa164daaa4ce3afc73643f91">
+<p nodeId="08617f367ff24986b0197ccaa34c6efc"><span font-size="14">Day5</span></p>
+</th>
+<th colwidth="[120]" nodeId="e26ad6a89e734d46a3d44895c923f16b">
+<p nodeId="375b1fc76bcf48109a1bcee16c3896e5"><span font-size="14">Day6</span></p>
+</th>
+</tr>
+<tr nodeId="baa362b5e17443d09f07f6f075d6d1b8">
+<td colwidth="[132]" nodeId="4550e44af2aa42e79d6778096727262c">
+<p nodeId="70b43138c50c4403b640d8feda8eae3c"><span font-size="14">同ip注册用户数</span></p>
+</td>
+<td colwidth="[63]" nodeId="c7b882da029f43c093b2b7bde841d941">
+<p nodeId="6214f2a44cf14878834aa4ad89f50167"><span font-size="14">2个</span></p>
+</td>
+<td colwidth="[73]" nodeId="8b729517562e478b898280e1d6f3466a">
+<p nodeId="b55f5f2649d443fdb8680f9fd904f85e"><span font-size="14">3个</span></p>
+</td>
+<td colwidth="[73]" nodeId="79a3533874c54b6a95f35c2680bb66a8">
+<p nodeId="c2be8cc733934b5695ac6ae77ea85df2"><span font-size="14">4个</span></p>
+</td>
+<td colwidth="[73]" nodeId="996466f6a2794ba8b98da6e3f361c947">
+<p nodeId="bdeab8d9d8e74136b7b970c0fe565a65"><span font-size="14">2个</span></p>
+</td>
+<td colwidth="[73]" nodeId="d225f5cc27d54324b39897f2d1cca805">
+<p nodeId="8b25dbdfa3b24bbbb7077be0c2e5b875"><span font-size="14">5个</span></p>
+</td>
+<td colwidth="[120]" nodeId="72750eeaabb7446cb3ada7276fe0628a">
+<p nodeId="2536323a113d48a1bb883375eddc84d5"><span font-size="14">2个--&gt;6个</span></p>
+</td>
+</tr>
+</table>
+<km-note type="tip" hiddenTitle="true" nodeId="d602e0a3dac04237826e3f318c9e45fb">
+<km-title></km-title>
+<km-content>
+<p nodeId="85d7fbe72cc04a02b32c4e94c2dd2d22"><strong>为什么这样做？</strong></p>
+<p nodeId="b6fbce33dc694bdd9485c15fbe855a53">当前累计因子不支持回溯，因此若按照新逻辑重新执行，会导致数据断层，【双跑】=6，涉及累计类的规则命中量均会异常</p>
+<p nodeId="6b3a2d99d5484b35a4d1b83a03d064bd">同时后续累计因子支持回溯，该技术方案可无缝衔接；</p>
+<p nodeId="d8ba7c833bb14a2aa28cc5c82597792c"><strong>为什么不支持累计类型的修改？</strong></p>
+<p nodeId="f3b293a2c26d41cab63c080742fa9a93">当前累计因子不支持回溯，修改累计类型，例如：由计数--&gt;求和存在数据跃迁情况1+1+1+5+6，待累计因子支持回溯时即可支持累计类型修改</p>
+</km-content>
+</km-note>
+<ul nodeId="da15ebc248574f0a86bff901f34dd85f">
+<li nodeId="0111c228aff8477cb6f29ce1e602e682">
+<h3 nodeId="e8bc273ba63940a4900235d3cff695a0">紧急生效</h3>
+</li>
+</ul>
+<p nodeId="dcec89d7c7a34f6eaadc31bc90a590e9">用户在编辑页面中逻辑修改并确认提交后，进行紧急上线申请，填写理由--&gt;系统将相关申请信息通过大象公众号推送给引用方的业务负责人--&gt;负责人审批通过--&gt;修改执行完成</p>
+<p nodeId="64682c96af164c07b1bfae97f3351205"><img src="https://km.sankuai.com/api/file/cdn/170920701/174390607?contentType=1" name="image.png" width="205" height="208" nodeId="9e6792e92fb0490285d5c02631930d96" /><km-drawio src="https://km.sankuai.com/api/file/cdn/170920701/176525484?contentType=0&amp;isNewContent=false" width="205" height="207.84722222222223" nodeId="3c1fb1b7337842a3933ee7e9788a8661" /></p>
+<h1 nodeId="49e831b567f34e81ae0249ac9e7572b6">四、常见QA</h1>
+<h3 nodeId="ef446f4c3d3243b599b3917731d6ae3d">Q：提交智能测试后，修改的信息在哪里能查询到？</h3>
+<p nodeId="e56c65edfb264c449c5da369363003f5">--A：需要到智能测试页面中查看当前任务列表及任务状态；在修改成功前，因子/规则的修改信息均不会出现在因子/规则列表中；</p>
+<h3 nodeId="0654adf72c4547179ab8dfeb7578fb76">Q：如何确定智能测试的数据符合预期？</h3>
+<p nodeId="2cfeaaf9df4d407b9bcb944d6fe92288">--A：有两种方式（1）通过“双跑结果”数据中的线上命中量和命中率数据确认，修改前后命中数据波动是否符合预期</p>
+<p nodeId="5a8fc0386d174508bb6b53a7827eaec7">                            （2）通过智能测试任务执行期间的实时日志查看具体数据执行是否符合预期，可通过规则ID/userid等日志查询相关参数查询</p>
+<p nodeId="199c2acfaf3d4914b5eced3cae8c14a4"><img src="https://km.sankuai.com/api/file/cdn/170920701/192473810?contentType=1&amp;isNewContent=false" name="image.png" width="521" height="600" nodeId="325f48bdcbea4b4781090480823ab75c" />​</p>
+<h3 nodeId="b1d0a2ca67af43a6ab3f0e83751c7446">Q：终止后的智能测试任务还可以再次重启么？</h3>
+<p nodeId="ed2da08e74514fde9becb3191346cec7">--A：不可以，只能重新创建任务，到达指定标记时间后将停止标记</p>
+<h3 nodeId="352188d713084097b033f17d70ca660d">Q：为什么要有公示？</h3>
+<p nodeId="c9f00ad89d544474888c787f51eec569">--A：因子存在多业务方共用的情况，当一个业务方修改时会影响其他业务方，因子公示会将因子确认修改的信息和双跑结果以大象消息通知给其他业务方，若通知后30分钟内其他业务方无异议则成功；若有异议则需业务方大象同修改人沟通，终止修改；</p>
+<h3 nodeId="329e5694b77f4fb2b9b9c281f515814e">Q：双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？</h3>
+<p nodeId="f1206b73f9c3421e89756cfeeb9ace94">--A：本期不支持，若有需求后续二期增加</p>
+<h3 nodeId="a181081486fb4e8399b70e2ac7670b54">Q：智能测试任务平均耗时情况？</h3>
+<p nodeId="926e2eb2b5b24c5b995f10b69ad02286">--A：（1）使用紧急上线流程---依赖审批响应，最短1分钟；（2）不使用紧急上线流程--除去验证数据是否符合预期人工时间，最短60分钟；</p>
+<h3 nodeId="ffa86bb17deb4470a517e760e42e7788">Q：紧急上线流程审批人是谁？</h3>
+<p nodeId="ac270c3871304908b46f345dd6fd013b">--A：修改人所在业务方的负责人，即在【权限】--&gt;【业务方管理】--&gt;【负责人】</p>
+<h3 nodeId="70f16a0eb9564143bf56f1fda18bff37"><strong>Q：支持累计类型的修改么？</strong></h3>
+<p nodeId="ea87469026314fb5a81b7fe8958df751">不支持，因子当前累计因子不支持回溯，修改累计类型，例如：由计数--&gt;求和存在数据跃迁情况1+1+1+5+6，待累计因子支持回溯时即可支持累计类型修改</p>
+<p nodeId="6bd6de537be94f4f9a792c418000b54c" />
+<p nodeId="57ead7e645c0413e896633c7911b4e17" />
+</km-doc>

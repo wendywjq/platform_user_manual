@@ -1,0 +1,214 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：排查探针</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景&amp;解决问题</a><a href="#section-14">流程概述</a><a href="#section-17">二、规则执行查询</a><a href="#section-18">Step1:查询日志详情</a><a href="#section-36">Step2: 查看规则/因子执行回放信息</a><a href="#section-108">step 3：结果分析</a><a href="#section-178">异常标签说明</a><a href="#section-270">四、FAQ</a><a href="#section-271">Q1:为什么会存在未执行的表达式？</a><a href="#section-277">Q2: 鼠标移动到节点的信息上，浮框显示的信息是什么？</a><a href="#section-279">Q3: 为什么有些规则的map图逻辑全部展开了而有些规则的map图只展示部分？</a><a href="#section-281">Q4: 引用因子工具的规则怎么查看命中情况？</a><a href="#section-285">五、意见、建议收集</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：排查探针</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/251012364">查看学城原文</a></p><article>
+<h1>说明：排查探针</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景&amp;解决问题</h1>
+<p><span style="color: ">用户对配置的规则、因子（普通、累计）命中不符合预期无法快速定位问题，例如，规则为什么</span><span style="color:rgb(255, 77, 79)"><strong>命中</strong></span><span style="color: ">，为什么</span><span style="color:rgb(255, 77, 79)"><strong>未命中</strong></span><span style="color: ">等原因</span></p>
+<p><span style="color: ">排查探针，是通过规则执行的日志，将规则执行流程进行回放并提供给用户，可快速定位问题</span></p>
+<h3 id="section-14">流程概述</h3>
+<img src="assets/c01651ce07c5522c.svg" width="1016" height="146" alt="流程图">
+<p></p>
+<h1 id="section-17">二、规则执行查询</h1>
+<h3 id="section-18">Step1:查询日志详情</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">1.实时服务日志</span></p>
+</td>
+<td>
+<p><img src="assets/f5b2dfb67bc7f10c.png" width="199" height="153" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-36">Step2: 查看规则/因子执行回放信息</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>【命中规则】</strong></span></p>
+<p><span style="font-size:14px">点击日志查询结果中，生效规则和标记规则命中名称前的放大镜图标</span><img src="assets/eae533aea9d593e8.png" width="32" height="26" alt="image.png"></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/479a0896eec3579f.png" width="419" height="183" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>【未命中规则】</strong></span></p>
+<p><span style="font-size:14px">1.在日志进入排查探针查询页面</span></p>
+<p><span style="font-size:14px">2.展示查询的规则和执行的场景</span></p>
+</td>
+<td>
+<p><img src="assets/d9e8e33ca2910a0b.png" width="406" height="319" alt="1589961050005-image.png"></p>
+<p><span style="font-size:14px">复制日志查询页面的requestId，进入排查探针查询页面</span></p>
+<p><span style="font-size:14px"><strong>查询入口：</strong></span></p>
+<p><img src="assets/f621bf88da429868.png" width="243" height="369" alt="image.png"></p>
+<p><span style="font-size:14px">输入【</span><span style="font-size:14px"><strong>requestId】</strong></span><span style="font-size:14px">，【</span><span style="font-size:14px"><strong>规则id】</strong></span><span style="font-size:14px">【</span><span style="font-size:14px"><strong>场景id】</strong></span><span style="font-size:14px">，【</span><span style="font-size:14px"><strong>规则在场景中的状态】，得到查询结果</strong></span></p>
+<p><img src="assets/7686a8054ebb82cd.png" width="461" height="232" alt="image.png"></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【查询命中/未命中规则对应的的因子】</span></p>
+<p><span style="font-size:14px">在规则结果页面，点击待查询因子的右下角，选择逻辑回放</span><img src="assets/126ff38fc68bf5d6.png" width="310" height="124" alt="image.png"></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则执行结果页面</span></p>
+<p><img src="assets/5ab7f404afdaf4fd.png" width="481" height="234" alt="image.png"></p>
+<p><span style="font-size:14px">因子执行结果页面</span></p>
+<p><img src="assets/28a1d0dfb1b1a606.png" width="456" height="249" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-108">step 3：结果分析</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">结果说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">展示规则执行的每一个段逻辑和逻辑的结果</span></p>
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:14px"><strong>是否修改过逻辑：</strong></span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">规则执行~查询时这段时间规则是否有过变化</span></span></p>
+<p><span style="font-size:14px"><strong>起始节点</strong></span><span style="font-size:14px">：</span></p>
+<p><span style="font-size:14px"><strong>子节点</strong></span><span style="font-size:14px">：规则中的单层表达式、因子和参数</span></p>
+<p><span style="font-size:14px">边：节点与节点间的连线，表明两节点的关联关系</span></p>
+<p><span style="font-size:14px">map图颜色</span></p>
+<p><span style="color:#ccc"><span style="font-size:14px">​</span></span><span style="font-size:14px">表达式，</span><span style="color:#ffbb96"><span style="font-size:14px">​</span></span><span style="font-size:14px">规则</span></p>
+<p><span style="color:#08979c"><span style="font-size:14px">​</span></span><span style="font-size:14px">因子，</span><span style="color:#1890ff"><span style="font-size:14px">​</span></span><span style="font-size:14px">参数</span></p>
+<p><span style="color:#f5222d"><span style="font-size:14px">​</span></span><span style="font-size:14px">导致规则命中的核心路径</span></p>
+<p><span style="color:#ccc"><span style="font-size:14px">​</span></span><span style="font-size:14px">未执行的表达式</span></p>
+<p><span style="font-size:14px">其他：已执行但未命中的逻辑</span></p>
+<p><span style="font-size:14px">【标签的说明】见特殊说明部分</span></p>
+<p><span style="font-size:14px">【反馈查询结论】</span></p>
+<p><span style="font-size:14px">本次查询后改规则的命中是符合预期还是不符合预期，如实填写即可</span></p>
+<p><span style="font-size:14px">用于功能对不符合预期查询的结果统计</span></p>
+<p></p>
+</td>
+<td>
+<p></p>
+<p><img src="assets/33a58368cc5a2376.png" width="774" height="409" alt="image.png"></p>
+<p><img src="assets/81105548a5810208.png" width="323" height="84" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-178">异常标签说明</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">标签</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">含义</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">后续处理建议</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="color:#ffe58f"><span style="font-size:14px">​</span><span style="color:rgb(250, 140, 23)"><span style="font-size:14px">必传参数为空</span></span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">日志的本条请求中，有因为必须业务提供的参数，业务没传或者传空值导致规则命中</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">同上游RD沟通，让其提供参数；或修改策略使用其他参数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#ffe58f"><span style="font-size:14px">​</span><span style="color:rgb(250, 140, 23)"><span style="font-size:14px">参数未传</span></span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">日志的本条请求中，参数有空值</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">同上游RD沟通，让其提供参数；或修改策略使用其他参数</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#ffe58f"><span style="font-size:14px">​</span><span style="color:rgb(250, 140, 23)"><span style="font-size:14px">超时</span></span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">日志的本条请求中，需要调用外部接口，但接口超时导致参数为空值</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">同下游RD沟通，让其提升接口性能；或修改策略使用其他数据</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#ffe58f"><span style="font-size:14px">​</span><span style="color:rgb(250, 140, 23)"><span style="font-size:14px">读条件不满足</span></span></span><span style="font-size:14px"> </span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计因子/外部接口的读取条件不满足，未读取响应的数值</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">确认是否符合预期；或者修改读取条件</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#ffe58f"><span style="font-size:14px">​</span><span style="color:rgb(250, 140, 23)"><span style="font-size:14px">未发送累计</span></span></span><span style="font-size:14px"> </span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计因子值恒为0或1，产生的原因是近4天内没有发送累计</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">需要同上游RD沟通，让其发送累计</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#ffe58f"><span style="font-size:14px">​</span><span style="color:rgb(250, 140, 23)"><span style="font-size:14px">接口调用失败</span></span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">日志的本条请求中，需要调用外部接口，但接口调用失败，可能为接口不可用、服务异常等</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">同下游RD沟通，让其确认接口可用性</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-270">四、FAQ</h1>
+<h4 id="section-271">Q1:为什么会存在未执行的表达式？</h4>
+<p>--A：表达式自左至右执行，两种情况导致表达式提前结束：</p>
+<p>1.若段逻辑已经可以得出表达式结果，后续逻辑段将不再执行</p>
+<p>如：rule1的逻辑：factorA &amp;&amp; factorB || （factorC &amp;&amp; factorD），在表达式执行时若 factorA：True 、factorB：True，则（factorC &amp;&amp; factorD）将不再需要进行计算就可以判断该规则的运行结果为True。</p>
+<p>2.若逻辑执行中出现异常，则后续表达式不再执行</p>
+<p>如：rule2的逻辑：!factorA &amp;&amp; factorB，factorA= null时，逻辑运算出现异常，factorB则不再执行</p>
+<h4 id="section-277">Q2: 鼠标移动到节点的信息上，浮框显示的信息是什么？</h4>
+<p>--A：浮框内显示的为该段逻辑的执行结果</p>
+<h4 id="section-279">Q3: 为什么有些规则的map图逻辑全部展开了而有些规则的map图只展示部分？</h4>
+<p>--A：系统默认最多展示6层节点信息，若规则比较复杂，逻辑超过6层则收起。需要用户手动点开查看</p>
+<h4 id="section-281">Q4: 引用因子工具的规则怎么查看命中情况？</h4>
+<p>--A：提供因子工具输出参数是由哪些规则命中的信息展示，具体因子工具内部规则命中的情况，可以点击规则详情查看</p>
+<p><img src="assets/87aaa02c50731967.png" width="618" height="300" alt="image.png"></p>
+<h1 id="section-285">五、意见、建议收集</h1>
+<p><a href="https://km.sankuai.com/page/266247405" title="https://km.sankuai.com/page/266247405">学城文档 266247405（无权限读取标题）</a></p>
+<p></p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/说明：排查探针支持路由场景查询__618346668/index.html">说明：排查探针支持路由场景查询</a> <span class="status">已保存</span></li><li><a href="children/说明：排查探针支持普通路由场景查询__1203326586/index.html">说明：排查探针支持普通路由场景查询</a> <span class="status">已保存</span></li></ul></section></main></body></html>

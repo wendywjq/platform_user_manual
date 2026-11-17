@@ -1,0 +1,91 @@
+<km-doc>
+<km-title nodeId="ddfeee12a61d4725b2c569ec50086255">说明：累计相关case问题排查</km-title>
+<h1 align="start" nodeId="e08faf2afca24abe94b41726030a6499"><span color="rgb(0, 0, 0)"><strong>1. 流程概述</strong></span></h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1351327665/3596588091?contentType=0&amp;isNewContent=false" width="1255" height="256" nodeId="087f2ccac7404c8da1649fe24033c396" />
+<h1 align="start" nodeId="41b6bd5ec24948e8a3652ae0798be366">2.操作步骤</h1>
+<table responsive="false" nodeId="7f9f2f9025b543a8a751d8cdbf3dbb51">
+<tr nodeId="7341d5f5f72e4d5fb011abd2aa924db6">
+<th colwidth="[221]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="69b1a018b13547d5a2fb6192ee4f1b5a">
+<p nodeId="9aed547947704afd9ae99b1ca3684026">步骤</p>
+</th>
+<th colwidth="[1041]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="8bdbf7f1342b4a14bcbc91498f62aa03">
+<p nodeId="08f3b760646144319a9e361381859104">说明</p>
+</th>
+</tr>
+<tr nodeId="2e5f66425e7e4f81942050f574333985">
+<td colwidth="[221]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="922094fd10a044738a1c5ceff283cd8e">
+<p align="start" nodeId="0175bc0cfd4c444c95f14520fd25a64c"><strong>问题定位</strong></p>
+</td>
+<td colwidth="[1041]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="145f869cb0d24535883b3672c6b7411d">
+<p align="start" nodeId="44f488283a6b4a1ab392ea4a9aecda7e">1.<strong>查询用户日志</strong></p>
+<p align="start" nodeId="9d61fb313c4a4987af8dc4525f28cfb4">入口：日志查询</p>
+<p align="start" nodeId="a10ffbe2016e44d6b78cfffd1d54b2c6">说明：在日志查询中输入目标用户的userid或其他关联信息，点击查询，查看场景和规则的命中情况。</p>
+<p align="start" nodeId="fcdbbf1571674abeb0c37650baa19612">注意：<span color="rgb(245, 35, 45)">非必要，查询天数不要设的过长（3天以内），时间越长数据加载时间越久！</span></p>
+<p align="start" nodeId="10e0ed6662e4429db29733f63eeb7178"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3596588090?contentType=1&amp;isNewContent=false" name="" width="777" height="362" nodeId="c2f3f55f1c8d45f2905d75ffeb22c9d1" /></p>
+<p align="start" nodeId="77f2a67d294d4e93bf9e98bcf79c439a" />
+<p align="start" nodeId="31296f0494014add9e1bbbfef3b4ec01"><strong>2.规则与决策查询</strong></p>
+<p align="start" nodeId="9417e82e048e4cbca2d804c95c1659c7">入口：日志查询详情</p>
+<p align="start" nodeId="393ab18f159f462f8f74a5415b1711aa">说明：日志查询后观察请求命中决策和具体规则，如图：用户命中拦截决策和2344075累计类规则，点击规则蓝色放大镜按钮可查看规则执行逻辑，定位出规则为什么会被命中。</p>
+<p align="start" nodeId="9cbd2473d1a04627b56228c9eed707ea"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3597651068?contentType=1&amp;isNewContent=false" name="" width="1024" height="570" nodeId="77deacb1350145fb850b098c4dc3145d" /></p>
+<p align="start" nodeId="6b4d17f77fa44e4b9ff7fca14e79ba3a" />
+<p align="start" nodeId="4155e813c15a4c0185c0a6a97f6fde3b"><strong>3.是否因为累计因子被拦截</strong></p>
+<p align="start" nodeId="ff0f8d8ac42348f58c36888b3ccc3850">1）由步骤2可以看到具体的规则命中情况，如果规则是累计类规则或规则的命中是因为累计因子被命中，则按照本手册继续排查。</p>
+<p align="start" nodeId="9cb7a00fd278442a97ce0e9fbcfae0a8">2）点击规则旁的放大镜可进入排查探针，页面展示的是规则命中链路的拓扑图，图中红色框为命中的链路，如果是累计因子会有“累计”标注，且会显示累计因子的取值。如图可看出规则命中点了累计因子<span color="rgba(0, 0, 0, 0.84)">factor_youxuan_user_254_identifyIdDecrypt_user_acc_30d_campaign_name，累计值为2</span></p>
+<p align="start" nodeId="efe3523a69a540e78b0c658ae06d5aeb"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3596792066?contentType=1&amp;isNewContent=false" name="" width="942" height="600" nodeId="015b20d61af441e49c490f751a0db0b6" /></p>
+<p align="start" nodeId="7753ffed8d03448ca59197ac9ff63413" />
+<p align="start" nodeId="06a2e50a935c4f95b978e1c2fc6516bc" />
+<p align="start" nodeId="0abb5576776c4d5a9043898d9d794111"><strong>3）累计因子逻辑确认</strong></p>
+<p align="start" nodeId="8092fbf0d70b40a3a546c806d2f2d3f7">点击累计因子下方"..."「详情」按钮可查看因子的配置信息，因为累计因子的命中情况是由累计因子配置逻辑决定的，需注意以下几点信息：</p>
+<p align="start" nodeId="bb06956a3a9a4f62b8dd058bf9045734">按何累计：即每次请求中根据哪些key为依据对累计值做的累计。</p>
+<p align="start" nodeId="4ce3799f80f44d59b706d48dd6962dbb">累计值：累计的主体，累计因子的值即为符合累计条件的累计值的个数。（举例：<span color="">比如，</span><span color="rgb(0, 0, 0)">对同uuid同ip的userid进行计数，那么“按何累计”：ip,userid ，“累计值”：“userid”</span>）</p>
+<p align="start" nodeId="9ff48e412f3f448cab29b6b690a98341">剔除重复项：对满足累计条件的相同累计值剔除。</p>
+<p align="start" nodeId="b2712ee46a794510ace6bebdf62ef06d">累计自身：注意 如果本次请求满足累计条件那么会在满足写累计的累计值上自动加1。</p>
+<p align="start" nodeId="3716120cd7c94660b629ad37a7c21605">累计周期：判断是否超过1天</p>
+<p align="start" nodeId="c10cec416cc04850afc448d1bc3b14b8">累计因子跳转入口：</p>
+<p align="start" nodeId="9696c83892d8467c9f6951ad7804afb4"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3596792064?contentType=1&amp;isNewContent=false" name="" width="682" height="284" nodeId="588db68ef5da42639c48bce1042577c6" /></p>
+<p align="start" nodeId="39cd0cc09fc54b37b8e82aff7ab84fc0">累计因子详情</p>
+<p align="start" nodeId="f50fae6254cb4ed8ae2d083540b1b467"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3597179332?contentType=1&amp;isNewContent=false" name="" width="988" height="600" nodeId="9beac7c27432486d8e1926077bf8ab4f" /></p>
+<p align="start" nodeId="586b62fc9fc741d3ba157c8be446d9f5">4）查看累计因子【按何累计】字段取值</p>
+<p align="start" nodeId="2a50f0ef23d6472aa112d123fab442a8">从累计详情可看到，累计因子是按照 <span color="rgba(0, 0, 0, 0.84)">identifyIdDecrypt、factor_youxuan_campaign_name这两个字段累计的，如果要查询累计明细需明确当前case这两个字段的取值。查询路径 A.排查探针（拓扑图）】或B.【日志详情】</span></p>
+<p align="start" nodeId="a96835ac903843d095a7656aff5cd026"><span color="rgba(0, 0, 0, 0.84)">A 排查探针（拓扑图）</span></p>
+<p align="start" nodeId="20e0613fd13943fe8b84ce5db802da47"><span color="rgba(0, 0, 0, 0.84)">在步骤【</span>3.是否因为累计因子被拦截】中，您已经打开排查探针拓扑图了，命中的累计因子后的分支展示了这个累计因子依赖的参数/因子，从分支中找到按何累计字段的取值。比如，本例中。 <span color="rgba(0, 0, 0, 0.84)">identifyIdDecrypt=</span>370126xxxxxxxx1221<span color="rgba(0, 0, 0, 0.84)">、factor_youxuan_campaign_name=</span>天天领鸡蛋。<span color="rgb(245, 35, 45)">注意：排查探针不能copy参数/因子取值，读写查询时需手动输入。</span></p>
+<p align="start" nodeId="eeb80984f6c1446f9f350d434227d350"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3596501521?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1406.69" height="600" nodeId="8094d4329ea64d8894a9dd463fe1614a" /></p>
+<p align="start" nodeId="43c5f99f82d04948ac1bd5f4ecafe5e6">B 日志详情</p>
+<p align="start" nodeId="0fc91c46694f42b8ae63c6010f0bc3f1">注意：查询前请明确查询的是参数还是因子，在相应的tab command/control+F查询。</p>
+<p align="start" nodeId="7574694c637b4635975c9aa501bacfe1"><span color="rgba(0, 0, 0, 0.84)">identifyIdDecrypt取值                                                                               factor_youxuan_campaign_name取值</span></p>
+<p align="start" nodeId="8b7f1fa4424d4b8fb9a5221ea231e786"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3597179330?contentType=1&amp;isNewContent=false" name="" width="441" height="223" nodeId="e687a427f97240789f19279f56d29559" /><img src="https://km.sankuai.com/api/file/cdn/1351327665/3597101329?contentType=1&amp;isNewContent=false" name="" width="376" height="217" nodeId="be8d00c96dbe4d46a1ad1fb6b9c37183" /></p>
+<p align="start" nodeId="6e2f94ac80654d18aeec9a9571e1a563" />
+<p align="start" nodeId="0663e72f0d984a1fb841fb84b933b132" />
+</td>
+</tr>
+<tr nodeId="6270584c07ef4952aa9ab64343797a16">
+<td colwidth="[221]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9aca599f25ab46a3bd05248adfa89656">
+<p align="start" nodeId="0faf3ea5855842f88fbe9f101298f377">问题归因</p>
+</td>
+<td colwidth="[1041]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8746ebd683644f79b9e88fd15aa0afe3">
+<p align="start" nodeId="9feefa5adb21474280cc0886b2329e90"><strong>4. 累计周期判断</strong></p>
+<p align="start" nodeId="5b9d0ce70abe440fbd1a9be3de1fe51e">从累计因子详情判断累计周期，</p>
+<p align="start" nodeId="dbccf5ade8394d9091997f751762810e">1）判断累计因子周期是否超过1天，超过1天的建议用读累计查询。</p>
+<p align="start" nodeId="da5de3347b4a485a9cbc614f2621dc46">2）累计周期小于1天的因子查询小于1天的建议读写累计查询相结合，因为读累计值查询到的是【当前时间点至（当前时间-累计周期）】这段时间的累计情况，如果是短周期且命中规则后用户又发生了命中累计的行为，那么读累计查询结果和case发生时点的实际情况有差异，需结合写累计查询的详细日志排查。注意：<span color="rgb(245, 35, 45)">写累计查询仅保留近4天的明细。</span></p>
+<p align="start" nodeId="0009def43e934b189bdacdd2de8f0c2e">案例中 <span color="rgba(0, 0, 0, 0.84)">factor_youxuan_user_254_identifyIdDecrypt_user_acc_30d_campaign_name 累计周期为30天，用读累计查询进行定位。</span></p>
+<p align="start" nodeId="a0a13979041f4e08a0e91be9c2c9b217" />
+<p align="start" nodeId="f3f51b050a154b89a7b0c60ff9ff2bf1"><strong>5. 读写累计查询</strong></p>
+<p align="start" nodeId="9b23867c54ac44aa989bce9b63a49ce5">入口：策略排查-读累计查询</p>
+<p align="start" nodeId="077e42151cd04a94a5191f8fab7051db">因子：<span color="rgba(0, 0, 0, 0.84)">factor_youxuan_user_254_identifyIdDecrypt_user_acc_30d_campaign_name、累计周期30天、累计值：userid、按何累计：</span> <span color="rgba(0, 0, 0, 0.84)">identifyIdDecrypt=</span>370126199703231221<span color="rgba(0, 0, 0, 0.84)">、factor_youxuan_campaign_name=</span>天天领鸡蛋。读累计查询结果如下图，<span color="rgb(245, 35, 45)">即累计值（userid）=256670232（即因为userid=256670232 之前有过命中累计因子的记录，是规则被命中的根本原因）</span><span color="rgba(0, 0, 0, 0.84)">，注意：案例中，累计逻辑是【累计自身】则当用户本次再请求时，累计结果会自动加1 ，即factor_youxuan_user_254_identifyIdDecrypt_user_acc_30d_campaign_name=2.</span></p>
+<p align="start" nodeId="df813e7e944d44608ab9525ecc1b32c6"><span color="rgba(0, 0, 0, 0.84)">读累计查询结果：</span></p>
+<p align="start" nodeId="71ccf8b5510a4ec5b3015b5f6c1d1e89"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3596871264?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1406.69" height="600" nodeId="3cbd304b194845e1b599ce9159761ce9" /></p>
+<p align="start" nodeId="2e2f8ba040e0410caf4216e7b1db01ae" />
+<p align="start" nodeId="36053915e1444587bee271f37931bfac">2）累计周期小于1天的因子查询小于1天的建议读写累计查询相结合，因为读累计值查询到的是【当前时间点至（当前时间-累计周期）】这段时间的累计情况，如果是短周期且命中规则后用户又发生了命中累计的行为，那么读累计查询结果和case发生时点的实际情况有差异，需结合写累计查询的详细日志排查。注意：<span color="rgb(245, 35, 45)">写累计查询仅保留近4天的明细。</span></p>
+<p align="start" nodeId="a7c45da22250476494354335bb097ef8">举例：</p>
+<p align="start" nodeId="6310f38b742f425f9cab78e0b489578d">以userid=1753941172 被拦截为例，1）通过日志查询查询到用户于<span color="rgba(0, 0, 0, 0.84)">2022-08-08 12:45:43 </span>命中规则：<span color="rgba(0, 0, 0, 0.84)">优选用户加车频次累计_5分钟_异常  rule_youxuan_user_cart_num_5m和优选用户加车频次累计_1分钟_异常 rule_youxuan_user_cart_num_1m</span></p>
+<p align="start" nodeId="292758142d674070b3fecd2b3cef5739"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3597483917?contentType=1&amp;isNewContent=false" name="" width="550" height="282" nodeId="49a4db06e336422f912c3d97487e124c" /></p>
+<p align="start" nodeId="b7c1302794154b6ca211f1da471d409d">2）通过排查探针定位到 规则：<span color="rgba(0, 0, 0, 0.84)">优选用户加车频次累计_5分钟_异常  rule_youxuan_user_cart_num_5m 是因为命中累计因子：优选用户加车频次累计_5分钟factor_youxuan_user_cart_num_5m，累计因子取值=136，对用户具体请求进行分析。</span></p>
+<p align="start" nodeId="f2075e77fb1c4a4292db172944f0809b"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3597101326?contentType=1&amp;isNewContent=false" name="" width="623" height="374" nodeId="89d9475f08104f72a9fb9d142284bb56" /></p>
+<p align="start" nodeId="1f91d9ead60a4af99634ed414126e571">3）写累计查询：输入累计因子id/名称=<span color="rgba(0, 0, 0, 0.84)">rule_youxuan_user_cart_num_5m</span>、选择累计事件=8564、时间（拦截发生时间是：<span color="rgba(0, 0, 0, 0.84)">2022-08-08 12:45:43 ，累计周期是5分钟，时间区间应包含 2022-08-08 12:40:43-2022-08-08 12:45:43</span>）、按何累计userid=1753941172</p>
+<p align="start" nodeId="4b5cdb3895694f8e818edff11bb76916"><img src="https://km.sankuai.com/api/file/cdn/1351327665/3597651065?contentType=1&amp;isNewContent=false" name="" width="661" height="361" nodeId="e3ee9794b75c4a1ba3c3467ce7870d93" /></p>
+<p align="start" nodeId="d35433adb6f64de1aa75dcd162fd1ceb">4）定位：从查询结果可以看到查到142条记录，这是由于所选择的时间区间大于 <span color="rgba(0, 0, 0, 0.84)">2022-08-08 12:40:43-2022-08-08 12:45:43 这个累计周期，您可以根据时间推算出具体请求的发生时间，读累计详情中内容即为被累计到的请求明细。</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="ec0f52cecfd8478982cc1c4b95e84c49" />
+</km-doc>

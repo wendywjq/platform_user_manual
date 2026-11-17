@@ -1,0 +1,223 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：智能测试使用指南</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-52">二、名词解释</a><a href="#section-58">三、操作指南</a><a href="#section-59">3.1 智能测试全流程概述</a><a href="#section-68">3.2 智能测试详细操作流程</a><a href="#section-70">Step1：修改逻辑</a><a href="#section-74">入口a --Plus工具中心的智能测试</a><a href="#section-82">入口b -- 因子/规则的编辑页面</a><a href="#section-92">Step2：设置标记时间提交智能测试</a><a href="#section-109">Step3：验证双跑后对比数据是否复合预期</a><a href="#section-121">Step4：验证无误后公示上线</a><a href="#section-136">3.3 特殊说明</a><a href="#section-139">累计因子修改说明</a><a href="#section-204">紧急生效</a><a href="#section-209">四、常见QA</a><a href="#section-210">Q：提交智能测试后，修改的信息在哪里能查询到？</a><a href="#section-212">Q：如何确定智能测试的数据符合预期？</a><a href="#section-217">Q：终止后的智能测试任务还可以再次重启么？</a><a href="#section-219">Q：为什么要有公示？</a><a href="#section-221">Q：双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？</a><a href="#section-223">Q：智能测试任务平均耗时情况？</a><a href="#section-225">Q：紧急上线流程审批人是谁？</a><a href="#section-227">Q：支持累计类型的修改么？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：智能测试使用指南</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/170920701">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：智能测试使用指南</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>解决：</p>
+<p>（1）线上生效因子、规则修改流程中因避免误操作影响线上规则执行涉及的强制更新巨大工作量</p>
+<p>（2）线上生效因子、规则被他方业务强制更新，使用方不知道问题</p>
+<p>（3）强制更新操作冗长，简化操作，由6步骤精简为4步</p>
+<details>
+<summary>新旧操作流程差异</summary>
+<div>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px"><strong>新版本</strong></span></p>
+</th>
+<th>
+<p><span style="font-size:14px"><strong>旧版本</strong></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">有强制更新权限</span></p>
+</td>
+<td rowspan="2">
+<p><span style="font-size:14px">以修改因子（属性信息）为例：</span></p>
+<p><span style="font-size:14px">1、修改因子属性信息--&gt;2、修改完成</span></p>
+<p><span style="font-size:14px">以修改因子（逻辑信息）为例：</span></p>
+<p><span style="font-size:14px">1、修改因子逻辑信息--&gt;2、设置标记时间提交智能测试--&gt;3、验证双跑后对比数据是否复合预期--&gt;4、验证无误后公示上线</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">支持随时修改规则，无论是否已经在场景中生效，弊端：规则未经过生产数据验证，容易因人工误操作造成case；</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">无强制更新权限</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">以修改因子（逻辑信息+属性信息）为例：</span></p>
+<p><span style="font-size:14px"><strong>1、查询因子所引用的规则M个--&gt;2 、将规则在场景中生效修改为标记/离线*N次（M&gt;N ）</strong></span><span style="font-size:14px">--&gt;3 、修改因子逻辑--&gt;4 、将引用因子的规则在场景中标记30分钟--&gt;5、验证修改后引用因子标记数据是否复合预期--&gt;6 、验证无误，将规则在场景中标记/离线修改生效*N次（M&gt;N ）</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+</div>
+</details>
+<p>（4）化解业务咨询投诉率的23.5%；</p>
+<h1 id="section-52">二、名词解释</h1>
+<p>属性信息：规则备注、标签、共享业务方、客服备注（规则）、客服建议（规则）</p>
+<p>逻辑信息：表达式、类型（因子）、英文名称（当前不可修改）</p>
+<p>强制更新：若本次操作影响线上表达式的执行结果，需先将线上状态取消后再进行操作或者强行变更信息；</p>
+<p>智能测试：规则、因子修改时按系统安全执行的双跑测试流程管理，即：当修改规则、因子、因子工具时，若影响线上策略的执行，将会进入智能测试流程，进行修改生效前的双跑。双跑期间，线上仍按照修改前的规则、因子逻辑执行；修改的逻辑为标记状态执行。</p>
+<p>公示：规则、因子修改生效前的系统信息公示，为修改生效前的信息同步机制，默认30分钟，系统自动执行；</p>
+<h1 id="section-58">三、操作指南</h1>
+<h2 id="section-59"><strong>3.1 智能测试全流程概述</strong></h2>
+<img src="assets/5f4081fcf21f95f2.svg" width="1006" height="96" alt="流程图">
+<p><strong>Quick Start</strong></p>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/170920701/177345765?contentType=1">智能测试创建.mov</a></figcaption></figure>
+<p></p>
+<h2 id="section-68"><strong>3.2 智能测试详细操作流程</strong></h2>
+<h3 id="section-70"><strong>Step1：修改逻辑</strong></h3>
+<ul>
+<li>
+<h4 id="section-74"><strong>入口a --Plus工具中心的智能测试</strong></h4>
+</li>
+</ul>
+<p><img src="assets/1de798f2bb55fc8d.png" width="994" height="161" alt="image.png"></p>
+<p><img src="assets/3753e78fa1bbd6b8.png" width="412" height="189" alt="image.png"></p>
+<ul>
+<li>
+<h4 id="section-82"><strong>入口b -- 因子/规则的编辑页面</strong></h4>
+</li>
+</ul>
+<p>在因子列表中找到需要修改的因子，并点击因子进入编辑页面，进入编辑页面后，修改因子仍需要经过测试，并且至少有一条新增的成功的测试用例方可提交修改，之后启动智能测试任务</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意：</p>
+<p>此时若有其他人正在编辑该因子/规则，您将收到提示xxmis号正在修改，需xx修改完成/退出编辑状态后，您方可修改。若您急于修改请大象联系该用户退出编辑状态。</p>
+<p><img src="assets/4ab972757cbc9094.png" width="296" height="60" alt="image.png"></p>
+</div>
+</div>
+<h3 id="section-92"><strong>Step2：设置标记时间提交智能测试</strong></h3>
+<p>支持用户设置双跑标记时间，当前默认30分钟。点击“双跑标记”，将提示“后台已开始双跑标记，可在智能测试中查看”</p>
+<p><img src="assets/2bf80c6534967cbe.png" width="307" height="179" alt="image.png"></p>
+<p><img src="assets/f40585bf618649d0.png" width="979" height="305" alt="image.png"></p>
+<p>同时也支持将未完成的智能测试任务中止，</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意</p>
+<ul>
+<li>提交后，修改信息需要到智能测试页面中查看当前任务列表及任务状态；</li>
+<li>双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？本期不支持，若有需求后续二期增加。</li>
+<li>修改需要紧急上线怎么办？--可选择紧急上线申请，可跳过双跑标记、公示期。</li>
+<li>双跑中的智能测试任务不支持紧急上线，需要双跑完成后或双跑前提交紧急上线申请</li>
+</ul>
+</div>
+</div>
+<h3 id="section-109">Step3：验证双跑后对比数据是否复合预期</h3>
+<ol>
+<li>双跑结束后，将收到大象通知，“您的智能测试任务ID：XXX已双跑完成，请及时查看结果  <span style="color:#096dd9"><u>查看数据结果</u></span>”</li>
+<li>
+<p>可在智能测试列表页面中点击“结果”查看数据详情：规则在场景下标记30分钟的命中量统计，数据样例如下：</p>
+<p><img src="assets/051c44aab93e0e75.png" width="798" height="600" alt="image.png"></p>
+</li>
+<li>修改因子，在智能测试中会依据引用因子的规则在其场景配置同期命中量作为对比数据</li>
+<li>每条规则详细数据查询：可在实时日志查询中查看，其中生效规则为原始逻辑，测试规则为修改后逻辑，支持按照用户/规则信息进行查询</li>
+<li>若双跑的数据结果不符合预期或者已不需要修改，可将智能测试任务终止</li>
+</ol>
+<h3 id="section-121">Step4：验证无误后公示上线</h3>
+<ol>
+<li>确认修改逻辑无误，双跑数据结果符合预期，点击“去公示”</li>
+<li>
+<p>填写“公示说明”中的修改原因，该信息将会在公示时大象推送给修改该因子/规则影响到的业务方，业务方感知修改，默认无异议，若存疑会大象通知您，您将根据影响情况决策是否终止公示（即取消本次智能任务）</p>
+<p><img src="assets/e3895b8bf6473fc9.png" width="327" height="190" alt="image.png"></p>
+</li>
+<li>修改该因子/规则影响到的业务方收到大象通知样例<br><img src="assets/46f42c11c7c115dd.svg" width="290" height="241" alt="流程图"></li>
+<li><span style="color:#ccc">公示时间30分钟，完成后，系统将执行一键修改，完成智能测试任务，同时因子/规则修改生效（可能存在1分钟的延迟），同时将收到大象通知，“您的智能测试任务ID：XXX已公示完成修改成功，请及时查看结果  </span><span style="color:#ccc"><u>查看数据</u></span><span style="color:#ccc">”（本期未支持，下版本增加）</span></li>
+</ol>
+<h2 id="section-136">3.3 特殊说明</h2>
+<ul>
+<li>
+<h3 id="section-139">累计因子修改说明</h3>
+</li>
+</ul>
+<p>（1）修改读取条件：累计因子的数据无变化，直接进入双跑流程</p>
+<p>（2）修改  累计事件、累计周期、累计类型（本期不支持）、按何累计、累计值、满足何种条件累计 的配置条件时，涉及到累计数据的写入逻辑修改，需对累计数据进行重构</p>
+<img src="assets/d3d896962dcd0def.svg" width="706" height="180" alt="流程图">
+<p>例如：近5天同ip注册用户数</p>
+<p>假设每天同ip注册用户数分布如下，Day6 对“满足何种条件累计”进行了修改，此时累计数据的写入条件发生变化，第六天的数据由2个变为6个。</p>
+<p>当前版本实现的累计因子双跑，近5天同ip注册用户数，【线上生效】=3+4+2+5+<span style="color:#f5222d">2</span>=16个；【双跑】=3+4+2+5+<span style="color:#f5222d">6</span>=20个，【智能测试修改完成后】X个（生效时间点的旧逻辑数据）</p>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day1</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day2</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day3</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day4</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day5</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day6</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">同ip注册用户数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">2个</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">3个</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">4个</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">2个</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">5个</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">2个--&gt;6个</span></p>
+</td>
+</tr>
+</table>
+<div class="note">
+<strong></strong>
+<div>
+<p><strong>为什么这样做？</strong></p>
+<p>当前累计因子不支持回溯，因此若按照新逻辑重新执行，会导致数据断层，【双跑】=6，涉及累计类的规则命中量均会异常</p>
+<p>同时后续累计因子支持回溯，该技术方案可无缝衔接；</p>
+<p><strong>为什么不支持累计类型的修改？</strong></p>
+<p>当前累计因子不支持回溯，修改累计类型，例如：由计数--&gt;求和存在数据跃迁情况1+1+1+5+6，待累计因子支持回溯时即可支持累计类型修改</p>
+</div>
+</div>
+<ul>
+<li>
+<h3 id="section-204">紧急生效</h3>
+</li>
+</ul>
+<p>用户在编辑页面中逻辑修改并确认提交后，进行紧急上线申请，填写理由--&gt;系统将相关申请信息通过大象公众号推送给引用方的业务负责人--&gt;负责人审批通过--&gt;修改执行完成</p>
+<p><img src="assets/0b00c604c480b422.png" width="205" height="208" alt="image.png"><img src="assets/ac55db171ed07742.svg" width="205" height="207.84722222222223" alt="流程图"></p>
+<h1 id="section-209">四、常见QA</h1>
+<h3 id="section-210">Q：提交智能测试后，修改的信息在哪里能查询到？</h3>
+<p>--A：需要到智能测试页面中查看当前任务列表及任务状态；在修改成功前，因子/规则的修改信息均不会出现在因子/规则列表中；</p>
+<h3 id="section-212">Q：如何确定智能测试的数据符合预期？</h3>
+<p>--A：有两种方式（1）通过“双跑结果”数据中的线上命中量和命中率数据确认，修改前后命中数据波动是否符合预期</p>
+<p>                            （2）通过智能测试任务执行期间的实时日志查看具体数据执行是否符合预期，可通过规则ID/userid等日志查询相关参数查询</p>
+<p><img src="assets/6749642d9a21bd47.png" width="521" height="600" alt="image.png">​</p>
+<h3 id="section-217">Q：终止后的智能测试任务还可以再次重启么？</h3>
+<p>--A：不可以，只能重新创建任务，到达指定标记时间后将停止标记</p>
+<h3 id="section-219">Q：为什么要有公示？</h3>
+<p>--A：因子存在多业务方共用的情况，当一个业务方修改时会影响其他业务方，因子公示会将因子确认修改的信息和双跑结果以大象消息通知给其他业务方，若通知后30分钟内其他业务方无异议则成功；若有异议则需业务方大象同修改人沟通，终止修改；</p>
+<h3 id="section-221">Q：双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？</h3>
+<p>--A：本期不支持，若有需求后续二期增加</p>
+<h3 id="section-223">Q：智能测试任务平均耗时情况？</h3>
+<p>--A：（1）使用紧急上线流程---依赖审批响应，最短1分钟；（2）不使用紧急上线流程--除去验证数据是否符合预期人工时间，最短60分钟；</p>
+<h3 id="section-225">Q：紧急上线流程审批人是谁？</h3>
+<p>--A：修改人所在业务方的负责人，即在【权限】--&gt;【业务方管理】--&gt;【负责人】</p>
+<h3 id="section-227"><strong>Q：支持累计类型的修改么？</strong></h3>
+<p>不支持，因子当前累计因子不支持回溯，修改累计类型，例如：由计数--&gt;求和存在数据跃迁情况1+1+1+5+6，待累计因子支持回溯时即可支持累计类型修改</p>
+<p></p>
+<p></p>
+</article></main></body></html>
