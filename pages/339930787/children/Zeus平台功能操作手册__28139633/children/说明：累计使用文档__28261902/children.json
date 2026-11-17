@@ -1,0 +1,70 @@
+{
+  "parentId": "28261902",
+  "parentTitle": "",
+  "children": [
+    {
+      "contentId": "28364520",
+      "title": "累计问题自查",
+      "type": "学城文档2.0",
+      "creator": "xiaohuiyun",
+      "createTime": 1504858463000,
+      "modifyTime": 1606270675000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "28234760",
+      "title": "说明：Zeus累计最近几次使用指南",
+      "type": "学城文档2.0",
+      "creator": "xiaohuiyun",
+      "createTime": 1525260430000,
+      "modifyTime": 1582983384000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "472805061",
+      "title": "说明：多维累计操作手册",
+      "type": "学城文档2.0",
+      "creator": "fanwenqing",
+      "createTime": 1602763891000,
+      "modifyTime": 1616656997000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "233320099",
+      "title": "说明：累计因子排查工具",
+      "type": "学城文档2.0",
+      "creator": "dusisi",
+      "createTime": 1576469439000,
+      "modifyTime": 1576757952000,
+      "isChildExist": true,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    }
+  ]
+}

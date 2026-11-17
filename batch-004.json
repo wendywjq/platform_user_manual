@@ -1,0 +1,250 @@
+{
+  "root_id": "28139633",
+  "saved_date": "2026-11-17",
+  "batch": 4,
+  "document_count": 20,
+  "cumulative_document_count": 85,
+  "traversal": "depth_first_in_api_order",
+  "documents": [
+    {
+      "id": "1747621632",
+      "title": "设计与实现 Aviator 5.3 设计",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/设计与实现 Aviator 5.3 设计__1747621632",
+      "parent_id": "1747338212",
+      "source": "https://km.sankuai.com/collabpage/1747621632",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747419601",
+      "title": "完整选项说明",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/完整选项说明__1747419601",
+      "parent_id": "1747338212",
+      "source": "https://km.sankuai.com/collabpage/1747419601",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747429257",
+      "title": "用户指南（5.0之前版本）",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/用户指南（5.0之前版本）__1747429257",
+      "parent_id": "1747338212",
+      "source": "https://km.sankuai.com/collabpage/1747429257",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1747534927",
+      "title": "最佳实践",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Aviator说明手册__1747338212/children/最佳实践__1747534927",
+      "parent_id": "1747338212",
+      "source": "https://km.sankuai.com/collabpage/1747534927",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "2710365121",
+      "title": "Google Aviator表达式使用手册",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/Google Aviator表达式使用手册__2710365121",
+      "parent_id": "176739529",
+      "source": "https://km.sankuai.com/collabpage/2710365121",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1753200610",
+      "title": "表达式书写FAQ",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/表达式书写FAQ__1753200610",
+      "parent_id": "176739529",
+      "source": "https://km.sankuai.com/collabpage/1753200610",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1215666973",
+      "title": "累书写逻辑",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：表达式书写说明__176739529/children/累书写逻辑__1215666973",
+      "parent_id": "176739529",
+      "source": "https://km.sankuai.com/collabpage/1215666973",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "188083312",
+      "title": "说明：操作安全机制",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：操作安全机制__188083312",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/188083312",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "239430531",
+      "title": "说明：策略演练使用说明",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：策略演练使用说明__239430531",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/239430531",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 30,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "56487220",
+      "title": "说明：场景配置、规则、因子变更通知使用指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：场景配置、规则、因子变更通知使用指南__56487220",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/56487220",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 7,
+      "remote_images": 0,
+      "diagrams": 2
+    },
+    {
+      "id": "190456513",
+      "title": "说明：管理员添加/移除用户",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：管理员添加＿移除用户__190456513",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/190456513",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 8,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "59203601",
+      "title": "说明：规则组使用文档",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：规则组使用文档__59203601",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/59203601",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 25,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "304311873",
+      "title": "说明：决策理由使用",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：决策理由使用__304311873",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/304311873",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 8,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "28261902",
+      "title": "说明：累计使用文档",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：累计使用文档__28261902",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/28261902",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 2,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "28364520",
+      "title": "累计问题自查",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：累计使用文档__28261902/children/累计问题自查__28364520",
+      "parent_id": "28261902",
+      "source": "https://km.sankuai.com/collabpage/28364520",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 3,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "28234760",
+      "title": "说明：Zeus累计最近几次使用指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：累计使用文档__28261902/children/说明：Zeus累计最近几次使用指南__28234760",
+      "parent_id": "28261902",
+      "source": "https://km.sankuai.com/collabpage/28234760",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "472805061",
+      "title": "说明：多维累计操作手册",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：累计使用文档__28261902/children/说明：多维累计操作手册__472805061",
+      "parent_id": "28261902",
+      "source": "https://km.sankuai.com/collabpage/472805061",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 9,
+      "remote_images": 0,
+      "diagrams": 3
+    },
+    {
+      "id": "233320099",
+      "title": "说明：累计因子排查工具",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：累计使用文档__28261902/children/说明：累计因子排查工具__233320099",
+      "parent_id": "28261902",
+      "source": "https://km.sankuai.com/collabpage/233320099",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 8,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "219860859",
+      "title": "读累计查询",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：累计使用文档__28261902/children/说明：累计因子排查工具__233320099/children/读累计查询__219860859",
+      "parent_id": "233320099",
+      "source": "https://km.sankuai.com/collabpage/219860859",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 3,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "219802210",
+      "title": "发累计查询",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：累计使用文档__28261902/children/说明：累计因子排查工具__233320099/children/发累计查询__219802210",
+      "parent_id": "233320099",
+      "source": "https://km.sankuai.com/collabpage/219802210",
+      "saved_date": "2026-11-17",
+      "local_images_and_diagrams": 1,
+      "remote_images": 0,
+      "diagrams": 0
+    }
+  ],
+  "media": [
+    {
+      "document_id": "239430531",
+      "type": "video",
+      "name": "策略演练上.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/239430531/241303580?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "239430531",
+      "type": "video",
+      "name": "策略演练下.mov",
+      "url": "https://km.sankuai.com/api/file/cdn/239430531/241383628?contentType=1",
+      "status": "remote_only"
+    }
+  ],
+  "attachments": [],
+  "video_policy": "names_and_original_links_only",
+  "asset_errors": [],
+  "pause_after_batch": true
+}

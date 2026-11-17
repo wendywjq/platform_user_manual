@@ -1,0 +1,258 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：Zeus累计最近几次使用指南</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">需求背景</a><a href="#section-8">配置演示</a><a href="#section-11">配置解释</a><a href="#section-26">返回解释</a><a href="#section-103">使用配置</a><a href="#section-111">注意的问题</a><a href="#section-122">举例</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：累计使用文档</a> / <a href="index.html">说明：Zeus累计最近几次使用指南</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/28234760">查看学城原文</a></p><article>
+<h1>说明：Zeus累计最近几次使用指南</h1>
+<div style="none"></div>
+<h2 id="section-3">需求背景</h2>
+<ul>
+<li>Zeus累计只能进行计数、求和，而无法返回真实的历史累计数据</li>
+<li>希望能获取同一设备同一ip下最近3次用户申请贷款的历史详情，比如userid、bankCardNo等数据</li>
+<li>由此累计新增了一种类型：最近几次，累计最近几次将要获悉的字段写在累计值中，并设置要累计的次数，最后会返回一个带有各字段历史数据的字符串JSON</li>
+</ul>
+<h2 id="section-8">配置演示</h2>
+<p><img src="assets/6eaf6ae5dcd18b32.png" width="600" height="579" alt="acc_demo_case_last_times.png"></p>
+<h2 id="section-11">配置解释</h2>
+<ul>
+<li>累计周期：选择数据保留的最长时间，超过这个时间的数据会过期而被删除</li>
+<li>累计类型：选择 最近几次 类型</li>
+<li>剔除重复项：最近几次 累计类型没有剔除重复这一项，<strong>默认Zeus会对累计值进行去重，且不可更改</strong></li>
+<li>累计最近的次数：上图显示累计最近3次 </li>
+<li>按何累计：与计数和求和类型一致</li>
+<li>累计值：与计数和求和类型不同，最近几次的累计类型的累计值可以为多项因子和参数，用英文逗号间隔。<strong>累计值只能在尾部添加或删除参数/因子操作，不能修改替换累计值中的参数/因子以及在首部进行添加/删除操作，否则累计因子结果会出现错乱。</strong></li>
+<li>累计自身：最近几次 累计类型默认累计自身为否，且不可更改</li>
+</ul>
+<p>累计最近几次相当于SQL的top语句，按时间逆序排列</p>
+<pre><code>select top 最近几次
+from 累计数据表
+where 满足何种条件累计
+group by 按何累计
+order by time desc</code></pre>
+<p></p>
+<h2 id="section-26">返回解释</h2>
+<p>假设发送（写）了四次累计，上下文如下：</p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">时间戮</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">userid</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">bankCardNo</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">factor_mac</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1525270222</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">123</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">111</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">ABC</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1525270666</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">456</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">222</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">DEF</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1525270888</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">789</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">333</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">GHI</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1525270999</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">123456789</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">444</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">JKL</span></p>
+</td>
+</tr>
+</table>
+<p>那么对于同一个Key，上图配置的累计因子的结果为：</p>
+<pre><code>[
+    {
+        "userid": "123456789",
+        "bankCardNo": "444",
+        "factor_mac": "JKL"
+    },
+    {
+        "userid": "789",
+        "bankCardNo": "333",
+        "factor_mac": "GHI"
+    },
+    {
+        "userid": "456",
+        "bankCardNo": "222",
+        "factor_mac": "DEF"
+    }
+]</code></pre>
+<div class="note">
+<strong></strong>
+<div>
+<ul>
+<li>返回是按时间由近及远（由大到小）的顺序排列的记录组成的列表JSON</li>
+<li>返回的所有字段的值都是字符串型，没有转化成对应参数或因子的真实类型</li>
+</ul>
+</div>
+</div>
+<h2 id="section-103">使用配置</h2>
+<ul>
+<li>先通过jsonString.toListAndGetOne扩展函数获取指定下标的map数据</li>
+<li>再通过string.getFromJsonMap扩展函数获取指定字段的值</li>
+<li>进行数据类型转换，如果是string类型则无需转换</li>
+</ul>
+<p>例如下面表达式可以获取最近一次（前一次）的userid</p>
+<pre><code>long(string.getFromJsonMap(jsonString.toListAndGetOne(factor_acc_last_3_times, 0), 'userid'))</code></pre>
+<h2 id="section-111">注意的问题</h2>
+<ol>
+<li><span style="color:rgb(255, 0, 0)"><strong>在发送累计时要求配置的累计值的所有参数/因子全部在上下文中存在，否则发送累计无法通过检查而失败</strong></span></li>
+<li><span style="color:rgb(255, 0, 0)"><strong>在界面上修改（减少）累计最近的次数时，不会立即生效，因为目前是在下一次发累计请求时生效，因此在修改之后下一次发累计之前读累计数据是比实际情况多的，不过对策略影响较小，因为多读的数据理论上不应该被使用。</strong></span></li>
+<li><span style="color:rgb(255, 0, 0)"><strong>累计最近几次功能默认都是去重的，去重是按照配置的累计值里的所有参数/因子拼接成的字符串来的</strong></span></li>
+</ol>
+<h3 id="section-122">举例</h3>
+<p>如果发累计的情况如下：</p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">序号</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">时间戮</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">userid</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">bankCardNo</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">factor_mac</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1525270222</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">123</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">111</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">ABC</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">2</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1525270666</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">456</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">222</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">DEF</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">3</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1525270888</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">789</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">333</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">GHI</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">4</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1525270999</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">789</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">333</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">GHI</span></p>
+</td>
+</tr>
+</table>
+<p>那最近3次累计数据的返回结果为：</p>
+<pre><code>[
+    {
+        "userid": "789",
+        "bankCardNo": "333",
+        "factor_mac": "GHI"
+    },
+    {
+        "userid": "456",
+        "bankCardNo": "222",
+        "factor_mac": "DEF"
+    },
+	{
+        "userid": "123",
+        "bankCardNo": "111",
+        "factor_mac": "ABC"
+    }
+]</code></pre>
+<p><strong>第三次发送的累计数据会被去重丢失</strong></p>
+<p>如果想保留第三次发送的累计数据，则需要在累计值的配置上做文章</p>
+<ul>
+<li>如果累计值每秒都不会有重复的现象出现，那么可以添加一个时间戮参数（由上游传过来的）或者添加一个因子，表达式为：<span style="color:rgb(0, 0, 255)">currentTime()</span></li>
+<li><span style="color:rgb(0, 0, 0)">如果累计值随时都会有重复的现象出现，那么可添加一个请求的唯一标识或流水号</span></li>
+<li><span style="color:rgb(0, 0, 0)">如果累计值有重复，但是希望Zeus进行去重，那么则无需改变，天然支持</span></li>
+</ul>
+</article></main></body></html>

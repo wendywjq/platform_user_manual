@@ -1,0 +1,40 @@
+<km-doc>
+<km-title nodeId="b9b938d137664d9581e2215fcf83cff7">说明：管理员添加/移除用户</km-title>
+<km-catalog style="none" nodeId="2eb1c600151a4920a07427298f06e309" />
+<km-note type="note" hiddenTitle="true" nodeId="c46d9a8f64b54165b3e620ab755c98fe">
+<km-title></km-title>
+<km-content>
+<p nodeId="ac737059c16e46f2b1ada7dd20493553">zeus权限上新接入将军令，最新文档参考：<a href="https://km.sankuai.com/collabpage/2213713621" title="https://km.sankuai.com/collabpage/2213713621" autoUpdate="true" nodeId="40a67b50604b4d5d946a72b8d5252dc8">https://km.sankuai.com/collabpage/2213713621</a></p>
+</km-content>
+</km-note>
+<km-collapse active="false" nodeId="5549181c02584db88f0a2c135ba695bf">
+<km-title>废弃</km-title>
+<km-content>
+<h1 nodeId="2321dca70aac452aa207f92d406c65a7">一、背景</h1>
+<p nodeId="a31b05d2566d4b49ac65e48e16622e49">业务方在接入Zeus时，会给每个业务方配置一个用户管理员，用于添加、移除业务下成员、监控报警、紧急生效流程的审批人；</p>
+<h1 nodeId="edae6708f7244bf189889bbe8fd9bd89">二、操作详情</h1>
+<p nodeId="9b8424b04f24435791fb3e9b0652d9a1">说明：线上环境添加线上权限。线下环境添加线下权限</p>
+<h2 nodeId="0c25bcb9e8f2451b950ac22f64aa910b">1.添加用户</h2>
+<h3 nodeId="f11a13078a304ac0bd7034732c5dde7e">Step1:入口</h3>
+<p nodeId="4dbb4bd2723d4ef3869dc22e76dd4d6d"><img src="https://km.sankuai.com/api/file/cdn/190456513/190611315?contentType=1" name="image.png" width="909" height="184" nodeId="3a8a2921caa54d4e9254470072f25a35" /></p>
+<p nodeId="7a3b66fbfb154927bc62f1ff5540133f"><img src="https://km.sankuai.com/api/file/cdn/190456513/190593598?contentType=1" name="image.png" width="912" height="140" nodeId="6dc0cb0acdcf41e8a1fc4eeb7eda1640" /></p>
+<h3 nodeId="a97a39bdf38f45bca1b45a6cbd7d37cf">Step2:添加</h3>
+<p nodeId="2f9f0647b1dd4beeadfb7efbe103fdab"><img src="https://km.sankuai.com/api/file/cdn/190456513/190535164?contentType=1" name="image.png" width="913" height="232" nodeId="69c225fda67c4b559591ae07b4fc52a2" /></p>
+<p nodeId="a75740a4d9ba4ebd8f97fb9a0ddf7eb0">添加成功</p>
+<p nodeId="2be0d6c83b8d495e9de2aa961bcb5076"><img src="https://km.sankuai.com/api/file/cdn/190456513/190577218?contentType=1" name="image.png" width="937" height="81" nodeId="ba9cf3526e3a4dd9b3f84029320a8be8" /></p>
+<p nodeId="b417975b11004a0a84e7bcf1b725b7a0">⚠️业务方中，会根据输入的汉字<span color="rgba(0, 0, 0, 0.87)">，模糊匹配出来你业务方的名字</span></p>
+<h2 nodeId="77cb68517ceb4340a8ab0dada55bff65">2.移除用户</h2>
+<h3 nodeId="33abf5d38d6b46ddae19049edc55ffca">Step1:入口</h3>
+<p nodeId="c43015e5bf2a47f5ab4ecd25e1675dea"><img src="https://km.sankuai.com/api/file/cdn/190456513/190611315?contentType=1" name="image.png" width="939" height="191" nodeId="8948f5b2c10e475db6672389744cabf8" /></p>
+<p nodeId="c3f8d842625b42898955c990e27a353c"><img src="https://km.sankuai.com/api/file/cdn/190456513/190566866?contentType=1" name="image.png" width="960" height="141" nodeId="71fa77301f904f6db51ff96cf2a13f5e" /></p>
+<h3 nodeId="dc0ea9366aae431e8267b921aaa72e13">Step2:移除</h3>
+<p nodeId="99addf01d48d487e81526108a8b6ac74"><img src="https://km.sankuai.com/api/file/cdn/190456513/190577337?contentType=1" name="image.png" width="962" height="243" nodeId="f56c5c1fe5124578964cff0380f449ac" /></p>
+<p nodeId="1839b9c2b73b44eb92a8d38d3ac3fcf9">移除成功</p>
+<p nodeId="0bec130376a947f1b9c0dbe9271219e7"><img src="https://km.sankuai.com/api/file/cdn/190456513/190577218?contentType=1" name="image.png" width="970" height="83" nodeId="2486b21b20594d0aab71f9facc52a41f" /></p>
+<h1 nodeId="cdb878d2f1814d89af6d7681410b4424">三、FQA</h1>
+<h4 nodeId="3fb13712524147d8958980db5c7f4efd">Q1:<span color="rgba(0, 0, 0, 0.87)">用户id只能添加写一个业务放么/一次只能添加一个用户id么？</span></h4>
+<p nodeId="2d470885e6a34145b55aed8910aa9140">A：<span color="rgba(0, 0, 0, 0.87)">支持多个，逗号隔开，建议一个一个加入；</span></p>
+</km-content>
+</km-collapse>
+<p nodeId="7ea65ed5ac734187994076579c72a858" />
+</km-doc>

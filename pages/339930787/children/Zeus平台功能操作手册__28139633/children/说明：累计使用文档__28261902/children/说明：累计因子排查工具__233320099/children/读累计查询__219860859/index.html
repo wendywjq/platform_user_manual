@@ -1,0 +1,79 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>读累计查询</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">1、搜索条件说明</a><a href="#section-13">2、查询结果说明</a><a href="#section-86">3、查询示例</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：累计使用文档</a> / <a href="../../index.html">说明：累计因子排查工具</a> / <a href="index.html">读累计查询</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/219860859">查看学城原文</a></p><article>
+<h1>读累计查询</h1>
+<div style="none"></div>
+<h4 id="section-3">1、搜索条件说明</h4>
+<p><strong>第一步：按id或者中/英文名称检索到要查询的累计因子：</strong></p>
+<p><img src="assets/175ac551ebf4263a.png" width="116" height="179" alt="image.jpeg"></p>
+<p></p>
+<p><strong>第二步：输入查询参数值，拼接累计key进行查询：</strong></p>
+<p><img src="assets/f10ca6a8132a1b74.png" width="811" height="328" alt="image.png"></p>
+<h4 id="section-13">2、查询结果说明</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">名称</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">result</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计因子</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">当前实时</span></span><span style="font-size:14px">累计值</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">accumulateConfig</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计配置：includeCurrent=1 =&gt; 累计自身，includeCurrent=0 =&gt; 不累计自身</span><br><span style="font-size:14px">                  distinct=1 =&gt; 剔除重复项，distinct=0 =&gt; 不剔除重复项</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">accumulateRecords</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计详情，比如说累计值=10，那么这10个都是啥</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">name</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计字段，即按何累计，比如说按userid累计，此处name=userid</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">value</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计字段的具体值，比如说按userid累计，此处就是具体userid的值</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">time</span></p>
+</td>
+<td>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">累计时间，此处是一个时间范围：</span></span><br><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">如果累计周期是分钟，精度为1分钟；</span></span><br><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">如果累计周期是小时，精度为5分钟；</span></span><br><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">如果累计周期是日，精度为1小时；</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">subAccumulateRecord</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">举例：不剔除重复项时，一个userid对应的累计值可能有多个，此处详细展开每个累计记录</span></p>
+</td>
+</tr>
+</table>
+<h4 id="section-86">3、查询示例</h4>
+<p><img src="assets/5088c628bb512a78.png" width="1105" height="1111" alt="image.png"></p>
+</article></main></body></html>

@@ -1,0 +1,289 @@
+<km-doc>
+<km-title nodeId="2ac9f728f0be49208a2db0c5b46289a6">说明：累计因子排查工具</km-title>
+<km-catalog style="none" nodeId="60588405182e47f299d2a8ed4ba4e162" />
+<h1 nodeId="b6c21fe1988f45059551c5791bce5595">一、背景</h1>
+<p nodeId="4fe9be0ead2c418f9f26081eb15fec8e">累计因子的数据异常排查因无法实现全流程排查导致异常定位困难排查周期长等问题，</p>
+<p nodeId="fb1e2e675b93469bb13b1754136fcc89">通过提供累计因子的读、写以及读写流程串联工具，实现快速定位异常。</p>
+<h1 nodeId="6dfe62a83cf84adda3f2653c834d6c7e">二、名词解释</h1>
+<p nodeId="d152f920251144d098b9ab4c504c18da">累计因子的读：即规则执行时，读取该请求，满足累计读取条件时，读取累计因子的值（要先有写累计，读取才能有数据）</p>
+<p nodeId="e6753cd1b2ba451f9f58b83c7b700d10">累计因子的写：即累计事件发送累计请求时，满足累计写入条件，在累计因子中该key值进行记录</p>
+<p nodeId="9496f6e1145048cc80d2ea33b524c5e9">例如：</p>
+<p nodeId="7a80b5edd7014fb0a8cc281dc5c39261">累计因子--近1天用户登录成功使用的累计IP量（去重）</p>
+<p nodeId="137a92ffad2a4cf292e20b18d8c4762a">累计因子的写--登录事件请求，只有登录成功且IP值非空时才会写userid下的累计ip</p>
+<p nodeId="1bdc990f32bd45dca273f6ede09faa28">累计因子的读--执行规则时，读取近1天用户登录成功使用的累计IP量，该userid的累计ip数值为“1”</p>
+<h1 nodeId="7f45dda49d9c47c39ced5124fc36f4ec">三、操作详情</h1>
+<p nodeId="59883ffcea0c42d6bf4803985d81f869"><span color="rgb(245, 35, 45)"><strong>前提：已经配置了累计因子，且累计因子已经设置上线，且累计因子已经在标记或生效规则中使用；</strong></span></p>
+<p nodeId="a57f14543c28480ca0fdcf168bac2fa8">若不满足前提条件，累计因子异常因未配置原因导致，无需参照如下流程排查了</p>
+<h3 nodeId="b107bf390c5b4dde8950e17c8f54936a">Step 1: 通过case/日志差发现累计因子数值不符合预期</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="59270a1d2e364436ae8f17f6dce1a308">
+<tr nodeId="90c12d5ce26a44918c6e91639e3f16b8">
+<th colwidth="[401]" nodeId="2f21479c14e84aafab5bdced12788611">
+<p nodeId="532561b0d1b048f3ad514531349ebd95"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[844]" nodeId="8e4b48c317854f10b429d567339d3c2b">
+<p nodeId="f07a028e4192431793db8106d2eef01e"><span font-size="14">页面演示</span></p>
+</th>
+</tr>
+<tr nodeId="69381d736f124d64b763a33c4fad66d8">
+<td colwidth="[401]" nodeId="53be7e05e7e14fd3b0020e0011f60362">
+<p nodeId="3f3d12e252b046f4a56cee733b69e8e8"><span font-size="14">入口：</span></p>
+<p nodeId="dd67ddf7d8d643c593530733a0b1631e"><span font-size="14">日志查询（实时服务）</span></p>
+</td>
+<td colwidth="[844]" nodeId="32d0e46fea4b445dad03121dd7da94fa">
+<p nodeId="e6dadff3446b4ab2b3e0ec7009b0e721"><img src="https://km.sankuai.com/api/file/cdn/233320099/233429493?contentType=1" name="image.png" width="683" height="134" nodeId="5b9a4337a5ab46e288b0116f6009ce86" /></p>
+</td>
+</tr>
+<tr nodeId="108e42a8d2d54fe6945b79776998c079">
+<td colwidth="[401]" nodeId="5405ee6975ea4ec8b7df3ae34a108b8f">
+<p nodeId="aa9434dc859b4409a471094685c7b3fc"><span font-size="14">查看数据结果获取关键查询信息</span></p>
+<p nodeId="ebbc050d1e8843ada4694d1386aa1ced"><span font-size="14">requestid、累计因子名称、累计key值</span></p>
+<p nodeId="87d60a61359c4c8a8e002c071fb0b70a" />
+</td>
+<td colwidth="[844]" nodeId="1bacbbb09e5e4a05812044c7ce4b348b">
+<p nodeId="6112d874725a49628517a4ca914fab91"><img src="https://km.sankuai.com/api/file/cdn/233320099/233445787?contentType=1" name="image.png" width="815" height="168" nodeId="8fb7e69c8e9144c69fcabca2c6a65c08" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="0e3106b32a6e46359ea5406b7726f2d1" />
+<h3 nodeId="345fbe752ff44286b13949e12d69e5cc">Step 2: 累计因子的累计详情查询</h3>
+<table responsive="false" nodeId="4c18d806f4de493a8cb0a5344cecb1ff">
+<tr nodeId="dc7eb553e38f43fd81786085e89ba787">
+<th colwidth="[598]" nodeId="139c4e6fffba42559321d3fd9e86dec2">
+<p nodeId="1b5aac8d819e4d75a234bb18bacf2689"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[844]" nodeId="bfdb6d410ea54ec88db41c6845b1e979">
+<p nodeId="7269974392284d6f9f49482ad2018dc8"><span font-size="14">页面演示</span></p>
+</th>
+</tr>
+<tr nodeId="24027b7eb86640bb84677546a1d72c45">
+<td colwidth="[598]" nodeId="b8dbb9d21a8b46909c67035a8e5bd685">
+<p nodeId="eb87b877b0644c499be619e0ea71bd29"><span font-size="14"><strong>入口：</strong></span></p>
+<p nodeId="15dd3d10067c47e4af39da470688b52a"><span font-size="14">配置中心--&gt;读累计详情查询</span></p>
+<p nodeId="d43efe69ef3d4a8db7cc4233264cc25f"><span font-size="14">查询说明：</span></p>
+<ol nodeId="b0c31070a5d94a3c93b7983b02192948">
+<li nodeId="269ff01587694a139a70aa3ed9f03392"><span font-size="14">必须填写累计因子ID/名称</span></li>
+<li nodeId="883bf17487e64e059b855e81479f3385"><span font-size="14">输入累计key值</span></li>
+</ol>
+</td>
+<td colwidth="[844]" nodeId="ff18404b22ba4513acc802ac2aacb58d">
+<p nodeId="71aba484e1bb4b66b2b4a25800762776"><img src="https://km.sankuai.com/api/file/cdn/233320099/233485127?contentType=1&amp;isNewContent=false" name="image.png" width="815" height="255" nodeId="4cd3dd0ab85741f2bd2aa8b4912eacb9" /></p>
+<p nodeId="33b5f59a15cd46baab903ac305fc5029"><img src="https://km.sankuai.com/api/file/cdn/233320099/233486511?contentType=1&amp;isNewContent=false" name="image.png" width="591" height="309" nodeId="37d4e026d41140a4ace8790643dbeb0d" /></p>
+</td>
+</tr>
+<tr nodeId="58627f59e8934ddba65cc9b44acb3463">
+<td colwidth="[598]" nodeId="ba99f72ee1cc4640bd02c94483149ad5">
+<h4 nodeId="ecca8b646aa040bd853fd292e8ef0ec9"><span font-size="14">查看数据结果以及数据结果解读</span></h4>
+<table borderColor="#cccccc" responsive="false" nodeId="fead3ddcb4474b93b28e2c7ab628cf78">
+<tr nodeId="3c352a638b604e2ca71aa963caf2ff43">
+<th colwidth="[120]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="5f424d2763f048bfb29204a5d68a1169">
+<p nodeId="6b03aaacb8174e629807ebf6392447f8"><span font-size="14">名称</span></p>
+</th>
+<th colwidth="[451]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="b4b34bbf69ba4873b3f25ec6d8214a19">
+<p nodeId="4eca36cb27df45d4b259fe7a1b4782cb"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="f4fa82d70b7f4483898fd43798eb110f">
+<td colwidth="[120]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dc12e73751d84f90a2ee3025310d2b11">
+<p nodeId="595779e0f76c48eeaab109a0ec69b98c"><span font-size="14">result</span></p>
+</td>
+<td colwidth="[451]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="aca997e69d124683903527368a1fd661">
+<p nodeId="0e9859e4d5854a328871d4885af285f5"><span font-size="14">累计因子</span><span color="rgb(245, 35, 45)"><span font-size="14">当前实时</span></span><span font-size="14">累计值</span></p>
+</td>
+</tr>
+<tr nodeId="1a92954f461f49d7a969bdc3c6ae4e09">
+<td colwidth="[120]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e54b851af65a4d9794a24b4b16187cdb">
+<p nodeId="f648ff39fe88425080bb71a433dcbbc6"><span font-size="14">accumulateConfig</span></p>
+</td>
+<td colwidth="[451]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1452fa4af19f49cfacf478962ea57965">
+<p nodeId="5a31eb72315345bd9d7b053d3150ebd4"><span font-size="14">累计配置：</span></p>
+<p nodeId="7fa9d2440ba3446c9fe53437d7c8b885"><span font-size="14">includeCurrent=1 =&gt; 累计自身，</span></p>
+<p nodeId="715948a6f52a462cb97fa70deea97d4a"><span font-size="14">includeCurrent=0 =&gt; 不累计自身</span><br /><span font-size="14">distinct=1 =&gt; 剔除重复项，distinct=0 =&gt; 不剔除重复项</span></p>
+</td>
+</tr>
+<tr nodeId="5ab9b2effd604f8382b4f944809cdf04">
+<td colwidth="[120]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ac2b723189d4452aad7154eb1d476a41">
+<p nodeId="687197bbebdf487f98291843eb3be0db"><span font-size="14">accumulateRecords</span></p>
+</td>
+<td colwidth="[451]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="38990e9e968f4b9e8a9d2ce947d69415">
+<p nodeId="be8b7700c9f44d28b7df61061d096c0e"><span font-size="14">累计详情，比如说累计值=10，那么这10个都是啥</span></p>
+</td>
+</tr>
+<tr nodeId="8e636ba1a0be4f87a23b547fdfafdd00">
+<td colwidth="[120]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d7bc91d235c5412e99a7f9988c66909d">
+<p nodeId="f6289eec8fed4575a108e507aa59713d"><span font-size="14">name</span></p>
+</td>
+<td colwidth="[451]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7a6eaebbc1b549bf9f3bc6e2fe2d81e6">
+<p nodeId="8f7d0bddb23b4010b65dc4e682b4a939"><span font-size="14">累计字段，即按何累计，比如说按userid累计，此处name=userid</span></p>
+</td>
+</tr>
+<tr nodeId="f15c09b10e1749b4b84fe520628dc502">
+<td colwidth="[120]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d3cdfb0242cc47c3bb5f082216f466f7">
+<p nodeId="2ef4a20d2c6a45e48a07dd947b19cfcb"><span font-size="14">value</span></p>
+</td>
+<td colwidth="[451]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e411e31573c84b459cb52d0b488664a9">
+<p nodeId="33e2edb5a5ad4e38a5d7b2e10f5460d1"><span font-size="14">累计字段的具体值，比如说按userid累计，此处就是具体userid的值</span></p>
+</td>
+</tr>
+<tr nodeId="c209e52c7c3b4988adc5485610a430c2">
+<td colwidth="[120]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0a8c798508a14d348d1832a74a287572">
+<p nodeId="5ade4af335964100810af578169d7347"><span font-size="14">time</span></p>
+</td>
+<td colwidth="[451]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a49923887f074dd09f8d6df17ff51378">
+<p nodeId="37d6a983984344e88a416e790acc4b57"><span color="rgb(245, 35, 45)"><span font-size="14">累计时间，此处是一个时间范围：</span></span><br /><span color="rgb(245, 35, 45)"><span font-size="14">如果累计周期是分钟，精度为1分钟；</span></span><br /><span color="rgb(245, 35, 45)"><span font-size="14">如果累计周期是小时，精度为5分钟；</span></span><br /><span color="rgb(245, 35, 45)"><span font-size="14">如果累计周期是日，精度为1小时；</span></span></p>
+</td>
+</tr>
+<tr nodeId="18e52fd62b6f417abc5fb4dae14610a3">
+<td colwidth="[120]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d628a36cae2049febac60d11bd26ddc9">
+<p nodeId="20d01ddf2de54753a516bb20bf9be194"><span font-size="14">subAccumulateRecord</span></p>
+</td>
+<td colwidth="[451]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c000c19127ce4c0da880f166c75f9cec">
+<p nodeId="5966bda53bfe460eb7e349b5cc316740"><span font-size="14">举例：不剔除重复项时，一个userid对应的累计值可能有多个，此处详细展开每个累计记录</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="fbdc6cc061a0454aa6b4403bf276d14d" />
+</td>
+<td colwidth="[844]" nodeId="972b8aed7ebd4dcf8af3da661e1ae2ae">
+<p nodeId="b859160445c14be296168c1e18664d5c"><img src="https://km.sankuai.com/api/file/cdn/233320099/233944728?contentType=1&amp;isNewContent=false" name="image.png" width="727" height="600" nodeId="893325952f4b4de5930b340b73589b90" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="4e74248e984d4b2ab78f508549c4f506">Step 3: 发送累计详情查询</h3>
+<table responsive="false" nodeId="469ec10500034626a5716d0726b56e36">
+<tr nodeId="966baab7a5be44b5a7601c02af6ef39e">
+<th colwidth="[429]" nodeId="4d377932458e44938cb66548ac2091fb">
+<p nodeId="fb04f8af4b934c928cc966a2c0efd886"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[541]" nodeId="33b464dc97de4a2ebdce0305f5d76638">
+<p nodeId="6116a161e5b64bbaab13e5c60d0be28a"><span font-size="14">页面演示</span></p>
+</th>
+</tr>
+<tr nodeId="9103c0c4640a499c8c5cdf7be2debd04">
+<td colwidth="[429]" nodeId="0bc2741469694b28b163cad229074a99">
+<p nodeId="4688fcd61e764a50ab1366d313d3a196"><span font-size="14">入口：</span></p>
+<p nodeId="1402ff0c05764b52990462b1291371dd"><span font-size="14">配置中心--&gt;累计详情查询</span></p>
+<p nodeId="4068edb660cd493e981eaaa1d2cd0d85"><span font-size="14">查询说明：</span></p>
+<ol nodeId="35625ea98fdf4489abb76f567fb89e38">
+<li nodeId="8cc791075be9420e834031a517e1a129"><span font-size="14">累计因子和累计事件ID必须填写</span></li>
+<li nodeId="2c4efb231293442ea27aba83ad24273a">
+<p nodeId="263fdf0b04c547cb967ecafc9e49552a"><span font-size="14">精准查询</span></p>
+<p nodeId="5f9e3cc54d3349cd8bdadf0cff8df862"><span font-size="14">（1）类似于日志查询，支持按照指定字段组合查询，⚠️查询的参数必须是累计因子的key</span></p>
+<p nodeId="36d4f9aa2ed34d42b44836445135f0e9"><span font-size="14">（2）累计因子、累计事件、时间范围必填写</span></p>
+</li>
+<li nodeId="dc593e1b4c964086ad31f1ecb26e4e9b">
+<p nodeId="7c8b60858f3e4a048a5aba09778638dc"><span font-size="14">模糊查询</span></p>
+<p nodeId="bac36fa12d974405aaad275de039cddf"><span font-size="14">（1）当精准查询中无法支持的参数查询可使用模糊查询</span></p>
+<p nodeId="7d2030e0931f4efaa98f67de06c163cd"><span font-size="14">（2）除</span><span color=" "><span font-size="14">requestId外均需要填写，其中时间为24小时制，例如：查询是时间范围为20191111 17：00-17:59，日期填写20191111，时间填写17即可</span></span></p>
+<p nodeId="6bab4e166fd14cb4a86213adfb2bbfa2" />
+</li>
+</ol>
+<p nodeId="9e254c80211647d39c3201c559f4e7cf" />
+</td>
+<td colwidth="[541]" nodeId="07e2ba93885843a4b73812198db9457a">
+<p nodeId="fcf4b72697b14a2d955105278e211837"><img src="https://km.sankuai.com/api/file/cdn/233320099/233446650?contentType=1&amp;isNewContent=false" name="image.png" width="488" height="186" nodeId="e554915440d24d4189814c2bfdc7b70a" /></p>
+<p nodeId="e62a9fe05df841e58f4a411492d2a75a"><img src="https://km.sankuai.com/api/file/cdn/233320099/233944929?contentType=1&amp;isNewContent=false" name="image.png" width="513" height="304" nodeId="f19e52ec5e4d4d8086d0b713ef895c09" /></p>
+</td>
+</tr>
+<tr nodeId="dcdcbbdc23b146d781c655f78487162f">
+<td colwidth="[429]" nodeId="8f363c301ec0452dbf09c63153f69745">
+<h4 nodeId="2842048dc6424eb5b69b4e75c746a8af"><span font-size="14">查看数据结果以及数据结果解读</span></h4>
+<table borderColor="#cccccc" responsive="false" nodeId="0c13686dbf574f9ca7900ad95bdf7f2d">
+<tr nodeId="d7e8cf7941e54b5b8d8d8c6aebbd92b5">
+<th colwidth="[134]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="69ea0a024198411ca6358d9cc131fa85">
+<p nodeId="eda349bef228413e85beb3b006299399"><span font-size="14">名称</span></p>
+</th>
+<th colwidth="[258]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="27f928f1cc2d46f98277f55ad5d445e1">
+<p nodeId="a6fea980547d4402873bcd47aa73aa36"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="78cff2af7a0a4e5aa6c398400bb993a5">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5c1eee3e2cfb41b2bd1fb397d31e7e0f">
+<p nodeId="4c50c59b58f54ebcb3af8203a960a867"><span font-size="14">is_load</span></p>
+</td>
+<td colwidth="[258]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5cc44eb9ac0248f6a766ce7da62c985e">
+<p nodeId="1450e2853b3143ea9fa1e2effa354aea"><span font-size="14">不用关注，表示累计因子有效</span></p>
+</td>
+</tr>
+<tr nodeId="1e6eee2e940f41f4b869f801859900e0">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e6b42e444d3941b29b2b0efd268c48f4">
+<p nodeId="ff5ec88ea84f4d74b509f54e0a7c147f"><span font-size="14">time_stamp</span></p>
+</td>
+<td colwidth="[258]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="169a6c64e2674640b74361a829ae310a">
+<p nodeId="15660c6bbbe8440ab25de8858460ea97"><span font-size="14">时间戳，发累计时间</span></p>
+</td>
+</tr>
+<tr nodeId="3e7e584af0d549f696c9fd91c53aed21">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="51593eb9309a413f9424591867f109b7">
+<p nodeId="832757ca079949ad837ef8dcce685997"><span font-size="14">factor_name</span></p>
+</td>
+<td colwidth="[258]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7858c560a02a42f499aa24914307d659">
+<p nodeId="7dd040aa73014e4885318a1b9e7ad334"><span font-size="14">累计因子英文名称</span></p>
+</td>
+</tr>
+<tr nodeId="62a2c31a11084a12aac1ce519f289a0d">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9a6e2ab4ca214e1e849f7a206aeba0a2">
+<p nodeId="ec476c784f954b64a6453bd161b5c222"><span font-size="14">event_id</span></p>
+</td>
+<td colwidth="[258]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="892f03afe4c64b219245cc511cd9aa18">
+<p nodeId="21b33f9e544a49f2b617a9f7301e7b57"><span font-size="14">累计事件ID</span></p>
+</td>
+</tr>
+<tr nodeId="503520230b994006aa04353197b6ef74">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="eea1e0f3f93648b3898f4b35722d6f33">
+<p nodeId="07dcaa4f6ae9451187babf9785f344a1"><span font-size="14">content</span></p>
+</td>
+<td colwidth="[258]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1734e32a9029431c9107e9ccc7d05a29">
+<p nodeId="d1f57b77784e4bc4a2bee1120bedaf15"><span font-size="14">发送累计的上下文信息</span></p>
+</td>
+</tr>
+<tr nodeId="628bccc1e0f04dfbb2d4448060fc6ab8">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="febcdc27226a4b37a31a5e49d585ab61">
+<p nodeId="6e8f15ea6c734b729dd53a41fb410c29"><span font-size="14">send_status</span></p>
+</td>
+<td colwidth="[258]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8a56b91f2a584158b3d260b8ad493028">
+<p nodeId="cf5099328a304970bb96f662ce219144"><span font-size="14">是否满足发送累计条件，0=不满足，1=满足</span></p>
+</td>
+</tr>
+<tr nodeId="6b609172fb8b41f39ca334df45b8a725">
+<td colwidth="[134]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d1a6daee3f5f42c1bd8fad123f04a9f1">
+<p nodeId="3a9dd96269df44afb83cdd78448c5f25"><span font-size="14">requestId</span></p>
+</td>
+<td colwidth="[258]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6476e7ad5bf14c27a8e86e4e72d8a2fb">
+<p nodeId="d1268d47ba594a96bff142b76c0bb42d"><span font-size="14">requestId</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="898f0d1d825f4144a8135628b2fefa1e" />
+</td>
+<td colwidth="[541]" nodeId="a89776c05c1a4e1da775e82c8c71d077">
+<p nodeId="bb729281284a452eaac6fa86694a172a"><img src="https://km.sankuai.com/api/file/cdn/233320099/234123032?contentType=1&amp;isNewContent=false" name="image.png" width="513" height="554" nodeId="fd52133c57e444f98e7a3e1bd73b76e8" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="e695b920011c413db6a130b0004ff4cd" />
+<h1 nodeId="3b296efc1abe4bd8bd129dcda44617d7">四、FAQ</h1>
+<h4 nodeId="6f8b7c4d5f8742bd9cbf7dac815e333c">Q1: 发送累计的精准查询中的参数是否支持扩展，即新增其他参数</h4>
+<p nodeId="027221e5d833443aafa97e8a91deb86f">--A：<km-mention name="梁建华" uid="liangjianhua02" empId="" nodeId="084adcfd72ee411d9e3366cbb013cdee" /></p>
+<h4 nodeId="937fd1377e404a45b47bb1b490f28f5f">Q2: 累计因子读的累计结果不是0就是1</h4>
+<p align="start" nodeId="8e626c9bce054e07b4e7147f9ebb0f5b">--A：（1）这种情况下，一般是发累计出现了问题，直接查询Step3，确认是否发累计了；</p>
+<p align="start" nodeId="e3de7b843bdf49b89246f8f0b43ce07f">        （2）业务发送累计和读取累计（获取决策）的上下文不同，导致发送累计key与读取累计key不同，进而导致读累计结果一直为0。查看context中字段和累计详情中的key能发现二者的不同，或者{比较log.rc_zeus_accumulate hive表里的sendList字段和日志查询累计详情tab中累计key，能发现二者的不同}</p>
+<p align="start" nodeId="a29b4fa0550a4bea8ffc8cd78bea6ca9">         （3）<span color=" ">sceneid和risklevel配置到累计因子中，除了TT特殊处理的几个累计事件外，两个参数均不可以作为累计key（TT处理了哪些累计事件 </span><a href="https://km.sankuai.com/page/130616240#id-Q2%EF%BC%9ATT%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86%E7%9A%84%E5%8F%82%E6%95%B0%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F" title="https://km.sankuai.com/page/130616240#id-Q2%EF%BC%9ATT%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86%E7%9A%84%E5%8F%82%E6%95%B0%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F" autoUpdate="true" nodeId="080905f03fb543d0a276fe0a935e8626">https://km.sankuai.com/page/130616240#id-Q2%EF%BC%9ATT%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86%E7%9A%84%E5%8F%82%E6%95%B0%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F</a><span color=" ">）</span></p>
+<h4 align="start" nodeId="20c5aa30d08e41919639d2e1dc157e52">Q3: 读不到累计</h4>
+<p align="start" nodeId="03a92bab781c44c1a1079ecd5d581706"><span color="rgb(38, 38, 38)">--A：（1）优先确定“</span><span color="rgb(38, 38, 38)"><strong>已经配置了累计因子，且累计因子已经设置上线，且累计因子已经在标记或生效规则中使用”</strong></span><span color="rgb(38, 38, 38)">；其次看是否发累计看累计条件是否满足、读累计值看读取条件是否满足（一般情况下读取条件与累计条件是相同的，可以点开高级看到）；</span></p>
+<p align="start" nodeId="a024ba1ec50a4fb5b8931ac473be37b9"><span color="rgb(38, 38, 38)">         （2）若是（1）中条件都满足，但仍读不到值，需要确认累计key是否过长。累计服务限制key的字节长度要小于1000。如果超过该长度，读取累计时code会返回4.</span></p>
+<h4 align="start" nodeId="7a669496337440c5ad99df9d43543ec0"><span color="rgb(38, 38, 38)">Q4: 累计到某个值后就不再增长</span></h4>
+<p align="start" nodeId="af7868eff94e40fc8fcfe8f6c336e79b"><span color="rgb(38, 38, 38)">--A：（1）累计对单个key的内容大小有限制，要求小于100K，否则内容过大，底层存储服务不支持。遇到此类问题请到zeus上查询累计详情，确认累计内容是否过大。</span></p>
+<p align="start" nodeId="32cdf5c933b8421692efa7c63fca6a92"><span color="rgb(38, 38, 38)">         （2）累计类型为去重计数或去重求和时，</span><span color="rgb(38, 38, 38)"><strong>去重的次数不能超过1000次</strong></span><span color="rgb(38, 38, 38)">，此时会发现1000次以后累计不上的问题从而造成累计不准确，解决方法是对于去重次数太多的情况不使用去重功能（可以容忍一定误差）</span></p>
+<h4 align="start" nodeId="81641a9bda7045679ab0a14377077ba7"><span color="rgb(38, 38, 38)">Q5: 没有发送累计，但是累计因子却有值</span></h4>
+<p align="start" nodeId="69c9013c007e454a8945dc54631cb7ec"><span color="rgb(38, 38, 38)">--A：因为</span><span color="rgb(38, 38, 38)"><strong>累计因子新建时默认为累计自身</strong></span><span color="rgb(38, 38, 38)">，在读取累计时，会把当前请求的结果加到累计因子的值上。</span></p>
+<h4 align="start" nodeId="0f9989e6df854303ab571ad6d244fda9"><span color="rgb(38, 38, 38)">Q6: 发送了累计，累计详情显示已经有数据（表示发送累计成功），但是拿到的累计因子的值不符合预期</span></h4>
+<p align="start" nodeId="3ab3141cfc8745158f7612476890ec5d"><span color="rgb(38, 38, 38)">--A：（1）通过Step2关联Step3查看串联数据，定位问题；（2）也可能是累计因子是</span><span color="rgb(38, 38, 38)"><strong>累计自身的，在读取累计因子结果时，累计值不能为null，否则无法读累计成功</strong></span></p>
+<h4 align="start" nodeId="e8a60ba709f642b6ac560e141d7a0e35"><span color="rgb(38, 38, 38)">Q7: 已过期的累计因子的读累计详情可以查询么？</span></h4>
+<p align="start" nodeId="86e241f8f7bd4021a12f1d5b50d5eeb0"><span color="rgb(38, 38, 38)">--A：当前不支持，预计在2020Q1支持查询已过期的累计因子读累计详情查询；</span></p>
+<h4 align="start" nodeId="6190cab843674712b2fe3d007972802d"><span color="rgb(38, 38, 38)">Q8: 日志中参数问题涉及到累计的几种情况</span></h4>
+<p align="start" nodeId="e267941d884f4a5b9a7633dd41eab91c"><span color="rgb(38, 38, 38)">--A：（1）在日志查询的参数tab显示参数为空串，在累计tab看到也拿到了累计因子的结果，但是累计因子的读取条件却设置了该参数不为空串，出现这个问题需要查hive表进行验证，因为日志查询在</span><span color="rgb(38, 38, 38)"><strong>参数/因子的值带有尖括号时会显示为空串</strong></span><span color="rgb(38, 38, 38)">，如在hvie中显示的"ssid":"&lt;unknown service&gt;"在日志查询上显示为“ssid”: ""；因此是显示问题</span></p>
+<p align="start" nodeId="6ed198f181ff4c99bfc20647832d3ccd"><span color="rgb(38, 38, 38)">        （2）某个参数存在且有值，但在日志查询的累计tab显示错误信息为"lost param key xxx"，显示缺失该参数，这是由历史原因造成的，只需要强制更新一下该累计因子即可</span></p>
+<p align="start" nodeId="f87289a96c7f467db0beee01d93ae0b2">        （3）调用发送/删除累计接口，如果不填“满足何种条件累计”，则无法进行发送操作，如果不填“删除条件”，则无法进行删除操作</p>
+<p nodeId="2bc99a7cdfb042c99ba14e0cef3421ac" />
+<p nodeId="65ce3f6cb36445d0ba74d803144a7e30" />
+</km-doc>

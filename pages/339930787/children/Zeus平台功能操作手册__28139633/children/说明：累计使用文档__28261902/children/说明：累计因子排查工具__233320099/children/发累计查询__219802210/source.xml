@@ -1,0 +1,174 @@
+<km-doc>
+<km-title nodeId="aa67acb5140f4bc194607878f953676e">发累计查询</km-title>
+<km-catalog style="none" nodeId="a28ebc474a30479881a65158dc8a103c" />
+<h4 nodeId="d9a046d64f6447db8734229316aace0e">1、搜索条件说明</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="9222a23f8b0f4ee78fac7a15a25df0d7">
+<tr nodeId="e69de62b3b89454eac578758937733bd">
+<th colwidth="[134]" nodeId="ce883648bceb4694a57eb22c230c026d">
+<p nodeId="eb70d0b4e09742b2b0dcf7e15dbd1458"><span font-size="14">名称</span></p>
+</th>
+<th colwidth="[73]" nodeId="333c046bd86c4ec78e6972252cd2e609">
+<p nodeId="511b1e6ce5fa49feba9ccb21f42e936f"><span font-size="14">必/可选</span></p>
+</th>
+<th colwidth="[274]" nodeId="5cfc8600d57543808c862b2f8a854f57">
+<p nodeId="70062f53df3149189a2bc8db3c629084"><span font-size="14">示例</span></p>
+</th>
+<th colwidth="[238]" nodeId="e10a9c9006a24e3dbee2b83e11b5c2f6">
+<p nodeId="6b09cd86e8504a27bcf97d6cec8856a5"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="2a383cf1e0b1471fbb5064cd3a7e4206">
+<td colwidth="[134]" nodeId="a787e8fe10414037b894fe9ea0228dba">
+<p nodeId="862fb8eadf0142f1921f4a6320f336b7"><span font-size="14">累计事件ID</span></p>
+</td>
+<td colwidth="[73]" nodeId="5e0e5d4858d84249be79fb9065939140">
+<p nodeId="78ce107829384ad6b3d7effbfb36f9eb"><span font-size="14">必选</span></p>
+</td>
+<td colwidth="[274]" nodeId="21b0efce53574bb7be3790b2f6f19b69">
+<p nodeId="1632dab165c741b1a0673cf772fd2675"><span font-size="14">123</span></p>
+</td>
+<td colwidth="[238]" nodeId="4ca67528e4674cd3a85d756327f63f15">
+<p nodeId="f93472a15fa146c1a27d433cd0664d7c" />
+</td>
+</tr>
+<tr nodeId="46e878276025463292e19af1be7f61a8">
+<td colwidth="[134]" nodeId="ec0b71cd9b954dc09cdbb3702aafbbf5">
+<p nodeId="133766876949494285ea0f2180aac561"><span font-size="14">累计因子英文名</span></p>
+</td>
+<td colwidth="[73]" nodeId="d6a96421cbeb431396ba98341fbe475b">
+<p nodeId="12c53148b7c64c43ab6d21c74b93bda3"><span font-size="14">必选</span></p>
+</td>
+<td colwidth="[274]" nodeId="3af90be9d0bd4b10b4adb528b70736cf">
+<p nodeId="6ee4fa9298ce4f5a998142b9c7e6a6c2"><span font-size="14">factor_acc_name</span></p>
+</td>
+<td colwidth="[238]" nodeId="fed5e77b378f434c8e985b99e44ec9db">
+<p nodeId="9af4215253804fb4b14803280667a1f6" />
+</td>
+</tr>
+<tr nodeId="56b8a144734d49ee9783f1c21f702dd4">
+<td colwidth="[134]" nodeId="78a171366b4649f1b550f480bbc2bb8b">
+<p nodeId="218efc3d202d49b184e8362fe5f50830"><span font-size="14">筛选条件</span></p>
+</td>
+<td colwidth="[73]" nodeId="52cf85d650434be2832ad50522a2f111">
+<p nodeId="2f88ef3e5d484d9493cf1248842e0b81"><span font-size="14">必选</span></p>
+</td>
+<td colwidth="[274]" nodeId="d46795db17f744e88d309ae3d19ad1ce">
+<p nodeId="4bcec11abb8c4048a7f51b62fb0de942"><span font-size="14">12353,QUHDF123</span></p>
+</td>
+<td colwidth="[238]" nodeId="8bebdedaee694cb79531bf81edd134f5">
+<p nodeId="d810cae06ea648c99819044c539064b1"><span font-size="14">上下文信息里的</span><span color="rgb(245, 35, 45)"><span font-size="14">参数值</span></span><span color="rgb(0, 0, 0)"><span font-size="14">，最多同时支持两个，英文逗号分隔</span></span></p>
+</td>
+</tr>
+<tr nodeId="45f19dcd5ca749cca7dc31c2bcac5d8b">
+<td colwidth="[134]" nodeId="fff57a1c6b2c4279a190e3fd0871534a">
+<p nodeId="bfac49d039c943a48856ee52f1ab60be"><span font-size="14">日期（dt）</span></p>
+</td>
+<td colwidth="[73]" nodeId="150e6ac670bf4e5bae6cf8bbee94c8f0">
+<p nodeId="bf7074b6c78141e988de765dffed15e2"><span font-size="14">必选</span></p>
+</td>
+<td colwidth="[274]" nodeId="83c5b478aa964d798faff0f964c825a5">
+<p nodeId="9ce9141b6f024a7bb5853541dead1417"><span font-size="14">20191119</span></p>
+</td>
+<td colwidth="[238]" nodeId="468c218c6e9e4a51adee5c3e9978d603">
+<p nodeId="1347635daa8541d88a6f6ee3fc2606a3"><span font-size="14">YYYYMMDD</span></p>
+</td>
+</tr>
+<tr nodeId="5ac9d71d088147319df9179fafce9842">
+<td colwidth="[134]" nodeId="1aeda403dc3641c4a2fdef4edadd3d31">
+<p nodeId="9d5715cf4a0e44a7bc29875044cd2de4"><span font-size="14">时间（hour）</span></p>
+</td>
+<td colwidth="[73]" nodeId="89ba5d344e944bdf94fddd8f0651d5aa">
+<p nodeId="a1565c1ae824495e96407dff08a50840"><span font-size="14">必选</span></p>
+</td>
+<td colwidth="[274]" nodeId="4037a0c90bce45509936cf4e04032f8e">
+<p nodeId="f3afc86b4e334b9595bf827c32569297"><span font-size="14">17</span></p>
+</td>
+<td colwidth="[238]" nodeId="69f713999d7c44689dc5e43a09a6fc58">
+<p nodeId="fe2ee05d10cb476b924ebee92c251601"><span font-size="14">24小时制</span></p>
+</td>
+</tr>
+<tr nodeId="6d0bb42588894bfa9296c4dfa16c86f0">
+<td colwidth="[134]" nodeId="fbbd68bc163d4f24b0d3f2d0a4b7b1cc">
+<p nodeId="359506d75b3249e990f1a313c65b5134"><span font-size="14">requestId</span></p>
+</td>
+<td colwidth="[73]" nodeId="b928915cb4ec4d4088b92a0f80128681">
+<p nodeId="c6190b561bca4494bad29419afb6e70e"><span font-size="14">可选</span></p>
+</td>
+<td colwidth="[274]" nodeId="cf6dfc55298d426997456051efcbae2e">
+<p nodeId="8925ab3d7067400195f32b4c30e6fe3b"><span color=" "><span font-size="14">set-xr-rc-zeus-zeus28-201911160036-14932711</span></span></p>
+</td>
+<td colwidth="[238]" nodeId="3340143758ac42318729fe376b61f012">
+<p nodeId="38919140de77401d99ba4b6a606a0f68"><span font-size="14">用于精确查找</span></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="1fdd3bfaee1b4922b511e4f8a1cf14a8">2、查询结果说明</h4>
+<table responsive="false" nodeId="c7455bb97feb433ea2a97a838bd0c126">
+<tr nodeId="9ea03ac49ebd43d482a127ff96fc41f8">
+<th colwidth="[134]" nodeId="cf3d90b7a58148508c4cb95cb58a5e2f">
+<p nodeId="244fa58664b247faa55eb589e95ead70"><span font-size="14">名称</span></p>
+</th>
+<th colwidth="[322]" nodeId="115803588e724b279c0607e7ff7317a9">
+<p nodeId="f5405d63396a4cdc8814f2baf1f62691"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="7b510a35bb7d4810b1f4187a9bd7e906">
+<td colwidth="[134]" nodeId="d10bce13f1644f5b9ead67b367adfc81">
+<p nodeId="7c31d650406249d6b09badd2e6301b59"><span font-size="14">is_load</span></p>
+</td>
+<td colwidth="[322]" nodeId="16dfd66fae764dbc98bd04e7c3f45927">
+<p nodeId="9aa8503ddd2b45d1ac07b1c2725cc84f"><span font-size="14">不用关注，表示累计因子有效</span></p>
+</td>
+</tr>
+<tr nodeId="3d25e469d8054aaf815653a7454f2fce">
+<td colwidth="[134]" nodeId="0e4666e3e23348f19446b4a20cbe16a3">
+<p nodeId="31c6849efceb4e5d83707138ce981384"><span font-size="14">time_stamp</span></p>
+</td>
+<td colwidth="[322]" nodeId="f95c625994924336941cde9c5268841c">
+<p nodeId="edb8065f6c344401af1d1a55c180e514"><span font-size="14">时间戳，发累计时间</span></p>
+</td>
+</tr>
+<tr nodeId="e0b3752546a54ef8acabedba037df4e1">
+<td colwidth="[134]" nodeId="0212e3b02df642018d0ba89824a467d4">
+<p nodeId="9c46d338381946b08f61ec6880a6b15b"><span font-size="14">factor_name</span></p>
+</td>
+<td colwidth="[322]" nodeId="19991e572fb9412a921b75d4f3888e8c">
+<p nodeId="b00a1c5a1c994b8294e07c5eeddb7d2c"><span font-size="14">累计因子英文名称</span></p>
+</td>
+</tr>
+<tr nodeId="40ffdf529dec47a3b25bb4756fe78756">
+<td colwidth="[134]" nodeId="ea0d7191b8114bd09eec47e420506a43">
+<p nodeId="54151318dc9b4e00b5ad99d060a508b1"><span font-size="14">event_id</span></p>
+</td>
+<td colwidth="[322]" nodeId="1d3812e610684fd582c5c0c22b290b6f">
+<p nodeId="1cf83803d95a469588783a74568bfdcf"><span font-size="14">累计事件ID</span></p>
+</td>
+</tr>
+<tr nodeId="dfd1fc31421546469882c32ec22b3c8b">
+<td colwidth="[134]" nodeId="45672e6e21934b9fa08de27a7af8f785">
+<p nodeId="f9bdfe45b50f44a088106883b925fe4b"><span font-size="14">content</span></p>
+</td>
+<td colwidth="[322]" nodeId="0e14c240ab2347b8a6f9637c0a8efc19">
+<p nodeId="1630df494681409999dddb59fcaf1508"><span font-size="14">发送累计的上下文信息</span></p>
+</td>
+</tr>
+<tr nodeId="b50798c58d7c4c95aa81954b62345ed2">
+<td colwidth="[134]" nodeId="47426f2ad852487b9edd5c772ce0ee31">
+<p nodeId="61a5e4a88b68434ba6189bd34d34f533"><span font-size="14">send_status</span></p>
+</td>
+<td colwidth="[322]" nodeId="d4832ac6126a48ff96a4949abb9d81e5">
+<p nodeId="4d31034d150d4d42a89d29881bba00a1"><span font-size="14">是否满足发送累计条件，0=不满足，1=满足</span></p>
+</td>
+</tr>
+<tr nodeId="51fef69568834474945053734a194ece">
+<td colwidth="[134]" nodeId="22a6f62e0b9646399701c5ab0b62eb0c">
+<p nodeId="b3e084e772fd4a9d9f862a3b4198f2b4"><span font-size="14">requestId</span></p>
+</td>
+<td colwidth="[322]" nodeId="5e208a6a2019419cb95b2999700a4390">
+<p nodeId="fd4a5426ee824fc0a1c9198ed8cd790a"><span font-size="14">requestId</span></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="adf47c290f314074b43b6a7e109857ce">3、查询示例</h4>
+<p nodeId="07e0ea84a8d44d6486bd9b8b6cb27d3c"><img src="https://km.sankuai.com/api/file/cdn/219802210/219697834?contentType=1&amp;isNewContent=false" name="image.png" width="1066" height="1208" nodeId="86f8b37c801d485babacfe43567bb6d0" /></p>
+</km-doc>

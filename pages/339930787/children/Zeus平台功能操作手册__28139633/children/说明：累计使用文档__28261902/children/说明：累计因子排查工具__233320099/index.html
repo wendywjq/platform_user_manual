@@ -1,0 +1,289 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：累计因子排查工具</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-6">二、名词解释</a><a href="#section-13">三、操作详情</a><a href="#section-18">Step 1: 通过case/日志差发现累计因子数值不符合预期</a><a href="#section-47">Step 2: 累计因子的累计详情查询</a><a href="#section-77">查看数据结果以及数据结果解读</a><a href="#section-159">Step 3: 发送累计详情查询</a><a href="#section-204">查看数据结果以及数据结果解读</a><a href="#section-268">四、FAQ</a><a href="#section-269">Q1: 发送累计的精准查询中的参数是否支持扩展，即新增其他参数</a><a href="#section-272">Q2: 累计因子读的累计结果不是0就是1</a><a href="#section-279">Q3: 读不到累计</a><a href="#section-287">Q4: 累计到某个值后就不再增长</a><a href="#section-296">Q5: 没有发送累计，但是累计因子却有值</a><a href="#section-303">Q6: 发送了累计，累计详情显示已经有数据（表示发送累计成功），但是拿到的累计因子的值不符合预期</a><a href="#section-309">Q7: 已过期的累计因子的读累计详情可以查询么？</a><a href="#section-313">Q8: 日志中参数问题涉及到累计的几种情况</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：累计使用文档</a> / <a href="index.html">说明：累计因子排查工具</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/233320099">查看学城原文</a></p><article>
+<h1>说明：累计因子排查工具</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>累计因子的数据异常排查因无法实现全流程排查导致异常定位困难排查周期长等问题，</p>
+<p>通过提供累计因子的读、写以及读写流程串联工具，实现快速定位异常。</p>
+<h1 id="section-6">二、名词解释</h1>
+<p>累计因子的读：即规则执行时，读取该请求，满足累计读取条件时，读取累计因子的值（要先有写累计，读取才能有数据）</p>
+<p>累计因子的写：即累计事件发送累计请求时，满足累计写入条件，在累计因子中该key值进行记录</p>
+<p>例如：</p>
+<p>累计因子--近1天用户登录成功使用的累计IP量（去重）</p>
+<p>累计因子的写--登录事件请求，只有登录成功且IP值非空时才会写userid下的累计ip</p>
+<p>累计因子的读--执行规则时，读取近1天用户登录成功使用的累计IP量，该userid的累计ip数值为“1”</p>
+<h1 id="section-13">三、操作详情</h1>
+<p><span style="color:rgb(245, 35, 45)"><strong>前提：已经配置了累计因子，且累计因子已经设置上线，且累计因子已经在标记或生效规则中使用；</strong></span></p>
+<p>若不满足前提条件，累计因子异常因未配置原因导致，无需参照如下流程排查了</p>
+<h3 id="section-18">Step 1: 通过case/日志差发现累计因子数值不符合预期</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面演示</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：</span></p>
+<p><span style="font-size:14px">日志查询（实时服务）</span></p>
+</td>
+<td>
+<p><img src="assets/8c3c76270c609363.png" width="683" height="134" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">查看数据结果获取关键查询信息</span></p>
+<p><span style="font-size:14px">requestid、累计因子名称、累计key值</span></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/bb3105d25a643a9a.png" width="815" height="168" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h3 id="section-47">Step 2: 累计因子的累计详情查询</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面演示</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px"><strong>入口：</strong></span></p>
+<p><span style="font-size:14px">配置中心--&gt;读累计详情查询</span></p>
+<p><span style="font-size:14px">查询说明：</span></p>
+<ol>
+<li><span style="font-size:14px">必须填写累计因子ID/名称</span></li>
+<li><span style="font-size:14px">输入累计key值</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/7166937ccda4c8c7.png" width="815" height="255" alt="image.png"></p>
+<p><img src="assets/94f634d568018059.png" width="591" height="309" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<h4 id="section-77"><span style="font-size:14px">查看数据结果以及数据结果解读</span></h4>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">名称</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">result</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">累计因子</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">当前实时</span></span><span style="font-size:14px">累计值</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">accumulateConfig</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">累计配置：</span></p>
+<p><span style="font-size:14px">includeCurrent=1 =&gt; 累计自身，</span></p>
+<p><span style="font-size:14px">includeCurrent=0 =&gt; 不累计自身</span><br><span style="font-size:14px">distinct=1 =&gt; 剔除重复项，distinct=0 =&gt; 不剔除重复项</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">accumulateRecords</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">累计详情，比如说累计值=10，那么这10个都是啥</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">name</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">累计字段，即按何累计，比如说按userid累计，此处name=userid</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">value</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">累计字段的具体值，比如说按userid累计，此处就是具体userid的值</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">time</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">累计时间，此处是一个时间范围：</span></span><br><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">如果累计周期是分钟，精度为1分钟；</span></span><br><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">如果累计周期是小时，精度为5分钟；</span></span><br><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">如果累计周期是日，精度为1小时；</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">subAccumulateRecord</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">举例：不剔除重复项时，一个userid对应的累计值可能有多个，此处详细展开每个累计记录</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+</td>
+<td>
+<p><img src="assets/f0a11c289816efab.png" width="727" height="600" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-159">Step 3: 发送累计详情查询</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面演示</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：</span></p>
+<p><span style="font-size:14px">配置中心--&gt;累计详情查询</span></p>
+<p><span style="font-size:14px">查询说明：</span></p>
+<ol>
+<li><span style="font-size:14px">累计因子和累计事件ID必须填写</span></li>
+<li>
+<p><span style="font-size:14px">精准查询</span></p>
+<p><span style="font-size:14px">（1）类似于日志查询，支持按照指定字段组合查询，⚠️查询的参数必须是累计因子的key</span></p>
+<p><span style="font-size:14px">（2）累计因子、累计事件、时间范围必填写</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">模糊查询</span></p>
+<p><span style="font-size:14px">（1）当精准查询中无法支持的参数查询可使用模糊查询</span></p>
+<p><span style="font-size:14px">（2）除</span><span style="color: "><span style="font-size:14px">requestId外均需要填写，其中时间为24小时制，例如：查询是时间范围为20191111 17：00-17:59，日期填写20191111，时间填写17即可</span></span></p>
+<p></p>
+</li>
+</ol>
+<p></p>
+</td>
+<td>
+<p><img src="assets/a0321bbd8fb371d5.png" width="488" height="186" alt="image.png"></p>
+<p><img src="assets/48547f0c8e012d1e.png" width="513" height="304" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<h4 id="section-204"><span style="font-size:14px">查看数据结果以及数据结果解读</span></h4>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">名称</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">is_load</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">不用关注，表示累计因子有效</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">time_stamp</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">时间戳，发累计时间</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">factor_name</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">累计因子英文名称</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">event_id</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">累计事件ID</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">content</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">发送累计的上下文信息</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">send_status</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">是否满足发送累计条件，0=不满足，1=满足</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">requestId</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">requestId</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+</td>
+<td>
+<p><img src="assets/3896327659196b6d.png" width="513" height="554" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-268">四、FAQ</h1>
+<h4 id="section-269">Q1: 发送累计的精准查询中的参数是否支持扩展，即新增其他参数</h4>
+<p>--A：<span>@梁建华</span></p>
+<h4 id="section-272">Q2: 累计因子读的累计结果不是0就是1</h4>
+<p>--A：（1）这种情况下，一般是发累计出现了问题，直接查询Step3，确认是否发累计了；</p>
+<p>        （2）业务发送累计和读取累计（获取决策）的上下文不同，导致发送累计key与读取累计key不同，进而导致读累计结果一直为0。查看context中字段和累计详情中的key能发现二者的不同，或者{比较log.rc_zeus_accumulate hive表里的sendList字段和日志查询累计详情tab中累计key，能发现二者的不同}</p>
+<p>         （3）<span style="color: ">sceneid和risklevel配置到累计因子中，除了TT特殊处理的几个累计事件外，两个参数均不可以作为累计key（TT处理了哪些累计事件 </span><a href="https://km.sankuai.com/page/130616240#id-Q2%EF%BC%9ATT%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86%E7%9A%84%E5%8F%82%E6%95%B0%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F" title="https://km.sankuai.com/page/130616240#id-Q2%EF%BC%9ATT%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86%E7%9A%84%E5%8F%82%E6%95%B0%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F">Tatooine 日常FAQ-累计篇</a><span style="color: ">）</span></p>
+<h4 id="section-279">Q3: 读不到累计</h4>
+<p><span style="color:rgb(38, 38, 38)">--A：（1）优先确定“</span><span style="color:rgb(38, 38, 38)"><strong>已经配置了累计因子，且累计因子已经设置上线，且累计因子已经在标记或生效规则中使用”</strong></span><span style="color:rgb(38, 38, 38)">；其次看是否发累计看累计条件是否满足、读累计值看读取条件是否满足（一般情况下读取条件与累计条件是相同的，可以点开高级看到）；</span></p>
+<p><span style="color:rgb(38, 38, 38)">         （2）若是（1）中条件都满足，但仍读不到值，需要确认累计key是否过长。累计服务限制key的字节长度要小于1000。如果超过该长度，读取累计时code会返回4.</span></p>
+<h4 id="section-287"><span style="color:rgb(38, 38, 38)">Q4: 累计到某个值后就不再增长</span></h4>
+<p><span style="color:rgb(38, 38, 38)">--A：（1）累计对单个key的内容大小有限制，要求小于100K，否则内容过大，底层存储服务不支持。遇到此类问题请到zeus上查询累计详情，确认累计内容是否过大。</span></p>
+<p><span style="color:rgb(38, 38, 38)">         （2）累计类型为去重计数或去重求和时，</span><span style="color:rgb(38, 38, 38)"><strong>去重的次数不能超过1000次</strong></span><span style="color:rgb(38, 38, 38)">，此时会发现1000次以后累计不上的问题从而造成累计不准确，解决方法是对于去重次数太多的情况不使用去重功能（可以容忍一定误差）</span></p>
+<h4 id="section-296"><span style="color:rgb(38, 38, 38)">Q5: 没有发送累计，但是累计因子却有值</span></h4>
+<p><span style="color:rgb(38, 38, 38)">--A：因为</span><span style="color:rgb(38, 38, 38)"><strong>累计因子新建时默认为累计自身</strong></span><span style="color:rgb(38, 38, 38)">，在读取累计时，会把当前请求的结果加到累计因子的值上。</span></p>
+<h4 id="section-303"><span style="color:rgb(38, 38, 38)">Q6: 发送了累计，累计详情显示已经有数据（表示发送累计成功），但是拿到的累计因子的值不符合预期</span></h4>
+<p><span style="color:rgb(38, 38, 38)">--A：（1）通过Step2关联Step3查看串联数据，定位问题；（2）也可能是累计因子是</span><span style="color:rgb(38, 38, 38)"><strong>累计自身的，在读取累计因子结果时，累计值不能为null，否则无法读累计成功</strong></span></p>
+<h4 id="section-309"><span style="color:rgb(38, 38, 38)">Q7: 已过期的累计因子的读累计详情可以查询么？</span></h4>
+<p><span style="color:rgb(38, 38, 38)">--A：当前不支持，预计在2020Q1支持查询已过期的累计因子读累计详情查询；</span></p>
+<h4 id="section-313"><span style="color:rgb(38, 38, 38)">Q8: 日志中参数问题涉及到累计的几种情况</span></h4>
+<p><span style="color:rgb(38, 38, 38)">--A：（1）在日志查询的参数tab显示参数为空串，在累计tab看到也拿到了累计因子的结果，但是累计因子的读取条件却设置了该参数不为空串，出现这个问题需要查hive表进行验证，因为日志查询在</span><span style="color:rgb(38, 38, 38)"><strong>参数/因子的值带有尖括号时会显示为空串</strong></span><span style="color:rgb(38, 38, 38)">，如在hvie中显示的"ssid":"&lt;unknown service&gt;"在日志查询上显示为“ssid”: ""；因此是显示问题</span></p>
+<p><span style="color:rgb(38, 38, 38)">        （2）某个参数存在且有值，但在日志查询的累计tab显示错误信息为"lost param key xxx"，显示缺失该参数，这是由历史原因造成的，只需要强制更新一下该累计因子即可</span></p>
+<p>        （3）调用发送/删除累计接口，如果不填“满足何种条件累计”，则无法进行发送操作，如果不填“删除条件”，则无法进行删除操作</p>
+<p></p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/读累计查询__219860859/index.html">读累计查询</a> <span class="status">已保存</span></li><li><a href="children/发累计查询__219802210/index.html">发累计查询</a> <span class="status">已保存</span></li><li><a href="https://km.sankuai.com/collabpage/1351327665">说明：累计相关case问题排查</a> <span class="pending">待后续保存</span></li></ul></section></main></body></html>

@@ -1,0 +1,140 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：决策理由使用</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-8">二、名词解释</a><a href="#section-10">三、操作指南</a><a href="#section-11">1.用户操作流程说明</a><a href="#section-13">2.详细操作流程说明</a><a href="#section-14">Step1: 注册决策理由</a><a href="#section-58">Step2: 在场景配置中使用决策理由</a><a href="#section-74">Step3: 查看规则执行的决策理由</a><a href="#section-93">Step3: 决策理由查询</a><a href="#section-113">4.特殊说明</a><a href="#section-131">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：决策理由使用</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/304311873">查看学城原文</a></p><article>
+<h1>说明：决策理由使用</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>业务命中规则，返回决策时，需要对决策有一些说明和解释且说明和解释需要实时返回，因此通过决策理由可以实现。</p>
+<p>决策理由在场景配置时选择，同一个规则在不同场景下可以使用不同的决策理由。</p>
+<p>同一个场景下的决策理由可以相同。决策理由间有优先级，也会实时返回。</p>
+<p>在rpc接口中会实时返回决策code、决策文案和决策优先级</p>
+<h1 id="section-8">二、名词解释</h1>
+<p></p>
+<h1 id="section-10">三、操作指南</h1>
+<h2 id="section-11">1.用户操作流程说明</h2>
+<img src="assets/24d43d98d6584dd5.svg" width="896" height="521" alt="流程图">
+<h2 id="section-13">2.详细操作流程说明</h2>
+<h3 id="section-14">Step1: 注册决策理由</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">场景--&gt;决策--&gt;决策理由--&gt;新建决策理由</span></p>
+</td>
+<td>
+<p><img src="assets/c3724315be3a7f8c.png" width="901" height="275" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【新建】</span></p>
+<ul>
+<li><span style="font-size:14px">决策理由：正常填写您的内容即可</span></li>
+<li>
+<p><span style="font-size:14px">Code：决策理由的唯一识别码，同业务侧交互传输键值</span></p>
+<p><span style="font-size:14px">⚠️</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">：code码值不做类型限制，用户配置时需要再三跟您对接的技术同事确认约定好</span></span><span style="font-size:14px">。</span></p>
+<p><span style="color:rgb(56, 158, 13)"><span style="font-size:14px">反作弊业务方常用int型</span></span></p>
+</li>
+<li><span style="font-size:14px"><del>优先级：1-15，数值越小优先级越高（反作弊是数值越大优先级越高）</del></span></li>
+<li><span style="font-size:14px">共享业务方：正常选择您所在的业务方即可，若需要多业务共享使用，选择需要共享的业务方即可</span></li>
+</ul>
+</td>
+<td>
+<p><img src="assets/d6bdbbff9983bafe.png" width="901" height="216" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-58">Step2: 在场景配置中使用决策理由</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">在场景中添加场景配置即可</span></p>
+</td>
+<td>
+<p><img src="assets/ee10edc9f1324ff4.png" width="901" height="124" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-74">Step3: 查看规则执行的决策理由</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<ul>
+<li><span style="font-size:14px">在实时日志查询中查看规则命中的决策理由</span></li>
+<li><span style="font-size:14px">也可以通过日志配置，实现通过决策理由进行查询</span></li>
+</ul>
+</td>
+<td>
+<p><img src="assets/a6b25a8174ae2039.png" width="841" height="348" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-93">Step3: 决策理由查询</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">场景--&gt;决策--&gt;决策理由</span></p>
+</td>
+<td>
+<p><img src="assets/4a1e54f0e000c0ac.png" width="306" height="349" alt="image.png"></p>
+<p><img src="assets/cddd17b585162f71.png" width="900" height="172" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-113">4.特殊说明</h2>
+<p>在路由决策中使用决策理由：</p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">在路由决策中添加决策理由，同场景配置中添加决策理由相同</span></p>
+</td>
+<td>
+<p><img src="assets/4ef2fad8e9bd39fe.png" width="900" height="343" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-131">四、FAQ</h1>
+<p></p>
+<p></p>
+<p></p>
+</article></main></body></html>

@@ -1,0 +1,140 @@
+<km-doc>
+<km-title nodeId="0a6970b471ba445c8584af4c831ecaff">说明：决策理由使用</km-title>
+<km-catalog style="none" nodeId="8c45a33e58b846d299041f41ce76801b" />
+<h1 nodeId="b59e3878b84c4ea6a116943ce312dc7e">一、背景</h1>
+<p nodeId="b014a30b45b84a4ab0182ce60cc25417">业务命中规则，返回决策时，需要对决策有一些说明和解释且说明和解释需要实时返回，因此通过决策理由可以实现。</p>
+<p nodeId="ff3b11602606414cb56558293353afcf">决策理由在场景配置时选择，同一个规则在不同场景下可以使用不同的决策理由。</p>
+<p nodeId="28fdb4a4fb5a45e385aadbf40ff69f6a">同一个场景下的决策理由可以相同。决策理由间有优先级，也会实时返回。</p>
+<p nodeId="0f05de67b1d7424b8cc0a79201ba0b61">在rpc接口中会实时返回决策code、决策文案和决策优先级</p>
+<h1 nodeId="fc45d4f0de3846ebb54c231e50f36ed6">二、名词解释</h1>
+<p nodeId="3c831d2841404c3d82ae3a5968a52657" />
+<h1 nodeId="bf4002c51c784feb83c0cf6005676888">三、操作指南</h1>
+<h2 nodeId="304b06421bb84bdea3d97a382516646b">1.用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/304311873/305839704?contentType=0&amp;isNewContent=false" width="896" height="521" nodeId="8ef6b12042f24ecbabc2e003c25b3e32" />
+<h2 nodeId="6b9a9bb9fdd441129bb28813aae6a408">2.详细操作流程说明</h2>
+<h3 nodeId="a3738738eb6c4f208b5e86ade42d4d9a">Step1: 注册决策理由</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="07649cad4ea84755a2174bfce8bc21e2">
+<tr nodeId="36335f6a6284453881929c847f43367a">
+<th colwidth="[325]" nodeId="531f7c778b8b42cc803ed3f3b839c701">
+<p nodeId="62f5418a091d45649bcacde3d586fdc3"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="f01f3d97090e4b7fa8cc2971917a505a">
+<p nodeId="4aa53176357948bbb3b7182f6441d5c6"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="9358e6ccff004d85a0bf44f241e003e9">
+<td colwidth="[325]" nodeId="f5683fbfac1c4e3c8206e3570a0f172a">
+<p nodeId="4b21623d16f54f3eac0f89c7de121e6a"><span font-size="14">【入口】</span></p>
+<p nodeId="15acf0fc0c4c47e2bd7701070bc0b4de"><span font-size="14">场景--&gt;决策--&gt;决策理由--&gt;新建决策理由</span></p>
+</td>
+<td colwidth="[930]" nodeId="814b0ef8b4fd437f825c94c199663a5e">
+<p nodeId="d9bd6cf6e10b4b94b1f094634acab299"><img src="https://km.sankuai.com/api/file/cdn/304311873/305890255?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="275" nodeId="8f588af5839f4551950dcc91fde83d6e" /></p>
+</td>
+</tr>
+<tr nodeId="df8a296795e443aaba2d659b7fdd12d1">
+<td colwidth="[325]" nodeId="1c3380baade149bf88efee84bddd4122">
+<p nodeId="6e994821929a4c3882661054ab204742"><span font-size="14">【新建】</span></p>
+<ul nodeId="8d2ebb71c5554777b1786973889460d8">
+<li nodeId="5eddaec874e849c89c4cc38a0110c0c7"><span font-size="14">决策理由：正常填写您的内容即可</span></li>
+<li nodeId="f62918f7f9234c5e9951986312aebac1">
+<p nodeId="53f474d9be95452fbf4b3bcebf4bb669"><span font-size="14">Code：决策理由的唯一识别码，同业务侧交互传输键值</span></p>
+<p nodeId="3265640629604ca7937b3161f418b764"><span font-size="14">⚠️</span><span color="rgb(245, 35, 45)"><span font-size="14">：code码值不做类型限制，用户配置时需要再三跟您对接的技术同事确认约定好</span></span><span font-size="14">。</span></p>
+<p nodeId="d1017d34efbd43969bfada9d74eae02c"><span color="rgb(56, 158, 13)"><span font-size="14">反作弊业务方常用int型</span></span></p>
+</li>
+<li nodeId="dc816cfca01a451285e4481103e70c89"><span font-size="14"><del>优先级：1-15，数值越小优先级越高（反作弊是数值越大优先级越高）</del></span></li>
+<li nodeId="c1fd4ed5128549ef898945f4e740b33e"><span font-size="14">共享业务方：正常选择您所在的业务方即可，若需要多业务共享使用，选择需要共享的业务方即可</span></li>
+</ul>
+</td>
+<td colwidth="[930]" nodeId="dc71c2c0ac3a42adb7d66e722a219c50">
+<p nodeId="ce4d0b9461a54fe88d10b587651bfafb"><img src="https://km.sankuai.com/api/file/cdn/304311873/305798898?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="216" nodeId="9efd5f21bb804a62a076276e94ca048e" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="f0b7fdd0733a4c9d956e45680799fd97">Step2: 在场景配置中使用决策理由</h3>
+<table responsive="false" nodeId="ec1922a5bcbc41dfae9c69aecc8cfda4">
+<tr nodeId="5f325d7e171740eaa7971a883a7a20f9">
+<th colwidth="[325]" nodeId="9e6578b739c746f2ad6b8b746b69e4e5">
+<p nodeId="fc3e371d453e4e7488b3b407d69a3eb1"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="f6744253adad4240b1d05e97d21ece77">
+<p nodeId="e8146ce34dcb486b9bf1a422a1b960d5"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="94c14b2cb05b450eb4b9f74f1465ea81">
+<td colwidth="[325]" nodeId="ef6265968a1e4692bd28e927687d6eb3">
+<p nodeId="24147a73e9ff410fb2ffe704855a2ae0"><span font-size="14">在场景中添加场景配置即可</span></p>
+</td>
+<td colwidth="[930]" nodeId="8c72d6dba5b14b2089d2cbde98ce10fe">
+<p nodeId="874c749b58ca4f3292649185d64f4285"><img src="https://km.sankuai.com/api/file/cdn/304311873/305857128?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="124" nodeId="a7845378a3384b60b5b45bca389104c7" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="2b79fc4093e148ba82c9efa0dc2791cc">Step3: 查看规则执行的决策理由</h3>
+<table responsive="false" nodeId="9fac1de5ead64fdc81ce2a7911947b39">
+<tr nodeId="6330de7e151b43eaa452bd914ad055e2">
+<th colwidth="[325]" nodeId="f05a37ecf0ca41a39becd564f3dd9f23">
+<p nodeId="ea856c002b394773908d6ed60aaaa95c"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="6d69cf4f36f84237a2c50f55b4b9d38c">
+<p nodeId="3c8fee5e168d4a3ba328cab73e0e39b5"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="7b2dcda339fa4a42a0fe9352e795963e">
+<td colwidth="[325]" nodeId="79b77a80724541f5a2f2539c09945965">
+<ul nodeId="3021d2933bd943429fc371b3002ff971">
+<li nodeId="caf03c98ad49420aabd73f162c49ac7f"><span font-size="14">在实时日志查询中查看规则命中的决策理由</span></li>
+<li nodeId="bc45f3a566f74b86aac072c0dbe2bafd"><span font-size="14">也可以通过日志配置，实现通过决策理由进行查询</span></li>
+</ul>
+</td>
+<td colwidth="[930]" nodeId="5b6519e6525d4d1ea18c28c6e9cacb97">
+<p nodeId="f33796ba190c410288f2e36a92b9b9fe"><img src="https://km.sankuai.com/api/file/cdn/304311873/305846449?contentType=1&amp;isNewContent=false" name="image.png" width="841" height="348" nodeId="864590bea793409d8e8870d8c11fb0be" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="33dc23ffd7004da9952b891a6925607b">Step3: 决策理由查询</h3>
+<table responsive="false" nodeId="391d71ac28694bc3a4437af09446a545">
+<tr nodeId="2d2828b1378b44eea137000a8f89c934">
+<th colwidth="[325]" nodeId="f85bf062152f493793f63917f0388fd3">
+<p nodeId="b9969d2f7ac149e7b13cc30bcb0ec6f0"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[929]" nodeId="f509277a5fef4f2ea09562335fc654c2">
+<p nodeId="e954fc51a7a9495da390f02a931557e5"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="bbac631e2df84a00b7e46f7761c38e05">
+<td colwidth="[325]" nodeId="26563586f8e34ea2a947073965ae77c8">
+<p nodeId="897e7b9628f146d390a90ea883725098"><span font-size="14">【入口】</span></p>
+<p nodeId="a67f40ab2e034b4daa2a03add0f4ce89"><span font-size="14">场景--&gt;决策--&gt;决策理由</span></p>
+</td>
+<td colwidth="[929]" nodeId="7f7ce1855bde40cc8da7be5e89c1bfa0">
+<p nodeId="5f7f3b512e384e4c860ce62f3604f9af"><img src="https://km.sankuai.com/api/file/cdn/304311873/305761321?contentType=1&amp;isNewContent=false" name="image.png" width="306" height="349" nodeId="0e372ff41fe047fbb5c1573ab39035f3" /></p>
+<p nodeId="cf0f59056f054df185e83ce994f93401"><img src="https://km.sankuai.com/api/file/cdn/304311873/305845905?contentType=1&amp;isNewContent=false" name="image.png" width="900" height="172" nodeId="8c8874fe77e14ad69da7b0b527994e15" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="1934377d556b44d69b8c0a5b71a5d71b">4.特殊说明</h2>
+<p nodeId="518ad04f99c04e7e83f55f9d15cd67a9">在路由决策中使用决策理由：</p>
+<table responsive="false" nodeId="93e27c0352c546518d035c47cb19d6c9">
+<tr nodeId="770f292416ae40f583bef821651f53ac">
+<th colwidth="[325]" nodeId="c0010df0007f4110aa3446f0a09fba38">
+<p nodeId="ee753af5599446e9b689c7f10fbbf285"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[929]" nodeId="24d15132fba0443c8d16a41e2a3aba26">
+<p nodeId="78f4e04e82ba4a10925057224ce39f5a"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="1b141bfc7a8049fb9ac15f6f573818a0">
+<td colwidth="[325]" nodeId="35585e6a5af7444e8057105d721000c5">
+<p nodeId="806873abffd445c1bc054968d87d2c59"><span font-size="14">在路由决策中添加决策理由，同场景配置中添加决策理由相同</span></p>
+</td>
+<td colwidth="[929]" nodeId="bbf9529281674205af59149795ed35ab">
+<p nodeId="cc071c12e7574b248f16dd803221dea2"><img src="https://km.sankuai.com/api/file/cdn/304311873/305857234?contentType=1" name="image.png" width="900" height="343" nodeId="edcea71423d84c2b98ef7a7afb8872e2" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="f7371df4f40a4f71bfc6615720e789f5" />
+<h1 nodeId="dabf451fe8b5464f9333b18b98929614">四、FAQ</h1>
+<p nodeId="57969701f79d439087fb4f749f471dbb" />
+<p nodeId="39ab95c73b814dab9d98b5ed0f987d78" />
+<p nodeId="86ed59525eb74bf188df94ec252d8dac" />
+</km-doc>

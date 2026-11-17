@@ -1,0 +1,133 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：累计使用文档</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">功能概述</a><a href="#section-9">使用流程</a><a href="#section-10">累计事件配置</a><a href="#section-24">累计因子配置</a><a href="#section-134">发送/删除累计</a><a href="#section-140">规则配置</a><a href="#section-143">累计结果查询</a><a href="#section-152">修改累计</a><a href="#section-158">FAQ</a><a href="#section-159">Q1.累计问题自查</a><a href="#section-161">Q2:为什么累计不是参数而是因子</a><a href="#section-169">Q3:累计事件如何配置？</a><a href="#section-176">Q4:累计事件如何配置？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：累计使用文档</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/28261902">查看学城原文</a></p><article>
+<h1>说明：累计使用文档</h1>
+<div style="none"></div>
+<h1 id="section-3">功能概述</h1>
+<p><strong>Zeus的表达式因子可实现对单条请求的逻辑判断，但如果要对多条请求进行计数或求和，就需要用到累计。</strong></p>
+<p>举个例子：</p>
+<ul>
+<li>业务发给Zeus的每条请求中都有设备标识uuid、用户账号标识userid，如果要想统计同一设备3天内有多少用户使用，累计就能派上用场。</li>
+</ul>
+<h1 id="section-9">使用流程</h1>
+<h2 id="section-10">累计事件配置</h2>
+<ul>
+<li><span style="color:rgb(0, 0, 0)">路径：Zeus导航栏 =&gt; 因子 =&gt; 累计事件（</span><a href="https://zeus.sankuai.com/accumulate_event/event_list" title="https://zeus.sankuai.com/accumulate_event/event_list">https://zeus.sankuai.com/accumulate_event/event_list</a><span style="color:rgb(0, 0, 0)">）</span></li>
+<li><span style="color:rgb(0, 0, 255)"><strong>对较成熟的业务，累计事件相对完善，一般无需新增</strong></span></li>
+<li>添加累计事件</li>
+<li>
+<p>累计事件与累计因子目前是多对多的关系，累计事件可以理解为一类累计聚合的维度，是在发送累计/删除累计时使用的。</p>
+<ul>
+<li>累计事件如：登陆、下单、支付等，在发送累计时要指定累计事件ID，累计事件是用来挑选对哪些累计因子进行写（加和）操作的一个维度</li>
+</ul>
+</li>
+</ul>
+<h2 id="section-24">累计因子配置</h2>
+<ul>
+<li><span style="color:rgb(0, 0, 0)">路径：Zeus导航栏 =&gt; 因子 =&gt; 添加因子 =&gt; 累计因子</span></li>
+<li><strong>累计事件</strong>：需要写累计的事件，在下拉框中选择配置的累计事件</li>
+<li>
+<p><strong>累计周期</strong>：要累计的数据保持的时间</p>
+<ul>
+<li>其实指的是累计服务中存储数据的过期时间，从当前时间往历史推算，超过累计周期时间的数据将被丢弃。<br></li>
+</ul>
+</li>
+<li>
+<p><span style="color:rgb(0, 0, 0)"><strong>累计类型</strong></span><span style="color:rgb(245, 35, 45)"><strong>（累计类型一旦配置不允许修改）</strong></span></p>
+<ul>
+<li>
+<p><span style="color:rgb(0, 0, 0)">计数/求和/最近几次</span></p>
+<ul>
+<li><span style="color:rgb(0, 0, 0)">计数：对累计值按累计Key进行计数；求和：对累计值按累计Key进行求和；最近几次：按累计Key累计配置的最近N次的累计值</span></li>
+<li><span style="color:rgb(0, 0, 0)">返回值类型：当为计数类型时，返回值类型为整型；当为求和类型时，返回值类型为配置的累计值的类型；当为最近几次类型时，返回值类型是JSON字符串</span></li>
+<li><span style="color:rgb(0, 0, 0)">累计最近几次类型时，会多出次数的选项，并且累计自身默认为否且不可更改。累计最近几次使用详见文档：</span><a href="children/说明：Zeus累计最近几次使用指南__28234760/index.html" title="https://km.sankuai.com/page/28234760">说明：Zeus累计最近几次使用指南</a><br></li>
+</ul>
+</li>
+<li>
+<p><span style="color:rgb(0, 0, 0)">剔除重复项</span></p>
+<ul>
+<li><span style="color:rgb(0, 0, 0)">勾选剔除重复项需要填写“按何去重”。去重计数时，直接按累计值进行去重；去重求和时，以”按何去重“对累计值进行去重。</span></li>
+<li><span style="color:rgb(255, 0, 0)"><strong>去重的次数最多为1000次</strong></span><span style="color:rgb(0, 0, 0)">，1000次以后旧数将被丢弃，一直保持1000次</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><span style="color:rgb(0, 0, 0)"><strong>按何累计</strong></span><span style="color:rgb(0, 0, 0)">：累计的Key，以英文逗号相隔的参数或因子，key可以是一个或多个。</span></p>
+<ul>
+<li><span style="color:rgb(0, 0, 0)">示例：对同uuid同ip的userid进行计数，这里的累计Key是uuid和ip拼接后的值</span><br><img src="assets/8707ad5f6414c42d.png" width="591" height="600" alt="image.png"></li>
+<li>该配置值支持规则平台上配置的当前业务方下所有参数以及<span style="color:rgb(255, 0, 0)"><strong>除了累计因子类型</strong></span>外的所有类型因子<br></li>
+</ul>
+</li>
+<li>
+<p><strong>累计值</strong>：累计Value，要累计的目标</p>
+<ul>
+<li>示例：对<span style="color:rgb(0, 0, 0)">同uuid同ip的userid进行计数，累计值是userid；对同uuid同ip的amount进行求和，累计值是amount</span></li>
+<li><span style="color:rgb(0, 0, 0)">该配置值支持规则平台上配置的当前业务方下所有参数以及</span><span style="color:rgb(255, 0, 0)"><strong>除了累计因子类型</strong></span><span style="color:rgb(0, 0, 0)">外的所有类型因子</span></li>
+</ul>
+</li>
+<li>
+<p><span style="color:rgb(0, 0, 0)"><strong>满足何种条件累计</strong></span><span style="color:rgb(0, 0, 0)">：发送（写入）累计的条件</span></p>
+<ul>
+<li><span style="color:rgb(0, 0, 0)">aviator逻辑表达式，结果为bool型，结果为true才会写（发送）累计</span></li>
+</ul>
+</li>
+<li>
+<p><span style="color:rgb(0, 0, 0)"><strong>读取条件设置</strong></span></p>
+<ul>
+<li><span style="color:rgb(0, 0, 0)">选项分为 “读取累计条件与写入条件一致“ 和 ”填写读取累计条件“</span></li>
+<li><span style="color:rgb(0, 0, 0)">选取“读取累计条件与累计条件一致”则无须填写读取条件，默认与写入(累计)条件一致</span><br></li>
+</ul>
+</li>
+<li>
+<p><span style="color:rgb(0, 0, 0)"><strong>读取条件</strong></span><span style="color:rgb(0, 0, 0)">：只在</span><span style="color:rgb(0, 0, 0)"><strong>读取条件设置</strong></span><span style="color:rgb(0, 0, 0)">为”填写读取累计条件“时填写</span></p>
+<ul>
+<li><span style="color:rgb(0, 0, 0)">aviator逻辑表达式，结果为bool型，结果为true才会调用累计服务获取累计因子的结果值。</span></li>
+</ul>
+</li>
+<li><span style="color:rgb(0, 0, 0)"><strong>删除条件</strong></span><span style="color:rgb(0, 0, 0)">：aviator逻辑表达式，结果为bool型，结果为true才会删除累计</span></li>
+<li>
+<p><span style="color:rgb(0, 0, 0)"><strong>累计自身</strong></span><span style="color:rgb(0, 0, 0)">：当前请求过来，是否算上当前这一次，如果是，判断当前请求是否满足读取条件，再把值赋给累计因子</span></p>
+<ul>
+<li><span style="color:#f5232d">注: 该配置仅生效于读累计阶段,并不会最终更新该累计值;(仅在一次决策请求中生效)</span></li>
+<li>举个例子：累计因子A当前累计值为1，如果是累计自身，则该请求读取到A因子的值为1+1（因为是累计自身）=2，即A=2。(此时并不影响持久化的结果，即持久化的累计值依然是 1)<br>反之如果不是累计自身，则读取到A因子的值就是1</li>
+</ul>
+</li>
+</ul>
+<p></p>
+<h2 id="section-134">发送/删除累计</h2>
+<ul>
+<li><span style="color:rgb(255, 0, 0)">仅与Zeus对接的RD关心，Zeus后台系统使用者不必关注</span></li>
+<li><a href="https://km.sankuai.com/page/28253497#%E8%AF%B4%E6%98%8E%EF%BC%9AZeus%E5%9C%A8%E7%BA%BF%E6%9C%8D%E5%8A%A1OCTO%E6%8E%A5%E5%85%A5%E6%96%87%E6%A1%A3-%E8%AF%B4%E6%98%8E%EF%BC%9AZeus%E5%9C%A8%E7%BA%BF%E6%9C%8D%E5%8A%A1OCTO%E6%8E%A5%E5%85%A5%E6%96%87%E6%A1%A3-%E5%8F%91%E9%80%81%E7%B4%AF%E8%AE%A1%E6%8E%A5%E5%8F%A3" title="https://km.sankuai.com/page/28253497#%E8%AF%B4%E6%98%8E%EF%BC%9AZeus%E5%9C%A8%E7%BA%BF%E6%9C%8D%E5%8A%A1OCTO%E6%8E%A5%E5%85%A5%E6%96%87%E6%A1%A3-%E8%AF%B4%E6%98%8E%EF%BC%9AZeus%E5%9C%A8%E7%BA%BF%E6%9C%8D%E5%8A%A1OCTO%E6%8E%A5%E5%85%A5%E6%96%87%E6%A1%A3-%E5%8F%91%E9%80%81%E7%B4%AF%E8%AE%A1%E6%8E%A5%E5%8F%A3">说明：Zeus在线服务OCTO接入文档#说明：Zeus在线服务OCTO接入文档-发送累计接口</a></li>
+</ul>
+<h2 id="section-140">规则配置</h2>
+<ul>
+<li>和现有规则没有区别，计数类型时，累计因子推荐以整形进行运算，求和类型时，推荐以双精度型进行运算</li>
+</ul>
+<h2 id="section-143">累计结果查询</h2>
+<ul>
+<li>路径：Zeus =&gt; 日志查询-右侧的结果展示-累计信息</li>
+<li><span style="color:rgb(0, 0, 0)">下图中的第一个累计因子（factor_diff_mobile_buyer_os_dm_acc）返回结果为null，原因是缺失参数：lijianamount、redEnvolopeIdAmout</span></li>
+<li><span style="color:rgb(0, 0, 0)">下图中的第二个累计因子（factor_user_45_93）返回结果为1</span></li>
+<li><img src="assets/3e03f96933c922c7.png" width="600" height="399" alt="1.png"></li>
+</ul>
+<h1 id="section-152">修改累计</h1>
+<ul>
+<li>如果当前没有在线或其依赖没有在线，则可以修改</li>
+<li>如果要修改规则，对应的场景配置已经在线，需要将其下线<span style="color:rgb(255, 0, 0)"><strong>或强制更新（慎用，紧急情况下可用）</strong></span></li>
+</ul>
+<h1 id="section-158">FAQ</h1>
+<h4 id="section-159">Q1.<a href="children/累计问题自查__28364520/index.html" title="https://km.sankuai.com/page/28364520">累计问题自查</a></h4>
+<h4 id="section-161">Q2:为什么累计不是参数而是因子</h4>
+<p>A：累计结果的信息是通过逻辑包装计算出来的，在系统内部处理时，参数无逻辑，因子有逻辑，因此定义为因子</p>
+<p>累计因子的逻辑构成：</p>
+<p>（1）累计事件：基于什么数据进行累计</p>
+<p>（2）累计周期：累计的时间范围</p>
+<p>（3）累计条件：满足何种条件才进行累计</p>
+<p>（4）按何累计、累计值：按照哪种主键，累计的是什么</p>
+<p>（5）累计计算方法：计数、求和</p>
+<h4 id="section-169">Q3:累计事件如何配置？</h4>
+<p>累计事件在配置平台上是一个简单的注册就完成了（<a href="index.html" title="https://km.sankuai.com/page/28261902#id-%E7%B4%AF%E8%AE%A1%E4%BA%8B%E4%BB%B6%E9%85%8D%E7%BD%AE">说明：累计使用文档</a>），对应到应用上，有两种方式：<br>（1）业务方直接调用累计的接口，Zeus平台交互使用2个接口（<a href="https://km.sankuai.com/page/28253497#id-%E5%8F%91%E9%80%81%E7%B4%AF%E8%AE%A1%E6%8E%A5%E5%8F%A3" title="https://km.sankuai.com/page/28253497#id-%E5%8F%91%E9%80%81%E7%B4%AF%E8%AE%A1%E6%8E%A5%E5%8F%A3">说明：Zeus在线服务OCTO接入文档</a>-发累计接口）发送时提供配置好的事件ID</p>
+<p>（2）业务方不直接使用累计接口，Zeus平台交互仅使用一个接口（<a href="https://km.sankuai.com/page/28253497#id-%E5%8F%91%E9%80%81%E7%B4%AF%E8%AE%A1%E6%8E%A5%E5%8F%A3" title="https://km.sankuai.com/page/28253497#id-%E5%8F%91%E9%80%81%E7%B4%AF%E8%AE%A1%E6%8E%A5%E5%8F%A3">说明：Zeus在线服务OCTO接入文档</a> 获取任一类型场景决策接口）发送时提供配置好的事件ID</p>
+<h4 id="section-176">Q4:累计事件如何配置？</h4>
+<p>如上述问题中的累计周期，支持分钟、日、月、年、自然日自定义之间周期。</p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/累计问题自查__28364520/index.html">累计问题自查</a> <span class="status">已保存</span></li><li><a href="children/说明：Zeus累计最近几次使用指南__28234760/index.html">说明：Zeus累计最近几次使用指南</a> <span class="status">已保存</span></li><li><a href="children/说明：多维累计操作手册__472805061/index.html">说明：多维累计操作手册</a> <span class="status">已保存</span></li><li><a href="children/说明：累计因子排查工具__233320099/index.html">说明：累计因子排查工具</a> <span class="status">已保存</span></li></ul></section></main></body></html>

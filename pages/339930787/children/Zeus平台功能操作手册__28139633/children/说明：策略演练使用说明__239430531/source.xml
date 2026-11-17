@@ -1,0 +1,305 @@
+<km-doc>
+<km-title nodeId="2339a5d8899440bf8916bff8128921e9">说明：策略演练使用说明</km-title>
+<km-catalog style="none" nodeId="435a4711cc164ce891c33ef7ce6f27cc" />
+<h1 nodeId="ea595038c9fe4d1e9543bea37c1677cc">一、背景</h1>
+<p nodeId="b0b752f8aa154c6ebd2c3b74d7bb7bd6">在修改线上生效的场景配置、规则、因子、因子工具、规则组、数据接口、参数等对象时，为降低人工操作引入的未知风险，通过演练环境模拟线上执行情况，从而评估修改的影响<span color=" ">减少策略部署风险，提高策略迭代效率</span></p>
+<h1 nodeId="48d24807072546929066236e1f91cb5a">二、名词解释</h1>
+<p nodeId="817d56854e944c3e8e69f1b46a526999">策略演练：策略可以在非线上环境进行指定对象逻辑的修改，通过线上同流量模拟执行情况。</p>
+<p nodeId="3b99549a400c45d29fbf67bf2052c69b"><span color=" ">逻辑信息：因子或规则的表达式、类型；场景配置下规则的状态、决策、优先级</span></p>
+<h1 nodeId="341c956e1820461bbdd5ea881de7915f">三、操作指南</h1>
+<h2 nodeId="77ef0873c6ce45689a2f1bc39b0139ce">1.用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/239430531/239655345?contentType=0&amp;isNewContent=false" width="986" height="232" nodeId="c772ec1fa86b44758c61a6d9f29c4b53" />
+<h2 nodeId="648e7fa83c4a488bb9f1907c34290bb5">2.Quick Start</h2>
+<km-video src="https://km.sankuai.com/api/file/cdn/239430531/241303580?contentType=1" name="策略演练上.mov" size="11.71MB" width="0" height="0" nodeId="8c068537fd2a43c997b904aa5672990c" />
+<km-video src="https://km.sankuai.com/api/file/cdn/239430531/241383628?contentType=1" name="策略演练下.mov" size="19.17MB" width="0" height="0" nodeId="fd4d834bfc87402183c575d39878403c" />
+<p nodeId="8c3b901adcf245f285a4612b77c02002" />
+<h2 nodeId="770569e7c02b420ba4a9cfec90cc80f5">3.详细操作流程说明</h2>
+<p nodeId="76aa767df9b84f95bc86ab68073bba87">策略演练入口：Plus工具中心--&gt;策略演练 </p>
+<p nodeId="0c114ceb158d4a998ebd25f595a9ed12">测试环境网址：<a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList" title="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList" nodeId="35cf62083c5a44bfade418236d13e45d">https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList</a></p>
+<p nodeId="365360f7ae094155b6df84a43026f852">线上环境网址：<a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList" title="https://zeus.mis.rc.sankuai.com/data_zeus_static/#/strategyDrillList" nodeId="2e20526e91034c83b25c2fc3f27b6726">https://zeus.mis.rc.sankuai.com/data_zeus_static/#/strategyDrillList</a></p>
+<h3 nodeId="b4c4b30a8ed541c496e9b8ec4f6fc2ed">Step1:创建演练任务</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="6397cefecd8b4b4abf54d17756096279">
+<tr nodeId="a9285d3a4688409bbc9ec3bf6d3082bf">
+<th colwidth="[325]" nodeId="e16361a06ab54013ae29ee4e6ec2ca45">
+<p nodeId="8a2cd8e8d6f64ca1a095e6daa8a98e2a"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="0a5d885c47d64cd7a729ed58266f805d">
+<p nodeId="9206e01d7d304a97810e200c567f83dd"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="e25a2658509743af81be17675506b3a2">
+<td rowspan="2" colwidth="[325]" nodeId="d5b6fa3b1645473eaeae45bc5f86f210">
+<p nodeId="e1f79c7aa3654bf8889e1613bbd21bb0"><span font-size="14">【入口】</span></p>
+<p nodeId="4255f9c9471b42f0a74cab7def0cdbde"><span font-size="14">Plus工具中心--&gt;策略演练 --&gt;创建演练任务</span></p>
+<ol nodeId="aef670cb7d19464ead43c2311777f5e4">
+<li nodeId="da114adccc92461da6691071cabc13ff">
+<p nodeId="7ec0656dd27b43eea8cf2b34242ca3b7"><span font-size="14">任务名称可以使用中英文用户自定义填写</span></p>
+<p nodeId="e839a286006946e1b29b18b8ffa48d9d" />
+</li>
+</ol>
+</td>
+<td colwidth="[930]" nodeId="4f65bb1e557d46e8ae4d343419ccee47">
+<p nodeId="3e829cccd3794b0f815c6616c6f73de5"><img src="https://km.sankuai.com/api/file/cdn/239430531/239776424?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="176" nodeId="b46414e7c7db4d59858bf6eb8c860c35" /></p>
+<p nodeId="8178510dffa34da6b87d58137341f38c"><img src="https://km.sankuai.com/api/file/cdn/239430531/239740520?contentType=1&amp;isNewContent=false" name="image.png" width="383" height="160" nodeId="b0cdc712d8d241a599db38903db409f7" /></p>
+</td>
+</tr>
+<tr nodeId="e2a5aaa271bd44c1b577b04a4e5d89ec">
+<td colwidth="[930]" nodeId="90e19e73b7924c9db9eb4239d39d90d8">
+<p nodeId="8860ef289a7a49b0b141bb15fa3762e5"><img src="https://km.sankuai.com/api/file/cdn/239430531/239801845?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="276" nodeId="ce69f195d18e4f688f27526e8dea36ac" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="277fff46d1a0417eac9d96e067080fb8">Step2:修改策略</h3>
+<table responsive="false" nodeId="750924898a744e74bee1cdc3a757c568">
+<tr nodeId="a7d43572e54a4fff8825e2b2464cb3ef">
+<th colwidth="[325]" nodeId="f89fab3da6274b3aae95d16b695a976f">
+<p nodeId="f2fd9eb06f0d4fdfb249e779d2dbfe7b"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[929]" nodeId="b476be7d8ce340269a8090f8d1bfe5cb">
+<p nodeId="5c1505e0334149b3b0a935c460bee139"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="bb60ae060815439183393a1bcd8ef1e4">
+<td colwidth="[325]" nodeId="042073d07c6a4b46a5f98881df096ca8">
+<p nodeId="121966ffedf04e24ae562575e24bca7f"><span font-size="14">【修改】</span></p>
+<ol nodeId="85774021e5084da289cd7957331048fa">
+<li nodeId="9d0251e63edf44b3a097b8520ff3346e"><span font-size="14">填写完成后进入演练模式</span></li>
+<li nodeId="50d9f03fdb194f2293391891c1a66ef3">
+<p nodeId="db100cc971674195afd765e9f6d1cbed"><span font-size="14">修改信息</span></p>
+<p nodeId="59c8678c316940af9be387dd621f33ea"><span font-size="14">场景配置（普通场景配置、路由场景配置）、规则逻辑、因子逻辑</span></p>
+</li>
+<li nodeId="21884992d99c400c8ebde156350dd13a">
+<p nodeId="fa093f9bb1c7494998f770913945b3b5"><span font-size="14">修改保存（a）</span></p>
+<p nodeId="9f3de3beb4304c1c89590de364357a35"><span font-size="14">说明：此时保存，线上环境并没有使用该逻辑</span></p>
+</li>
+<li nodeId="10acefbcf6294ea28e06a7a0d7559039">
+<p nodeId="638bd6b2f7974405b5dedb83658715b4"><span font-size="14">变更内容（b）</span></p>
+<p nodeId="fc6577b2eadc4b10b07e5cb312600704"><span font-size="14">查看修改了哪些信息以及修改项对线上的影响</span></p>
+<p nodeId="b225af2aabed4ba3be307e4bdbad1337"><span font-size="14">可以取消某一个变更信息</span></p>
+<p nodeId="8c71f1c1f4934344a085a8254164fdbf" />
+<p nodeId="3c4b9447957c4218ae8e9385111236a4" />
+</li>
+</ol>
+</td>
+<td colwidth="[929]" nodeId="9807ac46eb7240e8b45a3f2c1df6a8f1">
+<p nodeId="f16aeb8944634fe790fe8dc5e80f814b"><img src="https://km.sankuai.com/api/file/cdn/239430531/239801845?contentType=1" name="image.png" width="900" height="276" nodeId="70d0563fafc04c94ad7e9fdd7f423a63" /></p>
+<p nodeId="9ec79ae3afce4c8fa37a739fba3526db" />
+<p nodeId="84e1120c62cb4590825e8dd2104a5ca5"><img src="https://km.sankuai.com/api/file/cdn/239430531/239704421?contentType=1&amp;isNewContent=false" name="image.png" width="243" height="127" nodeId="3f88ebb164b243f39e9f18975f895f9c" /><img src="https://km.sankuai.com/api/file/cdn/239430531/239795483?contentType=1&amp;isNewContent=false" name="image.png" width="254" height="127" nodeId="9e95149b6e9d494f82bd44bfcf361df6" /></p>
+<p nodeId="e10cfdd34d98424e9ac9a4620b77769d" />
+<p nodeId="2dc86a606ea947eea842cec5240768c1"><img src="https://km.sankuai.com/api/file/cdn/239430531/239797912?contentType=1&amp;isNewContent=false" name="image.png" width="900" height="127" nodeId="4c5a814d4a13495793991959c3dc7110" /></p>
+<p nodeId="3c60ca8dd15840c588211585bc38bf25" />
+<p nodeId="6bd074482f044e389cd8357e270a4a95"><img src="https://km.sankuai.com/api/file/cdn/239430531/239808745?contentType=1&amp;isNewContent=false" name="image.png" width="663" height="278" nodeId="f7d582a2b5ed4320804070a4312e1bce" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="68ef372bb25d43f289f8cc43562ed09e">Step3:启动双跑</h3>
+<table responsive="false" nodeId="2ffee6fc148444b9a4f507eba7adf561">
+<tr nodeId="9996ce075ad4438588d8c5ffb0dcb567">
+<th colwidth="[325]" nodeId="32f5765dc19f49c5a0431b9e2b32fe89">
+<p nodeId="a7671ce1bfcd46678922a0a966badbb9"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[929]" nodeId="0c70406b176f491db2c8795c518bd0b3">
+<p nodeId="98b096e74afa42f3b272392b8d1fe3af"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="39f8d22c1e9047fa8db8ed4f5c9680e5">
+<td colwidth="[325]" nodeId="e14d761bb4b2418fbf46a002808c9900">
+<p nodeId="a5ace7474ce24a6a9c841a80f794db79"><span font-size="14">【启动双跑】</span></p>
+<ol nodeId="4eb230ca56bd4ecc8672db79005fa831">
+<li nodeId="a6d345207f364db6bc005dae06018436"><span font-size="14">双跑启动可在策略演练列表页面、变更内容页面、演练任务模式中</span></li>
+<li nodeId="3729d6b1ec024b3483134a502989d575"><span font-size="14">填写完成后进入演练模式</span></li>
+<li nodeId="67ea84c085664e5cba493be6b2bee89f">
+<p nodeId="44349679cd1f4ac1a8703194631fa8fc"><span font-size="14">修改信息</span></p>
+<p nodeId="8b0ad2609e6442d39d0b243e3ad510c9"><span font-size="14">场景配置（普通场景配置、路由场景配置）、规则逻辑、因子逻辑</span></p>
+</li>
+<li nodeId="ec19899073a1422ebbc199c3c2b0fb6f">
+<p nodeId="7f68ae38ea634c208071b3989854ea55"><span font-size="14">修改保存（a）</span></p>
+<p nodeId="8d5a45e147984b0c89412ec74e1b6250"><span font-size="14">说明：此时保存，线上环境并没有使用该逻辑</span></p>
+</li>
+<li nodeId="681c2ed8374e4d23921bd98d705fc08f">
+<p nodeId="de43d7fa57794ca5845d66038093da55"><span font-size="14">变更内容（b）</span></p>
+<p nodeId="0348e13c0caa48869d92c82d75a4d798"><span font-size="14">查看修改了哪些信息以及修改项对线上的影响</span></p>
+<p nodeId="d3599c9c18c540fdab5e71f3da005b84"><span font-size="14">可以取消某一个变更信息</span></p>
+</li>
+<li nodeId="73a334b534b44aaeac3d1ce94d896c39">
+<p nodeId="9f5c01300f4541e2852ff8a16697a242"><span font-size="14">启动双跑（c.f）</span></p>
+<p nodeId="64ee7d68154f44bd8bace71ea33f6d4c"><span font-size="14">设置双跑流量的比例，默认20%（考虑到存在流量较大场景在双跑期间数据量过大，导致任务失败，建议用户对于较大场景按照流量比例双跑）</span></p>
+<p nodeId="a35df45b05e445cb9f358ade6e39c616"><span font-size="14">抽样逻辑：在双跑时间周期内均匀抽样，</span></p>
+<p nodeId="106831f62adf4bd49474d0a4c296bba1"><span font-size="14">设置双跑时间：支持30、20、10、5分钟的双跑时间设置</span></p>
+<p nodeId="e14adfb8a0474620879b2fdbc6243f9c" />
+<p nodeId="5fb75c72f4bd47ee80697c4bb7d84076" />
+</li>
+</ol>
+</td>
+<td colwidth="[929]" nodeId="14078120eadc41e7bbeada1d7d2e5952">
+<p nodeId="7c5183b7db9a4ff59848c237d235bf94"><img src="https://km.sankuai.com/api/file/cdn/239430531/239801845?contentType=1" name="image.png" width="900" height="276" nodeId="b299e55c41af46048c57ab4fe4066151" /></p>
+<p nodeId="444cf1cb90c248eb8fb16e4fadf56506" />
+<p nodeId="f27e74648c2c4b17a6e526c8dd2b9045"><img src="https://km.sankuai.com/api/file/cdn/239430531/239704421?contentType=1" name="image.png" width="243" height="127" nodeId="7f2d00804a2641378962cc2760a3612b" /><img src="https://km.sankuai.com/api/file/cdn/239430531/239795483?contentType=1" name="image.png" width="254" height="127" nodeId="48c476bc78b64aaf8ad87e63c9e60604" /></p>
+<p nodeId="5461824a30e04165a36010d50e0d06b8" />
+<p nodeId="4ead15c2b51b4d658b2528467e8dbe28"><img src="https://km.sankuai.com/api/file/cdn/239430531/239797912?contentType=1" name="image.png" width="900" height="127" nodeId="332223a8950b4a93b941c70d3a9f3008" /></p>
+<p nodeId="7b7bb53fad134a57acf1bca395451239" />
+<p nodeId="1a9cdc16920e47508c358403d911deda"><img src="https://km.sankuai.com/api/file/cdn/239430531/239808745?contentType=1" name="image.png" width="541" height="227" nodeId="4ec983f6178d4c73ade33fbe34791a9d" /><img src="https://km.sankuai.com/api/file/cdn/239430531/239763483?contentType=1&amp;isNewContent=false" name="image.png" width="334" height="200" nodeId="605e14fb44a544d5a7dbfa519e35d987" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="86f211ff190b49108167837e8775b772">Step4:查看双跑结果</h3>
+<table responsive="false" nodeId="be9c299d45534d88b28dbf1e5437011d">
+<tr nodeId="4727e5aa317740ac9caf8b8c77b7e0f7">
+<th colwidth="[325]" nodeId="78940466c6d84292ae27311dbb27a4d7">
+<p nodeId="7e0323d69289474ab925c2fb00b89ac6"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[929]" nodeId="f56077d9a3fa44569fdc871728c178d1">
+<p nodeId="ca2e0761351e4d09af2c489fe6261b20"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="3fa81a40215b4db5b039d6a1ccdac3f1">
+<td colwidth="[325]" nodeId="7c68f7283ec4470eb89e789bcffe077b">
+<p nodeId="341f4ce0e003463d84fdb7bfa1a17b5c"><span font-size="14">【查看双跑结果】</span></p>
+<ol nodeId="88950070564e44bb9e5860378d44f5f4">
+<li nodeId="46105310bbc84e549ecf4a59f3481d12">
+<p nodeId="f099a905e2dd46f08768214784a7e2ed"><span font-size="14">操作入口</span></p>
+<p nodeId="c88ffd1f8cdb4fdfb27b5c8c655772ca"><span font-size="14">在策略演练列表页面，某一个任务的操作项中，可点击查看双跑结果（统计数据）</span></p>
+<p nodeId="33fccf94fdfa4cbcb4cd0aff6af6de21"><span font-size="14">在实时日志查询--&gt;双跑演练日志中可通过填写演练任务ID查看双跑结果数据（明细数据）</span></p>
+</li>
+<li nodeId="ab73aec76d8f4d1893b521908a24206f">
+<p nodeId="da3fe5050a6f465b96866342ca3afbb6"><span font-size="14">双跑结果（统计数据）</span></p>
+<p nodeId="3092ecb952254e04b4435aef39e114e0"><span font-size="14">支持按决策结果、规则命中量结果查看线上命中量和演练命中量</span></p>
+<p nodeId="4f44f8781f464e47a88b5a1714d4e523"><span font-size="14">⚠️在结果的第一列“共有”、“线上”、“演练”的含义</span></p>
+<p nodeId="5f6da4f19c4343c2b6d40ba18455e7f4"><span font-size="14"><strong>--共有：指该决策/规则是经过修改操作，线上演练可对比</strong></span></p>
+<p nodeId="a16941707180490e8f5be6ca83698bf0"><span font-size="14"><strong>--线上：指该决策/规则在演练任务中删除了，只有线上命中情况</strong></span></p>
+<p nodeId="daf2d8384f4f4665b15694e3f3178daa"><span font-size="14"><strong>--演练：指该决策/规则在演练任务中增加了，只有演练命中情况</strong></span></p>
+<p nodeId="1e38e141e0df4a6e93471c63f60f7363"><span font-size="14">🌿命中量统计逻辑：命中量=双跑时间周期内命中该决策或规则的流量/双跑时间周期内全部流量</span></p>
+<p nodeId="7ac18d7357de45dfb630befa401335b2"><span color="#f5232d"><span font-size="14">--目前统计数据有缺陷， 没有做过滤，实现只涉及修改的规则数据，而展示了全部规则信息，因后续实验室迭代，该缺陷暂无排期修复。可在双跑日志中查询</span></span></p>
+</li>
+<li nodeId="5aacb107d77547239660731858f84c3c">
+<p nodeId="c1f118d60fab4fbfbc261288625f4881"><span font-size="14">双跑结果（明细数据）</span></p>
+<p nodeId="de3a745f6c374910bee9ac13d390eb1c"><span font-size="14">该日志查询服务以演练任务日志数据为主，查询线上数据需要在实时日志服务中查询</span></p>
+<p nodeId="bfe19f2821d842dab8718a5f9fa60ba6"><span font-size="14">⚠️演练任务为必填信息，在演练任务列表中获取“任务ID”即为演练任务</span></p>
+<p nodeId="a1aec93558694e90839bbd09ebca310e"><span font-size="14">演练与线上结果：提供查询的便捷筛选条件，支持一致、线上命中演练未命中、线上未命中演练命中筛选</span></p>
+</li>
+</ol>
+</td>
+<td colwidth="[929]" nodeId="60ab8d13621a43f4bf80e58be319fcd4">
+<p nodeId="baf9174e758d4715bdbc354e3a3ed994"><img src="https://km.sankuai.com/api/file/cdn/239430531/239833751?contentType=1&amp;isNewContent=false" name="image.png" width="900" height="164" nodeId="ea28923431514557b4cbe0c9b536d219" /></p>
+<p nodeId="8fa967f04d814302b56c4e1c866663ac"><img src="https://km.sankuai.com/api/file/cdn/239430531/239734028?contentType=1&amp;isNewContent=false" name="image.png" width="714" height="450" nodeId="e474eac0b02548318504820ddfa43d0f" /></p>
+<p nodeId="6847ad46866f42248c81fcacfb2db8a0"><img src="https://km.sankuai.com/api/file/cdn/239430531/273637492?contentType=1&amp;isNewContent=false" name="image.png" width="656" height="579" nodeId="2467eadf00bb4bd8a811e2c8f6cedde6" /></p>
+<p nodeId="6bd23d8172c14ce0adef518e1667aeac"><img src="https://km.sankuai.com/api/file/cdn/239430531/273727018?contentType=1&amp;isNewContent=false" name="image.png" width="817" height="204" nodeId="3642858def02499584e7989c35df1ad2" /></p>
+<p nodeId="d4338cf68a574c6ba9268c01cf8d7d7f" />
+</td>
+</tr>
+</table>
+<h3 nodeId="d7e9708d18bb4ca2bbb415c0c0a771d5">Step5:上线通知、审批申请和一键上线</h3>
+<table responsive="false" nodeId="402625b3fd3f438aa54b8ff52c569a21">
+<tr nodeId="ea979df7cafb4442b98d67d4d3e5ef2a">
+<th colwidth="[325]" nodeId="2117f2d7a0f947cca3e2b84af61a8fca">
+<p nodeId="76d278736c42482dba776c2dff8be219"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[929]" nodeId="cba44cf5f75949d68fb5ea0ffaa088fc">
+<p nodeId="8e2bac9bd95549099ab319a32201a7bd"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="4bc8663b571c477394971c1a4f27deb0">
+<td colwidth="[325]" nodeId="36e58cd8f22b4378842bff952c0d5f3f">
+<p nodeId="4a0979a8c68d4194936a5630503ddaa9"><span font-size="14">【上线通知】</span></p>
+<ol nodeId="b07b5618a8644c6399c27f013f5fa408">
+<li nodeId="17958b71183d4d12a789f6556c80235f"><span font-size="14">通过双跑结果确认本次修改符合业务预期，可点击发送上线通知，大象发送通知给业务配置的变更通知人</span></li>
+<li nodeId="a103d6ac52bb460cb5e4b362e7ed0e0e"><span font-size="14">必须发送上线通知后方可进行上线审批、一键上线</span></li>
+<li nodeId="f3943eb1d03e4d2193f89fc8ee72b137"><span font-size="14">需要填写变更说明，即本次策略迭代的原因，用于告知相关同事</span></li>
+</ol>
+<p nodeId="7c049e3587724372ba5b1e0442506605"><img src="https://km.sankuai.com/api/file/cdn/239430531/239836784?contentType=1&amp;isNewContent=false" name="image.png" width="297" height="124" nodeId="9d31b5c6d3dc4582a3217cb1cd96d912" /></p>
+</td>
+<td colwidth="[929]" nodeId="880404e3d2b44c1f9d5416ad4e76572b">
+<p nodeId="6feee9f6513c4e6b95d356385fbf54ca"><img src="https://km.sankuai.com/api/file/cdn/239430531/239844420?contentType=1" name="image.png" width="816" height="298" nodeId="c5b8a9e55e9c4164909672fc0031e188" /></p>
+<p nodeId="2655238c11e84f2897ac8e403d3e203a"><img src="https://km.sankuai.com/api/file/cdn/239430531/239708899?contentType=1&amp;isNewContent=false" name="image.png" width="330" height="150" nodeId="be6370f60a8746e28797d40cc316bfb6" /></p>
+</td>
+</tr>
+<tr nodeId="9b1468b376bf409b87a90be624b83322">
+<td colwidth="[325]" nodeId="754278b7aad8413fbe673d514310501b">
+<p nodeId="7ef947ee6f384369a88dbe8145d2049c"><span font-size="14">【审批申请】</span></p>
+<p nodeId="1756e406a53f42caa9a7d92562395b82"><span font-size="14"> 3.已经发送上线通知的演练任务，可以在列表页面/详情页面进行申请上线</span></p>
+<p nodeId="ae1a7bb8750c4ce79f774fe7f63830b1"><span font-size="14">⚠️发送通知之后无强制时间，可直接申请上线</span></p>
+<p nodeId="65d647eb365d4866b3f78bdfac0928c7"><img src="https://km.sankuai.com/api/file/cdn/239430531/239836827?contentType=1" name="image.png" width="149" height="128" nodeId="c6973a0bd8fe4323b4c327cb18c62282" /></p>
+<p nodeId="d0b8c179c0cb495580464b554d805405"><span font-size="14">4.业务负责人将通过大象收到上线审批申请，可直接</span></p>
+</td>
+<td colwidth="[929]" nodeId="8d92b9660aa6403da1d7ba491c980cf8">
+<p nodeId="93d9663c43b4445aa4a1d530febd0a02"><img src="https://km.sankuai.com/api/file/cdn/239430531/239785064?contentType=1" name="image.png" width="900" height="106" nodeId="d400ad71b7694db991c347c9ffd5b855" /></p>
+</td>
+</tr>
+<tr nodeId="8c49467e83bc4e5bbf80fea7f167d7bd">
+<td colwidth="[325]" nodeId="670c78b5a37b4d529b077cf87ebc8a47">
+<p nodeId="c6cd3d7ab35740f5bbbb9a9262d630e6"><span font-size="14">【一键上线】</span></p>
+<p nodeId="3847d08d43ef4b3dbac8ac977cb7741f"><span font-size="14">5.审批通过的任务可以进行一键上线</span></p>
+<p nodeId="30f001ce63a14d02bab8375ca9ff9d9b"><span font-size="14">6.点击一键上线后会出现上线确认信息，需用户手动填写“</span><span color="rgb(70, 70, 70)"><span font-size="14">TOP1差异以确认上线“</span></span></p>
+<p nodeId="490582072c154c84bd8932d2c8131dcd"><span color="rgb(70, 70, 70)"><span font-size="14">⚠️避免用户通过点点点无法明确感知数据波动的风险</span></span></p>
+<p nodeId="64131dd81f784e8888a9f2c403eeb9b6"><span color="rgb(70, 70, 70)"><span font-size="14">7.会存在上线失败的情况，出现该情况原因：</span></span></p>
+<p indent="1" nodeId="a0540d1d000544f6b84f8d713cae740c"><span color="rgb(70, 70, 70)"><span font-size="14">其他用户在您修改期间也对相同的策略进行了修改，存在修改冲突。</span></span></p>
+<p indent="1" nodeId="30ca2be6526547ef85a7c374df821f54"><span color="rgb(245, 35, 45)"><span font-size="14">解决办法：系统会提示谁也进行了修改，请您团队内部进行协商，若确认您仍需要进行修改，需要将当前任务终止，复制演练任务重新进行新逻辑双跑验证后进行上线操作</span></span></p>
+</td>
+<td colwidth="[929]" nodeId="178f1d6ea02e4499ab4752939de936fe">
+<p nodeId="314ab18e49084c4a80ebbc399f761d59"><img src="https://km.sankuai.com/api/file/cdn/239430531/239863488?contentType=1&amp;isNewContent=false" name="image.png" width="900" height="100" nodeId="7fac5381036b40eda032291aefa55db2" /></p>
+<p nodeId="8fbf8791b60a4eb8bfdf9889cdd4a23d"><img src="https://km.sankuai.com/api/file/cdn/239430531/239837392?contentType=1" name="image.png" width="624" height="326" nodeId="e863b7a46af448c2b8b30300e879e992" /></p>
+<p nodeId="7922ab3ac50a46deb2818212cd291d45"><img src="https://km.sankuai.com/api/file/cdn/239430531/239837880?contentType=1&amp;isNewContent=false" name="image.png" width="404" height="192" nodeId="230f297ac9a4467990207f345cee5f15" /><span font-size="14"> </span><img src="https://km.sankuai.com/api/file/cdn/239430531/239838660?contentType=1&amp;isNewContent=false" name="image.png" width="336" height="163" nodeId="17edb46a514f4c509a9b473d110827e4" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="410aef9e7a174437b3e031a940935620">任务复制</h3>
+<table responsive="false" nodeId="8d9715d238414e5baa576227cbd448f3">
+<tr nodeId="fe2a0d41cb5448d4954627333aa7266a">
+<th colwidth="[325]" nodeId="dbd5b6069e61450d986e1fed8d080b29">
+<p nodeId="5640b5436293425ca6583e2c21a14d1e"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[926]" nodeId="4ca1732aeca2433690976066f486eaac">
+<p nodeId="99ccb95da04d451fb0966aec87731638"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="d30e2793b34547dea1f75fb61193f549">
+<td colwidth="[325]" nodeId="f31e5e4e90034d4fa3af364ed37959b8">
+<p nodeId="d92097637ece47a89ff319ef008f9e81"><span font-size="14">【复制】</span></p>
+<p nodeId="d2c8e2766d794cd183283fc29cf12cdc"><span font-size="14">1.双跑完成、任务终止的任务支持复制操作</span></p>
+<p nodeId="7f6c14c64e094a77b07ec229c1437f56"><span font-size="14">2.点击复制后需要对演练任务重新命名，提交信息后刷新页面，在策略演练列表中可查看到相关的信息</span></p>
+<p nodeId="3919de6b69d94f1badea277dfefe4ba5"><span font-size="14">3.复制后的任务等同于新的演练任务可进行双跑、上线等操作</span></p>
+</td>
+<td colwidth="[926]" nodeId="ad2f47097df44b22a61d952df53f1aeb">
+<p nodeId="2a9cbbfac14e4b19aefdcfd328bdcc88"><img src="https://km.sankuai.com/api/file/cdn/239430531/239846477?contentType=1&amp;isNewContent=false" name="image.png" width="897" height="108" nodeId="bb1b9af8d5d44ca68beae6d5c2a975b7" /></p>
+<p nodeId="6a944d3f1cfa4509a31d90eb0bc271d0"><img src="https://km.sankuai.com/api/file/cdn/239430531/239846645?contentType=1&amp;isNewContent=false" name="image.png" width="357" height="128" nodeId="2537c7a263fc4e698db5b8f06ad4c734" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="859a05fd6cf64162a8057dd66c2428dd">4.特殊说明</h2>
+<p nodeId="ab715a13b26e427696d598169296e82a">策略演练模式下，不支持决策附加信息和决策衍生参数的模版修改、不支持累计因子、名单库（上海）因子修改；</p>
+<h1 nodeId="c596cac0904147cab7ea2842d016992d">四、FAQ</h1>
+<h3 nodeId="bcf22d58aead430f938d4fc9a734a652">Q1：提交策略演练后，修改的信息在哪里能查询到？</h3>
+<p nodeId="c997057fab704d6b8b914f3ef25132ca">--A：可以到策略演练页面中查看，点击任务名称即可；</p>
+<h3 nodeId="6393e1f619bd490ab84c662396a2596d">Q2：如何确定策略演练的数据符合预期？</h3>
+<p nodeId="866d810b90b5454da99f6e63cac86ff0">--A：有两种方式（1）通过“双跑结果”数据中的线上命中量和命中率数据确认，修改前后命中数据波动是否符合预期</p>
+<p nodeId="91be65b98e19449e99677139f2937381">                            （2）通过策略演练执行期间的实时日志查看具体数据执行是否符合预期，可通过演练任务ID、规则ID/userid等日志查询相关参数查询</p>
+<h3 nodeId="c7dd2dc81d2d40878d82734c448eee71">Q3：终止后的策略演练任务还可以再次重启么？</h3>
+<p nodeId="39f43846e5cf492ca17aa253d4c7f4ef">--A：不可以，只能通过复制任务，再进行双跑</p>
+<h3 nodeId="0121ed2155824eaeb60a36c57c08b9b1">Q4：为什么要有发送上线通知？</h3>
+<p nodeId="aee4a4efcbc449b78bc8b67ae260c351">--A：因存在多业务方共用的情况，当一个业务方修改时会影响其他业务方，因此发送通知规避因信息传递不到位导致的未知风险</p>
+<h3 nodeId="aa38206c00794f2bbcbd45bc2d33fbb8">Q4：双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？</h3>
+<p nodeId="fa24498b5beb49b7ae5db8ff84b160f5">--A：可以，点击重新双跑即可；</p>
+<h3 nodeId="3c72aace148b49808ab8b33371e24bf5">Q5：策略演练任务平均耗时情况？</h3>
+<p nodeId="7811b094c2094887aefbe1dfd8d33429">--A：（1）使用紧急上线流程---依赖审批响应，最短1分钟；（2）不使用紧急上线流程--除去验证数据是否符合预期人工时间，最短30分钟；</p>
+<h3 nodeId="59529c31a7d7417287dd3ea2e21526b0">Q6：紧急上线流程审批人是谁？</h3>
+<p nodeId="db99a93a728449d4ad366d813af54780">--A：修改人所在业务方的负责人，即在【权限】--&gt;【业务方管理】--&gt;【负责人】</p>
+<h3 nodeId="3f5e5c1de639405eb71bf599ef6de8c4"><strong>Q7：不支持哪些信息的修改？</strong></h3>
+<p nodeId="5bbd63c19ebc4c1e8f0657e19fd1e8e3">--A：不支持累计因子、名单库（上海）因子、决策信息的修改；</p>
+<h3 nodeId="557c9a446dc446e6aeda147359268619"><strong>Q8：双跑期间有2000条请求，设置抽样比例50%，为什么实际双跑流量是986不等于1000条</strong></h3>
+<p nodeId="ee33909eaa544f6ca65bc1abcd483d41">--A：依赖于抽样逻辑使用的底层算法，相对误差较小，无限趋近于比例值</p>
+<h3 nodeId="d05130d269854037aba50dc003a91a4c"><strong>Q9：为什么点击上线后还有上线确认需要填写的弹框？</strong></h3>
+<p nodeId="deba95e07e4d450e90c367384751f62a">--A：分析历史case以及历史项目经验，用户尝尝因点点点行为形成惯性操作思维，因此填写弹框可<span color="rgb(70, 70, 70)">避免用户通过点点点无法明确感知数据波动的风险；</span></p>
+<h3 nodeId="fcda24827be841f696acdb63341c66f6"><strong>Q10：双跑结果中的“共有、线上和演练”是什么意思？</strong></h3>
+<p nodeId="cfaf6556ae2c4faa9b07c1f8acae5378">--A：因演练任务包含场景配置、规则和因子的逻辑修改，其中场景配置中可能存在新增规则或决策，删减规则或决策，为便于用户对双跑结果数据的解读，对增删改行为进行了标识</p>
+<p nodeId="aac04112acf8466aa20b698c31842f4c"><strong>共有：指该决策/规则是经过修改操作，线上演练可对比</strong></p>
+<p nodeId="07cc9d0dd74a46169dc07c39379e7dc8"><strong>线上：指该决策/规则在演练任务中删除了，只有线上命中情况</strong></p>
+<p nodeId="b9d30fbe44c9432b905399b92143d5ae"><strong>演练：指该决策/规则在演练任务中增加了，只有演练命中情况</strong></p>
+<h3 nodeId="15adc021dfe54f1b8f2350e4d28eaac9"><strong>Q11：提示双跑完成，任务状态显示双跑完成，但操作中仅显示“终止”，无法查看结果为什么？</strong></h3>
+<p nodeId="348837852e15481ea46df0756db7c7ff">--A：双跑已经完成，但数据统计入库汇总，存在1分钟左右的误差，等一会即可；</p>
+<h3 nodeId="6c52818c6f564a429ddb52ce098c89c3">Q12：普通场景的批量编辑后，取消变更会联动把这次批量编辑的内容都取消掉？</h3>
+<p nodeId="b91a67b0122b461e8fcddb47af57ef76">--A：因为取消变更是针对某一次操作进行的，如果这次操作影响到了2条变更内容，那么会同时把这两条变更内容都取消。</p>
+<h3 nodeId="3c90d85a68c64518a995a0b48b2a9bd1">Q13：双跑演练中，双跑的数据涉及外部接口会增加下游请求量么？</h3>
+<p nodeId="b92a14a79e884effae5a08ff516ad791">--A：会增加必要的请求量，但是会尽最大程度避免重复请求调用</p>
+<p nodeId="c6c80db8b739490e9e8feecd5baa4b42" />
+<p nodeId="882797f000264e369dd0f6cacdc49455" />
+</km-doc>

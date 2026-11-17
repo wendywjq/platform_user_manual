@@ -1,0 +1,152 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：操作安全机制</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、说明</a><a href="#section-131">三、FQA</a><a href="#section-132">Q1: 上述安全机制非全部业务方开方的，若需要增加/取消该机制怎么办？</a><a href="#section-134">Q1: 操作安全机制配置生效需要多久？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：操作安全机制</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/188083312">查看学城原文</a></p><article>
+<h1>说明：操作安全机制</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>自Zeus平台提供决策引擎服务起，出现各种因误操作导致的生产case，因此平台侧会提供一些操作安全校验机制，供业务方使用</p>
+<h1 id="section-5">二、说明</h1>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">功能名称</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">解决问题</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">概要说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">操作指南</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">规则阶段</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">目前已使用业务</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">静默期</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规避在业务高峰期上线规则带来的风险</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">业务高峰期时不允许上线生效规则，特殊情况走紧急申请通道</span></p>
+</td>
+<td>
+<p><a href="../说明：Zeus静默期使用指南__28163548/index.html" title="https://km.sankuai.com/page/28163548"><span style="font-size:14px">说明：Zeus静默期使用指南</span></a></p>
+</td>
+<td>
+<p><span style="font-size:14px">特殊时期上线时</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">反作弊、反骗赔、反刷单、账号安全等</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">强制标记</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规避因在场景将规则状态设误操作或灰度时间不足带来的风险</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">新增生效规则需标记满足30分钟，特殊情况走紧急申请通道</span></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/187978926" title="https://km.sankuai.com/page/187978926"><span style="font-size:14px">说明：强制标记功能</span></a></p>
+</td>
+<td>
+<p><span style="font-size:14px">上线时</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">反作弊、反骗赔、反刷单、账号安全等</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">强制更新</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规避因修改规则、因子内部逻辑但逻辑未灰度带来的风险</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规则、因子线上逻辑和修改逻辑并行双跑，强制灰度30分钟，特殊情况走紧急申请通道</span></p>
+</td>
+<td>
+<p><a href="../说明：策略演练使用说明__239430531/index.html" title="https://km.sankuai.com/page/239430531">说明：策略演练使用说明</a></p>
+</td>
+<td>
+<p><span style="font-size:14px">修改时</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">测试用例</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">规避规则、因子表达式书写不准确、不符合业务预期带来的风险</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">--</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">新建时</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">全部业务方</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">操作日志查询</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">解决无法快速查询平台上配置信息操作记录的问题</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:14px">操作痕迹</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">全部业务方</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-131">三、FQA</h1>
+<h3 id="section-132">Q1: 上述安全机制非全部业务方开方的，若需要增加/取消该机制怎么办？</h3>
+<p>A：有业务负责人（Zeus对接时的业务管理员）同Zeus沟通配置</p>
+<h3 id="section-134">Q1: 操作安全机制配置生效需要多久？</h3>
+<p>A：均为配置项，通常1天时间即可；包含投入使用和观察时间；</p>
+</article></main></body></html>

@@ -1,0 +1,154 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>完整选项说明</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-7">优化级别：OPTIMIZE_LEVEL</a><a href="#section-14">计算精度：MATH_CONTEXT</a><a href="#section-17">解析浮点数：ALWAYS_PARSE_FLOATING_POINT_NUMBER_INTO_DECIMAL</a><a href="#section-21">跟踪运行：TRACE_EVAL</a><a href="#section-24">正则分组捕获：PUT_CAPTURING_GROUPS_INTO_ENV</a><a href="#section-31">变量语法糖：ENABLE_PROPERTY_SYNTAX_SUGAR</a><a href="#section-35">变量处理：NIL_WHEN_PROPERTY_NOT_FOUND</a><a href="#section-37">Env 处理：USE_USER_ENV_AS_TOP_ENV_DIRECTLY</a><a href="#section-44">整型浮点数解析：ALWAYS_PARSE_INTEGRAL_NUMBER_INTO_DECIMAL</a><a href="#section-48">参数捕获：CAPTURE_FUNCTION_ARGS</a><a href="#section-69">循环次数控制：MAX_LOOP_COUNT</a><a href="#section-77">语法特性：FEATURE_SET</a><a href="#section-141">类的白名单：ALLOWED_CLASS_SET</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">完整选项说明</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747419601">查看学城原文</a></p><article>
+<h1>完整选项说明</h1>
+<div><p><strong>Updated at 2020/04/22: 更新到 5.0 版本，增加 FEATURE_SET、MAX_LOOP_COUNT 说明</strong></p>
+<p><code>Options</code>支持一些功能的自定义选项，详解如下。</p>
+<h2 id="section-7">优化级别：OPTIMIZE_LEVEL</h2>
+<p>优化级别，更精确地说是运行的优化倾向，可以是:</p>
+<ul>
+<li><code>AviatorEvaluator.EVAL</code>，默认值，以运行时的性能优先，编译会花费更多时间做优化，目前会做一些常量折叠、公共变量提取的优化。适合长期运行的表达式。</li>
+<li><code>AviatorEvaluator.COMPILE</code>，以编译的性能优先，不会做任何编译优化，牺牲一定的运行性能，适合需要频繁编译表达式的场景。</li>
+</ul>
+<h2 id="section-14">计算精度：MATH_CONTEXT</h2>
+<p>Decimal 数字类型的运算精度，默认是 <code>java.util.MathContext.DECIMAL128</code>。</p>
+<h2 id="section-17">解析浮点数：ALWAYS_PARSE_FLOATING_POINT_NUMBER_INTO_DECIMAL</h2>
+<p>是否将表达式中出现的所有浮点数解析为 Decimal 类型，适合需要高精度运算的场景，并且不想为每个浮点数字指定 <code>M</code> 后缀（表示 Decimal 类型）。默认为 false 不开启。<strong>请注意，这个选项仅对表达式里出现的浮点数字面量( literal ) 有效，传入的变量需要自行保证类型正确。</strong></p>
+<h2 id="section-21">跟踪运行：TRACE_EVAL</h2>
+<p>是否跟踪运行，打开后将在控制台打印整个表达式的求值过程。<strong>请勿在生产环境打开，将极大地降低性能</strong>。默认为 false 关闭。</p>
+<h2 id="section-24">正则分组捕获：PUT_CAPTURING_GROUPS_INTO_ENV</h2>
+<p>表示正则匹配的时候，是否将捕获的分组放入 env 环境中，例如</p>
+<pre><code class="language-java">email=~/([\\w0-8]+)@\\w+[\\.\\w+]+/ ? $1:'unknow'
+</code></pre>
+<p>将 email 变量中的用户名部分(@ 符号之前)匹配出来，并放到 <code>$1</code>变量中，如果关闭 <code>PUT_CAPTURING_GROUPS_INTO_ENV</code>（设置为 false），将不会将捕获的分组放入 env，也就无法获取到匹配的分组。默认为 true 开启。</p>
+<h2 id="section-31">变量语法糖：ENABLE_PROPERTY_SYNTAX_SUGAR</h2>
+<p>是否启用变量访问的语法糖，默认情况下 Aviator 会通过 commons-beantuils 反射访问类似 <code>a.b.c</code> 这样的嵌套 JavaBean 变量，或者 <code>#list.[0].name</code> 这样的数组（链表）中的元素。但是部分用户可能想关闭这个行为，强制都从 env 中获取这些变量值，那么就可以将该选项关闭，也就是设置为 false。默认为 true 开启。</p>
+<h2 id="section-35">变量处理：NIL_WHEN_PROPERTY_NOT_FOUND</h2>
+<p>在启用变量访问糖的情况下，如果反射调用失败，默认的行为将抛出运行时异常，而不是返回 null。可以通过本选项改变这个行为，启用的情况下（也就是设置为 true），将不抛出异常，而是返回 null。 默认为 false 关闭。</p>
+<h2 id="section-37">Env 处理：USE_USER_ENV_AS_TOP_ENV_DIRECTLY</h2>
+<p>从 4.0 开始，为了支持 lambda， aviator 引入了变量作用域 scope 的概念，本来的默认行为是不再修改用户传入的 <code>env</code> 对象，但是后面看到比较多的用户依赖这个行为，因此提供了这个新选项 <code>USE_USER_ENV_AS_TOP_ENV_DIRECTLY</code>，当为 true 的时候就会将用户传入的 <code>env</code> 作为最顶层的作用域 scope 来使用，并且默认为 true 启用。如果你不需要 aviator 产生副作用污染你传入的 <code>env</code>，这个选项更推荐设置为 <code>false</code>。</p>
+<h2 id="section-44">整型浮点数解析：ALWAYS_PARSE_INTEGRAL_NUMBER_INTO_DECIMAL</h2>
+<p>是否将表达式中的整型数字都解析为 BigDecimal，默认为 false，也就是不启用。在所有数字都是需要高精度计算的场景，结合 <code>ALWAYS_PARSE_FLOATING_POINT_NUMBER_INTO_DECIMAL</code> 选项，可以减少一些类型转换。<strong>请注意，这个选项仅对表达式里出现的整型字面量( literal ) 有效，传入的变量需要自行保证类型正确。</strong></p>
+<h2 id="section-48">参数捕获：CAPTURE_FUNCTION_ARGS</h2>
+<p>是否捕获函数调用点的参数列表，如果启用，那么类似 <code>func</code> 这样的自定义函数：</p>
+<pre><code>func(a, b, c, 100+2)
+</code></pre>
+<p>这样的表达式，就可以在 func 内得到调用的参数列表，</p>
+<pre><code class="language-java">    @Override
+    public AviatorObject call(final Map&lt;String, Object&gt; env, final AviatorObject arg1,
+        final AviatorObject arg2, final AviatorObject arg3, final AviatorObject arg4) {
+      List&lt;FunctionArgument&gt; args = FunctionUtils.getFunctionArguments(env);
+      ......
+    }
+</code></pre>
+<p>得到的 args 就是参数列表：</p>
+<pre><code>[FunctionArgument, index=0, expression="a"]
+[FunctionArgument, index=1, expression="b"]
+[FunctionArgument, index=2, expression="c"]
+[FunctionArgument, index=3, expression="100+2"]
+</code></pre>
+<p>你可以直接从 <code>env</code> 中通过 <code>__args__</code> 变量直接获取：</p>
+<pre><code>List&lt;FunctionArgument&gt; args = (List&lt;FunctionArgument&gt;)env.get("__args__");
+</code></pre>
+<p>在 lambda 表达式中也可以捕获参数列表并使用，捕获的调用参数列表存放在 <code>__args__</code> 变量：</p>
+<pre><code class="language-java">List&lt;FunctionArgument&gt; args = (List&lt;FunctionArgument&gt;) AviatorEvaluator
+        .execute("f = lambda(a,bc, d) -&gt; __args__ end; f(1,2,100+2)");
+
+assertEquals(3, args.size());
+System.out.println(args);
+assertEquals(0, args.get(0).getIndex());
+assertEquals("1", args.get(0).getExpression());
+assertEquals(1, args.get(1).getIndex());
+assertEquals("2", args.get(1).getExpression());
+assertEquals(2, args.get(2).getIndex());
+assertEquals("100+2", args.get(2).getExpression());
+</code></pre>
+<p>利用这一特性，你可以在运行时对调用的参数做参数校验或者分支派发，以及对于函数调用过程做优化，例如对针对参数做结果缓存等等。不过这一特性会对性能带来稍许损失。</p>
+<h2 id="section-69">循环次数控制：MAX_LOOP_COUNT</h2>
+<p><strong>5.0 新增选项。</strong></p>
+<p>限制循环语句的最大次数，这个循环包括 <code>for</code> 语句、 <code>while</code> 循环语句以及 <code>map, filter, some</code> 等任何涉及 sequence 遍历的高阶函数。用于限制用户传入的脚本执行循环的次数，避免死循环或者耗费大量 CPU 的场景出现。</p>
+<p>默认值： 0，表示无限制。
+可以设置为任意正整数，比如 5000，表示单次循环最大次数是 5000。</p>
+<h2 id="section-77">语法特性：FEATURE_SET</h2>
+<p><strong>5.0 新增选项。</strong></p>
+<p>设置 AviatorScript 支持的语法特性集合，它接受的是一个 <code>Set&lt;Feature&gt;</code>  的集合，Feature 包括：</p>
+<ul>
+<li><code>Assignment</code>  赋值</li>
+<li><code>Return</code>  返回语句</li>
+<li><code>If</code>  条件语句</li>
+<li><code>ForLoop</code>    for 循环语句，包括 break/continue。</li>
+<li><code>WhileLoop</code>  while 循环语句，包括 break/continue</li>
+<li><code>Let</code>  局部变量定义 let 语句</li>
+<li><code>LexicalScope</code>  大括号定义词法作用域</li>
+<li><code>Lambda</code>   匿名函数 lambda 定义</li>
+<li><code>Fn</code>    命名函数的 fn 定义</li>
+<li><code>InternalVars</code>  内部变量，如 <code>__instance__</code> 、 <code>__env__</code> 等。</li>
+<li><code>Module</code>   模块系统，包括 <code>exports</code> 和 <code>require/load</code> 函数</li>
+<li><code>ExceptionHandle</code>  异常处理，包括 try/catch/finally/throw 语句</li>
+<li><code>NewInstance</code>  创建对象的 new 语法支持</li>
+<li><code>StringInterpolation</code> <a href="https://www.yuque.com/boyan-avfmj/aviatorscript/lvabnw#qs7fi">字符串插值</a></li>
+<li><code>Use</code> 是否启用 <code>use</code> 语法导入 java 类到当前上下文，方便 new 或者 catch 异常类等。</li>
+<li><code>StaticFields</code> 是否启用静态字段直接访问，类似 <code>Long.MAX_VALUE</code> 等。</li>
+<li><code>StaticMethods</code> 是否启用静态方法直接使用（基于反射），类似 <code>Math.abs(d)</code> 等。</li>
+</ul>
+<p>你可以自定义语法特性集合：</p>
+<pre><code class="language-java">package com.googlecode.aviator.example;
+
+import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.AviatorEvaluatorInstance;
+import com.googlecode.aviator.Feature;
+import com.googlecode.aviator.Options;
+
+/**
+ * Configure engine example
+ *
+ * @author dennis(killme2008@gmail.com)
+ *
+ */
+public class ConfigureInstanceExample {
+
+  public static void main(final String[] args) {
+    AviatorEvaluatorInstance instance = AviatorEvaluator.newInstance();
+
+    instance.setOption(Options.USE_USER_ENV_AS_TOP_ENV_DIRECTLY, false);
+    instance.setOption(Options.FEATURE_SET,
+        Feature.asSet(Feature.Assignment, 
+                      Feature.ForLoop, 
+                      Feature.WhileLoop,
+                      Feature.Lambda,
+                      Feature.Let));
+
+    System.out.println(instance
+        .execute("let square = lambda(x) -&gt; x*2 end; for x in range(0, 10) { p(square(x)); }"));
+  }
+}
+
+</code></pre>
+<p>这里我们启用了赋值、循环、let 以及 lambda 语法支持，然后执行一个简单脚本。 <code>Feature.asSet</code> 方法方便地生成一个语法特性集合。</p>
+<p>如果我们没有启用某个语法特性，执行引擎将报错，比如假设我们将上面的 <code>Feature.Let</code> 移除：</p>
+<pre><code>Exception in thread "main" com.googlecode.aviator.exception.UnsupportedFeatureException: Feature.Let is not enabled
+    at com.googlecode.aviator.parser.ExpressionParser.ensureFeatureEnabled(ExpressionParser.java:138)
+    at com.googlecode.aviator.parser.ExpressionParser.statement(ExpressionParser.java:1364)
+    at com.googlecode.aviator.parser.ExpressionParser.statements(ExpressionParser.java:1493)
+    at com.googlecode.aviator.parser.ExpressionParser.parse(ExpressionParser.java:920)
+    at com.googlecode.aviator.AviatorEvaluatorInstance.innerCompile(AviatorEvaluatorInstance.java:1293)
+    at com.googlecode.aviator.AviatorEvaluatorInstance.compile(AviatorEvaluatorInstance.java:1256)
+    at com.googlecode.aviator.AviatorEvaluatorInstance.compile(AviatorEvaluatorInstance.java:1207)
+    at com.googlecode.aviator.AviatorEvaluatorInstance.execute(AviatorEvaluatorInstance.java:1383)
+    at com.googlecode.aviator.AviatorEvaluatorInstance.execute(AviatorEvaluatorInstance.java:1400)
+    at com.googlecode.aviator.AviatorEvaluatorInstance.execute(AviatorEvaluatorInstance.java:1436)
+    at com.googlecode.aviator.example.ConfigureInstanceExample.main(ConfigureInstanceExample.java:24)
+</code></pre>
+<p>这个选项的默认值是 <code>Feature.getFullFeatures()</code> ，也就是启用所有的语法特性，如果你想使用 5.0 之前的兼容模式，只启用赋值、lambda 以及内部变量，可以用 <code>Feature.getCompatibleFeatures()</code> 。</p>
+<p>禁用和启用单个选项可以通过 <code>AviatorEvaluatorInstance</code> 的 <code>enableFeature(feature)</code> 和 <code>disableFeature(feature)</code> 方法。</p>
+<h2 id="section-141">类的白名单：ALLOWED_CLASS_SET</h2>
+<p>设置在 new 语句和静态方法（变量）调用中允许使用的 class 白名单集合：</p>
+<pre><code class="language-java">     final HashSet&lt;Object&gt; classes = new HashSet&lt;&gt;();
+    classes.add(ArrayBlockingQueue.class);
+    this.instance.setOption(Options.ALLOWED_CLASS_SET, classes);
+</code></pre>
+<p>请注意：</p>
+<ul>
+<li>null 表示不限制（默认值）</li>
+<li>空集合表示禁止任何 class</li>
+</ul></div>
+<p></p>
+</article></main></body></html>

@@ -1,0 +1,174 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>发累计查询</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">1、搜索条件说明</a><a href="#section-99">2、查询结果说明</a><a href="#section-157">3、查询示例</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：累计使用文档</a> / <a href="../../index.html">说明：累计因子排查工具</a> / <a href="index.html">发累计查询</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/219802210">查看学城原文</a></p><article>
+<h1>发累计查询</h1>
+<div style="none"></div>
+<h4 id="section-3">1、搜索条件说明</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">名称</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">必/可选</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示例</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">累计事件ID</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">必选</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">123</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">累计因子英文名</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">必选</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">factor_acc_name</span></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">筛选条件</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">必选</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">12353,QUHDF123</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">上下文信息里的</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">参数值</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">，最多同时支持两个，英文逗号分隔</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">日期（dt）</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">必选</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">20191119</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">YYYYMMDD</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">时间（hour）</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">必选</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">17</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">24小时制</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">requestId</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">可选</span></p>
+</td>
+<td>
+<p><span style="color: "><span style="font-size:14px">set-xr-rc-zeus-zeus28-201911160036-14932711</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">用于精确查找</span></p>
+</td>
+</tr>
+</table>
+<h4 id="section-99">2、查询结果说明</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">名称</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">is_load</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">不用关注，表示累计因子有效</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">time_stamp</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">时间戳，发累计时间</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">factor_name</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计因子英文名称</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">event_id</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">累计事件ID</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">content</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">发送累计的上下文信息</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">send_status</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">是否满足发送累计条件，0=不满足，1=满足</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">requestId</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">requestId</span></p>
+</td>
+</tr>
+</table>
+<h4 id="section-157">3、查询示例</h4>
+<p><img src="assets/1e12b0c447a891c2.png" width="1066" height="1208" alt="image.png"></p>
+</article></main></body></html>

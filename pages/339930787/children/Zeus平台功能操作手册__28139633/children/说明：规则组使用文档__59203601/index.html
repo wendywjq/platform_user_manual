@@ -1,0 +1,106 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：规则组使用文档</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">1.要解决的问题</a><a href="#section-15">2.解决方案</a><a href="#section-19">3.规则组增删改查指南</a><a href="#section-20">3.1 规则组入口及首页</a><a href="#section-23">3.2 新建规则组并向规则组添加、删改规则</a><a href="#section-24">3.2.1 新建规则组</a><a href="#section-28">3.2.2 向新建的规则组添加规则</a><a href="#section-31">3.2.3 删改规则组内的规则</a><a href="#section-36">3.3 规则组设置与删除</a><a href="#section-43">4.规则组的场景配置指南</a><a href="#section-44">4.1 将规则组添加至场景</a><a href="#section-52">4.2 规则组从场景中移除</a><a href="#section-55">4.3 规则组在场景内的删改</a><a href="#section-59">5.常用冲突处理指南</a><a href="#section-60">5.1 规则组本体内冲突处理逻辑 </a><a href="#section-61">原则一：同一规则组内不允许出现相同的“规则+决策”</a><a href="#section-64">5.2 场景配置增改时冲突处理逻辑</a><a href="#section-65">原则二：在场景配置增/改时，不允许出现相同的配置</a><a href="#section-70">5.3 规则组更新时与场景冲突处理逻辑</a><a href="#section-71">原则三：同一普通场景的规则组内不允许出现相同的标记/生效的“规则+决策”</a><a href="#section-78">6.规则组特性</a><a href="#section-79">6.1 规则组内规则增删改，引用该规则组的未失去联动（在6.2前提下的）的场景配置会同步增删改</a><a href="#section-114">6.2 特别说明（实例化中的配置修改后将失去联动不再同步）</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：规则组使用文档</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/59203601">查看学城原文</a></p><article>
+<h1>说明：规则组使用文档</h1>
+<div style="none"></div>
+<h1 id="section-3"><strong>1.要解决的问题</strong></h1>
+<p>该产品主要解决<strong>一类规则</strong>应用到<strong>多个场景</strong><span style="color:rgb(240, 94, 80)">配置效率低</span>的问题，举例如下：</p>
+<ul>
+<li>前提：批量领券类规则有20条，使用该类规则的场景有100个</li>
+<li>应用1：如果新增第21条批量领券规则，需要将该规则手动配置到100个场景中；</li>
+<li>应用2：发现第19条批量领券规则有误伤，需要将该规则在100个场景中下线；</li>
+<li>应用3：发现第18条规则的决策（或优先级、或决策理由）不合适，需要变更，需要在100个场景中手动调整；</li>
+</ul>
+<p>随着规则、场景量级增加，管理会越来越困难！</p>
+<h1 id="section-15"><strong>2.解决方案</strong></h1>
+<p>通过将一类规则进行打包，我们称之为“规则组”。</p>
+<p>将规则组应用到场景中后，如果规则组内的规则数量增加或删除，亦或是决策等属性变更，其所在的场景会自动进行增删以及属性变更。</p>
+<h1 id="section-19">3.规则组增删改查指南</h1>
+<h2 id="section-20">3.1 规则组入口及首页</h2>
+<p><img src="assets/2707854f7ddc2535.png" width="1205" height="600" alt="image.jpeg"></p>
+<h2 id="section-23">3.2 新建规则组并向规则组添加、删改规则</h2>
+<h3 id="section-24">3.2.1 新建规则组</h3>
+<p><img src="assets/e4a4199b5d0823ff.png" width="516" height="256" alt="image.jpeg"><img src="assets/6ee090d3a88c5de7.png" width="514" height="255" alt="image.jpeg"></p>
+<h3 id="section-28">3.2.2 向新建的规则组添加规则</h3>
+<p><img src="assets/a8c425d82bc4ae27.png" width="1201" height="600" alt="image.jpeg"></p>
+<h3 id="section-31">3.2.3 删改规则组内的规则</h3>
+<p><img src="assets/972ee33cbde3323b.png" width="1206" height="600" alt="image.jpeg"></p>
+<p><img src="assets/9033724c591f6249.png" width="1200" height="600" alt="image.jpeg"></p>
+<h2 id="section-36">3.3 规则组设置与删除</h2>
+<p><img src="assets/c30d579f319eff36.png" width="1209" height="600" alt="image.jpeg"></p>
+<p>删除说明：点击删除时将校验规则组内的配置依赖，若规则组内仍存在规则组则无法删除</p>
+<p><img src="assets/0934c4d6c1d240e8.png" width="1205" height="600" alt="image.jpeg"><img src="assets/d1e80aa3aa32b312.png" width="1207" height="513" alt="image.jpeg"></p>
+<h1 id="section-43">4.规则组的场景配置指南</h1>
+<h2 id="section-44">4.1 将规则组添加至场景<br><img src="assets/fc2bfb188e8c5b61.png" width="1188" height="543" alt="image.png"></h2>
+<p><img src="assets/200c619e93460850.png" width="1197" height="387" alt="image.png"></p>
+<p><img src="assets/4677adb402f7652e.png" width="1196" height="714" alt="image.png"><br></p>
+<h2 id="section-52">4.2 规则组从场景中移除</h2>
+<p><img src="assets/4eb1271e492927a2.png" width="1213" height="600" alt="image.jpeg"></p>
+<h2 id="section-55">4.3 规则组在场景内的删改</h2>
+<p><img src="assets/6e7abeed062ab9fa.png" width="1209" height="600" alt="image.jpeg"><img src="assets/300e633d7acdfad3.png" width="1215" height="600" alt="image.jpeg"></p>
+<h1 id="section-59">5.常用冲突处理指南</h1>
+<h2 id="section-60">5.1 规则组本体内冲突处理逻辑 </h2>
+<h3 id="section-61">原则一：同一规则组内不允许出现相同的“规则+决策”</h3>
+<p><img src="assets/9b92c351523a5ae9.png" width="662" height="329" alt="image.jpeg"></p>
+<h2 id="section-64">5.2 场景配置增改时冲突处理逻辑</h2>
+<h3 id="section-65">原则二：在场景配置增/改时，不允许出现相同的配置</h3>
+<blockquote>
+<p>什么是相同的配置？即除状态外，其他内容完全一致的配置</p>
+</blockquote>
+<p><img src="assets/7f5991ae908b860d.png" width="667" height="362" alt="image.jpeg"></p>
+<h2 id="section-70">5.3 规则组更新时与场景冲突处理逻辑</h2>
+<h3 id="section-71">原则三：同一普通场景的规则组内不允许出现相同的<span style="color:rgb(240, 94, 80)">标记/生效</span>的“规则+决策”</h3>
+<blockquote>
+<p>规则组在增改时，会自动同步至所有引用的场景内。同步时，普通场景会校验是否存在相同的<span style="color:rgb(240, 94, 80)">标记/生效态的策略，如果存在则将转为离线态同步进去。分层场景则默认按照规则本身的状态进行同步。</span></p>
+</blockquote>
+<p><img src="assets/299a3fb38dd93882.png" width="1469" height="372" alt="image.jpeg"></p>
+<h1 id="section-78">6.规则组特性</h1>
+<h2 id="section-79">6.1 规则组内规则增删改，引用该规则组的未失去联动（在6.2前提下的）的场景配置会同步增删改</h2>
+<p><span style="color:rgb(245, 35, 45)">特殊逻辑：删除时，分层场景内的失去联动的配置也会同步删除</span></p>
+<p>1）测试规则组在测试场景中已应用</p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">规则组本体</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">引用到的场景（普通场景&amp;分层场景）</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><img src="assets/7cd7bbb48bebde18.png" width="533" height="244" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/c06f1fabc53fafae.png" width="536" height="240" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p>2）更新规则组，将决策由 1-通过 改为 2-6拦截后，场景内也同步更新。</p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">规则组本体</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">引用到的场景（普通场景&amp;分层场景）</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><img src="assets/1fd0038f27f28508.png" width="533" height="252" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/cbd2aeef30e80609.png" width="566" height="255" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-114"><strong>6.2 特别说明（实例化中的配置修改后将失去联动不再同步）</strong></h2>
+<p><strong>这种特性有个前提，就是</strong><span style="color:rgb(245, 35, 45)"><strong>更新</strong></span><strong>或</strong><span style="color:rgb(245, 35, 45)"><strong>删除</strong></span><strong>，需要保证 </strong><span style="color:rgb(240, 94, 80)"><strong>场景中规则组内规则的配置（</strong></span><span style="color:rgba(0, 0, 0, 0.87)">决策、优先级、决策理由、附加信息）</span><span style="color:rgb(240, 94, 80)"><strong>  与 规则组中内规则的配置一致，</strong></span><strong>若不一致，则不同步。举例如下：</strong><br><strong>其中普通场景以场景纬度，不一致的场景不同步，其他场景正常同步；分层场景以节点纬度，不一致的节点不同步，其他节点正常同步。</strong><br><br>1）测试规则组在测试场景中已应用，决策由 2-6拦截 修改为 77-拦截</p>
+<p><img src="assets/079b491aec732c05.png" width="646" height="295" alt="image.jpeg"></p>
+<p>2）规则组内的决策由 2-6拦截 更新为 3-冻结</p>
+<p><img src="assets/5ad0b330bdba012b.png" width="641" height="317" alt="image.jpeg"></p>
+<p>3）场景中的规则组中的规则决策未变化</p>
+<p></p>
+<p></p>
+<img src="assets/3983754ea85763ba.svg" width="722" height="416" alt="流程图">
+<p></p>
+</article></main></body></html>

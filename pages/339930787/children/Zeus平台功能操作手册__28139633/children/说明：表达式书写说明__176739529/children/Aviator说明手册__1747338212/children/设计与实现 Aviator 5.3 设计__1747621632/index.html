@@ -1,0 +1,255 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设计与实现 Aviator 5.3 设计</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">指令设计</a><a href="#section-5">操作指令</a><a href="#section-187">解释器</a><a href="#section-207">Parser 重构</a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">设计与实现 Aviator 5.3 设计</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747621632">查看学城原文</a></p><article>
+<h1>设计与实现 Aviator 5.3 设计</h1>
+<div><h2 id="section-3">指令设计</h2>
+<p>类似 JVM bytecode，基于 stack。</p>
+<h3 id="section-5">操作指令</h3>
+<p>以下指令如果没有特殊说明，都将执行弹出栈上的 n 个元素，并执行对应指令操作，并将结果压入栈。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>操作数</th>
+<th>结果数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>load x</td>
+<td>0</td>
+<td>1</td>
+<td>加载立即数、变量等。</td>
+</tr>
+<tr>
+<td>new_lambda name</td>
+<td>0</td>
+<td>1</td>
+<td>创建名称为 name 的匿名函数</td>
+</tr>
+<tr>
+<td>add</td>
+<td>2</td>
+<td>1</td>
+<td>加法</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>2</td>
+<td>1</td>
+<td>减法</td>
+</tr>
+<tr>
+<td>mult</td>
+<td>2</td>
+<td>1</td>
+<td>乘法</td>
+</tr>
+<tr>
+<td>div</td>
+<td>2</td>
+<td>1</td>
+<td>除法</td>
+</tr>
+<tr>
+<td>exp</td>
+<td>2</td>
+<td>1</td>
+<td>幂运算</td>
+</tr>
+<tr>
+<td>mod</td>
+<td>2</td>
+<td>1</td>
+<td>模运算</td>
+</tr>
+<tr>
+<td>match</td>
+<td>2</td>
+<td>1</td>
+<td>正则匹配，结果为布尔值</td>
+</tr>
+<tr>
+<td>neg</td>
+<td>1</td>
+<td>1</td>
+<td>相反数</td>
+</tr>
+<tr>
+<td>not</td>
+<td>1</td>
+<td>1</td>
+<td>逻辑否</td>
+</tr>
+<tr>
+<td>and</td>
+<td>2</td>
+<td>1</td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td>or</td>
+<td>2</td>
+<td>1</td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>lt, le</td>
+<td>2</td>
+<td>1</td>
+<td>小于，小于等于</td>
+</tr>
+<tr>
+<td>gt, ge</td>
+<td>2</td>
+<td>1</td>
+<td>大于，大于等于</td>
+</tr>
+<tr>
+<td>eq</td>
+<td>2</td>
+<td>1</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>ne</td>
+<td>2</td>
+<td>1</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>bit_and</td>
+<td>2</td>
+<td>1</td>
+<td>位与</td>
+</tr>
+<tr>
+<td>bit_or</td>
+<td>2</td>
+<td>1</td>
+<td>位或</td>
+</tr>
+<tr>
+<td>bit_xor</td>
+<td>2</td>
+<td>1</td>
+<td>异或</td>
+</tr>
+<tr>
+<td>bit_not</td>
+<td>1</td>
+<td>1</td>
+<td>取反</td>
+</tr>
+<tr>
+<td>shift_left</td>
+<td>2</td>
+<td>1</td>
+<td>左移</td>
+</tr>
+<tr>
+<td>shift_right</td>
+<td>2</td>
+<td>1</td>
+<td>右移</td>
+</tr>
+<tr>
+<td>unsigned_shift_right</td>
+<td>2</td>
+<td>1</td>
+<td>无符号右移</td>
+</tr>
+<tr>
+<td>assign</td>
+<td>2 或者 3</td>
+<td>1</td>
+<td>赋值</td>
+</tr>
+<tr>
+<td>def</td>
+<td>2</td>
+<td>1</td>
+<td>定义并赋值</td>
+</tr>
+<tr>
+<td>index</td>
+<td>2</td>
+<td>1</td>
+<td>“索引”取值</td>
+</tr>
+<tr>
+<td>send name,arity</td>
+<td>可变</td>
+<td>2</td>
+<td>方法调用, name 指定函数名， arity 指定参数个数，将从栈中弹出参数，并将结果入栈。</td>
+</tr>
+<tr>
+<td><strong>特殊形式： send <top>, arity，默认将使用栈顶指针为函数。</top></strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>branchif label</td>
+<td>1</td>
+<td></td>
+<td>如果栈顶为真，跳转到指定“label”对应的代码块（不弹出栈顶）</td>
+</tr>
+<tr>
+<td>branchunless label</td>
+<td>1</td>
+<td></td>
+<td>如果栈顶为不真，跳转到指定“label”对应的代码块（不弹出栈顶）</td>
+</tr>
+<tr>
+<td>goto label</td>
+<td>1</td>
+<td></td>
+<td>跳转到指定label的代码块 goto label</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>0</td>
+<td></td>
+<td>清空栈</td>
+</tr>
+<tr>
+<td>assert type</td>
+<td>0</td>
+<td></td>
+<td>确认栈顶元素类型是否为 type 类型， type 可以是 bool,string 和 number</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-187">解释器</h2>
+<ul>
+<li>IR 指令接口：</li>
+</ul>
+<pre><code class="language-java">public interface IR {
+  void eval(InterpretContext context);
+}
+
+</code></pre>
+<p>具体指令都实现为该接口的一个子类，如 <code>LoadIR</code>等。</p>
+<ul>
+<li><code>InterpretCodeGenerator</code> 指令代码生成器，根据 parser 生成指定的指令(IR)序列。</li>
+<li><code>InterpretExpression</code>编译后的脚本对象，保存生成的指令序列 <code>List&lt;IR&gt;instruments</code>。</li>
+<li><code>InterpretContext</code>单次解释执行的上下文。</li>
+<li>指令执行过程（在 <code>InterpretExpression#executeDirectly</code>方法中），每次从 <code>InterpretContext</code>获取当前指令 pc，执行，如果遇到跳转就继续执行，否则获取下一条指令：</li>
+</ul>
+<pre><code class="language-java">    IR ir = null;
+    while ((ir = ctx.getPc()) != null) {
+      ir.eval(ctx);
+      if (ir instanceof JumpIR) {
+        if (ir != ctx.getPc()) {
+          // jump successfully, we don't move pc to next.
+          continue;
+        }
+      }
+      if (!ctx.next()) {
+        break;
+      }
+    }
+</code></pre>
+<h2 id="section-207">Parser 重构</h2></div>
+<p></p>
+</article></main></body></html>

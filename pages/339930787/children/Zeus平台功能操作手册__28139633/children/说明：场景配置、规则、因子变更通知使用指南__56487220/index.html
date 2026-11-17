@@ -1,0 +1,240 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：场景配置、规则、因子变更通知使用指南</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-9">二、配置指南</a><a href="#section-30">三、通知内容说明</a><a href="#section-88">场景配置</a><a href="#section-119">规则</a><a href="#section-163">规则因子</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：场景配置、规则、因子变更通知使用指南</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/56487220">查看学城原文</a></p><article>
+<h1>说明：场景配置、规则、因子变更通知使用指南</h1>
+<div style="none"></div>
+<h2 id="section-3">一、背景</h2>
+<p>在场景配置、规则、因子发生变动且会对线上产生直接影响时，需要大象通知相关人员，以应变突发情况。</p>
+<ul>
+<li>场景配置中的某条规则由标记改为生效时，该业务的其他人能有感知，并显示规则标记时的命中量</li>
+<li>规则的表达式被更改时，且该规则在某些场景配置中处于生效状态，则应该通知相关策略和业务人员</li>
+<li>因子的表达式被更改，若其对应的规则在某些场景配置中处于生效状态，希望能通知相关人员</li>
+</ul>
+<h2 id="section-9">二、配置指南</h2>
+<ol>
+<li>进入 <span style="color:rgb(29, 120, 205)"><strong>权限 —&gt; 业务管理 </strong></span>导航栏，查找需要通知的业务点击进行入 <span style="color:rgb(29, 120, 205)"><strong>业务更新</strong></span> 页面</li>
+<li>
+<p>在 <span style="color:rgb(29, 120, 205)"><strong>业务更新</strong></span> 页面修改 变更通知人</p>
+<ol>
+<li> <img src="assets/65c4b4dd2dad5212.png" width="598" height="294" alt="image.png"></li>
+</ol>
+</li>
+<li>点击 更新 按钮即可完成对通知者的配置</li>
+</ol>
+<div class="note">
+<strong>注</strong>
+<div>
+<p>只有业务的负责人才有权限更新业务方信息，包括修改变更通知人</p>
+<p>变更通知人由英文逗号间隔，可以自由设置，可以设置通知非Zeus用户</p>
+<p>目前只支持大象通知</p>
+</div>
+</div>
+<h2 id="section-30">三、通知内容说明</h2>
+<ol>
+<li>
+<p>场景配置变更通知</p>
+<ol>
+<li>
+<p>当场景配置被修改成功时会发生通知</p>
+<ol>
+<li>
+<p>场景配置由标记改为生效，会大象通知该场景所在业务的变更通知人，并显示规则标记的时长和命中量</p>
+<ol>
+<li><img src="assets/909883a117d33776.png" width="478" height="256" alt="image.png"></li>
+</ol>
+</li>
+<li>场景配置发生其他变更操作也会通知相关人员</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>规则变更通知</p>
+<ol>
+<li>
+<p>当规则在某些场景下为生效状态时，修改规则表达式内容成功会触发大象通知</p>
+<ol>
+<li>通知人：该规则共享的所有业务方的变更通知者的集合</li>
+<li>通知内容：影响的生效场景配置个数以及规则表达式被修改提示信息</li>
+<li><img src="assets/a6755cee057645dc.png" width="415" height="315" alt="image.png"></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>因子变更通知</p>
+<ol>
+<li>
+<p>当因子被某些规则使用，且这些规则在某些场景中处于生效状态，因子被成功修改会触发通知操作</p>
+<ol>
+<li>通知人：该因子所共享的业务方的变更通知者的集合</li>
+<li>
+<p>通知内容：</p>
+<ol>
+<li>
+<p>普通因子</p>
+<ol>
+<li>影响的生效场景配置数量</li>
+<li>表达式是否发生变更</li>
+<li>因子类型是否发生变更，变更前后分别是什么</li>
+<li><img src="assets/d42fa45fadce49f0.png" width="403" height="343" alt="image.png"></li>
+</ol>
+</li>
+<li>
+<p>累计因子</p>
+<ol>
+<li>影响的生效场景配置数量</li>
+<li>累计因子的累计事件ID，累计周期，按何累计，累计字段、求各项等属性是否发生变更</li>
+<li><img src="assets/81310e0be2405b12.png" width="624" height="259" alt="image.png"></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>通知内容注</li>
+</ol>
+<div class="note">
+<strong>重要</strong>
+<div>
+<p>表达式属于敏感私密信息，为了安全性考虑，推送消息时不对表达式变更前后的内容进行展示，只提示表达式发生了改变。</p>
+<p>在点击链接查看更改后的场景配置、规则或因子时，需要用户当前业务能匹配场景配置、规则或因子所在的业务，否则显示可能为空</p>
+</div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<h1 id="section-88"><span style="color:rgb(0,0,0)">场景配置</span></h1>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">状态</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">离线</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">为场景新配置一条规则</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">标记</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">执行规则，记录结果，主要用于规则上线前的效果测试，不返回决策</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">生效</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">执行规则，记录结果，并且产生决策</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-119">规则</h1>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">状态</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">是否可修改</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">新建</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">新加的规则因子</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">可以</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">已测试</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">已经跑通至少一个测试用例</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">可以</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">在线</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">能够在线上配置</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">如果没有在线依赖可以</span></p>
+</td>
+</tr>
+</table>
+<p><img src="assets/d5a94371991c182b.png" width="400" height="88.62275449101796" alt="流程图">​</p>
+<h1 id="section-163">规则因子</h1>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">状态</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">是否可修改</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">新建</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">新加的规则因子</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">可以</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">已测试</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">已经跑通至少一个测试用例</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">可以</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">在线</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">能够在线上配置</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">如果没有在线依赖可以</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><img src="assets/1eb9de5cd2fdd34e.png" width="400" height="88.62275449101796" alt="流程图"><span style="color:rgb(0,0,0)">​ </span></p>
+<p></p>
+</article></main></body></html>

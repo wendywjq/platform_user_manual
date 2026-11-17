@@ -1,0 +1,79 @@
+<km-doc>
+<km-title nodeId="d143d1f214d74472adfcd3ee2b1d3f52">读累计查询</km-title>
+<km-catalog style="none" nodeId="9287e2c204c64feb9c94eb0d9c6b4f55" />
+<h4 nodeId="c8d108f4d9ec4b999df225b6a4d55ddb">1、搜索条件说明</h4>
+<p nodeId="68500486861745faa6498c5271ff03de"><strong>第一步：按id或者中/英文名称检索到要查询的累计因子：</strong></p>
+<p nodeId="6b412cd165574ea3a3116907bde049de"><img src="https://km.sankuai.com/api/file/cdn/219860859/29776810281?contentType=1&amp;isNewContent=false" name="image.jpeg" width="116" height="179" nodeId="6ab0142896494e138ca5df4ee954bf81" /></p>
+<p nodeId="9ac81739f0a948fa99ca1fe77f8ecbf4" />
+<p nodeId="e4574ebffd6d44a5a2f4b6af47ed8fef"><strong>第二步：输入查询参数值，拼接累计key进行查询：</strong></p>
+<p nodeId="ef4b7fa9235a4730b0d2d76fdb55b91e"><img src="https://km.sankuai.com/api/file/cdn/219860859/219752786?contentType=1&amp;isNewContent=false" name="image.png" width="811" height="328" nodeId="82245764c1a24745bfe531ca17dc99e6" /></p>
+<h4 nodeId="4d519d5a5f00486b9dbf104d6dab06aa">2、查询结果说明</h4>
+<table responsive="false" nodeId="ffe47fdbe5f54d5c923f15a6c8b2a4b5">
+<tr nodeId="314f01c28c8046d99276a4201ca49ddb">
+<th colwidth="[190]" nodeId="892b612f01ef44669dcf360bf907d2c0">
+<p nodeId="2542cebc33e84a218129f714350fab2b"><span font-size="14">名称</span></p>
+</th>
+<th colwidth="[502]" nodeId="397d49fb81b446099b789d1003043b9a">
+<p nodeId="32946e8fd99a430bb52b44e7c5eb4c1a"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="9543f6b3564f4d86b1b0831aa4c69fe0">
+<td colwidth="[190]" nodeId="94b3bb5825e44939885890a6c3cf2083">
+<p nodeId="33b539f47f864c90b23bb6371ff12978"><span font-size="14">result</span></p>
+</td>
+<td colwidth="[502]" nodeId="cdeeb397a1f249a2bb6bdc81c82d5827">
+<p nodeId="ff637381b84d41dabcfdc4ed06d322e7"><span font-size="14">累计因子</span><span color="rgb(245, 35, 45)"><span font-size="14">当前实时</span></span><span font-size="14">累计值</span></p>
+</td>
+</tr>
+<tr nodeId="5f8e06f365f848099be6b6e2619bac08">
+<td colwidth="[190]" nodeId="6cb75d505b0f4aa9bec03bda9b28176e">
+<p nodeId="f2c6ee6d5097421a9f0a01abdc65cdb8"><span font-size="14">accumulateConfig</span></p>
+</td>
+<td colwidth="[502]" nodeId="dbb06d8dd6794c118e4ad4d613b4ec0d">
+<p nodeId="1fe98494306a4d06bdd790c058da6b98"><span font-size="14">累计配置：includeCurrent=1 =&gt; 累计自身，includeCurrent=0 =&gt; 不累计自身</span><br /><span font-size="14">                  distinct=1 =&gt; 剔除重复项，distinct=0 =&gt; 不剔除重复项</span></p>
+</td>
+</tr>
+<tr nodeId="dfa666ea65bd4444bcfbf92a190fd46d">
+<td colwidth="[190]" nodeId="615efb6b20bc42079b8472d8cb78cd65">
+<p nodeId="dc591ce7ae3b4b1d8cbf79d217f2e3db"><span font-size="14">accumulateRecords</span></p>
+</td>
+<td colwidth="[502]" nodeId="389553ec824f412b8b9f77c9b8bd1ed4">
+<p nodeId="c4f482ff6c3242e6aa788cb029b1f0b9"><span font-size="14">累计详情，比如说累计值=10，那么这10个都是啥</span></p>
+</td>
+</tr>
+<tr nodeId="746a0d39100141ad8f0ac442881c0e38">
+<td colwidth="[190]" nodeId="da4bbdd99a284889820a391e6a97bf30">
+<p nodeId="eeae1364e1af45ac8cc6223b6a5aef0f"><span font-size="14">name</span></p>
+</td>
+<td colwidth="[502]" nodeId="2eb2ec940de2429bb2b2ba5f6be8a241">
+<p nodeId="c765af7f774c4222a522164e4b181d0e"><span font-size="14">累计字段，即按何累计，比如说按userid累计，此处name=userid</span></p>
+</td>
+</tr>
+<tr nodeId="36590f94b9e84725a1cc4441f5358d05">
+<td colwidth="[190]" nodeId="92f67edbc8134acdaffa23f84f89d033">
+<p nodeId="aa8f1ecd398c45409a6d59da64065d40"><span font-size="14">value</span></p>
+</td>
+<td colwidth="[502]" nodeId="06de8235589a44079788ae0022e36b8e">
+<p nodeId="de01cb0a137840ddb3fdb8569c1e0284"><span font-size="14">累计字段的具体值，比如说按userid累计，此处就是具体userid的值</span></p>
+</td>
+</tr>
+<tr nodeId="e5c5d6825f144ecdbc1915fcb267e20f">
+<td colwidth="[190]" nodeId="bec7917e85744a7a80c4ccd84ecf2619">
+<p nodeId="f1f7331947ae4968971926f189d9c2bf"><span font-size="14">time</span></p>
+</td>
+<td colwidth="[502]" nodeId="23c0e35e20d542d08b0e7a8b1c743063">
+<p nodeId="acefba9c037a4c6eb6fce819c8b1cfc6"><span color="rgb(245, 35, 45)"><span font-size="14">累计时间，此处是一个时间范围：</span></span><br /><span color="rgb(245, 35, 45)"><span font-size="14">如果累计周期是分钟，精度为1分钟；</span></span><br /><span color="rgb(245, 35, 45)"><span font-size="14">如果累计周期是小时，精度为5分钟；</span></span><br /><span color="rgb(245, 35, 45)"><span font-size="14">如果累计周期是日，精度为1小时；</span></span></p>
+</td>
+</tr>
+<tr nodeId="1efafefebdcd40c99eb209a28cfb812f">
+<td colwidth="[190]" nodeId="f472279418d0457cb8813c5c44f66aba">
+<p nodeId="c4e3179874db4619945c8bc9a7cb1402"><span font-size="14">subAccumulateRecord</span></p>
+</td>
+<td colwidth="[502]" nodeId="53547bdb7f294b3f8ae8e4491f861548">
+<p nodeId="f22a4db38d004456a94d1b67d2e470ee"><span font-size="14">举例：不剔除重复项时，一个userid对应的累计值可能有多个，此处详细展开每个累计记录</span></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="8dd1b3526a42426990bc1595612bad2f">3、查询示例</h4>
+<p nodeId="71756b133e394ccfa6798f207a38e74d"><img src="https://km.sankuai.com/api/file/cdn/219860859/219734555?contentType=1&amp;isNewContent=true" name="image.png" width="1105" height="1111" nodeId="45fbb4f288794ca1bf25927d8084b9b7" /></p>
+</km-doc>

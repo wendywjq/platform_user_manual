@@ -1,0 +1,152 @@
+<km-doc>
+<km-title nodeId="ddd2e08f2874442f8562c99b40b10add">说明：操作安全机制</km-title>
+<km-catalog style="none" nodeId="c35f51acb7884d7994dfe45cb4125c14" />
+<h1 nodeId="519f1b392451457b8d66819dadbbb5b8">一、背景</h1>
+<p nodeId="516f1560ce2b4d5e80e371dc47816d86">自Zeus平台提供决策引擎服务起，出现各种因误操作导致的生产case，因此平台侧会提供一些操作安全校验机制，供业务方使用</p>
+<h1 nodeId="ec790833a76e410ab5eaa630856c1860">二、说明</h1>
+<table borderColor="#cccccc" responsive="false" nodeId="a7764fbdd3714c1dabad61c36ada65c8">
+<tr nodeId="cf402c83f87a4cfcbd785286ee1f4dd8">
+<th colwidth="[55]" nodeId="0a442b7fdf02499aac0e8122c7dbaa8a">
+<p nodeId="9e4667c7654848d2acb6fb4d335ece12" />
+</th>
+<th colwidth="[121]" nodeId="95530cc958f640eea675b4f694a95de8">
+<p nodeId="9bd1a70636ce488599fcaa2e8032a7c0"><span font-size="14">功能名称</span></p>
+</th>
+<th colwidth="[395]" nodeId="3839b362912a46a186a25fe82251128d">
+<p nodeId="447b94240c42464fb70d2c3e91377070"><span font-size="14">解决问题</span></p>
+</th>
+<th colwidth="[406]" nodeId="c8f28917df2f475ea859ab32bf2a308e">
+<p nodeId="7d8902fc507b445ab3bc5baf4030a6ba"><span font-size="14">概要说明</span></p>
+</th>
+<th colwidth="[201]" nodeId="29ebc658f2574eef9e47d883597f340c">
+<p nodeId="6468971a55f7443c8aee916fd0ae6b19"><span font-size="14">操作指南</span></p>
+</th>
+<th colwidth="[114]" nodeId="ed3e4b89c7e94f198f1757dedb5b3933">
+<p nodeId="ffcda5a81b764beb90c4b8af8f03312b"><span font-size="14">规则阶段</span></p>
+</th>
+<th colwidth="[280]" nodeId="06da98056fc2458ba48003d32d5d8232">
+<p nodeId="4d48d1f31e9041d39e0e95441a618338"><span font-size="14">目前已使用业务</span></p>
+</th>
+</tr>
+<tr nodeId="2daa9724113e4c27b83ff66874640fd7">
+<td colwidth="[55]" numCell="true" nodeId="acce40781a0645c79aee930a581be04b">
+<p nodeId="411d63ed9f9c4aa7ac28c6231544aaa3" />
+</td>
+<td colwidth="[121]" nodeId="cc192f3cb5c54680ac4cca39dd16504e">
+<p nodeId="e0e6f37c587c49648987247db0d8f0b7"><span font-size="14">静默期</span></p>
+</td>
+<td colwidth="[395]" nodeId="3255d0ed1b4548d6a87cf178d24809f6">
+<p nodeId="75ce029e25ef410698a93feff7acbd4e"><span font-size="14">规避在业务高峰期上线规则带来的风险</span></p>
+</td>
+<td colwidth="[406]" nodeId="0fe5cf8c02f34de1bbb08d3d90f2cc01">
+<p nodeId="b613b8d9f85b4294b843f48c2760baed"><span font-size="14">业务高峰期时不允许上线生效规则，特殊情况走紧急申请通道</span></p>
+</td>
+<td colwidth="[201]" nodeId="2f39c33c9f8c4b7c92537310dbd65cae">
+<p nodeId="d9ea316e472d46ddad516ac8624142b3"><a href="https://km.sankuai.com/page/28163548" title="说明：Zeus静默期使用指南" nodeId="055f1a0f28034e34a77b601b742f12e2"><span font-size="14">说明：Zeus静默期使用指南</span></a></p>
+</td>
+<td colwidth="[114]" nodeId="5d58a9154b514eb4b7333e30eabadda0">
+<p nodeId="24835735202148a0beeb4ab96ade2c5e"><span font-size="14">特殊时期上线时</span></p>
+</td>
+<td colwidth="[280]" nodeId="6e6246b85dba4c009172a16aeb950ec3">
+<p nodeId="52bc81eab6cb4425ace43b2468d3c8f6"><span font-size="14">反作弊、反骗赔、反刷单、账号安全等</span></p>
+</td>
+</tr>
+<tr nodeId="3e337043301e492c8295cae2f3dd5815">
+<td colwidth="[55]" numCell="true" nodeId="939db7bd854b41b898f073932c10882b">
+<p nodeId="ca4455757a05481983be4b1d86cee0b2" />
+</td>
+<td colwidth="[121]" nodeId="ee3b0d6e613d41fb9367f03ef12bb1b7">
+<p nodeId="bfdab5c89d5649aeb4cadfb3fb1d881e"><span font-size="14">强制标记</span></p>
+</td>
+<td colwidth="[395]" nodeId="52f5b83962b74d33a2e606460e297684">
+<p nodeId="b74bd69b246448c6aa5440e9c7ae4c64"><span font-size="14">规避因在场景将规则状态设误操作或灰度时间不足带来的风险</span></p>
+</td>
+<td colwidth="[406]" nodeId="399672b1da164a4d9dd1a49b0b237921">
+<p nodeId="fd3e931292ec4c43ae9d071ccb760913"><span font-size="14">新增生效规则需标记满足30分钟，特殊情况走紧急申请通道</span></p>
+</td>
+<td colwidth="[201]" nodeId="2d21fc4ba5b34b259a2d54c78c8e8a7d">
+<p nodeId="f32d6f76d45f4690835d1341fa6e3213"><a href="https://km.sankuai.com/page/187978926" title="说明：强制标记功能" nodeId="a94c592739f64effbe4941eab714518d"><span font-size="14">说明：强制标记功能</span></a></p>
+</td>
+<td colwidth="[114]" nodeId="0de5560ea4fb4fdca38a531d01793037">
+<p nodeId="a83663ada1e847bf88ccb79e3f7a2017"><span font-size="14">上线时</span></p>
+</td>
+<td colwidth="[280]" nodeId="74d914bbdc984105936628db2a184aba">
+<p nodeId="e4a40a9688bf423883595da6383f0cff"><span font-size="14">反作弊、反骗赔、反刷单、账号安全等</span></p>
+</td>
+</tr>
+<tr nodeId="aa2b5140b75e4aa4b55e2a3a1b8b7855">
+<td colwidth="[55]" numCell="true" nodeId="8560137886da43088b02f38bb5f500b7">
+<p nodeId="a2f76422f4f6408a9e451937c1946c4c" />
+</td>
+<td colwidth="[121]" nodeId="733ab23c4eb6457f9f5bc4db8118bfec">
+<p nodeId="a05143026b384d7185246538ee3ae381"><span font-size="14">强制更新</span></p>
+</td>
+<td colwidth="[395]" nodeId="03f3c87fb9814ed38a31c45fd4590549">
+<p nodeId="682ea35e17d44345a4dd87be9715755a"><span font-size="14">规避因修改规则、因子内部逻辑但逻辑未灰度带来的风险</span></p>
+</td>
+<td colwidth="[406]" nodeId="ba8af71707114ad79b8ac50c9183732d">
+<p nodeId="d35e03ae67e8434592218eb7884ff9e2"><span font-size="14">规则、因子线上逻辑和修改逻辑并行双跑，强制灰度30分钟，特殊情况走紧急申请通道</span></p>
+</td>
+<td colwidth="[201]" nodeId="19e17c5e87ca4dde9c6d53fa1607724a">
+<p nodeId="09d688617f644780bc42c4b930851ef1"><a href="https://km.sankuai.com/page/239430531" title="https://km.sankuai.com/page/239430531" autoUpdate="true" nodeId="5f269e84ab254f22a788283c37324e04"><span font-size="14">https://km.sankuai.com/page/239430531</span></a></p>
+</td>
+<td colwidth="[114]" nodeId="b6a9397239f3411cb9f73d97ed3f9711">
+<p nodeId="5803ef6db5cb4ee3be338e4656b8dee0"><span font-size="14">修改时</span></p>
+</td>
+<td colwidth="[280]" nodeId="eab02dabe047490f93f7ff6e9ec69e4a">
+<p nodeId="c910cf6ff0134323a5e960330475ccfd" />
+</td>
+</tr>
+<tr nodeId="2739a0193e9646bc9505d61116b28e29">
+<td colwidth="[55]" numCell="true" nodeId="d382c96d019c451f98fa6f105ddd9359">
+<p nodeId="f0dbfbd410054fd1992c240e49b91149" />
+</td>
+<td colwidth="[121]" nodeId="34b07f4ae522440f81a07b7244d68b70">
+<p nodeId="3bea83b85dde4602b6290029cef634d2"><span font-size="14">测试用例</span></p>
+</td>
+<td colwidth="[395]" nodeId="2c59ddaa8e6d40298272a879ed0606f7">
+<p nodeId="ee1efccedd8b4c06b64b5ba2f77f52b9"><span font-size="14">规避规则、因子表达式书写不准确、不符合业务预期带来的风险</span></p>
+</td>
+<td colwidth="[406]" nodeId="eff71e48484f4f5292f548583d8279f0">
+<p nodeId="5310f0e572fe409fbb2837eb561f517c" />
+</td>
+<td colwidth="[201]" nodeId="efe8768b5b2c4abb99221fd4449aa507">
+<p nodeId="e33c2d5bfdb240b1b9854080fc6eabb2"><span font-size="14">--</span></p>
+</td>
+<td colwidth="[114]" nodeId="2065a813d3ac46eba1551dbe20724a7a">
+<p nodeId="00d7b5e1d92d429899d127703e359fa8"><span font-size="14">新建时</span></p>
+</td>
+<td colwidth="[280]" nodeId="a147c2e8179a42539fc5dc1aa309f460">
+<p nodeId="46add47dbb024430b9ff732d4f2eebe5"><span font-size="14">全部业务方</span></p>
+</td>
+</tr>
+<tr nodeId="4aa796a5dd9a48a3b0b9f468a01c1948">
+<td colwidth="[55]" numCell="true" nodeId="dbca2e51997d4d929c047079b89c1bc0">
+<p nodeId="ca80fd0224824d51af2cf2195ac4f6ca" />
+</td>
+<td colwidth="[121]" nodeId="ab02c8d900c941d994c5c6dd6929b42a">
+<p nodeId="fd7e3b22fa6540ed954222bb4b885dcd"><span font-size="14">操作日志查询</span></p>
+</td>
+<td colwidth="[395]" nodeId="65c19665064d4c939cbb3a5f54051dc8">
+<p nodeId="9ea02627501a4390b9c666423b9a91df"><span font-size="14">解决无法快速查询平台上配置信息操作记录的问题</span></p>
+</td>
+<td colwidth="[406]" nodeId="2b19038093d34d55ac9ee22bcdd8de96">
+<p nodeId="263aa6119eb843c7b7bb1add05d5318b" />
+</td>
+<td colwidth="[201]" nodeId="45efca9bba5347949898be8517891e3a">
+<p nodeId="51bd1c5f071d44488152fd6933c005c1" />
+</td>
+<td colwidth="[114]" nodeId="ebaab3fdce8c403fb56e556d1f4dec6f">
+<p nodeId="db126e3f2b574a40b25fc1e183b08002"><span font-size="14">操作痕迹</span></p>
+</td>
+<td colwidth="[280]" nodeId="1aca38b666694d4b88ad353a7608eec0">
+<p nodeId="c0ab9451fd794fdb85a695344e65813c"><span font-size="14">全部业务方</span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="66153bdc5aab4db6a17a1de34269422a">三、FQA</h1>
+<h3 nodeId="bd046553c679410eb818e16e38f2e597">Q1: 上述安全机制非全部业务方开方的，若需要增加/取消该机制怎么办？</h3>
+<p nodeId="ac2f0b8242bd4818bec3d6b4c3739bcc">A：有业务负责人（Zeus对接时的业务管理员）同Zeus沟通配置</p>
+<h3 nodeId="7a4b70cfae0b45c1ab6a088fe3d4f5a8">Q1: 操作安全机制配置生效需要多久？</h3>
+<p nodeId="4d78b65d07c749cea4eb06bb087a5f88">A：均为配置项，通常1天时间即可；包含投入使用和观察时间；</p>
+</km-doc>

@@ -1,0 +1,79 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>最佳实践</title><link rel="stylesheet" href="../../../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">使用编译缓存模式</a><a href="#section-24">LRU 缓存</a><a href="#section-30">缓存管理</a><a href="#section-44">匿名类的卸载</a><a href="#section-55">默认缓存模式</a><a href="#section-66">高精度计算模式</a><a href="#section-77">安全沙箱模式</a><a href="#section-103">性能建议</a><a href="#section-115"></a></aside><main><div class="bread"><a href="../../../../../../../../../../index.html">归档首页</a> / <a href="../../../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../../../index.html">说明：表达式书写说明</a> / <a href="../../index.html">Aviator说明手册</a> / <a href="index.html">最佳实践</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1747534927">查看学城原文</a></p><article>
+<h1>最佳实践</h1>
+<div><h2 id="section-3">使用编译缓存模式</h2>
+<p>默认的编译方法如 <code>compile(script)</code> 、 <code>compileScript(path</code> 以及 <code>execute(script, env)</code> 都不会缓存编译的结果，每次都将重新编译表达式，生成一些匿名类，然后返回编译结果 <code>Expression</code> 实例， <code>execute</code> 方法会继续调用 <code>Expression#execute(env)</code> 执行。</p>
+<p>这种模式下有两个问题：</p>
+<ol>
+<li>每次都重新编译，如果你的脚本没有变化，这个开销是浪费的，非常影响性能。</li>
+<li>编译每次都产生新的匿名类，这些类会占用 JVM 方法区(Perm 或者 metaspace），内存逐步占满，并最终触发  full gc。</li>
+</ol>
+<p>因此，通常更推荐启用编译缓存模式， <code>compile</code> 、 <code>compileScript</code> 以及 <code>execute</code> 方法都有相应的重载方法，允许传入一个 <code>boolean cached</code> 参数，表示是否启用缓存，建议设置为 true：</p>
+<pre><code class="language-java">public final class AviatorEvaluatorInstance {
+  public Expression compile(final String expression, final boolean cached)
+  public Expression compile(final String cacheKey, final String expression, final boolean cached)
+  public Expression compileScript(final String path, final boolean cached) throws IOException
+  public Object execute(final String expression, final Map&lt;String, Object&gt; env,
+      final boolean cached)      
+}
+</code></pre>
+<p>其中的 <code>cacheKey</code> 是用来指定缓存的 key，如果你的脚本特别长，默认使用脚本作为 key 会占用较多的内存并耗费 CPU 做字符串比较检测，可以使用 MD5 之类唯一的键值来降低缓存开销。</p>
+<h3 id="section-24">LRU 缓存</h3>
+<p>默认使用的缓存是 <code>ConcurrentHashMap</code> ，没有自动淘汰机制，5.0 开始引入了 LRU 缓存，可指定缓存的表达式个数，比如设置为最大 1 万个缓存结果：</p>
+<pre><code class="language-java">AviatorEvaluator.getInstance().useLRUExpressionCache(10000);
+</code></pre>
+<p>但是性能会比默认缓存略差。</p>
+<h3 id="section-30">缓存管理</h3>
+<p><code>AviatorEvaluatorInstance</code> 有一系列用于管理缓存的方法：</p>
+<ul>
+<li>获取当前缓存大小，缓存的编译结果数量 <code>getExpressionCacheSize()</code> </li>
+<li>获取脚本对应的编译缓存结果 <code>getCachedExpression(script)</code> 或者根据 cacheKey 获取 <code>getCachedExpressionByKey(cacheKey)</code> ，如果没有缓存过，返回 null。</li>
+<li>失效缓存 <code>invalidateCache(script)</code> 或者 <code>invalidateCacheByKey(cacheKey)</code> 。</li>
+<li>清空缓存 <code>clearExpressionCache()</code> 。</li>
+</ul>
+<h3 id="section-44">匿名类的卸载</h3>
+<p>对于 JDK7（目前兼容的最老 JDK 版本），默认情况下会为每一个 <code>AviatorEvaluatorInstance</code> 使用一个 <code>ClassLoader</code> 来定义并生成匿名类，这种情况下，类的卸载只会发生在所有类的引用都不存在的情况下，需要默认 <code>ClassLoader</code> 也被垃圾回收，因此仅调用 <code>invalidateCache</code> 是不够的，还需要调用 <code>resetClassLoader()</code> 才可以让某个脚本的编译结果被回收。</p>
+<p>对于 JDK8 及以上版本， AviatorScript 会使用跟 Java Lambda 一样的生成机制来生成匿名类，这些类可以被正常 GC 回收，只需要对应的编译结果没有引用就可以，因此调用 <code>invalidateCache</code> 使得缓存失效即可。</p>
+<p>在 IBM J9 或者其他 JDK 上，默认启用的是 classloader 模式，建议同 JDK7 。如果你强制设置了 <code>aviator.preferClassloaderDefiner</code> 环境变量为 true，也就是启用 classloader 定义模式，建议也是和 JDK7 一致。</p>
+<h3 id="section-55">默认缓存模式</h3>
+<p>从 5.2.2 开始，提供默认缓存模式，通过设置 <code>AviatorEvaluatorInstance#setCachedExpressionByDefault(boolean)</code> 来决定是否开启，开启默认缓存模式后，调用 <code>compile(script)</code> 、 <code>compileScript(path)</code> 和 <code>execute(script, [env])</code> 方法的时候，将默认启用编译缓存，带 <code>cached</code> 参数的重载版本仍然将优先尊重  <code>cached</code> 参数。</p>
+<p>通过下列代码开启：</p>
+<pre><code class="language-java">AviatorEvaluator.getInstance().setCachedExpressionByDefault(true);
+</code></pre>
+<h2 id="section-66">高精度计算模式</h2>
+<p>对于货币计算，或者科学数值计算等场景，需要极高的精度，这种情况下你可以通过设置下列两个选项：</p>
+<ul>
+<li><code>Options.ALWAYS_PARSE_FLOATING_POINT_NUMBER_INTO_DECIMAL</code> 强制将所有浮点数（包括科学计数法）都解析为 decimal 类型。</li>
+<li><code>Options.ALWAYS_PARSE_INTEGRAL_NUMBER_INTO_DECIMAL</code> 将所有整数解析为 decimal 类型。</li>
+</ul>
+<p>来强制将脚本中出现的字面量数字都解析为 decimal 类型参与高精度运算，但是从外部传入的变量需要用户自行保证。</p>
+<p>设定运算精度可以通过 <code>Options.MATH_CONTEXT</code> 选项，默认是 <a href="https://docs.oracle.com/javase/7/docs/api/java/math/MathContext.html#DECIMAL128">MathContext.DECIMAL128</a> 。</p>
+<h2 id="section-77">安全沙箱模式</h2>
+<p>默认情况下， AviatorScript 会启用所有的<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/yr1oau#6Upjs">语言特性</a>。对于将 AviatorScript 作为一个语言沙箱来使用的场景，用户编写的脚本可能是千奇百怪的，有各种各样的安全隐患（比如写一个死循环），这种场景建议：</p>
+<ul>
+<li>关闭模块系统，也就是 <code>Feature.Module</code> ，避免用户加载外部模块。</li>
+<li>关闭 new 语法特性，避免用户任意创建对象，也就是禁用 <code>Feature.NewInstance</code> ，对于需要创建特定对象的场景，建议提供有限的<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/xbdgg2">自定义函数</a>。</li>
+<li>最小化语言特性集合，仅提供你想提供的语言特性。</li>
+<li>关闭反射调用机制，默认不打开，但是在 Scripting API 模式下会打开，可以通过下列方法关闭</li>
+</ul>
+<pre><code class="language-java">    final ScriptEngineManager sem = new ScriptEngineManager();
+    ScriptEngine engine = sem.getEngineByName("AviatorScript");
+    AviatorEvaluatorInstance instance = ((AviatorScriptEngine) engine).getEngine();
+    instance.setFunctionMissing(null);
+</code></pre>
+<ul>
+<li>设置最大循环次数上限，避免死循环出现，也就是设置 <a href="https://www.yuque.com/boyan-avfmj/aviatorscript/yr1oau#MnJ2T"><code>Options.MAX_LOOP_COUNT</code></a> 。</li>
+<li>设置允许用户在 new 语句或者静态变量（方法）访问的时候使用的 Class 白名单，通过 <code>Options.ALLOWED_CLASS_SET</code> 选项（5.2.2 新增），比如禁止调用  <code>System.exit(0)</code> 这样的危险操作。</li>
+</ul>
+<p>禁用和启用单个选项可以通过 <code>AviatorEvaluatorInstance</code> 的 <code>enableFeature(feature)</code> 和 <code>disableFeature(feature)</code> 方法。</p>
+<p>更多选项参见<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/yr1oau">完整选项列表</a>。</p>
+<h2 id="section-103">性能建议</h2>
+<ul>
+<li>优先使用<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/yr1oau#OPTIMIZE_LEVEL">执行优先模式</a>（默认模式）。</li>
+<li>使用<a href="#On0Pg">编译结果缓存模式</a>，复用编译结果，传入不同变量执行。</li>
+<li>外部变量传入，优先使用编译结果的 <code>Expression#newEnv(..args)</code> 方法创建外部 env，将会启用符号化，降低变量访问开销。</li>
+<li>生产环境<strong>切勿</strong>打开<a href="https://www.yuque.com/boyan-avfmj/aviatorscript/yr1oau#TRACE_EVAL">执行跟踪模式</a>。</li>
+<li>调用 Java 方法，优先使用自定义函数，其次是导入方法，最后是基于 FunctionMissing 的反射模式。</li>
+</ul>
+<h2 id="section-115"></h2></div>
+<p></p>
+</article></main></body></html>

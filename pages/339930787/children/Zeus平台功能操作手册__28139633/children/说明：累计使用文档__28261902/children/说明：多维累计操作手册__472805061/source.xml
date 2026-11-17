@@ -1,0 +1,206 @@
+<km-doc>
+<km-title nodeId="33b53b14e62242f399aad1572c05bf42">说明：多维累计操作手册</km-title>
+<km-catalog style="none" nodeId="fe4ccedd303d49a7952923e5cd774b3e" />
+<h1 nodeId="2ec232b22b524901add8166c2846a833">一、背景</h1>
+<p nodeId="629acaf32e1b491c8484747d2f49d68a">（一）目前累计仅支持单值的累计，比如累计userid下的手机号。但对多值，目前支持多个按何累计Key拼接方式，比如累计userid+uuid下的手机号，但对于同种key多值情况尚不支持，比如：</p>
+<ul nodeId="f0025e0ee9134d3b9c090a3ca32fdb66">
+<li nodeId="9db521207e404659a3543734dd8f68b7">场景1：累计userid的手机号数量，其中手机号来自三个字段schoolMobile、bankMobile、hotelMobile，需要将一个请求中的这三个手机号转化成三个请求方可支持，多维累计上线后，可将这三个手机号转化成数组手机号即可，减少业务方侧数据改造成本以及与累计服务交互次数</li>
+<li nodeId="603e25b6c81942abbaa53fc6e6f03aa5">场景2：累计手机号对应的用户的数量，其中手机号来自三个字段schoolMobile、bankMobile、hotelMobile，需要将一个请求中的这三个手机号转化成三个请求方可支持，多维累计上线后，可将这三个手机号转化成数组手机号即可，减少业务方侧数据改造成本以及与累计服务交互次数</li>
+</ul>
+<p nodeId="f80cb1ced93241a0b46ca2e0f471ffcb">（二）前端业务传参中存在Json数组格式，无法对数组中任一元素进行累计，目前只能由tatooine进行拆单并发调用，可能会造成同key不同value写累计覆盖情况，json格式如</p>
+<pre language="Plain Text" isExpand="false" nodeId="29f065b0e1c74e0685a7d9466bd0d73b"><code>[{
+	"buyPrice": 5.7,
+	"skuName": "吾吉梓鹌鹑蛋24枚/盒",
+	"quantity": 1,
+	"price": 5.99,
+	"skuAmount": 5.99,
+	"skuid": 129933
+}, {
+	"buyPrice": 9.2,
+	"skuName": "雨润精肉丝200g±20g/盒",
+	"quantity": 1,
+	"price": 9.8,
+	"skuAmount": 9.8,
+	"skuid": 216492
+}]</code></pre>
+<p nodeId="6ae293d6099244ffa74ab2030f15c639">多维累计上线后，可以一次对json数组中各元素的参数进行读写累计</p>
+<p nodeId="677b4bfe39c5436f8185178dcf606c8d">即：多维累计支持了多值情况的按何累计（累计key）、累计值（value）和累计条件</p>
+<h1 nodeId="2770127069ad428abd31e16e698907d9">二、名词解释</h1>
+<ul nodeId="506948393dfe4b05a8adc5d8cd7f523b">
+<li nodeId="b98f24b632dd400f904faf807d7609ea">多维累计功能：累计因子支持多个维度进行累计，”按何累计“有多个维度或者”累计值“有多个维度。</li>
+<li nodeId="b1d40652c8854efc889faa66a7ffcd63">使用数组类型因子实现多维配置：<span color=" ">将需要多维配置的参数（例如，bankMobile,schoolMobile,hotelMobile）通过toArray扩展函数映射成一个数组类型的字段（factor_mobile），然后在累计因子页面的“按何累计”或“累计值”中配置factor_mobile</span></li>
+</ul>
+<h1 nodeId="790e5f37563f4218992f78d337168587">三、操作指南</h1>
+<h2 nodeId="a2e145259f9f491c97aa27d4b007909e">3.1 用户配置流程说明</h2>
+<p nodeId="d3285682500a4272af1ecc24d64909d0">⚠️⚠️⚠️ <span color="rgb(245, 35, 45)">注意</span>⚠️⚠️⚠️<span color="rgb(245, 35, 45)">：“按何累计”中可以支持数组类型的因子与其他参数/因子进行组合，但是数组类型的因子只能有一个，且配置时需将数组类型的参数/因子放在首位。</span></p>
+<h3 nodeId="749360fa6cd64ec69daa67f7ca29dd8e">3.1.1 使用数组类型因子实现多维配置</h3>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/472805061/617719943?contentType=0&amp;isNewContent=false" width="656" height="420" nodeId="418ca0067ddc44e6a892a909bdd8aa48" />
+<h3 nodeId="7e853b45c7d84148a108100e3edd892c">3.1.2 读累计查询和写累计查询</h3>
+<ul nodeId="1ebcbc5fb60b4cb9815991e3ba3db013">
+<li nodeId="646aa5676d3544fca12c034ba2f728bb">读累计查询：<span color=" ">按何累计多维类型的累计因子与按何累计单维类型的累计因子在读累计查询的时候有区别：数组类型的key值只能单一查询，即只能输入数组单个元素值作为key值进行查询，目前无法支持按照数组格式查询</span></li>
+</ul>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/472805061/617909756?contentType=0&amp;isNewContent=false" width="606" height="156" nodeId="210d6cb6da9b486493116d3d776822a6" />
+<ul nodeId="da00b0dc98f846cbb8a34a00c3863ac5">
+<li nodeId="223818b191b5418ab541f76239d6c860">写累计查询：按何累计多维类型的累计因子<span color=" ">，与读累计查询要求一样</span></li>
+</ul>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/472805061/638453059?contentType=0&amp;isNewContent=false" width="606" height="156" nodeId="c5d6e77cf3f846a6b3c05c25cec5c55c" />
+<h2 nodeId="6e97e24c67b64e77a5e0a6d178920ccb">3.2 Quick Start</h2>
+<p nodeId="1cfed5c1d0784a4193d637211ba0378a">------</p>
+<h2 nodeId="e7975177b3b042d8ba1a73d14096d363">3.3 详细操作流程说明</h2>
+<h3 nodeId="c54bf97a5218421f90dbc3750c3be4a8">3.3.1 使用数组类型因子实现多维配置</h3>
+<h3 nodeId="28c951aad73c4992a575ac50eb7b8c73">Step1: 创建数组类型的因子</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="9b3a643540c54c9193248c3605b7d6f5">
+<tr nodeId="b8a5d1f5c4e74a3d9b3438ecc30ae8dc">
+<th colwidth="[325]" nodeId="952320d2377d42ec8d5f48155f8e5a61">
+<p nodeId="a8c0362564c84e519b8e106de688a0f0"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="0ba92eb5c3844bda89e4f358802c5f36">
+<p nodeId="d0e3dcef579f4986990764d9867691d2"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="31bf0a6b6c8b4913b122f4da12f9e068">
+<td colwidth="[325]" nodeId="98a16ce4ef804ed0a99550f54edb5026">
+<p nodeId="d898f636b14e4c2db1e5101cb3245130"><span font-size="14">入口：规则--&gt;因子--&gt;添加因子</span></p>
+<p nodeId="45e486b5589647b989bb1b12a669f1a2"><span font-size="14">如右图所示：</span></p>
+<ul nodeId="65efa5f45c4b4842983b68270de86ed5">
+<li nodeId="2c1c73d4a232475c904b3653ccc27c5d"><span font-size="14">创建普通因子</span></li>
+<li nodeId="58164a13c15641a7af8603169ce76a0d"><span font-size="14">结果类型选择数组类型</span></li>
+<li nodeId="5a6105f781814902bfb6c13dc075d525">
+<p nodeId="21f525c2081a4e0e937797b6077b2166"><span font-size="14">因子表达式：</span></p>
+<p nodeId="2f38151d4f85417bb954128fc605dd2a"><span color=" "><span font-size="14">（1）针对于需要合并参数的，将多个字段（bankMobile,schoolMobile,hotelMobile）通过toArray扩展函数映射成一个数组类型的字段（factor_fwq_array_test）,具体方法可以参考 </span></span><a href="https://km.sankuai.com/page/397391232#id-2.1Array%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89" title="https://km.sankuai.com/page/397391232#id-2.1Array%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89" autoUpdate="true" nodeId="73a6bd2ef48a4d31972b0a5693c8f490"><span font-size="14">https://km.sankuai.com/page/397391232#id-2.1Array%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89</span></a></p>
+<p nodeId="b9a7f564320049feb039deb79240b1ad"><span font-size="14">（2）针对json数组需要拆分元素的，表达式书写方法如右，可参考</span><a href="https://km.sankuai.com/page/586347695" title="https://km.sankuai.com/page/586347695" autoUpdate="true" nodeId="f4c22bdb1c4c4bf5aa68cb8ad453ca42"><span font-size="14">https://km.sankuai.com/page/586347695</span></a><span font-size="14"> </span></p>
+<p nodeId="4151a37617804d5899a776e88edd28e7" />
+</li>
+</ul>
+</td>
+<td colwidth="[930]" nodeId="4286f4926348445ba3b02ef573c8a2d4">
+<p nodeId="fbf6f2ad6ad844f8b4eca9f6a7260f1f"><span font-size="14">（1）需要合并参数创建数组类型：</span><img src="https://km.sankuai.com/api/file/cdn/472805061/473218708?contentType=1&amp;isNewContent=false" name="image.png" width="902" height="389" nodeId="4e031ac84a1b4aad8e208f8873270187" /></p>
+<p nodeId="09126c37003d428f952d44f52b80828f"><span font-size="14">（2）json数组需要拆分元素创建数组类型：</span></p>
+<p nodeId="3f80011c92d34d0b87b7764b6ac636fc"><img src="https://km.sankuai.com/api/file/cdn/472805061/617987397?contentType=1&amp;isNewContent=false" name="" width="486" height="368" nodeId="009b4689aeda44278d84964abf83638e" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="964a64aa1c7d49f0a96523e4f4539358">Step2: 创建累计因子--按何累计多维</h3>
+<table responsive="false" nodeId="9b85e20a7ada44e48b6d5ed197da9b99">
+<tr nodeId="84788cbfc40f42f5b39edda60162f1e7">
+<th colwidth="[325]" nodeId="e698884936a64b798516272f2ff29739">
+<p nodeId="f54a233bffe94784af7708f11a95e8a3"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="9d866620881f4f9786e7ceb3ef2a9036">
+<p nodeId="2105fc4628894b4fac8eb8f9c32a5bda"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="b58115a269a948eca7ac382b72cc67fa">
+<td colwidth="[325]" nodeId="f72e415a6f4e486997fb48d63dd3cd01">
+<p nodeId="fcfd7177f1844fdb9d713e84eec95c8c"><span font-size="14">入口：规则--&gt;因子--&gt;添加因子</span></p>
+<p nodeId="e970bdc6859247e5b1436fc98589151d"><span font-size="14">如右图所示：</span></p>
+<ul nodeId="5a12464add6a4f21a1650e70cf987c85">
+<li nodeId="3b66da6c611949079f2b5200347257c5"><span font-size="14">创建累计因子</span></li>
+<li nodeId="0431b6b5bc3342e397ac62ab2ceea194">
+<p nodeId="f1bdba5df2d644e9b5233406d2caaf4c"><span font-size="14">按何累计实现多维：选择上一步创建的数组类型的因子</span></p>
+<p nodeId="196c6b583a2546fcb04d0498223a4822" />
+</li>
+</ul>
+<p nodeId="794b870b7acb4d1897edae8b2caf0298" />
+</td>
+<td colwidth="[930]" nodeId="a026fdcf92bb4522a2e286d761bbbf33">
+<p nodeId="f4a6cd48d1684e87bbbc0a6baa133351"><img src="https://km.sankuai.com/api/file/cdn/472805061/473217865?contentType=1" name="image.png" width="902" height="438" nodeId="ed400f46d9b640d899b3103c54044c62" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="93e7aff68f9d4c779e8e0f209883873a">Step3: 创建累计因子--累计值多维</h3>
+<table responsive="false" nodeId="21ea83f92b654081928465597fd4ea2d">
+<tr nodeId="83215b038880487385d49d5934e3ffbd">
+<th colwidth="[325]" nodeId="bee08a6994a7405ba9e3cc6fe08f2704">
+<p nodeId="89749b73e9ab4ea9a580aab8498b57f9"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="d44941ad280b4ff39ad491710491305c">
+<p nodeId="9b3e4ba5bb864587bb3c63f93eed84f1"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="9c009d947a2c45ffb34232fc0bb833b4">
+<td colwidth="[325]" nodeId="a7fa95c426764b80a1db5a59c1b07ffe">
+<p nodeId="dbfb0ee4e37d4bc2a721eb86453b2208"><span font-size="14">入口：规则--&gt;因子--&gt;添加因子</span></p>
+<p nodeId="dce6eb7a85f44c669dff370751c23c1d"><span font-size="14">如右图所示：</span></p>
+<ul nodeId="22749dacf660407daad3c8bb68019872">
+<li nodeId="77caeb9fff8146ed92e33395fd93cacb"><span font-size="14">创建累计因子</span></li>
+<li nodeId="ddb2d4c2523f48839ca15ad80074f882"><span font-size="14">累计值单维：选择上一步创建的数组类型的因子</span></li>
+</ul>
+</td>
+<td colwidth="[930]" nodeId="d02ebd70807948758f4eaa402f61899f">
+<p nodeId="df485682f6b0411491ecddf52ee7f2d8"><img src="https://km.sankuai.com/api/file/cdn/472805061/473509305?contentType=1&amp;isNewContent=false" name="image.png" width="902" height="437" nodeId="d5ff8ccda059445f8d076d17986afaa5" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="ec134c45a0f044e99da71950f8e5880e" />
+<h3 nodeId="278ab328c2b24e3599bfe1e5174d9b2c">3.3.2 读累计查询和写累计查询</h3>
+<p nodeId="2d04de00ab8c48bd8d13e5fbd303dad7"><span color="rgb(38, 38, 38)">⭐️  提示 ⭐️ ：累计值多维类型的累计因子的读累计查询和写累计查询与普通因子无区别，下面详细操作不再列出说明</span></p>
+<ul nodeId="fa3f582a90924f80936fbf2313c4d4d6">
+<li nodeId="759e1f0f067d44deae3ca8fbe0382644">
+<h4 nodeId="9f6a7f71fc044f85bd1d2ac9d20049a9">读累计查询--<span color="rgb(38, 38, 38)">按何累计多维类型的累计因子</span></h4>
+</li>
+</ul>
+<table responsive="false" nodeId="a19b68d334354b10bf13c9c797c8645d">
+<tr nodeId="bf003d74d14c4dff9392ddb4cfbbd7cd">
+<th colwidth="[325]" nodeId="0b3452899cb244989736d7ef0c5e9135">
+<p nodeId="53239321492d466d9717a4a7bad4de16"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="26b6a5d6f1ee4a22909956717109787c">
+<p nodeId="1ddd2f18aec745faaa58f49b9508c8c7"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="07757ddc2f8947639feadc2c4363d32d">
+<td colwidth="[325]" nodeId="a613eafda5ea4541ad6ce8eb72dff07c">
+<p nodeId="c4e45e3f61a34715a4acca27667f65e5"><span font-size="14">入口：</span></p>
+<p nodeId="4df2ffe4be1a4f40a6b77ae909758e81"><span font-size="14">1.Plus+工具中心--&gt;读累计查询</span></p>
+<p nodeId="197acf2d70f941d7b7018cb8843cac61"><span font-size="14">2.累计因子详情页面--&gt;读累计查询</span></p>
+<p nodeId="5088236f4ddf4864b2f0ab0ce6128930"><span font-size="14">如右图所示：</span></p>
+<ul nodeId="3db607b54c114a429bb3c356521c699f">
+<li nodeId="b0f2224acf8846d19cfac1313075b9f7"><span font-size="14">选择创建</span><span color="rgb(38, 38, 38)"><span font-size="14">按何累计多维类型的累计因子</span></span></li>
+<li nodeId="41295649afcf40eba0158cdfeb555b0c"><span font-size="14">累计key值：以数组中的</span><span color=" "><span font-size="14">单个元素值作为key值查</span></span></li>
+</ul>
+</td>
+<td colwidth="[930]" nodeId="c7ae4a06081c4021b7414020f659e606">
+<p nodeId="9c55a2bedf414551afc8824cd1f6e1f9"><img src="https://km.sankuai.com/api/file/cdn/472805061/617882549?contentType=1&amp;isNewContent=false" name="image.png" width="902" height="204" nodeId="515206869a6049bc80cbe67d25d50aed" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="3e912e231cb7409eba2a445abd3026f5" />
+<ul nodeId="b628c12babf64377aad0edcc819895cf">
+<li nodeId="a98362560ee34f3189aeca3f3a343751">
+<h4 nodeId="2d1d6b0e9d2e4fe396148215c5297a73">写累计查询----<span color="rgb(38, 38, 38)">按何累计多维类型的累计因子</span></h4>
+</li>
+</ul>
+<table responsive="false" nodeId="8af33dc3afa1470487cc2086ff1859f1">
+<tr nodeId="abebdf2c4e6c41838e98d1627dd0b31b">
+<th colwidth="[325]" nodeId="47a746a77d75468b9b94ab852addf459">
+<p nodeId="0ff0333933bc43d0b82373d9cf7cfb0f"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="2367a6a8fbfb4241965fb9dbd3e71ee1">
+<p nodeId="2b3ea3107e8e4efb9db9af34913409eb"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="e993b6216e3a48f6b74b12e671cb5cb5">
+<td colwidth="[325]" nodeId="29f0586c0d3847c085ac3cd72aece7ff">
+<p nodeId="6666c8aac33d4da683c173b4b2825d05"><span font-size="14">入口：Plus+工具中心--&gt;读累计查询</span></p>
+<p nodeId="8fea44a7076c4db1a0087cd409c0ddd0"><span font-size="14">如右图所示：</span></p>
+<ul nodeId="60d9472e541c4a0bb076370186fcf74e">
+<li nodeId="20510d810602476e8c3dbee65f2f633e"><span font-size="14">选择创建</span><span color="rgb(38, 38, 38)"><span font-size="14">按何累计多维类型的累计因子</span></span></li>
+<li nodeId="643a8d2f891d4131b9ee56e75ded1b20"><span font-size="14">累计key值：</span><span color="rgb(0, 0, 0)"><span font-size="14">和读累计查询输入要求一样，均需去掉中括号</span></span></li>
+</ul>
+</td>
+<td colwidth="[930]" nodeId="ae679c53b73d4ac0b89387539301f0b7">
+<p nodeId="ba71cb556d0b4e99930aa8e511cb14bb"><img src="https://km.sankuai.com/api/file/cdn/472805061/473467362?contentType=1" name="image.png" width="902" height="287" nodeId="c3bb2690ae4f42bb98ac254e3a1db2f5" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="c22ad8a885a24d7b84304673837214be" />
+<h2 nodeId="4728d5cdc038425f8a1f317af8d3ce64">4.特殊说明</h2>
+<p nodeId="c417ffc2db494563a14bc852e8844a93">⚠️ <span color="rgb(38, 38, 38)">1.</span><span color=" ">“按何累计”中可以支持数组类型的因子与其他参数/因子进行组合，但是数组类型的因子只能有一个，且配置时需将数组类型的参数/因子放在首位。</span></p>
+<p nodeId="e336fd23faa14fe2ae9475b0438541bb"><span color=" ">⚠️ 2.“按何累计”与“累计值”若均为数组类型，则一一对应进行匹配运算。</span></p>
+<p nodeId="a39cb86119ae442fb0c902ff8fd5aef4">⚠️ 3.<span color=" ">“累计条件”中如果出现数组类型因子，则仅针对满足条件的数组元素发送累计。</span></p>
+<p nodeId="7823695eba474b82b880c8214dff5916">⚠️ 4.若“按何累计”为单值（即不包含数组类型），“累计值”为数组类型，（1）若“累计类型”为计数或者求和，则读累计仍为单值；（2）若“累计类型”为最近几次，则读累计为List[List]格式，如[ [123,456] [123,456] [123,456]]。</p>
+<h1 nodeId="0909c83401ea4c3681536583c66411e6">四、FAQ</h1>
+<p nodeId="1da57170b1be4f35aab8d2c27266ae80" />
+<p nodeId="193ccae4629a4e2197dec563e1199297" />
+</km-doc>

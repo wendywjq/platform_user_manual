@@ -1,0 +1,258 @@
+<km-doc>
+<km-title nodeId="2cb5d86e853941b090ce1dd5328562ef">说明：Zeus累计最近几次使用指南</km-title>
+<km-catalog style="none" nodeId="0e8fc3894ddd4625a75cc86014035bca" />
+<h2 nodeId="e11921cbf19f4092a7e53aee6d17c7d4">需求背景</h2>
+<ul nodeId="8cb32aa92d374349ad0c2430fc3b994d">
+<li nodeId="5a18544b07c346be90ffca8d324488d9">Zeus累计只能进行计数、求和，而无法返回真实的历史累计数据</li>
+<li nodeId="a995ffa4083041b3bae9b0a4affbdb53">希望能获取同一设备同一ip下最近3次用户申请贷款的历史详情，比如userid、bankCardNo等数据</li>
+<li nodeId="a1cc9c3745a64f76a2ff8a3a4353f1bd">由此累计新增了一种类型：最近几次，累计最近几次将要获悉的字段写在累计值中，并设置要累计的次数，最后会返回一个带有各字段历史数据的字符串JSON</li>
+</ul>
+<h2 nodeId="58ecd86cd6614442a63fc7eef5975c51">配置演示</h2>
+<p nodeId="775b21e0f7eb43f1a164a0ea7cf74bc6"><img src="https://km.sankuai.com/api/file/28234760/28234660" name="acc_demo_case_last_times.png" width="600" height="579" nodeId="dc6e1943192f4115abdedba8f4fa491f" /></p>
+<h2 nodeId="fd15e805b16648319a6992f9f49bfc33">配置解释</h2>
+<ul nodeId="c737b5090275485fb5ebfd65e0066aff">
+<li nodeId="fbb718109f024fdaa3deaa4372de4e37">累计周期：选择数据保留的最长时间，超过这个时间的数据会过期而被删除</li>
+<li nodeId="be29642e38aa4b9ea5ba7bf827b9d1b5">累计类型：选择 最近几次 类型</li>
+<li nodeId="7050b9975df4446e994acba0ed9eca32">剔除重复项：最近几次 累计类型没有剔除重复这一项，<strong>默认Zeus会对累计值进行去重，且不可更改</strong></li>
+<li nodeId="a543db91bcd742f7a2909fd76aba96cb">累计最近的次数：上图显示累计最近3次 </li>
+<li nodeId="134c4574ef474b69bcdf91ea31b497ef">按何累计：与计数和求和类型一致</li>
+<li nodeId="51b9f0f4b8ee4f06b16192f054d23cf7">累计值：与计数和求和类型不同，最近几次的累计类型的累计值可以为多项因子和参数，用英文逗号间隔。<strong>累计值只能在尾部添加或删除参数/因子操作，不能修改替换累计值中的参数/因子以及在首部进行添加/删除操作，否则累计因子结果会出现错乱。</strong></li>
+<li nodeId="95b46488a8f648f6bc4d657c6442a0c8">累计自身：最近几次 累计类型默认累计自身为否，且不可更改</li>
+</ul>
+<p nodeId="fea088500c8342268f4b27cdd674e800">累计最近几次相当于SQL的top语句，按时间逆序排列</p>
+<pre language="sql" nodeId="ef5c1aff1ac34fe4b203b98400956f64"><code>select top 最近几次
+from 累计数据表
+where 满足何种条件累计
+group by 按何累计
+order by time desc</code></pre>
+<p nodeId="38f86ec2944c4e28817a7ad39ebb64ed" />
+<h2 nodeId="9cae5981e11f41218bb1a745eb922cf6">返回解释</h2>
+<p nodeId="3c9045185e2a4091ba49c1a9b0087e30">假设发送（写）了四次累计，上下文如下：</p>
+<table responsive="false" nodeId="7a927318f59b424bb8ab8cf0d23eb136">
+<tr nodeId="4a78b6c9e2b14f6990e1ac9bb240fb29">
+<th colwidth="[111]" nodeId="941986c2d8d54a02bd8db51084b72b16">
+<p nodeId="13019fe3ec5c4ee898a55ce1f8b0859c"><span font-size="14">时间戮</span></p>
+</th>
+<th colwidth="[84]" nodeId="72b1eef8d4754586a889fb08689b2dc0">
+<p nodeId="c54e28ab54394582933867d935d8d29b"><span font-size="14">userid</span></p>
+</th>
+<th colwidth="[105]" nodeId="d6958409d59a447cb4010dd8e3b591cf">
+<p nodeId="8d4301ffe6e74bfc9c46131758d6f301"><span font-size="14">bankCardNo</span></p>
+</th>
+<th colwidth="[105]" nodeId="7fc97a92608b4ca48ca8a1dcb48531bf">
+<p nodeId="2c43a5f3197a4d9db601417ee44698ae"><span font-size="14">factor_mac</span></p>
+</th>
+</tr>
+<tr nodeId="7eddee6f94f741cea165c1b887c27a7e">
+<td colwidth="[111]" nodeId="5f69b03f60cc427984cfd12275146608">
+<p nodeId="326ca5f7ad454bfb84a8b7277ebc0a39"><span font-size="14">1525270222</span></p>
+</td>
+<td colwidth="[84]" nodeId="a4f4154e258943749ceafadabf431cae">
+<p nodeId="bd1b4d004bb4494f9c141dd26fda85f2"><span font-size="14">123</span></p>
+</td>
+<td colwidth="[105]" nodeId="81570abfabb749debd00367d01df9bcb">
+<p nodeId="88908fcb5b28450990d562fecf0a30a2"><span font-size="14">111</span></p>
+</td>
+<td colwidth="[105]" nodeId="b386887ec99d423c93103d41f7bb2438">
+<p nodeId="42f498cde2df4ad7a264f4ea6d8c9862"><span font-size="14">ABC</span></p>
+</td>
+</tr>
+<tr nodeId="6a3d85adc040498386078b5124e9737e">
+<td colwidth="[111]" nodeId="132adf4389284ce9b65aa072ebcde6df">
+<p nodeId="299cb76857c545568b28aab7505036ed"><span font-size="14">1525270666</span></p>
+</td>
+<td colwidth="[84]" nodeId="63a2fb425c2641729cca7c185e1ca40c">
+<p nodeId="9fe3af859543490a9be817be2077af94"><span font-size="14">456</span></p>
+</td>
+<td colwidth="[105]" nodeId="8fde52a5299e4834b7b81eb512645363">
+<p nodeId="14f7adb26a9e45b4ac120ab000d4866d"><span font-size="14">222</span></p>
+</td>
+<td colwidth="[105]" nodeId="f3e5e396782442ba968a2808368e3dd5">
+<p nodeId="c8df3f8d733a4e3ea209209f644d2d57"><span font-size="14">DEF</span></p>
+</td>
+</tr>
+<tr nodeId="796a3a70cb0b4354adb336828874c936">
+<td colwidth="[111]" nodeId="2afb9e44b2774bb4b2370a31dff523b6">
+<p nodeId="68b873f1a0cb4e86b85092e3883e3411"><span font-size="14">1525270888</span></p>
+</td>
+<td colwidth="[84]" nodeId="f20e0af725354a998b0bff90e55839ab">
+<p nodeId="73265f3be41748ce87779d072ede2f21"><span font-size="14">789</span></p>
+</td>
+<td colwidth="[105]" nodeId="bf895b81f04b4aa4ac0bebc54333f5da">
+<p nodeId="20f1e3cf24d949c49e9d2e380f878e5d"><span font-size="14">333</span></p>
+</td>
+<td colwidth="[105]" nodeId="7f974b5411a44fcf9ef480e592b601b1">
+<p nodeId="9860e1b1cc1a48ceb961f0c4c2e8c504"><span font-size="14">GHI</span></p>
+</td>
+</tr>
+<tr nodeId="4c256daf2e894e458bc061c84d3d88ac">
+<td colwidth="[111]" nodeId="b0cc61bb4bcd424d81681acdc93a5165">
+<p nodeId="a75abc9627a84909ae5fb5feb4f35a81"><span font-size="14">1525270999</span></p>
+</td>
+<td colwidth="[84]" nodeId="9244e67829694dac8fa656e262665d96">
+<p nodeId="791bc58c7f4e46e980514335c587e866"><span font-size="14">123456789</span></p>
+</td>
+<td colwidth="[105]" nodeId="7c57653133724464bdf0664269ef21c7">
+<p nodeId="30bb6c8757a742e3ab43acd59ee37cbf"><span font-size="14">444</span></p>
+</td>
+<td colwidth="[105]" nodeId="49940deeddee4a1fad1721dfb09e0a17">
+<p nodeId="8353ba89a2114cdead0e77a9bd8228df"><span font-size="14">JKL</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="4d87545d564143d6933b0f2b4d2940b8">那么对于同一个Key，上图配置的累计因子的结果为：</p>
+<pre language="Plain Text" nodeId="f15efa4f083c47799e4a117693e48190"><code>[
+    {
+        "userid": "123456789",
+        "bankCardNo": "444",
+        "factor_mac": "JKL"
+    },
+    {
+        "userid": "789",
+        "bankCardNo": "333",
+        "factor_mac": "GHI"
+    },
+    {
+        "userid": "456",
+        "bankCardNo": "222",
+        "factor_mac": "DEF"
+    }
+]</code></pre>
+<km-note type="tip" nodeId="d70cac7cd3f14aa0837e7f69c0fb7a34">
+<km-title></km-title>
+<km-content>
+<ul nodeId="44903f6b8ee8462d9b980d6918ab50a2">
+<li nodeId="6c2dbc29cc1844d29fffeab9f4717090">返回是按时间由近及远（由大到小）的顺序排列的记录组成的列表JSON</li>
+<li nodeId="d66076b334b14f6dbbbb778fa064ee9f">返回的所有字段的值都是字符串型，没有转化成对应参数或因子的真实类型</li>
+</ul>
+</km-content>
+</km-note>
+<h2 nodeId="1fb072e260164bd88368fc4a9294a270">使用配置</h2>
+<ul nodeId="bf9c1a38846f4fb68ca3fe7a6a7d2276">
+<li nodeId="aca249b690e346cb869a91ab523d7602">先通过jsonString.toListAndGetOne扩展函数获取指定下标的map数据</li>
+<li nodeId="3ccc02bc88544bc4bb4b7559ffa27659">再通过string.getFromJsonMap扩展函数获取指定字段的值</li>
+<li nodeId="8887df76e59f4800b9720aadefbd5b92">进行数据类型转换，如果是string类型则无需转换</li>
+</ul>
+<p nodeId="f7fb65a1b1b0410bbbe365fa7e76a015">例如下面表达式可以获取最近一次（前一次）的userid</p>
+<pre language="Plain Text" nodeId="354e7e8bb5114c78b672354ed4072822"><code>long(string.getFromJsonMap(jsonString.toListAndGetOne(factor_acc_last_3_times, 0), 'userid'))</code></pre>
+<h2 nodeId="3515a68a8d0646688d9cc293fecb1520">注意的问题</h2>
+<ol nodeId="4dfe3bf0ee0f452f968133a87491e209">
+<li nodeId="39dc4ad29b094222b852dc96b11514fa"><span color="rgb(255, 0, 0)"><strong>在发送累计时要求配置的累计值的所有参数/因子全部在上下文中存在，否则发送累计无法通过检查而失败</strong></span></li>
+<li nodeId="bf4187c3d1e14a7091d400acd427188a"><span color="rgb(255, 0, 0)"><strong>在界面上修改（减少）累计最近的次数时，不会立即生效，因为目前是在下一次发累计请求时生效，因此在修改之后下一次发累计之前读累计数据是比实际情况多的，不过对策略影响较小，因为多读的数据理论上不应该被使用。</strong></span></li>
+<li nodeId="19adf729140b47e7bc83c5e538538e88"><span color="rgb(255, 0, 0)"><strong>累计最近几次功能默认都是去重的，去重是按照配置的累计值里的所有参数/因子拼接成的字符串来的</strong></span></li>
+</ol>
+<h3 nodeId="53f531241c584ec1b2ee9562b235fd97">举例</h3>
+<p nodeId="5abf2840231c4489a78eefd501a5b77a">如果发累计的情况如下：</p>
+<table responsive="false" nodeId="cf68ecdcd4004e4f9aece9298df8dcdb">
+<tr nodeId="e149b7fff85b4a42b94382631ab9834f">
+<th colwidth="[59]" nodeId="1e1d73775a2b495c97f99d1c02d1abc4">
+<p nodeId="6c9948db87e94280acfffb9ccd74fd1b"><span font-size="14">序号</span></p>
+</th>
+<th colwidth="[98]" nodeId="3e07aeb032e74546894f416300b08aed">
+<p nodeId="ba045a9442b044fda670980f6a7d1eea"><span font-size="14">时间戮</span></p>
+</th>
+<th colwidth="[67]" nodeId="c38835120f284380bd3942c13c60444b">
+<p nodeId="42583a19ffcd4b91a4c75776fba3a5e3"><span font-size="14">userid</span></p>
+</th>
+<th colwidth="[106]" nodeId="e513d20872474371a73e67ba8f878f06">
+<p nodeId="bfcfc8e5d6ff4470aaebd18ae8f038b9"><span font-size="14">bankCardNo</span></p>
+</th>
+<th colwidth="[102]" nodeId="b82a5fd5d8ca47faab2ec6d5b2079033">
+<p nodeId="a23f4545765a446ba65fd05cfdd6e414"><span font-size="14">factor_mac</span></p>
+</th>
+</tr>
+<tr nodeId="dbf09536513a48c1bebbcfac3f1f36ff">
+<td colwidth="[59]" nodeId="822a94358a4f46b7b8c1e3e7fca26f61">
+<p nodeId="2bf60378d65b4914b272d30ab06ccbca"><span font-size="14">1</span></p>
+</td>
+<td colwidth="[98]" nodeId="0a31e968fdc440f0b9397e8805cb0214">
+<p nodeId="3da1ef6f7d794f0383027d3d58a9b710"><span font-size="14">1525270222</span></p>
+</td>
+<td colwidth="[67]" nodeId="0d6b7a6d569c4bb49d8849e319d2280b">
+<p nodeId="9e8372b10c404567a169f6850d177c13"><span font-size="14">123</span></p>
+</td>
+<td colwidth="[106]" nodeId="41ff4142ded04d1cad8233e2b0eadb05">
+<p nodeId="80027c7572e74c28b475a1ca4c6561a1"><span font-size="14">111</span></p>
+</td>
+<td colwidth="[102]" nodeId="a2ee3cf993c4459e9899054c03273675">
+<p nodeId="f3e56f572fa5468fb0917f32b7bb7c5a"><span font-size="14">ABC</span></p>
+</td>
+</tr>
+<tr nodeId="97490f281e804c6b98a492cd5497aaa7">
+<td colwidth="[59]" nodeId="e0a300de2be04cd08e5f4e605813c572">
+<p nodeId="d4bb25a4060a4bd68bdefff79d1651a4"><span font-size="14">2</span></p>
+</td>
+<td colwidth="[98]" nodeId="054b763d491b4cf083a5acc2e8689a58">
+<p nodeId="fc1318c2f25a47d2bdc78b00dd773a7f"><span font-size="14">1525270666</span></p>
+</td>
+<td colwidth="[67]" nodeId="1753d8fd5c2743f6a0f6064582417555">
+<p nodeId="6bce6dc90541419d9fa77fcd2d2480ee"><span font-size="14">456</span></p>
+</td>
+<td colwidth="[106]" nodeId="e6da8a0a109c4c1883b8ed7a6289fdba">
+<p nodeId="2da38be5a81d4c2cb6be21fcd6a3fb23"><span font-size="14">222</span></p>
+</td>
+<td colwidth="[102]" nodeId="1da7d80106d446e8bcc366b890b90c82">
+<p nodeId="b2f5c50e04564940af9f31858eb34965"><span font-size="14">DEF</span></p>
+</td>
+</tr>
+<tr nodeId="a544cb1a8db943b294aac9ad44a1dca0">
+<td colwidth="[59]" nodeId="0cc02074e53f4fc6ae6d4c03e6656e06">
+<p nodeId="cc1590e3c9a0475ba4f130b897e81d5e"><span font-size="14">3</span></p>
+</td>
+<td colwidth="[98]" nodeId="c5da833a75cb4f1391063822b8a7ecb0">
+<p nodeId="58987a4f2c5c44ce8f107e1c25c4194a"><span font-size="14">1525270888</span></p>
+</td>
+<td colwidth="[67]" nodeId="1bcb46b4b8e74c5fb877129be6754918">
+<p nodeId="562aa6094e344018b4393f63f84b1325"><span font-size="14">789</span></p>
+</td>
+<td colwidth="[106]" nodeId="402496f26d0f4077b3445a80e95ad646">
+<p nodeId="6334de1ee6794d839f5476e125bc60b8"><span font-size="14">333</span></p>
+</td>
+<td colwidth="[102]" nodeId="816e4498bf934d25b1b4876f1afb1d18">
+<p nodeId="d8893f75d4df4d18b1ae0adaaaf3ad5f"><span font-size="14">GHI</span></p>
+</td>
+</tr>
+<tr nodeId="f0206980fb7043df8f8c8fe0bddb959e">
+<td colwidth="[59]" nodeId="3e4fae4928624e0bab3e83a6a01c45c9">
+<p nodeId="7a36c92e77894d3fa459e4d8ec04cb3c"><span font-size="14">4</span></p>
+</td>
+<td colwidth="[98]" nodeId="7ec666c1b8e84226be0ee1606b1051b4">
+<p nodeId="c6163f56c42f4bbbaa78a07a3bc184c9"><span font-size="14">1525270999</span></p>
+</td>
+<td colwidth="[67]" nodeId="1d24d2414fc94118a43424faa294d987">
+<p nodeId="5d5a624041434e36aaef9252130dd1c2"><span font-size="14">789</span></p>
+</td>
+<td colwidth="[106]" nodeId="fbe294ddbc8f41a98b24c1fd684224cc">
+<p nodeId="dccce98e5e2a407f88874e15ac67bf88"><span font-size="14">333</span></p>
+</td>
+<td colwidth="[102]" nodeId="8da2cf0cebcd4757bcc21cc63a9943cf">
+<p nodeId="00a898bc799c4cd4a7aeb7c49ab8f2ea"><span font-size="14">GHI</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="8c1e576befc0461fb9b7b9849ea63d71">那最近3次累计数据的返回结果为：</p>
+<pre language="Plain Text" nodeId="a31f07a612ef45688635d03cf6c7e1ff"><code>[
+    {
+        "userid": "789",
+        "bankCardNo": "333",
+        "factor_mac": "GHI"
+    },
+    {
+        "userid": "456",
+        "bankCardNo": "222",
+        "factor_mac": "DEF"
+    },
+	{
+        "userid": "123",
+        "bankCardNo": "111",
+        "factor_mac": "ABC"
+    }
+]</code></pre>
+<p nodeId="e6c494dfcf9d41bdb04b3bd4708e07ce"><strong>第三次发送的累计数据会被去重丢失</strong></p>
+<p nodeId="c2de12eaa27d4ad2ab40de3cd4f39865">如果想保留第三次发送的累计数据，则需要在累计值的配置上做文章</p>
+<ul nodeId="d2f15fba63df4685a252810402ce6f6f">
+<li nodeId="edb47305f2c7424d81e29017ca33e810">如果累计值每秒都不会有重复的现象出现，那么可以添加一个时间戮参数（由上游传过来的）或者添加一个因子，表达式为：<span color="rgb(0, 0, 255)">currentTime()</span></li>
+<li nodeId="2b8b05e0767d4191a1d8294a293fc993"><span color="rgb(0, 0, 0)">如果累计值随时都会有重复的现象出现，那么可添加一个请求的唯一标识或流水号</span></li>
+<li nodeId="f3dc97738e164cbd8a03b8e367d982bb"><span color="rgb(0, 0, 0)">如果累计值有重复，但是希望Zeus进行去重，那么则无需改变，天然支持</span></li>
+</ul>
+</km-doc>

@@ -1,0 +1,1771 @@
+<km-doc>
+<km-title nodeId="337b8687f71c498bb15c282aabcabb04">Google Aviator表达式使用手册</km-title>
+<h1 nodeId="3694f89a06fa4e7b817dce8dc2d6a6c5">背景</h1>
+<p align="start" nodeId="fba62e3c61e94e6b957d1739c91cf84f">Google Aviator是一种基于字节码的高性能Java表达式求值引擎，专注于提供快速的表达式计算能力。它主要用于动态计算表达式，特别是在需要频繁计算的场景中。Aviator支持的表达式范围包括但不限于以下几个方面：</p>
+<ol nodeId="8da8577528174bf69740e33c8e6803c1">
+<li nodeId="d29896c01c114f25b189bc96a8730d97">算术和数值运算： Aviator 支持基本的算术运算符（+、-、*、/、%）以及数值运算，包括整数和浮点数。</li>
+<li nodeId="72e603cac1b4484ab95396b7257712d4">比较和逻辑运算： Aviator 支持比较运算符（==、!=、&gt;、&lt;、&gt;=、&lt;=）和逻辑运算符（&amp;&amp;、||、!），用于比较和操作布尔值。</li>
+<li nodeId="6559e845978447c4be7f1818bb396727">字符串操作： Aviator 允许对字符串进行拼接（+）和比较运算，还支持字符串长度计算。</li>
+<li nodeId="d2953eafbfd74aed84fc387b96eab42d">
+<p nodeId="e10887e1f5c041d5af8d6c8544af0bed">三元表达式： 支持类似于 Java三元表达式（? :），用于条件判断和值选择。</p>
+<ol nodeId="cd2faa1a62e94d7e8f0a442255a53f5c">
+<li nodeId="63a9252d92a9402497658644dd38cd2f">注意，跟 java 不同的是 AviatorScript 允许两个分支返回的结果类型可以是不兼容的。比如：a &gt; b ? "a &gt; b" : 999 两个分支的结果分别是字符串和数字，这在 AviatorScript 中是完全可以的。</li>
+</ol>
+</li>
+</ol>
+<p align="start" nodeId="4d7cabd248bf4c9297872c24a89536fc"><br /></p>
+<ol nodeId="82ccb7d57d7e4986a19eef57504311d1">
+<li nodeId="a79dc72fd87041b29ce88d0d53aad182">成员访问： Aviator 允许访问对象的成员变量和方法，可以通过`.`符号进行访问。</li>
+<li nodeId="85121f230c45489cafe1e60c36309299">函数调用： Aviator 内置了一些常用的函数，如数学函数、字符串函数等，同时也支持自定义函数的调用。</li>
+<li nodeId="0bfe094bc11549208c0cb0f4edf810cf">集合操作： Aviator 支持对数组和列表的遍历和访问，可以执行类似于 foreach 的操作。</li>
+<li nodeId="98ba3e6d03fd4d9081fccf05735019fc">正则表达式： Aviator 提供了对正则表达式的支持，可以用于字符串匹配和替换。</li>
+<li nodeId="6011f74beb0d4359a19fe6b052c48077">条件判断： Aviator 支持 if-else 条件判断，根据条件来执行不同的操作。</li>
+<li nodeId="83758567db5b4e208ba9d979090f8dbc">循环控制： Aviator 支持 for 循环，可以用于多次迭代操作。</li>
+<li nodeId="d96d7c69def341ecb6074000a233d5fe">空值处理： Aviator 支持对空值的判断和处理，可以进行空值的条件判断和操作。</li>
+<li nodeId="24fd66b5edb94af68bc019a09494e2e1">位运算： Aviator 支持位运算符（&amp;、|、^、~、&lt;&lt;、&gt;&gt;、&gt;&gt;&gt;），用于对整数进行位操作。</li>
+</ol>
+<p align="start" nodeId="cc62eebb15c741e3a74635aaf64764ce">总体而言，Aviator提供了丰富的表达式求值能力，涵盖了算术、逻辑、字符串、集合等多个方面，使得开发人员能够在各种场景下高效地计算和处理表达式。下面我们将根据各个不同的方面展开细节讲解，希望能够帮你提高开发效率。</p>
+<h1 align="start" nodeId="bb1aeb3b4f0e4095a423d47fad02a3de">Aviator 自带方法与使用</h1>
+<h2 nodeId="8897fee2a989426c8c4735818361c71b">sequence运算（集合处理，数组，字典）</h2>
+<table responsive="false" nodeId="fc4d337a7b9544f79313351538f6ed54">
+<tr nodeId="8175015ec0d74856bfd23e270eaa1aca">
+<td colwidth="[345]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="c229cbdedd1f47aea67ac610b146f374">
+<p nodeId="730de1de25644fd8866a16fe8b479cee"><strong>类型</strong></p>
+</td>
+<td colwidth="[218]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="5683bc0a72bd4d2cac072ae028ce93d0">
+<p nodeId="00184dfdb15c4198948d87324c8b7013"><strong>函数名称</strong></p>
+</td>
+<td colwidth="[595]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="c322db703ca84338b2e3fe3a79ff39a3">
+<p nodeId="47af99b3bbdf42e08c780af0921506f7"><strong>说明</strong></p>
+</td>
+</tr>
+<tr nodeId="33925420c8334e7abec5d956f2f18bbb">
+<td colwidth="[345]" nodeId="15cd334209554c80b4c085f073ff8a3d">
+<p nodeId="b9f82d1f3895493b82717e70e45eda20">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="2be1e7a6e8d743ccb0fcafa61fb48168">
+<p nodeId="3e707cdc1c684b52b9cbd585adb23160">repeat(n, x)</p>
+</td>
+<td colwidth="[595]" nodeId="96660705fd0545e6b26cedb7e53382b1">
+<p nodeId="d322823b4e214a70a85ff8442b0fb052">返回一个 List，将元素 x 重复 n 次组合而成。</p>
+</td>
+</tr>
+<tr nodeId="65e295a2cdc843bdaf52b8fd41cc3785">
+<td colwidth="[345]" nodeId="91cc21ba96ff4ce28d7d79d84ba99c76">
+<p nodeId="36dada0e2e8f43568364dae9cd41f8c1">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="08c4b31029cb45538458b8d9187c9dff">
+<p nodeId="f2116c4cf1cd4e6cb098ce8890d206d3">repeatedly(n, f)</p>
+</td>
+<td colwidth="[595]" nodeId="a85124b96fa143a48024922e5214c76b">
+<p nodeId="880626cc84e34b8dbe667210a6182e9a">返回一个 List，将函数 f 重复调用 n 次的结果组合而成。</p>
+</td>
+</tr>
+<tr nodeId="f0c19de8fd884d0ebfb61968bcbae6bb">
+<td colwidth="[345]" nodeId="dc745089e4844c97a3324f2e445b4ed5">
+<p nodeId="118716f39b394978bad4ddcd2a35d5f7">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="e9d9c0903f0b4265af548c6571764096">
+<p nodeId="139bca46227e4b0195cc9d3230aa9056">seq.array(clazz, e1, e2,e3, ...)</p>
+</td>
+<td colwidth="[595]" nodeId="e7270de83ecb4687a4c03d6243d860b2">
+<p nodeId="12232273f55744e4bf4558e8fbe42757">创建一个指定 clazz 类型的数组，并添加参数 e1,e2,e3 ...到这个数组并返回。 clazz 可以是类似 java.lang.String 的类型，也可以是原生类型，如 int/long/float 等</p>
+</td>
+</tr>
+<tr nodeId="9790df10bc084b00a4d2741731ec7ff4">
+<td colwidth="[345]" nodeId="5b015c07902c46e995067192489ebcfe">
+<p nodeId="4c464e80629b487292c37c2f9e531a61">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="b2fdd7b9940c46d19795e271c88e5256">
+<p nodeId="4bd1c9eab140442ebab11277d7459792">seq.array_of(clazz, size1, size2, ...sizes)</p>
+</td>
+<td colwidth="[595]" nodeId="483f3433088d4c92b949057fe044d38b">
+<p nodeId="fc56fa15a6ff4ca0ae70cf0263ab07e1">创建 clazz 类型的一维或多维数组，维度大小为 sizes 指定。clazz 同 seq.array 定义。</p>
+</td>
+</tr>
+<tr nodeId="42f583ef06d84277a8c42d6570bc4554">
+<td colwidth="[345]" nodeId="d68f318c0fed47db92d0dc139b61033f">
+<p nodeId="baed1997a7b148d8a609511481f3c1ca">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="c3b0ffe5fe614253894c88389fbd959d">
+<p nodeId="dbf6e83306444c30b148e43910310909">seq.list(p1, p2, p3, ...)</p>
+</td>
+<td colwidth="[595]" nodeId="939dc8d467de497996ff1344f1c1c49a">
+<p nodeId="bd5fe84859474e27880029551b2b64da">创建一个 java.util.ArrayList 实例，添加参数到这个集合并返回。</p>
+</td>
+</tr>
+<tr nodeId="2eb70f6ccdc643168435bba040b2cf1f">
+<td colwidth="[345]" nodeId="8e81a1c7efc24a77859226209f6ff239">
+<p nodeId="3f436511590b414e88b8c2ef335bc85b">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="cf4f35b531db4880a28070fbf7ab00b3">
+<p nodeId="c63dffdb59cb4933848e745dce9dee10">seq.set(p1, p2, p3, ...)</p>
+</td>
+<td colwidth="[595]" nodeId="d579347d9d294a40be4c5bdec5b47e6a">
+<p nodeId="e0469a620c6541b897080146f3653ebb">创建一个 java.util.HashSet 实例，添加参数到这个集合并返回。</p>
+</td>
+</tr>
+<tr nodeId="31a9fdf03bcb43cd9202f124646d34a6">
+<td colwidth="[345]" nodeId="c3062954528049729b273bc7716eaccc">
+<p nodeId="835b6ad3df34409db0a7ded0d204b7ff">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="ac180163a08b479f8bbbefcd875c30f8">
+<p nodeId="0a2af5a1a29a4bd2b2ac171677fd5034">seq.map(k1, v1, k2, v2, ...)</p>
+</td>
+<td colwidth="[595]" nodeId="492ec731d0784435b14237e008b7b957">
+<p nodeId="7ba9b3ed584e482fa10b58ca47d56ede">创建一个 java.util.HashMap 实例，参数要求偶数个，类似 k1,v1 这样成对作为 key-value 存入 map，返回集合。</p>
+</td>
+</tr>
+<tr nodeId="a87c79eab0c84af89bdabf1265b1745a">
+<td colwidth="[345]" nodeId="ee79653914df4d7ebb862ebce7e35957">
+<p nodeId="6898a0fbefe24ca79038b026627d68d6">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="50c62128bbe74652a7712ec5a550f84a">
+<p nodeId="91a904b6086842ef986cb2cc729a4eff">seq.entry(key, value)</p>
+</td>
+<td colwidth="[595]" nodeId="669d53062fad4743a3e4598e08022a2a">
+<p nodeId="3d6fce6e99234d6fac5b125c19b82cae">创建 Map.Entry 对象，用于 map, filter 等函数</p>
+</td>
+</tr>
+<tr nodeId="2547ad02e125431f992e42e26cf4117a">
+<td colwidth="[345]" nodeId="96cf83a8009844f3ba2577ea487c683a">
+<p nodeId="67909c17886b4538aeae2be831042cad">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="0cd7d063a0f949e2a5322492075615d2">
+<p nodeId="609160743e7544f0b3851bfa2df712c0">seq.keys(m)</p>
+</td>
+<td colwidth="[595]" nodeId="9a0aa3f4caa04d61ac93eb9f72a99934">
+<p nodeId="dc6f68dccc1549a588d8d1f26645727f">返回 map 的 key 集合</p>
+</td>
+</tr>
+<tr nodeId="4c2324f9c314426c9bcb5963d6e70ceb">
+<td colwidth="[345]" nodeId="96d25bdbb24a42a2aa48fb911ed7ef98">
+<p nodeId="8c614b5400a346f2ac79d132b2ac9888">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="8b5919be98af45ce84b1e51eda54c528">
+<p nodeId="163530e43e184469993dc3cbb88cfd49">seq.vals(m)</p>
+</td>
+<td colwidth="[595]" nodeId="e0baa5b7aeb6493c84526f3b6699927f">
+<p nodeId="fc47fba2bf554fca8738b2366f3b0b3a">返回 map 的 value 集合</p>
+</td>
+</tr>
+<tr nodeId="56187644e592455683ef72b325bd8c32">
+<td colwidth="[345]" nodeId="aa358107660344dab0689e63dc271bb8">
+<p nodeId="3d1749498c444334b29ad2a2bbc4d69b">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="535e865774c94f70a5301ba64d8e1109">
+<p nodeId="448bc5b50ba444aba94d185b1788246c">into(to_seq, from_seq)</p>
+</td>
+<td colwidth="[595]" nodeId="871a7aac24404646a84ba93be200890b">
+<p nodeId="c981b78b2b7d4256b0fe0b97c03baa40">用于 sequence 转换，将 from sequence 的元素使用 seq.add 函数逐一添加到了 to sequence 并返回最终的 to_seq</p>
+</td>
+</tr>
+<tr nodeId="bf400b29925b4898809e24d1dba814b8">
+<td colwidth="[345]" nodeId="9190f79f8f3148ed902ba7786e941ad1">
+<p nodeId="5750ea5f74b341a5a646075c484e8f4f">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="5878d1515b68456f9f70392c51dc1fc6">
+<p nodeId="40ca673220014f3e998766dd82b2af81">seq.contains_key(map, key)</p>
+</td>
+<td colwidth="[595]" nodeId="dd12f6bd66bf49dd8bbca878f2b0019c">
+<p nodeId="b162698fc68a4672838d0b94f21734cc">当 map 中存在 key 的时候（可能为 null），返回 true。对于数组和链表，key 可以是 index，当 index 在有效范围[0..len-1]，返回 true，否则返回 false</p>
+</td>
+</tr>
+<tr nodeId="038ffedab1a84a4da6f53ece0843d6af">
+<td colwidth="[345]" nodeId="7cbef0ddca7942d5b877773cbe262c8a">
+<p nodeId="4f8470352ee8498487827633a5cec089">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="3445c250c5ae4d388f17c2e42d711321">
+<p nodeId="30d4674262484ee8be3d17ee0a7018fd">seq.add(coll, element)seq.add(m, key, value)</p>
+</td>
+<td colwidth="[595]" nodeId="8b5db1c2677d4111ae5a5e2d9082f8f3">
+<p nodeId="08d2e02fbe1c470ca8f7cb2f9ef5e27c">往集合 coll 添加元素，集合可以是 java.util.Collection，也可以是 java.util.Map（三参数版本）</p>
+</td>
+</tr>
+<tr nodeId="5cac7dd36c554364a94d867d4caaea21">
+<td colwidth="[345]" nodeId="e82ad0464467417d881d590b5fd1092f">
+<p nodeId="99edcbe967354d0ea4f62ae0ba5094f8">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="3df207497e424748a7c32cc4f0fb60b1">
+<p nodeId="3b53ab6f07594d3e96e369942e4af870">seq.put(coll, key, value)</p>
+</td>
+<td colwidth="[595]" nodeId="5872529d0de24d70b375e044d774f803">
+<p nodeId="4d8abb1cb88c4098a62617b02ced5d40">类似 List.set(i, v)。用于设置 seq 在 key 位置的值为 value，seq 可以是 map ，数组或者 List。 map 就是键值对， 数组或者 List 的时候， key 为索引位置整数，value 即为想要放入该索引位置的值。</p>
+</td>
+</tr>
+<tr nodeId="413176c64e1b4af2833c103aef42f49c">
+<td colwidth="[345]" nodeId="b47f7117e6b14345a1f2372c577cb44d">
+<p nodeId="b5e58f23766b4eef81b3e95276818d7f">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="7eeca12367af44ceacadaab76f4e2fb5">
+<p nodeId="932c2614d8e7472394661e51f38d8c50">seq.remove(coll, element)</p>
+</td>
+<td colwidth="[595]" nodeId="71bd30d583ec40efb0d1dcce4531ce19">
+<p nodeId="71f887a2525844538e76bdbdf210ffd1">从集合或者 hash map 中删除元素或者 key</p>
+</td>
+</tr>
+<tr nodeId="32f69762df97465fb28eaa231fed7e45">
+<td colwidth="[345]" nodeId="b4fefeb6960148258f5d8e0f5b4c211a">
+<p nodeId="01a00665c55c4eb2b24a844adac9a8e4">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="83f45264a9bd45eba9c0f50d3a3e4a33">
+<p nodeId="3ef968761e924e579caf904f87def93b">seq.get(coll, element)</p>
+</td>
+<td colwidth="[595]" nodeId="1fd4bda177a54b79976d71a94421c263">
+<p nodeId="05c10d6933674eacbafee33556aaeae7">从 list、数组或者 hash-map 获取对应的元素值，对于 list 和数组， element 为元素的索引位置（从 0 开始），对于 hash map 来说， element 为 key。</p>
+</td>
+</tr>
+<tr nodeId="891e04c090834fcca7571569340314cb">
+<td colwidth="[345]" nodeId="270e7437cf7444cbbd227c0aa9588a43">
+<p nodeId="34944f6dab324a4eb05758f7f100bb26">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="61b80a7bcefe4d2a8a8a34eac204b178">
+<p nodeId="f7a4fd6da5cf4d84980879f1e7af509a">map(seq,fun)</p>
+</td>
+<td colwidth="[595]" nodeId="87079d65a2ff49de98885404e6a29eaf">
+<p nodeId="2775873be71b4c0ead96b325abe21eee">将函数 fun 作用到集合 seq 每个元素上, 返回新元素组成的集合</p>
+</td>
+</tr>
+<tr nodeId="3bfe62f70d744c0fbbc16e1e01f03761">
+<td colwidth="[345]" nodeId="da24ca9cae1b48188faf594ee1ee5065">
+<p nodeId="e6069af689aa4ec19555e48d51547e32">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="5eb0d1a7e3044fdbad9e940e91a3d617">
+<p nodeId="fb281ccd23554065a115063d8ccf0bf1">filter(seq,predicate)</p>
+</td>
+<td colwidth="[595]" nodeId="400b60d35d0d427e864a0fc6a6c93abc">
+<p nodeId="1e176dad34df4e299f5b681008eb6620">将谓词 predicate 作用在集合的每个元素 上,返回谓词为 true 的元素组成的集合</p>
+</td>
+</tr>
+<tr nodeId="9fa9933194314c3bbf9fc7ad9ac61fe1">
+<td colwidth="[345]" nodeId="9717322e751848baa16301368f7e627b">
+<p nodeId="25d225d8e44b4c3385818580c56c6048">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="a858506db1744cc1875a272f0bfcdfa3">
+<p nodeId="2bbcbfbfb98046c1818bac0786ec4078">count(seq)</p>
+</td>
+<td colwidth="[595]" nodeId="0a3c4e3e5e774a578b4cb24df6d22b8e">
+<p nodeId="f9e7917ee8344e2692a3ad4ba527b770">返回集合大小，seq 可以是数组，字符串，range ，List 等等</p>
+</td>
+</tr>
+<tr nodeId="2abdb65f5da24f6b93ac94c27ba0e2d0">
+<td colwidth="[345]" nodeId="96b448f8eba34e459bbca04df792a8af">
+<p nodeId="06d458f9c2844e338cad65781afcf0d9">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="c27b35db5b8e45318bc22214fae1848d">
+<p nodeId="c99a92888308491c8094fe38522bcdfd">is_empty(seq)</p>
+</td>
+<td colwidth="[595]" nodeId="a924ead0cba74f84b4ba0580aecc769f">
+<p nodeId="33b069100f9847368e4bf4417f3ab45b">等价于 count(seq) == 0，当集合为空或者 nil，返回 true</p>
+</td>
+</tr>
+<tr nodeId="6fdb53483bd843e78d1cbf760f24882e">
+<td colwidth="[345]" nodeId="eba139e9b3894aa99e9e898ec5ee3916">
+<p nodeId="e95c232cc8804428ab7a9d639f3d2f72">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="08ba42bb37304e5ea73afd5a3bd13d80">
+<p nodeId="f691de4dea4b4e04a70953027e82e532">distinct(seq)</p>
+</td>
+<td colwidth="[595]" nodeId="df426f9d589a45c9a61e02be0376c036">
+<p nodeId="3621c747883244c7b5aeae655bda52f5">返回 seq 去重后的结果集合。</p>
+</td>
+</tr>
+<tr nodeId="c0b4f7cc3f8143e7971efefe43977493">
+<td colwidth="[345]" nodeId="911498f7ead24ba0a11eb9261755952d">
+<p nodeId="31cb35a4b5d9491bb57ce906e1a4fe59">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="1117fbb426f041babfcc6586722b3644">
+<p nodeId="760aa7b3383d4a1a8a73de5fc72bbe48">is_distinct(seq)</p>
+</td>
+<td colwidth="[595]" nodeId="2052d64e1a5046c4affb1e6978ac8cf1">
+<p nodeId="b0b9eb3658ff4cf4b6784545a27512eb">当 seq 没有重复元素的时候，返回 true，否则返回 false</p>
+</td>
+</tr>
+<tr nodeId="8f00031515294b89b6ed05e8079aff32">
+<td colwidth="[345]" nodeId="cc3537ea6d474fc5b9d711aaa3816148">
+<p nodeId="9137c5774d1a4922a20f00bc344a94c8">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="2b55ae91e33a4d3198f0e7f61674c0db">
+<p nodeId="22bfa67ed66047c68b93cc7a5b810dd7">concat(seq1, seq2)</p>
+</td>
+<td colwidth="[595]" nodeId="e956a693f0624e73b2bfdea77e31826c">
+<p nodeId="80d3a5bd3e2d48b79d8ab703badd9be3">将 seq1 和 seq2 “连接”，返回连接后的结果，复杂度 O(m+n)， m 和 n 分别是两个集合的长度。</p>
+</td>
+</tr>
+<tr nodeId="792dc760a6c8468a8794ba8136746233">
+<td colwidth="[345]" nodeId="f9ec79ac5afa4b37af58f1b2d65fe899">
+<p nodeId="d1e380c7256648548d1b3d4313c274ae">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="570ae4ee16dc4e8e80b200806501235b">
+<p nodeId="4f3096b5f4784406a1fe963ee6031bbc">include(seq,element)</p>
+</td>
+<td colwidth="[595]" nodeId="05b1a48295d140988724e553c4d0fab3">
+<p nodeId="ef8b31a220164075a6ee031e1146a10f">判断 element 是否在集合 seq 中,返回 boolean 值，对于 java.uitl.Set 是 O(1) 时间复杂度，其他为 O(n)</p>
+</td>
+</tr>
+<tr nodeId="c7d17aca959f42fb8619984a3c4f6ee4">
+<td colwidth="[345]" nodeId="89c8ef240ab34448a10d1e8cbd8283e2">
+<p nodeId="308fcea62fa8445482135e3e9b99e939">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="461ba8b7257844e7adc98aafb7ef4310">
+<p nodeId="d03435964e1b44e08c9e7759fdc5af34">sort(seq, [comparator])</p>
+</td>
+<td colwidth="[595]" nodeId="134f5e7d8585444d841e9607c9795541">
+<p nodeId="5a6811d74ef74275b714883ee439db1d">排序集合,仅对数组和 List 有效,返回排序后的新集合，comparator 是一个 java.util.Comparator 实例，可选排序方式。</p>
+</td>
+</tr>
+<tr nodeId="146e65ef5ce7426ab74e39dc4c794a09">
+<td colwidth="[345]" nodeId="3e107938b3574fea86a6725dec3640f9">
+<p nodeId="fe5e3947fb9943a4b61d807e43b9ee68">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="9f5a8af0ace448c485b5e479d7ecbf26">
+<p nodeId="416b3f9d15ae42b6914294f3ca02a803">reverse(seq)</p>
+</td>
+<td colwidth="[595]" nodeId="5308d3d5db7f40b0bf4de695dfc69bbc">
+<p nodeId="64c033dea1ec4880b2a5f8a8b36221cf">将集合元素逆序，返回新的集合。</p>
+</td>
+</tr>
+<tr nodeId="8a9551d47772427796cf4a5fb81b4373">
+<td colwidth="[345]" nodeId="396024b2c3fa4e43acf6bbf5188fcfa8">
+<p nodeId="1240163b242247aea5d776f4e9e1f813">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="4419f6858baf4c30987c27e311f8c781">
+<p nodeId="888761eebee1423b828e9672bb9390b7">reduce(seq,fun,init)</p>
+</td>
+<td colwidth="[595]" nodeId="99d5498e5b194ed8b9064f98ddb7273e">
+<p nodeId="9b4423ea0b6d40e49ae351ca43d4e0e5">fun 接收两个参数,第一个是集合元素, 第二个是累积的函数,本函数用于将 fun 作用在结果值（初始值为 init 指定)和集合的每个元素上面，返回新的结果值；函数返回最终的结果值</p>
+</td>
+</tr>
+<tr nodeId="0f9959bb52044257860617cc10ee7d69">
+<td colwidth="[345]" nodeId="5a50e3ed5f1b406cafa8795f976415e9">
+<p nodeId="3d90c89416cf41b09fbf95deca4f40b4">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="efd4b20cf2ed4456876335b2e6070f81">
+<p nodeId="87ae22e22047419aba4113f9f44c67f9">take_while(seq, pred)</p>
+</td>
+<td colwidth="[595]" nodeId="51c46b048175456480e82d2aa3cef635">
+<p nodeId="714df0f3a9a44c89bccc2ea190e1c4c8">遍历集合 seq，对每个元素调用 pred(x)，返回 true则加入结果集合，最终返回收集的结果集合。也就是说从集合 seq 收集 pred 调用为 true 的元素。</p>
+</td>
+</tr>
+<tr nodeId="f05e09497c2b4cc494ced853b24ff722">
+<td colwidth="[345]" nodeId="1a73d331bacc4dab81b6f6184f62692d">
+<p nodeId="7a14e293da2546539560029e22619dc1">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="f8ab3f66c377422fa49a3a6766184bb6">
+<p nodeId="2a9d072a473140879f0c961c7e0c69d0">drop_while(seq, pred)</p>
+</td>
+<td colwidth="[595]" nodeId="e89abfd0c3b04c6e8aa69f7d5ae6a9de">
+<p nodeId="13148520b3df488480a100fde035912a">与 take_while 相反，丢弃任何 pred(x) 为 true 的元素并返回最终的结果集合。</p>
+</td>
+</tr>
+<tr nodeId="b37637d7bdc94e8181ce5eec26838f61">
+<td colwidth="[345]" nodeId="e14db059185c471cb47ee7bd17af24ed">
+<p nodeId="4d1aff5632084ac4bf06918e10a18857">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="1333b48a51a24d0eb749bd6085b19fa5">
+<p nodeId="3414ff3cce1e439fa34f9ea5af905b92">group_by(seq, keyfn)</p>
+</td>
+<td colwidth="[595]" nodeId="a0c60f8e90aa4484a9d04cfbd7bbaa3b">
+<p nodeId="a20d14aa6d3a45f198facbaeb469c079">对集合 seq 的元素按照 keyfn(x) 的调用结果做分类，返回最终映射 map。具体使用见文档。</p>
+</td>
+</tr>
+<tr nodeId="9dc2ac86e1fa4c9f85aa49d450046535">
+<td colwidth="[345]" nodeId="3698df8b8bd7460a88ed704d0eabfdb1">
+<p nodeId="1a7a61eac03e42ae9db082a89dd358f5">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="7e043e9c1b444d41967bf78931afc0b7">
+<p nodeId="93698acd8c9a4adb98c96b718ad9be90">zipmap(keys, values)</p>
+</td>
+<td colwidth="[595]" nodeId="125ea5284a45405a984c740613d9839c">
+<p nodeId="27a1504a05ae4bc0b922663df5b44227">返回一个 HashMap，其中按照 keys 和 values 两个集合的顺序映射键值对。具体使用见文档。</p>
+</td>
+</tr>
+<tr nodeId="5547b4e0ddfc4b60a5fae35f5b95814b">
+<td colwidth="[345]" nodeId="baf8d7801a754468ad9daf8246a3cd8a">
+<p nodeId="9d3ff5fe33ce45c89227936ef3634199">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="1433d87be2ef44d68cd8b5e505ae3b9d">
+<p nodeId="2127b61a3b014ee3b25c9c80f7a63e44">seq.every(seq, fun)</p>
+</td>
+<td colwidth="[595]" nodeId="9bd9d3b47b714554be06c64866b6b948">
+<p nodeId="723835859e7d41908271296ab1af7749">fun 接收集合的每个元素作为唯一参数，返回 true 或 false。当集合里的每个元素调用 fun 后都返回 true 的时候，整个调用结果为 true，否则为 false。</p>
+</td>
+</tr>
+<tr nodeId="20356117c94440eebf30a79a3e81d674">
+<td colwidth="[345]" nodeId="19054bf1f1b5468ea89d37d39addacd7">
+<p nodeId="ca04ce33671946febf29f2b11cba992f">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="d2b18a8001d0422eb54ce0cca32cb12a">
+<p nodeId="de34d4c0d890403c90c5d507513142c6">seq.not_any(seq, fun)</p>
+</td>
+<td colwidth="[595]" nodeId="72c6712e0a0041b290da0f96f8729bfb">
+<p nodeId="7e595f1f6ca6435d885b1f54b0fe433c">fun 接收集合的每个元素作为唯一参数，返回 true 或 false。当集合里的每个元素调用 fun 后都返回 false 的时候，整个调用结果为 true，否则为 false。</p>
+</td>
+</tr>
+<tr nodeId="4f36c57332034b858a7eeeb249cb47a3">
+<td colwidth="[345]" nodeId="a3718a2d1fe049f887344e8744b882fd">
+<p nodeId="d9befec5e066427f91ac9c790ded2051">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="21654ce07ea5445bb8f379742868857e">
+<p nodeId="c5e4356ce2a346b392b361f8066150ea">seq.some(seq, fun)</p>
+</td>
+<td colwidth="[595]" nodeId="4ed14f34b5964073889d5cb43c00b8a2">
+<p nodeId="188433e297cb4f219ffe4c5ae663d3e5">fun 接收集合的每个元素作为唯一参数，返回 true 或 false。当集合里的只要有一个元素调用 fun 后返回 true 的时候，整个调用结果立即为该元素，否则为 nil。</p>
+</td>
+</tr>
+<tr nodeId="9cad89e670f542959ce9a7678348a6e0">
+<td colwidth="[345]" nodeId="e6328b2fd5c347d398dfc8b03bc9ccce">
+<p nodeId="074de14f08d8446c8ae031e35152340c">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="3004fec5457e4924acc3543a2ae36117">
+<p nodeId="41d3c6aa9c9748759a171ff57ff85c5d">seq.eq(value)</p>
+</td>
+<td colwidth="[595]" nodeId="b1704edfed6c45aa9b9ccd03978650c2">
+<p nodeId="718cd367187842ec841b70180b59939c">返回一个谓词,用来判断传入的参数是否跟 value 相等,用于 filter 函数,如filter(seq,seq.eq(3)) 过滤返回等于3 的元素组成的集合</p>
+</td>
+</tr>
+<tr nodeId="d910715c585d45cc9ff35fdc106e793e">
+<td colwidth="[345]" nodeId="baf2aea10998427a99b5bb2cedef6982">
+<p nodeId="fd49b51e3d7549f382d1470e951dd2b8">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="55c65f8ef6744fe8806f40552a80db06">
+<p nodeId="49372f8cbd474fa995dddc426b6294ed">seq.neq(value)</p>
+</td>
+<td colwidth="[595]" nodeId="f185906e34284944a0365bda604cd6f3">
+<p nodeId="e6e7e59184114fa8a6dd15dbbe87235b">与 seq.eq 类似,返回判断不等于的谓词</p>
+</td>
+</tr>
+<tr nodeId="4b0861cd4ef4496bb516ba9ab777e48a">
+<td colwidth="[345]" nodeId="05c4c3ff6f914513b1d4d57815b3ef79">
+<p nodeId="94e9cd44c56545dfb96fc5e1b991876b">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="5b4b7ec7be09475890b10bd14ddb0715">
+<p nodeId="f3003fb77ad741e5a263a9c317ecafcd">seq.gt(value)</p>
+</td>
+<td colwidth="[595]" nodeId="4c2a839b5b83492a948b5595a7b8c426">
+<p nodeId="ad1ba480cb944b68adc3ea395916fca7">返回判断大于 value 的谓词</p>
+</td>
+</tr>
+<tr nodeId="61d5d7c992af4a75b53078f0f36552bd">
+<td colwidth="[345]" nodeId="50feb07e866846619b3a25998a14ef0f">
+<p nodeId="ceaf33755ca346519bf1f08fe3e96acf">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="5764d1e8e80f4c77af520c8a7eb46208">
+<p nodeId="81cc9b33547944d7974bf0c5ee534279">seq.ge(value)</p>
+</td>
+<td colwidth="[595]" nodeId="6ef4d68d22ae43ea9995be962ba02ee5">
+<p nodeId="97f63ec5d1bc490297f37e5f3acfeb6b">返回判断大于等于 value 的谓词</p>
+</td>
+</tr>
+<tr nodeId="4581cf58419e4f349d50a649b5746c9e">
+<td colwidth="[345]" nodeId="48a3d331cc884db08d0116809bb8fbb1">
+<p nodeId="47318fd7b411472eaaeed702035c6502">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="c988d682304f4743b6577fb770b8121a">
+<p nodeId="14f2f84237ee47dbb2596f33e7cab168">seq.lt(value)</p>
+</td>
+<td colwidth="[595]" nodeId="b8f927ad7ae84fc8831567679e2cef24">
+<p nodeId="495c314cb1f942df8bd644ae8deb642e">返回判断小于 value 的谓词</p>
+</td>
+</tr>
+<tr nodeId="4275821009c94d84937334f07d7b4922">
+<td colwidth="[345]" nodeId="5a9528ff6e2b4f8c8365f135d825eb90">
+<p nodeId="2b0fe16b78c841f09e7ef0323f93a0c3">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="d8b662a610384d59a4052ef1e052019b">
+<p nodeId="a709737a862346299ef7ec47f944985b">seq.le(value)</p>
+</td>
+<td colwidth="[595]" nodeId="e0d621c61b5b424eb1b8f9c6f8348fb4">
+<p nodeId="739d241c5ad14721af1464402e0d58d3">返回判断小于等于 value 的谓词</p>
+</td>
+</tr>
+<tr nodeId="0ef1772e01c0468a889ecdc8125cc273">
+<td colwidth="[345]" nodeId="6145346773d24c3bb703ec6552603a9b">
+<p nodeId="746b329168b04b428543fa844bf6ffe0">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="fe7b5952b05543b28299ca792bd8bcb8">
+<p nodeId="37c4d2906a1f4698852e680d9695082d">seq.nil()</p>
+</td>
+<td colwidth="[595]" nodeId="761daddaec7d469892d38e6c7adf67c0">
+<p nodeId="c10524c071584412afaaf464b8e54075">返回判断是否为 nil 的谓词</p>
+</td>
+</tr>
+<tr nodeId="d40a50c8e41543e891e4e153cf615da7">
+<td colwidth="[345]" nodeId="90e005be5dfb4e8e8ed889c5eed10a6f">
+<p nodeId="cc2663df615e430793665abed17fe43b">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="6450c8e3ac9349178cbe0c4fc1a42882">
+<p nodeId="590e6d48d37e4332bef4e8232acdfded">seq.exists()</p>
+</td>
+<td colwidth="[595]" nodeId="becdcf671d8e494c8d62331c99e45d42">
+<p nodeId="19f8bff9574346fc986a9298265a4f5a">返回判断不为 nil 的谓词</p>
+</td>
+</tr>
+<tr nodeId="d9338a93d435422abcd867a37f71faf9">
+<td colwidth="[345]" nodeId="bd46b11cfeaf41ddbc959f0fc7588a1d">
+<p nodeId="2cf4a86050134e4eafc9fb8ea512686d">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="2fcddcdcbb7f44d0a23d5a98d8743652">
+<p nodeId="c79313cc2a57432bb625242f182ec0a7">seq.and(p1, p2, p3, ...)</p>
+</td>
+<td colwidth="[595]" nodeId="26605103e19a4ac7a2d7fab2cec61c9b">
+<p nodeId="ee82dbbe57ec491ca80703bb24a88bb9">组合多个谓词函数，返回一个新的谓词函数，当今仅当 p1、p2、p3 ...等所有函数都返回 true 的时候，新函数返回 true</p>
+</td>
+</tr>
+<tr nodeId="1efedc57dfe34b0d9c9510445efb0de7">
+<td colwidth="[345]" nodeId="2ecdd479a5cc4ba5beac5f96e80d8c12">
+<p nodeId="b58d893aee014a87bcfe9330de9a4910">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="2fa02192b1114f3a8cdf1c2e7f567145">
+<p nodeId="6cb7fdb35a894c64810b5ce172deb285">seq.or(p1, p2, p3, ...)</p>
+</td>
+<td colwidth="[595]" nodeId="594f61741e85410c90d82bbbf3efad75">
+<p nodeId="cfce9cd4874947bba8c1a5a8fabe5d7f">组合多个谓词函数，返回一个新的谓词函数，当 p1, p2, p3... 其中一个返回 true 的时候，新函数立即返回 true，否则返回 false。</p>
+</td>
+</tr>
+<tr nodeId="aed1f5f97e04425d9731702efc05151c">
+<td colwidth="[345]" nodeId="929670c9813749f0af16ad22de2006af">
+<p nodeId="9a827073409f427b9d34712bdb4aa47c">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="b9e6b0b94710456a9b625ee12edeb5a0">
+<p nodeId="361f824dd3f343ad969b7123cfb0f482">seq.min(coll)</p>
+</td>
+<td colwidth="[595]" nodeId="5014d54121644a95980ddfc57decc095">
+<p nodeId="05482116e4a14ac8ad39d2ae8b949c83">返回集合中的最小元素，要求集合元素可比较（实现 Comprable 接口），比较规则遵循 aviator 规则。</p>
+</td>
+</tr>
+<tr nodeId="b496c9257d6944be985215bb70eb562e">
+<td colwidth="[345]" nodeId="262448e854874fa6978fd62696edebff">
+<p nodeId="ab8cf7a444234cd09a6889c1fda2daa3">【Sequence 函数（集合处理）</p>
+</td>
+<td colwidth="[218]" nodeId="5fc2f55db7ce495d91f90dd3eb20a3ad">
+<p nodeId="d06380bfbd9e4383a02fc541572fcc19">seq.max(coll)</p>
+</td>
+<td colwidth="[595]" nodeId="f7a98c0d55804717a0cb5c87504f3f79">
+<p nodeId="bc74b77f599e416684451f56d21beef6">返回集合中的最大元素，要求集合元素可比较（实现 Comprable 接口），比较规则遵循 aviator 规则。</p>
+</td>
+</tr>
+</table>
+<h2 nodeId="a0d107718eb441749d5c9173d3d9651c">数学运算方法</h2>
+<table responsive="false" nodeId="c3e7a2e79b4a4110ba07172a31c03100">
+<tr nodeId="1ed7a0b9ce8a4c84afbd1a182a3a48a3">
+<td colwidth="[218]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="9962067543964843a70624e017e608bb">
+<p nodeId="9851d6d7fb1540bb86978a24689a4abf"><strong>类型</strong></p>
+</td>
+<td colwidth="[218]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="e9afef1eee8349a694a2dc6eca95ed74">
+<p nodeId="5bfa15669fce4fb8a367701ca8c3ef0d"><strong>函数名称</strong></p>
+</td>
+<td colwidth="[218]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="812d01670f314ec6a59c32be24b61e29">
+<p nodeId="60c6af1d92234b3492b52e36f04ab6b6"><strong>说明</strong></p>
+</td>
+</tr>
+<tr nodeId="662889cb150a4c788d63994ca767fd71">
+<td colwidth="[218]" nodeId="48cc94b48eac40acb96dd47585dfcb81">
+<p nodeId="9c3c2c4fe5114eeaa854d38b41380f6e">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="ba064cda627948d4b034d3f36bdc4bd8">
+<p nodeId="8640c9bc679c43f99a10a6d736f63315">math.abs(d)</p>
+</td>
+<td colwidth="[218]" nodeId="90447495a177430eb10cca410b42fe80">
+<p nodeId="b3439d249b4a4e318a238283d6cee02b">求 d 的绝对值</p>
+</td>
+</tr>
+<tr nodeId="dab49b0b588440a7a75b9bba880b286b">
+<td colwidth="[218]" nodeId="e29dede015dc4780a38afa40549c71d1">
+<p nodeId="c3296d288c9641ff8dbd94b7db802ab7">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="4fa5fe10579b4ecebb48458e33f32007">
+<p nodeId="e934d9e051a4494c9cd4f06ac45a50aa">math.round(d)</p>
+</td>
+<td colwidth="[218]" nodeId="344713cff3dc45c5a24cecea9f31ebac">
+<p nodeId="57cf1ae714c94198994fb15b56961234">四舍五入</p>
+</td>
+</tr>
+<tr nodeId="8349ead5e3594290bd9e8bd580111b37">
+<td colwidth="[218]" nodeId="fa5d2b99d85c40ea8cd4737baebe9b50">
+<p nodeId="25682ea74e324c7eb703ca2ad0cd3824">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="b805e81bafa4428bb83899d62ef87cf6">
+<p nodeId="00bcbd4d9b6c4fc49cce7127b1702e22">math.floor(d)</p>
+</td>
+<td colwidth="[218]" nodeId="49eab0c5733c42038746c41528c3c258">
+<p nodeId="7be061fa6d4e4865aad75e7c0b403429">向下取整</p>
+</td>
+</tr>
+<tr nodeId="ca0f845bae1e45f8b19c2e279fb5a3ef">
+<td colwidth="[218]" nodeId="908257327fc54c148618ea8b55986dd4">
+<p nodeId="785b0e06547747ecaa9d426e0f6c78e9">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="4fdce898624d4277890b7526227102a0">
+<p nodeId="0467f490a46d45629ca1d582ff036e20">math.ceil(d)</p>
+</td>
+<td colwidth="[218]" nodeId="106f6abea01e4467818752a346bcdfb1">
+<p nodeId="baec94ad73cf4444b741c7b9cf47f9be">向上取整</p>
+</td>
+</tr>
+<tr nodeId="30c4840a60504953a2944a0e3d24b5f8">
+<td colwidth="[218]" nodeId="8264c1e0e1d74897ae1e3230f7dbf582">
+<p nodeId="b579d82515654d8da3b7c73c381a5411">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="8bb85ee8780a404ba2a0e190c8d55bc9">
+<p nodeId="18efdcdf7da4465eb6e47235f6310790">math.sqrt(d)</p>
+</td>
+<td colwidth="[218]" nodeId="f810f708fd4f44869d332bf9b8b63933">
+<p nodeId="20cf81a5d64e4ee4976cfc24a698cc61">求 d 的平方根</p>
+</td>
+</tr>
+<tr nodeId="b67a5d36fbc44685bdb302fd8cd27006">
+<td colwidth="[218]" nodeId="9f84204349ae4c53820f8e678dd8c959">
+<p nodeId="0d514d09f8674df4b8cf9560bbf6dc49">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="71fa3e90b361440aa343007a2fb82608">
+<p nodeId="bae2fd126f514eb7862ed4a1a7b6389c">math.pow(d1,d2)</p>
+</td>
+<td colwidth="[218]" nodeId="a342416957b74cdaae996096ab7f984e">
+<p nodeId="547afb7c83df444ca6b4b859953f09ea">求 d1 的 d2 次方</p>
+</td>
+</tr>
+<tr nodeId="a38b2450408440db91b796fe1ee07dd1">
+<td colwidth="[218]" nodeId="1e058ad331854d7bbd74230b8b47d11c">
+<p nodeId="b1d65f2f81c64bf5bad014f0bc92ac39">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="74b2187257d3428c9d6f17b1627f1cbd">
+<p nodeId="a128f23c30e94acfa6d37fea70f771b6">math.log(d)</p>
+</td>
+<td colwidth="[218]" nodeId="12bcfd62172243f2992f9d440b9ef714">
+<p nodeId="a712cc157cd34adaab12c21e8900a6c5">求 d 的自然对数</p>
+</td>
+</tr>
+<tr nodeId="f68f5d80db70406b90cc9305f370199a">
+<td colwidth="[218]" nodeId="34e04dceca6b479b92f7c0f888d8ee0e">
+<p nodeId="ccd3ab42b07441daa6a629aec57c6102">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="fd0d202e15e646e28a87fd7b6e2331a3">
+<p nodeId="8c28797c2c0d499880942f6fe7a2e81e">math.log10(d)</p>
+</td>
+<td colwidth="[218]" nodeId="2f5e7daadf304649875f7e9c056dfaf3">
+<p nodeId="b60679b0b7db4e709889601b611bb34a">求 d 以 10 为底的对数</p>
+</td>
+</tr>
+<tr nodeId="3dcc717dca734faca1c02b2849f12088">
+<td colwidth="[218]" nodeId="8d643f3608fb4c87a1b6f2692b305795">
+<p nodeId="33bad9bf369a4b3e80c1436da2d5d270">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="62dd0581f3244057b82b053863104306">
+<p nodeId="0c23198458494e4bb3cfd0b1764929e9">math.sin(d)</p>
+</td>
+<td colwidth="[218]" nodeId="9915c5166e944a3e830df514757710c0">
+<p nodeId="d9ae4ca24eab4702a75084cd08bbd329">正弦函数</p>
+</td>
+</tr>
+<tr nodeId="246f417f011d4bc2a7c49be8b5b71598">
+<td colwidth="[218]" nodeId="4a42a1d8f5cf4503a738cc0cbd362fd8">
+<p nodeId="faa93557978f4f3398ff198bffa68f35">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="6d5a05a3877d47e4902622f65b4c1b3e">
+<p nodeId="2f03b865187a4109b27dbb8fcf4fbe47">math.cos(d)</p>
+</td>
+<td colwidth="[218]" nodeId="02f222fce0594acb9622c6e83b3e65dc">
+<p nodeId="9b7749332bd34ea0a14ec47fc861694a">余弦函数</p>
+</td>
+</tr>
+<tr nodeId="9c4173f1b5b0476386ed160cf93c3e5d">
+<td colwidth="[218]" nodeId="eb9c0e6211db41f7b81a4aadec496ca9">
+<p nodeId="b2019341ee39495bbe3d35ccdaa4a8ea">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="5e1df48b60fe46ada37096899a614ffb">
+<p nodeId="9bf39b19f3ac42ae870a5400e1928cb3">math.tan(d)</p>
+</td>
+<td colwidth="[218]" nodeId="1114853de7e84ddc8d506e0ea772ef37">
+<p nodeId="7e4fb0c6ec1c45819d5e41eddddfb7e6">正切函数</p>
+</td>
+</tr>
+<tr nodeId="7e7af04f2e424a8e9a4f9ef0cb1e99f1">
+<td colwidth="[218]" nodeId="afc8ce37031b4c34ad16f186bbbc6746">
+<p nodeId="5dcaee262a6e4844821699ea43c157f0">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="af0d16bfb05f4c9c8642fd35e80a6959">
+<p nodeId="4f595b28131449cc965da8c26c873f71">math.atan(d)</p>
+</td>
+<td colwidth="[218]" nodeId="881b3b3a23f941c28918d2cfa3b37773">
+<p nodeId="576b81d202724de78203121d63293d5f">反正切函数</p>
+</td>
+</tr>
+<tr nodeId="4e034b19fe1247a384179d69bc7f118c">
+<td colwidth="[218]" nodeId="e0870ff8b0b643c0b7da855d1ea6a38a">
+<p nodeId="6e17050085934490b3208ce8ab9af5c4">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="3223ff9613b44d459bc8063164fa539f">
+<p nodeId="f0459c0fe6ad4a7986bcf835a8251e49">math.acos(d)</p>
+</td>
+<td colwidth="[218]" nodeId="253ab8d33c884fd7ac6e70becef6c2aa">
+<p nodeId="dd1ff66291354872a00e1d0dc1a9dc6e">反余弦函数</p>
+</td>
+</tr>
+<tr nodeId="0f26121a885a4ef7af384ae3d27145c9">
+<td colwidth="[218]" nodeId="586510332e0545589c0991d2018e466b">
+<p nodeId="4f9e81bc1a414ce8adebcc9bea5ee315">【数学函数</p>
+</td>
+<td colwidth="[218]" nodeId="6552ea67bb0e44738b495b9717c63569">
+<p nodeId="006051a2d0b64e208ba73ad178b2acc5">math.asin(d)</p>
+</td>
+<td colwidth="[218]" nodeId="57ee2f2895f649c7a5733e9de2ba87ad">
+<p nodeId="bd166254fc324d76ad42d5f458828d38">反正弦函数</p>
+</td>
+</tr>
+</table>
+<h2 nodeId="7de65b20d0aa47b397a0784bfa87c423">字符串方法</h2>
+<table responsive="false" nodeId="4744b7bffadd4ddc9ad013f2364983b6">
+<tr nodeId="a487ab613f77405d8063c68b7a97f9aa">
+<td colwidth="[218]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="73c63bfcc4c840aa92916607fa048382">
+<p nodeId="e2c0352f4aa244e09ebc70e4eb110092"><strong>类型</strong></p>
+</td>
+<td colwidth="[218]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="f20b5b50ffdc4ef4ab164af50ad04654">
+<p nodeId="9f2ea9c5a1e6448f8ab62a2ee70c9a5b"><strong>函数名称</strong></p>
+</td>
+<td colwidth="[218]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="0668d772b250468f9b75f84ee91910ca">
+<p nodeId="298ca5cb460d4162b457be18a2a6ebb8"><strong>说明</strong></p>
+</td>
+</tr>
+<tr nodeId="72d71913e9074ccd992bee6ff0635804">
+<td colwidth="[218]" nodeId="8f3cf46022ad41fa8eb2c4b173f2362b">
+<p nodeId="10bdb1a8ad7342178c392f10316e1704">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="e5f68fa46a0c41fd830e95dde963a2ee">
+<p nodeId="93e638fac3cd485eae0860a571de553c">date_to_string(date,format)</p>
+</td>
+<td colwidth="[218]" nodeId="f5463c8b6afe4ff58f98675a7be5d3f3">
+<p nodeId="ab525b52cecc4b7c89198ffaaa793a67">将 Date 对象转化化特定格式的字符串,2.1.1 新增</p>
+</td>
+</tr>
+<tr nodeId="ff0bad92ba114b5c82a834abea0bd87d">
+<td colwidth="[218]" nodeId="57352bb84ae24bc4becd8e028d8ad617">
+<p nodeId="b1dccaf4d9fd474fa6ee91b92f48877d">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="2913078cff9f415f9e48ea1ea3f69460">
+<p nodeId="0f61d7adfe814da492a3cf7e6a203d91">string_to_date(source,format)</p>
+</td>
+<td colwidth="[218]" nodeId="cd903d92efff489c8e4e4224b329c6f9">
+<p nodeId="a6632f8d338749f0abc416cfc1034c60">将特定格式的字符串转化为 Date 对 象,2.1.1 新增</p>
+</td>
+</tr>
+<tr nodeId="d762cc3f17ef4771a884c4cadea5b1fe">
+<td colwidth="[218]" nodeId="ad955637f06c4e84b290cf19ea870d8f">
+<p nodeId="be643e98b6f745638fd418d29468943a">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="b9475f875502478cbf7e67fdfecadfd4">
+<p nodeId="85aee3da982d4abe846191636cf28881">string.contains(s1,s2)</p>
+</td>
+<td colwidth="[218]" nodeId="175078ae82f64a47ab637dd52fbb3a5d">
+<p nodeId="6e405b4c883a42808c329d87c0affbb5">判断 s1 是否包含 s2,返回 Boolean</p>
+</td>
+</tr>
+<tr nodeId="7cb2aaa4596444e1aa6da16c75e6600a">
+<td colwidth="[218]" nodeId="d164a5d96648469dbbe3d4b5a7027c1a">
+<p nodeId="cff2b358e4df4ccd95e4b43ffe79bdb1">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="2a8112a47f2047fbb42b0bddd6d8f05c">
+<p nodeId="5c0773b3febd4007a14e2c91d6afe7ac">string.length(s)</p>
+</td>
+<td colwidth="[218]" nodeId="3a84219a82084220834997b1997b2b95">
+<p nodeId="a9260f9941574559a711ea9f795f9ac8">求字符串长度,返回 Long</p>
+</td>
+</tr>
+<tr nodeId="b4515a3cae04467f9bec59e5da956143">
+<td colwidth="[218]" nodeId="43888347304b4b0b8402bc3e99e34bc7">
+<p nodeId="b7d24daefce842e59e2277fe6879861f">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="acf71d7ebf6b4611b0e270953b3bd958">
+<p nodeId="135efe8721e548bfa4a6ed035081203b">string.startsWith(s1,s2)</p>
+</td>
+<td colwidth="[218]" nodeId="882a7a8756a34179bccea6be63963a68">
+<p nodeId="6c571cc1cffd4fd79e01f9317d9f9eea">s1 是否以 s2 开始,返回 Boolean</p>
+</td>
+</tr>
+<tr nodeId="940e185b6f4f49b98eb31283e68d36ad">
+<td colwidth="[218]" nodeId="e9bf3fc08b6b47a7a85ea344ad997b1a">
+<p nodeId="71c29e71b7914843b63484c89434601d">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="fb3d4e4ef9b145f8adb9e428defe6064">
+<p nodeId="630b56a0c4394f9eb2567bbc4060017a">string.endsWith(s1,s2)</p>
+</td>
+<td colwidth="[218]" nodeId="388e03825e1049d0a892ef633cf54f1a">
+<p nodeId="ec7c59f330c345a3bd2582c25f558c8f">s1 是否以 s2 结尾,返回 Boolean</p>
+</td>
+</tr>
+<tr nodeId="5e91d764ab7d4cd5a3dd50a313924b6b">
+<td colwidth="[218]" nodeId="1c27fa42ce674fb1b1d277a0868efae5">
+<p nodeId="951be03ca0e44ed8971d48dc7f35739f">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="018abee32fe343dab1e088a44fea6804">
+<p nodeId="6bf4b4ce221c4f66b3150be4994436ec">string.substring(s,begin[,end])</p>
+</td>
+<td colwidth="[218]" nodeId="d7768d809f7c4532ae58fded06f21521">
+<p nodeId="730d9958cd74488b81e2d3821c196668">截取字符串 s,从 begin 到 end,如果忽略 end 的话,将从 begin 到结尾,与 java.util.String.substring 一样。</p>
+</td>
+</tr>
+<tr nodeId="7546474a70234070a159c0ff02347784">
+<td colwidth="[218]" nodeId="3b47821d722a4f9e93c018e28795d0a9">
+<p nodeId="de6cf3a0c4be49d9a09e45607cafd964">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="a72cb8911fdc4e11b482a37165a33a6f">
+<p nodeId="a5814f8dbb914bc58df018c25ce2312e">string.indexOf(s1,s2)</p>
+</td>
+<td colwidth="[218]" nodeId="cb295db85e7b4f76b7e9c17610bd8786">
+<p nodeId="c7b4ead4a91a43978d5953b0a0f6589a">java 中的 s1.indexOf(s2),求 s2 在 s1 中 的起始索引位置,如果不存在为-1</p>
+</td>
+</tr>
+<tr nodeId="54e9be460eba48a4a7ba1d9c7f2db4ed">
+<td colwidth="[218]" nodeId="68e08667564445cd830f25c0ed6aba24">
+<p nodeId="4bdee046dc6145cda26925e2c29b6b76">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="4847d8e809a14f61af71ea2902a85ac5">
+<p nodeId="bb538b5f51ca4fd28835dbd1198b7f51">string.split(target,regex,[limit])</p>
+</td>
+<td colwidth="[218]" nodeId="20fafff23c4b4492a44d760d224e06db">
+<p nodeId="7270d6b7cb7740c396f7ef04502f30bd">Java 里的 String.split 方法一致,2.1.1 新增函数</p>
+</td>
+</tr>
+<tr nodeId="d354edc639fa480fb82a24e4e1cadf0c">
+<td colwidth="[218]" nodeId="766d3ef70b5a4394a6224c6e02a8224f">
+<p nodeId="ea9034d8557c4000a27a57cdbbba29bb">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="ed6ac3fffe754f7f99e7099a92f942d7">
+<p nodeId="50100f311fc04aae92c350cda0cc1817">string.join(seq,seperator)</p>
+</td>
+<td colwidth="[218]" nodeId="bcc971c2edd94677a66c6d6419e26576">
+<p nodeId="bcc4072b6f764b5ea8ae5c66f91da9b5">将集合 seq 里的元素以 seperator 为间隔 连接起来形成字符串,2.1.1 新增函数</p>
+</td>
+</tr>
+<tr nodeId="b90bb57b77f1464681fa8d1cd8a90dfc">
+<td colwidth="[218]" nodeId="7dcd236da8db4307abb0ab91f1f43b53">
+<p nodeId="f8bbc07f2c5d4313aaa5ab4b5356bcee">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="e439b59bd9554ee69125a9a08fc42377">
+<p nodeId="40d97f35b5d54c5e89543f231420ae84">string.replace_first(s,regex,replacement)</p>
+</td>
+<td colwidth="[218]" nodeId="1f5889ddd24d40769fbd6c5cf86208d4">
+<p nodeId="b63061153bf74f6191b34707761e877c">Java 里的 String.replaceFirst 方法, 2.1.1 新增</p>
+</td>
+</tr>
+<tr nodeId="d0c98c24ea8b4993addb37fe671cfa8d">
+<td colwidth="[218]" nodeId="8e75d7fe1a5c4286a286efc5d4a0289c">
+<p nodeId="e5fb58656cd84e4bb0b03444101e2ac4">【字符串函数</p>
+</td>
+<td colwidth="[218]" nodeId="f188f7898aa345aeb02648bcd7c36071">
+<p nodeId="b441d41053e44d60b9e4595a75480942">string.replace_all(s,regex,replacement)</p>
+</td>
+<td colwidth="[218]" nodeId="21d832fff4274d36a080fadd7ad62de7">
+<p nodeId="b7e34a348db24efaa8c57f486e08e056">Java 里的 String.replaceAll 方法 , 2.1.1 新增</p>
+</td>
+</tr>
+</table>
+<h2 nodeId="d5c58a3f363a4343a81f3d35b3c4690f">系统方法</h2>
+<table responsive="false" nodeId="e7ac18d7c5234c878aba5935da955671">
+<tr nodeId="56b0c6bd8cc547dea49865076e1fcb7b">
+<th colwidth="[218]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="1061124302854142a5d6c13f52cf9a28">
+<p nodeId="509e90119d4b4bc8b17df6924ee12e9c"><strong>类型</strong></p>
+</th>
+<th colwidth="[218]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="59cec95d553f44279e526fe25447a8e5">
+<p nodeId="3d3cde4275fa47bc8daa21fbda4d7cea"><strong>函数名称</strong></p>
+</th>
+<th colwidth="[218]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="b2a19488a1a245aaae372e0d5c215d6b">
+<p nodeId="36b3c4c6573840a3aee155d1a5593893"><strong>说明</strong></p>
+</th>
+</tr>
+<tr nodeId="e68c39d7c7ac431ba92e2a812de24359">
+<td colwidth="[218]" nodeId="4aae3448e9f5482eb2d03535b5d406b1">
+<p nodeId="538a164f0a2f4dcd8f519996ae54e2d4">【系统方法</p>
+</td>
+<td colwidth="[218]" nodeId="67ac997417ac44d1b8f4b6e97faa1355">
+<p nodeId="2bca744b55db4ac299d07635b73fa96c">==</p>
+</td>
+<td colwidth="[218]" nodeId="893e36a6a5764c8eb944666a75c9a6ea">
+<p nodeId="65ae06b08a4a449a9935bc73da734d49">判断输入规则引擎的两个变量内容是否相等，比如：A==B，判断的就是 A 和 B 的变量内容是否相同。这里和 JAVA 不同，不是判断的是内容而不是内存</p>
+</td>
+</tr>
+<tr nodeId="0a75b1249cc2415d8b3ad1e905722da5">
+<td colwidth="[218]" nodeId="86939dde414149619907438433da2928">
+<p nodeId="b82c1cc71c4d417b8e2ea19b34537f39">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="6014fb9f242c4e5d9deec641c962c413">
+<p nodeId="36beb276ae7f4f2b8d78abafa8dfec0c">assert(predicate, [msg])</p>
+</td>
+<td colwidth="[218]" nodeId="de2f91dd28dc41c28722408f694a6bfa">
+<p nodeId="004ded0921ff43c0a08cf8b40e75cb46">断言函数，当 predicate 的结果为 false 的时候抛出 AssertFailed 异常， msg 错误信息可选。</p>
+</td>
+</tr>
+<tr nodeId="b6432ccb8337401ba69fbe87c9badce3">
+<td colwidth="[218]" nodeId="7ed80bb9155e465aa58e2b2b5e025160">
+<p nodeId="d3cac235ea5a4b02ad6ede5be92e2148">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="60d73330664c4b0fa4976d076f7ce0d7">
+<p nodeId="4ac4a9fbed4c44959a86a80b7c60d899">sysdate()</p>
+</td>
+<td colwidth="[218]" nodeId="4ce6cc45bacc4ed1a7aaa6fcd8d53be6">
+<p nodeId="1eb9c01439eb483782791f177368a964">返回当前日期对象 java.util.Date</p>
+</td>
+</tr>
+<tr nodeId="46c90b1c6c46403f9fb27e29db3ca48e">
+<td colwidth="[218]" nodeId="ca6d5eff001f4a908e5dd479315102e0">
+<p nodeId="043f4440b4124c0985268a33f0fa049c">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="2efdedeaabc54935892aa81958757e8f">
+<p nodeId="0e6661c042eb441292a8a7ed5b865489">rand()</p>
+</td>
+<td colwidth="[218]" nodeId="b18ed63b6d8741f9a875e50b3f7e73bf">
+<p nodeId="77177c061ca540e18a9f1650e884baf3">返回一个介于 [0, 1) 的随机数，结果为 double 类型</p>
+</td>
+</tr>
+<tr nodeId="ee1f142e4e994d7bb6006fade68ac87f">
+<td colwidth="[218]" nodeId="4abf5d98116d47b2a44475c7fa029d62">
+<p nodeId="e09cf572eaaf46ddb0bbf7a406ccd7d0">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="e809f3a5fa0246e693674867704d31fd">
+<p nodeId="226ff7fd364149289d01dcbbaf4314c4">rand(n)</p>
+</td>
+<td colwidth="[218]" nodeId="59fa1522bb794e69854bba549ed0e9c8">
+<p nodeId="750cb5f0791942d8ad680e1cd205a918">返回一个介于 [0, n) 的随机数，结果为 long 类型</p>
+</td>
+</tr>
+<tr nodeId="94f243d7fdd644ffa68030be3ea60cca">
+<td colwidth="[218]" nodeId="e8f5f2ed287946cd85d6c8a1c3c14583">
+<p nodeId="1256df83ae32417da0f759462afe1a60">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="b97d350c8aa749dda38a87dd6cbaa359">
+<p nodeId="2b09b484537b49cdbf0aa6b4a734fa9d">cmp(x, y)</p>
+</td>
+<td colwidth="[218]" nodeId="5449ca137ed3476999cb4982e8eaf24d">
+<p nodeId="347d046e98344cc38da8b535c96892dc">比较 x 和 y 大小，返回整数，0 表示相等， 1 表达式 x &gt; y，负数则 x &lt; y。</p>
+</td>
+</tr>
+<tr nodeId="0742183c99f647039680df6b0b6b44d5">
+<td colwidth="[218]" nodeId="b141cd70478b4c67944d77c191472e32">
+<p nodeId="06e06045470647419d045ee7859049f1">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="47848d0a3f7e4b52a035845560476f36">
+<p nodeId="d58e21951c334c7690674b7e929e7147">print([out],obj)</p>
+</td>
+<td colwidth="[218]" nodeId="372281d4a2e34c67b4f288da0d214dce">
+<p nodeId="d043bc29899948328a01e1f0c5b9c322">打印对象,如果指定 out 输出流，向 out 打印， 默认输出到标准输出</p>
+</td>
+</tr>
+<tr nodeId="2afd2cc56ef0408cbc60974581dfb98a">
+<td colwidth="[218]" nodeId="4e6dce0959cd4656bbbe0943efb34519">
+<p nodeId="c67855d0ce8042aba7c45d9eb3f4dcb7">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="77ae6ee4aa4c4f0c91c31d7493ba0922">
+<p nodeId="5aa192b44eb14deb9bfe8e2251caf94f">println([out],obj)或者p([out], obj)</p>
+</td>
+<td colwidth="[218]" nodeId="5a3dbcd707934cb99580fe5b01726bae">
+<p nodeId="6741d9c31f624a469a18298a9df5e7a3">与 print 类似,但是在输出后换行</p>
+</td>
+</tr>
+<tr nodeId="b211e0e6ca07436f8ec77911e71235d1">
+<td colwidth="[218]" nodeId="77069d568c95449aa8104e1de0508b48">
+<p nodeId="564c019e34c445388db44f2783593349">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="f6d24dd4c67f46e283d13a8b276c27d1">
+<p nodeId="f13b9625892845ac84688dc61141c300">pst([out], e);</p>
+</td>
+<td colwidth="[218]" nodeId="c7941897652f4bac899eaa6753fedeca">
+<p nodeId="1bd20d6c8f31483d98fd39830c4087f6">等价于 e.printStackTrace()，打印异常堆栈，out 是可选的输出流，默认是标准错误输出</p>
+</td>
+</tr>
+<tr nodeId="4568b61cf7934b3b97afd10c725b0464">
+<td colwidth="[218]" nodeId="050e8875966f4986b4e35bbd6d029a04">
+<p nodeId="a78a3193276c4517a94276457b4cbb98">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="8b79d0a54e62459abd8d5074cb4a7d99">
+<p nodeId="8cd251f4d8f2437a9dbf47fe8009203b">now()</p>
+</td>
+<td colwidth="[218]" nodeId="feb7c417a2884bb48e544d522c266f77">
+<p nodeId="5c5b232fa310424b923ce99105d8f678">返回 System.currentTimeMillis() 调用值</p>
+</td>
+</tr>
+<tr nodeId="37473a6e69464a8692af524ad69820d9">
+<td colwidth="[218]" nodeId="9587a540e7c14e05ba5afbbc89bf4bd0">
+<p nodeId="b18fcbb8482d4ade8e9be94dd4acef56">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="cebedc90a6de46ceb5f006ec7af75358">
+<p nodeId="514328fd350f44b6be9ea29c26626392">long(v)</p>
+</td>
+<td colwidth="[218]" nodeId="3757cf395b214abb984c7c06dd0bf6d5">
+<p nodeId="ae7cc74c4c81406f9596780acbfcdd50">将值转为 long 类型</p>
+</td>
+</tr>
+<tr nodeId="0852e0891f3242dd8dcd39061b6599dd">
+<td colwidth="[218]" nodeId="cea0f4a3ddfe4751a69cd7cb8040cc66">
+<p nodeId="fad76b84a46044b096b6630eb6ab3d70">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="ff54d50acf2d4ed9853d4701c6ce58e7">
+<p nodeId="3163c595975042579d3fc27cf48fd5ab">double(v)</p>
+</td>
+<td colwidth="[218]" nodeId="0ed1c0047d144141a44d047cbf39bf2f">
+<p nodeId="d3d3465e55134eb1ae914273e3778222">将值转为 double 类型</p>
+</td>
+</tr>
+<tr nodeId="2b5b0bf5b7f145d29292e6ec9d541457">
+<td colwidth="[218]" nodeId="277552c1db0a4ad18360879a0acc8f9d">
+<p nodeId="43eb69032f7f479c93100bc4bd125a9a">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="a79396b1dfb541cab111eb8b95cb0011">
+<p nodeId="51353845e4664cc48a23fc18a8ee79ac">boolean(v)</p>
+</td>
+<td colwidth="[218]" nodeId="d5e74e7191b946b885a2409843cc75f0">
+<p nodeId="ab3c1fa046aa411b8dc906a6b47667d8">将值的类型转为 boolean，除了 nil 和 false，其他都值都将转为布尔值 true。</p>
+</td>
+</tr>
+<tr nodeId="dc1fe144c50e4420ad74cc3c6dda2bf0">
+<td colwidth="[218]" nodeId="6659ed64ae4b414d91d93698a2150259">
+<p nodeId="661348d11cd840cf89024dd042a582a2">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="ba2cf34f14934614967c08a682a21752">
+<p nodeId="aab7a9404f4e48a8bff0d0c8fe8231eb">str(v)</p>
+</td>
+<td colwidth="[218]" nodeId="ab66bd0d73134dc4a24ad45b7c845643">
+<p nodeId="dd860b50c05644b0af3114ee8c7f5d04">将值转为 string 类型，如果是 nil（或者 java null），会转成字符串 'null'</p>
+</td>
+</tr>
+<tr nodeId="34c434dc41434c1e952084724ce2534e">
+<td colwidth="[218]" nodeId="c344179af93e44409632c365524ef90f">
+<p nodeId="31147db4affc4e9fa1645f98ebeb78bf">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="858ff18927c14a9b8ad1c6c7f77f0bbd">
+<p nodeId="46171d36efde49aa8220a3372162fe7e">bigint(x)</p>
+</td>
+<td colwidth="[218]" nodeId="a5d3cb9db20f4b0d9cefdd2e7f0c7d0b">
+<p nodeId="a3cebfb13df8421d81ef0f7fa1942727">将值转为 bigint 类型</p>
+</td>
+</tr>
+<tr nodeId="80e9f2b335724ff6a108eec419939a00">
+<td colwidth="[218]" nodeId="306426989fa64f6c988085b5c0433b8d">
+<p nodeId="d1cdd2f52a72456a8a5f855404217751">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="aac6923e9fe74efbb88dbac5ddb6f61d">
+<p nodeId="9cf5e23338d3445181980f55bb8c7f47">decimal(x)</p>
+</td>
+<td colwidth="[218]" nodeId="352338189eba4704af407c407cd33432">
+<p nodeId="5d05bbb514f34c219ab5269ffa40f412">将值转为 decimal 类型</p>
+</td>
+</tr>
+<tr nodeId="9b8576d1cbf44ac88bbc2f821aa7a34c">
+<td colwidth="[218]" nodeId="66eba21780234e479e6d30d48790b929">
+<p nodeId="75922cb0052b4d2a99982098f2955837">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="97a80d38dd9c45799a949acae86f6ed6">
+<p nodeId="efb852d52cf844a4bde16b2ba564fdcd">identity(v)</p>
+</td>
+<td colwidth="[218]" nodeId="147beddd1e3f48eb90940511f8963cae">
+<p nodeId="45a5892694144be1a23ecbef453f465e">返回参数 v 自身，用于跟 seq 库的高阶函数配合使用。</p>
+</td>
+</tr>
+<tr nodeId="29962cf9fab246a989d357d0a3db1086">
+<td colwidth="[218]" nodeId="ad9e8a2978b64d008f9855c0701d1571">
+<p nodeId="034c20799f874e83a568bac9817efd64">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="c8ca113e7b22456397bda95b2791bbed">
+<p nodeId="256a7b07f1a946b58e30a83525a0ffcb">type(x)</p>
+</td>
+<td colwidth="[218]" nodeId="c46df08a99d94823a63add5c2661f404">
+<p nodeId="81b1a48a82b5426686a8bdd71e68cb42">返回参数 x 的类型，结果为字符串，如 string, long, double, bigint, decimal, function 等。Java 类则返回完整类名。</p>
+</td>
+</tr>
+<tr nodeId="878e3de08b3749909f26a421546d5762">
+<td colwidth="[218]" nodeId="d7609dd6ed2144249f013143445b679b">
+<p nodeId="7a0552ec8dcf4198a7e6b1bf68eda342">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="cae743944b9e49f7b5c24127a4ad5249">
+<p nodeId="b672e7ab65c74ffc8ba694226890867c">is_a(x, class)</p>
+</td>
+<td colwidth="[218]" nodeId="67b2c41daa24480cb4e9866633c54cf3">
+<p nodeId="b25d4282cc50447a821121a5c1177ace">当 x 是类 class 的一个实例的时候，返回 true，例如 is_a("a", String) ，class 是类名。</p>
+</td>
+</tr>
+<tr nodeId="554aa67e37b44f2fbed03f8cf1f6bc96">
+<td colwidth="[218]" nodeId="f2cbdbe9faa7402f9b7b59b839cdd6a1">
+<p nodeId="bca9fac7f4ae429ba40240a0851de180">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="e83de81d9afb45f1afc064a6944c7197">
+<p nodeId="dc23e3a810614d98811ddbcb7cafdcb8">is_def(x)</p>
+</td>
+<td colwidth="[218]" nodeId="2b5e9e4b7a374f43a032b949b21d53ea">
+<p nodeId="d12b50e927c24ff6bbaadc3ab218481a">返回变量 x 是否已定义（包括定义为 nil），结果为布尔值</p>
+</td>
+</tr>
+<tr nodeId="9a77c6f6bf24453ebba1cba309bd9a8c">
+<td colwidth="[218]" nodeId="72048dcdfd544d95aa507f0c3c748f4f">
+<p nodeId="a347d69ceaf84af6b2b9369c5bfdde83">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="c383554cb37d4de5b5b663abf66593f2">
+<p nodeId="ba02e498824340a3a1fbd43848609a11">undef(x)</p>
+</td>
+<td colwidth="[218]" nodeId="f0c03bfd85e14a45a1834e80aa36062f">
+<p nodeId="9690022127264da4a56b78cdb961afdd">“遗忘”变量 x，如果变量 x 已经定义，将取消定义。</p>
+</td>
+</tr>
+<tr nodeId="88912c37dc0c455ca1d107537fa77414">
+<td colwidth="[218]" nodeId="645e8785044848ab8389f0123aaddd1d">
+<p nodeId="f29821fc4dd14c8c84df2837786c4fd4">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="a9f9c1da524b455fbd3a3026e81a3e45">
+<p nodeId="f83668b1097a46079559f2096b8c4c6d">range(start, end, [step])</p>
+</td>
+<td colwidth="[218]" nodeId="b1d62a3ac5294342a4484ac08b7d80ce">
+<p nodeId="60c344d23c9348f88a6527ceab97209d">创建一个范围，start 到 end 之间的整数范围，不包括 end， step 指定递增或者递减步幅。</p>
+</td>
+</tr>
+<tr nodeId="879bb771386d428092e262e7b127474b">
+<td colwidth="[218]" nodeId="d3cb0065e5ee4109bdfad45c9b83a7fb">
+<p nodeId="00778d2be06843fb8ffd761ac3068947">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="e3556aaba37b4445b36d535cb714bfc2">
+<p nodeId="5341acc8da924c7f83e8d52387dd53e7">tuple(x1, x2, ...)</p>
+</td>
+<td colwidth="[218]" nodeId="db87b13306f54e949e5136bb4b830404">
+<p nodeId="3092a332d91843b68479e70f0a0ed952">创建一个 Object 数组，元素即为传入的参数列表。</p>
+</td>
+</tr>
+<tr nodeId="a46ee66bb1624fadbee38cf1cbd712e2">
+<td colwidth="[218]" nodeId="c0c9d2ad285941c58cf60c0ff964705e">
+<p nodeId="58551fa75f024e7bbb68237f88c6b240">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="d91b51737ab04f71b1fb42c25f041df6">
+<p nodeId="6a9f2624f2384883b46852c25cb18265">eval(script, [bindings], [cached])</p>
+</td>
+<td colwidth="[218]" nodeId="e05f4f5f09b34a00ae8124bb65cb33aa">
+<p nodeId="9390746df38348dca44120754e6f1b1f">对一段脚本文本 script 进行求值，等价于 AviatorEvaluator.execute(script, env, cached)</p>
+</td>
+</tr>
+<tr nodeId="9904f7e4b9a3476ebb4bfcc634fa7c2d">
+<td colwidth="[218]" nodeId="50bed6cecc5048acad7c5982c6e401e0">
+<p nodeId="cd37e74e93f544ae8a101b68d8f9d7ce">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="1f135ba3805c4b67b801d719b67098d1">
+<p nodeId="03250c28dc7945fca80cd50416763ea0">comparator(pred)</p>
+</td>
+<td colwidth="[218]" nodeId="28a814c45cfc49539819503c841074a0">
+<p nodeId="069f0034221b46049052b04e724441aa">将一个谓词（返回布尔值）转化为 java.util.Comparator 对象，通常用于 sort 函数。</p>
+</td>
+</tr>
+<tr nodeId="cbb5049a83034fc69952d69302d354d8">
+<td colwidth="[218]" nodeId="506f02c0ff6c437f8d2f5d0b1e048ac7">
+<p nodeId="8e25e3878a384de69451ef98e12cdaba">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="1dba68211a8440418027f9fbebcdf9bf">
+<p nodeId="9473959f28a4436184ca1b789a56495a">max(x1, x2, x3, ...)</p>
+</td>
+<td colwidth="[218]" nodeId="0750c28262fc43718dd84b6045569bbe">
+<p nodeId="5d63759753c448608515e19995660d18">取所有参数中的最大值，比较规则遵循逻辑运算符规则。</p>
+</td>
+</tr>
+<tr nodeId="9363489312884ccd9024fa8895208252">
+<td colwidth="[218]" nodeId="e57567b59422447cb7928ac7477be763">
+<p nodeId="9f71c15988204ee6b34ff4cefe1df4dd">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="345a52c5c42a4af89364595d7e798db1">
+<p nodeId="26c096580cdb4b7cb61364fcebe208a9">min(x1, x2, x3, ...)</p>
+</td>
+<td colwidth="[218]" nodeId="b1d78cef19684fa1a2968b6a5741a166">
+<p nodeId="962e992b0db2402ba066164a97f64cd5">取所有参数中的最小值，比较规则遵循逻辑运算符规则。</p>
+</td>
+</tr>
+<tr nodeId="1d6ab8508d40497b9dfb7886750d31c5">
+<td colwidth="[218]" nodeId="c526693c03754c77a9ca6163a5efbb54">
+<p nodeId="76872f29996c4f9b923ea71331fd64ef">【系统函数</p>
+</td>
+<td colwidth="[218]" nodeId="f0271fde31104386aee4d4951c2bee13">
+<p nodeId="82e319e94874474bb2c6e90d32887b50">constantly(x)</p>
+</td>
+<td colwidth="[218]" nodeId="05c13d2f17144e29975967db643c1a5c">
+<p nodeId="67fe4f0a622a471c9552ea84865103cf">用于生成一个函数，它对任意（个数）参数的调用结果 x。</p>
+</td>
+</tr>
+<tr nodeId="bc75fd5c99b545c9b5bf79e2fa83c705">
+<td colwidth="[218]" nodeId="b75e19d927c048e3bea763575b52f3fe">
+<p nodeId="5e80f9aef1f54cdc9864663d07d668e0">模块加载</p>
+</td>
+<td colwidth="[218]" nodeId="bfae7039e900401cb1762a160d067c1e">
+<p nodeId="83a940d3fcb64737928e5220369aa144">load(path)</p>
+</td>
+<td colwidth="[218]" nodeId="14a575d0153d4a92bdc7c1f43576015d">
+<p nodeId="38ce761fb8a44af78a84dc0c0218dcd3">加载 path 路径指定的模块，每次都将重新编译该模块文件并返回 exports</p>
+</td>
+</tr>
+<tr nodeId="e1f6e9a3f6df4ee090954234a7737331">
+<td colwidth="[218]" nodeId="8cc3019c7f9940479b5ce60ec23fd915">
+<p nodeId="5311b776676e43788257af28a5745031">模块加载</p>
+</td>
+<td colwidth="[218]" nodeId="ab74ac06ecf8432397fda165d2cf9687">
+<p nodeId="fc0b3d6086a34e439f4a419af55c2a0b">require(path)</p>
+</td>
+<td colwidth="[218]" nodeId="a482f374eb1b45cdb7afdad4bfecf9a5">
+<p nodeId="f313e8535fac41cd9d9b7ec8c5b04d2c">加载 path 路径指定的模块，如果已经有缓存，将直接返回结果，否则将编译并缓存 exports</p>
+</td>
+</tr>
+</table>
+<h2 align="start" nodeId="42676b14c4f644c593627bf1e1b237b6">基础数据类型</h2>
+<p align="start" nodeId="c6c7622d36404ed9a3f37da9a5100f7c">Google Aviator 表达式引擎是基于 JVM 去工作，所以语法和 JAVA 是高度相似的，但是又基于 JAVA 进行了精简，现在我们先了解一下Aviator 表达式引擎所支持的数据类型：数字型（整数和浮点数）、字符串型。</p>
+<p align="start" nodeId="9dfddba0a407487f987034d4d0e47c2d">通过 type(x) 可以判断数据类型是什么。</p>
+<h3 align="start" nodeId="beaec7253eee48c19bf006776ba30a9f">数字型-整数-Long 类型：</h3>
+<ul nodeId="dd7b4c1196b94132ac2dd0e1af26f1c5">
+<li nodeId="b0ed89cbf3844a358f3adc432d1cda72">AviatorScript 中并没有 byte/short/int 等类型，统一整数类型都为 long，支持的范围也跟 java 语言一样：-9223372036854774808~9223372036854774807。</li>
+<li nodeId="8c8783591c3d4373889bea4ebbfddbe7">支持的加减乘除四则运算，需要注意，整数相除的结果仍然是整数，比如例子中的 a/b 结果就是 0，遵循 java 的整数运算规则。通常来说，复杂的算术表达式，从代码可读性和稳健角度，都推荐使用括号来强制指定优先级。</li>
+</ul>
+<h3 align="start" nodeId="bdaa3411ff7a4510b813e9a4ae88f8c7">数字型-整数-大整数（BigInt）：</h3>
+<ul nodeId="934ceb2a625d40d2ba84badc3ec474a7">
+<li nodeId="29167e8baaa54522a52b4999d5febe60">任何超过 long 范围的整数字面量，会自动提升为 BigInteger 对象（以下简称 BigInt)，任何数字以 N 字母结尾就自动变 BigInt</li>
+<li nodeId="36e31ab6879a4ca8a80536e98f26bd01">请注意，默认的 long 类型在计算后如果超过范围溢出后，不会自动提升为 BigInt，但是 BigInt 和 long 一起参与算术运算的时候，结果为 BigInt 类型。关于类型转换的规则，我们后面再详细介绍。</li>
+</ul>
+<h3 align="start" nodeId="74a6141db25d45009f121161c6141543">数字型-浮点数-double</h3>
+<ul nodeId="613972a0e0ba4070b174991108ccccda">
+<li nodeId="2133d2a0cb734198a29f34c3d42ae0ae">
+<p nodeId="e3309ad408ef48f69f4add2b754050d2">数字除了整数之外，AviatorScript 同样支持浮点数，但是仅支持 double 类型，也就是双精度 64 位，符合 <a href="https://zhida.zhihu.com/search?content_id=233614780&amp;content_type=Article&amp;match_order=1&amp;q=IEEE754&amp;zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3NDU5MTQ4MjAsInEiOiJJRUVFNzU0IiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjMzNjE0NzgwLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ._CzEh2tcjkNV317mnZxlu7wxYg139kOzDuu0mdwgDss&amp;zhida_source=entity" title="IEEE754" nodeId="827a04d61d1a4c7d8e718161f1f27f5c">IEEE754</a> 规范的浮点数。传入的 java float 也将转换为 double 类型。所有的浮点数都被认为是 double 类型。浮点数的表示形式有两种：</p>
+<ul nodeId="c765293ca8b343c1bdb60158c0703d44">
+<li nodeId="4adff569e79f401a84b5248f9d3348ef">十进制的带小数点的数字，比如 1.34159265 ， 0.33333 等等。</li>
+<li nodeId="bcae086cb5dd4eccacb78283430deefd">科学计数法表示，如 1e-2 ， 2E3 等等，大小写字母 e 皆可。</li>
+</ul>
+</li>
+</ul>
+<p align="start" nodeId="24cfc03523494db88250dd9cca28025e"><br /></p>
+<ul nodeId="414fc0c7a22946158f5a5d28e7cec42a">
+<li nodeId="dd1fce3da2064e48936d0fc1e879dde7">浮点数的运算符跟整数一样，同样支持加减乘除，优先级也是一样。浮点数和浮点数的算术运算结果为浮点数，浮点数和整数的运算结果仍然为浮点数。</li>
+</ul>
+<h3 align="start" nodeId="812b9311088d45d7949d755674f40e01">数字型-高精度浮点数-Decimal</h3>
+<ul nodeId="77e9e59362a945ce9fb02cea37ae19d7">
+<li nodeId="501b8dbd266e4a90b745604b4214fc02">计算货币之类还是建议用整数类型存储分单位的数值，直接避免到出现误差的可能性</li>
+<li nodeId="1e14ebf02e83485b90f85b9f61a680e9">浮点数是无法用于需要精确运算的场景，比如货币运算或者物理公式运算等，这种情况下如果在 Java 里一般推荐使用 BigDecimal 类型，调用它的 add/sub 等方法来做算术运算。</li>
+<li nodeId="1edcf0fb676247248a94b5a1929f1689">AviatorScript 将 BigDecimal 作为基本类型来支持（下文简称 decimal 类型），只要浮点数以 M 结尾就会识别类型为 deicmal，例如 1.34M 、 0.333M 或者科学计数法 2e-3M 等等。</li>
+<li nodeId="6368c601dcee41deb526f987fc334149">decimal 同样使用 +,-,*,/ 来做算术运算， AviatorScript 重载了这些运算符的方法，自动转成 BigDecimal 类的各种运算方法。</li>
+<li nodeId="1ebab33d8eef4eb68eff200fbf86ab90">除了 double 以外的数字类型和 decimal 一起运算，结果为 decimal。任何有 double 参与的运算，结果都为 double。<br /><strong>数字型-数字类型转换</strong></li>
+<li nodeId="96e96b95187a428290ab28c07300d7c7">数字类型在运算的时候，会遵循一定的类型转换规则：</li>
+</ul>
+<ol nodeId="23e798c1b7a0426abbb2a8c181ea3d44">
+<li nodeId="a26e2c9a5b7e4f1986212792b9cb41ee">单一类型参与的运算，结果仍然为该类型，比如整数和整数相除仍然是整数，double 和 double 运算结果还是 double。</li>
+<li nodeId="5e1a047373454a438c7271f3214d6b54">多种类型参与的运算，按照下列顺序： long -&gt; bigint -&gt; decimal -&gt; double 自动提升，比如 long 和 bigint 运算结果为 bigint， long 和 decimal 运算结果为 decimal，任何类型和 double 一起运算结果为 double</li>
+</ol>
+<p align="start" nodeId="7fd8febc22da404a9167ed317d4418fb"><br /></p>
+<ul nodeId="efb1dc04ebf24f6ea7485b7fe162f153">
+<li nodeId="06d84214c0914efbb88d35c0d0fe89f5">你可以通过 long(x) 将一个数字强制转化为 long，这个过程中可能丢失精度，也可以用 double(x) 将一个数字强转为 double 类型。<br /><strong>字符串型-数字类型转换</strong></li>
+<li nodeId="6a1f55b11e7f4a209c5fdc37904cfabc">在任何语言中，字符串都是最基本的类型，比如 java 里就是 String 类型。AviatorScript 中同样支持字符串，只要以单引号或者双引号括起来的连续字符就是一个完整的字符串对象，例如：</li>
+</ul>
+<ol nodeId="d4e4f55f080743cd90707ce929574b01">
+<li nodeId="fc8a6a9b587e4f2ea04b3f351dceed07">"hello world"</li>
+<li nodeId="0467dd2329ad4dceb8231eec465d585d">'hello world'</li>
+<li nodeId="e664f1509adc47a9ac7b7d97d6d1eac4">"a" 或者 'a'</li>
+</ol>
+<p align="start" nodeId="dda792dc63ae418a8713a9c142d06135"><br /></p>
+<ul nodeId="52ca3d3d81ec42f895e59d6c7dcaeb33">
+<li nodeId="8c126c2de19142baa3b453308bb96aa9">字符串的长度可以通过 string.length 函数获取</li>
+<li nodeId="f4120749890b4cae8c10846ec26bdaa8">字符串拼接可以用 `+` 号（这又是一个运算符重载）</li>
+</ul>
+<p align="start" nodeId="aaa2c493425d4b7983ac7f5fa2f7f0e1"><br /></p>
+<h2 align="start" nodeId="f8642171955d4484bfa7795a146a8072">正则表达式</h2>
+<p align="start" nodeId="d66d077b470d475995452866a3dab148">正则表达式使用符号：=~</p>
+<p align="start" nodeId="6d7daec1be5d44f4a7c5bc1d04e0480d">参考代码：</p>
+<p align="start" nodeId="156f8f65cfb1457e92b897e2d77a1194">public class RegularExpressionExample {</p>
+<p align="start" nodeId="906edb23a81b4be1abf290975ea65013">public static void main(String[] args) {</p>
+<p align="start" nodeId="080e267e9d3f4ea7945624191dafcf15">String email = "<a href="mailto:killme2008@gmail.com" title="killme2008@gmail.com" nodeId="b6aa284563a7450a89d04214eec9d589">killme2008@gmail.com</a>";</p>
+<p align="start" nodeId="953fb4c73be04c268183dd13cb67d16c">Map env = new HashMap();</p>
+<p align="start" nodeId="2f47469acf564be0ba7050a226309f35">env.put("email", email);</p>
+<p align="start" nodeId="cf7356e44b3148ddbc1fd9fa07e11768">String username = (String) AviatorEvaluator.execute("email=~/([\w0-8]+)@\w+[\.\w+]+/ ? $1:'unknow'", env);</p>
+<p align="start" nodeId="9644bdc17c3b4aa5ad9489320767e67e">System.out.println(username);</p>
+<p align="start" nodeId="cbcbab03ce48402b87feb859734c4745">}</p>
+<p align="start" nodeId="a3aa98f365344f16a8f86389e47653a4">}</p>
+<h2 align="start" nodeId="c512dd52ca5e4ddc92c4b49cff6d733d">运算符</h2>
+<h3 align="start" nodeId="7e285c11ae2e472dbf90e44a1772fc88">幂运算</h3>
+<p align="start" nodeId="e69c477a1d6649c5ace677ec1b930932">从 5.1.3 开始，AviatorScript 引入幂运算符 ** ，原来使用 math.pow(a, b) 的代码都可以写成 a**b ，幂运算符的优先级较高，在单目运算符之上。幂运算的基本规则是：</p>
+<ol nodeId="96974f660fff4d48b9ab135eba2c70c6">
+<li nodeId="dd395159017248b6996ab24fce81f27a">基数和指数都为 long ，并且指数为正数，结果为 long</li>
+<li nodeId="95a7720315274f9a87ec1324939ee709">基数和指数都为 long，并且指数为负数，结果为 double</li>
+<li nodeId="4be1ff45a4bb41b780a8e89ee06f6539">基数为 decimal，指数取整数部分(int value)，等价于 BigDecimal#pow(int) 。</li>
+<li nodeId="3309d9fd1be44b6aa0085b02a0a8cf90">基数为 bigint，指数取整数部分(int value)，等价于 BigInteger#pow(int) 。</li>
+<li nodeId="b06ea9e704814c1ea791350db8fceff3">基数或者指数任一为 double，结果为 double</li>
+</ol>
+<h3 align="start" nodeId="38c344985d2449ef9dab78b0170a57bb">位运算</h3>
+<p align="start" nodeId="8674be2dee834d1eb90e4e3685dfcf81">我们还没有介绍的是数字的位运算，位运算仅支持整数 long，跟 Java 保持一致：</p>
+<ul nodeId="39c17ae6bb59464eb8b4cde069e2db9b">
+<li nodeId="85ced4e5f07c409d9b461d49df96cdad">&amp; 位与运算</li>
+<li nodeId="6f1aa1a9d6a24df291b4b5db8b9ac648">| 或运算</li>
+<li nodeId="a7cc22b9ec024d45b4eb22d4586aaf24">^ 异或运算</li>
+<li nodeId="024cec67c55e419887cfea00d31f9945">~ 一元非运算</li>
+<li nodeId="c42e6049555540cea22422393f5279a3">&lt;&lt; 左移运算</li>
+<li nodeId="1464f157171548208d1cc73f38504873">&gt;&gt; 右移运算</li>
+<li nodeId="69b77ecb0e4b4cf484032387455eb060">&gt;&gt;&gt; 无符号右移</li>
+</ul>
+<h3 align="start" nodeId="f0af58160f82489286e1c3e69fd79135">运算符优先级</h3>
+<p align="start" nodeId="158307505087479785e5a0fd50ebee6e">完整的运算符优先级的优先顺序如下表，基本跟 java 保持一致，除了特别引入的正则匹配（记住这个优先级没有太大必要，推荐任何情况都使用括号来明确优先级）：</p>
+<table responsive="false" nodeId="b3aa52d718864eff9d490adbc7b19a54">
+<tr nodeId="5963843f02f2422b8c8a409e94d0dac6">
+<th colwidth="[163]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="5848d873eeea4527a2972cb5f613017a">
+<p nodeId="b3b7f47a87774446a25d1cf77c1c6317"><strong>优先级</strong></p>
+</th>
+<th colwidth="[163]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="696bb181304a4b8e900e3d78a0b2b51e">
+<p nodeId="5a3a5fef171c4fb08c2eef83cb4de362"><strong>运算符</strong></p>
+</th>
+<th colwidth="[163]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="aaaf4b6d5e054eaf946455b4ab77238a">
+<p nodeId="1b4a99821e0b456588fa6e49790148cd"><strong>结合性</strong></p>
+</th>
+<th colwidth="[163]" bgColor="rgb(235, 236, 237)" color="rgb(25, 27, 31)" nodeId="08a029fe5a12486785bd6c2ce009edb3">
+<p nodeId="c8e643ba7c084c10855fd11374c84e10"><strong>备注</strong></p>
+</th>
+</tr>
+<tr nodeId="1d3d6bc089354de989c33fb14e1a5464">
+<td colwidth="[163]" nodeId="0ae3e3b498fc450b8a56559ac2335a2e">
+<p nodeId="a8db6d90f5a44f9eb70937896bf0de48">1</p>
+</td>
+<td colwidth="[163]" nodeId="04850893691c4ea99e9e48781878fda0">
+<p nodeId="fbcb810bc5a848328d7e6990a0121681">( ) [ ] .</p>
+</td>
+<td colwidth="[163]" nodeId="95b381253c8d4e138929a3bf760c5de2">
+<p nodeId="287d8d80b2504bb7880951251ea42c07">从左到右</p>
+</td>
+<td colwidth="[163]" nodeId="0f546ba240ff4dd0b8a58ab424eb2c54">
+<p nodeId="7a46ebb4bbcb44a08dec88bb11402f59">括号，数组，小数点</p>
+</td>
+</tr>
+<tr nodeId="359d8e7ccf8d42dab0865693a2b0e9ca">
+<td colwidth="[163]" nodeId="3d2592853ffb423181e0ce9f676b96b8">
+<p nodeId="255ac5dda2844cbfba2396cbf103c1e5">2</p>
+</td>
+<td colwidth="[163]" nodeId="4b7a66f5624a4a5ebbdd61a3bd834479">
+<p nodeId="7007555b1aa143de9e8370b1d88f965c">**</p>
+</td>
+<td colwidth="[163]" nodeId="abac2c0947a34b38abef363758227bed">
+<p nodeId="17dc70df8d50450bafc45c81e33a1c7e">从左到右</p>
+</td>
+<td colwidth="[163]" nodeId="77ab991a573e4a668087a9e1db0ebb96">
+<p nodeId="92b8ec34784844a684f66e57bf4fb4ef" />
+</td>
+</tr>
+<tr nodeId="68e6f6f9f5924183a5e449cbf76ff6a3">
+<td colwidth="[163]" nodeId="64a04dd088a347fea80ce15e4f0056b5">
+<p nodeId="830a554bcf584c398ad2b6950d9741a0">3</p>
+</td>
+<td colwidth="[163]" nodeId="30104c7ef9094b1ab4e2da930a16c12f">
+<p nodeId="5d133ed426594848b21f324f08ecdbc6">! ~</p>
+</td>
+<td colwidth="[163]" nodeId="5ceb65282ef5408a97a32516856d0145">
+<p nodeId="447b56f0d1f2426794666374f0cb37e8">从右到左</p>
+</td>
+<td colwidth="[163]" nodeId="ecb6c9e73f5b4d3c84ab904c690e9309">
+<p nodeId="387ef8ffca364b748d220b31c67072a5" />
+</td>
+</tr>
+<tr nodeId="b8fc0456f1dc4c0fb8700c2e81c2f045">
+<td colwidth="[163]" nodeId="cdab5210be7a4d518e17633ac07ebe8d">
+<p nodeId="8d15a29145ca40368f84e722d1cce24e">4</p>
+</td>
+<td colwidth="[163]" nodeId="0e88b702f1674cc2a9d08bb5c681b2d5">
+<p nodeId="26523f0ca18748baa3ca6db35e2ca64d">* / %</p>
+</td>
+<td colwidth="[163]" nodeId="8e034a7652824ff6b16fd12f5487f50d">
+<p nodeId="efc390587cb74907b859cd93366628b2">从左到右</p>
+</td>
+<td colwidth="[163]" nodeId="88c1ff8e6d6447a1819fc3a1ba978730">
+<p nodeId="03448c49de62463580c34d6760ef5f3d" />
+</td>
+</tr>
+<tr nodeId="f56fef9ba7404aa38f4b9b6294dda6c0">
+<td colwidth="[163]" nodeId="9cc3cd50e50f482595abeda5ec3c4767">
+<p nodeId="fa31efc000c04780972a259ea13d0fea">5</p>
+</td>
+<td colwidth="[163]" nodeId="429b96b3e4ca4cad8b0c053507698179">
+<p nodeId="f72c78bec07b4780aff9aac05ab7e9d6">+ -</p>
+</td>
+<td colwidth="[163]" nodeId="f04226847ff74a249b4c83dcc61f01fd">
+<p nodeId="92cc377d755346148963c49ef629aa26">从左到右</p>
+</td>
+<td colwidth="[163]" nodeId="9db5918d918c496e89912f0325730f67">
+<p nodeId="de7e2b5c739a4fd79ebde07cc04dc37e" />
+</td>
+</tr>
+<tr nodeId="7d1f1f33a1ee4cb9b728b99315b4dd9a">
+<td colwidth="[163]" nodeId="c13e50922053401e836b37d890d42275">
+<p nodeId="ba1a4d663f0d41168d2166de820f058b">6</p>
+</td>
+<td colwidth="[163]" nodeId="c88867b01c9d4972bbab250961973f5b">
+<p nodeId="f85f368038d84399a1075cd05eaffff8">&lt;&lt; &gt;&gt; &gt;&gt;&gt;</p>
+</td>
+<td colwidth="[163]" nodeId="e968bc6b2b9640b5b1a6a25ed959983d">
+<p nodeId="5b107d57a64a47a48ae7169e0642babb">从左到右</p>
+</td>
+<td colwidth="[163]" nodeId="b55aa84fa1b343de8ce5d6bdfeee4a8c">
+<p nodeId="4438cc8966a74338abf2832f13bb094d" />
+</td>
+</tr>
+<tr nodeId="3c269f48ff1d445fb7b326b3615db924">
+<td colwidth="[163]" nodeId="0776b43f7c794b609e1e9daeb515e95d">
+<p nodeId="ba427796cbde45b287e18bb0bbe9d0bf">7</p>
+</td>
+<td colwidth="[163]" nodeId="5b6ce8a10b3f412e8c96518f0ceffbe9">
+<p nodeId="b64bbd02f5ff486fb3eafc2c371f7652">&lt; &lt;= &gt; &gt;=</p>
+</td>
+<td colwidth="[163]" nodeId="460d89878eb944d19c9d34644cf7cc04">
+<p nodeId="f04bd294c925414b8a938847dda228e4">从左到右</p>
+</td>
+<td colwidth="[163]" nodeId="0a4a2dc4145046ef89f5873a58d40ddc">
+<p nodeId="523d0d7dae7c4cfeb6058a17a8dc3025" />
+</td>
+</tr>
+<tr nodeId="2ba21a9d8ac344c5a1f1332c7be715fe">
+<td colwidth="[163]" nodeId="8cae45bb404d484bada48457af979d15">
+<p nodeId="9172cd4a2e7140618d2ef9f04a02aeb3">8</p>
+</td>
+<td colwidth="[163]" nodeId="5dc45038fddb421a9328d9aa71a08c93">
+<p nodeId="1a413f2968054a4292ec80ec24992cea">== !=</p>
+</td>
+<td colwidth="[163]" nodeId="69112dabc72348efa99e0c4c09e17003">
+<p nodeId="843d6efe14ec43d88781733c785d5291">从左到右</p>
+</td>
+<td colwidth="[163]" nodeId="32246949eb42405a8ac64468e72d5ca6">
+<p nodeId="7ec0113dd83e4b339d9a3e379677df47" />
+</td>
+</tr>
+<tr nodeId="d7c83b5c667140919d62e49679f8e35a">
+<td colwidth="[163]" nodeId="640efe8ad0bf4d9c9996925690e86ff3">
+<p nodeId="7d51aa8c6e95409298c6b47146ccb86d">9</p>
+</td>
+<td colwidth="[163]" nodeId="88f33def47fd4d9ea202e776b81e8ebe">
+<p nodeId="fb0fc1bbde424124b986a933fd46549f">&amp; ｜ ！</p>
+</td>
+<td colwidth="[163]" nodeId="ab2e81c8b05d419b9a300c72832f730f">
+<p nodeId="832d4e9f0501427cb0fd22d4ac3c624f">从左到右</p>
+</td>
+<td colwidth="[163]" nodeId="f16272bdf5d248b8a3053a2bf6822499">
+<p nodeId="e381c789c446484cb9d113cde9af3b00">与或非</p>
+</td>
+</tr>
+<tr nodeId="22f94e67f53a4591b6b964391009cc96">
+<td colwidth="[163]" nodeId="d7c67fbefd0e4a1bad233dfff0896ea3">
+<p nodeId="9fd32cedfa3f4fb18ed2ce0a3f372f47">10</p>
+</td>
+<td colwidth="[163]" nodeId="dace67d43bfa47a09c735ddca140df5c">
+<p nodeId="fd83eeca08334e56896318f538bcdaf0">&amp;&amp;</p>
+</td>
+<td colwidth="[163]" nodeId="1f747da09b444b85b2478fa6c7969286">
+<p nodeId="fad76f274a9e41a4814eded561cbb28f">从左到右</p>
+</td>
+<td colwidth="[163]" nodeId="4b0bf36fa1ec487ca3352fe3de7883f9">
+<p nodeId="984021ad1a9e4b7383a8f2b605ccafd9" />
+</td>
+</tr>
+<tr nodeId="a8e35bd2bfc946be81e9989906a53863">
+<td colwidth="[163]" nodeId="fe51a3e8fd5c4927916e55ac406b3dfe">
+<p nodeId="6e5cdda3a17e4927969e7cc8d9a72855">11</p>
+</td>
+<td colwidth="[163]" nodeId="3965452cab86446d9f21e17d373a4d3a">
+<p nodeId="292a6d8b8a654624932bed3c23ff0772">? :</p>
+</td>
+<td colwidth="[163]" nodeId="0adc3739bdd848a08434e3d3a60bdb91">
+<p nodeId="6a501bcb1300498a98330d57d318af10">从左到右</p>
+</td>
+<td colwidth="[163]" nodeId="8b4e41e4e588473487065e292eac2bb4">
+<p nodeId="208d94448c0347b59fb8061f87b95ad5" />
+</td>
+</tr>
+<tr nodeId="1069fa1185d74bbc98adb79549cd6508">
+<td colwidth="[163]" nodeId="b55e832ce328425ba04db3d8a30e029e">
+<p nodeId="0b9cbc442b3c402e9a3de4f243704f8d">12</p>
+</td>
+<td colwidth="[163]" nodeId="48a3340930e64c58b38ad25b84b99355">
+<p nodeId="9e8f51c181e7407abf586e7b65a32b34">= =~</p>
+</td>
+<td colwidth="[163]" nodeId="0ef0810c4c9f446cb5f6fe9ef7faf263">
+<p nodeId="4001540a86ed41cba1750b66a8595d11">从右到左</p>
+</td>
+<td colwidth="[163]" nodeId="52067a0b50de4951a69354c7bbbfdc04">
+<p nodeId="b9cb733868284d2ca12478a47e6edea0" />
+</td>
+</tr>
+</table>
+<h3 align="start" nodeId="bd4e1751e7624edea86bdeaff2abe53c">三元运算符</h3>
+<p align="start" nodeId="dfa3daa31d0d4358a7f98aae0075967d">String expression = "name != nil ? ('hello, ' + name):'who are u?'";</p>
+<h3 align="start" nodeId="8f06541eeccf4ff3a2d55d5877394f78">自定义运算符</h3>
+<p align="start" nodeId="d72c7023e4bf4e199f9bfc33924b49f4">前面我们已经看了运算符重载的例子，比如加减乘除，可以用于 long/double/bigint/decimal 等多种数字类型，这就是一个重载，比如加号 + 可以用于数字，也可以用于拼接字符串，这又是一个重载。</p>
+<p align="start" nodeId="6345282c4a9b424586e3bbc588aa2c9b">你也可以自定义任意运算符的行为，比如我们想将整数相除的结果修改为浮点数，可以：</p>
+<p align="start" nodeId="285d4e6b1aa44fea8140d5209d62203f">package com.googlecode.aviator.example;</p>
+<p align="start" nodeId="829bec80124b4cfc9d5ffca0c6f7bc85">import java.util.Map;</p>
+<p align="start" nodeId="95a6416eb295408e86295bdf4875d76c">import com.googlecode.aviator.AviatorEvaluator;</p>
+<p align="start" nodeId="3761ff78030d486d9c95e65e9f22032c">import com.googlecode.aviator.lexer.token.OperatorType;</p>
+<p align="start" nodeId="e7dabb9eb0a546b29cdc5c9769561a72">import com.googlecode.aviator.runtime.function.AbstractFunction;</p>
+<p align="start" nodeId="cb9de79fad3748db94480e8986469594">import com.googlecode.aviator.runtime.function.FunctionUtils;</p>
+<p align="start" nodeId="341ad53e4c924485b4a669f945a1946f">import com.googlecode.aviator.runtime.type.AviatorDouble;</p>
+<p align="start" nodeId="237d7c4d7fc74980a3c4202bd2579593">import com.googlecode.aviator.runtime.type.AviatorObject;</p>
+<p align="start" nodeId="def59bcca58a4eb19e0d69e94a9491ff">import com.googlecode.aviator.runtime.type.AviatorType;</p>
+<p align="start" nodeId="19745ea5c1944634a7835cf6a7343b02">/**</p>
+<p align="start" nodeId="604d985f7d1e4815b093a495db4e079c">* An example to demo custom division operator.</p>
+<p align="start" nodeId="0f22a42914224040a5713577abcf8f37">*</p>
+<p align="start" nodeId="d109bc28ce6046e0ba085cc87f310049">* @author dennis(<a href="mailto:killme2008@gmail.com" title="killme2008@gmail.com" nodeId="b0459f4c6bbd427aaed3c976d3161789">killme2008@gmail.com</a>)</p>
+<p align="start" nodeId="0baeec9560d948628d5a80c703d5127e">*</p>
+<p align="start" nodeId="cf45bc9882f34f059b16aad954f46a14">*/</p>
+<p align="start" nodeId="8d03cac36b16452ab953bca73d0bef41">public class CustomDivideExample {</p>
+<p align="start" nodeId="a47d71cf05474811a1a7496ab170e511">public static void main(final String[] args) {</p>
+<p align="start" nodeId="d251f44fa64c4fa7903ffb22ab65bc9a">AviatorEvaluator.getInstance().addOpFunction(OperatorType.DIV, new AbstractFunction() {</p>
+<p align="start" nodeId="2435ee9648c94dcca7a5f16285ad0e5e">@Override</p>
+<p align="start" nodeId="611aeeef8be8444fa186e42e13c572e7">public AviatorObject call(final Map&lt;String, Object&gt; env, final AviatorObject arg1,</p>
+<p align="start" nodeId="02920e56257d4009aeaa4556c7b7c0bc">final AviatorObject arg2) {</p>
+<p align="start" nodeId="318fbc700e0f4e57b4ee5d8ae9d2a948">if (arg1.getAviatorType() == AviatorType.Long</p>
+<p align="start" nodeId="b663c0c905bd46d384d30c8b0014ea08">&amp;&amp; arg2.getAviatorType() == AviatorType.Long) {</p>
+<p align="start" nodeId="8da731e5a5554020be5627059b9c9d10">// If arg1 and arg2 are all long type.</p>
+<p align="start" nodeId="da40162f47c748faa77e3a708946c29e">// Cast arg2 into double and divided by arg1.</p>
+<p align="start" nodeId="d105b4556d3a4cb4ad694b30fa6bd4b8">double d = FunctionUtils.getNumberValue(arg1, env).longValue()</p>
+<p align="start" nodeId="d88f403312934e58a1edbd5f12c9c17c">/ FunctionUtils.getNumberValue(arg2, env).doubleValue();</p>
+<p align="start" nodeId="f28959fbe55048b09c05ac6a8b38c489">return AviatorDouble.valueOf(d);</p>
+<p align="start" nodeId="aa704714814743dcb745d13d3c33c296">} else {</p>
+<p align="start" nodeId="945b84d37d604a8083c0f8f63d3e3480">// Otherwise, call aviatorscript's div function.</p>
+<p align="start" nodeId="4e999bdfbc54464c9a22cbffb278822d">return arg1.div(arg2, env);</p>
+<p align="start" nodeId="e7f8217fdfd047c7bae8d019f9c22974">}</p>
+<p align="start" nodeId="5193a8bcb90b455cabb489f98d2e1581">}</p>
+<p align="start" nodeId="acc043a458ee4b699022753b0616fd0f">@Override</p>
+<p align="start" nodeId="9bfb250a5e484c86b6cb3b9f61dd41cb">public String getName() {</p>
+<p align="start" nodeId="89cd7770a68542478b4cad4af9881d45">return OperatorType.DIV.getToken();</p>
+<p align="start" nodeId="9094f41f7b9642e495fe3536de8afcc3">}</p>
+<p align="start" nodeId="3224e9f4904f45ba8b83f917a6cfe746">});</p>
+<p align="start" nodeId="1a5c916167fc4f22b269009f92fea90a">System.out.println(AviatorEvaluator.execute("1/2"));</p>
+<p align="start" nodeId="5915a67b1f284700a12a546e025e9870">}</p>
+<p align="start" nodeId="456632dd2144452191c4f468a2a683b0">}</p>
+<p align="start" nodeId="c186fd1c21934031b23326ef23544e80">通过 AviatorEvaluatorInstance#addOpFunction(opType, function) 就可以自定义运算符的行为，这个例子中如果我们发现 arg1/arg2 的类型都是 long ，那么我们就将 arg2 转成 double 并计算结果，结果需要包装成 AviatorDouble 类型返回；如果不是，我们继续调用原来的除法。所有的运算符都可以在 <a href="https://link.zhihu.com/?target=https%3A//link.juejin.cn/%3Ftarget%3Dhttp%253A%252F%252Ffnil.net%252Faviator%252Fapidocs%252Fcom%252Fgooglecode%252Faviator%252Flexer%252Ftoken%252FOperatorType.html" title="OperatorType" nodeId="b8bb4f19026e4516b732b5b45a14ca64">OperatorType</a> 找到，你都可以自定义他的行为。</p>
+<p align="start" nodeId="310d97eb8e324fbaab7bb5ddb025b9ff">从这个例子中我们也可以看出 AviatorScript 中的所有类型都是 AviatorObject 的子类，他们包括：</p>
+<ul nodeId="142e63be154042e99ddbc203c753a8c2">
+<li nodeId="37c6b7f571cf4c80bc1f8876dda74531">AviatorLong 表示整数 long 类型</li>
+<li nodeId="c169fa7636fa44baa26ac3e4688c90ed">AviatorDouble 表示浮点数 double 类型</li>
+<li nodeId="dec56ef130314200a121432deadbf360">AviatorBigInt 表示 bigint 大整数</li>
+<li nodeId="32179d7e190d48bd9c97692e84723a8a">AviatorDecimal 表示 decimal 类型</li>
+<li nodeId="a6913a0d68e346e984f2f67c19bc39f0">AviatorString 表示字符串</li>
+<li nodeId="d651bccccc2343658b1d6270233c08f5">AviatorPattern 表示正则表达式</li>
+<li nodeId="98c74e442d6d43e99c89687668f0528d">AviatorNil 特殊类型 nil</li>
+<li nodeId="331dfee54b014b2ea56c4ec93cd62bfd">AviatorJavaType 表示变量</li>
+</ul>
+<p align="start" nodeId="49ff6669a1834d4bb3b356fac3a3d2d6">可以参见 <a href="https://link.zhihu.com/?target=https%3A//link.juejin.cn/%3Ftarget%3Dhttp%253A%252F%252Ffnil.net%252Faviator%252Fapidocs%252Fcom%252Fgooglecode%252Faviator%252Fruntime%252Ftype%252FAviatorType.html" title="AviatorType" nodeId="922b6dfb0273480282cf86f4390aaf7b">AviatorType</a> 这个枚举类。所有运算符都实现为 AviatorObject 的一个方法，比如加法就是 add(arg2, env) ，减法就是 sub 等等，具体见 <a href="https://link.zhihu.com/?target=https%3A//link.juejin.cn/%3Ftarget%3Dhttp%253A%252F%252Ffnil.net%252Faviator%252Fapidocs%252Fcom%252Fgooglecode%252Faviator%252Fruntime%252Ftype%252FAviatorObject.html" title="AviatorObject" nodeId="6ec08a85c7d84d4a8d5e36747fb918f2">AviatorObject</a> 文档。比较运算符的实现是基于 compare(arg2, env) 方法返回的结果，如果为 0 ，表示相等，大于返回正数，小于返回负数。</p>
+<h2 align="start" nodeId="140e2a1f2cbb41729df2955925e4433f">变量</h2>
+<h3 align="start" nodeId="28656ddc223e4e3d9a75b506bea4a26d">基础变量使用</h3>
+<p align="start" nodeId="c8aabbd33a7f49ec90f136448922e032">Google Aviator 支持定义变量，如果使用到的变量没有默认赋值，会为 nil 值（等于 JAVA 中的 null）。变量赋值和使用示例如下：</p>
+<ol nodeId="ae94f349070c4bbab5c75ed46c492a17">
+<li nodeId="f569162b56cd4f589bfbe75bcd44fc83">赋值为空(在 Java 中， null 只能参与等于和不等于的比较运算，而在 Aviator Script 中， nil 可以参与所有的比较运算符，只是规定任何类型都比nil大除了nil本身)：a = nil;</li>
+<li nodeId="e02ab778e2174c489c6a7fba714bcee6">赋值为数字：a = 98;</li>
+<li nodeId="31660644dc294b32b1063e5aa248decd">判空：a == nil</li>
+<li nodeId="1a0fe29b35444c6bb4fd51164ca0b609">判不为空：a != nil</li>
+</ol>
+<h3 align="start" nodeId="c84e169d82804b2383c4608c3e200ea7">变量语法糖</h3>
+<p align="start" nodeId="cd1561051c9f4b36bd05e8f8385f27e8">Aviator 有个方便用户使用变量的语法糖, 当你要访问变量a中的某个属性b, 那么你可以通过a.b访问到, 更进一步, a.b.c将访问变量a的b属性中的c属性值, 推广开来也就是说 Aviator 可以将变量声明为嵌套访问的形式。</p>
+<p align="start" nodeId="eec45ac4ea5f4a7eab934e17e3188e43">这个实现的基础是 commons-beanutils，基于反射实现。但是 AviatorScript 也做了优化，如果访问路径上的每一级变量都是 Map，会直接调用 Map#get(key) 访问，避免反射调用。</p>
+<h2 align="start" nodeId="ea05c3a6346745fab32f7610715943ec">引用变量</h2>
+<p align="start" nodeId="c4fc71bd837d44fbb399d4ba11fced6c">对于深度嵌套并且同时有数组的变量访问，例如 foo.bars[1].name，从 3.1.0 版本开始， aviator 通过引用变量来支持（quote variable)。</p>
+<p align="start" nodeId="f7551942a6114fd3bace986ffb7cb0b5">从 5.2 版本开始可以直接访问 Java 类的静态变量，比如 `Math.PI`</p>
+<h2 align="start" nodeId="54db0c15151c452096f95ec7f6dcd79d">多行表达式和 return</h2>
+<p align="start" nodeId="bc99a654c7f4432a8b81595221d5e844">看这样一个例子：</p>
+<p align="start" nodeId="96189d245c8a4c28a65069220cf04ac9">let a = 1;</p>
+<p align="start" nodeId="6b17ad960aa445698790d7ff9720613c">let b = 2;</p>
+<p align="start" nodeId="3ce292893d5f4b478017b3249f8d4411">c = a + b;</p>
+<p align="start" nodeId="722b1762d0e142208b8d8cf9fc17cb05">整个脚本的返回结果默认是最后一个表达式的结果。但是这里需要注意的是，加上分号后，整个表达式的结果将固定为 nil，因此如果你执行上面的脚本，并打印结果，一定是 null，而不是 c 的值。如果你想返回表达式的值，而不是为 nil，最后一个表达式不要加分号，如下：</p>
+<p align="start" nodeId="eb95fb4c5f0e409abd1c26cf84e1b3d3">let a = 1;</p>
+<p align="start" nodeId="0ee54fc86bae4208ad1c92c23af50e8b">let b = 2;</p>
+<p align="start" nodeId="9686e3e326d44e13a8ab20677bb81cf2">c = a + b</p>
+<p align="start" nodeId="d8beb0ceba7b4ec99389c30732df70e9">这时候再执行 execute 将返回表达式 c = a +b 的值，赋值语句的结果即为右值，也就是 3。在 Aviator Script 中任何表达式都有一个值，加上分号后就是丢弃该值固定为 nil。除了不加分号来返回之外，你也可以用 return 语句来指定返回：</p>
+<p align="start" nodeId="338f5137e94a48b1abf3ea1c9cb2c91c">let a = 1;</p>
+<p align="start" nodeId="5aaefa1649434defb1afcc10bbbf11e3">let b = 2;</p>
+<p align="start" nodeId="9603d66fbd0a4aa4b35be79b0ff7d4b9">c = a + b;</p>
+<p align="start" nodeId="6340225c4fd2411793ec9bf1752f3155">return c;</p>
+<p align="start" nodeId="fa31cd8db13d4ec39d295af5ebd3a537">注意， return 语句就必须加上分号才是完整的一条语句，否则将报语法错误</p>
+<p align="start" nodeId="20aaa65ba9aa43a5950c8f3450f17b93">return 也用于提前返回，结合条件语句可以做更复杂的逻辑判断：</p>
+<p align="start" nodeId="e1371b0094c2416eaa5e17bfd63f59df">if a &lt; b {</p>
+<p align="start" nodeId="5dd31a23be0d4d36bafaae627109da0a">return "a is less than b.";</p>
+<p align="start" nodeId="768b0192a8c640b0a8a17a83bf01e77d">}</p>
+<p align="start" nodeId="5371cc98cd6444d9b519540f059760aa">return a - b;</p>
+<h2 align="start" nodeId="2be3a39e62c74db0a865de4d9e06fc0d">use 语句引用 Java 类</h2>
+<p align="start" nodeId="1fe39b66bbf243f08f68f86fbddca064">从 5.2 开始，aviatorscript 支持 use 语句，类似 java 里的 import 语句，可以导入 java 类到当前命名空间，减少在 new 或者 try...catch 等语句里写完整报名的累赘方式。 use 语句的使用方式多种，最简单的情况是导入单个 Java 类：</p>
+<p align="start" nodeId="99607a0011ff4e0995c04bea7e72329d">use java.util.Date;</p>
+<p align="start" nodeId="174c157394504b659afdb2aea468e7b3">let d = new Date();</p>
+<p align="start" nodeId="fe895f890a584bebb21aaaa4dc434e64">p(type(d));</p>
+<p align="start" nodeId="93a3aa7a31534919af7bafe1696ca046">p(d);</p>
+<p align="start" nodeId="e8e2cff645274ad09e7b4c7a7dcfb2fb">use 包名.类名 就可以导入任意一个类到当前上下文。</p>
+<p align="start" nodeId="e30e24a57b31408c8c41ea6dda0c105d">如果要导入某个包下面的任意类，可以用通配符 *</p>
+<p align="start" nodeId="15fea30e065b472ca0e20b44824c4e6e">甚至可以把防并发的包引入，做防并发处理。</p>
+<h2 align="start" nodeId="235b1c3c25e44ae08777bc327a78553b">条件语句</h2>
+<p align="start" nodeId="6738635796cf433c9e9c2f0925d47f96">AviatorScript 中的条件语句和其他语言没有太大区别。if 接受一个布尔表达式，如果其值为 true 就执行后续的代码块。如果为 false ，可以带上 else 语句执行其中的代码块，代码块都是以大括号包起来（请注意，代码块都必须用大括号包起来，哪怕是单行语句，这跟 java 是不一样的）：</p>
+<p align="start" nodeId="f596678ff883468f8cf25698a0bad555">if(false) {</p>
+<p align="start" nodeId="5e4ec1be883b4166b1f91c41b7233cca">println("in if body");</p>
+<p align="start" nodeId="e84c90acc9ca4b45bda7704518af1ad0">} else {</p>
+<p align="start" nodeId="cdeea017a63b4d258ccc8feb4fd99e4d">println("in else body");</p>
+<p align="start" nodeId="5b65a998828147a7acb24a04a1baef26">}</p>
+<p align="start" nodeId="2323d175a06e4954aa53c588075603f9">if 后面连着的表达式的括号是可以忽略，上面的例子可以改写成：</p>
+<p align="start" nodeId="94cb55e7d0d4418cb192bc2e8a011a16">if false { println("in if body"); } else { println("in else body"); }</p>
+<p align="start" nodeId="84c421c5be11461b94d508b73d580d10">嵌套结构应该直接使用 `elsif` 语句，类似 Java 中的 `else if` ，比如我们写一个猜数字的例子：</p>
+<p align="start" nodeId="391d88a0b0f745aba698dbea258341f1">let a = rand(1100);</p>
+<p align="start" nodeId="e7548bcb5ba54e788ade4e4298d6c8ab">if a &gt; 1000 {</p>
+<p align="start" nodeId="807204cf0f18470e9311ca1c96e5a894">println("a is greater than 1000.");</p>
+<p align="start" nodeId="715e385d968d4c7f9f2fa7dce2781357">} elsif a &gt; 100 {</p>
+<p align="start" nodeId="0bd4de7cd3854fe0b9597b32fa609248">println("a is greater than 100.");</p>
+<p align="start" nodeId="a75df4c695084c978ae697823396fc42">} elsif a &gt; 10 {</p>
+<p align="start" nodeId="e31feaf6f8d041edbab9e8f05745ec68">println("a is greater than 10.");</p>
+<p align="start" nodeId="c4667972f66f425cbcad795e0919f8a5">} else {</p>
+<p align="start" nodeId="d0454e88de2f4ef69ceab23cd81d5748">println("a is less than 10 ");</p>
+<p align="start" nodeId="c82b1253981f466f9971b10ebfd48ba1">}</p>
+<p align="start" nodeId="47dbbaf00d184d388983b231f5384fec">println("a is " + a + ".");</p>
+<p align="start" nodeId="3c3f410b9ca347308cb55ae02a2f928a">同样，同样 elsif 对应的判断语句的括号也是可以忽略的。</p>
+<h2 align="start" nodeId="1f9f482db59f4b9890b84baedca78ace">循环语句</h2>
+<p align="start" nodeId="69a5203b034640c49ac3acbecde6f133">循环语句通常用于遍历一个集合，或者重复执行若干指令，直到满足某个条件等等。 AviatorScript 支持 for 和 while 两种循环语句。</p>
+<h3 align="start" nodeId="cdf8908df4ea424f82509197c17cc335">for 循环</h3>
+<p align="start" nodeId="3e6baf44a853469993a5342f98e6ecf7">示例如下</p>
+<p align="start" nodeId="505084185f5d45f0a638cab43347c19a">for i in range(0, 10) {</p>
+<p align="start" nodeId="02757920724042b68b6dd225b1a6a26f">println(i);</p>
+<p align="start" nodeId="6d283e047c4a4a6bb2d37e22a4979572">}</p>
+<p align="start" nodeId="b8e75d1b05f74597a2c56e3b98d7a547">其中 range(start, end) 函数用于创建一个 [start, end) 区间的整数集合，在迭代过程中，将 i 绑定到集合中的每个元素上，然后执行 {...} 里的代码块。大括号也是必需的，不能因为代码块是单行语句而忽略，这跟 java 是不同的。</p>
+<p align="start" nodeId="8276be9cbcca43299d99d03ce32bf299">range 函数还可以接受第三个参数，表示递增的 step 大小（不传默认 step 就是 1，步长的概念），比如我们可以打印 0 到 9 之间的偶数：</p>
+<p align="start" nodeId="7450729d959048fdac7245e97e016e5b">for i in range(0, 10, 2) {</p>
+<p align="start" nodeId="b47bc9a8fc2f4ec9abee1aa0f31b02b3">println(i);</p>
+<p align="start" nodeId="251c18e020c34cd492f21c5a54e47eab">}</p>
+<p align="start" nodeId="a2c6411ef95640e6bb59c6554e22d239">for .. in 可以用于任何集合结构，比如数组、 java.util.List 、 java.util.Map 等等：</p>
+<p align="start" nodeId="6f0c1407ccbf4c53b9927f694173eb28">let m = seq.map("a", 1, "b", 2, "c", 3);</p>
+<p align="start" nodeId="8ae1c43de0b44a26aff0611328e34175">for x in m {</p>
+<p align="start" nodeId="45ad7523a2824ad3975f06221e1714f2">println(x.key + "=" + x.value);</p>
+<p align="start" nodeId="fcbd5500e3794053b347138425231a18">}</p>
+<p align="start" nodeId="a3123e1cb21a44bd971619f36a73cb8b">let list = seq.list(1, 2, 3, 4, 5, 6, 7, 8, 9);</p>
+<p align="start" nodeId="d7e7e7bd6b554ee5a48154e82662bd5c">let sum = 0;</p>
+<p align="start" nodeId="718f18fa72254ff49639c5108ac1c72a">for x in list {</p>
+<p align="start" nodeId="61c5bb20917048d9a40dcf9562007905">sum = sum + x;</p>
+<p align="start" nodeId="89b427befaa94784bbe784baa72d89dc">}</p>
+<p align="start" nodeId="c0d7ac28c1ce4cc99ab923c32ac21ddc">println("sum of list is "+ sum);</p>
+<p align="start" nodeId="474943f38b97418c840bc6152ddd33f2">这里 m 是一个 HashMap ，通过 seq.map 函数创建，里面是三个键值对 a=1, b=2, c=3 ，我们也可以通过 for...in 语句来遍历，并且通过 x.key 和 x.value 来访问每一对的键值。list 就是一个 1 到 9 整数组成的 List ，我们利用 for 语句迭代累计它们的和 sum 并打印。</p>
+<p align="start" nodeId="b4b1f6170f284182aa74f27922b57ee3">如果你想在执行代码块中途跳过剩余代码，继续下个迭代，可以用 continue。同样，如果想中途跳出迭代，你可以用 break。return 有类似 break 的效果，也可以从循环中跳出，但是它会将整个脚本（或者函数）中断执行并返回，而不仅仅是跳出循环。</p>
+<h3 align="start" nodeId="73b39f34b9a24dd787fb56de60081c83">while 循环</h3>
+<p align="start" nodeId="71ab3a40c986416d9dd9b35c88d2a51f">while 循环本质上是条件语句和循环的结合，当满足一定条件下，不停地执行一段代码块，直到条件变为否定。</p>
+<p align="start" nodeId="05832a2baeb04d8ba3a2360aa8a3d99d">let sum = 1;</p>
+<p align="start" nodeId="1bf9e0f12384405ab80c6bd6859ffc76">while sum &lt; 1000 {</p>
+<p align="start" nodeId="9ba9d421cefd4a3c9fbe74df2bb11d96">sum = sum + sum;</p>
+<p align="start" nodeId="219cb510f3a7400ea426e5f8e6099e0b">}</p>
+<p align="start" nodeId="97500a811e5c47a5a50c6a4b635fb606">println(sum);</p>
+<p align="start" nodeId="30d1f056eefa4b3c81ff714ba074f815">while 后面跟 if 一样跟着一个布尔表达式，括号同样可以省略，但是代码块必须用大括号包围起来，这跟 if/for 也是一样的。同样， while 也可以用 break 和 continue 语句。使用 while true 来无限循环。return/continue 的使用和 for 类似，不再赘述。循环语句也可以多层嵌套，这跟其他语言都没有什么两样。</p>
+<h2 align="start" nodeId="51a844ee7b854478a1130faa0fb03ae5">自定义函数和调用 Java 方法</h2>
+<p align="start" nodeId="420ec703259844e0a0c59b38aeca35dc">如果你想在 AviatorScript 中调用 Java 方法，除了内置的<a href="https://link.zhihu.com/?target=https%3A//link.juejin.cn/%3Ftarget%3Dhttps%253A%252F%252Fwww.yuque.com%252Fboyan-avfmj%252Faviatorscript%252Fashevw" title="函数库" nodeId="4609aee7db4949bfb20e94dc39c784a3">函数库</a>之外，你还可以通过下列方式来实现：</p>
+<ol nodeId="edaef3cf1c9743c7931089524dc06114">
+<li nodeId="f19d0442bf3e46a19b8947ac85211ff6">自定义函数</li>
+<li nodeId="45cb42e71ff345a3a0914d9e15e33922">自动导入 java 类方法</li>
+<li nodeId="a7027da91eb240478c051bd773a30bf6">FunctionMissing 机制</li>
+</ol>
+<p align="start" nodeId="b7edfd7506c549b18014ccf1e88a2f1d">这里主要介绍自定义函数</p>
+<h3 align="start" nodeId="295655bbacc94120892249624348e416">自定义函数</h3>
+<p align="start" nodeId="f063d4785f674172a13cab9d92a16add">可以通过 java 代码实现并往引擎中注入自定义函数，在 AviatorScript 中就可以使用，事实上所有的内置函数也是通过同样的方式实现的：</p>
+<p align="start" nodeId="7fa2a7f29f9d43cb908d9f84c865ac66">public class TestAviator {</p>
+<p align="start" nodeId="22e0d74830f243b09f76e9ed42e5d309">public static void main(String[] args) {</p>
+<p align="start" nodeId="d405e55e405444c986c447062f215082">//注册函数</p>
+<p align="start" nodeId="fe7475b4e340416e93a4ef116eda2c13">AviatorEvaluator.addFunction(new AddFunction());</p>
+<p align="start" nodeId="ebe000e1c11a47488f70c97b1dc9eec5">System.out.println(AviatorEvaluator.execute("add(1, 2)")); // 3.0</p>
+<p align="start" nodeId="9bd2a6036cbd45aa93af30b8ad10be5a">System.out.println(AviatorEvaluator.execute("add(add(1, 2), 100)")); // 103.0</p>
+<p align="start" nodeId="e2f8958bcbe44b40973b69bc4e4a93bd">}</p>
+<p align="start" nodeId="845e18586fc44319a8ab684aac77b077">}</p>
+<p align="start" nodeId="6bc492b9479f4cb5925d74fea7a5be36">class AddFunction extends AbstractFunction {</p>
+<p align="start" nodeId="e44890ddf69e447b836b70ca657a257e">@Override</p>
+<p align="start" nodeId="afb5c4ce5dac412ba4dbea66f65d53a7">public AviatorObject call(Map&lt;String, Object&gt; env,</p>
+<p align="start" nodeId="0047be8bdf4b4469a60a8fadaeb86823">AviatorObject arg1, AviatorObject arg2) {</p>
+<p align="start" nodeId="dbe93ad6c7ed44a28857f58cd1d08cc7">Number left = FunctionUtils.getNumberValue(arg1, env);</p>
+<p align="start" nodeId="f3d59a958ea1410293497538f47b710b">Number right = FunctionUtils.getNumberValue(arg2, env);</p>
+<p align="start" nodeId="6dedd640f68e4958b891b71ae8a61908">return new AviatorDouble(left.doubleValue() + right.doubleValue());</p>
+<p align="start" nodeId="a7ad48af8f8a4ddf91c42afcec05317f">}</p>
+<p align="start" nodeId="f7d74d748e24409a9e34361f529f119f">public String getName() {</p>
+<p align="start" nodeId="9fd4540dadad48008dd1df4a50d5fd50">return "add";</p>
+<p align="start" nodeId="e84bf610dacf432d80c057bdf1dec80c">}</p>
+<p align="start" nodeId="a3bcda908aae481b9b7ba56b56f3f764">}</p>
+<p align="start" nodeId="67141405624e460b838d4f6d03e89d52">所有的函数都实现了 AviatorFunction 接口。它有一系列 call 方法，根据参数个数不同而重载，其中 getName() 返回方法名。一般来说都推荐继承 com.googlecode.aviator.runtime.function.AbstractFunction ，并覆写对应参数个数的方法即可，例如上面例子中定义了 add 方法，它接受两个参数。第一个参数是当前执行的上下文，arg1 和 arg2 分别表示从左到右的两个参数，最终结果是另一个 AviatorObject ，这个实现中是将两个参数相加，返回浮点结果 AviatorDouble 。</p>
+<p align="start" nodeId="e7bbf0d62ea942a0aa4f684ff6e8b7e6">注意，哪怕结果为 null，也必须返回 AviatorNil.NIL 表示结果为 null，而不是直接返回 java 的 null。</p>
+<h3 align="start" nodeId="ecb67e63a978421fa5de34022b455843">自定义可变参数函数</h3>
+<p align="start" nodeId="b293569c74ef4dc99bda27a111c6d29d">要实现可变参数的函数，如果是直接继承 AbstractFunction ，要实现一系列的 call 方法，未免太繁琐了，因此 AviatorScript 还提供了 AbstractVariadicFunction ，可以更方便地实现可变参数函数，比如内置的 tuple(x, y, z,...) 创建 Object 数组的函数就是基于它实现：</p>
+<p align="start" nodeId="4bfc25b65a534b73805cb5d1dfb93198">import java.util.Map;</p>
+<p align="start" nodeId="f570338bd4e545fcb5b7d80f39f16d8d">import com.googlecode.aviator.runtime.function.AbstractVariadicFunction;</p>
+<p align="start" nodeId="82c81d0eb1dd4e929b5d32c7a3721a00">import com.googlecode.aviator.runtime.type.AviatorObject;</p>
+<p align="start" nodeId="0f71f8c3b8d84360923e5b5884b8a29f">import com.googlecode.aviator.runtime.type.AviatorRuntimeJavaType;</p>
+<p align="start" nodeId="ce342b0d5a384fdfb39ec688475e73d0">/**</p>
+<p align="start" nodeId="67074a5602ff49919538b94d9f037523">* tuple(x,y,z, ...) function to return an object array.</p>
+<p align="start" nodeId="abcc539b0d774bc4a42012d42521562a">*</p>
+<p align="start" nodeId="f0c6534e4b95440cb4157b70bc6a1052">* @author dennis</p>
+<p align="start" nodeId="6cd7a05201ce4d5a8626af9fa6475948">* @since 4.0.0</p>
+<p align="start" nodeId="13a49778deec4536a6b0a5e8ba8f39d3">*</p>
+<p align="start" nodeId="c12867b520b1483693dbecaf5afa5ce2">*/</p>
+<p align="start" nodeId="cc5efa30190f49e4a1299f54ac1819e4">public class TupleFunction extends AbstractVariadicFunction {</p>
+<p align="start" nodeId="edfee09bc3c6455ba7d306d6d7c19067">private static final long serialVersionUID = -7377110880312266008L;</p>
+<p align="start" nodeId="382c0cff3fce4672a3982d3990b80194">@Override</p>
+<p align="start" nodeId="9e1aeef1cbce4fdf939ef77e5eb2b696">public String getName() {</p>
+<p align="start" nodeId="c1a9398de42546f2a0551d8dbaa5ffc6">return "tuple";</p>
+<p align="start" nodeId="723a4b8ecffa4d799413799c96b07813">}</p>
+<p align="start" nodeId="23ff1dac52ad4cadac5472ce0b8bedc3">@Override</p>
+<p align="start" nodeId="deded49e840d45a79b1354a3d5d8e785">public AviatorObject variadicCall(Map&lt;String, Object&gt; env, AviatorObject... args) {</p>
+<p align="start" nodeId="a3db712730c148fabd45728967213d18">Object[] tuple = new Object[args.length];</p>
+<p align="start" nodeId="367cf326100745168fa75ae87fd6cc58">for (int i = 0; i &lt; args.length; i++) {</p>
+<p align="start" nodeId="a4e1c0025a1f4a3f97a3715563160858">tuple[i] = args[i].getValue(env);</p>
+<p align="start" nodeId="68d088bcc0b04bf3b39b2cc473965a01">}</p>
+<p align="start" nodeId="81489ae90a6244aea1838dd3aa3b1977">return AviatorRuntimeJavaType.valueOf(tuple);</p>
+<p align="start" nodeId="bec8458fd9e744b2b06df3a929362632">}</p>
+<p align="start" nodeId="a3c515f69314481a883918f216f4d5bb">}</p>
+<p align="start" nodeId="ef7767b3497e43ed815b6f81bc190231">核心就是实现 variadicCall(Map&lt;String, Object&gt; env, AviatorObject... args) 方法，其中的 args 就是可变的参数列表。</p>
+<h2 align="start" nodeId="25d90d20973d40098aa4a07ce678106f">数组和集合</h2>
+<p align="start" nodeId="b10cbc56788748d2bd0c5dc3ec4910ee">count 可以获取数组长度：</p>
+<p align="start" nodeId="4f1980a2a045494c92a880b94f541a72">println("count of t: "+ count(t));</p>
+<p align="start" nodeId="dd3fd5b8d6de467fa8680570acc8e36a">遍历数组</p>
+<p align="start" nodeId="41ee4984424b4c5484321394972fd72c">let a = seq.array(int, 1, 2, 3.3, 4);</p>
+<p align="start" nodeId="2e2fcf502eb944a7b2c96befa1ca285e">for x in a {</p>
+<p align="start" nodeId="32862730143448c39ca27e63ab25fc60">println(x);</p>
+<p align="start" nodeId="a7a5460638f24cac943e38abb5d8371e">}</p>
+<h3 align="start" nodeId="bf6c4fe2d9c2421c924ef11106cd4427">判断元素是否存在</h3>
+<p align="start" nodeId="5d6e4c45939545b9aa43c63ef3ae91cb">对于数组、List 和 Set 来说，判断某个元素是否存在都应该用 include(coll, element) 函数，对于数组和 List 来说，这个函数的时间复杂度是 O(n)，因为要遍历整个数组或链表；对于 Set 来说是 O(1) 时间复杂度，直接调用用了 Set#contains 方法。</p>
+<p align="start" nodeId="5960bea12fb84615be17eb6738e58afb">for i in range(0, 3) {</p>
+<p align="start" nodeId="957524c03e4249bdb7564790dfe88947">assert(include(list, i));</p>
+<p align="start" nodeId="43ceb2971f134a71ac9e713672e241fd">assert(include(set, i));</p>
+<p align="start" nodeId="0575aae438ad4290993ccae3336b9edc">}</p>
+<p align="start" nodeId="ed29c9116c3d4f01b59602a155c6cace">assert(!include(list, 5));</p>
+<p align="start" nodeId="f481f8dad453444c990f78e347f5a0b5">assert(!include(set, 5));</p>
+<p align="start" nodeId="26eef7b560c24c5da2b9f2ebd7f91933">对于 map 来说，如果是判断 key 是否存在，需要用 seq.contains_key(coll, key) ：</p>
+<p align="start" nodeId="bf192a2cf50d45cda51b0d52ab2e6825">for i in range(0, 3) {</p>
+<p align="start" nodeId="21452a962c594585b06ede31d13684df">assert(seq.contains_key(map, i));</p>
+<p align="start" nodeId="3090ece594634de19fc0a2c309fab3fc">}</p>
+<p align="start" nodeId="3e6e79250cd74646a3666085f1ffbdd6">assert(!seq.contains_key(map, 5));</p>
+<h3 align="start" nodeId="62b7c63d58364d73be97ee47344d31eb">遍历集合</h3>
+<p align="start" nodeId="95932c67d79d43e3ba9ea4b01eebf334">遍历集合和数组的方式一样，同样通过 for..in 语句：</p>
+<p align="start" nodeId="013565b874a64422ae37d3896e6ebcff">## Iterate the collection by for..in loop</p>
+<p align="start" nodeId="f241ea33b0644490b90f29e929037043">println("list elements:");</p>
+<p align="start" nodeId="e132d9b369fd4f3796f08af15808ad38">for x in list {</p>
+<p align="start" nodeId="9810b83cdd844fc7b8aef00e60dd2a8d">println(x);</p>
+<p align="start" nodeId="baedad2d152544769e5fb6a9520ca575">}</p>
+<p align="start" nodeId="c2710bac3acc45f89fc15a62cc252567">println("set elements:");</p>
+<p align="start" nodeId="7a59b622cf6141ba90ec39f5792b1e63">for x in set {</p>
+<p align="start" nodeId="95b97207d2424e659844c12ee88cc152">println(x);</p>
+<p align="start" nodeId="252bad1577b74134a6c4f5e3eb51eac3">}</p>
+<p align="start" nodeId="4833ba54bab84c4e9eb488fabd9d1853">println("map elements:");</p>
+<p align="start" nodeId="cec8243297bf4bcbbe347698fb9e5758">for x in map {</p>
+<p align="start" nodeId="66e69d1319a1432dbfa72e2bcf6b9e9b">println(x.key + "=" + x.value);</p>
+<p align="start" nodeId="bde32b4b2158404db6c933f9893b029d">}</p>
+<p align="start" nodeId="14ac9e7f9963452e90de3d3e2abb5aa5">对于 map 来说迭代循环中的元素就是 Map.Entry 对象，可以通过 key 和 value 属性来访问键和值。</p>
+<h3 align="start" nodeId="2a340f24d3484403b058c367f17190d5">删除元素 seq.remove</h3>
+<p align="start" nodeId="ce05b023b46e4ae9a4c53bd5cd941da6">删除元素也是常见的需求，可以用 seq.remove(coll, element) ，对于 List/Set 和 Map 都是如此，如果是 Map，传入的应该是 key：</p>
+<p align="start" nodeId="0d3ea14525ba4cb192a7c0b183ce9394">## remove elements</p>
+<p align="start" nodeId="66ba023efe764810895e1a47146d63e5">assert(list == seq.remove(list, 2));</p>
+<p align="start" nodeId="e85aa8058ff2465994fbee5bb11a0083">assert(list == seq.remove(list, 4));</p>
+<p align="start" nodeId="19606cb72a3248c0a5da5cd1d8a75c32">assert(set == seq.remove(set, 1));</p>
+<p align="start" nodeId="e6804e8cf4ab473f8b3f8f35f30e1d8d">assert(map == seq.remove(map, 0));</p>
+<p align="start" nodeId="1742b2376fe947d3a843b9486557d9a4">println("list: " + list);</p>
+<p align="start" nodeId="9081fc6610cf4748957a196fce277f87">println("set: " + set);</p>
+<p align="start" nodeId="b5f23e91e00d4a51984c626d7cc2f0b3">println("map: " + map);</p>
+<p align="start" nodeId="831c55196cb74f41a3264c55079dd420">删除不存在的元素不产生影响。 seq.remove 返回的是删除后的集合对象。</p>
+<h2 align="start" nodeId="80822f29c72b45be812dbaeb6758873f">操作 sequence 的高阶函数</h2>
+<p align="start" nodeId="32ac541dab1b4e33aea71b248e663bb9">对于 Sequence 的抽象， AviatorScript 也提供了一套高阶函数来方便地对集合做转换、过滤、查询以及聚合，我们将一一介绍。这些函数的规则都是将 sequence 作为第一个参数。</p>
+<h3 align="start" nodeId="e1cb193ab9b7404d9a5bd315bf7d86ed">Count</h3>
+<p align="start" nodeId="475e4be1e51145709da76686ca97913a">count(seq) 函数用于获取 seq 里的集合元素，它将尽量在 O(1) 的时间复杂度内返回结果，最差情况下退化成 O(n)：</p>
+<p align="start" nodeId="09bb26b39090444ca999062e02799f22">## count</p>
+<p align="start" nodeId="e890405d260746939a6ae14814378fda">println("count of array: " + count(a));</p>
+<p align="start" nodeId="3836ebf917a34345869193b62c1f0afe">println("count of range: " + count(r));</p>
+<p align="start" nodeId="df682013dfd941d1ba808350f09ba7e9">println("count of set: " + count(s));</p>
+<p align="start" nodeId="c63643cd90444fa58fad0f9e5bed9844">println("count of map: " + count(m));</p>
+<p align="start" nodeId="ac4d675e023f4c5bbb737c6e49b80183">println("count of list: " + count(n));</p>
+<h3 align="start" nodeId="b968069f7642415685bdc5df586c1e81">is_empty</h3>
+<p align="start" nodeId="8784588ec4fa414fa074227a451896a1">is_empty 用于返回集合是否为空， is_empty(nil) 返回 true ：</p>
+<p align="start" nodeId="887b2af810384c8a9c118c35ee0dfc06">println("is_empty(array): " + is_empty(a));</p>
+<p align="start" nodeId="2f98a905ea4f43039e03e6bf408218ac">println("is_empty(seq.list()): " + is_empty(seq.list()));</p>
+<p align="start" nodeId="509f45972369463daf082d7a84798fed">println("is_empty(nil): " + is_empty(nil));</p>
+<h3 align="start" nodeId="f31bf349c0ee43569b22f536a9a0f71d">include</h3>
+<p align="start" nodeId="fea6dd43c6c84e0793510f2f24c6af6a">include(seq, x) 用于判断元素 x 是否在 seq 内，对于 Set 是 O(1) 的时间复杂度，其他是 O(n)：</p>
+<p align="start" nodeId="e6ef8511aca647589898e36d6ccab53d">## include</p>
+<p align="start" nodeId="1d3382d797ae437d8edf0538e3e450e7">println("array has 3: " + include(a, 3));</p>
+<p align="start" nodeId="0b1a6fb6a15b4dd3b2c87e2acaf04d6b">println("map has an entry ('b', 2): " + include(m, seq.entry("b", 2)));</p>
+<p align="start" nodeId="1b35a9d5dc3b4935bb1af961e5f84f95">println("range has 10: " + include(r, 10));</p>
+<p nodeId="ca03ca8fe4444d62a1b4dba5ef545aad"><br /></p>
+</km-doc>

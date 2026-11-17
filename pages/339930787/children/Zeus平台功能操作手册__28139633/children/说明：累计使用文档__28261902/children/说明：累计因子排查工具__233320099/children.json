@@ -1,0 +1,54 @@
+{
+  "parentId": "233320099",
+  "parentTitle": "",
+  "children": [
+    {
+      "contentId": "219860859",
+      "title": "读累计查询",
+      "type": "学城文档2.0",
+      "creator": "liangjianhua02",
+      "createTime": 1574144597000,
+      "modifyTime": 1678786057000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "219802210",
+      "title": "发累计查询",
+      "type": "学城文档2.0",
+      "creator": "liangjianhua02",
+      "createTime": 1574141439000,
+      "modifyTime": 1574407927000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    },
+    {
+      "contentId": "1351327665",
+      "title": "说明：累计相关case问题排查",
+      "type": "学城文档2.0",
+      "creator": "jinlidan",
+      "createTime": 1660026221000,
+      "modifyTime": 1660026708000,
+      "isChildExist": false,
+      "hasAdmPerm": false,
+      "hasDeletePerm": false,
+      "hasAddPerm": false,
+      "hasEditPerm": false,
+      "hasCommentPerm": false,
+      "hasReadPerm": false,
+      "spaceId": "8715"
+    }
+  ]
+}

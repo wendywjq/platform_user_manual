@@ -1,0 +1,9 @@
+<km-doc>
+<km-title nodeId="34cc4303f3fd41a0910d3b0925bc846b">表达式书写FAQ</km-title>
+<h4 nodeId="c47d04afe4e44a8aa464c135222570b8">Q：因子，<span color="rgba(0, 0, 0, 0.87)">一个长度是3，一个长度是10，但是相除出来的结果是0</span></h4>
+<p nodeId="81841c838b37426992ec64642b921e10"><span color="rgba(0, 0, 0, 0.87)">A：</span>写成3/10.0才能得到浮点数结果</p>
+<h4 nodeId="5984f0d0d78f46fdb70b0c9aa5cc0c87">Q：a=0.7; 0.7&gt;=a == false ?</h4>
+<p nodeId="5a4426b23db5424ea732a90468a21cdc"><span color="rgba(0, 0, 0, 0.87)">A：</span>请使用高精度类型变量   0.7M</p>
+<h4 nodeId="ea3e83cbe557463c804edaa9c24fcc51">Q：正则 .* 无法命中</h4>
+<p nodeId="9d3606f29f18464a9456b8acf3455561"><span color="rgba(0, 0, 0, 0.87)">A：默认情况下, 正则表达式中点(.)不会匹配换行符, 设置了Pattern.DOTALL模式, 才会匹配所有字符包括换行符，默认情况下 .* 不会匹配字符串中的换行符</span></p>
+</km-doc>

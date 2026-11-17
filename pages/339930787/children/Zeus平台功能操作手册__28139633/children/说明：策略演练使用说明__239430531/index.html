@@ -1,0 +1,305 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：策略演练使用说明</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-6">二、名词解释</a><a href="#section-10">三、操作指南</a><a href="#section-11">1.用户操作流程说明</a><a href="#section-13">2.Quick Start</a><a href="#section-21">3.详细操作流程说明</a><a href="#section-27">Step1:创建演练任务</a><a href="#section-56">Step2:修改策略</a><a href="#section-104">Step3:启动双跑</a><a href="#section-164">Step4:查看双跑结果</a><a href="#section-225">Step5:上线通知、审批申请和一键上线</a><a href="#section-298">任务复制</a><a href="#section-322">4.特殊说明</a><a href="#section-324">四、FAQ</a><a href="#section-325">Q1：提交策略演练后，修改的信息在哪里能查询到？</a><a href="#section-327">Q2：如何确定策略演练的数据符合预期？</a><a href="#section-330">Q3：终止后的策略演练任务还可以再次重启么？</a><a href="#section-332">Q4：为什么要有发送上线通知？</a><a href="#section-334">Q4：双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？</a><a href="#section-336">Q5：策略演练任务平均耗时情况？</a><a href="#section-338">Q6：紧急上线流程审批人是谁？</a><a href="#section-340">Q7：不支持哪些信息的修改？</a><a href="#section-343">Q8：双跑期间有2000条请求，设置抽样比例50%，为什么实际双跑流量是986不等于1000条</a><a href="#section-346">Q9：为什么点击上线后还有上线确认需要填写的弹框？</a><a href="#section-350">Q10：双跑结果中的“共有、线上和演练”是什么意思？</a><a href="#section-359">Q11：提示双跑完成，任务状态显示双跑完成，但操作中仅显示“终止”，无法查看结果为什么？</a><a href="#section-362">Q12：普通场景的批量编辑后，取消变更会联动把这次批量编辑的内容都取消掉？</a><a href="#section-364">Q13：双跑演练中，双跑的数据涉及外部接口会增加下游请求量么？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：策略演练使用说明</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/239430531">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：策略演练使用说明</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>在修改线上生效的场景配置、规则、因子、因子工具、规则组、数据接口、参数等对象时，为降低人工操作引入的未知风险，通过演练环境模拟线上执行情况，从而评估修改的影响<span style="color: ">减少策略部署风险，提高策略迭代效率</span></p>
+<h1 id="section-6">二、名词解释</h1>
+<p>策略演练：策略可以在非线上环境进行指定对象逻辑的修改，通过线上同流量模拟执行情况。</p>
+<p><span style="color: ">逻辑信息：因子或规则的表达式、类型；场景配置下规则的状态、决策、优先级</span></p>
+<h1 id="section-10">三、操作指南</h1>
+<h2 id="section-11">1.用户操作流程说明</h2>
+<img src="assets/081515e48be96e8e.svg" width="986" height="232" alt="流程图">
+<h2 id="section-13">2.Quick Start</h2>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/239430531/241303580?contentType=1">策略演练上.mov</a></figcaption></figure>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/239430531/241383628?contentType=1">策略演练下.mov</a></figcaption></figure>
+<p></p>
+<h2 id="section-21">3.详细操作流程说明</h2>
+<p>策略演练入口：Plus工具中心--&gt;策略演练 </p>
+<p>测试环境网址：<a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList" title="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList">https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList</a></p>
+<p>线上环境网址：<a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/strategyDrillList" title="https://zeus.mis.rc.sankuai.com/data_zeus_static/#/strategyDrillList">https://zeus.mis.rc.sankuai.com/data_zeus_static/#/strategyDrillList</a></p>
+<h3 id="section-27">Step1:创建演练任务</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="2">
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">Plus工具中心--&gt;策略演练 --&gt;创建演练任务</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">任务名称可以使用中英文用户自定义填写</span></p>
+<p></p>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/c3b4366757005863.png" width="901" height="176" alt="image.png"></p>
+<p><img src="assets/ea6692cb16203f1a.png" width="383" height="160" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><img src="assets/9a646d9e440a6178.png" width="901" height="276" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-56">Step2:修改策略</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【修改】</span></p>
+<ol>
+<li><span style="font-size:14px">填写完成后进入演练模式</span></li>
+<li>
+<p><span style="font-size:14px">修改信息</span></p>
+<p><span style="font-size:14px">场景配置（普通场景配置、路由场景配置）、规则逻辑、因子逻辑</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">修改保存（a）</span></p>
+<p><span style="font-size:14px">说明：此时保存，线上环境并没有使用该逻辑</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">变更内容（b）</span></p>
+<p><span style="font-size:14px">查看修改了哪些信息以及修改项对线上的影响</span></p>
+<p><span style="font-size:14px">可以取消某一个变更信息</span></p>
+<p></p>
+<p></p>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/83eb34c2deba2d97.png" width="900" height="276" alt="image.png"></p>
+<p></p>
+<p><img src="assets/54fe45688d9ea860.png" width="243" height="127" alt="image.png"><img src="assets/88db878d427daca0.png" width="254" height="127" alt="image.png"></p>
+<p></p>
+<p><img src="assets/93a0a5fe97bb1e54.png" width="900" height="127" alt="image.png"></p>
+<p></p>
+<p><img src="assets/6051869745faf13c.png" width="663" height="278" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-104">Step3:启动双跑</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【启动双跑】</span></p>
+<ol>
+<li><span style="font-size:14px">双跑启动可在策略演练列表页面、变更内容页面、演练任务模式中</span></li>
+<li><span style="font-size:14px">填写完成后进入演练模式</span></li>
+<li>
+<p><span style="font-size:14px">修改信息</span></p>
+<p><span style="font-size:14px">场景配置（普通场景配置、路由场景配置）、规则逻辑、因子逻辑</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">修改保存（a）</span></p>
+<p><span style="font-size:14px">说明：此时保存，线上环境并没有使用该逻辑</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">变更内容（b）</span></p>
+<p><span style="font-size:14px">查看修改了哪些信息以及修改项对线上的影响</span></p>
+<p><span style="font-size:14px">可以取消某一个变更信息</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">启动双跑（c.f）</span></p>
+<p><span style="font-size:14px">设置双跑流量的比例，默认20%（考虑到存在流量较大场景在双跑期间数据量过大，导致任务失败，建议用户对于较大场景按照流量比例双跑）</span></p>
+<p><span style="font-size:14px">抽样逻辑：在双跑时间周期内均匀抽样，</span></p>
+<p><span style="font-size:14px">设置双跑时间：支持30、20、10、5分钟的双跑时间设置</span></p>
+<p></p>
+<p></p>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/83eb34c2deba2d97.png" width="900" height="276" alt="image.png"></p>
+<p></p>
+<p><img src="assets/68b15feb1d27073a.png" width="243" height="127" alt="image.png"><img src="assets/b047d8effbc5ff4d.png" width="254" height="127" alt="image.png"></p>
+<p></p>
+<p><img src="assets/ef205421b2dfba28.png" width="900" height="127" alt="image.png"></p>
+<p></p>
+<p><img src="assets/44fabcdd3f616453.png" width="541" height="227" alt="image.png"><img src="assets/2bf2fc014b2bb87b.png" width="334" height="200" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-164">Step4:查看双跑结果</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【查看双跑结果】</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">操作入口</span></p>
+<p><span style="font-size:14px">在策略演练列表页面，某一个任务的操作项中，可点击查看双跑结果（统计数据）</span></p>
+<p><span style="font-size:14px">在实时日志查询--&gt;双跑演练日志中可通过填写演练任务ID查看双跑结果数据（明细数据）</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">双跑结果（统计数据）</span></p>
+<p><span style="font-size:14px">支持按决策结果、规则命中量结果查看线上命中量和演练命中量</span></p>
+<p><span style="font-size:14px">⚠️在结果的第一列“共有”、“线上”、“演练”的含义</span></p>
+<p><span style="font-size:14px"><strong>--共有：指该决策/规则是经过修改操作，线上演练可对比</strong></span></p>
+<p><span style="font-size:14px"><strong>--线上：指该决策/规则在演练任务中删除了，只有线上命中情况</strong></span></p>
+<p><span style="font-size:14px"><strong>--演练：指该决策/规则在演练任务中增加了，只有演练命中情况</strong></span></p>
+<p><span style="font-size:14px">🌿命中量统计逻辑：命中量=双跑时间周期内命中该决策或规则的流量/双跑时间周期内全部流量</span></p>
+<p><span style="color:#f5232d"><span style="font-size:14px">--目前统计数据有缺陷， 没有做过滤，实现只涉及修改的规则数据，而展示了全部规则信息，因后续实验室迭代，该缺陷暂无排期修复。可在双跑日志中查询</span></span></p>
+</li>
+<li>
+<p><span style="font-size:14px">双跑结果（明细数据）</span></p>
+<p><span style="font-size:14px">该日志查询服务以演练任务日志数据为主，查询线上数据需要在实时日志服务中查询</span></p>
+<p><span style="font-size:14px">⚠️演练任务为必填信息，在演练任务列表中获取“任务ID”即为演练任务</span></p>
+<p><span style="font-size:14px">演练与线上结果：提供查询的便捷筛选条件，支持一致、线上命中演练未命中、线上未命中演练命中筛选</span></p>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/48986a95d8c503fa.png" width="900" height="164" alt="image.png"></p>
+<p><img src="assets/7e89c8d6eddfb662.png" width="714" height="450" alt="image.png"></p>
+<p><img src="assets/87b462e242897306.png" width="656" height="579" alt="image.png"></p>
+<p><img src="assets/6b3c24d72c6dfb09.png" width="817" height="204" alt="image.png"></p>
+<p></p>
+</td>
+</tr>
+</table>
+<h3 id="section-225">Step5:上线通知、审批申请和一键上线</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【上线通知】</span></p>
+<ol>
+<li><span style="font-size:14px">通过双跑结果确认本次修改符合业务预期，可点击发送上线通知，大象发送通知给业务配置的变更通知人</span></li>
+<li><span style="font-size:14px">必须发送上线通知后方可进行上线审批、一键上线</span></li>
+<li><span style="font-size:14px">需要填写变更说明，即本次策略迭代的原因，用于告知相关同事</span></li>
+</ol>
+<p><img src="assets/b5aa414d6193da0a.png" width="297" height="124" alt="image.png"></p>
+</td>
+<td>
+<p><img src="assets/bab604b2064284b3.png" width="816" height="298" alt="image.png"></p>
+<p><img src="assets/aff9eb09a442c1aa.png" width="330" height="150" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【审批申请】</span></p>
+<p><span style="font-size:14px"> 3.已经发送上线通知的演练任务，可以在列表页面/详情页面进行申请上线</span></p>
+<p><span style="font-size:14px">⚠️发送通知之后无强制时间，可直接申请上线</span></p>
+<p><img src="assets/e2ec1e1e84399e70.png" width="149" height="128" alt="image.png"></p>
+<p><span style="font-size:14px">4.业务负责人将通过大象收到上线审批申请，可直接</span></p>
+</td>
+<td>
+<p><img src="assets/d79c85e87803cb07.png" width="900" height="106" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【一键上线】</span></p>
+<p><span style="font-size:14px">5.审批通过的任务可以进行一键上线</span></p>
+<p><span style="font-size:14px">6.点击一键上线后会出现上线确认信息，需用户手动填写“</span><span style="color:rgb(70, 70, 70)"><span style="font-size:14px">TOP1差异以确认上线“</span></span></p>
+<p><span style="color:rgb(70, 70, 70)"><span style="font-size:14px">⚠️避免用户通过点点点无法明确感知数据波动的风险</span></span></p>
+<p><span style="color:rgb(70, 70, 70)"><span style="font-size:14px">7.会存在上线失败的情况，出现该情况原因：</span></span></p>
+<p><span style="color:rgb(70, 70, 70)"><span style="font-size:14px">其他用户在您修改期间也对相同的策略进行了修改，存在修改冲突。</span></span></p>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">解决办法：系统会提示谁也进行了修改，请您团队内部进行协商，若确认您仍需要进行修改，需要将当前任务终止，复制演练任务重新进行新逻辑双跑验证后进行上线操作</span></span></p>
+</td>
+<td>
+<p><img src="assets/b83339c8ae898e57.png" width="900" height="100" alt="image.png"></p>
+<p><img src="assets/99018e99bb46c9ab.png" width="624" height="326" alt="image.png"></p>
+<p><img src="assets/deb031f66c568ed6.png" width="404" height="192" alt="image.png"><span style="font-size:14px"> </span><img src="assets/0822d4444d0187d1.png" width="336" height="163" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-298">任务复制</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【复制】</span></p>
+<p><span style="font-size:14px">1.双跑完成、任务终止的任务支持复制操作</span></p>
+<p><span style="font-size:14px">2.点击复制后需要对演练任务重新命名，提交信息后刷新页面，在策略演练列表中可查看到相关的信息</span></p>
+<p><span style="font-size:14px">3.复制后的任务等同于新的演练任务可进行双跑、上线等操作</span></p>
+</td>
+<td>
+<p><img src="assets/3c1d122957bfad4b.png" width="897" height="108" alt="image.png"></p>
+<p><img src="assets/9f960e12588b514b.png" width="357" height="128" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-322">4.特殊说明</h2>
+<p>策略演练模式下，不支持决策附加信息和决策衍生参数的模版修改、不支持累计因子、名单库（上海）因子修改；</p>
+<h1 id="section-324">四、FAQ</h1>
+<h3 id="section-325">Q1：提交策略演练后，修改的信息在哪里能查询到？</h3>
+<p>--A：可以到策略演练页面中查看，点击任务名称即可；</p>
+<h3 id="section-327">Q2：如何确定策略演练的数据符合预期？</h3>
+<p>--A：有两种方式（1）通过“双跑结果”数据中的线上命中量和命中率数据确认，修改前后命中数据波动是否符合预期</p>
+<p>                            （2）通过策略演练执行期间的实时日志查看具体数据执行是否符合预期，可通过演练任务ID、规则ID/userid等日志查询相关参数查询</p>
+<h3 id="section-330">Q3：终止后的策略演练任务还可以再次重启么？</h3>
+<p>--A：不可以，只能通过复制任务，再进行双跑</p>
+<h3 id="section-332">Q4：为什么要有发送上线通知？</h3>
+<p>--A：因存在多业务方共用的情况，当一个业务方修改时会影响其他业务方，因此发送通知规避因信息传递不到位导致的未知风险</p>
+<h3 id="section-334">Q4：双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？</h3>
+<p>--A：可以，点击重新双跑即可；</p>
+<h3 id="section-336">Q5：策略演练任务平均耗时情况？</h3>
+<p>--A：（1）使用紧急上线流程---依赖审批响应，最短1分钟；（2）不使用紧急上线流程--除去验证数据是否符合预期人工时间，最短30分钟；</p>
+<h3 id="section-338">Q6：紧急上线流程审批人是谁？</h3>
+<p>--A：修改人所在业务方的负责人，即在【权限】--&gt;【业务方管理】--&gt;【负责人】</p>
+<h3 id="section-340"><strong>Q7：不支持哪些信息的修改？</strong></h3>
+<p>--A：不支持累计因子、名单库（上海）因子、决策信息的修改；</p>
+<h3 id="section-343"><strong>Q8：双跑期间有2000条请求，设置抽样比例50%，为什么实际双跑流量是986不等于1000条</strong></h3>
+<p>--A：依赖于抽样逻辑使用的底层算法，相对误差较小，无限趋近于比例值</p>
+<h3 id="section-346"><strong>Q9：为什么点击上线后还有上线确认需要填写的弹框？</strong></h3>
+<p>--A：分析历史case以及历史项目经验，用户尝尝因点点点行为形成惯性操作思维，因此填写弹框可<span style="color:rgb(70, 70, 70)">避免用户通过点点点无法明确感知数据波动的风险；</span></p>
+<h3 id="section-350"><strong>Q10：双跑结果中的“共有、线上和演练”是什么意思？</strong></h3>
+<p>--A：因演练任务包含场景配置、规则和因子的逻辑修改，其中场景配置中可能存在新增规则或决策，删减规则或决策，为便于用户对双跑结果数据的解读，对增删改行为进行了标识</p>
+<p><strong>共有：指该决策/规则是经过修改操作，线上演练可对比</strong></p>
+<p><strong>线上：指该决策/规则在演练任务中删除了，只有线上命中情况</strong></p>
+<p><strong>演练：指该决策/规则在演练任务中增加了，只有演练命中情况</strong></p>
+<h3 id="section-359"><strong>Q11：提示双跑完成，任务状态显示双跑完成，但操作中仅显示“终止”，无法查看结果为什么？</strong></h3>
+<p>--A：双跑已经完成，但数据统计入库汇总，存在1分钟左右的误差，等一会即可；</p>
+<h3 id="section-362">Q12：普通场景的批量编辑后，取消变更会联动把这次批量编辑的内容都取消掉？</h3>
+<p>--A：因为取消变更是针对某一次操作进行的，如果这次操作影响到了2条变更内容，那么会同时把这两条变更内容都取消。</p>
+<h3 id="section-364">Q13：双跑演练中，双跑的数据涉及外部接口会增加下游请求量么？</h3>
+<p>--A：会增加必要的请求量，但是会尽最大程度避免重复请求调用</p>
+<p></p>
+<p></p>
+</article></main></body></html>

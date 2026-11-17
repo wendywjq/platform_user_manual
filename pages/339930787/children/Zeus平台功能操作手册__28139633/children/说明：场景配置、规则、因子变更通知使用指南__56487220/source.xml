@@ -1,0 +1,240 @@
+<km-doc>
+<km-title nodeId="5f24b01c32f94102b190eae5cc763bf8">说明：场景配置、规则、因子变更通知使用指南</km-title>
+<km-catalog style="none" nodeId="ce9056b0e1d34a7f90e67939ef758fd0" />
+<h2 nodeId="e9bb28c9371b4b7caad11ace573666d3">一、背景</h2>
+<p nodeId="f09333b824304977b077c2f70d7ddb72">在场景配置、规则、因子发生变动且会对线上产生直接影响时，需要大象通知相关人员，以应变突发情况。</p>
+<ul nodeId="35afd79ad9584c558e482cb650a259b6">
+<li nodeId="c1b96c13d5e54b2dae525dfe645df49b">场景配置中的某条规则由标记改为生效时，该业务的其他人能有感知，并显示规则标记时的命中量</li>
+<li nodeId="2c7a4d9cc1be4af6b75a77b8e7af2a15">规则的表达式被更改时，且该规则在某些场景配置中处于生效状态，则应该通知相关策略和业务人员</li>
+<li nodeId="19fd6cc97ecc44b79ca5d26bff596f4c">因子的表达式被更改，若其对应的规则在某些场景配置中处于生效状态，希望能通知相关人员</li>
+</ul>
+<h2 nodeId="8cd32b3dbc1e4148841f6e3b0116d7ec">二、配置指南</h2>
+<ol nodeId="f10c65dbaceb4d0e9a1c64b11d72b3cf">
+<li nodeId="6f11e7d6c9994128ab8417efc349b0e8">进入 <span color="rgb(29, 120, 205)"><strong>权限 —&gt; 业务管理 </strong></span>导航栏，查找需要通知的业务点击进行入 <span color="rgb(29, 120, 205)"><strong>业务更新</strong></span> 页面</li>
+<li nodeId="89e10e670d9c4649b6f26843a4a065bb">
+<p nodeId="425fa5b40b0040479574fdbf4f1378df">在 <span color="rgb(29, 120, 205)"><strong>业务更新</strong></span> 页面修改 变更通知人</p>
+<ol nodeId="abf701adcbb14d60990cf831edc1664d">
+<li nodeId="6faefe38d42c4070b62f8db9a7e1ab6f"> <img src="https://km.sankuai.com/api/file/56487220/57250245" name="image.png" width="598" height="294" nodeId="af8f821f7c7e4ee4be132f49fa8710f8" /></li>
+</ol>
+</li>
+<li nodeId="6ba84898408444a085edff9aa5908d8f">点击 更新 按钮即可完成对通知者的配置</li>
+</ol>
+<km-note type="info" hiddenTitle="true" nodeId="46684619f8b84c17a224c7f74fec6ac2">
+<km-title>注</km-title>
+<km-content>
+<p nodeId="390eef97178c4cadac2cbbbcb420265a">只有业务的负责人才有权限更新业务方信息，包括修改变更通知人</p>
+<p nodeId="169673151b5f4886b2c4409c9726abbb">变更通知人由英文逗号间隔，可以自由设置，可以设置通知非Zeus用户</p>
+<p nodeId="872e24f96d834787b1fe1af8d459de7d">目前只支持大象通知</p>
+</km-content>
+</km-note>
+<h2 nodeId="288370dd56ff4395bdd23fdfa41fedfc">三、通知内容说明</h2>
+<ol nodeId="8eb5a2003cf64426af9b30c1caceb54e">
+<li nodeId="6887656ef72641fcb36aea6f272d860a">
+<p nodeId="1ae893bcad5b41ee91edb05dfe3a5589">场景配置变更通知</p>
+<ol nodeId="e09099e3cbdb454ab35e5cb00ec86df5">
+<li nodeId="64ddba67cf3a4472a0a1ff82212b1b86">
+<p nodeId="9fc5ad7e2e3543a3a0ee530020350f9a">当场景配置被修改成功时会发生通知</p>
+<ol nodeId="f9e6fc5ecb28408fb466fddd27e67b8e">
+<li nodeId="44cacac1c91d45aea7d8f7c0326a9e01">
+<p nodeId="0f46ea5036ee4c4aa62979a3b216a494">场景配置由标记改为生效，会大象通知该场景所在业务的变更通知人，并显示规则标记的时长和命中量</p>
+<ol nodeId="e33a2d17d23b4cdd8e07f097d1c46627">
+<li nodeId="bad0c954ebe14eb9822c96d0c8620ecc"><img src="https://km.sankuai.com/api/file/56487220/57272085" name="image.png" width="478" height="256" nodeId="5ca707bfc2404a7fb93605806f5eaadb" /></li>
+</ol>
+</li>
+<li nodeId="0dca3e55f261423189e86f37f5d42ac4">场景配置发生其他变更操作也会通知相关人员</li>
+</ol>
+</li>
+</ol>
+</li>
+<li nodeId="c5df6d8b7a2d4a60b6d2781eb7a41ad0">
+<p nodeId="9c41539cb6824ddca2fb0586367a8083">规则变更通知</p>
+<ol nodeId="437d5d85f51e4e2b968115a3a26fc3ab">
+<li nodeId="d0b671be38714f02acdfe3bf5c61b431">
+<p nodeId="ec17d19be4114c138a89912c2dd0fc70">当规则在某些场景下为生效状态时，修改规则表达式内容成功会触发大象通知</p>
+<ol nodeId="68af941de6ca4b018378e69f6666f77d">
+<li nodeId="23aa2f68b1834a8b9b5b40dd5ff3246f">通知人：该规则共享的所有业务方的变更通知者的集合</li>
+<li nodeId="144b1ef4ed7848a7889d5495a8adea42">通知内容：影响的生效场景配置个数以及规则表达式被修改提示信息</li>
+<li nodeId="07a6cbff6f1243d4bda3c215c9d85897"><img src="https://km.sankuai.com/api/file/56487220/57251301" name="image.png" width="415" height="315" nodeId="9947012359d340c28195122685ea0199" /></li>
+</ol>
+</li>
+</ol>
+</li>
+<li nodeId="b4caa943253546ce9f4c91bd717d8878">
+<p nodeId="4b5e778898e44e309af819bb8874a815">因子变更通知</p>
+<ol nodeId="8816c3876eb941ad840ecf1033574a43">
+<li nodeId="61ef7cfa388a493aae041769badcee9e">
+<p nodeId="f859b8f5337f4c198875b190f8c5ee91">当因子被某些规则使用，且这些规则在某些场景中处于生效状态，因子被成功修改会触发通知操作</p>
+<ol nodeId="60be27997a0e474abfb01dcaf31e9291">
+<li nodeId="aff5ea1a053940b397af23c1ffdf1d9a">通知人：该因子所共享的业务方的变更通知者的集合</li>
+<li nodeId="5b0eb6fff9aa444f9f9f6869dd090c8b">
+<p nodeId="cd0f88e297524f21ae655ed99bc23298">通知内容：</p>
+<ol nodeId="1339ffe1042c4fc3ac5eb8882b7fc435">
+<li nodeId="e9e98dbf40734403a0096ef4030c5f8c">
+<p nodeId="14c78501a7e1457b86e425a78d412086">普通因子</p>
+<ol nodeId="6d9753ff0eb84dd5813fe26cf27de7cf">
+<li nodeId="e7ccd4692782459e809fb366c1a0f1a1">影响的生效场景配置数量</li>
+<li nodeId="06d0611c7f1a45c8bfea4dc78188ffb4">表达式是否发生变更</li>
+<li nodeId="ca0d04f7570342c9bd6013a11d87f1a7">因子类型是否发生变更，变更前后分别是什么</li>
+<li nodeId="df710189a68442ddabafc14eb7da326c"><img src="https://km.sankuai.com/api/file/56487220/57187821" name="image.png" width="403" height="343" nodeId="cf701beacd8f4643a35ba6df5085bacb" /></li>
+</ol>
+</li>
+<li nodeId="c50f6dbec36c415abdd23ab5a6eb0e3c">
+<p nodeId="e65c256fe4ba4750be39d55e4b33c1c2">累计因子</p>
+<ol nodeId="52a5b208005d4db1bdd71c7cafad55c0">
+<li nodeId="d847ee7981b1469e912e6561b0de21f9">影响的生效场景配置数量</li>
+<li nodeId="c8c7f10055e446b290454bd9e79ee7a1">累计因子的累计事件ID，累计周期，按何累计，累计字段、求各项等属性是否发生变更</li>
+<li nodeId="b860409215e043adb57a9998a414d8ca"><img src="https://km.sankuai.com/api/file/56487220/57272789" name="image.png" width="624" height="259" nodeId="6704d3a1e9914da5995c3031f46ea299" /></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li nodeId="972e67ed898c45549ee07e5fb8eeff43">通知内容注</li>
+</ol>
+<km-note type="tip" nodeId="612726c1ab674cadb6b71747832c095d">
+<km-title>重要</km-title>
+<km-content>
+<p nodeId="d951fdee858d467e8c833b20a30cb9f8">表达式属于敏感私密信息，为了安全性考虑，推送消息时不对表达式变更前后的内容进行展示，只提示表达式发生了改变。</p>
+<p nodeId="9d802d0b43dc4e66af0d07e128584d66">在点击链接查看更改后的场景配置、规则或因子时，需要用户当前业务能匹配场景配置、规则或因子所在的业务，否则显示可能为空</p>
+</km-content>
+</km-note>
+<p nodeId="b674b5f667464224b169d03b3ba203ac" />
+<p nodeId="4714511bc9164b99a6f276cf074a961b" />
+<p nodeId="3c8cb1e613bd4e90a7193446dffa9e66" />
+<h1 nodeId="0c525cb0aa1949489241378d82245c08"><span color="rgb(0,0,0)">场景配置</span></h1>
+<table responsive="false" nodeId="a3ca90f4d8ef45e49f9d78b1bb45e0db">
+<tr nodeId="69c47c0beb3e42bcb55ca74bbe92b9bd">
+<th colwidth="[55]" nodeId="15c879a3dd8949a88d27204caec28abe">
+<p nodeId="625e0aaa22be4aac8da7bc93ee7d504f"><span font-size="14">状态</span></p>
+</th>
+<th colwidth="[444]" nodeId="9058dbb9a32443c2a207aa4b40533788">
+<p nodeId="b9eed7ca58794416a1be37fea307a2cc"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="f6632c13c3864e6d9daf0f03b77ce9af">
+<td colwidth="[55]" nodeId="9379e3aa2b67456bab184ac41e98d829">
+<p nodeId="809f305e4046409fa2ba0800eeeb8dc9"><span font-size="14">离线</span></p>
+</td>
+<td colwidth="[444]" nodeId="c5149f1ef1f34c6aafb19398312ff608">
+<p nodeId="34fb6e85de2d42e0b704ca94913494bb"><span font-size="14">为场景新配置一条规则</span></p>
+</td>
+</tr>
+<tr nodeId="b201a3ea62164bb39922416be2ea2181">
+<td colwidth="[55]" nodeId="d1c4f46245904e37b0c54367ed53e95f">
+<p nodeId="92c34e6404bf4941a9a11e776a8d4d39"><span font-size="14">标记</span></p>
+</td>
+<td colwidth="[444]" nodeId="61a4a4924db24f9ea648d4f6a1c9472e">
+<p nodeId="824b6a76f57242139f1c209e1160cc29"><span font-size="14">执行规则，记录结果，主要用于规则上线前的效果测试，不返回决策</span></p>
+</td>
+</tr>
+<tr nodeId="7ff559aa7bb84c0c9820b1be33acb932">
+<td colwidth="[55]" nodeId="d969a220dc90429ca60c2d2a66835940">
+<p nodeId="581ab936434d4e2e95a2b1b0a93ac2dd"><span font-size="14">生效</span></p>
+</td>
+<td colwidth="[444]" nodeId="2ca9adefea7c4501801e06a01372057f">
+<p nodeId="17dac569527048a383ccfd2a0574ac1e"><span font-size="14">执行规则，记录结果，并且产生决策</span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="1129634c208046a5a032e745534e8196">规则</h1>
+<table responsive="false" nodeId="d4252059f8e24f0ea1e720df2c79096a">
+<tr nodeId="77654f03f71b4cb7a533b094b1f0a1e2">
+<th colwidth="[66]" nodeId="75b0ef3121e348459d8ff60dddbad415">
+<p nodeId="aa264ef3206b41da810352174cd31da8"><span font-size="14">状态</span></p>
+</th>
+<th colwidth="[192]" nodeId="718e3a3199914b96a89dc7be84807fbb">
+<p nodeId="373f85fd3718497fabbb22e16bb2f36e"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[164]" nodeId="0e761bb8d1594e35b29138bd96c31f48">
+<p nodeId="a9d305e27e094fdbbae603477a994d23"><span font-size="14">是否可修改</span></p>
+</th>
+</tr>
+<tr nodeId="a6ceb576cc2547db9158d0bf02654841">
+<td colwidth="[66]" nodeId="ece82ffcc8e2413cb94af1b49c288039">
+<p nodeId="4f878f714ca045cf884621f47c627a9b"><span font-size="14">新建</span></p>
+</td>
+<td colwidth="[192]" nodeId="19076fa9c0824158a9882b126dbc4ff6">
+<p nodeId="1c471a999af5478e965f60a0d96dbee7"><span font-size="14">新加的规则因子</span></p>
+</td>
+<td colwidth="[164]" nodeId="c5df4961d5ff45bcab71ccb979f4f536">
+<p nodeId="abdf31e4421f45529f103dc0b380b67d"><span font-size="14">可以</span></p>
+</td>
+</tr>
+<tr nodeId="201564dc71b945dcb8b61147a3859721">
+<td colwidth="[66]" nodeId="529301500efa4d1dad6802183e0bfdcc">
+<p nodeId="7d84298efcc746a5a82898e5e4d51024"><span font-size="14">已测试</span></p>
+</td>
+<td colwidth="[192]" nodeId="a25148b9a21c43239b3d696e12c1fc1e">
+<p nodeId="bbe6553bd3d54e15afa161582de33f02"><span font-size="14">已经跑通至少一个测试用例</span></p>
+</td>
+<td colwidth="[164]" nodeId="60f76a19e94d495f810388829a882f00">
+<p nodeId="efdaaabbea8b419d81ca4551ee6830ab"><span font-size="14">可以</span></p>
+</td>
+</tr>
+<tr nodeId="4b5e547a15b44344825b4da4155894aa">
+<td colwidth="[66]" nodeId="bcb2fec8d3af4121b087e311bbc12fc0">
+<p nodeId="25784a52119f4f299b9722034a6a3009"><span font-size="14">在线</span></p>
+</td>
+<td colwidth="[192]" nodeId="e9d5d830c5dc43d297429122097510c4">
+<p nodeId="53b978f62a014b2786766b0e599c0de5"><span font-size="14">能够在线上配置</span></p>
+</td>
+<td colwidth="[164]" nodeId="b14a26e5427640f7a1217222110c8972">
+<p nodeId="5964eed0e8924651a99c4591e25f6dbe"><span font-size="14">如果没有在线依赖可以</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="0af88f478fb244888f3c6b60e82140ea"><km-drawio src="https://km.sankuai.com/api/file/56487220/168578631" width="400" height="88.62275449101796" nodeId="2a4c43bdbab346b7bd0b40fefb4fe5d8" />​</p>
+<h1 nodeId="39eef3c494944cf8af76c604eb64d5ec">规则因子</h1>
+<table responsive="false" nodeId="f7d17d569bcf4333af45e11b2fd946f0">
+<tr nodeId="9133546e776d4c7db904d826273d7bab">
+<th colwidth="[66]" nodeId="3e1206bc08924cabae97add3c7e7a842">
+<p nodeId="a094916a4e574563a5a69c2535a13b0a"><span font-size="14">状态</span></p>
+</th>
+<th colwidth="[192]" nodeId="7f3d164968ac48c6b180f0ea7ef75776">
+<p nodeId="68d8412c44dd417f84343657921c6a07"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[164]" nodeId="d7c240605ed04d28a221fe0539fa88e4">
+<p nodeId="dde7407dd91948fb83b9b9689c33c672"><span font-size="14">是否可修改</span></p>
+</th>
+</tr>
+<tr nodeId="fd29011fffa141afbe868d807c419d0e">
+<td colwidth="[66]" nodeId="fab3f011457c44b1b0e0659b76930803">
+<p nodeId="65e3632152cb4e50bfbd1dcc1c5e61a0"><span font-size="14">新建</span></p>
+</td>
+<td colwidth="[192]" nodeId="bea1cb762e5449fbb3e26700ec6283bc">
+<p nodeId="6fe6c46af39643e38e3d7babbea6eda8"><span font-size="14">新加的规则因子</span></p>
+</td>
+<td colwidth="[164]" nodeId="4358b0a16b6945188115d28fe9ba829d">
+<p nodeId="cb62af662cdd4dac900a752544e04139"><span font-size="14">可以</span></p>
+</td>
+</tr>
+<tr nodeId="be628815d4ce4842acc24f8f2f69bfb2">
+<td colwidth="[66]" nodeId="fd85dc0033cb401c81f61398ea69e934">
+<p nodeId="d9572bd42f6a409083557652b3fb83aa"><span font-size="14">已测试</span></p>
+</td>
+<td colwidth="[192]" nodeId="65cf0d9777684b6999c8796af28edef8">
+<p nodeId="9876e74f86404dd6a40fdfcc6fa886f0"><span font-size="14">已经跑通至少一个测试用例</span></p>
+</td>
+<td colwidth="[164]" nodeId="ef16b768a31b419e8b4f4f8881d0a1f6">
+<p nodeId="2ad5c897b8124aa6b0beba2ede945741"><span font-size="14">可以</span></p>
+</td>
+</tr>
+<tr nodeId="97062e053c1042db82dc87670738f64c">
+<td colwidth="[66]" nodeId="162f8bf2d11f471896dd3fef23d08a53">
+<p nodeId="7831c5ebb5514c298aa2b0eba2544b14"><span font-size="14">在线</span></p>
+</td>
+<td colwidth="[192]" nodeId="672f5e3d261c4761a4a19a254e244ec4">
+<p nodeId="89aea2e4ccce4ac7b85587f12f5e27df"><span font-size="14">能够在线上配置</span></p>
+</td>
+<td colwidth="[164]" nodeId="841fb1c89ed1467cbf057d3b6c121509">
+<p nodeId="a3a9fc4e1a3d4a0cb305f5eb804f0e25"><span font-size="14">如果没有在线依赖可以</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="ec5e97bcc02c4f8e84e568d201409794" />
+<p nodeId="f197cca89249432f80226ee73cb8c6ce"><km-drawio src="https://km.sankuai.com/api/file/56487220/168602589" width="400" height="88.62275449101796" nodeId="866a3a7e04da41869cf13b3992ee1f00" /><span color="rgb(0,0,0)">​ </span></p>
+<p nodeId="ba58421856c3443caf018ff056e66ecd" />
+</km-doc>

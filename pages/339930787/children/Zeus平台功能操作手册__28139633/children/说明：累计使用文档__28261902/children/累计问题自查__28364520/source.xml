@@ -1,0 +1,69 @@
+<km-doc>
+<km-title nodeId="29a93f6d79fb44fe869a1cea2e8991fc">累计问题自查</km-title>
+<km-catalog style="none" nodeId="8f653cfd8fc046cf9c0ac24f3f55ffb3" />
+<h1 nodeId="3e8e6852509d4b57b41469f156941569">累计的执行过程</h1>
+<h2 nodeId="4715362beb554738942cebb5cb137a85">发送/删除累计</h2>
+<p indent="1" nodeId="2ed16d680bda42dbaf2ca8c7e977f863">a. 在zeus上新增累计事件（如果有需求）。</p>
+<p indent="1" nodeId="b054002fc7234a668d57c9db21e21683">b. RD在代码中，在PM期望的请求中调用zeus的接口(发送累计为sendAccumulate，删除累计为deleteAccumulate)，传入参数上下文和累计事件id。</p>
+<p indent="1" nodeId="d66046377b434c5bb5fbd132963af2ad">c. zeus先通过累计事件id筛选累计。</p>
+<p indent="1" nodeId="5b01e4f808854194bb981dd528d98d77">d. zeus通过上下文筛选符合条件的累计。</p>
+<p indent="1" nodeId="64b9840093c345e1982be5609c009eda">e. 调用发送累计接口，zeus将符合条件累计发送给累计服务；调用删除累计接口，zeus将符合条件的累计进行数据清除</p>
+<h2 nodeId="0ca9dfe58d6344159afec7cfac3818e4">读累计</h2>
+<p nodeId="1446217ab7cb4117981d7bb32df6e535">在规则平台中任意配置，只要符合以下条件，就能读到累计的结果值</p>
+<ul nodeId="4cd12b04a42f41159e77aa26ededb976">
+<li nodeId="8ebd94163f3542d5a3c69351265e6731">累计的Key全部都存在于参数/因子列表中且不为null</li>
+<li nodeId="332dfc1917bf403ab74d2184ea5195ef">满足读取条件(如果读取条件与累计条件一致，则要满足累计条件)</li>
+</ul>
+<p nodeId="4162e99a1ef64f08868f12993b9da044" />
+<h1 nodeId="69c292d23156484290b8cdc8dffa7832">常见问题及排查方法汇总</h1>
+<h2 nodeId="641967865a974fdca3408335dae3533b">1.通用问题汇总</h2>
+<ul nodeId="3e72a09997954d6fa6410555e28b20b3">
+<li nodeId="a6eadca77ff34745b2fe1960a58de817">累计类型为去重计数或去重求和时，<span color="rgb(255, 0, 0)"><strong>去重的次数不能超过800（也不准确，具体看累计值的大小）次</strong></span><span color="rgb(0, 0, 0)">，此时会发现800次以后累计不上的问题从而造成累计不准确，解决方法是对于去重次数太多的情况不使用去重功能（可以容忍一定误差）</span></li>
+<li nodeId="0765d792fb784de69bf989ca14c2ad3c">在日志查询的参数tab显示参数为空串，在累计tab看到也拿到了累计因子的结果，但是累计因子的读取条件却设置了该参数不为空串，出现这个问题需要查hive表进行验证，因为日志查询在<span color="rgb(255, 0, 0)"><strong>参数/因子的值带有尖括号时会显示为空串</strong></span>，如在hvie中显示的"ssid":"&lt;unknown service&gt;"在日志查询上显示为“ssid”: ""；因此是显示问题</li>
+<li nodeId="4d89ac23a30c4752a475fd8345a31a2f">某个参数存在且有值，但在日志查询的累计tab显示错误信息为"lost param key xxx"，显示缺失该参数，这是由历史原因造成的，只需要强制更新一下该累计因子即可</li>
+<li nodeId="6b94a518857949e3b3344f23683a4293">调用发送/删除累计接口，如果不填“满足何种条件累计”，则无法进行发送操作，如果不填“删除条件”，则无法进行删除操作</li>
+<li nodeId="43334c4fd899437bbeb4de6de17b3dec">没有发送累计，但是累计因子却有值。因为<span color="rgb(255, 0, 0)"><strong>累计因子新建时默认为累计自身</strong></span>，<span color="rgb(255, 0, 0)">在读取累计时，</span>会把当前请求的结果加到累计因子的值上。</li>
+<li nodeId="37358abdf47e43ebb3892529714f8597">发送了累计，累计详情显示已经有数据（表示发送累计成功），但是拿到的累计因子的值不符合预期，原因可能是累计因子是<span color="rgb(255, 0, 0)"><strong>累计自身的，在读取累计因子结果时，累计值不能为null，否则无法读累计成功</strong></span></li>
+<li nodeId="07c19f47837c4ed0842c1cf7e84b2f37">累计因子的累计Key配置了sceneId，在读（获取决策）的时候有该参数，但是在发送累计的时候没有传该参数，导致发送累计不成功，没有累计上值。查看log.rc_zeus_accumulate hive表里的skippedList字段能发现包含该累计因子的名称</li>
+<li nodeId="2a59f550dcc54612aa9694fdf4bdf57e">业务发送累计和读取累计（获取决策）的上下文不同，导致发送累计key与读取累计key不同，进而导致读累计结果一直为0。比较log.rc_zeus_accumulate hive表里的sendList字段和日志查询累计详情tab中累计key，能发现二者的不同</li>
+<li nodeId="6bdd4dc7e9c34667ba1c6c6295deb510">累计因子区分场景吗：不区分场景。<span color="rgb(0, 0, 0)">只要传了accumulateEventId字段，只要eventId下面累计条件满足，就会发累计</span></li>
+<li nodeId="23506725a8364eb99d31f5f854414029"><span color="rgb(0, 0, 0)">累计多个事件会有什么结果：</span><span color="rgba(0, 0, 0, 0.87)">一条请求过来会遍历每个累计事件下的所有累计因子，所有符合发累计、读累计的都会发和读</span></li>
+<li nodeId="c76544271fe942bf884915873baa9560"><span color="rgba(0, 0, 0, 0.87)">累计的key大小不能太大，utf-8转换字节后不能超过1000个字节，否则不会累计上</span></li>
+</ul>
+<h2 nodeId="bf672622e37548eba7860d314f1728e4">2.读的累计结果不是0就是1</h2>
+<p nodeId="5989a28baa12444d9b41ec0637228dd8">这种情况下，一般是发累计出现了问题。可以直接<strong>查hive表</strong>定位问题：</p>
+<p nodeId="7a2551b0403f42a78dcf480f27e68227">选择数据源：</p>
+<p nodeId="3e5b8db317db4b16a84539eb663c5ab0"><img src="https://km.meituan.net/112762282.png?contentId=28364520&amp;attachmentId=112762283&amp;originUrl=https://km.meituan.net/112762282.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="354" height="44" nodeId="e1b47c467bad4b9cacf4bff883003cfa" /></p>
+<p nodeId="66e85908c8df431dae798744bb509075">发累计问题查询SQL：</p>
+<table responsive="false" nodeId="da3e8a8f4f4b4624a71def11c5c95aed">
+<tr nodeId="fdcec09862d14512a01dc6efa909e790">
+<td colwidth="[305]" nodeId="4f89b4b711e54db0829f2869fb32c535">
+<p nodeId="eddff50c90f0419b825b4413b25e7956"><span font-size="14">SELECT * from log.rc_zeus_accumulate</span></p>
+<p nodeId="fb067b2a571346278564da1a9c172d4c"><span font-size="14">where accumulateeventid = 35</span></p>
+<p nodeId="4f177c6af01141628508e9815ffaeeb2"><span font-size="14">AND dt=20190210 and hour = '16'</span></p>
+<p nodeId="d86e2fdb98d34e37bd6138c5d72b784c"><span font-size="14">and businesscode = 4</span></p>
+<p nodeId="82ca08d1b8224f3f841bf6fd905726b1"><span font-size="14">and contextlist LIKE '%10868386541536%';</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="a86579b07f4449a78b7b49be3f5e3240">字段解释：</p>
+<p nodeId="03d0087ed78444279ec31dc59cd3916c">log.rc_zeus_accumulate： 所有发累计的相关信息都会写入这个表中。</p>
+<p nodeId="53554ebec36447a798ee1a1d47509939">accumulateeventid：传入zues的累计事件ID，也是累计因子页面配置的累计事件。</p>
+<p nodeId="64622cafb004483f8100f5e450f29b8d">businesscode：配置累计因子时的业务ID。访问：<a href="https://zeus.sankuai.com/business_group_mappings/get_list" title="Zeus所有业务展示" nodeId="fe1e85f93f554efd803377b5e9a26873">Zeus所有业务展示</a>（1：反作弊     2：资金     3：账户     4：反刷单     5：商户     6：yoda）</p>
+<p nodeId="63cea0d6500745f4a68288d378fc7bb2">contextlist：发累计时zeus接收到的所有参数。 这里一般 like 关键信息，比如userid，orderid，uuid。数据查出来之后要确认的问题</p>
+<p nodeId="9c9982b20b8f480cb4725c9186fab348">1.有没有数据：如果没有数据说明累计就没有发，先自己思考一下，看看 LIKE 条件中值是否正确。 如果确认应该发累计，找相关RD排查，走Tatooine的找TT.RD，其他找Zeus.RD。</p>
+<p nodeId="a5378538c6a34395a95c35b95398866e">2.有数据的话，确认数据时间，是否预期的时间，如果不是，参考1.</p>
+<p nodeId="e7dc305ab1dd4b438226ef35899691bd">3.确认数据时间一致后，复制contextlist的内容到<a href="http://tool.chinaz.com/tools/urlencode.aspx" title="URL在线解码" nodeId="7d4bccdbcccf4d6d8c5e0c897971d4ef">URL在线解码</a>，解码后根据累计因子的<span color="rgb(255, 0, 0)"><strong>累计条件</strong></span> ， <span color="rgb(255, 0, 0)"><strong>累计key</strong></span> ，<span color="rgb(255, 0, 0)"><strong>累计值</strong></span> 中的参数/因子，查询参数/因子<span color="rgb(195, 76, 64)"><strong>是否是期望值</strong></span>（是否存在，是否为null或者空，是否和<a href="https://zeus.sankuai.com/common_log/query" title="日志查询" nodeId="07c2ab8547244a719ff0744175f7b1c4">日志查询</a>中值一致），如果有问题，说明参数不正确。</p>
+<h2 nodeId="34ac81dbeeed45a0ab6e380fb415a810">3.读不到累计/为什么没发累计</h2>
+<p nodeId="56ee0cad125f4be3bdb2dc57493e08cf">首先检查一下累计前置条件是否满足，前置条件如下图所示：</p>
+<p nodeId="831ff954f67e4af88b9942e9d60df049"><img src="https://km.sankuai.com/api/file/cdn/28364520/295713111?contentType=1&amp;isNewContent=false" name="image.png" width="300" height="329" nodeId="ce27c651f78b4c47abe74efe6bbbb4ed" /></p>
+<h2 nodeId="d419b786f0e4418fb162044b18e68243">4.累计值不符合预期</h2>
+<p nodeId="45e588fc99704d6199d4921de587eed4">问题示例：某个累计因子没有设置累计自身，但是在本次请求中，它的值为什么是1，而不是0</p>
+<p nodeId="045301b5a29141a196d864f189bf7b93">首先找到这个累计因子的key值分别是多少（这个可以在日志中找到），接着根据key来查一下当前累计因子的值，看存储的结果是否符合预期。查询地址：<a href="https://zeus.sankuai.com/data_zeus_static/#/readFactorError" title="https://zeus.sankuai.com/data_zeus_static/#/readFactorError" nodeId="5a06d5e7ecb741c28f380d8a82cafc36">https://zeus.sankuai.com/data_zeus_static/#/readFactorError</a>。</p>
+<p nodeId="06a6b7c839b64010bbbcdb6ee956000a">查询结果示例如下图所示：</p>
+<p nodeId="69df92352d69487387b5e06578521e86"><img src="https://km.sankuai.com/api/file/cdn/28364520/513468798?contentType=1&amp;isNewContent=false" name="image.png" width="693" height="331" nodeId="4dda603ba4d040ec841f4146c84d0989" /></p>
+<h2 nodeId="4e40fad979e74dfb8f59a8e8605b1ac8">5.累计最近几次不符合预期</h2>
+<p nodeId="329aafb933e0491caceb13f4c5f350a0">累计最近几次默认不累计自身，但有时候会出现累计自身的情况。示例tt链接：<a href="https://tt.sankuai.com/ticket/detail?id=8255557" title="https://tt.sankuai.com/ticket/detail?id=8255557" nodeId="66e4230be3864402aee332e7923997f9">https://tt.sankuai.com/ticket/detail?id=8255557</a></p>
+<p nodeId="c3dc36b99cad49d8bbf4fa03344a2132">原因：<span color="rgba(0, 0, 0, 0.87)">1. 在server集群过生效规则，2. 发累计，3.把server的请求转发到worker集群过标记规则。其中2和3的顺序是无法保证的。这个累计因子只是在标记规则中用到了，所以只会在worker集群计算，那么它计算的时间，就跟发累计的时间先后顺序不确定了。所以会导致这种看起来 有时候读到了自身结果，有时候读不到自身结果 的情况。</span></p>
+<p nodeId="2826b6340fb141f3ab2e070cce938983" />
+</km-doc>

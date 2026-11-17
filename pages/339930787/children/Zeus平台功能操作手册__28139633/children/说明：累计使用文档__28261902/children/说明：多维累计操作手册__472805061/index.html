@@ -1,0 +1,206 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：多维累计操作手册</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-13">二、名词解释</a><a href="#section-18">三、操作指南</a><a href="#section-19">3.1 用户配置流程说明</a><a href="#section-23">3.1.1 使用数组类型因子实现多维配置</a><a href="#section-25">3.1.2 读累计查询和写累计查询</a><a href="#section-34">3.2 Quick Start</a><a href="#section-36">3.3 详细操作流程说明</a><a href="#section-37">3.3.1 使用数组类型因子实现多维配置</a><a href="#section-38">Step1: 创建数组类型的因子</a><a href="#section-78">Step2: 创建累计因子--按何累计多维</a><a href="#section-104">Step3: 创建累计因子--累计值多维</a><a href="#section-128">3.3.2 读累计查询和写累计查询</a><a href="#section-133">读累计查询--按何累计多维类型的累计因子</a><a href="#section-168">写累计查询----按何累计多维类型的累计因子</a><a href="#section-197">4.特殊说明</a><a href="#section-206">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：累计使用文档</a> / <a href="index.html">说明：多维累计操作手册</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/472805061">查看学城原文</a></p><article>
+<h1>说明：多维累计操作手册</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>（一）目前累计仅支持单值的累计，比如累计userid下的手机号。但对多值，目前支持多个按何累计Key拼接方式，比如累计userid+uuid下的手机号，但对于同种key多值情况尚不支持，比如：</p>
+<ul>
+<li>场景1：累计userid的手机号数量，其中手机号来自三个字段schoolMobile、bankMobile、hotelMobile，需要将一个请求中的这三个手机号转化成三个请求方可支持，多维累计上线后，可将这三个手机号转化成数组手机号即可，减少业务方侧数据改造成本以及与累计服务交互次数</li>
+<li>场景2：累计手机号对应的用户的数量，其中手机号来自三个字段schoolMobile、bankMobile、hotelMobile，需要将一个请求中的这三个手机号转化成三个请求方可支持，多维累计上线后，可将这三个手机号转化成数组手机号即可，减少业务方侧数据改造成本以及与累计服务交互次数</li>
+</ul>
+<p>（二）前端业务传参中存在Json数组格式，无法对数组中任一元素进行累计，目前只能由tatooine进行拆单并发调用，可能会造成同key不同value写累计覆盖情况，json格式如</p>
+<pre><code>[{
+	"buyPrice": 5.7,
+	"skuName": "吾吉梓鹌鹑蛋24枚/盒",
+	"quantity": 1,
+	"price": 5.99,
+	"skuAmount": 5.99,
+	"skuid": 129933
+}, {
+	"buyPrice": 9.2,
+	"skuName": "雨润精肉丝200g±20g/盒",
+	"quantity": 1,
+	"price": 9.8,
+	"skuAmount": 9.8,
+	"skuid": 216492
+}]</code></pre>
+<p>多维累计上线后，可以一次对json数组中各元素的参数进行读写累计</p>
+<p>即：多维累计支持了多值情况的按何累计（累计key）、累计值（value）和累计条件</p>
+<h1 id="section-13">二、名词解释</h1>
+<ul>
+<li>多维累计功能：累计因子支持多个维度进行累计，”按何累计“有多个维度或者”累计值“有多个维度。</li>
+<li>使用数组类型因子实现多维配置：<span style="color: ">将需要多维配置的参数（例如，bankMobile,schoolMobile,hotelMobile）通过toArray扩展函数映射成一个数组类型的字段（factor_mobile），然后在累计因子页面的“按何累计”或“累计值”中配置factor_mobile</span></li>
+</ul>
+<h1 id="section-18">三、操作指南</h1>
+<h2 id="section-19">3.1 用户配置流程说明</h2>
+<p>⚠️⚠️⚠️ <span style="color:rgb(245, 35, 45)">注意</span>⚠️⚠️⚠️<span style="color:rgb(245, 35, 45)">：“按何累计”中可以支持数组类型的因子与其他参数/因子进行组合，但是数组类型的因子只能有一个，且配置时需将数组类型的参数/因子放在首位。</span></p>
+<h3 id="section-23">3.1.1 使用数组类型因子实现多维配置</h3>
+<img src="assets/033c2ca748dfa19a.svg" width="656" height="420" alt="流程图">
+<h3 id="section-25">3.1.2 读累计查询和写累计查询</h3>
+<ul>
+<li>读累计查询：<span style="color: ">按何累计多维类型的累计因子与按何累计单维类型的累计因子在读累计查询的时候有区别：数组类型的key值只能单一查询，即只能输入数组单个元素值作为key值进行查询，目前无法支持按照数组格式查询</span></li>
+</ul>
+<img src="assets/f7f3710d477eeac3.svg" width="606" height="156" alt="流程图">
+<ul>
+<li>写累计查询：按何累计多维类型的累计因子<span style="color: ">，与读累计查询要求一样</span></li>
+</ul>
+<img src="assets/b83b3b9b80fe30bb.svg" width="606" height="156" alt="流程图">
+<h2 id="section-34">3.2 Quick Start</h2>
+<p>------</p>
+<h2 id="section-36">3.3 详细操作流程说明</h2>
+<h3 id="section-37">3.3.1 使用数组类型因子实现多维配置</h3>
+<h3 id="section-38">Step1: 创建数组类型的因子</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：规则--&gt;因子--&gt;添加因子</span></p>
+<p><span style="font-size:14px">如右图所示：</span></p>
+<ul>
+<li><span style="font-size:14px">创建普通因子</span></li>
+<li><span style="font-size:14px">结果类型选择数组类型</span></li>
+<li>
+<p><span style="font-size:14px">因子表达式：</span></p>
+<p><span style="color: "><span style="font-size:14px">（1）针对于需要合并参数的，将多个字段（bankMobile,schoolMobile,hotelMobile）通过toArray扩展函数映射成一个数组类型的字段（factor_fwq_array_test）,具体方法可以参考 </span></span><a href="https://km.sankuai.com/page/397391232#id-2.1Array%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89" title="https://km.sankuai.com/page/397391232#id-2.1Array%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89">最佳实践：高阶表达式Array和Map的使用</a></p>
+<p><span style="font-size:14px">（2）针对json数组需要拆分元素的，表达式书写方法如右，可参考</span><a href="https://km.sankuai.com/page/586347695" title="https://km.sankuai.com/page/586347695">最佳实践：通过Aviator5高阶版本实现数组逻辑数据的复杂计算​</a><span style="font-size:14px"> </span></p>
+<p></p>
+</li>
+</ul>
+</td>
+<td>
+<p><span style="font-size:14px">（1）需要合并参数创建数组类型：</span><img src="assets/08de4c17da0af380.png" width="902" height="389" alt="image.png"></p>
+<p><span style="font-size:14px">（2）json数组需要拆分元素创建数组类型：</span></p>
+<p><img src="assets/11c2a9da9ed9879c.png" width="486" height="368" alt="原文图片"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-78">Step2: 创建累计因子--按何累计多维</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：规则--&gt;因子--&gt;添加因子</span></p>
+<p><span style="font-size:14px">如右图所示：</span></p>
+<ul>
+<li><span style="font-size:14px">创建累计因子</span></li>
+<li>
+<p><span style="font-size:14px">按何累计实现多维：选择上一步创建的数组类型的因子</span></p>
+<p></p>
+</li>
+</ul>
+<p></p>
+</td>
+<td>
+<p><img src="assets/02d7437f014016f1.png" width="902" height="438" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-104">Step3: 创建累计因子--累计值多维</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：规则--&gt;因子--&gt;添加因子</span></p>
+<p><span style="font-size:14px">如右图所示：</span></p>
+<ul>
+<li><span style="font-size:14px">创建累计因子</span></li>
+<li><span style="font-size:14px">累计值单维：选择上一步创建的数组类型的因子</span></li>
+</ul>
+</td>
+<td>
+<p><img src="assets/a64e37e35d04a2ba.png" width="902" height="437" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h3 id="section-128">3.3.2 读累计查询和写累计查询</h3>
+<p><span style="color:rgb(38, 38, 38)">⭐️  提示 ⭐️ ：累计值多维类型的累计因子的读累计查询和写累计查询与普通因子无区别，下面详细操作不再列出说明</span></p>
+<ul>
+<li>
+<h4 id="section-133">读累计查询--<span style="color:rgb(38, 38, 38)">按何累计多维类型的累计因子</span></h4>
+</li>
+</ul>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：</span></p>
+<p><span style="font-size:14px">1.Plus+工具中心--&gt;读累计查询</span></p>
+<p><span style="font-size:14px">2.累计因子详情页面--&gt;读累计查询</span></p>
+<p><span style="font-size:14px">如右图所示：</span></p>
+<ul>
+<li><span style="font-size:14px">选择创建</span><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">按何累计多维类型的累计因子</span></span></li>
+<li><span style="font-size:14px">累计key值：以数组中的</span><span style="color: "><span style="font-size:14px">单个元素值作为key值查</span></span></li>
+</ul>
+</td>
+<td>
+<p><img src="assets/f64a34fd2acd7351.png" width="902" height="204" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<ul>
+<li>
+<h4 id="section-168">写累计查询----<span style="color:rgb(38, 38, 38)">按何累计多维类型的累计因子</span></h4>
+</li>
+</ul>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：Plus+工具中心--&gt;读累计查询</span></p>
+<p><span style="font-size:14px">如右图所示：</span></p>
+<ul>
+<li><span style="font-size:14px">选择创建</span><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">按何累计多维类型的累计因子</span></span></li>
+<li><span style="font-size:14px">累计key值：</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">和读累计查询输入要求一样，均需去掉中括号</span></span></li>
+</ul>
+</td>
+<td>
+<p><img src="assets/273ea30c295dba6d.png" width="902" height="287" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h2 id="section-197">4.特殊说明</h2>
+<p>⚠️ <span style="color:rgb(38, 38, 38)">1.</span><span style="color: ">“按何累计”中可以支持数组类型的因子与其他参数/因子进行组合，但是数组类型的因子只能有一个，且配置时需将数组类型的参数/因子放在首位。</span></p>
+<p><span style="color: ">⚠️ 2.“按何累计”与“累计值”若均为数组类型，则一一对应进行匹配运算。</span></p>
+<p>⚠️ 3.<span style="color: ">“累计条件”中如果出现数组类型因子，则仅针对满足条件的数组元素发送累计。</span></p>
+<p>⚠️ 4.若“按何累计”为单值（即不包含数组类型），“累计值”为数组类型，（1）若“累计类型”为计数或者求和，则读累计仍为单值；（2）若“累计类型”为最近几次，则读累计为List[List]格式，如[ [123,456] [123,456] [123,456]]。</p>
+<h1 id="section-206">四、FAQ</h1>
+<p></p>
+<p></p>
+</article></main></body></html>
