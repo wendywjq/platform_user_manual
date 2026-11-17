@@ -1,0 +1,450 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>01 Zeus帮助文档汇总</title><style>*{box-sizing:border-box}body{margin:0;color:#243047;background:#f5f7fa;font:16px/1.8 system-ui,"PingFang SC",sans-serif}nav{position:fixed;width:260px;height:100vh;overflow:auto;padding:28px 20px;background:white;border-right:1px solid #e0e5ed}nav a{display:block;font-size:13px;margin:7px 0}nav .h2{padding-left:12px}nav .h3,nav .h4,nav .h5{padding-left:24px}main{margin-left:260px;padding:40px;max-width:1450px}article{background:white;padding:40px;border-radius:12px}.title{font-size:32px;font-weight:700}a{color:#2761c5;overflow-wrap:anywhere}h1,h2,h3,h4,h5{scroll-margin-top:20px;line-height:1.5}h1{font-size:26px;border-bottom:1px solid #e3e7ee;padding-bottom:12px;margin-top:48px}h2{font-size:22px;margin-top:32px}table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:1px solid #ccd3df;padding:10px;vertical-align:top}img{max-width:100%;height:auto}pre{overflow:auto;background:#162134;color:#e5edfa;border-radius:8px;padding:20px;line-height:1.5}details{background:#f4f7fc;padding:14px;border-radius:8px}summary{cursor:pointer;font-weight:600}.notice{font-size:13px;color:#64748b;margin-bottom:24px}@media(max-width:850px){nav{position:static;width:auto;height:auto;max-height:250px}main{margin:0;padding:16px}article{padding:20px}table{display:block;overflow:auto}}@media print{nav{display:none}main{margin:0;padding:0}}</style></head><body><nav><b>当前页目录</b><a class="h1" href="#section-3">一、Zeus概念介绍（接入前）</a><a class="h2" href="#section-4">1.1 Zeus平台是什么？</a><a class="h2" href="#section-29">1.2 Zeus如何使用？</a><a class="h1" href="#section-47">二、Zeus接入指南（接入中）</a><a class="h2" href="#section-48">2.1 接入流程</a><a class="h4" href="#section-50">权限申请（web登录权限、appkey鉴权等权限）👉 ！！请看一下是否有你想问我的问题</a><a class="h2" href="#section-52">2.2 接入实操</a><a class="h1" href="#section-119">三、Zeus使用手册（接入后）</a><a class="h2" href="#section-120">3.1 zeus-mis快速视频入门和功能介绍手册</a><a class="h2" href="#section-123">3.2 系统操作指南 （百宝箱！！！）</a><a class="h2" href="#section-438">3.3 最佳实践样例</a><a class="h3" href="#section-439">3.3.1 Aviator5 最佳实践:</a><a class="h4" href="#section-442">(1) 业务背景：</a><a class="h4" href="#section-452">(2) 具体实现：</a><a class="h4" href="#section-458">(3) 总结</a><a class="h2" href="#section-461">3.4 FQA</a><a class="h5" href="#section-471">Q1、Zeus能支持什么样的场景？</a><a class="h5" href="#section-473">Q2、Zeus支持数据处理么？</a><a class="h5" href="#section-476">Q3、Zeus支持业务方通过接口创建规则吗?</a><a class="h5" href="#section-480">Q4、Zeus规则配置页面对于运营人员来说还是太过于复杂</a><a class="h5" href="#section-484">Q5、新业务接入zeus Hive日志表需要提供的信息</a><a class="h5" href="#section-489">Q6、在Zeus上配置的因子、规则、规则组、场景等配置信息可以查询么？都支持哪些查询方式？</a><a class="h5" href="#section-503">Q7、Zeus支持的QPS大概多少？接口性能如何？</a></nav><main><div class="notice">来源：<a href="https://km.sankuai.com/collabpage/339930787">学城原文</a> · 保存日期：2026-11-17<br>仅归档当前页；关联页面保留原链接。两张普通图片仍引用学城地址，需要访问权限；两张流程图已保存在本地。</div><article>
+<header class="title">01 Zeus帮助文档汇总</header>
+<div style="none"></div>
+<h1 id="section-3">一、Zeus概念介绍（接入前）</h1>
+<h2 id="section-4">1.1 Zeus平台是什么？</h2>
+<p>提供高效、安全、便捷的规则配置、管理，以及规则运行产生的数据，满足业务实时、离线、回溯等方面的规则效果分析需求的平台；</p>
+<ul>
+<li><strong>规则配置管理</strong>：可在后台进行高效、安全、便捷的规则配置、管理</li>
+<li><strong>规则引擎</strong>：提供高性能、高可用性的规则运行引擎</li>
+<li><strong>效果分析</strong>：利用规则运行产生的数据，满足业务实时、离线、回溯等方面的规则效果分析需求</li>
+</ul>
+<p>能解决什么问题：<span style="color:rgb(245, 35, 45)"><strong><a href="https://km.sankuai.com/page/302759630" title="https://km.sankuai.com/page/302759630"><span style="color:rgb(245, 35, 45)"><strong>https://km.sankuai.com/page/302759630</strong></span></a></strong></span><span style="color:rgb(0, 0, 0)"><strong>、</strong></span></p>
+<details>
+<summary>文章介绍</summary>
+<div>
+<p>规则引擎产品建设：<a href="https://mp.weixin.qq.com/s?__biz=MzI5MDc4MTM3Mg==&amp;mid=100001141&amp;idx=1&amp;sn=588cecd2575889531b827aea1e316037&amp;chksm=6c1be4a65b6c6db0bbf35166d118f3617cc6f27d97b8c1e387e24bc543f406124013503f97b2" title="https://mp.weixin.qq.com/s?__biz=MzI5MDc4MTM3Mg==&amp;mid=100001141&amp;idx=1&amp;sn=588cecd2575889531b827aea1e316037&amp;chksm=6c1be4a65b6c6db0bbf35166d118f3617cc6f27d97b8c1e387e24bc543f406124013503f97b2">https://mp.weixin.qq.com/s?__biz=MzI5MDc4MTM3Mg==&amp;mid=100001141&amp;idx=1&amp;sn=588cecd2575889531b827aea1e316037&amp;chksm=6c1be4a65b6c6db0bbf35166d118f3617cc6f27d97b8c1e387e24bc543f406124013503f97b2</a> </p>
+<p>规则引擎技术架构：待补充</p>
+<p>规则引擎性能优化：待补充</p>
+<p>规则引擎配置信息暴涨的处理手段：待补充</p>
+</div>
+</details>
+<h2 id="section-29">1.2 Zeus如何使用？</h2>
+<p><img src="https://km.sankuai.com/api/file/cdn/339930787/548951171?contentType=1&amp;isNewContent=false" width="648" height="287" alt="原文图片（需要学城访问权限）"></p>
+<img src="assets/339902700.svg" width="845" height="474" alt="原文流程图">
+<p></p>
+<ul>
+<li><strong>场景/scene：</strong>一组规则的集合体，便于专业人员的管理和配置，如反作弊中的促销活动、账户安全中的登录事件</li>
+<li><strong>规则/rule：</strong>规则的逻辑由逻辑表达式产生，规则执行的结果是命中/不命中，规则的表达式由规则因子组装而成（也只能由因子组装而成）</li>
+<li><strong>决策/decision：</strong>命中规则后需要做的动作，如通过、拦截、冻结账号等，每一条scene_rule_conf配置产生一个决策；</li>
+<li><strong>因子/factor：</strong>组成规则的逻辑单元。一个因子可以被不同的规则使用，包含表达式型和扩展型、累计型</li>
+<li>规则在场景中的状态：离线（场景中的流量不执行该规则）、标记（场景中的流量执行该规则但不返回决策给上游）和生效（场景中的流量执行该规则且返回决策给上游）</li>
+</ul>
+<p><img src="https://km.sankuai.com/api/file/cdn/339930787/548833228?contentType=1" width="878" height="100" alt="原文图片（需要学城访问权限）"></p>
+<p>更多详情见3.2系统操作手册（百宝箱）</p>
+<h1 id="section-47">二、Zeus接入指南（接入中）</h1>
+<h2 id="section-48">2.1 接入流程</h2>
+<img src="assets/339903201.svg" width="1219" height="461" alt="原文流程图">
+<h4 id="section-50">权限申请（web登录权限、appkey鉴权等权限）👉 <a href="https://km.sankuai.com/page/142311512" title="！！请看一下是否有你想问我的问题">！！请看一下是否有你想问我的问题</a></h4>
+<h2 id="section-52">2.2 接入实操</h2>
+<p><a href="https://km.sankuai.com/page/28155163" title="https://km.sankuai.com/page/28155163">https://km.sankuai.com/page/28155163</a></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">引擎类型</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">接入方式</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">文档</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">实时引擎</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">接口方式</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">RPC（推荐）</span></p>
+<p><a href="https://km.sankuai.com/page/28253497" title="说明：Zeus在线服务RPC接入文档"><span style="font-size:14px">说明：Zeus在线服务RPC接入文档</span></a></p>
+<p><a href="https://km.sankuai.com/page/28253485" title="说明：RPC接入DEMO"><span style="font-size:14px">说明：RPC接入DEMO</span></a></p>
+<p><span style="font-size:14px">HTTP</span><br><a href="https://km.sankuai.com/page/28253520" title="说明：Zeus在线服务HTTP接入文档"><span style="font-size:14px">说明：Zeus在线服务HTTP接入文档</span></a></p>
+<p><a href="https://km.sankuai.com/page/28155174" title="说明：Zeus规则平台服务地址"><span style="font-size:14px">说明：Zeus规则平台服务地址</span></a></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">队列方式 Mafka</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><a href="https://km.sankuai.com/page/28253550" title="说明：Zeus-Worker服务接入文档"><span style="font-size:14px">说明：Zeus-Worker服务接入文档</span></a></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">离线引擎</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">无需开发直接配置</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><a href="https://km.sankuai.com/page/450492639" title="https://km.sankuai.com/page/450492639"><span style="font-size:14px">https://km.sankuai.com/page/450492639</span></a></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">近线引擎</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">Kafka</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">TODO</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-119">三、Zeus使用手册（接入后）</h1>
+<h2 id="section-120">3.1 zeus-mis快速视频入门和功能介绍手册</h2>
+<p><a href="https://km.sankuai.com/page/58438034" title="Zeus Quick Start">Zeus Quick Start</a></p>
+<h2 id="section-123">3.2 系统操作指南 （百宝箱！！！）</h2>
+<p>🌿🌿🌿 <a href="https://km.sankuai.com/page/312485395" title="https://km.sankuai.com/page/312485395">https://km.sankuai.com/page/312485395</a></p>
+<p>不会写表达式怎么办？👉可以看看这个<a href="https://km.sankuai.com/page/176739529" title="https://km.sankuai.com/page/176739529">https://km.sankuai.com/page/176739529</a>（<span style="color:rgb(245, 35, 45)">补充有些常见逻辑书写方式</span>）     </p>
+<ul>
+<li>线上：<a href="https://zeus.sankuai.com/" title="https://zeus.sankuai.com">https://zeus.sankuai.com</a> （必须使用https）</li>
+<li>线下：<a href="http://zeus.mis.rc.test.sankuai.com/" title="http://zeus.mis.rc.test.sankuai.com">http://zeus.mis.rc.test.sankuai.com</a></li>
+</ul>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">涉及功能</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">相关操作手册</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">策略变更-发布管理🔥🔥🔥🔥🔥</span></p>
+</td>
+<td>
+<p><span style="color:"><span style="font-size:14px">发布管控是指对策略变更进行规范化的管控流程，变更管控的范围包括：</span></span><span style="font-size:14px"><strong>策略上线（即将策略状态由标记/离线-&gt;生效）、下线（即将策略状态由生效-&gt;标记/离线）、线上变更（即变更生效态策略的规则/决策结果/决策附加信息/决策理由/衍生参数/优先级）</strong></span><span style="color:"><span style="font-size:14px">，以上3种变更都需要用户走灰度发布过程，但对紧急变更保留空间负责人审批后直接上线的入口。</span></span></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/1359152952" title="https://km.sankuai.com/page/1359152952"><span style="font-size:14px">https://km.sankuai.com/page/1359152952</span></a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">规则部署🔥🔥🔥🔥🔥</span></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">配置的6大基础元素：</span></li>
+</ul>
+<p><span style="font-size:14px">场景、规则、决策、因子、参数、场景配置</span></p>
+<ul>
+<li><span style="font-size:14px">场景配置的核心内容：</span></li>
+</ul>
+<p><span style="font-size:14px">规则、决策、状态、优先级</span></p>
+<ul>
+<li><span style="font-size:14px">策略运行的前置条件：</span></li>
+</ul>
+<p><span style="font-size:14px">业务接入并提供请求数据、场景配置下有生效规则</span></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/312476852" title="说明：创建/修改参数"><span style="font-size:14px">说明：创建/修改参数</span></a></p>
+<p><a href="https://km.sankuai.com/page/312512823" title="说明：创建/修改因子"><span style="font-size:14px">说明：创建/修改因子</span></a></p>
+<p><a href="https://km.sankuai.com/page/312585969" title="说明：创建/修改规则"><span style="font-size:14px">说明：创建/修改规则</span></a></p>
+<p><a href="https://km.sankuai.com/page/312514906" title="说明：创建/修改决策"><span style="font-size:14px">说明：创建/修改决策</span></a></p>
+<p><a href="https://km.sankuai.com/page/220134551" title="说明：创建/修改场景"><span style="font-size:14px">说明：创建/修改场景</span></a></p>
+<p><a href="https://km.sankuai.com/page/312490068" title="说明：添加场景配置"><span style="font-size:14px">说明：添加场景配置</span></a></p>
+<p><a href="https://km.sankuai.com/page/312550078" title="说明：规则在场景中生效"><span style="font-size:14px">说明：规则在场景中生效</span></a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">规则验证🔥🔥</span></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">新建规则逻辑验证：</span></li>
+</ul>
+<p><span style="font-size:14px">（1）标记-场景配置标记状态（仅执行规则逻辑但不会返回决策，做规则逻辑验证）</span></p>
+<p><span style="font-size:14px">（2）灰度-场景配置灰度状态（上线前的灰度，按照配置的分流比例执行规则逻辑且返回决策，但仅返回满足分流条件的部分请求）</span></p>
+<p><span style="font-size:14px">（3）回溯-规则回溯（使用历史数据日志执行规则逻辑，不返回决策）</span></p>
+<ul>
+<li><span style="font-size:14px">线上生效的规则需要修改时逻辑验证：</span></li>
+</ul>
+<p><span style="font-size:14px">（1）双跑-策略演练</span></p>
+<p><span style="font-size:12px"><em>*是否返回决策的含义：生产系统通过规则执行的决策结果进行最终的判断，不返回决策则原则上对生产系统不影响</em></span></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/325217804" title="https://km.sankuai.com/page/325217804"><span style="font-size:14px">https://km.sankuai.com/page/325217804</span></a></p>
+<p><a href="https://km.sankuai.com/page/492344975" title="https://km.sankuai.com/page/492344975"><span style="font-size:14px">https://km.sankuai.com/page/492344975</span></a></p>
+<p><a href="https://km.sankuai.com/page/28253556" title="https://km.sankuai.com/page/28253556"><span style="font-size:14px">https://km.sankuai.com/page/28253556</span></a></p>
+<p><a href="https://km.sankuai.com/page/239430531" title="https://km.sankuai.com/page/239430531"><span style="font-size:14px">https://km.sankuai.com/page/239430531</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/532955971" title="https://km.sankuai.com/page/532955971"><span style="font-size:14px">https://km.sankuai.com/page/532955971</span></a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">规则管理🔥🔥</span></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">管理工具：</span></li>
+</ul>
+<p><span style="font-size:14px">（1）规则组：一堆规则集合，适用于本业务方内使用</span></p>
+<p><span style="font-size:14px"><del>（2）因子工具：规则组的打包成一个输出参数，适用于跨业务方使用</del></span></p>
+<p><span style="font-size:14px">（3）标签：可以给场景、规则、因子打标签并支持列表按标签查询</span></p>
+<p><span style="font-size:14px">（4）无效规则自动化下线：无效规则在场景中离线</span></p>
+<ul>
+<li><span style="font-size:14px">决策流-多级路由场景：</span></li>
+</ul>
+<p><span style="font-size:14px">多级路由：将多个普通场景串联起来，但不支持多级路由场景之间的串联。</span></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/59203601" title="https://km.sankuai.com/page/59203601"><span style="font-size:14px">https://km.sankuai.com/page/59203601</span></a></p>
+<p><del><a href="https://km.sankuai.com/page/194006669" title="https://km.sankuai.com/page/194006669"><span style="font-size:14px"><del>https://km.sankuai.com/page/194006669</del></span></a></del></p>
+<p><a href="https://km.sankuai.com/page/336731944" title="https://km.sankuai.com/page/336731944"><span style="font-size:14px">https://km.sankuai.com/page/336731944</span></a></p>
+<p><a href="https://km.sankuai.com/page/107423301" title="https://km.sankuai.com/page/107423301"><span style="font-size:14px">https://km.sankuai.com/page/107423301</span></a><span style="font-size:14px">（</span><a href="https://km.sankuai.com/page/197981906" title="https://km.sankuai.com/page/197981906"><span style="font-size:14px">https://km.sankuai.com/page/197981906</span></a><span style="font-size:14px">）</span></p>
+<p><a href="https://km.sankuai.com/page/460439834" title="https://km.sankuai.com/page/460439834"><span style="font-size:14px">https://km.sankuai.com/page/460439834</span></a><span style="font-size:14px">（功能合并在规则健康度中，待上线后更新）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">规则排查🔥🔥🔥🔥</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">日志查询</span></p>
+<p><span style="font-size:14px">排查探针</span></p>
+<p><span style="font-size:14px">读累计、写累计查询</span></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/124049950" title="https://km.sankuai.com/page/124049950"><span style="font-size:14px">https://km.sankuai.com/page/124049950</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/62096766" title="https://km.sankuai.com/page/62096766"><span style="font-size:14px">https://km.sankuai.com/page/62096766</span></a></p>
+<p><a href="https://km.sankuai.com/page/251012364" title="https://km.sankuai.com/page/251012364"><span style="font-size:14px">https://km.sankuai.com/page/251012364</span></a></p>
+<p><a href="https://km.sankuai.com/page/233320099" title="https://km.sankuai.com/page/233320099"><span style="font-size:14px">https://km.sankuai.com/page/233320099</span></a><span style="font-size:14px">（读累计、写累计查询）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">权限管理🔥</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">业务方、父子权限</span></p>
+<p><span style="font-size:14px">管理员与普通用户权限</span></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/collabpage/2213713621" title="https://km.sankuai.com/collabpage/2213713621"><span style="font-size:14px">https://km.sankuai.com/collabpage/2213713621</span></a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">安全管理🔥</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">操作日志查询</span></p>
+<p><span style="font-size:14px">静默期</span></p>
+<p><span style="font-size:14px">操作安全机制</span></p>
+<p><span style="font-size:14px">规则/因子修改通知</span></p>
+<p><span style="font-size:14px">熔断机制</span></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/339204372" title="https://km.sankuai.com/page/339204372"><span style="font-size:14px">https://km.sankuai.com/page/339204372</span></a></p>
+<p><a href="https://km.sankuai.com/page/28163548" title="https://km.sankuai.com/page/28163548"><span style="font-size:14px">https://km.sankuai.com/page/28163548</span></a></p>
+<p><a href="https://km.sankuai.com/page/188083312" title="https://km.sankuai.com/page/188083312"><span style="font-size:14px">https://km.sankuai.com/page/188083312</span></a></p>
+<p><a href="https://km.sankuai.com/page/56487220" title="https://km.sankuai.com/page/56487220"><span style="font-size:14px">https://km.sankuai.com/page/56487220</span></a></p>
+<p><a href="https://km.sankuai.com/page/62939397" title="https://km.sankuai.com/page/62939397"><span style="font-size:14px">https://km.sankuai.com/page/62939397</span></a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">其他🔥</span></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">数据补充：数据接口</span></li>
+<li><span style="font-size:14px">配置关系查询：依赖关系查询</span></li>
+<li><span style="font-size:14px">策略快速应用：累计因子线上回溯</span></li>
+<li>
+<p><span style="font-size:14px">复杂逻辑实现</span></p>
+<p><span style="font-size:14px">（1）扩展函数</span></p>
+<p><span style="font-size:14px">（2）特殊逻辑实现（名单库、决策表、累计、tair因子）</span></p>
+</li>
+<li><span style="font-size:14px">决策理由、规则话术和客服备注</span></li>
+<li>
+<p><span style="font-size:14px">复杂决策</span></p>
+<p><span style="font-size:14px">（1）路由决策</span></p>
+<p><span style="font-size:14px">（2）决策附加信息</span></p>
+</li>
+</ul>
+</td>
+<td>
+<p><span style="font-size:14px">（数据接口）</span><a href="https://km.sankuai.com/page/182702174" title="https://km.sankuai.com/page/182702174"><span style="font-size:14px">https://km.sankuai.com/page/182702174</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/183045156" title="https://km.sankuai.com/page/183045156"><span style="font-size:14px">https://km.sankuai.com/page/183045156</span></a></p>
+<p><a href="https://km.sankuai.com/page/183062932" title="https://km.sankuai.com/page/183062932"><span style="font-size:14px">https://km.sankuai.com/page/183062932</span></a></p>
+<p><a href="https://km.sankuai.com/page/248390725" title="说明：累计因子线上回溯https://km.sankuai.com/page/248390725"><span style="font-size:14px">说明：累计因子线上回溯https://km.sankuai.com/page/248390725</span></a></p>
+<p><a href="https://km.sankuai.com/page/28155153" title="https://km.sankuai.com/page/28155153"><span style="font-size:14px">https://km.sankuai.com/page/28155153</span></a></p>
+<p><a href="https://km.sankuai.com/page/339769403" title="https://km.sankuai.com/page/339769403"><span style="font-size:14px">https://km.sankuai.com/page/339769403</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/73367657" title="https://km.sankuai.com/page/73367657"><span style="font-size:14px">https://km.sankuai.com/page/73367657</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/28261902" title="说明：累计使用文档"><span style="font-size:14px">说明：累计使用文档</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/28364520" title="https://km.sankuai.com/page/28364520"><span style="font-size:14px">https://km.sankuai.com/page/28364520</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/28234760" title="https://km.sankuai.com/page/28234760"><span style="font-size:14px">https://km.sankuai.com/page/28234760</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/233320099" title="https://km.sankuai.com/page/233320099"><span style="font-size:14px">https://km.sankuai.com/page/233320099</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/472805061" title="https://km.sankuai.com/page/472805061"><span style="font-size:14px">https://km.sankuai.com/page/472805061</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/212068218" title="https://km.sankuai.com/page/212068218"><span style="font-size:14px">https://km.sankuai.com/page/212068218</span></a></p>
+<p><a href="https://km.sankuai.com/page/304311873" title="https://km.sankuai.com/page/304311873"><span style="font-size:14px">https://km.sankuai.com/page/304311873</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/339630947" title="https://km.sankuai.com/page/339630947"><span style="font-size:14px">https://km.sankuai.com/page/339630947</span></a><span style="font-size:14px">、</span><a href="https://km.sankuai.com/page/192816768" title="https://km.sankuai.com/page/192816768"><span style="font-size:14px">https://km.sankuai.com/page/192816768</span></a></p>
+<p><a href="https://km.sankuai.com/page/28233963" title="https://km.sankuai.com/page/28233963"><span style="font-size:14px">https://km.sankuai.com/page/28233963</span></a></p>
+<p><a href="https://km.sankuai.com/page/28253486" title="https://km.sankuai.com/page/28253486"><span style="font-size:14px">https://km.sankuai.com/page/28253486</span></a></p>
+</td>
+</tr>
+</table>
+<h2 id="section-438">3.3 最佳实践样例</h2>
+<h3 id="section-439">3.3.1 <span style="color:"><strong>Aviator5 最佳实践:</strong></span></h3>
+<h4 id="section-442">(1) 业务背景：</h4>
+<p>这个是在 Zeus 值班过程中保险业务方那边发过来的咨询以及配置类TT问题。链接在这里： <a href="https://tt.sankuai.com/ticket/detail?id=8110852" title="https://tt.sankuai.com/ticket/detail?id=8110852">https://tt.sankuai.com/ticket/detail?id=8110852</a> 对于单个复杂元素的提取，我参照 Zeus 可扩展函数进行了支持，业务方也进行了相应规则的配置。</p>
+<p>但是他们这边必须传过来 <strong>整个元素的数组类型 </strong>来支持，这时候如果不使用 Aviator5 语法的话就不好解决了。具体业务详情如下：</p>
+<p><a href="https://km.sankuai.com/page/509217143" title="https://km.sankuai.com/page/509217143">https://km.sankuai.com/page/509217143</a></p>
+<p>需要解析的数据如下所示：</p>
+<pre><code>
+{
+"materials": [{
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}, {
+"imageType": 8,
+"imageForgeryScore": 0,
+"url1": "https://p.vip.sankuai.com/0.0.o/insclaim/c70fa38a803ad2703f7a4bdd48befdbc257224.jpg?token=1.1605086885.insclaim.4c849469a0a64a834376cb9ec8026be2",
+"topSimilarity": [{
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.49917546
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.4602491
+}, {
+"bizImageSign": "{\"uniqueNo\":\"183470210010001313-11129777\",\"imageKey\":\"/insclaim/85eff8bf8e23f8fed1a10aa5b9c2228715340.png\"}",
+"similarity": 0.19552502
+}]
+}]
+}</code></pre>
+<h4 id="section-452">(2) 具体实现：</h4>
+<p>以下只是帮助业务配置时，写的 Demo ，最终具体逻辑还待业务方自己拼写：</p>
+<pre><code>##exp-5
+let var_sum = seq.list(); // 要返回的字段定义要放在外层
+let var_list = materials_tmp;
+for var_x in var_list {
+					 let var_Score = double(string.getJsonStringFromJsonMap(var_x,"imageForgeryScore"));
+         
+           let var_tmp = jsonString.search(string.getJsonStringFromJsonMap(var_x,"topSimilarity"),"similarity !=nil","similarity");
+           let var_similarity = seq.get(sort(string.split(var_tmp,",")),0);
+           
+					seq.add(var_sum,var_similarity);
+}
+return var_sum;
+
+代码说明：
+##exp-5   //表示使用 Aviator5 语法
+var_xxxx  //表示临时变量，不是参数，也不是因子</code></pre>
+<p> Aviator5 语法详见： <a href="https://www.yuque.com/boyan-avfmj/aviatorscript/cpow90" title="AviatorScript 编程指南（5.0）">AviatorScript 编程指南（5.0）</a></p>
+<h4 id="section-458">(3) 总结</h4>
+<p>在这次解析这样比较复杂的参数时，由于涉及到很多逻辑，发现拓展函数有点招架不住。 试了很多的函数，方法都没有很好的解决。</p>
+<p>Aviator5 对于这种情况支持比较好，很方便，以后这种情况可以考虑使用Aviator5的语法解决。同时也感谢 宇哥 的支持。😊</p>
+<h2 id="section-461">3.4 FQA</h2>
+<ul>
+<li><a href="https://km.sankuai.com/page/28155148" title="Zeus FAQ">Zeus FAQ</a></li>
+<li><a href="https://km.sankuai.com/page/58348438" title="那些年为nil伤过的泪">那些年为nil伤过的泪</a></li>
+<li><a href="https://km.sankuai.com/page/173335506" title="https://km.sankuai.com/page/173335506">https://km.sankuai.com/page/173335506</a></li>
+<li><a href="https://km.sankuai.com/page/157244366" title="https://km.sankuai.com/page/157244366">https://km.sankuai.com/page/157244366</a></li>
+</ul>
+<h5 id="section-471">Q1、Zeus能支持什么样的场景？</h5>
+<p>--A：常见的风控、营销、金融等有逻辑判断的决策流程，类似于复杂事件处理，具体业务可具体分析，通用示例见wikiXX</p>
+<h5 id="section-473">Q2、Zeus支持数据处理么？</h5>
+<p>--A：简单的数据处理可以支持内置了数据处理函数，详情见<a href="https://km.sankuai.com/page/28155153" title="说明：Zeus已支持扩展函数列表">说明：Zeus已支持扩展函数列表</a>（未在列表中的函数需要RD开发实现）。此外还包括累计事件数据的计算，但需要业务系统传输数据信息。</p>
+<h5 id="section-476">Q3、<span style="color:rgba(0, 0, 0, 0.87)">Zeus支持业务方通过接口创建规则吗?</span></h5>
+<p><span style="color:rgba(0, 0, 0, 0.87)">--A :不建议通过接口创建，目前有这种接口但未对外开放过，不清楚会不会有问题</span></p>
+<h5 id="section-480"><span style="color:rgba(0, 0, 0, 0.87)">Q4、Zeus规则配置页面对于运营人员来说还是太过于复杂</span></h5>
+<p><span style="color:rgba(0, 0, 0, 0.87)">--A：目前Zeus 在升级，目标是降低使用难度，会提供一些简单工具面向无编码基础的人</span></p>
+<h5 id="section-484"><span style="color:rgba(0, 0, 0, 0.87)"><strong>Q5、新业务接入zeus Hive日志表需要提供的信息</strong></span></h5>
+<p><span style="color:rgba(0, 0, 0, 0.87)">--A：一天请求量是多少和businessId</span></p>
+<h5 id="section-489"><span style="color:rgba(0, 0, 0, 0.87)"><strong>Q6、在Zeus上配置的因子、规则、规则组、场景等配置信息可以查询么？都支持哪些查询方式？</strong></span></h5>
+<p><span style="color:rgba(0, 0, 0, 0.87)">--A：支持查询，</span></p>
+<ul>
+<li><span style="color:rgba(0, 0, 0, 0.87)">简单的单层依赖和引用关系可在规则、因子、场景配置中查看（例如：因子被哪些规则引用？），仅支持前端页面查询，不支持hive表、接口查询；</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.87)">跨层级的依赖和引用关系可使用“依赖关系查询工具”查看（例如：场景依赖了哪些参数？），仅支持前端页面查询，不支持hive、接口表查询；</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.87)">规则/因子/场景/决策的ID和名称的匹配关系，仅支持前端页面查询，不支持hive表、接口查询；</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.87)">用户操作日志，仅支持前端页面查询，不支持hive表、接口查询；</span></li>
+</ul>
+<h5 id="section-503"><span style="color:rgba(0, 0, 0, 0.87)"><strong>Q7、Zeus支持的QPS大概多少？接口性能如何？</strong></span></h5>
+<p><span style="color:rgba(0, 0, 0, 0.87)">--A：QPS概况：Zeus实时服务QPS约为25万/秒 ，离线服务吞吐率约500万/分钟；</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">         性能概况：因规则数量和复杂度不同，性能会有一些差异。提供高峰期获取决策接口响应时间作为参考：平均线20ms，90线30ms，999线为100ms，如对性能指标有特殊需求，可联系@Zeus进行沟通。</span></p>
+<p><br></p>
+<p></p>
+</article></main></body></html>
