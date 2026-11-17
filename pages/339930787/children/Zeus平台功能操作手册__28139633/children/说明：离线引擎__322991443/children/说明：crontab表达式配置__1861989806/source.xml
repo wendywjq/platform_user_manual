@@ -1,0 +1,118 @@
+<km-doc>
+<km-title nodeId="a743662ff2a8430dab9a8fae63281def">说明：crontab表达式配置</km-title>
+<km-catalog style="none" nodeId="5c8fac82f0d840069a0883055f538070" />
+<h3 nodeId="b6e5b3d35ae04dab899d2eee05e701b5">格式说明</h3>
+<p nodeId="f5b43c4618804823bc318e1bb9f82361">周一到周三每天上午10:15执行作业</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1861989806/58723220881?contentType=0&amp;isNewContent=false" width="646" height="196" nodeId="c62a0828b4d646ec86f3491d61580399" />
+<h4 nodeId="a2d5c60ed6c04653abe2d5a655e8d000">Cron表达式触发最为常见，以<strong>0 15 10 5 6 ?</strong>为例:</h4>
+<p align="start" nodeId="a34e23b068414aacbd680b1c21bef811">0 表示秒域</p>
+<p align="start" nodeId="b80e62b050bc470c87fd40bc7e312d02">15 表示分钟域</p>
+<p align="start" nodeId="f3d2b2d7f1c640a48717cb4b53618670">10 表示小时域</p>
+<p nodeId="a9245f46dc694d1a8ab193c34e0ec592">5 表示日期域</p>
+<p nodeId="0bf905213e7c4fb3b52fd8a4bd2cc9bb">6 表示月份域</p>
+<p align="start" nodeId="edaef275dc974ae1bcd630cc15e1b17d">问号? 表示星期(因与日期冲突，这里不指定，1表示周日，2表示周一,以此类推)</p>
+<p nodeId="c92c69a605b647f7b3f9e09fcd1ae044" />
+<p align="start" nodeId="e91b1407cb214680bc443dddb25fbc8c">符号解释:<br />星号（*）：可用在所有字段中，表示对应时间域的每一个时刻，例如，星号在分钟字段时，表示“每分钟”。</p>
+<p align="start" nodeId="e5ac53fa9d724043a880634c0a7d6bd9">问号（?）：该字符只在<span color="rgb(250, 116, 20)">日期和星期</span>字段中使用，它通常指定为“无意义的值”，相当于点位符。</p>
+<p align="start" nodeId="9c3835b4d4c649f5829abb16312d0883">减号（-）：表达一个<span color="rgb(250, 116, 20)">范围</span>，如在小时字段中使用“10-12”，则表示从10到12点，即10，11，12。</p>
+<p align="start" nodeId="bb47e51cd96e45fdbe10dc42a9673e9d">逗号（,）：表达一个<span color="rgb(250, 116, 20)">列表值</span>，如在星期字段中使用“MON，WED，FRI”，则表示星期一，星期三和星期五。</p>
+<p align="start" nodeId="5ac2d655a3c94ba381c88888820f38c1">斜杠（/）：x/y 表达一个<span color="rgb(250, 116, 20)">等步长序列</span>，x 为起始值，y 为增量步长值。如在分钟字段中使用0/15，则表示为0，15，30和45秒，而5/15在分钟字段中表示5，20，35，50，你也可以使用 */y，它等同于 0/y。</p>
+<km-note type="warning" hiddenTitle="true" nodeId="8be31fce72044df2896ff06d6815f311">
+<km-title></km-title>
+<km-content>
+<ul nodeId="64a5516905194cb4878bb22ea8f88c6f">
+<li nodeId="689e8b49d80c4c78a44f6592a032f48d"><span color="rgb(155, 17, 4)">星号*若在秒域则表示每秒执行，在分钟域表示每分钟执行，以此类推</span></li>
+<li nodeId="3da2c9a025da4e26be5e56309b139bd8">
+<p align="start" nodeId="55278206dd974c10a31af407139af59b"><span color="rgb(155, 17, 4)">由于天与星期域是冲突的，所以必须有一个不指定，使用英文问号表示</span></p>
+</li>
+<li nodeId="526c656e3ff941a9b1b927ebf339099b"><span color="rgb(195, 76, 64)">设置Cron时，调度间隔最好是要大于或者等于任务最大执行时长（离线引擎间隔不得小于1小时）</span></li>
+</ul>
+</km-content>
+</km-note>
+<h3 nodeId="d2544b816d014801b58a81da8550be40">常见举例</h3>
+<table responsive="false" nodeId="b393d0ae390c4933823641730b2af80c">
+<tr nodeId="64f31a6fd28b4605a7944b9457c69345">
+<th colwidth="[148]" nodeId="fc8f6a5674b844ea8da9e1867e0bd302">
+<p nodeId="0ffbc4cd15bf4626b3d53f612d1435a1">表达式</p>
+</th>
+<th colwidth="[241]" nodeId="b5da829321034f13bb66acf629ca3fb4">
+<p nodeId="55822d8affc64ba3a162759d7d70d166">含义</p>
+</th>
+</tr>
+<tr nodeId="1267b95f99e64d7793d9441f8e7cd256">
+<td colwidth="[148]" nodeId="5b6f207f2b804e38a8c770bae4b56e57">
+<p nodeId="785f40adf6ae43d2b81b850398b3c009">0 5 10 * * ? </p>
+</td>
+<td colwidth="[241]" nodeId="fb7e6cbc914945c3b0e4e6b0d43fc149">
+<p nodeId="eb72ea50090942a5adde43f1e94cb100">每天10:05</p>
+</td>
+</tr>
+<tr nodeId="4cf467c112b5480f8baf97c39c1c9256">
+<td colwidth="[148]" nodeId="c2565e670df740c9a18d21c32a6c1fa6">
+<p nodeId="142096eaf4ed4adda48e0ea2b7ee51eb">0 5 0 1 * ?</p>
+</td>
+<td colwidth="[241]" nodeId="f9e0735dc31140fea068997d0fdc732d">
+<p nodeId="868066256f9c421ba9686b37ed3e21c7">每个月1号00:05</p>
+</td>
+</tr>
+<tr nodeId="e7b6dcd2d06a4cc5a8a5f07d168be9b8">
+<td colwidth="[148]" nodeId="3d9fc856d9d9405f8acdd7d8080b90cf">
+<p nodeId="4ec11bba091c4b618ceff4e54c33b121">0 0 0 ? * 5,6</p>
+</td>
+<td colwidth="[241]" nodeId="acb59897541a4ec695a5e26c1d832bf2">
+<p nodeId="f6dea708841f485eb936d1b4a450c229">每周的周四和周五0点</p>
+</td>
+</tr>
+<tr nodeId="f38ff0062690488fad38f241e4185e46">
+<td colwidth="[148]" nodeId="1f062e8042f041238602a63002fc88ac">
+<p nodeId="a19d5092133f4f28b50686d882130038">0 10 9 ? * 1</p>
+</td>
+<td colwidth="[241]" nodeId="9e3e4950205b4df3957638cdda04f2ea">
+<p nodeId="52d0f6a7ee8e4b1ab071184ddfc82490">每周日的9:10</p>
+</td>
+</tr>
+<tr nodeId="77606afb028247a38c996aedc93c8420">
+<td colwidth="[148]" nodeId="8c00ed3b45924bed865ea1af8ffe0fb3">
+<p nodeId="df53e89b0f074b41baf83d98a1354014">0 0 0/2 * * ?</p>
+</td>
+<td colwidth="[241]" nodeId="b359e228ae374385a6d6d05935990fd8">
+<p nodeId="1c19f0327e0f4fea8995e71b6069ad68">从0点开始，每隔2小时</p>
+</td>
+</tr>
+</table>
+<p nodeId="a6d6cbf5d6e44f7c88687259b8e0e702" />
+<h3 nodeId="5fc7c614f0654abb99eab974c2e34c4e">表达式验证</h3>
+<p nodeId="89fcde7fc7514a0980bf0d5e76060b61">通过工具可查看后3次执行时间是否符合预期</p>
+<table responsive="false" nodeId="9ffe74c010d849858cfc24e757e3dbe4">
+<tr nodeId="86b78596616d49838e10a8ebf5380fca">
+<th colwidth="[599]" nodeId="142740d9c05c4efc885a86df789f1e5e">
+<p nodeId="5dd28ed7526c4cf88b0749d7c0bc7ad7">步骤1</p>
+</th>
+<th colwidth="[389]" nodeId="ca48cc2927984ddbb4bcc6a2371e1863">
+<p nodeId="7b855e320f3747e6b275f0a235afcce7">步骤2</p>
+</th>
+<th colwidth="[385]" nodeId="92f388155b9f4404b3bd379b4dd1413b">
+<p nodeId="69043b199ef24f189e0272b8e130aef3">步骤3</p>
+</th>
+</tr>
+<tr nodeId="0a0982bfd08d45e190f6108abd75daff">
+<td colwidth="[599]" nodeId="0dba00c11d7d41bdb5c1e17a93aaa322">
+<p nodeId="b846d329d7ea407bb0c3cb7fc540c458">点击<a href="https://crane.mws-test.sankuai.com/#/new/task/com.sankuai.zeus.offline" title="表达式测试地址" nodeId="2d1d24f19c4f4cf0a1b2c85fc264b52f">表达式测试地址</a>，随便选择一个任务，进行编辑，进入步骤2</p>
+<p nodeId="a460ccd07ff74cf59f8869b7c5112891"><img src="https://km.sankuai.com/api/file/cdn/1861989806/78340717538?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1443" height="448" nodeId="9647a9db5fb44e00adac78912168d2f6" /></p>
+<p nodeId="557abadf72ce405aa1ca1424cd0f6b7d" />
+<p nodeId="a5ecdc9331a04c69a35c2f7f67206eca">注：顶部提示的没有权限不影响测试操作，不需要申请权限</p>
+</td>
+<td colwidth="[389]" nodeId="eee10a09d78647b4ae21bb0b39c63047">
+<p nodeId="c5c6790ca2134429bf20dcf867841555">点击弹窗内【工具】按钮，进入步骤3</p>
+<p nodeId="06d6f09e63a64e44b5d5ed0fb53deb27"><img src="https://km.sankuai.com/api/file/cdn/1861989806/78332665722?contentType=1&amp;isNewContent=false" name="image.jpeg" width="368" height="391" nodeId="3cc546c936af430d9ab12b020dba18f3" /></p>
+</td>
+<td colwidth="[385]" nodeId="6d55a09f53ac42e69b76f08140c48ac6">
+<p nodeId="e4b49421656141b3b3829d0cb72f1a41">直接将自定义表达式贴到【生成结果】中，未来三次执行时间将会自动生成</p>
+<p nodeId="c947d1dffa1742d9863afbb478606b38">-<span font-size="13">-不会写表达式的也可以通过调整上面的参数生成表达式</span></p>
+<p nodeId="ce147713d8624830a75bbee885e680f7"><img src="https://km.sankuai.com/api/file/cdn/1861989806/78343610413?contentType=1&amp;isNewContent=false" name="image.jpeg" width="307" height="414" nodeId="9f88d04e20524474a05afbe98b69f9ef" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="d353e4699385490088a3e5861ff4ac0d" />
+<p nodeId="cecbb34d58da4f8abd7f76e41437b631" />
+</km-doc>

@@ -1,0 +1,521 @@
+<km-doc>
+<km-title nodeId="0dd52c35210947f0b67d99023438b67b">说明：规则健康度</km-title>
+<km-catalog style="none" nodeId="b90ae17fa317468cb6c078b730a638ff" />
+<h1 nodeId="dd50b5d87f844fecbffbdfb657afb309">一、背景</h1>
+<p nodeId="1b437766424d41f9aeb3b84e5057e300">规则健康度是通过数据分析对Zeus上用户的配置数据进行健康治理，包含：错误/不合理配置、冗余配置、冗余执行和性能异常等，从而提升平台整体数据有效率同时在业务使用成本上实现降本提效。</p>
+<p align="start" nodeId="b5ef63555559404b8e52737e9ded531d">此外：（1）通过规则健康度功能，帮助业务/用户实现规则从部署、验证评估、上线、上线后评估的生命周期管理，进而提升平台易用性（2）风险阈内的识别率，可以简单的看作<span color="">∑</span>策略条数*单条策略识别率，为维持稳定目前发现业务主要在“策略条数增长”较多，但策略的数量不是越多越好，随之会带策略的管理瓶颈、执行性能瓶颈。故从平台单条策略的生命周期入手，帮助用户发现进入衰减期的策略，从而实现策略识别的有效和稳定（<span color="rgba(0, 0, 0, 0.87)">对进入衰减期的策略并不关心一般是让这些策略自生自灭，关注的核心是怎么构建新的策略去不断覆盖风险敞口，共同目标一致）</span></p>
+<p nodeId="7144046dee674ec58a699822c87efc6c"><img src="https://km.sankuai.com/api/file/cdn/586615344/602653355?contentType=1&amp;isNewContent=false" name="" width="779" height="347" nodeId="a51a954737d248ee8a850862c263715b" /></p>
+<h1 nodeId="f74451d0f52f4b83afea1a634bff9788">二、名词解释</h1>
+<ul nodeId="bb28e41e84114632a9eec3c3b6cd4d2f">
+<li nodeId="ead2129d657c481fb875d5a479d2ab9c">健康度：是用户在Zeus上配置数据健康情况的度量，可分为配置、逻辑、性能和智能化四类健康度。是否健康的衡量标准，主要通过通用识别逻辑进行数据统计，将满足“不健康”识别逻辑的数据进行推送，邀请用户进行处理。</li>
+<li nodeId="24fcd857320d467f935e831bba330c30">配置健康度：主要对Zeus上“参数、数据接口、因子（普通、累计、名单等）、因子工具、规则、规则组、场景配置”等维度，进行配置的语法的正确性、配置后180天内是否使用进行识别，对于错误及冗余类配置进行治理，包含累计大key、大value等</li>
+<li nodeId="7432b0119f4242c8bd37e8bedbd54ae0">逻辑健康度：主要是包含两方面：（1）业务方通过对Zeus上配置的场景配置与最终决策进行分析，将逻辑相似、识别范围相同、命中量重复的场景配置进行治理（2）Zeus通过对场景配置逻辑相似度进行数据分析，将逻辑相似、命中量重复的场景配置进行识别和推送，综合提升但场景识别规则有效率</li>
+</ul>
+<h1 nodeId="816c5397822149aea3895576b6a3236a">三、操作指南</h1>
+<h2 nodeId="083f12598ccd4196b90e7e2e130e7dec">1.用户操作流程说明</h2>
+<ul nodeId="e00482f2b83f4d4aa284a2eb2545e623">
+<li nodeId="38130006cdc84e52a82b35c7ef858bf4">系统默认识别逻辑</li>
+</ul>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/586615344/44641250729?contentType=0&amp;isNewContent=false" width="1633" height="337" nodeId="8678f94f94eb482a814e30b3c3c2776d" />
+<ul nodeId="bdab1cda5e4f452c81b04296ac9ccac0">
+<li nodeId="eeb7c5bfd2014ddd89f0bc8cfe465d8c">用户自定义识别逻辑</li>
+</ul>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/586615344/44668265920?contentType=0&amp;isNewContent=false" width="1114" height="434" nodeId="3848ff02c55d44238c446ca6286b7ec2" />
+<h2 nodeId="ecabccd3fa534b2b9e6e1a712242d96f">2.Quick Start</h2>
+<p nodeId="2a38f322c6d64a51acc7824a59e2dcea">--待补充--</p>
+<h2 nodeId="49d902a4f2c24398b721210ba551bdde">3.详细操作流程说明</h2>
+<h3 nodeId="2dfaad2ba6164ebe98cfa9fbcd4cfdbc">Step1: 规则健康度入口</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="a4b373b7e3814aacbae8235e0a9c6cac">
+<tr nodeId="1b0af93eedb343f3a2a5af9ad8d0041d">
+<th colwidth="[325]" nodeId="207d5de10927404bb86ec931c60d455a">
+<p nodeId="552d6683277044eb8bad9bb312c996ea"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="04e8eaba235442fdba1d957ff3d8aa7c">
+<p nodeId="cd76385e27274cbd84ee97132fc49bfa"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="c3d222a13d56442b805f662f15b55f55">
+<td colwidth="[325]" nodeId="f5e809dd5fa24728b740c40a548bc6c0">
+<p nodeId="e825535ad2ac462fb3de95a0116c6fb2"><span font-size="14">【入口1】</span></p>
+<p nodeId="1c615b596fea49f5957e8715dc83d8b6"><span font-size="14">大象公众号推送中的“查看详情”</span></p>
+<p nodeId="fb6b7affa09449ef9031cada07a63fb5" />
+</td>
+<td colwidth="[930]" nodeId="2936c49858c84ee3b9c38e252c516442">
+<p nodeId="d7e9c86cd6b34c44ae820014c55443f8"><img src="https://km.sankuai.com/api/file/cdn/586615344/602793086?contentType=1&amp;isNewContent=false" name="image.png" width="511" height="217" nodeId="c0f2fa5a20814e29b7cab77ecc44bb44" /></p>
+</td>
+</tr>
+<tr nodeId="deddd960f81d46e19b89540b66adf0e7">
+<td colwidth="[325]" nodeId="105eef52fb344bdfbfcaaa97aead99ff">
+<p nodeId="70d9b052990741b48f60b0847829eddd"><span font-size="14">【入口2】</span></p>
+<p nodeId="793fd64678034c04944719074782db97"><span font-size="14">Zeus--&gt;Plus+工具--&gt;规则健康度</span></p>
+<p nodeId="d07d518310be4feb86444edae6c80582" />
+</td>
+<td colwidth="[930]" nodeId="74ae1a0121714dc0b235442813a5550b">
+<p nodeId="fb5d98ad12884365b8fe671724277c9d"><img src="https://km.sankuai.com/api/file/cdn/586615344/44641250713?contentType=1&amp;isNewContent=false" name="image.jpeg" width="514" height="300" nodeId="b60ba7064d8e4842ae79773a1323eb63" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="ec61fb6b3261487a91c58716ccd66767">Step2: 进行治理</h3>
+<table responsive="false" nodeId="68eec2fabf59440386d71f3e19a846e5">
+<tr nodeId="6a9e0c8d09c44b40af740ae0b47b7865">
+<th colwidth="[325]" nodeId="14bdb5c7c142466fb5701ec646c07fa2">
+<p nodeId="68a5f3104bae43c5a3393ca7e77f2ef5"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="8108884e5d514c039ed90322b9414a96">
+<p nodeId="fd7494d3cf414102a46cabd56340bf89"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="c76c1298be984682b14374cbca82abdc">
+<td colwidth="[325]" nodeId="aa1326c26eea45c7a666df28c455fb56">
+<p nodeId="52fa1892bacf4138b9d81aee84539281"><span font-size="14">【治理操作】</span></p>
+<p nodeId="f8b977a6629046adb41e2ca152c2b3a4"><span font-size="14">我的规则</span></p>
+<ul nodeId="fa9c9bcbbdf24da5a95d7749c17e835b">
+<li nodeId="951a503bb8e34ced9c5c41dd370e98c1"><span font-size="14">最后修改人为“我”的待治理信息，可在该tab下，选择配置健康度、逻辑健康度、智能化健康度和性能健康度下的冗余信息治理</span></li>
+<li nodeId="29638ce2b05042e4b81df7dfbd6aa890"><span font-size="14">治理时可选择场景配置、规则、因子、数据接口、参数进行治理</span></li>
+<li nodeId="3d096ccd75694499ac7d9d58e30923f5"><span font-size="14">治理逻辑支持“降级”和“加白”，其中降级为：从当前状态处理成预降级状态的操作</span></li>
+</ul>
+<p nodeId="0db6564627c14bb4bd6da9ef64f31636"><span font-size="14">业务空间下规则</span></p>
+<ul nodeId="48bea94c9f40462d966a35b3fd61d970">
+<li nodeId="9f1e647772134deeaa0eacaf0dfa35e6"><span font-size="14">businessid下全部用户的待治理信息，既可以查看全部待治理信息，同时考虑到转岗、离职等用户的待治理信息无法处理，可从此处进行治理</span></li>
+<li nodeId="d4cb0937b32e428ab899c5b8b610622b"><span font-size="14">治理维度、逻辑和操作方式同“我的规则”一致</span></li>
+</ul>
+<p nodeId="00ef4f7b370247a4b3207952878b0771"><span font-size="14">处理历史</span></p>
+<ul nodeId="c4ac6979c5534aa58df8ebf4d8288f66">
+<li nodeId="53d6341a375e4f1587c8a6541cfac4c6"><span font-size="14">已经进行治理的数据任务历史，每一个处理历史为一次治理任务，治理任务定义：一次“降级”或“加白”处理操作的批次数据集合。支持数据还原，还原维度相同</span></li>
+</ul>
+</td>
+<td colwidth="[930]" nodeId="cfef813d01794415bd1489c4ee98286e">
+<p nodeId="43aa11c76a154feaaa5cbb4e3a41e5ff"><img src="https://km.sankuai.com/api/file/cdn/586615344/602692934?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="422" nodeId="f87275bad70f44e785e00b3a8c842597" /></p>
+<p nodeId="10960600f208490197194676a018c4da"><span font-size="14">对配置健康度下的“规则”进行“降级”治理</span></p>
+<p nodeId="4fb9a71f46a044a6844f48470edaa557"><img src="https://km.sankuai.com/api/file/cdn/586615344/602788603?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="381" nodeId="fcc994a23b06480e8837abdb0d8d1f4a" /></p>
+<p nodeId="1ba71118502e4bdd9f74341cee22a5f8"><span font-size="14">对配置健康度下的“规则”进行“加白”治理</span></p>
+<p nodeId="d943558fbac948278977657ecad854f6"><img src="https://km.sankuai.com/api/file/cdn/586615344/602810975?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="435" nodeId="b3c2db8ee40746828e81a0fc0c0c721f" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="29266df170f2495994a6d8a33f91e0a8">Step3: 治理异常SOP</h3>
+<table responsive="false" nodeId="7099214c82394044a1d57155b0a84520">
+<tr nodeId="7b2e4ac91c7d4deebfd25a4963bbe296">
+<th colwidth="[325]" nodeId="1182103199b64e5d83371c19624c320f">
+<p nodeId="46c81eef3c59401a8dd6ea1dc70b0b90"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="c1143f5ffd3d48c08bf4ad05caf32fba">
+<p nodeId="1c2b5344c60c446493318aeaf2fa967c"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="9d19ce2bdd3b4de3a83880ee5e5661ae">
+<td colwidth="[325]" nodeId="035585c38b034d299807d74b8e726d90">
+<p nodeId="b4106656f4ef408aa9721dffe2ee4e23"><span font-size="14">【入口】</span></p>
+<p nodeId="e7cd833929c44d19a0ffad2932e87aba"><span font-size="14">Zeus--&gt;Plus+工具--&gt;规则健康度--&gt;处理历史</span></p>
+<p nodeId="b6d376abd3e9480fa26c29a4f4f2defd"><span font-size="14">【治理异常的恢复机制】</span></p>
+<ol nodeId="a37a5a2dc6d146f9b2bb644c64732afb">
+<li nodeId="8dab8754e185430b94c1d077802da8d7"><span font-size="14">通过列表可查询治理错误的信息，治理任务维度「治理任务定义：一次“降级”或“加白”处理操作的批次数据集合」</span></li>
+<li nodeId="b284ff0b36434dfb8ab00014b3ccc53c">
+<p nodeId="98cdbcce722e477cbea8d07e905bb97c"><span font-size="14">在搜索到的结果，先"查看"已经治理的数据信息，确认为治理错误，返回列表选择“还原”即可</span></p>
+<p nodeId="3f0aa53169ad42b49ea29309ce4f2631"><span font-size="14">⚠️以下几种情况说明</span></p>
+<p nodeId="dd3dbf80493c476aafed13310e0a219c"><span font-size="14">（1）进入“查看”后无数据，需要看下切换下操作信息下的“场景配置、规则、因子、数据接口、参数的tab”</span></p>
+<p nodeId="dd855b6cf597416c882c960d18e9307b"><span font-size="14">（2）对于已经“删除”的信息不支持还原</span></p>
+<p nodeId="67dbd7faaac940838c6170ace4082851" />
+</li>
+</ol>
+</td>
+<td colwidth="[930]" nodeId="d9026f0b38504280be453bd5bae7cacb">
+<p nodeId="110d6c03df524c10a5e53620cc8ab5d5"><img src="https://km.sankuai.com/api/file/cdn/586615344/602788810?contentType=1" name="image.png" width="901" height="295" nodeId="37a8aa07ef9647bb81544cf3d8cb66ae" /></p>
+<p nodeId="2f5fa2f62e7c4f288863218dd00ca9ff"><span font-size="14">查看</span></p>
+<p nodeId="ababc68dd15c41beb8254991ee8f2c3e"><img src="https://km.sankuai.com/api/file/cdn/586615344/602730416?contentType=1&amp;isNewContent=false" name="image.png" width="836" height="404" nodeId="ad39eb05876e4454b37a9afb731fa12a" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="bdd8580b93694d85a25f53eac4dcac19">Step4: 逻辑健康度-业务自定义冗余治理</h3>
+<table responsive="false" nodeId="0d4281ec3b6846ebbbc8a33da1e0728a">
+<tr nodeId="fc33b99c2a954e37b469d27132e7a790">
+<th colwidth="[350]" nodeId="0dbd3bd43dba4682b0b089363f60bec4">
+<p nodeId="a2ddf38bbff2430f8650502cfa19bd3e"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="8ebcd11df1df4371bbf1764b0c4e5916">
+<p nodeId="1f4d7869f967445daa6256f76eab4f2b"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="e4517bdc81aa413192069b3d5e495134">
+<td colwidth="[350]" nodeId="268ac585fd6e4220ad24fbeaccbd7403">
+<p nodeId="5a7492f2dfb840babe041d3830e3ab0f"><span font-size="14">【入口】</span></p>
+<p nodeId="4928332160dc43919c000b21e77dfbb4"><span font-size="14">Zeus--&gt;Plus+工具--&gt;规则健康度--&gt;我的规则--&gt;逻辑健康度--&gt;配置计算逻辑</span></p>
+<p nodeId="0b8a47d0fa9b4bb4863a050131cf3bbd"><span font-size="14">【配置计算逻辑】</span></p>
+<ol nodeId="b04f3118fc924c40ae761024348aced4">
+<li nodeId="a2d5671ca06945f39523553a9c376af9"><span font-size="14">可选择“维度”为自定义</span></li>
+<li nodeId="94d11676e2d04117b20e7bdfd69fa866">
+<p nodeId="9c76bf480df043e89a8b51d3e7b7c5b1"><span font-size="14">仅支持hive表方式同步数据，具体hive表格式如下：</span><km-mention name="王雅靓" uid="wangyaliang" empId="" nodeId="893a637c362b431591e549c5b06554ad" /></p>
+<table responsive="false" nodeId="1910322693894252acdddeb19c3f858b">
+<tr nodeId="af165b28598140a2b0c9e8412e2be9b9">
+<th colwidth="[145]" nodeId="fb2806284d4c478c86158e6e365bd254">
+<p nodeId="c436346ecd0345e5a2a6b35f3969206f"><span font-size="12">字段名</span></p>
+</th>
+<th colwidth="[76]" nodeId="35377b75dc994c5bb582ecc2aa7ce0fd">
+<p nodeId="319209b398214d699488fe6cb14ff9d9"><span font-size="12">字段类型</span></p>
+</th>
+<th colwidth="[409]" nodeId="cbd15ff41d034d02b266ecc658930ad1">
+<p nodeId="1caa3a38d90744ed8f1028defe056d70"><span font-size="12">说明</span></p>
+</th>
+</tr>
+<tr nodeId="6f66af674fec4583aa0bfa6b147bb790">
+<td colwidth="[145]" nodeId="cee2a5f711cc4d7aac4f4ecaa07cb095">
+<p nodeId="f4c706740ae04833b6689770c83a4a45"><span font-size="12">dt</span></p>
+</td>
+<td colwidth="[76]" nodeId="205136c3fcd641fd82aa1494a349f1ce">
+<p nodeId="3885f345ca1144aa956889af9cb0c750"><span font-size="12">str</span></p>
+</td>
+<td colwidth="[409]" nodeId="f0af1300babe4c64a5a250e48ff401e5">
+<p nodeId="291c0d3492524d3e979e82756c96c9bb"><span font-size="12">日期，例如 20230621</span></p>
+</td>
+</tr>
+<tr nodeId="b72a70a646bb484fb54d475f3fdaff3b">
+<td colwidth="[145]" nodeId="106103edfd314a8989f4865155e33d45">
+<p nodeId="7794c22b037149be8a248ab64ebc8c0e"><span font-size="12">type</span></p>
+</td>
+<td colwidth="[76]" nodeId="f96aa437da13451fb10bc31675f323ff">
+<p nodeId="8ea958ab98874a66a36bb2c62bb07440"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" nodeId="2cd4bd3a14af4a508fd62a3798409e3b">
+<p nodeId="8b0367e3dacf4baaa27a49e512082611"><span font-size="12">治理维度 : 0表示场景规则, 1表示规则</span></p>
+</td>
+</tr>
+<tr nodeId="0b1d5a86e0374e44bd308488d29bb538">
+<td colwidth="[145]" nodeId="23a1682cfa7d4da89bdb1ccc5c7f9c5c">
+<p nodeId="891f0d7be14c42e2b1d7c95910fb1857"><span font-size="12">scene_id</span></p>
+</td>
+<td colwidth="[76]" nodeId="c4f3930e7b254073b767c2c6d5a48c70">
+<p nodeId="5d6073bfcb0f4dc0897ff6929de2f448"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" nodeId="9d2342d188fd4adfbcfb25b77f2898fe">
+<p nodeId="84a46e857c4d4ac480621fd21fe86eb2"><span font-size="12">场景id, 治理维度为1时可不填</span></p>
+</td>
+</tr>
+<tr nodeId="3b972bdd11754fa69461b958b9f9fa95">
+<td colwidth="[145]" nodeId="19da431f9821449f95995890b0bc9072">
+<p nodeId="8510264706984a1b8bd92469048a9906"><span font-size="12">rule_id</span></p>
+</td>
+<td colwidth="[76]" nodeId="fd9adf00d53649ba81d458890cfcbe70">
+<p nodeId="2a6e8d39bd5a4d95800a798c58349980"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" nodeId="0f37fd7f45654f04bbe443e5355693a8">
+<p nodeId="b48799a120384a6bb66bd25fa802a2fa"><span font-size="12">规则id</span></p>
+</td>
+</tr>
+<tr nodeId="ca410a9692e541fb8b649841ac9ad387">
+<td colwidth="[145]" nodeId="df2261243c894fe190560f7f2089cb7e">
+<p nodeId="57d8c4de5cba417ba76e0480e967b444"><span font-size="12">downgrade_status</span></p>
+</td>
+<td colwidth="[76]" nodeId="39d412ce389b4b77b7e4f25bd8b15963">
+<p nodeId="34c42f90166f4cd2b4bba63d84784481"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" nodeId="a50ad40e635f48a88cc0cc429d1b05a3">
+<p nodeId="b16b37052ba34ce28ea6044371995bab"><span font-size="12">预降级状态：32-标记  0-离线  -128-删除</span></p>
+</td>
+</tr>
+<tr nodeId="17710ff088f24a60a195f6b01306c674">
+<td colwidth="[145]" nodeId="b8af2265ba9a4b2181fb06b6fe28842d">
+<p nodeId="a7ac5f0d5daa4250b6b101165baed7ff"><span font-size="12">downgrade_scope</span></p>
+</td>
+<td colwidth="[76]" nodeId="95b335eaa3fa460b88d713d2201c6939">
+<p nodeId="f5590142c28241e08f3d6959d18154f0"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" nodeId="6738b13ecf024b53a2725e37f01612c7">
+<p nodeId="07ac25fd7abe4d3a9b7f6208d5944c7f"><span font-size="12">降级范围：0-全部场景  1-全部规则组  2-全部场景和规则组</span></p>
+<p nodeId="4bacb9f05afb4e62ad8ff3eb8c0dfaf2"><span font-size="12">治理维度为0时不用填</span></p>
+</td>
+</tr>
+<tr nodeId="e6b97fd1ed784c7da0823ee33ca24ecf">
+<td colwidth="[145]" nodeId="34f2ba4512bc4c4198f37d68b1efda29">
+<p nodeId="d8146c0fe8a34a4c8048010bf9ed80a8"><span font-size="12">reason</span></p>
+</td>
+<td colwidth="[76]" nodeId="1c3142b6e87e462e8712dc594ef26b98">
+<p nodeId="b92839f4885c47b5ad4fec16867317ce"><span font-size="12">str</span></p>
+</td>
+<td colwidth="[409]" nodeId="95e3e5216634449784d392a922835ecc">
+<p nodeId="cb5fd7f9efbc45f09967bddd40ac65c1"><span font-size="12">冗余原因</span></p>
+</td>
+</tr>
+<tr nodeId="aa12acbd41b84d43887e61f57db8848a">
+<td colwidth="[145]" nodeId="5c5f807e613d485e84ce0682121de93b">
+<p nodeId="d1a097b6450441669777f098bb20228a"><span font-size="12">priority</span></p>
+</td>
+<td colwidth="[76]" nodeId="fca51e2a27d04fb1992c78a81b4d5be4">
+<p nodeId="73aab4995d9548ffa6057e3354488dba"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" nodeId="e4a8746deb394c088edd1a7539405c06">
+<p nodeId="baf15a6a869d47c0b7dadee70c34c695"><span font-size="12">治理优先级：  0-P0 1-P1 2-P2</span></p>
+</td>
+</tr>
+<tr nodeId="b7385753ea4043bbb9acc2a14a2f0c2c">
+<td colwidth="[145]" nodeId="f5b793e55669454eae2baa9d1ebb7bbb">
+<p nodeId="2e3f16604288446da212e7d3cb4a84aa"><span font-size="12">administrator</span></p>
+</td>
+<td colwidth="[76]" nodeId="8e1577f5d4e542968a4a90f78b27b43e">
+<p nodeId="7b244e968b104e3dbed305eb50f5e3ac"><span font-size="12">str</span></p>
+</td>
+<td colwidth="[409]" nodeId="45e1f3e9c2534814b502ee5e5dbb3522">
+<p nodeId="fb899b068d1a46b9b6787d62f524b952"><span font-size="12">治理人mis</span></p>
+</td>
+</tr>
+</table>
+</li>
+<li nodeId="3299144384c14f4f92c48f0f11ea9895"><span font-size="14">hive表中的库名、dsn、表名为通用信息，注意此处需要给“XXX”申请系统查询权限「万象系统上」具体申请方式见：</span><a href="https://km.sankuai.com/page/290492473" title="https://km.sankuai.com/page/290492473" autoUpdate="true" nodeId="6100e29c538c4c08bec2035168ba2baa"><span font-size="14">https://km.sankuai.com/page/290492473</span></a></li>
+</ol>
+</td>
+<td colwidth="[930]" nodeId="e4ed81852d4a425680aae40f0d9970fa">
+<p nodeId="79c18e4f362e493e836557715655010a"><img src="https://km.sankuai.com/api/file/cdn/586615344/602629048?contentType=1&amp;isNewContent=false" name="image.png" width="719" height="264" nodeId="c638c281ac8c4b07b2547c9a24c75312" /></p>
+<p nodeId="168d7c7a04984996a128bafdc78161de"><span font-size="14">配置计算逻辑</span></p>
+<p nodeId="1bbc91a8117a4811abf9df85fea7c9bc"><img src="https://km.sankuai.com/api/file/cdn/586615344/602685665?contentType=1&amp;isNewContent=false" name="image.png" width="713" height="292" nodeId="28cba9934d5b43f98f55a3a6077dab89" /></p>
+</td>
+</tr>
+<tr nodeId="de4224c86af1463db5ae9dbffd79e146">
+<td colwidth="[350]" nodeId="20fe2fef24924b87ad87df4c05dfdad4">
+<p nodeId="2dcec984e1ba45f2b6d905583468edf6"><span font-size="14">【逻辑健康度】</span></p>
+<ol nodeId="eee64c6cc6e043b89e015f22ccf155fe">
+<li nodeId="62d16e01c6154a68ae42e1c9efdf6124"><span font-size="14">治理维度中的规则，主要指规则被引用的场景配置和规则组进行治理；</span></li>
+<li nodeId="e474804698244207b7bbd37a98e108dd">
+<p nodeId="3c37b5380a5c43f0bacec555cfd14c10"><span font-size="14">支持用户在hive表中设定降级范围、治理优先级、指定治理人和查看引用</span></p>
+<ol nodeId="a4a506c0be97434da64a3abf2fe0b8c6">
+<li nodeId="edacb12754294883b99915ca6e9dcb2a"><span font-size="14">默认按照治理优先级由大到小排序（P0&gt;P1&gt;P2，数字越小，优先级越大）；若无治理优先级，按照当前状态，生效&gt;标记&gt;离线；同状态按照最后修改时间由近及远排序；</span></li>
+<li nodeId="14ca634f4fb1489f9409fab8cac57ee3"><span font-size="14">查看引用，指规则被应用在哪些场景/规则组中</span></li>
+</ol>
+</li>
+</ol>
+<p nodeId="01c489cd7eee48fd95c683093498d02f"><span font-size="14">*逻辑健康度的定义是线上执行的逻辑是否有冗余，一般在场景配置、规则和累计因子上，当上述逻辑治理完成后，规则、因子、数据接口和参数可以转为配置健康度的治理</span></p>
+</td>
+<td colwidth="[930]" nodeId="775faca6cfa34b7b907163dadd79d7ee">
+<p nodeId="df861cbe70fc422994360c969928f6fa"><img src="https://km.sankuai.com/api/file/cdn/586615344/44673503045?contentType=1&amp;isNewContent=false" name="image.jpeg" width="709" height="376" nodeId="d91c6659181349528809a5cd6ed5146e" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="a317f5700eab4164a2cdebbaa185bca5">4.特殊说明</h2>
+<p nodeId="237076f4e61340b99e6cd5177070558a">（1）对于场景配置、规则、因子、数据接口、参数进行了“删除”操作的处理是不支持还原的；</p>
+<p nodeId="9f3ef45737cf40648655a4cd096168e6">（2）对于单条场景配置操作降级，为单条降级；对多条场景配置、逻辑健康度下的规则操作降级，为批量降级，其中对于规则由生效状态直接降级为离线状态，系统将<span color="rgb(22, 111, 247)">弹窗提示用户“生效降至离线状态，操作风险指数较高，系统将分步执行，第一阶段生效—&gt;标记，第二阶段标记—&gt;离线。阶段一至阶段二将以大象通知周知”，大象通知见模版</span></p>
+<p nodeId="78ec141f43104dc28fb116dee138098b">（3）业务hive表字段说明</p>
+<table responsive="false" nodeId="115b45e5e6024d2483364652da163774">
+<tr nodeId="08527ce335754748b0e25e849744a324">
+<th colwidth="[111]" nodeId="e0a3141db4154f8481a555f08de4e9ee">
+<p nodeId="3d3bcc95b34a479c931f26b6261b4c72"><span font-size="12">健康度类型</span></p>
+</th>
+<th colwidth="[131]" nodeId="364654ccfb4248eca34930db66aa8790">
+<p nodeId="63b6cfd85e55434e9b54840a85dbc8ae"><span font-size="12">治理维度</span></p>
+</th>
+<th colwidth="[127]" nodeId="e378b8cec13846f9b827d5068c36fbe5">
+<p nodeId="4d35c36294d8407dba3db14a8aeaf653"><span font-size="12">明细</span></p>
+</th>
+<th colwidth="[127]" nodeId="65ca74900cd340708dfc5960863901a7">
+<p nodeId="79ce7a37af954b5aae16aa14486a8b96"><span font-size="12">预降级状态</span></p>
+</th>
+<th colwidth="[297]" nodeId="9d81a541eb834beca17479d7cc3dedb6">
+<p nodeId="97d6262e893c48389ed091e90e745ec3"><span font-size="12">降级范围</span></p>
+</th>
+<th colwidth="[127]" nodeId="a884f6f421b04199803f0a377759e0f2">
+<p nodeId="bfc4501190094ab5b6d5f51b138eb103"><span font-size="12">冗余原因</span></p>
+</th>
+<th colwidth="[127]" nodeId="9e777802bd4d4d2a84b01846df35fa9c">
+<p nodeId="3241f41834874adaa95ee6198e159ca1"><span font-size="12">治理优先级</span></p>
+</th>
+<th colwidth="[127]" nodeId="b8a632f221d94a83a1ca356c237e4417">
+<p nodeId="7f689f2714a044299c3e415790b2f99b"><span font-size="12">治理人</span></p>
+</th>
+</tr>
+<tr nodeId="aa26263bd798498db00fb2e44dd1a147">
+<td colwidth="[111]" nodeId="8cfa9e5af60a40f1b5814f0a093ea52c">
+<p nodeId="ea5b9794cdf144ec9ab7b618f8fc747f"><span font-size="12">逻辑健康度</span></p>
+</td>
+<td colwidth="[131]" nodeId="aab37d19d56f41a99758d6dd2d49034b">
+<p nodeId="9f8a1eb8746c45a997c533f47b8439c8"><span font-size="12">场景配置</span></p>
+</td>
+<td colwidth="[127]" nodeId="d21a059484d248b384a6b57649fc7957">
+<p nodeId="2a448292e2c54a708d3fe6f27634ba03"><span font-size="12">场景配置ID</span></p>
+</td>
+<td colwidth="[127]" nodeId="375524fe21984cd19366cb80d19784ef">
+<p nodeId="7c09da01dbce4f4d83071864db850a2f"><span font-size="12">标记/离线/删除</span></p>
+</td>
+<td colwidth="[297]" nodeId="88de040da36f4e80ab7a85c28f1a926b">
+<p nodeId="eb35e170fd9242b78847d450e65a42ed"><span font-size="12">空</span></p>
+</td>
+<td colwidth="[127]" nodeId="bc307569219445b58ad8cbc140ea0198">
+<p nodeId="5f04b6a054ff41de9dc88331f75033ca"><span font-size="12">空/XXX....</span></p>
+</td>
+<td colwidth="[127]" nodeId="be967788742a4061abc6e5d220e1442a">
+<p nodeId="7d35108e2e7441f6b7d713defd2ea4c6"><span font-size="12">空/P0/P1/P2....</span></p>
+</td>
+<td colwidth="[127]" nodeId="a2b31e770b344ff4a9bb4ca0c38d1b6a">
+<p nodeId="b2f2d47db1614982bb1cbec89d72fc96"><span font-size="12">空/misid</span></p>
+</td>
+</tr>
+<tr nodeId="da8298ec2d744d1084bad4b58703dd9d">
+<td colwidth="[111]" nodeId="db328b76ce5c420199cc7c2350c32525">
+<p nodeId="d58939382a02423389d525b71c082960"><span font-size="12">逻辑健康度</span></p>
+</td>
+<td colwidth="[131]" nodeId="872202924e83440b9e07e91d004bcce9">
+<p nodeId="9af1ccbc0bb74bd5867bbfc3ab1a8ab9"><span font-size="12">规则</span></p>
+</td>
+<td colwidth="[127]" nodeId="3ac0c6f4cf9144c1b906d41c73052617">
+<p nodeId="5575e4ae88054d609e631a2526bfcc74"><span font-size="12">规则ID/名称</span></p>
+</td>
+<td colwidth="[127]" nodeId="dd85137e0f994ff8ab8147bac6f5fe19">
+<p nodeId="2368516106b448199fbe18776ccc4c3b"><span font-size="12">标记/离线/删除</span></p>
+</td>
+<td colwidth="[297]" nodeId="da586964ab114c249fc46487545a639f">
+<p nodeId="b9ece002564a4485b28026a23b8e2f84"><span font-size="12">全部场景/全部规则组/全部场景和规则组</span></p>
+</td>
+<td colwidth="[127]" nodeId="f8d3862e888e49aea5a64a55f496c93f">
+<p nodeId="2113dffe99a64472a977cb0e130fb820"><span font-size="12">空/XXX....</span></p>
+</td>
+<td colwidth="[127]" nodeId="6761ab59bfe2469bb654d50d1fa76682">
+<p nodeId="b24da65ddfb04ece830e7b286f8ab506"><span font-size="12">空/P0/P1/P2....</span></p>
+</td>
+<td colwidth="[127]" nodeId="6f1583fe6e6a43838176f4ee59523fe2">
+<p nodeId="c2d391043dd74e03ad78f9510a090ebb"><span font-size="12">空/misid</span></p>
+</td>
+</tr>
+</table>
+<km-collapse active="false" nodeId="8e6358d65bfe4b629724f34bc6de0d58">
+<km-title>上述字段英文名/枚举值说明</km-title>
+<km-content>
+<p nodeId="ab42b2583853465397a55853326a5114" />
+<table responsive="false" nodeId="05c74304-8bbe-49a5-9c0e-243f5f13db3e">
+<tr nodeId="d33b2462-0ddc-449d-ad52-41c5205e6725">
+<th colwidth="[107]" nodeId="a771e3396d46479abd946a4400eed743">
+<p nodeId="6b700edf7ca64365b0def6a4f4c98fd0"><span font-size="14">中文名称</span></p>
+</th>
+<th colwidth="[148]" verticalAlign="top" bgColor="rgb(244, 245, 247)" nodeId="41697a745b0245d79b50e4ae960d39e7">
+<p nodeId="6452e8be-50e9-468c-b9ef-f231d3bac097"><span font-size="12"><strong>字段名</strong></span></p>
+</th>
+<th colwidth="[86]" verticalAlign="top" bgColor="rgb(244, 245, 247)" nodeId="d2ddd6d4da2a459e856d078ffb54fd64">
+<p nodeId="fdcb7f0c-67ae-437a-99eb-7f2f4c506eb2"><span font-size="12"><strong>字段类型</strong></span></p>
+</th>
+<th colwidth="[409]" verticalAlign="top" bgColor="rgb(244, 245, 247)" nodeId="1a262873db2243d8afbba50191cd8445">
+<p nodeId="83697e09-ea6d-486c-82b2-aa122dca7aec"><span font-size="12"><strong>说明</strong></span></p>
+</th>
+</tr>
+<tr nodeId="33bc4477-5eab-4a95-a72f-4206c9e59df6">
+<td colwidth="[107]" nodeId="46bf43dda99b402aa606a93140dd30d9">
+<p nodeId="eddda300311047c1aee8663323d19093"><span font-size="14">治理维度</span></p>
+</td>
+<td colwidth="[148]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0f07d104494f4793b85801a936907e4c">
+<p align="start" nodeId="98b8aa25-b75a-48c9-a61f-2d646d790e84"><span font-size="12">type</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3d2cdd37079a49c2b3fe8f173bf2639e">
+<p align="start" nodeId="d7df0c86-4046-4314-9730-9e147441124b"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="aa7979dd48f54bbd8393692138de8e63">
+<p align="start" nodeId="d4c06d40-ebcd-47b2-9e35-3f944a3ba788"><span font-size="12">治理维度 : 0表示场景规则, 1表示规则</span></p>
+</td>
+</tr>
+<tr nodeId="7e13f1e6-4ba7-4003-890b-96ff0829145f">
+<td rowspan="2" colwidth="[107]" nodeId="66d7e267db8040748c88c65da66b6c3f">
+<p nodeId="6d179120fed14b1ea1a228b7f91143cb"><span font-size="14">明细</span></p>
+</td>
+<td colwidth="[148]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fb884fb1027a4666b143432973bf0fd4">
+<p align="start" nodeId="4d85b8ef-a3ef-4163-a8ee-d3d4b38d9242"><span font-size="12">scene_id</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0572e1acdaef4260825dcdc22493384e">
+<p align="start" nodeId="92e42fcd-af2b-462a-8448-825930dd1bd1"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="468ec98abc844a01a1def6803cb356ce">
+<p align="start" nodeId="10d15a47-c638-4f5a-aeeb-d6e5b1e14d7f"><span font-size="12">场景id, 治理维度为1时可不填</span></p>
+</td>
+</tr>
+<tr nodeId="5d087691-ff57-4638-8e0c-090591057aa6">
+<td colwidth="[148]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="eaecd9a8a9464ecb80c7bcbd68814884">
+<p align="start" nodeId="a2ce8c7c-5bdd-494b-b4ec-7f8f36c672ea"><span font-size="12">rule_id</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5fe16f88b04547fdb940895dae801ca1">
+<p align="start" nodeId="6eb6856a-27f2-42d7-9e9d-df2ace8e283f"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f090aaf4aa8f43d592eec0ebd87cfe09">
+<p align="start" nodeId="3640e096-0bd2-486e-8ebc-5278883f7780"><span font-size="12">规则id</span></p>
+</td>
+</tr>
+<tr nodeId="d4ca2572-6597-46f2-b522-b7fdbd21c5c4">
+<td colwidth="[107]" nodeId="54dc8f13277f4230955f7da57a13f130">
+<p nodeId="2effdfb64ee84106a7b9968855ab1eef"><span font-size="12">预降级状态</span></p>
+</td>
+<td colwidth="[148]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e9f7545382c848158a9f829461ade0e4">
+<p align="start" nodeId="e7d875a8-5d9f-4ad3-aca9-ca933637c678"><span font-size="12">downgrade_status</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2942b80b647b40d586df1d2d2d7124db">
+<p align="start" nodeId="02de615e-d428-45c0-a045-fda0637e8ac5"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3b7aa273454d4017b4adc5c8ba35d77c">
+<p align="start" nodeId="8a97da82-3c5b-41b3-8a28-852bf9944c3c"><span font-size="12">预降级状态：32-标记  0-离线  -128-删除</span></p>
+</td>
+</tr>
+<tr nodeId="9ad9c687-5f88-4d0b-95c1-3660d38e8229">
+<td colwidth="[107]" nodeId="183d3c99b14c41d6a3ef07c37c851dcf">
+<p nodeId="7e6730d4f85a433abd93c25c18862aa7"><span font-size="12">降级范围</span></p>
+</td>
+<td colwidth="[148]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c7973728464c406abee869e8c24caf0c">
+<p align="start" nodeId="e79b35b5-5fe8-4eb7-bcf8-b8f9c81be821"><span font-size="12">downgrade_scope</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c628a90708ac46f08b63639c20a89d15">
+<p align="start" nodeId="43f3538d-ba4f-428f-86c4-5c2f69922dba"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1b27a6ada00041b58c055679756e1923">
+<p align="start" nodeId="c3562f0b-08a8-4bfe-b53e-7d15507f96e8"><span font-size="12">降级范围：0-全部场景  1-全部规则组  2-全部场景和规则组</span></p>
+<p align="start" nodeId="c0a9d2a1-73ea-46d9-b9f5-6d80e7112555"><span font-size="12">治理维度为0时不用填</span></p>
+</td>
+</tr>
+<tr nodeId="5a4e425c-21ea-41c8-86f3-4f2924c7cf84">
+<td colwidth="[107]" nodeId="d58f4e74a3ea4ef2b13ba041148bb2e5">
+<p nodeId="7bbabd303f7b44319a873a56929a1270"><span font-size="12">冗余原因</span></p>
+</td>
+<td colwidth="[148]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0034c0c389fc4e13aed6987505e363c1">
+<p align="start" nodeId="e5f98bc8-4f1d-42df-903a-16aa7ad5f93d"><span font-size="12">reason</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cf706ba2fa334cc1a251ff9d2d1cc873">
+<p align="start" nodeId="e2ed728f-7402-4600-b7e8-1a4ddb6508b3"><span font-size="12">str</span></p>
+</td>
+<td colwidth="[409]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="27cd9af71d464872afa9532a3bd29354">
+<p align="start" nodeId="95a7f018-f57a-4ed8-831a-9db01986382d"><span font-size="12">冗余原因</span></p>
+</td>
+</tr>
+<tr nodeId="2b3f9880-4943-4746-9587-268310a098ab">
+<td colwidth="[107]" nodeId="e383036fac3e4d81915d26a86acd80f4">
+<p nodeId="0a0a57de17d041cc92c6efc0ffc02383"><span font-size="12">治理优先级</span></p>
+</td>
+<td colwidth="[148]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ac5679e234e04d5dac34dba588467689">
+<p align="start" nodeId="386e1ca6-1634-4d8f-8367-4dd29236d672"><span font-size="12">priority</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b8580f28d92243dba70acd98d9f8a30e">
+<p align="start" nodeId="f0271d6d-43ce-4a92-a8e2-7710314d48c6"><span font-size="12">int</span></p>
+</td>
+<td colwidth="[409]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a9bc96c43de94c97961dd0cfd37df8f3">
+<p align="start" nodeId="8cdc9d56-75d2-4da6-93d2-76aac1224678"><span font-size="12">治理优先级：  0-P0 1-P1 2-P2</span></p>
+</td>
+</tr>
+<tr nodeId="99bf1d09-4d98-4b84-9729-fe460b926e6e">
+<td colwidth="[107]" nodeId="ce56b380881e40f3adfb6c228a6a9a2b">
+<p nodeId="041288173e3e42169e140d380ea627e1"><span font-size="12">治理人</span></p>
+</td>
+<td colwidth="[148]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fad73dc6437d4226beb9fc908e92b1a0">
+<p align="start" nodeId="aed9935f-b1e8-40fc-9c47-59e4502c4fb4"><span font-size="12">administrator</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c0dbc7a36bc74617bffb3be4642e0ccc">
+<p align="start" nodeId="8075b232-2fad-4714-847e-da48909cb3f0"><span font-size="12">str</span></p>
+</td>
+<td colwidth="[409]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7470946beb684b7ea0ddd30a089428da">
+<p align="start" nodeId="d27992b6-abfb-497b-a5c5-d4fac1c32aa2"><span font-size="12">治理人mis</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="606b2207221e4f43a0be1da621c2345f"><br /></p>
+</km-content>
+</km-collapse>
+<h1 nodeId="a18eebe6e64241f1b8df4d3c8b578123">四、FAQ</h1>
+<h3 nodeId="2b330a76e0a7419cbd892ddcde875b67">Q1：配置健康度的识别逻辑是什么？</h3>
+<p nodeId="9e3f491ec01e4b7585d9da0dd3841088">--A：配置健康度的识别逻辑均是基于“参数、数据接口、因子（普通、累计、名单等）、因子工具、规则、规则组、场景配置”对象配置后没有测试完成或者配置完成但长时间（180天+）没有被使用的 ，具体详情见<a href="https://km.sankuai.com/page/373817480" title="https://km.sankuai.com/page/373817480" autoUpdate="true" nodeId="6bb3a14df27d43e3b6fdf07c32e1f4a7">https://km.sankuai.com/page/373817480</a></p>
+<h3 nodeId="2ceef531fb984e3099eaa7fe1a23a0a0">Q2：不进行治理会怎样？</h3>
+<p nodeId="3c6f457c96c0462e8c1eb853b7a23819">--A：Zeus-robot仍会定期推送，Zeus平台会定期同步所有业务线平台使用的健康情况，对于健康度不好且也不治理的业务，将形成VIP服务联动机制，帮助业务提升健康度。</p>
+<h3 nodeId="3e31a0a92ffd44e3b7235b865476acb9">Q3：进行健康度治理，有什么好处？</h3>
+<p nodeId="b9e10c4c8b3d4d2681543122047c5a27">--A：对于个人，便于平台上有效信息的查询和使用，同时在个人所负责风险域场景的可用性和稳定性会进一步提升；对于业务方/业务线，业务侧季度/年度的分摊成本将通过健康度优化有所下降；</p>
+<h3 nodeId="2920c444fba54500a998faa533bee88f">Q4：业务有自己的冗余识别逻辑，支持配置到平台上么？</h3>
+<p nodeId="80414a06233447feb3509569c0a9c3e7">--A：支持，可参考3-3 Step4 步骤</p>
+<h3 nodeId="c2c2eed0a772430486a652c1ae6ae008">Q5：平台上现有的识别逻辑，我有需要补充/质疑的，如何实现？</h3>
+<p nodeId="589da6c86a094b9fa18d469b65fd60b4">--A：若是业务自定义逻辑，可参考Q4问题的答案；若是认为该逻辑是通用逻辑，可联系Zeus-PM进行逻辑补充/质疑沟通</p>
+<p nodeId="90da15f39322498ea75cdbf0abd95c4c" />
+<p nodeId="9644e5cc8adf46e0a8f0121726a7b607" />
+</km-doc>

@@ -1,0 +1,128 @@
+<km-doc>
+<km-title nodeId="7a5478a3e2db449480bd72cf38bc7d18">说明：离线引擎变更验证V2</km-title>
+<km-catalog style="none" nodeId="625aea48a3804c9197ee6e6d4d2086ec" />
+<h3 nodeId="f83fdd949d874b638ce3429684233e97">一、背景</h3>
+<ul nodeId="4420d8ed035e49a7a5f3c99d5a48692c">
+<li nodeId="77ed5c7faeb4472a8d03dcbbb220694c">离线引擎上线后，被越来越多的风险域使用，尤其是账号风险域的流量在快速增长，策略布控安全性日益凸显</li>
+<li nodeId="17ca83ff61054e4898aae088762cd687">离线任务的任何变更，都是立即生效，无验证、审批等安全保障能力</li>
+</ul>
+<h3 nodeId="4da5f070f27741beb3ccd465cfd21588">二、系统流程</h3>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/2388150909/114421114300?contentType=0&amp;isNewContent=false" width="916" height="131" nodeId="d47ecc24f9e041e3bfdc6022c3365ed2" />
+<h3 nodeId="dae488d83a99492e875d38238b958278">三、概念说明</h3>
+<p nodeId="0bf4f3d8d8f84d97a24112a3a45cf366">实验：当任务信息产生变更后，可从变更环境执行修改后的最新配置，但执行结果不会下发决策数据，仅供验证；正式上线后，需要线上调度成功，才能下发决策数据。</p>
+<p nodeId="80b8c4fb38504ad7be382ebc8528ef53">发布：当变更验证符合预期后，提交发布，由相关负责人进行审批，方可正式生效；<span color="#FF4A47">离线任务当前只支持紧急发布，暂无任务灰度能力</span>。</p>
+<h3 nodeId="97ff5828ca614c33801e64fbf35b259a">四、操作说明</h3>
+<table responsive="false" nodeId="9359e543ba3b45fdb041de27b1816b8e">
+<tr nodeId="00578233184e42108c2f4f2bba8033e8">
+<th colwidth="[120]" nodeId="85d80c6d712d4854b2866dd6d803afec">
+<p nodeId="0a2edf226f2e4ebe820e4a4315ae4af9">流程节点</p>
+</th>
+<th colwidth="[574]" nodeId="50b9e815c39f4915a88ae0608b313b1b">
+<p nodeId="7103b796841a458483cea9f325f18d58">说明</p>
+</th>
+<th colwidth="[572]" nodeId="1da051d8f29e490eb11f447ef60500c2">
+<p nodeId="38c71f1ae89d4791aabede3b400a8013">截图</p>
+</th>
+</tr>
+<tr nodeId="fa7e4a2aba3e459886cdd7a543f50e1e">
+<td colwidth="[120]" nodeId="8aaea56f32b34cc3bdc29c7a17489f7b">
+<p nodeId="9dfc5bee172b4bd7bb09ffccd98a92d3">触发实验</p>
+</td>
+<td colwidth="[574]" nodeId="602020d6ef9049079007d25dcdc9c1fc">
+<p nodeId="f116480109d9485c9e0d95079caacd66">主动：策略变更--策略实验</p>
+<p nodeId="3a049597be7d4ac596cc5d11b0d8d595">被动：</p>
+<ul nodeId="451d6c06d7c147f594c76aa8b8fd1b66">
+<li nodeId="ecfe1c54ac9f4d1badc3c37981dd7b2e">离线任务下线--&gt;&gt;上线</li>
+</ul>
+<ul nodeId="d74500817410430981d50391b7b00321">
+<li nodeId="e3109edfd8ef4b4b8b80cf18feffc5e8">删除数据源取数字段、修改数据源映射</li>
+<li nodeId="03ff278812ef4272bedb19fa8f565451">修改离线任务where条件、周期、规则选取</li>
+</ul>
+<km-note type="warning" hiddenTitle="true" nodeId="0ca5aae2f2fd4a0d8588de976aed8a6a">
+<km-title></km-title>
+<km-content>
+<p nodeId="aeda6bec24bf442eb2e4c439ded61f2b"><span color="#000">不支持同时修改离线规则配置和离线任务配置，如需修改，请将离线规则修改发布完成后，再修改离线任务</span></p>
+</km-content>
+</km-note>
+<p nodeId="dcfee4118c31471887d73f30f7b610ce" />
+<p nodeId="94210f836e364778a98f97ad425239f4" />
+<p nodeId="28bedc6d5f8c4a29bc89444873c1e757">填写实验任务名称后，进入变更环境↓</p>
+</td>
+<td colwidth="[572]" nodeId="e0edfeec19584c1a8e8918114e45ade3">
+<p nodeId="29d42d961a344710b88460052bd6e929">主动入口：</p>
+<p nodeId="9511ab35d99b407088b65c8c05b16c25"><img src="https://km.sankuai.com/api/file/cdn/2388150909/114181300295?contentType=1&amp;isNewContent=false" name="image.jpeg" width="203" height="70" nodeId="cb2042b6ce164b69aaf4f843834608fc" /></p>
+<p nodeId="86051fe124654377a975ba89a7150b04">被动入口提示：</p>
+<p nodeId="f6bc508f25c6451ca35549775b4e32d4"><img src="https://km.sankuai.com/api/file/cdn/2388150909/114180924851?contentType=1&amp;isNewContent=false" name="image.jpeg" width="368" height="208" nodeId="0141ed00e373442eb715e6a1e7e78970" /></p>
+</td>
+</tr>
+<tr nodeId="4a9675fede264dc6a6cebbe384354f12">
+<td colwidth="[120]" nodeId="c9deb5edb4d042abbea4bf775a0d14e8">
+<p nodeId="52128a29b36541b6adfafaf01bf27d00">变更环境</p>
+</td>
+<td colwidth="[574]" nodeId="9350862f942f4445af9559ea4c0edd42">
+<p nodeId="579b302fd3f741e484006904ae137a3d">进入变更环境后，在线上修改的内容无法直接携带过来，需要在变更环境中操作保存，可在【变更内容】中核实是否符合预期</p>
+<p nodeId="ecc067467c8744d0be738ffceef5cb4d" />
+<p nodeId="1adb48c9021c4762b68e06f8868ba845" />
+<p nodeId="777a28ed3fcd49eba795e32ebce28942" />
+<p nodeId="9a6abeef6dd140e8a755e0c1bf0bb6df">确认修改完成后，点击【去实验】↓</p>
+</td>
+<td colwidth="[572]" nodeId="c9795af931de4d31866da18e0dae7ef5">
+<p nodeId="0ba88ecaa3a446f5923614f54503de4d"><img src="https://km.sankuai.com/api/file/cdn/2388150909/114200815884?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1409" height="508.85" nodeId="b21506238f25464fa36690828e63741f" /></p>
+</td>
+</tr>
+<tr nodeId="7607148b9244446581500f5338257dbd">
+<td colwidth="[120]" nodeId="90d85c84742c4397aee2a4f34305f7c1">
+<p nodeId="241fee3a6f38498ab658e3be57679eda">开始实验</p>
+</td>
+<td colwidth="[574]" nodeId="b1868de3a25b477f9f408887364df2dd">
+<p nodeId="ecc0e6f7ac6540c5b93bce22a0d0d780">流量来源：实验任务会默认拉取受影响的任务数据源，无需手动填写</p>
+<p nodeId="1bc6374f27a14531b785186b9b2cf254">流量比例：默认是1%，如果想要完全还原线上执行结果，可调整到100%</p>
+<p nodeId="cc1808c4529f4c4987cbffbdbe11fc25">流量筛选条件：即where条件，可从其他维度筛选流量执行离线任务</p>
+<p nodeId="d839cf9f57f84a3d808f47b15c668e52" />
+<p nodeId="4e588f223d904de0979845ae8ac3e50c" />
+<p nodeId="3d1060af85de4cc5b7c2d17af66c7d91">确认修改完成后，点击【开始实验】，等待实验结果↓</p>
+</td>
+<td colwidth="[572]" nodeId="979eee87c93c472fa443714eb422320e">
+<p nodeId="11704d4e7dc0412aaf6b6eeaf3961ef5"><img src="https://km.sankuai.com/api/file/cdn/2388150909/114200110729?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1409" height="471.6" nodeId="8b4b87be2047426c9467dab6402b86ad" /></p>
+</td>
+</tr>
+<tr nodeId="4f003dbf4d194b679dd21450434c34bd">
+<td colwidth="[120]" nodeId="3f8c4760bea84cedbf31686775862e99">
+<p nodeId="f58ec6d26e314a698a12c7bab38b9845">查看实验结果</p>
+</td>
+<td colwidth="[574]" nodeId="3426ac9e5ddf4b1780f2fb3eeeb6c68e">
+<p nodeId="85c73fcc57d944dfb63fdf1fc3b63b55">前往【策略实验】列表，点击查看对应实验任务的【实验结果】</p>
+<ul nodeId="ef8f745dcce74cda9463802186326a81">
+<li nodeId="156f1c4bec4e4779afcd6991c005251e">平台提供总体的统计指标，供分析参考</li>
+<li nodeId="2da817b8be2844c1bfb55eb2096ff84b">如需查询明细，可复制下方的SQL前往魔数查询</li>
+</ul>
+<p nodeId="8c52efec438444f6844b2914e082465a" />
+<p nodeId="e868eb9495124d34a3bd155e7a52604a" />
+<p nodeId="22b4b2536f194829aa907600c4724d9d" />
+<p nodeId="42635c845efe4106a08ffb2a3b1b77fc" />
+<p nodeId="d9113ca482284aa9ab8c8e2f0aeb0a01">确认结果符合预期后，回到列表，点击【去发布】，创建发布任务↓</p>
+</td>
+<td colwidth="[572]" nodeId="c55c512cf1fd4f9a896b7008b203fdd8">
+<p nodeId="485d6cb877c74fb3987db749bd8b1050"><img src="https://km.sankuai.com/api/file/cdn/2388150909/114198357859?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1309.43" height="600" nodeId="0392645ba36949b8926307be4a136785" /></p>
+</td>
+</tr>
+<tr nodeId="5c46e953c46b4d1bb539823c6ef0d962">
+<td colwidth="[120]" nodeId="fcc5ace75b854670afe37b7f58c69e60">
+<p nodeId="6e55895468374de68801a3c69c234d00">发布</p>
+</td>
+<td colwidth="[574]" nodeId="22c298ffbf4b48d6b8656a95bb80643f">
+<p nodeId="8e84a6d5bf04487497d46e1ff5faa5ac"><span color="#CCCCCC">当前离线任务不具备「灰度发布」能力，预计Q4支持</span></p>
+<p nodeId="856d153a148e486591deef12a9493389">当前仅支持「<span color="#FF4A47">紧急发布</span>」，填写原因后，点击【发布】即可，审批机制同实时引擎，空间负责人审批通过后，可在<strong>发布列表</strong>点击【上线】</p>
+<p nodeId="1f6335eaa1464964be10219d7e3b991a"><img src="https://km.sankuai.com/api/file/cdn/2388150909/114205163295?contentType=1&amp;isNewContent=false" name="image.jpeg" width="754.11" height="600" nodeId="66e464b0ca084b1da7e825a34116b9bb" /></p>
+</td>
+<td colwidth="[572]" nodeId="7a056dfaa3174d4387b8e93cd79e0bdd">
+<p nodeId="56e821ded0574243961dfea2fdf07e5a"><img src="https://km.sankuai.com/api/file/cdn/2388150909/114205864301?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1399.72" height="600" nodeId="48f01f7f6ad1475ea7d592b34116d0dc" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="41c02a82441f4d329606edd68d9a60ac" />
+<p nodeId="226e59e8ab8b480bab8eb1b02060962a">发布管控信息可查看<a href="https://km.sankuai.com/page/1359152952" title="https://km.sankuai.com/page/1359152952" autoUpdate="true" nodeId="a3c69365a56846c396195858c746964e">https://km.sankuai.com/page/1359152952</a></p>
+<km-footnote-list nodeId="a3df1b34924d4e949ebd34b524dde0fc">
+
+</km-footnote-list>
+</km-doc>

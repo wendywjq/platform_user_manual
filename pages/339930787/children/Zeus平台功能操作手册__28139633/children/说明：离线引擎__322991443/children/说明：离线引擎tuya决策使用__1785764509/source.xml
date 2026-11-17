@@ -1,0 +1,1027 @@
+<km-doc>
+<km-title nodeId="c9dfc5860db9454ea92213f569d1eda9">说明：离线引擎tuya决策使用</km-title>
+<km-catalog style="none" nodeId="187cc911b67249b79f6c0bebb1d28d42" />
+<h3 nodeId="a67ae895e79b4f3aabbeed9ee4b2fd36">一、背景</h3>
+<p nodeId="2523786b235d4b21aa5698eb57e34a93">当前离线引擎仅支持hive表输出，对于已经确认有风险且需要处置的数据仍需要人工手动去操作，风控链路不完整</p>
+<h3 nodeId="b1c65d82348c43df88fc455a0290f023">二、操作说明</h3>
+<h4 nodeId="cfc0e22b51e64962bd5b1fa9c3fd81c3">2.1操作详细流程</h4>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1785764509/51111800284?contentType=0&amp;isNewContent=false" width="1155" height="188" nodeId="aff99cb382c7453285c74acd738db622" />
+<h4 nodeId="7111c23eea0a4ac79042b934f8e084e3">2.2tuya处置配置（以下实时、近线可复用）</h4>
+<ul nodeId="414964c81a754271996ef998d43583d4">
+<li nodeId="c3a272653de94109a51e48183e078b7a">Tuya决策ID：<span color="#FF4A47"><strong>35686</strong></span>（自己创建新的tuya处罚决策无法生效，直接复用即可）</li>
+<li nodeId="2f06a509febd4905b02206b4d9b86a55">
+<km-collapse active="false" nodeId="660fc69890ae4640a93ece3694847409">
+<km-title>idValue枚举值</km-title>
+<km-content>
+<p nodeId="2938a6bccd194bdda4811df0f6e72b0e">userid-用户id</p>
+<p nodeId="ee42228ca5574ff0930d0fff76f0e5bc">merchantId-商户id</p>
+<p nodeId="185ad2d899884825b4098b2e0c96e4aa">mt_user_id-美团用户id</p>
+<p nodeId="ee9b3e6042e34f20a1ca878999550726">dpUserid-点评用户id</p>
+<p nodeId="5ae89039a6ac4a0b8030a89a0fd63729">oversea_compatible_userid-支持海外账号的userid</p>
+<p nodeId="96be191687f64481a696c805a5b39bd2">oversea_compatible_dpUserid-支持海外账号的dpUserid</p>
+<p nodeId="7b82e99eb14a463aa6dd7b5f3e65221c">dp_userid_str-点评用户id_str</p>
+<p nodeId="6287ab801e25471c98dd470cc56f2224">ssoUserid-sso账号id</p>
+<p nodeId="a81884c58aca47d99cf2be5f04beb4b5">poiid-美团门店id</p>
+</km-content>
+</km-collapse>
+</li>
+<li nodeId="4856de3b8334439c8f1c9e782512dded">
+<km-collapse active="false" nodeId="4a78025cfeeb4e7ca6abd426bca5caf3">
+<km-title>idType枚举值</km-title>
+<km-content>
+<p nodeId="6ddbd9acb3ab4eb58d4493c51b17514b">1-美团用户</p>
+<p nodeId="683df180b52546ccacdc3339cea4cf15">2-点评用户</p>
+<p nodeId="bdc6c61b32204ad9a521e9230e82761f">4-小猫用户</p>
+<p nodeId="4207ea347f1b445cbf0a1ae87ebb1ee0">5-美团门店</p>
+<p nodeId="1168322e114a441f85357334f6084b6e">13-IAM账号</p>
+</km-content>
+</km-collapse>
+</li>
+</ul>
+<h5 nodeId="c9a033faed524601b4235e9cbde1a053"><span color="rgba(0, 0, 0, 0.84)">2.2.1 extra举例说明</span></h5>
+<km-note type="warning" hiddenTitle="true" nodeId="50794e39d853414d96d634e303afd09a">
+<km-title></km-title>
+<km-content>
+<ul nodeId="7b73653d6d934d878d22fcd806e82031">
+<li nodeId="c133565c08534f0faa542208e7463994">不同的处罚方式，需要配置不同的<span color="rgba(0, 0, 0, 0.84)">extra</span>扩展信息数据</li>
+<li nodeId="a070800c45174bec871da66ad45e639b"><span color="rgba(0, 0, 0, 0.84)">extra在附加信息中配置的字段类型是「上下文表达式」，因此当extra中的信息全部为常量时，需要创建一个因子作为变量来进行引用</span></li>
+</ul>
+</km-content>
+</km-note>
+<ul nodeId="c1892306ae924883b7361887f28b323e">
+<li nodeId="be9489330a58447992efcf2aee45adb9">
+<h6 nodeId="8feaf1b5dfbc4a199bede9f5236aec67">常量类--用户冻结</h6>
+</li>
+</ul>
+<table responsive="false" nodeId="4a3efc74c7d149f38280c36d60ce3d0c">
+<tr nodeId="66878203675547d19c07e5b3ae239917">
+<th colwidth="[555]" nodeId="417cc49b1d2045bdbcf811d628360a23">
+<p nodeId="f1eddebc1aa742059491df2f6bd30233">因子（线下配置）</p>
+</th>
+<th colwidth="[404]" nodeId="1731904d6f5444e58b9e88d65d8b87f3">
+<p nodeId="fa3f04e7cead4054ae41d0df94002938">附加信息（线下配置，不要抄actionCode）</p>
+</th>
+</tr>
+<tr nodeId="f8a1b1b8b6cf451d8bc0405d7b95a1c8">
+<td colwidth="[555]" nodeId="13f0f0577baf462b808348a02dded6b2">
+<p nodeId="64e70fdb0a2f43f2bfd391384f724a93">需要将常量数据配置成一个因子，然后在决策配置中引用</p>
+<p nodeId="a6357893ce24491e92a6d270fe37c88d"><img src="https://km.sankuai.com/api/file/cdn/1785764509/50921801080?contentType=1&amp;isNewContent=false" name="image.jpeg" width="955" height="368" nodeId="cbc33c1c5e6d4ccfa0d96917b2b66890" /></p>
+<p nodeId="cbe86935ad1f48b4aaeb19432f89b691">因子内容：</p>
+<p nodeId="5164c852504c4dc5b24fde305713a528">'{"userStatus":"3","operateType":"3","operateReason":"1","operateAppkey":"com.sankuai.zeus.offline","operatorMis":"tangzhou02"}'</p>
+<p nodeId="9d948543871248f89808f59615802f61"><span color="#FF4A47">近线operateAppkey：c</span><span color="#FF4A47"><span bg="rgb(255, 255, 255)">om.sankuai.zeus.nearline</span></span></p>
+</td>
+<td colwidth="[404]" nodeId="caecda4198a044ce85ab41dc06589528">
+<p nodeId="5ced144325d04775987f5a207b29330d"><img src="https://km.sankuai.com/api/file/cdn/1785764509/50092641994?contentType=1&amp;isNewContent=false" name="image.jpeg" width="673" height="589" nodeId="5722b1f3b911479a8aee2b6231c9249c" /></p>
+<p nodeId="892dcd98eff342d28f70e1024874d8e9">因子名称：factor_userstatus_3</p>
+</td>
+</tr>
+</table>
+<ul nodeId="443cbb494abe4028af18d5bc0b76f8da">
+<li nodeId="12753517fae24dc8bbcab866dc8a3d3b">
+<h6 nodeId="c10fc738fca647b9aa463cea8a5480ab">常量+变量--根据token踢出登录态</h6>
+</li>
+</ul>
+<table responsive="false" nodeId="9f5ed2779dda47b6b0ef16f8c6c4964c">
+<tr nodeId="c5407eec81af477cb0af5bc3641fce8c">
+<th colwidth="[555]" nodeId="15e03626822d49639d2478072c009e35">
+<p nodeId="c12eb9a2eb1d48139d765b9296fe3dbd"><span color="rgba(0, 0, 0, 0.84)">extra内容</span>（线下配置）</p>
+</th>
+<th colwidth="[404]" nodeId="9a2c14f2645e4a2bb497e4e9587ea39c">
+<p nodeId="f6f295d3578a408786f4513233919d8d">附加信息（线下配置，不要抄actionCode）</p>
+</th>
+</tr>
+<tr nodeId="361e7e34722e40e4a0cb93e8ad360d31">
+<td colwidth="[555]" nodeId="beaed51c6ade44548418b298704dec78">
+<p nodeId="20666af3953d453fa49174f42bf97fdb">可直接写表达式，如：'{"token":"'+token+'","operateType":"1","operateReason":"4","operateAppkey":"<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span>","<span color="rgba(0, 0, 0, 0.87)">operatorMis</span>":"tangzhou02"}'</p>
+</td>
+<td colwidth="[404]" nodeId="242f31b2d96d49b986f381f5d72d6fac">
+<p nodeId="7109b7345371425487b164951619b1c0"><img src="https://km.sankuai.com/api/file/cdn/1785764509/50092642962?contentType=1&amp;isNewContent=false" name="image.jpeg" width="535" height="480" nodeId="4abaa7e9236947738e9a039ccf989fe3" /></p>
+</td>
+</tr>
+</table>
+<h5 nodeId="4048e22fe4234610ad0e1a4cd4db1be6"><br /><span color="rgba(0, 0, 0, 0.84)">2.2.2线上处罚方式枚举</span></h5>
+<ul nodeId="c62e63437539436da22ae1b74d713f06">
+<li nodeId="7a312850d2b84e048844f19dbb7d7a52"><span color="#FF4A47">不同的处罚方式</span><span color="rgba(0, 0, 0, 0.84)">extra字段有不同的填写要求；</span></li>
+<li nodeId="5491ee0ff44a48529dc21c26406261eb"><span color="#FF4A47">不同的风险域</span><span color="rgba(0, 0, 0, 0.84)">actionCode不同，需要找tuya产品分配；</span></li>
+<li nodeId="530386bcf01a4e5795f4bb1ca0d39352"><span color="#FF4A47">用户处罚</span>要求填写operateType、operateReason时，要与用户中心标准一致</li>
+</ul>
+<ul nodeId="84056164f3b342879fd2395638ffe1fa">
+<li nodeId="4172016ee8d5471483e0b88243ca503c">
+<km-collapse active="false" nodeId="7a4aab6cbb554ac89193eed5c383903f">
+<km-title>用户处罚<span color="#FF4A47">operateType、operateReason枚举值</span></km-title>
+<km-content>
+<table responsive="false" nodeId="35bed665a1e5417ea9602060015deb1b">
+<tr nodeId="bbe31e34424845f19b3372a715e623b3">
+<th colwidth="[143]" nodeId="872a1e056bf346b3a52ee9ec3ef789dc">
+<p nodeId="d492c1efd37245209931e6e4403a4b1a">key</p>
+</th>
+<th colwidth="[96]" nodeId="f61f15a091194bea8c882c390be3d34a">
+<p nodeId="4fad986079cc4e53a54a1bdd8612bc4d">名称</p>
+</th>
+<th colwidth="[779]" nodeId="7fe8e94c86524aa3b4d50110fd4c7b4d">
+<p nodeId="8bbaf59457d249c58c62ddb7c322ca4f">枚举值</p>
+</th>
+</tr>
+<tr nodeId="8b52b05ffc5042918a355d6dc30f564b">
+<td colwidth="[143]" nodeId="8788dc7d70a44ce5a19c0219dd7f3d89">
+<p nodeId="3b5510d45d6b44ba8e99d2456564fc05">operateType</p>
+</td>
+<td colwidth="[96]" nodeId="b0b713692e3942a9a0d5ba4a59de1daa">
+<p nodeId="77ee6a13c8c64942a5a42ce08f291cff">操作类型</p>
+</td>
+<td colwidth="[779]" nodeId="a417282d3dc14d4dbe79a6087e7790da">
+<p nodeId="b3c57f9a1d35486fb4f519756c18cb3f"><span color="rgb(255, 74, 71)">// 注意：Type和Reason有限定关系，并非每一个Reason都可以对应全部的Type处理。</span></p>
+<ol nodeId="2ac9a5c765cc483492a108cde3dcead0">
+<li nodeId="269946311d544502b046f1bb05a86c02">单一登录态失效</li>
+<li nodeId="0eee629c9a7f42e49d07dfa7c60f7f4c">全部登录态失效</li>
+<li nodeId="822cf152ce5547f094f783e0d13a2461">账号冻结</li>
+<li nodeId="d56139cb4fde4890b24bdc46e8accaae">账号锁定</li>
+<li nodeId="848540f992a747428bd0db187f62991d">账号保护</li>
+<li nodeId="d4c670b8baab435fbbe3de7ae9dd75c9">账号状态恢复正常</li>
+<li nodeId="7fe3e14d407f44818a9d31844a2b7f62"><span color="rgba(0, 0, 0, 0.35)">账号注销（暂不包含）</span></li>
+<li nodeId="151e94cb2c2f49f8a9dd693a500a59f6"><span color="rgba(0, 0, 0, 0.35)">换绑手机号（暂不包含）</span></li>
+<li nodeId="de0f0220b5cd4dbab66dbc65560d4b91"><span color="rgba(0, 0, 0, 0.35)">解绑手机号（暂不包含）</span></li>
+<li nodeId="868d7176ba9a4d20a9359bf332eb6390"><span color="rgba(0, 0, 0, 0.35)">解绑三方（暂不包含）</span></li>
+</ol>
+</td>
+</tr>
+<tr nodeId="f0c4800423ac4b0da16f4f7b3e181cea">
+<td colwidth="[143]" nodeId="1593f1bfbd3549a1a73106e9e4847325">
+<p nodeId="641d5f62051d42818319ee6490b45565">operateReason</p>
+</td>
+<td colwidth="[96]" nodeId="48f80c5fac304b4e9b8284f51752edde">
+<p nodeId="7fb115656a9d4e6e9fab938f6a00695a">操作原因</p>
+</td>
+<td colwidth="[779]" nodeId="5ab3848bd0ef42c8a074428bd125d43c">
+<p nodeId="0acd4ee7e38049bd83a49fdb41a7eece"><span color="rgb(22, 111, 247)">[与上游逐一沟通确认，本期先枚举风控操作原因]</span></p>
+<ol nodeId="5275ba80357d46c799af9750e92f5bde">
+<li nodeId="b511c0826b684fa685c782013436df1e">虚假账号</li>
+<li nodeId="957002b4b7ed47eea10371972a30ec8d">盗号</li>
+<li nodeId="16ab2565a8854ccab92eeccc2e257c25">二次放号</li>
+<li nodeId="e90d2a9017474eeca5cb56b93dd64962">沉默账号</li>
+<li nodeId="5397590754d5472ba088df4c2d501bb3">租借账号</li>
+<li nodeId="9e964f58df12406aa68a799729245480">反诈处置</li>
+<li nodeId="08d6b3c510cc432c938b7b38a4d97afe">客服处置</li>
+<li nodeId="1b07f673ba03478a966cde3f63882308">其他<span color="rgba(0, 0, 0, 0.35)">（无法归入既有原因时使用，如此类型处置记录异常上涨，则与上游商议新增原因类型）</span></li>
+</ol>
+</td>
+</tr>
+</table>
+<table responsive="false" nodeId="758f143459f746c59c98fe8aec65a7f4">
+<tr nodeId="7f34b16a58cc46e3815337c4d665d931">
+<th colwidth="[147]" nodeId="352802238c7c4dd5a24baae32cd41dc7">
+<p nodeId="39e428fc8859487a93f529bc67cdbee6">Type/Reason</p>
+</th>
+<th colwidth="[81]" nodeId="cc3530f1bb5342e6854b5b0d73a05cf2">
+<p nodeId="ceb05421309f423f90665de5ac200ce1">虚假账号</p>
+</th>
+<th colwidth="[81]" nodeId="d47f385d967848f2bb4cbd920418e97e">
+<p nodeId="ae3faf3b157d44a28a9a9850cf0a2433">盗号</p>
+</th>
+<th colwidth="[81]" nodeId="8a9c39faa17d45e08b6024399119d983">
+<p nodeId="fa116effdb744a54a407c0a2945de648"><km-quote quoteId="1785764509--257608ae-d1ab-4a56-a672-18650dab0609">二次放号</km-quote></p>
+</th>
+<th colwidth="[81]" nodeId="0bfa6565af4c4cb68b2b16ec59eb19ce">
+<p nodeId="9b58accc0e3f4922b1c65a0250803fd1">沉默账号</p>
+</th>
+<th colwidth="[81]" nodeId="eaaaa549b28a4593882729978a353336">
+<p nodeId="e1d6cc7b0fc54df599375c78b024ee40">租借账号</p>
+</th>
+<th colwidth="[81]" nodeId="bc2d244af7614ae38640b9b0012afd4f">
+<p nodeId="ad568ae47e8c4b81bc77db60e96810f5">反诈处置</p>
+</th>
+<th colwidth="[81]" nodeId="1775cc2b52bb4a20807f5d18478832b6">
+<p nodeId="40c0744b91c7473db6a73aea38e01219">客服处置</p>
+</th>
+<th colwidth="[81]" nodeId="955996504dc04c2cb95745fca4be9e7e">
+<p nodeId="99585a4cec2b46738435cb73c82ae354">其他</p>
+</th>
+</tr>
+<tr nodeId="752dd07411e74a5d865a3b0182f15b87">
+<th colwidth="[147]" nodeId="6dfecdbe181546ed99196ad9c7ae365b">
+<p nodeId="81afa323110e4ae4bc073ea83e984b8c">单一登录态失效</p>
+</th>
+<td colwidth="[81]" nodeId="77776c9bac5c4e4d930418e3a9bc74e5">
+<p nodeId="89f0b07a20c646eca402c12f533239bc">√</p>
+</td>
+<td colwidth="[81]" nodeId="e5339ba81a2c405eb810f7fd7f6d5064">
+<p nodeId="c708bac709924b6cb0a50423146fec55" />
+</td>
+<td colwidth="[81]" nodeId="b392981640fd444d8ebd50ab338954bc">
+<p nodeId="fb85b8aac3504294b582632d28da8bdd" />
+</td>
+<td colwidth="[81]" nodeId="d569581fb8a44dcba8c86fe0c3b0883d">
+<p nodeId="950423bf4e404e969d0bb2f0422e1785" />
+</td>
+<td colwidth="[81]" nodeId="a85861a48dd3489f92ffe656446a9179">
+<p nodeId="20f6bf5c58a74388be4cb8f14265e684">√</p>
+</td>
+<td colwidth="[81]" nodeId="9fc00cf5f44b4ca3bb49e6ae2b3ecdff">
+<p nodeId="c2562fd56ec14b7d8ec42b1aa6106603" />
+</td>
+<td colwidth="[81]" nodeId="92b39e09fe9d4214bdd9d11edf84969b">
+<p nodeId="00002c8a0eac412394c1ed3fd348cadc" />
+</td>
+<td colwidth="[81]" nodeId="18b70b5603044ce788a753d2791caeaf">
+<p nodeId="115763c55a5046f09a410e6ef93ca549">√</p>
+</td>
+</tr>
+<tr nodeId="26adba7d5a8f41c6957316448144d757">
+<th colwidth="[147]" nodeId="d886cb24f6344438a1871393d4b7ac18">
+<p nodeId="4486246f25554ce787fc320a30779bcd">全部登录态失效</p>
+</th>
+<td colwidth="[81]" nodeId="84ab0f9f6fd84d22ac481f2bc3dadfca">
+<p nodeId="426c9ebc13794b5cae7beb535c6c2f11">√</p>
+</td>
+<td colwidth="[81]" nodeId="ce87a93483574c1eb784c480cbf091f6">
+<p nodeId="b6ab135343d0434481a49fbf42571235" />
+</td>
+<td colwidth="[81]" nodeId="0be52f8d7965497ba1df47df5a1d79d3">
+<p nodeId="f0a1e09f659a4e629ce46f49ea803b18" />
+</td>
+<td colwidth="[81]" nodeId="5b2f2765b3e94fd092d6f7f8be57c6ec">
+<p nodeId="6beccae583fb400a953bb34091acacf3" />
+</td>
+<td colwidth="[81]" nodeId="9b1ebd5aae444833ad8c7fa0bb315cb5">
+<p nodeId="9377ac64feff4d9ca1b1739e4c6fadc3">√</p>
+</td>
+<td colwidth="[81]" nodeId="f4d984805f244d92ac7d2f313f1782cb">
+<p nodeId="4470c21f94194ef39fd3ab7c41f59cc8" />
+</td>
+<td colwidth="[81]" nodeId="00fbe3e5917347bba95ad28f3d3c092a">
+<p nodeId="5074409487ef4308a86efc5b7db763ae" />
+</td>
+<td colwidth="[81]" nodeId="790df33d5780413fbd3c72c216411894">
+<p nodeId="97b2b089a37d4ea380985b3456631bf3">√</p>
+</td>
+</tr>
+<tr nodeId="4c4e4a00257f42d9a0cdc667787cf75f">
+<th colwidth="[147]" nodeId="e30a0eda9443447888b513d499768bcf">
+<p nodeId="7ab1a7549f8d4cf89e4b97d537c0efce">账号冻结</p>
+</th>
+<td colwidth="[81]" nodeId="85b711e31ee14830a2417b4b0b68300b">
+<p nodeId="0eb46c89a93b4b2993bba29255d13f7d">√</p>
+</td>
+<td colwidth="[81]" nodeId="9825cc4e2a2540e2a5af88305a4e2e87">
+<p nodeId="f0486d33223944bfb2c316a3b3e1481c" />
+</td>
+<td colwidth="[81]" nodeId="1405e27febc74a758f7f12bca3e080ea">
+<p nodeId="6b4e710a0aac40c79260b9cbf76853b3" />
+</td>
+<td colwidth="[81]" nodeId="699439d4ec8448ea8a728272e0a5b2af">
+<p nodeId="8f4bf663381742d5961a28ae6e3bd5d3">√</p>
+</td>
+<td colwidth="[81]" nodeId="0e4f0aba6dd445c5aceb5c9dd0d4bf51">
+<p nodeId="1479c26cea8e4051b969cf300530f7e1">√</p>
+</td>
+<td colwidth="[81]" nodeId="72260f2f68064c96b8c408ed10d7c510">
+<p nodeId="1255cfa9f3c94fa0b9f4a9426d26d39f">√</p>
+</td>
+<td colwidth="[81]" nodeId="a8338744eab1455bbf9ae4985c7f19e7">
+<p nodeId="26e72a294a534d5bb272e0a15f088055">√</p>
+</td>
+<td colwidth="[81]" nodeId="6a55a57f3ea24a6b9a97fa1df3a74aa0">
+<p nodeId="0cd004d2ea864409b8b7a74dfb79bc3b">√</p>
+</td>
+</tr>
+<tr nodeId="4b540e9ccc7442f5b16e033bb56ff75b">
+<th colwidth="[147]" nodeId="be65a1c740264d669968bc9935ccd471">
+<p nodeId="410442e3f307428b92c19e36e83f1a61">账号锁定</p>
+</th>
+<td colwidth="[81]" nodeId="ddd5764f4c334632969bab9e8756250d">
+<p nodeId="03ea6dde7ec74abcbd127e9c0eb60f14" />
+</td>
+<td colwidth="[81]" nodeId="49e13077a718447ba7066401469bc62c">
+<p nodeId="12330a7095ff4d04a4be1bd4ffee7095">√</p>
+</td>
+<td colwidth="[81]" nodeId="28f9da1e66cd4c9da2a910add3e89ad0">
+<p nodeId="82bf35dac9914bc6b6e1c4d48405e02c" />
+</td>
+<td colwidth="[81]" nodeId="9c0c399c421a4bcbb866000c3be9cf77">
+<p nodeId="f7c07f1478724e2e8e115817b8a9ddcf" />
+</td>
+<td colwidth="[81]" nodeId="3a435477f8fd4834bef21cf0fabf01f9">
+<p nodeId="8dde81b9a66c4e0080c55693905f216f" />
+</td>
+<td colwidth="[81]" nodeId="521062450008410ba3ad807db8f209a4">
+<p nodeId="92d6b4d02df74c35ae0d950f4b9317c4" />
+</td>
+<td colwidth="[81]" nodeId="7ca57f26afec45d080ed9ba4f17c0fcd">
+<p nodeId="e4ebaeea9eba4265b7627f16e126a662" />
+</td>
+<td colwidth="[81]" nodeId="81746dda07714e23a752934db534a032">
+<p nodeId="f50263357b684514b1f476f778c9c08d">√</p>
+</td>
+</tr>
+<tr nodeId="c857d88af10d46c8896f5a09bc36d989">
+<th colwidth="[147]" nodeId="8f48bd8ae0b547318165a1e1d1f4632e">
+<p nodeId="49fb03826993420c883e848c58b0f8b9">账号保护</p>
+</th>
+<td colwidth="[81]" nodeId="e3338518fd3146b19356e633cb6ed44e">
+<p nodeId="bd051d1c90354b3d831e86346fdcf7b2">√</p>
+</td>
+<td colwidth="[81]" nodeId="6f18587543074016b9cb4b113469e861">
+<p nodeId="b639cb463326440cb425371071fcb4fb">√</p>
+</td>
+<td colwidth="[81]" nodeId="f7a0dac7ea204e4593ffc2206331a2d9">
+<p nodeId="d33ab149b5504f5287eb984f3665a27c">√</p>
+</td>
+<td colwidth="[81]" nodeId="64148690870a4fa9b7b636096c19a450">
+<p nodeId="077cb2afd5484d73a3dd89650c72388a" />
+</td>
+<td colwidth="[81]" nodeId="e83a655d8c80449abcc09b647f3d8a69">
+<p nodeId="0da05905b8d04965be02349ce16a388f">√</p>
+</td>
+<td colwidth="[81]" nodeId="5250648a8d194e64aa852aebb1e4e526">
+<p nodeId="5717f8ec757441f3980618b1d834efe0">√</p>
+</td>
+<td colwidth="[81]" nodeId="87fbeefa6c4c4765b19c87b6cc450626">
+<p nodeId="7b82e2e326974e06aaac486f3b2959c1" />
+</td>
+<td colwidth="[81]" nodeId="41782ec884034bc58fef12a91613f9af">
+<p nodeId="cb6e605db4c24a19aa1e79f2ebb02438">√</p>
+</td>
+</tr>
+<tr nodeId="14b70f68405f44aeb526f3012a5880f5">
+<th colwidth="[147]" nodeId="f8e9a5e259f8417db25c6b8c7f2ddcb1">
+<p nodeId="1b7bd5e68086420fa9758b0b6aca427a">账号状态恢复正常</p>
+</th>
+<td colwidth="[81]" nodeId="3f3597996fa34717a4b2857869a9f80b">
+<p nodeId="834eb3528177480b98fa3fdd617832b6" />
+</td>
+<td colwidth="[81]" nodeId="4ae6c8861ec8475db8e3e30e99668065">
+<p nodeId="eed4f48aa7854a4fa82e994da7ae6c78" />
+</td>
+<td colwidth="[81]" nodeId="e61d3287e073474289a206638c0920d1">
+<p nodeId="0bd0760f888d4ae4b154b859b1b31a16" />
+</td>
+<td colwidth="[81]" nodeId="d34c91ffd84641699b1b40c649091ea7">
+<p nodeId="e4ff9e3a76cd4b388f89aed2ed934927" />
+</td>
+<td colwidth="[81]" nodeId="401722bb37a1459fbbe5b4651f42a1be">
+<p nodeId="c1e7ed7fd7db4211a7f4027c263395e3" />
+</td>
+<td colwidth="[81]" nodeId="6d26cf21e73b4b648f25f129d55e83fb">
+<p nodeId="61a7f8f5ae244e14a1fb531459f82a3c" />
+</td>
+<td colwidth="[81]" nodeId="726ac61b9de34535b30a79b50cd032ad">
+<p nodeId="6a26d011a789425ea366452e1821b6fa">√</p>
+</td>
+<td colwidth="[81]" nodeId="810e407606464281ba6d0522657c7e2e">
+<p nodeId="36fb3fa333314d1f9586e9dc4770e967">√</p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+</li>
+</ul>
+<table responsive="false" nodeId="e4bce3d26c1f4e3681ec75b9ffb8f0c9">
+<tr nodeId="e9da8a7bd7ab4158ac59641923d3f7b1">
+<th colwidth="[50]" nodeId="25c3e05b1704494bb0b6cc4c4d4a9816">
+<p nodeId="4f630b99e05448cbad21de6a5c7b106b" />
+</th>
+<th colwidth="[109]" nodeId="001de7ed01184874bf2abec0fae351a5">
+<p nodeId="94d91061ec2447738ac1682bdcf814df">风险域</p>
+</th>
+<th colwidth="[238]" nodeId="f5ac7aee72f54fbeb3e61de29e08be6f">
+<p nodeId="acdb4a9b76da47989340ea94347cd1ca">常用处罚方式</p>
+</th>
+<th colwidth="[120]" nodeId="b3ca47366e794737bb5664ebbd08356d">
+<p nodeId="12dcf23d0b2f491aa5071ef9df501325"><span color="rgba(0, 0, 0, 0.84)">actionCode</span></p>
+</th>
+<th colwidth="[402]" nodeId="e79abbe33b6d46a8a0a631b39b6de8bb">
+<p nodeId="4c673f1c389547a18218fcc119e41445"><span color="rgba(0, 0, 0, 0.84)">extra字段要求</span></p>
+</th>
+<th colwidth="[387]" nodeId="d70115411f3b497099f26f2f197732cf">
+<p nodeId="1311cd2836e841e9a91798e1df626be4">配置样例</p>
+</th>
+<th colwidth="[193]" nodeId="30caccd678974eff839ec940e70e259b">
+<p nodeId="2db7d6dd7dc84007916b2c29a4e2fd2b">效果</p>
+</th>
+</tr>
+<tr nodeId="b94a7521d03048c2bd4a37cd0159df9a">
+<td colwidth="[50]" numCell="true" nodeId="b429fe54015a427a93629caf3ee80a4c">
+<p nodeId="66b662eff989412ea48ecc2d1bf9e689" />
+</td>
+<td rowspan="16" colwidth="[109]" nodeId="aa89896576494d538b28da02600d555b">
+<p nodeId="506ab8886d5f48b18a23635920a27dd8">账号安全</p>
+</td>
+<td colwidth="[238]" nodeId="0734efc34b8f43e687bb5e6f84228a59">
+<p nodeId="7dbde6a2f6264ad5a02ef39c1602294c"><span color="rgba(0, 0, 0, 0.87)"> 北京-用户冻结</span></p>
+</td>
+<td colwidth="[120]" nodeId="c172a0fb9f264933ab2e684ccfc8695e">
+<p nodeId="33d479a9eb074a35a68fae3dcf6e40e0">578</p>
+</td>
+<td rowspan="2" colwidth="[402]" nodeId="8065d6bac6b94273af58f8a97bc17085">
+<p nodeId="f06e3cb1501b4e3bb1bb2bb3d30bb06c">常量：</p>
+<ul nodeId="15a923eefbaf4a20b11bf4730a093405">
+<li nodeId="960aeca3ffc949439ec0a520ccf49cf2">userStatus=3</li>
+<li nodeId="7e1978d4d7d347dea6817a93ddc4b828">operateType、operateReason根据枚举值填写数字编号，需满足上表对应关系</li>
+<li nodeId="449dd122067b4723bc604b9fcbbad9d5">operateAppkey：<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span></li>
+<li nodeId="b761253598734b82bf2f624f10db4e54"><span color="rgba(0, 0, 0, 0.87)">operatorMis自定义填写处罚人mis</span></li>
+</ul>
+</td>
+<td rowspan="7" colwidth="[387]" nodeId="66792cf98cf04dca806ba7595fb944cb">
+<p nodeId="6c20f87667224710957c129425c38ddd"><img src="https://km.sankuai.com/api/file/cdn/1785764509/50092641994?contentType=1" name="image.jpeg" width="673" height="589" nodeId="3d60441f1f704a51a0c157fbae780692" /></p>
+<ul nodeId="470f8bb8b0bb4782b9027434a3d8ae04">
+<li nodeId="5a7ad65876994c10abc29a01297045ee">factor_userstatus_3为用户冻结因子，可见上方常量类举例</li>
+<li nodeId="f3666ae9d5184105831f97e054a421ab">其他处罚的因子，内部填写值根据字段要求变更即可</li>
+</ul>
+</td>
+<td colwidth="[193]" nodeId="b2474e7d4cdb4b25bbe36c5b16d956f9">
+<p nodeId="b543cfa0d71141fe854e3537b11845eb" />
+</td>
+</tr>
+<tr nodeId="45a43e08c33c4c4ca7c14ee21369484e">
+<td colwidth="[50]" numCell="true" nodeId="93381af4b45f454ba2e93fcfeec84cb8">
+<p nodeId="edbdeb2f346f4b44b13368e0873ef795" />
+</td>
+<td colwidth="[238]" nodeId="7085ea2ca9414d2d8fd6c25767050c2a">
+<p nodeId="beccb8d433844613902da624d06f3051"><span color="rgba(0, 0, 0, 0.87)">上海-用户冻结</span></p>
+</td>
+<td colwidth="[120]" nodeId="f6fa63f7061d495da654f8c09fe30e9c">
+<p nodeId="beda4baab80542ceb464d87a7c95fa21">597</p>
+</td>
+<td colwidth="[193]" nodeId="12cb69d6199f4e0cb624a01d44700264">
+<p nodeId="be17c67255bf4f0495c0d1181b1a045f" />
+</td>
+</tr>
+<tr nodeId="d091db5071434d8e8a6b76d3b5c150b3">
+<td colwidth="[50]" numCell="true" nodeId="159a73fd083e45caa68c5c72696712a5">
+<p nodeId="382e9881f1924c37b4953ec58a230760" />
+</td>
+<td colwidth="[238]" nodeId="8d053c000a554548b04824aec47180a1">
+<p nodeId="a7e7687cb1774c7ea5a002e46d4689a9"><span color="rgba(0, 0, 0, 0.87)">北京-用户保护</span></p>
+</td>
+<td colwidth="[120]" nodeId="4cdce850e44f4df79b134ccf72a14ef6">
+<p nodeId="be6845f5f39043af8e5474a303e8062e">578</p>
+</td>
+<td rowspan="2" colwidth="[402]" nodeId="fab2f68243ce4c8c997fc7ecb0a7e0a4">
+<p nodeId="8ed300e9f4584b51a1db58441779b436">常量：</p>
+<ul nodeId="67404978a0ba4e78a87fa5ae6ea32c91">
+<li nodeId="b8fa18aac99d47aba28089a897816a8b">userStatus=2</li>
+</ul>
+<ul nodeId="aa45d8f64c334ba0b571aa184520d5e5">
+<li nodeId="8132dc40a65d4637b3a84b4bd0adad38">operateType、operateReason根据枚举值填写数字编号，需满足上表对应关系</li>
+<li nodeId="30b0b8fe1d65463fa49dd36ba70b9045">operateAppkey：<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span></li>
+<li nodeId="8d876956de8745dea7ee14f2fc2685cf"><span color="rgba(0, 0, 0, 0.87)">operatorMis自定义填写处罚人mis</span></li>
+</ul>
+</td>
+<td colwidth="[193]" nodeId="43a3b354a0234c39bbb9aaad1568a69e">
+<p nodeId="b6b5a4bf28f343ca93ee149a0284203d" />
+</td>
+</tr>
+<tr nodeId="c0830b52ec7641b5863cf8dfef39dcdd">
+<td colwidth="[50]" numCell="true" nodeId="892c2ad8512a442587ac7d8c6a767b8a">
+<p nodeId="5220c5eb4158458dbe31b4a93230538b" />
+</td>
+<td colwidth="[238]" nodeId="0bdda3616b9b47b3a95319c1e5530ca7">
+<p nodeId="9f8d7cdba6284a599c0293aa34b0f4b1"><span color="rgba(0, 0, 0, 0.87)">上海-用户保护</span></p>
+</td>
+<td colwidth="[120]" nodeId="84c58469f1914b678cf4f00275b3dc22">
+<p nodeId="921625e295ab430e8021313267820ae9">597</p>
+</td>
+<td colwidth="[193]" nodeId="4dd2f82318b14565ae363e61e8736efb">
+<p nodeId="57de83fc23134fe79fb2ad2743b69084" />
+</td>
+</tr>
+<tr nodeId="8d0273a60567476384032b3e85353256">
+<td colwidth="[50]" numCell="true" nodeId="841d80dbd3284317b97203ea35fb104c">
+<p nodeId="f8f24aec77de4319859b32e8f94d7901" />
+</td>
+<td colwidth="[238]" nodeId="4c2715bc1f1a46c199ca972647c3a5f6">
+<p nodeId="9b81d6e425af40af957956ebe17fe595"><span color="rgba(0, 0, 0, 0.87)"><km-quote quoteId="1785764509--119a204d-619b-43a0-b52a-440b2d83d125">北京-踢出用户所有登录态</km-quote></span><span color=""><km-quote quoteId="1785764509--119a204d-619b-43a0-b52a-440b2d83d125">（新）</km-quote></span></p>
+</td>
+<td colwidth="[120]" nodeId="93c5472125ce4553aeadbe885fa615df">
+<p nodeId="931c9fa081ac47b4bbfd0c39b92ecd4e">581</p>
+</td>
+<td rowspan="3" colwidth="[402]" nodeId="a66d2d27fb394e7bb827d57f1fc8a55d">
+<p nodeId="f2c76ebf7371436a83bb85bd6a887114">常量：</p>
+<ul nodeId="c5c95261ccc44ff0a1bf1105ec7d83e4">
+<li nodeId="8875f93151d243d3aa93c6219e239e98">operateType、operateReason根据枚举值填写数字编号，需满足上表对应关系</li>
+<li nodeId="81c8f775f3a1417c8dd95873854c34f6">operateAppkey：<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span></li>
+<li nodeId="d1e78b116ee640bba2322942d35380f0"><span color="rgba(0, 0, 0, 0.87)">operatorMis自定义填写处罚人mis</span></li>
+</ul>
+</td>
+<td colwidth="[193]" nodeId="7727bf5c0236447a8190531ce1d0b764">
+<p nodeId="c47fd6e8589243ea89fb9e38f2505051">传入美团用户id，美团端踢蹬</p>
+</td>
+</tr>
+<tr nodeId="8bc2c3e26a104f57a92ea9aaf1e1359b">
+<td colwidth="[50]" numCell="true" nodeId="aaff977887f642649299ec23f13ea749">
+<p nodeId="0fbfed4959484e7d8b80352f2498c8a0" />
+</td>
+<td colwidth="[238]" nodeId="fb6dea1911784da9b9865822e4fea1db">
+<p nodeId="4aff08e355324a6cadb51734fe927824"><span color="rgba(0, 0, 0, 0.87)"><km-quote quoteId="1785764509--c895d8ae-e6a6-4246-bc7d-4f6272739724">上海-踢出用户所有登录态</km-quote></span><span color=""><km-quote quoteId="1785764509--c895d8ae-e6a6-4246-bc7d-4f6272739724">（新）</km-quote></span></p>
+</td>
+<td colwidth="[120]" nodeId="95b82a02c2eb4f09a70a4f717c836d05">
+<p nodeId="90a5e85403bb4c0eb3cc6445343152d4"><km-quote quoteId="1785764509--c895d8ae-e6a6-4246-bc7d-4f6272739724">592</km-quote></p>
+</td>
+<td colwidth="[193]" nodeId="a19f9ccc876a41ed80a5d4625150aa09">
+<p nodeId="2652213efa3a40628a70d022fd14a5c3">传入点评用户id，点评端踢蹬</p>
+</td>
+</tr>
+<tr nodeId="10cae260e8664385847a7f98bac2847d">
+<td colwidth="[50]" numCell="true" nodeId="0b9d2f7a02244346b9b12105400f0ddf">
+<p nodeId="da3f091a6f9d4b39a294a0a32baf0f30" />
+</td>
+<td colwidth="[238]" nodeId="16ab1fc58a0b43e68b77d3cb4597347c">
+<p nodeId="03ee85b68096453f898cc01ed0d649ed"><span color="rgba(0, 0, 0, 0.87)">踢出用户</span>美团点评<span color="rgba(0, 0, 0, 0.87)">所有登录态</span></p>
+</td>
+<td colwidth="[120]" nodeId="7cc939b3ead54eccbc23f15d1afb472b">
+<p nodeId="e9d55468ced04ce9b2a2d20bc3de06a9">596</p>
+</td>
+<td colwidth="[193]" nodeId="fe3040793a884486999c8a2d787b97f8">
+<p nodeId="90cf128c640a490eae11e590c4c646cd">传入美团用户id，双端踢蹬</p>
+</td>
+</tr>
+<tr nodeId="64571161900749f3921b108646d2b976">
+<td colwidth="[50]" numCell="true" nodeId="0e5fbea7584a4332b38e2bbd11eee9ee">
+<p nodeId="fa4fea5ff54946ebbf0d279b61a5c03c" />
+</td>
+<td colwidth="[238]" nodeId="cc5860f8d1514eeb87c4f01c44edbaa9">
+<p nodeId="1d8fdfaf5e1c4e2aa029246116a9c5bf">上海-点评用户踢出登录态（新）</p>
+</td>
+<td colwidth="[120]" nodeId="3e4ab4c0113b4f899dc1c57ca8d11c8e">
+<p nodeId="0d2f57d12dec448ea3086ced682e0e54">569</p>
+</td>
+<td colwidth="[402]" nodeId="2906137ae3404fdabd7dd286a82665fe">
+<p nodeId="2c27235a51ee4e7f882a78700f576a2c">常量+变量：</p>
+<ul nodeId="c6707594c3e0431f9a1ab176b1e5f19c">
+<li nodeId="b1b819106d4a452ab6593454fb1b718f"><span color="rgba(0, 0, 0, 0.87)">tokenId取对应变量，见样例格式</span></li>
+<li nodeId="a0478804c0e645d7923b2c72d6ccef2e">operateType、operateReason根据枚举值填写数字编号，需满足上表对应关系</li>
+<li nodeId="a409370f5d564e0fb55ebc76c1bca4ff">operateAppkey：<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span></li>
+<li nodeId="b7f9e53841b949fd8917ae6742e2a57c"><span color="rgba(0, 0, 0, 0.87)">operatorMis自定义填写处罚人mis</span></li>
+</ul>
+</td>
+<td colwidth="[387]" nodeId="7c873845262542f9801b23d469460f13">
+<p nodeId="a9e86773332f42eb8a640475b2f4c00b"><span color="rgba(0, 0, 0, 0.84)">extra的值：</span></p>
+<p nodeId="c2bf4d51629f4fb28c55205f289afcac">'{"tokenId":"'+tokenId+'","operateType":"1"，"operateReason":"4","operateAppkey":"<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span>","<span color="rgba(0, 0, 0, 0.87)">operatorMis</span>":"tangzhou02"}'</p>
+<p nodeId="3137a9d4c21d4fbd9d14b7423b2c58d5" />
+</td>
+<td colwidth="[193]" nodeId="946af4ce679b48a3ba066464fa1eccc6">
+<p nodeId="32a1e717721c4302b4add4aadcb6c7a1" />
+</td>
+</tr>
+<tr nodeId="9d8fa03d261d46cba35fb1b369592712">
+<td colwidth="[50]" numCell="true" nodeId="693183639d5d48f9b94474c373be4b1c">
+<p nodeId="d6ba6f572f7c4187aec2621ed6e86883" />
+</td>
+<td colwidth="[238]" nodeId="9956f03d0e624fc78a27e99b61a3e3d4">
+<p nodeId="7fc36cbe00214696b689dafced4da490"><span color="rgba(0, 0, 0, 0.87)">北京-踢出用户登录态-token_id</span></p>
+</td>
+<td colwidth="[120]" nodeId="c3187286b4594d628587babd4974657a">
+<p nodeId="3889414c85cf4ad6a2350230ef746bce">598</p>
+</td>
+<td colwidth="[402]" nodeId="546a0dd80e3140169b80e9a589ce07f4">
+<p nodeId="df88b07c471e403dbaf25a8d6832e562">常量+变量：</p>
+<ul nodeId="01f2aaabbfb842e783a2f9ed74f58036">
+<li nodeId="325c5946d76e40ffafc49d6a6cfd04dd"><span color="rgba(0, 0, 0, 0.87)">token取对应变量，见样例格式</span></li>
+<li nodeId="f0a364d111f041a7a1faed1d8f31810d">operateType、operateReason根据枚举值填写数字编号，需满足上表对应关系</li>
+<li nodeId="b69062b0fff5485a8ad370f89b04105b">operateAppkey：<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span></li>
+<li nodeId="ba0f245d34834f3ea6587e30c541b1d6"><span color="rgba(0, 0, 0, 0.87)">operatorMis自定义填写处罚人mis</span></li>
+</ul>
+</td>
+<td colwidth="[387]" nodeId="68b7140611b94aed8d84e1eaacac5bae">
+<p nodeId="743bfb7fb9c64b87aefbb93e1c02bbc8"><span color="rgba(0, 0, 0, 0.84)">extra的值：</span></p>
+<p nodeId="11cae360396342ceadc19594b6a6de8c">'{"token":"'+token+'","operateType":"1","operateReason":"4","operateAppkey":"<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span>","<span color="rgba(0, 0, 0, 0.87)">operatorMis</span>":"tangzhou02"}'</p>
+<p nodeId="6ca14c12d3a944b4b17017560640bee9" />
+</td>
+<td colwidth="[193]" nodeId="091ee22f65e04da0b098c99af4a415c3">
+<p nodeId="e2dcc5a6f3f645c48a527b294cbb0486" />
+</td>
+</tr>
+<tr nodeId="3792d92ffe7e4479ad932c4a7b043f0d">
+<td colwidth="[50]" numCell="true" nodeId="d583890220c04ddf81ca782d2436f4eb">
+<p nodeId="403b8520746b41edb0b13395b32ee34f" />
+</td>
+<td colwidth="[238]" nodeId="c054c76451dc4f23a10b2d7b44a27184">
+<p nodeId="a24cd4f52f764fc7b01d4441820ff023"><span color="rgba(0, 0, 0, 0.87)">踢出iam账号登录态</span></p>
+</td>
+<td colwidth="[120]" nodeId="f512e24b55dc4b6bbe81d6966881534c">
+<p nodeId="28d888eaf29949468568dd18e6f2844b">603</p>
+</td>
+<td colwidth="[402]" nodeId="1bdfda8381eb4649b32827e87425628c">
+<p nodeId="2dd3d1fb5e0d4b7fb327cc96c736c32d">--默认为空</p>
+</td>
+<td colwidth="[387]" nodeId="983e8157cd6d43aeb864fe0d73b70628">
+<p nodeId="9e59c20961034409bb16de6d0c0052e7" />
+</td>
+<td colwidth="[193]" nodeId="9197543e3758480fa2fc969f8406f7da">
+<p nodeId="47f764a78d0a40bbbf2a6389a2efb5b3" />
+</td>
+</tr>
+<tr nodeId="293716372f7e40189aa81fe91359b433">
+<td colwidth="[50]" numCell="true" nodeId="4ae83834af9344d8b8314d61e4493795">
+<p nodeId="f8d053fe40c64095b184a062f1b7e86b" />
+</td>
+<td colwidth="[238]" nodeId="a4d33a360b7c4fe9929a1ceb93574c3f">
+<p nodeId="3f7df9bad2364d6db6574b854faa9269"><span color="rgba(0, 0, 0, 0.87)">iam</span>账号停用</p>
+</td>
+<td colwidth="[120]" nodeId="6d1032806329407dab4f6bbc3155c38f">
+<p nodeId="f1373f223a964c7eaaef09e25a7c9a24">604</p>
+</td>
+<td colwidth="[402]" nodeId="7cdb2f8ebcad4f6c9ac733e0e0f1d544">
+<p nodeId="f443602070d5409dbea16f9f2b7f5d01">--默认为空</p>
+</td>
+<td colwidth="[387]" nodeId="6f5fa12d27774be39ed06a4897ba7ca3">
+<p nodeId="f6baf615a611481590146fd396c6402e" />
+</td>
+<td colwidth="[193]" nodeId="a5da2056076348afa05ad378cd1d1472">
+<p nodeId="0e035d9a111649dca01f77a06a49e932" />
+</td>
+</tr>
+<tr nodeId="140f5ba4e0414f3fa77c4e4f10b668bf">
+<td colwidth="[50]" numCell="true" nodeId="0b97bacbe64043f5836b5f9554115600">
+<p nodeId="4c43b436846b4293866b86f602d2cc08" />
+</td>
+<td colwidth="[238]" nodeId="e0e677fce680407182df3d1e42067abc">
+<p nodeId="328f6917d2af45c88c5a85a355fb9ea2">北京-用户解绑实名</p>
+</td>
+<td colwidth="[120]" nodeId="e9c03165151e4f398e604e0e08bc045b">
+<p nodeId="2c201fec517a4f97bed7010322b54880">591</p>
+</td>
+<td colwidth="[402]" nodeId="8dd96bc3c1654c8fb2228fbeac8e926a">
+<p nodeId="ba978f5356ce4bcdac956ea5a68786e2">--默认为空</p>
+</td>
+<td colwidth="[387]" nodeId="4761aba435f141d58a7573703bc834af">
+<p nodeId="2cc1dba553264f48becb0883bb1348ba" />
+</td>
+<td colwidth="[193]" nodeId="283a7f34d7924e219cd96380ebdfde7a">
+<p nodeId="b12a7234645347a19f2d94cb73c6067c" />
+</td>
+</tr>
+<tr nodeId="e0f31b09893d43448b5e18ab8a0cf03c">
+<td colwidth="[50]" numCell="true" nodeId="f30a7fc345b549028aee66f3a586e61e">
+<p nodeId="19710b6148e147dcb3b3a18113180f0a" />
+</td>
+<td colwidth="[238]" nodeId="5857787b093b48a6be175624e824ddb0">
+<p nodeId="a308c83fd3cf46d0be11062e65f11b58">EP账号踢出登录</p>
+</td>
+<td colwidth="[120]" nodeId="ed782b9429fc407083107739a4ea3feb">
+<p nodeId="bc754023a1f148d884b589be9408afa3">613</p>
+</td>
+<td colwidth="[402]" nodeId="8ebd0b0f332c43628dc7df5543099505">
+<p nodeId="1334b99ebc664100aa84db313ac329f8">--默认为空</p>
+</td>
+<td colwidth="[387]" nodeId="4f9a97c8104c46d98ded2d4afd215b29">
+<p nodeId="1e2a08529bdb434a88212fea9982e1d8" />
+</td>
+<td colwidth="[193]" nodeId="bfba7aaec6614ac4a57ba9f4fd26e368">
+<p nodeId="717093d4a725449cbf4697efef4d81a5" />
+</td>
+</tr>
+<tr nodeId="934e4ddf75c14f1f9acadec67dcf9bac">
+<td colwidth="[50]" numCell="true" nodeId="d84ac888b76645579e4f87a90d27567a">
+<p nodeId="261f38b42e65483cb411f94b0a8bd4a6" />
+</td>
+<td colwidth="[238]" nodeId="01b92c3e31ee4f708d681d2f6670cf17">
+<p nodeId="33abbf6d545a4f70a8f4fceb45575ce7">EP账号踢出指定token</p>
+</td>
+<td colwidth="[120]" nodeId="26ad779e7d904631ab89735c7fe27348">
+<p nodeId="3d8a3764fd81452f9940340520469c8c">614</p>
+</td>
+<td colwidth="[402]" nodeId="e67a246132134c8e8a0c9573e4483955">
+<p nodeId="2d9081ccc0df45e9b5c85e0c4df793c3">变量：</p>
+<p nodeId="dfa71af5f02f4959a5b59e64994819f4">token取对应变量</p>
+</td>
+<td colwidth="[387]" nodeId="a3fb5160872543d6adc747efecb80142">
+<p nodeId="f60289ca11bb44eab21ebec7d5f76646"><span color="rgba(0, 0, 0, 0.84)">extra的值：</span></p>
+<p nodeId="bc4a8f2fd50c4bc9892e92e58d47cb6e">'{"token":"'+token+'"}'</p>
+</td>
+<td colwidth="[193]" nodeId="c6eedce98e72451096d95ce8ae1dd6d7">
+<p nodeId="1ebba0dafdb146a495466908ea61fd12" />
+</td>
+</tr>
+<tr nodeId="421a9875e6c446818a14fe2bfe1c38b7">
+<td colwidth="[50]" numCell="true" nodeId="1d52d9b0eb154369acba443e0b53e2f1">
+<p nodeId="cea750155aee46ada3e41a4189d13ba3" />
+</td>
+<td colwidth="[238]" nodeId="5b14e8a5557f4b35bb4a53e2243fbccb">
+<p nodeId="a112610c25d04aa9913f8ce51c099bbd"><span color="rgba(0, 0, 0, 0.87)">北京-踢出用户登录态-降级token_id</span></p>
+</td>
+<td colwidth="[120]" nodeId="69bf2f6e11ff492297f5781e0b0ecb89">
+<p nodeId="355f110cfac247e0af6dd1af21142339">656</p>
+</td>
+<td colwidth="[402]" nodeId="e4d2a79b83c54b619314d322cbaf2818">
+<p nodeId="2a401b6683a344ae83a47cd2f91c819b">常量+变量：</p>
+<ul nodeId="1027fe5ca8b34fceb682cebe0edd0866">
+<li nodeId="182365b2aef64d1998aa557e34d70d2f"><span color="rgba(0, 0, 0, 0.87)">tokenId、tokenTimestamp取对应变量，见样例格式</span></li>
+<li nodeId="4cae9d23f7e541a09ca7c33be53fba56">operateType、operateReason根据枚举值填写数字编号，需满足上表对应关系</li>
+<li nodeId="d69bcadaaa634c8f865929ffdadf5c7b">operateAppkey：<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span></li>
+<li nodeId="e217e58446d1433195eafe20e70e0338"><span color="rgba(0, 0, 0, 0.87)">operatorMis自定义填写处罚人mis</span></li>
+</ul>
+</td>
+<td colwidth="[387]" nodeId="4553f280213b4cc69e1d9b4d4186c93e">
+<p nodeId="4d745043e99048879d74d5333684a673"><span color="rgba(0, 0, 0, 0.84)">extra的值：</span></p>
+<p nodeId="02e32d6be6db431587062a8d8a77506a">'{"tokenId":"'+tokenId+'","tokenTimestamp":"'+tokenTimestamp+'","operateType":"1",<span color="#FF4A47">"operateReason":"11</span>","operateAppkey":"<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span>","<span color="rgba(0, 0, 0, 0.87)">operatorMis</span>":"tangzhou02"}'</p>
+<p nodeId="9dd15e936d9348fd8e4590bd9562cdf9" />
+</td>
+<td colwidth="[193]" nodeId="717051cdc44b45bb9e91682464d9e6b3">
+<p nodeId="df1b90b36ce54838b5cc50fa674acc9d" />
+</td>
+</tr>
+<tr nodeId="eb0c9ea1403a40a5b332fd35d828c94b">
+<td colwidth="[50]" numCell="true" nodeId="131b2780622243c08017402973b61e12">
+<p nodeId="1dffbf7daaf8472cbf5e760dc68cf331" />
+</td>
+<td colwidth="[238]" nodeId="42e41c0612ea47ffa49fdf5866452d77">
+<p nodeId="2b00cca3134746d4991f119becc55eb3">点评用户踢出登录态（新）</p>
+</td>
+<td colwidth="[120]" nodeId="819a55ba07374821a8e6d9f4dcdf9469">
+<p nodeId="ed9df71ca77c42c996a1f7656409bedb">657</p>
+</td>
+<td colwidth="[402]" nodeId="829c5d8d2d0a4d7e878ae1cf5c1419aa">
+<p nodeId="f85fc351bff14921a739849262769e62">常量+变量：</p>
+<ul nodeId="e229210547d74112bbc923a7ed014cad">
+<li nodeId="79b603c22b1a4b4095acd1c397801dd3"><span color="rgba(0, 0, 0, 0.87)">tokenId、tokenTimestamp取对应变量，见样例格式</span></li>
+<li nodeId="018776b44289433e8f127eb44bcf144f">operateType、operateReason根据枚举值填写数字编号，需满足上表对应关系</li>
+<li nodeId="9a10578077e945c095c7b70e4c821492">operateAppkey：<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span></li>
+<li nodeId="cbf1d57844864b81854998a705b33384"><span color="rgba(0, 0, 0, 0.87)">operatorMis自定义填写处罚人mis</span></li>
+</ul>
+</td>
+<td colwidth="[387]" nodeId="802fcb66237247d39a9f17a6dbb58c7e">
+<p nodeId="423e5f8a8d0b4a21b80446d8eb7413be"><span color="rgba(0, 0, 0, 0.84)">extra的值：</span></p>
+<p nodeId="918ef550dcb841f994a315b2be362e0c">'{"tokenId":"'+tokenId+'","tokenTimestamp":"'+tokenTimestamp+'","operateType":"1","operateReason":"1","operateAppkey":"<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span>","<span color="rgba(0, 0, 0, 0.87)">operatorMis</span>":"tangzhou02"}'</p>
+<p nodeId="5b118f4f63194e21b73e13bf75024c54" />
+</td>
+<td colwidth="[193]" nodeId="049f65e49c354073a63754aba8286c99">
+<p nodeId="4d271e08a2944187b68eda6e90d29699" />
+</td>
+</tr>
+<tr nodeId="f2e5589d39924b61928d324099aca3e0">
+<td colwidth="[50]" numCell="true" nodeId="d88064853ef74791b9e786f571622a92">
+<p nodeId="a3ff6ad2cad842c98bed72f4bc545bad" />
+</td>
+<td rowspan="2" colwidth="[109]" nodeId="b3679327b8c3480cadd8d4980d43bd99">
+<p nodeId="035beff59d334666b459ed0499d2c3da">账号安全、验证中心</p>
+</td>
+<td colwidth="[238]" nodeId="f3bd3c97022842fc8120fcdea0eca0d2">
+<p nodeId="a74a7795ea7a47abbbd24db57419d45f"><span color="rgba(0, 0, 0, 0.87)">北京-踢出用户所有登录态</span><span color="">（新）</span></p>
+</td>
+<td colwidth="[120]" nodeId="f1b11e0d495042979773e1b4ee94cd63">
+<p nodeId="97ae68942efc495692ad2405b54eae74">568</p>
+</td>
+<td colwidth="[402]" nodeId="0361698d226d4bf584a252615901c33e">
+<p nodeId="1958d42cb83a4b42a08daa75404a6b7e">常量：</p>
+<ul nodeId="88837194aa60490b81010cbed91a8289">
+<li nodeId="80c549a7836d47938a1c17dc1bd9f22b">operateType、operateReason根据枚举值填写数字编号，需满足上表对应关系</li>
+<li nodeId="9d83faa6e4af44119ce29e8ee64a882e">operateAppkey：<span color="rgba(0, 0, 0, 0.87)">com.sankuai.occam.stream</span></li>
+<li nodeId="ec9a8584a3344a8eb742f552665d9bac"><span color="rgba(0, 0, 0, 0.87)">operatorMis自定义填写处罚人mis</span></li>
+</ul>
+</td>
+<td colwidth="[387]" nodeId="fa6d3b43c8c949a592ec145f10b32d3f">
+<p nodeId="c48dc4efdd9748cf92fd760babe48a7a" />
+</td>
+<td colwidth="[193]" nodeId="2dee3a4f12734dde8f884bb5e3162a16">
+<p nodeId="9ffb9cb766e34af386046940e588140a" />
+</td>
+</tr>
+<tr nodeId="372ff4525590473a9bd353268ae450cc">
+<td colwidth="[50]" numCell="true" nodeId="10bb15fd6b274e1eb2096ccb5646bce6">
+<p nodeId="3e6ee82be00d4fd7a3ee5a1f6fe8c10f" />
+</td>
+<td colwidth="[238]" nodeId="0e74a24e8e45456e978875a1dbaaf437">
+<p nodeId="5f128ff5669e460fa5f8b434432a2dcd">北京-美团用户踢出登录态（新）</p>
+</td>
+<td colwidth="[120]" nodeId="5475d0bd4a19499694e5868f252125b6">
+<p nodeId="116b2e56f6c441769808b5b48bce47c1">567</p>
+</td>
+<td colwidth="[402]" nodeId="f0569fb5899b46109e7625db4cb9894f">
+<p nodeId="d347b860e599481689b9989a8495bdf1">常量+变量：</p>
+<ul nodeId="0a63cb3e57e44ec8afdfd313b12a0717">
+<li nodeId="f573f078ae7244d4be8c40b5b7bade8a"><span color="rgba(0, 0, 0, 0.87)">token取对应变量，见样例格式</span></li>
+</ul>
+<ul nodeId="d145dc63af4140f58523710cd80a3f1c">
+<li nodeId="56f1ca89c30d49d0ae23153b6b36519d">operateType、operateReason根据枚举值填写数字编号，需满足上表对应关系</li>
+<li nodeId="ee1f2fe62f5a45d4ada61545e4493e20">operateAppkey：<span color="rgba(0, 0, 0, 0.87)">com.sankuai.occam.stream</span><km-footnote id="358f4218-01c1-4971-8827-2328038b1485" annotate="" nodeId="c585b70902b0407e98142c0ec90c6653" /></li>
+<li nodeId="108bc5e832f94ad68a5718c38c2691cb"><span color="rgba(0, 0, 0, 0.87)">operatorMis自定义填写处罚人mis</span></li>
+</ul>
+</td>
+<td colwidth="[387]" nodeId="d8636650d8c04b049f3f16c365f3ad43">
+<p nodeId="4b68939a18c04d5d9c095f6871776630"><span color="rgba(0, 0, 0, 0.84)">extra的值：</span></p>
+<p nodeId="290bea7c1ced4833bb723ad6672c4e13">'{"token":"'+token+'","operateType":"1"，"operateReason":"4","operateAppkey":"<span color="rgba(0, 0, 0, 0.87)">com.sankuai.zeus.offline</span><km-footnote id="511679f8-23b3-4898-a7c4-3575be069cb6" annotate="" nodeId="8ea1039dee064c0792c5b3b972c2c4b9" />","<span color="rgba(0, 0, 0, 0.87)">operatorMis</span>":"tangzhou02"}'</p>
+</td>
+<td colwidth="[193]" nodeId="429d0865db1f4923a3f1ddbc99668520">
+<p nodeId="9fcc03c91ec942b8b849912415d95fc2" />
+</td>
+</tr>
+<tr nodeId="e1b49fbe511a4556be778960be6f5d75">
+<td colwidth="[50]" numCell="true" nodeId="0a9b4808c5ed42fd8c5c3f8ef216265a">
+<p nodeId="a3378e661d8b47609c98af8dba732147" />
+</td>
+<td rowspan="5" colwidth="[109]" nodeId="1b48fe859452452eb4419bd848db11f7">
+<p nodeId="04d1cfb7c65743299a40c336b09af14a">营销安全</p>
+</td>
+<td colwidth="[238]" nodeId="bcef12f536bd4e72b1836c9758b8aa8d">
+<p nodeId="c0db647258b44f99be4cfd94fbd6a5d6"><span color="rgba(0, 0, 0, 0.87)"> 北京-用户冻结</span></p>
+</td>
+<td colwidth="[120]" nodeId="8471b77c28344ee0ac78c15c2b8996ca">
+<p nodeId="93d716da61834a1abac08b1089adf05d">600</p>
+</td>
+<td colwidth="[402]" nodeId="aa431b5a868d439f90677e4ab593f67b">
+<p nodeId="d257252aa5084131846383d6b3f84b76">常量：格式同上方账号治理</p>
+</td>
+<td colwidth="[387]" nodeId="72a12892cbfa4a24b82e3edc2c99c3c2">
+<p nodeId="05a72b016afb42c99ca963b421add934" />
+</td>
+<td colwidth="[193]" nodeId="926744a3c9d84a378c5d7fe56c556ff6">
+<p nodeId="e72aeb2bdc4641f7b6cf29ee9035a222" />
+</td>
+</tr>
+<tr nodeId="9aee8fd6024b4e138774b6b7dded8b75">
+<td colwidth="[50]" numCell="true" nodeId="805baf04963043af8aea10e69d83f784">
+<p nodeId="8dfb5b4eb50941b4a1b7a86443b373e2" />
+</td>
+<td colwidth="[238]" nodeId="76c0e2e04b514b829dc852fa8961af10">
+<p nodeId="b9db667d090b44489d32f7d8a13bd4f3"><span color="rgba(0, 0, 0, 0.87)">北京-限制用户下单</span></p>
+</td>
+<td colwidth="[120]" nodeId="9599d5bb03164d128b02a569e9bcf55b">
+<p nodeId="8a3480db9b104855b0504fbce38e83d4">601</p>
+</td>
+<td rowspan="3" colwidth="[402]" nodeId="fb58a92cdd9c4269a83243ecf4dfa336">
+<p nodeId="ffce5b0c888f46be8b2fd7a6cfcd7c3f">--默认为空</p>
+</td>
+<td colwidth="[387]" nodeId="ec93264cfe7d4745a9944e51b83c10a4">
+<p nodeId="bdd30f7d1738440ebe58318bb638de61" />
+</td>
+<td colwidth="[193]" nodeId="66e064bbd3b942518cda6ef52177cafc">
+<p nodeId="41b30cf1f68a4f198afa4f0ec1ea121a" />
+</td>
+</tr>
+<tr nodeId="8a9a2d64d6f441518f75121752b4af75">
+<td colwidth="[50]" numCell="true" nodeId="9155ba89897447d393b9f9428f470dc7">
+<p nodeId="f8e77618fb8849e0b533bf2083385538" />
+</td>
+<td colwidth="[238]" nodeId="a56235766aef4519a6454a49eaba9603">
+<p nodeId="2a54b2cfc02a406cbcf795b3b515fce9"><span color="rgba(0, 0, 0, 0.87)">北京-短信警告（</span>118,618<span color="rgba(0, 0, 0, 0.87)">）</span></p>
+</td>
+<td colwidth="[120]" nodeId="52ba194b94a94b04b78c9a61b3ba31bf">
+<p nodeId="378cb9932cfc4900a97ff1dc98a7588b">602</p>
+</td>
+<td colwidth="[387]" nodeId="33302ac9bae5429597c46652e8089387">
+<km-collapse active="false" nodeId="77542eba798640ae90d6481a4b6c4953">
+<km-title>短信内容</km-title>
+<km-content>
+<p nodeId="f79d06aba185489f89ba264ffcb5d597"><span color="rgba(0, 0, 0, 0.87)">系统识别到您的账号存在的不合理交易行为（如协助商家刷单／薅羊毛等）影响了美团正常交易秩序，建议您规范操作避免影响美团账号后续的使用。</span></p>
+</km-content>
+</km-collapse>
+</td>
+<td colwidth="[193]" nodeId="96c2adcf56364187a583de95b15cc429">
+<p nodeId="d64e820514b44e288abe435d4f7f3453" />
+</td>
+</tr>
+<tr nodeId="dab0f3e99774453bbf1acb40a19f9ac7">
+<td colwidth="[50]" numCell="true" nodeId="9f8e5fad77b545be980d756f2aaee2d1">
+<p nodeId="6c4ec9a90bda49279a9956ecae646ff4" />
+</td>
+<td colwidth="[238]" nodeId="4d5cf71e024c4729a9fc7a06cd5a93f3">
+<p nodeId="9fe7e7070a254dd8955f1ada3b84985c">停止到餐美团商家补贴 （货补）</p>
+</td>
+<td colwidth="[120]" nodeId="062f6991e2934c54987b8f2a5f661bc0">
+<p nodeId="a859e451357749b0b01084d144b94113">615</p>
+</td>
+<td colwidth="[387]" nodeId="3aec78c88ad64a49b2ee15d0bbb50535">
+<p nodeId="5e1af376b8c84e03b058bf23e9e550a9" />
+</td>
+<td colwidth="[193]" nodeId="00e314f8967e412db7a9077d5567ab38">
+<p nodeId="b5a3806efdd64f4cb0067a0aaca1fbcb" />
+</td>
+</tr>
+<tr nodeId="a0aadbf270dc4dd797cdb99e9e7f74bb">
+<td colwidth="[50]" numCell="true" nodeId="8be118f1ee9e408ebfd1b6d49f643571">
+<p nodeId="f798e1618d3d407b8582dc84ac24e230" />
+</td>
+<td colwidth="[238]" nodeId="58228ba8e01b4ea8a40c63fb971d52a4">
+<p nodeId="75f1e8023f5743a79d12456285d6de6e">到餐订单退款<km-footnote id="1a1fc2d5-2886-4c07-8589-012a9a608d3e" annotate="" nodeId="08ecfd6c579745f998f259675cb9ff1a" /></p>
+</td>
+<td colwidth="[120]" nodeId="fa728f7a89e04be9bb3710f23465e1d0">
+<p nodeId="b2e3297863624895b8b98cbef3dde7cb">616</p>
+</td>
+<td colwidth="[402]" nodeId="1f25f50a09634afc952e084b0600a097">
+<ul nodeId="de845b62212840c18210afec4ed849eb">
+<li nodeId="3ead704b67314578b80a6b9658a7096d">order_id取对应变量参数</li>
+</ul>
+</td>
+<td colwidth="[387]" nodeId="d14c32de5fb843988e79ce3d3aeadf98">
+<p nodeId="e23daac8c43f4bdca7adaf06d433b61f">处罚主体：mt_user_id（美团用户id）</p>
+<p nodeId="34da761d13a640e091a1306991d76cb8"><span color="rgba(0, 0, 0, 0.84)">extra的值：</span></p>
+<p nodeId="4e8403af473241f8b7e6881b748a191f">'{"orderId":"'+order_id+'"}'</p>
+</td>
+<td colwidth="[193]" nodeId="e5770de2e3a54fa190e8032fb8261868">
+<p nodeId="e6551775186c4259bda18d5ea8cfc854" />
+</td>
+</tr>
+<tr nodeId="a12e06a3c3f5427e80cca0e840df0d65">
+<td colwidth="[50]" numCell="true" nodeId="501eebab037c4a0f98c37582727e51b9">
+<p nodeId="f23e4434bce647719da2e4931d607311" />
+</td>
+<td rowspan="2" colwidth="[109]" nodeId="9e61aa5b15e942c282a6982144ce6882">
+<p nodeId="c4b9f254d96341148dd6ac6fcc755040">反诈</p>
+</td>
+<td colwidth="[238]" nodeId="c7259d1493774e80bc69ccc109a83109">
+<p nodeId="9f96eee77ffd4bc2abc19078984ef2e9">用户保护（反诈专用）</p>
+</td>
+<td colwidth="[120]" nodeId="d62667824e9447f4ae16dd3f6582c96b">
+<p nodeId="df1d57a1209e40119e65c4e57816753c">647</p>
+</td>
+<td colwidth="[402]" nodeId="9388e4e249bc4b458ed6d6e204fbe772">
+<ul nodeId="0d3ba2644ad74f459b6c564bc631761e">
+<li nodeId="677892ffcfe9423a959fe0a2434ceca2">userStatus=2</li>
+</ul>
+<ul nodeId="169ce1e53bd94d949839dae292fe5252">
+<li nodeId="16e0fa82b5af40c7929fc13a983dd75f">operateType=5</li>
+<li nodeId="e6d864a44849462397a09b73a24ae5c4">operateReason=6</li>
+</ul>
+<ul nodeId="c52c8dba95d7487785cdb8f99298cd8a">
+<li nodeId="e36901d7b3214e919aa782fcff1687b0">operateAppkey</li>
+<li nodeId="cf6f75e3647d47f99168c1b770725a85"><span color="rgba(0, 0, 0, 0.87)">operatorMis自定义填写处罚人mis</span></li>
+</ul>
+</td>
+<td colwidth="[387]" nodeId="8a59b05151114f1c813e0434cca66112">
+<p nodeId="1b017125b0d844c09df544ab56e68373" />
+</td>
+<td colwidth="[193]" nodeId="2bf7b8cf8154436c8efabb6637a6227f">
+<p nodeId="3451622474364ec38abeadbe65d6e2e5">双端保护</p>
+</td>
+</tr>
+<tr nodeId="dc1a4dcbbd034d61b0f77732b970c586">
+<td colwidth="[50]" numCell="true" nodeId="530df402f528490fa15f135d61e4544e">
+<p nodeId="1467d9a850e84b6197a4ca335798a658" />
+</td>
+<td colwidth="[238]" nodeId="9604fea3752546a6844290b509df12d5">
+<p nodeId="2e4e5253a3644d39905da864b890215d">账号双端踢蹬（反诈专用）</p>
+</td>
+<td colwidth="[120]" nodeId="31483f1c87ac41f999e71b9c77e50ddf">
+<p nodeId="07507686e3664683a6deda23c356ae20">712</p>
+</td>
+<td colwidth="[402]" nodeId="51a5505a3bfb4d6e8d3967b326e1d0f4">
+<ul nodeId="ec1ce898536747219250a1f50e83bd4b">
+<li nodeId="4a90315f295e449fb94808862b4d11e9">operateType=2</li>
+<li nodeId="eca30aa8733c4223a7730313baa34f84">operateReason=6</li>
+</ul>
+</td>
+<td colwidth="[387]" nodeId="2f18d02e4be94b94b5fa270ed12a4bd3">
+<p nodeId="6c51450ab3c34ceda0e77e4159a6b1f2" />
+</td>
+<td colwidth="[193]" nodeId="e4ffc19897f7475da149bd58dc0b6a18">
+<p nodeId="facfb92a0b6d41b3bb7b38719c24e70e" />
+</td>
+</tr>
+<tr nodeId="a2f8ee75d63944f98127e68ba78d4362">
+<td colwidth="[50]" numCell="true" nodeId="7094e52f35364eca9f0e99a36aa67b61">
+<p nodeId="3180a1a1cae8452a9638df2999e3ab7a" />
+</td>
+<td colwidth="[109]" nodeId="a9fb6761929844788733c04ab7370c5b">
+<p nodeId="08186dc9ab364e2c96c3c0193855a6d9">反爬</p>
+</td>
+<td colwidth="[238]" nodeId="004e9114f05246d4923943dd86089558">
+<p nodeId="39717ec205834d059a86be3cd9dca3f1">踢出点评用户登录</p>
+</td>
+<td colwidth="[120]" nodeId="c568c8eb267c4ee7b9533bef67cbea11">
+<p nodeId="f469cff419a947549b0098c2b89da94a">652</p>
+</td>
+<td colwidth="[402]" nodeId="e6f674aeb32c41728f515ce19f1c6ed7">
+<p nodeId="327f4c3473f044df822702f198a12d65" />
+</td>
+<td colwidth="[387]" nodeId="f3c4cd6152784494ac3f02278ce2bc80">
+<p nodeId="b2b939c5f99c4970a2e3437db32f9ce5" />
+</td>
+<td colwidth="[193]" nodeId="9a22213e0f5144e3ac053b18671e9a4b">
+<p nodeId="f830078003dc4a1cb188d438104f5241" />
+</td>
+</tr>
+<tr nodeId="31747bf17eb34810ac4eae1d51400e08">
+<td colwidth="[50]" numCell="true" nodeId="1b88c169a6404d788b0a5f4c11a0a103">
+<p nodeId="7f0425955d234982851ef549936282ef" />
+</td>
+<td colwidth="[109]" nodeId="13cafecb1c5a4c0d82b12b8c02e161df">
+<p nodeId="ee06b899d22342eea143c161ce06ef4e" />
+</td>
+<td colwidth="[238]" nodeId="4f0e3a317f3b43ac828c479f66ff2d02">
+<p nodeId="9a9fa5fc46ae4e81a46fb715699c62fe">踢出美团用户登录</p>
+</td>
+<td colwidth="[120]" nodeId="1f630d00ad664f3588a1418b417ce252">
+<p nodeId="de103fa0222d4b9db4f3084483047e08">651</p>
+</td>
+<td colwidth="[402]" nodeId="d57f3309752f4d66a74351915689c05f">
+<p nodeId="7a95e36e38654055b799d94f1384b5d7" />
+</td>
+<td colwidth="[387]" nodeId="c783062ffa2441409acf706e996f6ae2">
+<p nodeId="9f7d3aaabd924bb38375743063ceddd7" />
+</td>
+<td colwidth="[193]" nodeId="1d02851f5cd74884ab91b53d229a5ee5">
+<p nodeId="4cbcd8c1e5184d8cbafaa8322d830885" />
+</td>
+</tr>
+</table>
+<p nodeId="ba34964dedb24e4ea3909f045d8cc95c"><span color="rgba(0, 0, 0, 0.84)">如需引用其他处罚方式，可询问</span><km-mention name="姚珍珍" uid="yaozhenzhen" empId="" nodeId="0d37b7ed09cf482e8ae97005f87dbdc4" /></p>
+<p nodeId="e463b9270ce24c38b355c0bf87ec1ebf" />
+<p nodeId="d5162a1449c84f1488c291f602089d34" />
+<km-footnote-list nodeId="d451da5d1f6546399905ae0315fd5e9a">
+<km-footnote-item footnoteNodeId="c585b70902b0407e98142c0ec90c6653" nodeId="06a010cc9f0f4a5081d688f0daf0fed6"><p nodeId="83350e1a47b64dcaaa0bf95c1dfc34ec">com.sankuai.occam.stream：验证中心</p></km-footnote-item>
+<km-footnote-item footnoteNodeId="8ea1039dee064c0792c5b3b972c2c4b9" nodeId="35872372bc1843b0b1f7f352db329746"><p nodeId="b4d4596293c54562b965e224867706dd">com.sankuai.zeus.offline：离线引擎</p></km-footnote-item>
+<km-footnote-item footnoteNodeId="08ecfd6c579745f998f259675cb9ff1a" nodeId="168a658ead4645f28d132f0cacb3a8c2"><p nodeId="46ae610f389d4cbd99c358ee198a6217">到餐订单退款：上游hive表至少有2个参数，mt_user_id（key不可变）、order_id</p></km-footnote-item>
+</km-footnote-list>
+</km-doc>

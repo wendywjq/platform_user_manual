@@ -1,0 +1,59 @@
+<km-doc>
+<km-title nodeId="ddd68dfd603242ffb7f7ab8aa328587b">说明：参数异常告警使用指南</km-title>
+<km-catalog style="none" nodeId="a2027db79c964707bdf7ac54406a7106" />
+<h1 nodeId="e1da637eccec465b8082feeb6c67ea97">一、新功能介绍</h1>
+<p nodeId="4bbd82eadf2b4f0b94b14f106c6561fd">参数异常告警允许用户配置告警场景，实时监控某些参数、累计的异常情况，根据配置的规则最终通过大象报出。</p>
+<p nodeId="4281c402601d4ff5bde39b2985d4fb23">支持报出两类异常：1、参数异常；2、累计异常。</p>
+<p nodeId="b7ca334a10c648ebbcc81c0e5829d557">举例来说：比如某业务下输入了一些异常参数（即：某些参数值不正常，比如userid输入不应该为null，结果你输入了个userid=null），包括一些累计异常（比如uuid != null累计超过30次对业务来说已经不正常了）这些都会导致线上规则误伤，<span color="rgb(0, 0, 0)">参数异常告警要做的就是实时报出此类异常。</span></p>
+<h1 nodeId="5051040a568e4123b4037074250efa87"><span color="rgb(0, 0, 0)">二、准备工作</span></h1>
+<p nodeId="d456b8eb52ac4a5a8b4494b3db515ac9"><span color="rgb(0, 0, 0)">1、</span><span color="rgb(0, 0, 0)"><strong>创建监控场景：</strong></span><span color="rgb(0, 0, 0)">一个业务下允许创建多个监控场景，监控场景和普通场景一样，只是里面的规则是针对异常参数或者异常累计编写的。</span></p>
+<km-note type="warning" hiddenTitle="true" nodeId="4980863ae2c8446d8238e9dc531d62bd">
+<km-title></km-title>
+<km-content>
+<p nodeId="34028542cb3d49a3b4f07825dacc557b"><strong>监控场景里配置的规则限制：</strong></p>
+<p nodeId="81e4c1b4003143d0a5be72f2178d3133">如果要监控的是参数异常：规则里<span color="rgb(245, 34, 45)"><strong>不可以有累计因子</strong></span>，其他参数、因子正常使用。</p>
+<p nodeId="b5c6ae075e4c44c3961b6ec10ffbd1cd">如果要监控的是累计异常：规则里<span color="rgb(245, 34, 45)"><strong>只允许有一个累计因子</strong></span>，不可以有参数或者其他因子。如果配置了多个累计因子，大象报出异常信息的时候只会报出一个。</p>
+</km-content>
+</km-note>
+<p nodeId="0c16efa5cc994d01b28018fd25c41264">2、<strong>创建监控专用累计事件：</strong>为防止影响其他场景读/写累计，异常监控相关的累计使用一个单独的累计事件，存储在单独的tair，完全隔离。</p>
+<h1 nodeId="16557016a4094ddeb71f998af2fae981"><span color="rgb(0, 0, 0)">三、使用说明</span></h1>
+<p nodeId="2b6c24d097d6416ab69eed845d6b79f6">使用该功能只需在zeus页面进行相关告警配置即可，具体操作如下：</p>
+<h2 nodeId="afc73d4ea1974ddfb0afef543e0e0259">1、点击“场景”-&gt;“告警配置”进入告警配置页面</h2>
+<p nodeId="5700048bc2624da1a853c76ed0971627"><img src="https://km.meituan.net/118363792.png?contentId=118350711&amp;attachmentId=118363793&amp;originUrl=https://km.meituan.net/118363792.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="608" height="198" nodeId="d249f678ab764fd08b2e008a2a6ff1f1" /></p>
+<p nodeId="cf352fffc8464dfe98ab81615fd4e86b">初始化告警配置页面如下：</p>
+<p nodeId="55682f1ab92b43008a9ff05727f1c79b"><img src="https://km.meituan.net/118351274.png?contentId=118350711&amp;attachmentId=118351275&amp;originUrl=https://km.meituan.net/118351274.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="613" height="340" nodeId="2db852a8f2984605a7572ffa9c788d8d" /></p>
+<h2 nodeId="3ad017dedc9842f385964110e2b3b6c0">2、在告警配置页面配置相关配置项</h2>
+<p nodeId="afe6181fca704f08b8fd4beb743f33ba">2.1、首先在“累计事件ID”后面的输入框里填入<strong>新创建的监控专用累计事件ID</strong>，点击“更新”保存。</p>
+<km-note type="warning" hiddenTitle="true" nodeId="abe0d6fe4c094f839e838fa7bcfa3712">
+<km-title></km-title>
+<km-content>
+<p nodeId="b50d7025533c47daa18a6ee451be728b">监控专用累计事件一个业务只有一个，支持修改</p>
+<p nodeId="9b71dd3768cd4e7d96b0259b7a65bb80">没有累计事件ID无法新建告警配置</p>
+</km-content>
+</km-note>
+<p nodeId="e3fb2ee1552e463c8b7add4bfbfd91ea">2.2、点击“新建告警配置”，新建一个告警配置如下：</p>
+<ul nodeId="f2e07c5842de4287aecd120e20a55434">
+<li nodeId="2298825f557348c0917c1cb6d7f09813">告警名称：随意填写，为告警起个名字而已。</li>
+<li nodeId="54da48ec42974d89bb0c4534c4995562">监控场景：填写在准备阶段创建的监控场景ID，<strong>这里只支持填写一个场景ID</strong>，如果你创建了多个，那就在新建几个告警配置。</li>
+<li nodeId="612d08c149c34034b6cfe987bc5c82a1">被监控场景：填写要监控的普通场景（在这里非监控场景都视为普通场景），填进去的场景流量都会过监控场景，跑一遍监控场景里的规则。此处支持all，表示监控当前业务下所有场景（即全部流量都会过监控场景，此时流量较大，慎重选择）。</li>
+<li nodeId="74511bcbdb314c7fb469d08f5aaece6a">告警通知名单：此处填写mis id，当发生异常时会将告警信息通过大象发给指定人。</li>
+</ul>
+<p nodeId="8bf746bc87034bcabfc1ce3387187a99"><img src="https://km.meituan.net/118383286.png?contentId=118350711&amp;attachmentId=118383287&amp;originUrl=https://km.meituan.net/118383286.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="610" height="373" nodeId="be39e698a52644c7ab094176b9de66d4" /></p>
+<p nodeId="3f1ce563721045988f1ffdee6138ba97">至此就完成了一个告警配置的填写。如果需要创建多个告警配置，重复执行2.2即可。</p>
+<p nodeId="cf886539887a4ef89e3e59db793b07a3"><img src="https://km.meituan.net/118372441.png?contentId=118350711&amp;attachmentId=118372442&amp;originUrl=https://km.meituan.net/118372441.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="597" height="562" nodeId="b15a4ba71e774b37912f57d1dd8793c6" /></p>
+<h2 nodeId="709fc5c04c6549d7b47b6c7b94062407">3、最后通过大象报出异常情况如下</h2>
+<p nodeId="fa3b0bb1cc204b8bab15f84f6cb17f8f"><img src="https://km.meituan.net/118309948.png?contentId=118350711&amp;attachmentId=118309949&amp;originUrl=https://km.meituan.net/118309948.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="516" height="209" nodeId="c445e3118598468d9d242863a84b7652" /><img src="https://km.meituan.net/118401796.png?contentId=118350711&amp;attachmentId=118401797&amp;originUrl=https://km.meituan.net/118401796.png&amp;contentType=2&amp;isDownload=false" name="image.png" width="529" height="209" nodeId="69e3a8773c1a458e87ac61a7e66a89bb" /></p>
+<km-note type="info" hiddenTitle="true" nodeId="188678976cb148afbf6f0073e55a78ea">
+<km-title></km-title>
+<km-content>
+<p nodeId="bb58b908d30646fea5e476e1361bfcc4"><strong>【注意事项】</strong></p>
+<ol nodeId="33f4c74c2a9e4c1f80addb957c7ee133">
+<li nodeId="179e9bd8d3be471997f27c065f9a5c1a">一个业务使用一个监控场景基本够用，尽量避免创建过多监控场景。</li>
+<li nodeId="615255f96b7840ed80340f3f05eee33b">尽量精确填写被监控场景，不要随意填"all"，此时流量较大，集群有被打挂风险。</li>
+<li nodeId="2739af670be34a47971239122a3229bc">监控场景里的规则：标记不通过大象报出，生效才报出，但标记和生效都会过监控场景，查日志都可以查到场景、规则命中情况。</li>
+<li nodeId="c791ef4b91e14f2d9b158c320a6e21a0">需要报出累计异常时，累计条件和按何累计尽量写的严格些，避免类似“sceneId &gt; 0”这样宽泛的条件，防止产生累计热点key问题。</li>
+</ol>
+</km-content>
+</km-note>
+<p nodeId="54e5aef899e34806bf937321a7f77592">有问题欢迎反馈zeus RD<km-mention name="梁建华" uid="liangjianhua02" empId="" nodeId="5fbe3fdc1fb143bcbd1a1618cdfd639d" /> <km-mention name="郎周皓" uid="langzhouhao" empId="" nodeId="a05808c3474549a9a17379050579a263" /> <km-mention name="王东" uid="wangdong13" empId="" nodeId="42c326017a1049ddad1f3fa0c7645607" /> <km-mention name="罗昊" uid="luohao11" empId="" nodeId="f922666c7caf42cc853bd90ce08a5edf" /> <km-mention name="吕笑千" uid="lvxiaoqian" empId="" nodeId="72118edc6de34037bc6f0cce0f4f8e9e" /> <km-mention name="马玉洁" uid="mayujie" empId="" nodeId="11ea46d18a5141a99755eb4f2c3f8a00" /> <km-mention name="杜方宇" uid="dufangyu" empId="" nodeId="642d3ef9a6ab4e1d9261efeb6881ec49" /> <km-mention name="杨飞菲" uid="yangfeifei04" empId="" nodeId="26748f029dc94cd688097c12feecf1a1" /> </p>
+</km-doc>

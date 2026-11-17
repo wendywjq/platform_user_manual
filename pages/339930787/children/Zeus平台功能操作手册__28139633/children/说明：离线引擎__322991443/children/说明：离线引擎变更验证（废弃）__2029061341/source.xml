@@ -1,0 +1,224 @@
+<km-doc>
+<km-title nodeId="7a5478a3e2db449480bd72cf38bc7d18">说明：离线引擎变更验证（废弃）</km-title>
+<km-catalog style="none" nodeId="625aea48a3804c9197ee6e6d4d2086ec" />
+<h3 nodeId="f83fdd949d874b638ce3429684233e97">一、背景</h3>
+<ul nodeId="4420d8ed035e49a7a5f3c99d5a48692c">
+<li nodeId="77ed5c7faeb4472a8d03dcbbb220694c">离线引擎上线后，被越来越多的风险域使用，尤其是账号风险域的流量在快速增长，策略布控安全性日益凸显</li>
+<li nodeId="17ca83ff61054e4898aae088762cd687">当前离线任务的任何变更，都是立即生效，无验证、审批、监控、熔断等能力进行保障</li>
+</ul>
+<h3 nodeId="4da5f070f27741beb3ccd465cfd21588">二、系统流程</h3>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/2029061341/77398369837?contentType=0&amp;isNewContent=false" width="916" height="266" nodeId="d47ecc24f9e041e3bfdc6022c3365ed2" />
+<h3 nodeId="97ff5828ca614c33801e64fbf35b259a">三、操作说明</h3>
+<km-note type="note" hiddenTitle="true" nodeId="cbc4613c515041b3b02f08efb3e2b9e3">
+<km-title></km-title>
+<km-content>
+<p nodeId="81e94feac6f44964b90cb93dd7febe80">当前为1.0版本功能，只有大象消息交互，平台暂无交互页面，交互页面将于2024Q1上线</p>
+<p nodeId="485f30252e4c45e4b722f602d82aa3ad">当前功能只适用引擎V2架构，社区安全空间需迁移架构<km-footnote id="856fbe50-3c75-421f-8f35-8be4fa513b1d" annotate="" nodeId="55c757cd004245b8a765f2719b913f99" />后使用</p>
+</km-content>
+</km-note>
+<h4 nodeId="aa4f83ab3d8745ce972d39cbac81a424">任务新增/变更</h4>
+<table responsive="false" nodeId="9359e543ba3b45fdb041de27b1816b8e">
+<tr nodeId="00578233184e42108c2f4f2bba8033e8">
+<th colwidth="[120]" nodeId="85d80c6d712d4854b2866dd6d803afec">
+<p nodeId="0a2edf226f2e4ebe820e4a4315ae4af9">流程节点</p>
+</th>
+<th colwidth="[492]" nodeId="50b9e815c39f4915a88ae0608b313b1b">
+<p nodeId="7103b796841a458483cea9f325f18d58">说明</p>
+</th>
+<th colwidth="[572]" nodeId="1da051d8f29e490eb11f447ef60500c2">
+<p nodeId="38c71f1ae89d4791aabede3b400a8013">提交人通知</p>
+</th>
+<th colwidth="[288]" nodeId="65f1da00561747a188ca354ca2c05b2d">
+<p nodeId="febf706fdf3c488583fb1d51abd072f6">审批人通知</p>
+</th>
+</tr>
+<tr nodeId="fa7e4a2aba3e459886cdd7a543f50e1e">
+<td colwidth="[120]" nodeId="8aaea56f32b34cc3bdc29c7a17489f7b">
+<p nodeId="9dfc5bee172b4bd7bb09ffccd98a92d3">发起审批</p>
+</td>
+<td colwidth="[492]" nodeId="602020d6ef9049079007d25dcdc9c1fc">
+<ul nodeId="2975eb79e876411ebb846ce5c884a9bb">
+<li nodeId="d016e97b3c2349cd8e810805f5eb5076">发起审批场景：</li>
+</ul>
+<ul nodeId="98cf004550e94ebbb2367d010e885801">
+<li nodeId="77ca5f821b94483ea90425ee5e137b98">离线任务</li>
+</ul>
+<ul nodeId="40f15ec4328f4d5b8a707507d88de7df">
+<li nodeId="24bc3fb73804495bb7e99ca643dd8c5b">新增：新增自定义/周期离线任务，初次上线</li>
+<li nodeId="fdb2fef80a3946649879182c34ded03c">修改：数据源、where条件、周期、规则选取的变动</li>
+</ul>
+<ul nodeId="700d6f9370a04b689b79fa987f1c1efc">
+<li nodeId="5e1e7e554fb040789bbaf747a95ab30c">数据源：已经被引用配置离线任务的数据源，修改字段映射；删除取数字段</li>
+</ul>
+<ul nodeId="bffd719dd8f44368a8178c9727e83e9d">
+<li nodeId="7c68e90bb9c9490182a63b9dd2e8f2ed">发起审批校验：根据关联的<strong>离线任务id</strong>进行校验，如果已经有正在经历审批验证流程的离线任务，则不允许提交</li>
+<li nodeId="ebeba665cdb64686a305c1c50494b89b">获取审批人优先级：同组织架构下的空间负责人 &gt; 其他空间负责人</li>
+</ul>
+</td>
+<td colwidth="[572]" nodeId="e0edfeec19584c1a8e8918114e45ade3">
+<p nodeId="22bc8cbd9c3c414eb58fed8c0fb4ba9f"><span color="#FF9D00">仍存在流程未完成的离线任务</span></p>
+<p nodeId="0c0b18914fd6420cbbe47c9ac1615cd7">【Zeus离线引擎变更通知】</p>
+<p nodeId="1cc26016387f445983e7290b8034e8ad">zhangsan发起的审批流程未完成，请确认流程结束后再发起新流程</p>
+<p nodeId="adc630fa0ebf4ccd9328388dd7a977fe"><span color="#FF9D00">正常提交</span></p>
+<p nodeId="115761e7e4c24486a2c19267d2a76cba">【Zeus离线引擎变更通知】</p>
+<p nodeId="8056392cefe5465fbced04e9743067e2">【变更类型】：数据源字段映射变更<br />【变更内容】：userid-&gt;&gt;uid,business-&gt;&gt;biz <span color="rgb(56, 136, 255)">查看详情页</span><br />【关联数据源】：ba_rc.zeus_log<br />【关联离线任务】：123,236<br />【变更批次】：988<br />您已经向空间负责人（yaozhenzhen,duisisi）发起变更审批，请注意查看审批消息<br />上线流程：发起审批-&gt;数据测试-&gt;数据验证-&gt;上线</p>
+<p nodeId="f9065f2489b544109e9016c906c556ac"><span color="#FF9D00">审批人驳回后</span></p>
+<p nodeId="6e4d0e16adff4bf48f68d9c3920d7132">【Zeus离线引擎变更通知】</p>
+<p nodeId="aa0ae587088742448cfa5200a2d8955b">【变更类型】：数据源字段映射变更<br />【变更内容】：userid-&gt;&gt;uid,business-&gt;&gt;biz <span color="rgb(56, 136, 255)">查看详情页</span><br />【关联数据源】：ba_rc.zeus_log<br />【关联离线任务】：123,236<br />【变更批次】：988<br />您发起的变更已经被lisi驳回，请修改后重新发起</p>
+</td>
+<td colwidth="[288]" nodeId="84e104a60d604afca288604f5478f94d">
+<p nodeId="9cfac291d1034a788f862b39375114eb"><span color="rgb(255, 157, 0)">正常提交后审批人的通知</span></p>
+<p nodeId="5970d92d581c4879b6f9c831aac2a3f3">【Zeus离线引擎变更通知】</p>
+<p nodeId="f1c584801bed4d738f4b17e7afa9e5e2">【变更类型】：数据源字段映射变更<br />【变更内容】：userid-&gt;&gt;uid,business-&gt;&gt;biz <span color="rgb(56, 136, 255)">查看详情页</span><br />【关联数据源】：ba_rc.zeus_log<br />【关联离线任务】：123,236<br />【变更批次】：988<br />yaozhenzhen发起变更，请确认是否审批通过？</p>
+<p nodeId="dcc08a8e74564262b3af2eade3d802c8"><span color="rgb(56, 136, 255)">通过     驳回</span></p>
+</td>
+</tr>
+<tr nodeId="4a9675fede264dc6a6cebbe384354f12">
+<td colwidth="[120]" nodeId="c9deb5edb4d042abbea4bf775a0d14e8">
+<p nodeId="52128a29b36541b6adfafaf01bf27d00">数据测试</p>
+</td>
+<td colwidth="[492]" nodeId="9350862f942f4445af9559ea4c0edd42">
+<ul nodeId="d4a232fb39d340a481ced19e98570fbe">
+<li nodeId="ebc43b0c3af44e94b9cba6f2bdafddea">点击开始测试后，立即拉起当前配置执行，该阶段产出的数据单独存储，不会影响线上</li>
+</ul>
+</td>
+<td colwidth="[572]" nodeId="c9795af931de4d31866da18e0dae7ef5">
+<p nodeId="2b7f838301cb43eb94f04fb77934d2b9"><span color="rgb(255, 157, 0)">审批人通过后</span></p>
+<p nodeId="c9f1f9c1e2ec43a4b1160aa3b1ddb9d8">【Zeus离线引擎变更通知】</p>
+<p nodeId="0f44be06c3d04eaa9dbaa13fe361a389">【变更类型】：数据源字段映射变更<br />【变更内容】：userid-&gt;&gt;uid,business-&gt;&gt;biz <span color="rgb(56, 136, 255)">查看详情页</span><br />【关联数据源】：ba_rc.zeus_log<br />【关联离线任务】：123,236<br />【变更批次】：988<br />您的变更已经被lisi审批通过，测试验证通过后正式上线使用</p>
+<p nodeId="38d3e3d271be4b90bb5654cff713269b"><span color="rgb(56, 136, 255)">开始测试    取消测试</span></p>
+<p nodeId="0212714370b948feac487a0c52cc2801"><span color="rgb(255, 157, 0)">点击开始测试</span></p>
+<p nodeId="a1dc9fd196d649a88319ded021624907">【Zeus离线引擎变更通知】<br />【离线任务】：<span color="rgb(56, 136, 255)">123,236</span><br />【变更批次】：988<br />变更后的离线任务已经开始测试，可点击离线任务id查看进度，运行完成后，将推送命中详情进行验证，验证通过后正式上线</p>
+<p nodeId="de688b24a2f6447fa0153e8ca64befe1"><span color="rgb(255, 157, 0)">点击取消测试</span></p>
+<p nodeId="0481f6f9d6d6498f97d3852dc035c8e1">【Zeus离线引擎变更通知】</p>
+<p nodeId="75ccf7514e6f436b9e324463d82181f5">【离线任务】：123,236<br />【变更批次】：988<br />您的变更已经取消测试，上线流程终止，可修改后重新发起</p>
+</td>
+<td colwidth="[288]" nodeId="38ce1716f0dc4cea9f45f25c2d5a223f">
+<p nodeId="f05d751eb0b84e2fb03fddee333d890b" />
+</td>
+</tr>
+<tr nodeId="7607148b9244446581500f5338257dbd">
+<td colwidth="[120]" nodeId="90d85c84742c4397aee2a4f34305f7c1">
+<p nodeId="241fee3a6f38498ab658e3be57679eda">数据验证</p>
+</td>
+<td colwidth="[492]" nodeId="b1868de3a25b477f9f408887364df2dd">
+<ul nodeId="d22a7f217f014a15b7bedd5347806f42">
+<li nodeId="34662fdaf8df4fd4a1a2256a821bc47f">
+<p nodeId="4b36fe41f0034022a443636752527e99"><km-quote quoteId="2029061341--67d0aa8d-357c-465b-bfdd-1db93f2e4e40">测试结果通知按照离线任务聚合，如果修改项影响了多个任务，则会收到多个通知，请注意看离线任务ID的差异，需要分别确认</km-quote></p>
+<p nodeId="f0469ffcbe924083a205c0c8047a794b" />
+</li>
+<li nodeId="da551fd2ff1d4edfa15874b980a893de">
+<p nodeId="e54d381ba1b34b9abe96f80333a89b08">常规上线：有数据结果且验证通过</p>
+<ul nodeId="8e69d6d4b42d4964aefa1d13e6977195">
+<li nodeId="1c5bf1e7f05e4b5083a1435d35dd4a69">将通知中的验证SQL粘贴到魔数，即可获取到明细数据</li>
+</ul>
+</li>
+<li nodeId="a982cb9f5a774e0f943643cce58b275b">强制上线：无数据结果，点击「验证通过上线」可完成强制上线，点击操作有日志记录，请谨慎使用</li>
+</ul>
+</td>
+<td colwidth="[572]" nodeId="979eee87c93c472fa443714eb422320e">
+<p nodeId="1adc62fca7924704bb15412be73995c0"><span color="#FF9D00">系统执行测试完成-有数据</span></p>
+<p nodeId="c7136c6606b04f2c884f8c67297c0ad8">【Zeus离线引擎变更通知】<br />【离线任务】：123<br />【输入量】：2000<br />【生效规则命中量】：800<br />【决策：命中量】：33268：200，6：600<br />【规则：top5命中量】：2717055：188，2717056：88，2717057：20，2717058：8<br />【查询验证SQL】：select 命中详情字段  from  测试数据表 where dt = 今天 and  变更批次=变更批次id<br />【变更批次】：988<br />任务已经测试完成，请前往<span color="rgb(56, 136, 255)">魔数</span>验证</p>
+<p nodeId="ee69ee0077d44ab780fcd7655969a005"><span color="rgb(56, 136, 255)">验证通过上线    验证不通过</span></p>
+<p nodeId="5c5fbd0b8bfa41cf9a3256176422c82f"><span color="rgb(255, 157, 0)">系统执行测试完成-无数据</span></p>
+<p nodeId="dc0c116b891c41a78dc75e0ba37deeb7">【Zeus离线引擎变更通知】<br />【离线任务】：123<br />【输入量】：0<br />【生效规则命中量】：0<br />【决策：命中量】：-<br />【规则：top5命中量】：-<br />【查询验证SQL】：-<br />【变更批次】：988<br />任务已经测试完成，输入量为0，是否仍要上线？</p>
+<p nodeId="937e96784a234c0fba58fa0649227f51"><span color="rgb(56, 136, 255)">验证通过上线    验证不通过</span></p>
+<p nodeId="e71176d831764405bcc7fb61e655df82"><span color="rgb(255, 157, 0)">点击验证不通过</span></p>
+<p nodeId="245c3ea9c91a469fad66904f0729bec9">【Zeus离线引擎变更通知】</p>
+<p nodeId="22bbb49ab9344ce1bd026b077860fdbf">【离线任务】：123<br />【变更批次】：988<br />您的变更验证不通过，上线流程终止，可修改后重新发起</p>
+</td>
+<td colwidth="[288]" nodeId="894045d683d84d728101122006114e8c">
+<p nodeId="f40628ec1a4247d6b49fca8c3bdae860" />
+</td>
+</tr>
+<tr nodeId="4f003dbf4d194b679dd21450434c34bd">
+<td colwidth="[120]" nodeId="3f8c4760bea84cedbf31686775862e99">
+<p nodeId="f58ec6d26e314a698a12c7bab38b9845">发布上线</p>
+</td>
+<td colwidth="[492]" nodeId="3426ac9e5ddf4b1780f2fb3eeeb6c68e">
+<ul nodeId="57700a5821424ba3889ad4efa71b66d2">
+<li nodeId="fe9fb5fd4cc84e05b07b3dc0486546a3">验证通过上线：仅配置生效，测试数据无法进行处置，需等待线上正常调度才可处置</li>
+<li nodeId="27149c5a402a4f9987cddc42288605a2">
+<p nodeId="7e608bf56aa0480c831e38fbb4913f9a">执行逻辑：</p>
+<ul nodeId="c218671f351049138da4ccfaa01d89a9">
+<li nodeId="4598ca84d8684178b0560e56ec75b0f7">周期任务-天：如果今天运行过，则次日开始执行新配置，如果今天没有运行，按照当前逻辑检测即可</li>
+<li nodeId="ef3bddd930e948cfa0a79e882a34384a">周期任务-小时：上线后的时间，下一个小时开始执行新配置</li>
+<li nodeId="ec12387e638d4c3d8cb42695664d7cdd">自定义任务：上线后，立即执行</li>
+</ul>
+</li>
+</ul>
+</td>
+<td colwidth="[572]" nodeId="c55c512cf1fd4f9a896b7008b203fdd8">
+<p nodeId="eb8015423abd414285e98f52d34268cf"><span color="rgb(255, 157, 0)">点击验证通过上线</span></p>
+<p nodeId="4f5be43e45b847dea1ba05abad3c55a2">【Zeus离线引擎变更通知】</p>
+<p nodeId="4941ae5beb1e4a74b4296f1eb67c8128">【变更类型】：数据源字段映射变更<br />【变更内容】：userid-&gt;&gt;uid,business-&gt;&gt;biz <span color="rgb(56, 136, 255)">查看详情页</span><br />【关联数据源】：ba_rc.zeus_log<br />【关联离线任务】：123,236<br />【变更批次】：988<br />您的变更已经上线完成</p>
+</td>
+<td colwidth="[288]" nodeId="d0bead55bc3841c6b9ac8167d4fd664e">
+<p nodeId="8e43d8722c5a4b19a1e67dedb1e0f6e6" />
+</td>
+</tr>
+</table>
+<h4 nodeId="7fe1144440cb45b2b5d1c843b3dca2d1">任务删除</h4>
+<table responsive="false" nodeId="322bf4eb38044f1796beb2f2132aec73">
+<tr nodeId="44e4aca7146544f7a975d7078b08185c">
+<th colwidth="[120]" nodeId="f3edbdf8669246a4b80d8446cd3ef422">
+<p nodeId="8580fbd4ceba4452ba34df1bb1270e4d">流程节点</p>
+</th>
+<th colwidth="[492]" nodeId="812c48c1ef184e7b820d289470125b39">
+<p nodeId="d741dae07b634db1b2eab40e4e31dff6">说明</p>
+</th>
+<th colwidth="[572]" nodeId="519543ad7d2249e988847a6ca44deb76">
+<p nodeId="cded54c8899145f19dd04997a7465067">提交人通知</p>
+</th>
+<th colwidth="[288]" nodeId="360a9e5fa66e48bf9622602591ccdfb5">
+<p nodeId="ba0fc7b4ac0f460f9cf12282747893d6">审批人通知</p>
+</th>
+</tr>
+<tr nodeId="a0b6bd35a7224ebf908352576d86ad36">
+<td colwidth="[120]" nodeId="987f49c043c142848da32d6465a655dd">
+<p nodeId="8dee409927af46b39250c63c77a25b73">发起审批</p>
+</td>
+<td colwidth="[492]" nodeId="d1d33c14ac8140ef9bfaac78d94d38c5">
+<ul nodeId="cdc04e2b01cd4b55b68f5cb1ec9ef83a">
+<li nodeId="6f872b63b49b41dba50307b4e11a3006">发起审批场景：</li>
+</ul>
+<ul nodeId="69a69bceb781476d9b60e31d9f2464ae">
+<li nodeId="a29dc86d411643d681b2780daa632a6b">离线任务</li>
+</ul>
+<ul nodeId="da05fb12420249029f40d9118144c0ed">
+<li nodeId="2271d8cfaf50485aa99c46f787f6d66e">删除：已经在运行的离线任务删除，包含周期和自定义任务</li>
+</ul>
+<ul nodeId="6030122c15e2434591352afbce4c318c">
+<li nodeId="c3dc5d28c01b4cf890b1dd17133c0faa">发起审批校验：根据关联的<strong>离线任务id</strong>进行校验，如果已经有正在经历审批验证流程的离线任务，则不允许提交</li>
+<li nodeId="cb5725dc89c84d92baa00e99d71d4a47">获取审批人优先级：同组织架构下的空间负责人 &gt; 其他空间负责人</li>
+</ul>
+</td>
+<td colwidth="[572]" nodeId="56e95707e1184831ac26d52ea2d38f7c">
+<p nodeId="72cdcec741c14002bab013498fcbe5d1"><span color="rgb(255, 157, 0)">正常提交</span></p>
+<p nodeId="c5842d29141d422ba2ac215cbba9b145">【Zeus离线引擎变更通知】</p>
+<p nodeId="af83c9882e444fd3aa20db3353c2ff41">zhangsan发起的审批流程未完成，请确认流程结束后再发起新流程</p>
+<p nodeId="014c07ee6840421f9338efd203c53218">【Zeus离线引擎变更通知】</p>
+<p nodeId="32162afa93504936a7592d66bda5d122">【变更类型】：删除离线任务<br />【关联数据源】：ba_rc.zeus_log<br />【关联离线任务】：<span color="rgb(56, 136, 255)">123</span><br />【变更批次】：988<br />您已经向空间负责人（yaozhenzhen,duisisi）发起变更审批，请注意查看审批消息</p>
+<p nodeId="aaa3e30f19da44e2b055f99ffe5b3ef3"><span color="rgb(255, 157, 0)">审批人通过后</span></p>
+<p nodeId="c4bf45db8e00491db576c47aaee6735d">【Zeus离线引擎变更通知】</p>
+<p nodeId="07cf6d83768746bf90dce4627df1e595">【变更类型】：删除离线任务<br />【关联数据源】：ba_rc.zeus_log<br />【关联离线任务】：<span color="rgb(56, 136, 255)">123</span><br />【变更批次】：988<br />您发起的变更已审批通过</p>
+<p nodeId="12bd65c36e7d4ad9ba01b8722e309eb0"><span color="rgb(255, 157, 0)">审批人驳回后</span></p>
+<p nodeId="93c0cda4db6b4b81b183ee50fe521df7">【Zeus离线引擎变更通知】</p>
+<p nodeId="6d5937d735f14564b3e1cb7d9f837d2c">【变更类型】：删除离线任务<br />【关联数据源】：ba_rc.zeus_log<br />【关联离线任务】：<span color="rgb(56, 136, 255)">123</span><br />【变更批次】：988<br />您发起的变更已经被lisi驳回</p>
+</td>
+<td colwidth="[288]" nodeId="d697d667535647e29747c9d80910e49b">
+<p nodeId="ce1c3e6f0d4b4165b3ee5c8a6dc627b4"><span color="rgb(255, 157, 0)">正常提交后审批人的通知</span></p>
+<p nodeId="423fbcf9f4c74191bebd4a2bdf3c0ab6">【Zeus离线引擎变更通知】</p>
+<p nodeId="b205808d7cb743b3851ba8442d5a3552">【变更类型】：删除离线任务<br />【关联数据源】：ba_rc.zeus_log<br />【关联离线任务】：<span color="rgb(56, 136, 255)">123</span><br />【变更批次】：988<br />yaozhenzhen发起变更，请确认是否审批通过？</p>
+<p nodeId="9e6daec5134f49058efe67f00f6878b2"><span color="rgb(56, 136, 255)">通过     驳回</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="8708aac4e7034fcf9b1acda6176ba0bb" />
+<p nodeId="238525a141164157acc5a74dc7eebaf7">宣讲视频</p>
+<km-video src="https://km.sankuai.com/api/file/cdn/2029061341/78209910595?contentType=1" name="离线变更验证.mp4" size="24.72MB" width="0" height="0" nodeId="5686baa8ae23405993bad2a5fce9889e" />
+<p nodeId="226e59e8ab8b480bab8eb1b02060962a" />
+<km-footnote-list nodeId="a3df1b34924d4e949ebd34b524dde0fc">
+<km-footnote-item footnoteNodeId="55c757cd004245b8a765f2719b913f99" nodeId="95d8d23746604ee4af4f95ba54da48d9"><p nodeId="1ba6863d545e4663bbe9f7e3795da0c0">迁移架构：平台技术操作，业务同学配合观察即可</p></km-footnote-item>
+</km-footnote-list>
+</km-doc>

@@ -1,0 +1,152 @@
+<km-doc>
+<km-title nodeId="e83980eb2f8a4655aaead492481ee888">说明：宙斯Zeus规则引擎功能介绍集合</km-title>
+<km-catalog style="none" nodeId="6bd269a61f414e049a3d79770d91432c" />
+<p nodeId="804dcb8f666c4e22af4ee8a61cae4b42">规则运行的引擎，主要通过配置化方式实现策略的部署和执行，从而满足逻辑多样性、更新频率高、响应速度快的诉求</p>
+<h1 nodeId="c1e1e1f21345411ebc24dc3a32508cd6">一、规则引擎的核心</h1>
+<p nodeId="2f208ef718704df593ebf123590e56c3">宙斯是业务安全中心自建的规则引擎平台，基于Aviator表达式引入场景、规则、因子等概念搭建，将策略的执行分为执行层和计算层。</p>
+<p nodeId="d37b1b9dfee749fa8e0f435465e12088">执行层：通过场景获得一堆规则集合，规则执行完成后将其结果和对应的决策返回；</p>
+<p nodeId="f97672fb8069436a8320fa55497c6ad4">计算层：在规则执行时会进行其构成因子计算。</p>
+<p nodeId="2d8b08fffc52426f8c9d34d0c8641c9f">引入概念的说明：</p>
+<p nodeId="02ce65b0db3b42ec97128a669c809462">场景：一堆规则的集合，关联业务请求与策略</p>
+<p nodeId="69ef664a9bea4ca0806c4aca588c7a0b">场景配置：通过场景、规则、决策构成的场景配置组成策略，例如：“外卖营销场景” 下 “是模拟器的请求” 进行 “拦截”</p>
+<p nodeId="2dbcb4f7bf4d48edb7ad57b9392191e3">规则：由因子和参数构成作为逻辑封装的顶层，仅存在True/False两种形态，例如：是不是模拟器的请求</p>
+<p nodeId="149cb5dfc9844147b0fdbf2e11968485">因子：引擎中最小的逻辑单元，常常将复杂逻辑进行封装类似“特征”的概念，可在多个规则中复用，例如：“系统文件空间”、“baseband_version码”是判断模拟器的特征</p>
+<p nodeId="ca2ea9b8358849acbf1ffb0eaec660a2">参数：业务传入的基本变量</p>
+<p nodeId="0d377f57eed84a049edc5cc3e7410129">决策：针对结果的处理动作，例如：<span color="">通过、拦截、冻结账号、加入黑名单等</span></p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/302759630/302786978?contentType=2" width="673" height="412" nodeId="87899255a2ca4f168b8859987c6edce9" />
+<h1 nodeId="2828c53fbdd849579f7f3f0f38f151f0">二、周边服务的集成</h1>
+<p nodeId="abe07671e3654d7b9f3b77fa811287ee">几类在引擎建设中必备的周边服务，特别是在风控业务中广泛使用</p>
+<ul nodeId="edd488fdc9e24c05b8bd33c779a1acaf">
+<li nodeId="7cefde6e539e49d29e9ff790b71c5050">
+<p nodeId="0d364ac54db44b8eb837f6c275dcfa1a"><strong>与名单库的联动</strong></p>
+<p nodeId="3d85824e9c3444118bbab3f478ff8ad2">无论是在风控业务和非风控业务，都会有名单管理的诉求。而这类诉求往往会同策略有直接的关联。例如：金融欺诈场景需要识别欺诈用户、金融贷后场景严重逾期用户需要加入禁贷名单。</p>
+<p nodeId="bc21b05233e3403ab5ff7c95d418b9d3">在名单库联动的诉求中，主要分为策略查询名单库和策略写入名单库。首先要有一个名单库存储服务，再此基础上与引擎进行联动，查询服务通过因子（名单库因子）、写入服务通过决策（携带附加信息的决策）实现最终的联动</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/302759630/302786979?contentType=2" width="832" height="224" nodeId="1572775195ae4e08aa8a164db65e50f6" />
+</li>
+<li nodeId="9e5a795988c349928fcc285345fea665">
+<p nodeId="7d38091033504297a9934592834044eb"><strong>几类常用的特征逻辑封装</strong></p>
+<p nodeId="18104d80be7346d5bed8c294e3db6f0d">（1）累计因子：在业务中会高频使用到与累计相关的逻辑。例如：在<span color="">登陆、下单、支付等事件需要对</span><span color="rgb(0, 0, 0)">同ip的userid进行计数计算，计算结果作为特征引用在规则中。</span></p>
+<p nodeId="6ed309bc50ba4daf97ee0c4e697ebe65">常见的实现方式可通过硬编码方式，但存在逻辑频繁变化，不好维护且更新效率低的问题，或者通过异步hive数据加工特征但时效性较低（T+1）。要满足高时效、高灵活、好维护的要求，宙斯引入Scorpio技术组件实现累计通用逻辑的封装，比如，支持累计周期、计数/求和/最近几次）、累计值等特征计算流程配置化。但在实践中发现，还存在长周期数据精度低、历史数据无法保存等问题</p>
+<p nodeId="56a395786d434ccfbd3ee0bdde9f5b0a">（2）决策表因子：在部分业务中需要引擎<span color="">处理的判断条件较多，各条件又相互组合、有多种决策方案的情况，需要精确、简洁的方式来描述这类复杂逻辑。</span></p>
+<p nodeId="d57295a58cda4ab0b5d5dc5f37171e41"><span color="">在低频使用是，可以通过硬编码的case-when、if-else语句实现但在实时性和配置化上不尽人意，最终通过决策表将多个独立的条件和多个动作直接的联系清晰的表示出来并实现逻辑的封装。</span></p>
+<p nodeId="9330bba2275246a58f0443c94b674b4a">（3）名单库因子：与名单库联动过程中将查询名单的逻辑进行封装</p>
+<p nodeId="2128691ae35d4eefa0ac06f5a3cd3380">（4）规则组因子：将一堆规则进行打包，通过评分概念实现规则的动态复用</p>
+<p nodeId="8f6b46d812364cafb3fd8c37d018230d">通过上述四类特殊逻辑的封装，大大简化了逻辑配置流程，提升了规则引擎对于复杂逻辑实现的覆盖范围。</p>
+</li>
+<li nodeId="1cf33f05a01b4f37bcd8df4789fd6d2d">
+<p nodeId="bfe4fd4a4a0249b99fe9e5b4c71389a6"><strong>与外部数据联动</strong></p>
+<p nodeId="d4f74f1cbffd42ea99066137d38a2934">随着业务逻辑复杂程度增加，使用引擎时无法在发起请求就将执行所需要的全部参数准备好。针对这类情况宙斯通过数据接口的方式实现了外部数据的补充。在策略执行时根据计算需要动态获取相关的参数。在实现与外部数据联动的功能后，大大降低了使用规则引擎业务方数据准备阶段的压力，从全部参数准备简化为仅提供核心参数即可，剩余参数按需引擎自行调度即可。但当前还面临着多线程的并行获取方式，导致下游提供接口服务方的性能压力较大的问题，引擎如何优化解决该问题仍也是一个挑战</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/302759630/302786980?contentType=2" width="921" height="189" nodeId="dad0c95d097d4d2fa9c2ec1ced82e331" />
+</li>
+<li nodeId="a07185c901ea4be6a9426731c446f0b3">
+<p nodeId="d2130ec8ece9494682531ac0e945d242"><strong>与算法平台的联动</strong></p>
+<p nodeId="c6a0d116cb814d06b08bbe8eb8429c74">在引擎自动化、智能化的进程中，一个首要解决的问题是怎样跟算法、模型平台进行联动，将算法模型能力引入。最简单、快速的方式是使用引擎提供的外部数据联动方式，将模型结果包装成数据接口使用。但在实践过程中发现模型的出入参数较多且存在变化，整体的配置化效率低、模型应用和迭代频率受限制。无论深度学习还是算法工程平台目前主攻计算、训练等场景，在上下游应用提供标准化的数据产出，但无法同类似引擎的平台对接。因此，仅聚焦在引擎与算法平台的联动上，可通过建设调度模块实现：1.训练样本预处理--&gt;2.算法平台对接--&gt;3.自动化生成接口--&gt;4.自动注册接口/策略至引擎--&gt;5.评估任务启动--&gt;6.评估结果处理（策略上下线、样本数据沉淀）--&gt;1.训练样本预处理的闭环流程</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/302759630/302786982?contentType=2" width="621" height="308" nodeId="fde0597cb0df415db08eecfc42b7d923" />
+</li>
+<li nodeId="6193afd6f69a4af9a69dfec7106139aa">
+<p nodeId="8756d073a8dd45babbd0a13cb225438c">场景路由</p>
+<p nodeId="0eaa054a7cc94c719937a1659c9eee53">--待补充--</p>
+</li>
+<li nodeId="56606dfecd3641bdabfe86739757c992">
+<p nodeId="be7aade540fc4c9ea57f24d6c2841118"><strong>运行监控</strong></p>
+<p nodeId="2f7a685f2e304199bb7ee54f1bfa6c1a">无论是引擎自身运行还是业务策略应用都需要进行监控，特别是业务往往会监控跟用户、KPI相关的核心指标。例如：风控就需要重点监控<span color="">准确率和召回率指标。目前监控能力如下：</span></p>
+<p nodeId="41e0e9c195834c95848737092a06416c"><span color="">（1）在引擎自身运行上，会监控</span><span color="rgb(38, 38, 38)">场景决策命中率、规则命中率、因子利用率等工程指标</span><span color="">。</span></p>
+<p nodeId="93ca69602e134e74a3c0a98636b66039"><span color="">（2）在业务逻辑上的监控，当前是业务自建的</span>cat/魔数报表。</p>
+<p nodeId="fe425d884c294501a9525030f1afbcb3">（3）平台<span color="">提供的</span>规则熔断功能，有效的解决了因人工误操作情况导致命中量激增而对业务造成大规模的影响</p>
+</li>
+<li nodeId="f14b597c42124734972935cd21da48b7">
+<p nodeId="bab70ce3cd154238b7a2470ae15165e2">操作的安全性与便捷：</p>
+<p nodeId="753576843b8d4b979ba0e385b448b14a">在策略部署上，静默期、策略演练（回溯、双跑、标记）、强制标记</p>
+<p nodeId="a3b30a6b858141b6979c002ffa29351d">在策略管理上，规则组、因子工具、标签等</p>
+<p nodeId="9c5e0d970af74e0ab5b5cb15dde662d0">在策略排查上，排查探针、依赖关系等工具</p>
+</li>
+</ul>
+<h1 nodeId="6c598093623447d2b59c289b425e93d3">三、离线引擎</h1>
+<p align="start" nodeId="3fde23b8b746485983f2559af1202240">随着引擎在多业务场景的应用，我们发现几个实时引擎不好处理的场景。<span color="rgb(36, 41, 46)">比如拉新场景，需要结合“注册+登陆+交易”等多种行为来判断是否有“薅羊毛”等黑灰产行为，需要将很多事件放到一起去综合判定。当发现风险时，或在当前时间点漏过的变异风险在发现之后，需要对历史数据进行回捞，这些在实时引擎中都不太好实现。当前已有的异步引擎也无法很好地进行覆盖。为了避免做“重复造轮子”的事情，团队充分地讨论了实时、异步和离线引擎的定位和服务边界。</span></p>
+<p nodeId="a45b278880144e3d9611cad54fac2dba"><span color="rgb(36, 41, 46)">比如：累计单POI单日下单量超过100单为风险特征，在实时引擎中，超过100单的用户再次下101单会被认为异常拦截；在离线引擎中，超过100单的用户，其下的所有订单都为异常订单将被处置。</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="e0678a9fe2134e7e99ba0b751878b032">
+<tr nodeId="f794a9dd739b403abfadb72b16ad3da8">
+<th colwidth="[153]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="7a831108eecd4a0fae74dc21147b4294">
+<p nodeId="ddfa542198194cd3b0f98bb081867f8e" />
+</th>
+<th colwidth="[397]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="a4bca1a52a4640eb8b819e307c97ed66">
+<p align="center" nodeId="9446e4dc18994486b28797b474ce31be"><span font-size="14">实时引擎</span></p>
+</th>
+<th colwidth="[410]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="b6d451a283b7422cb369cb088e6b295c">
+<p align="center" nodeId="cf318632e5b64feead229fc96b5b5510"><span font-size="14">异步引擎</span></p>
+</th>
+<th colwidth="[339]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="327c962ef60b4ac38917fc090fc898da">
+<p align="center" nodeId="0cb2244d7c5341e4a96ccf46f6b01d27"><span font-size="14">离线引擎</span></p>
+</th>
+</tr>
+<tr nodeId="cd08712ddade40218f0bc1e1dd813345">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b8d7a3b799f14a6ba5c36f85450e5354">
+<p nodeId="b789a01e837a48789b3b64af610e09a5"><span font-size="14">定位</span></p>
+</td>
+<td colwidth="[397]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="283315d9225b4b8986432aa6ab75b3fa">
+<p nodeId="c78aa9fb9e04401196e9c57a4ad31210"><span color=""><span font-size="14">实时执行策略并作出决策判断</span></span></p>
+</td>
+<td colwidth="[410]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a92b83011498425183b3e84843470b54">
+<p nodeId="de7dcbedd77b47f99c1ebf7b0c62f4e5"><span font-size="14">实时执行策略但不做决策返回</span></p>
+</td>
+<td colwidth="[339]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9f48977cb9eb47e3b1189f1808aaeff3">
+<p nodeId="2747aa0f2b4f488dac9268865e7baac8"><span color="rgb(36, 41, 46)"><span font-size="14">一种离线回捞，针对历史数据做大量回捞</span></span></p>
+</td>
+</tr>
+<tr nodeId="a02605c2fd1547e0996e412c69e7ce11">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="32663cee8d524656823beaa97d3d8823">
+<p nodeId="ca7331f59fef4ff38867453c0cc5e870"><span font-size="14">服务场景</span></p>
+</td>
+<td colwidth="[397]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="500e4b181998489fadb4291cb2e9d6f8">
+<p nodeId="e0bf321804c142379e892f64ef6ca590"><span font-size="14">面向C端、部分B端等需要实时策略判断的业务场景</span></p>
+<p nodeId="d92375ed16a64a10beebe6d71bd11d7e"><span font-size="14">例如：账户登录、收银台交易作弊识别、金融欺诈识别等</span></p>
+</td>
+<td colwidth="[410]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0ffce8a58d6d4e6cbe98d45d7ebf856c">
+<p nodeId="ab4d0933ee114f7baf73dbe1bb726d6c"><span font-size="14">仅需要策略执行结果不需要决策的场景</span></p>
+<p nodeId="fcc3fbb25d424b7cac179b2187c9f04b"><span font-size="14">例如：感知规则、评估规则、核查规则、用户画像构造规则等</span></p>
+</td>
+<td colwidth="[339]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7eb50d6b4589461e9361ad7ddbf5fea5">
+<p nodeId="15f20124346540239fd455e0a1d1ef42"><span font-size="14">对时效性要求不高，多流、批处理进行识别的场景</span></p>
+<p nodeId="8a37dd796fdf42768a99dd3f06f9a322"><span font-size="14">例如：商家刷单、风险回溯、新业务离线风险识别</span></p>
+</td>
+</tr>
+<tr nodeId="cbb922fe5f79448aaab81c0c05b60cd0">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="86c184e018f94373af64b2af5ddca72c">
+<p nodeId="6eac24000000408c89b39706d18904ef"><span font-size="14">无法处理的场景</span></p>
+</td>
+<td colwidth="[397]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6b85e03c03e046349c4c2eb2dd9ddcd6">
+<p nodeId="ed2b06cb458e4fbf8cb09d96a5d13efe"><span font-size="14">复杂的时序性事件的策略执行</span></p>
+<p nodeId="1644c823bc43467e8c31cfbb21f2bb83"><span font-size="14">无法主动执行策略，均为被动调用</span></p>
+</td>
+<td colwidth="[410]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="172388015d1047b2861256babe3b58e5">
+<p nodeId="3eba0c5558d8422d8d53a6a66944f824"><span font-size="14">复杂的时序性事件的策略执行</span></p>
+<p nodeId="d8d437e1fd2d42f0b9a148da0dfb98a3"><span font-size="14">无法主动执行策略，均为被动调用</span></p>
+</td>
+<td colwidth="[339]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="15e74f2e5bcc4667b018a227bbf28182">
+<p nodeId="f22ab33f7de34527a14ddeb76b334c2f"><span font-size="14">较复杂的高阶运算逻辑无法处理</span></p>
+<p nodeId="ec968bf399ec4de1acee07fb2131c897"><span font-size="14">只能按时调度或异步监听，无法实时被调用</span></p>
+</td>
+</tr>
+<tr nodeId="149ad5e595f04c69a699b2dd21bdf940">
+<td colwidth="[153]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="328b5b35539f43f4b8d4d3248c8a6166">
+<p nodeId="953cbe37760f48a2a90c4342220c3a76"><span font-size="14">优势</span></p>
+</td>
+<td colwidth="[397]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0cb1057055a1443aaba79407a6284413">
+<p nodeId="d1d309f489074f8d917bdf4bb6c00c22"><span font-size="14">高时效性，毫秒级</span></p>
+</td>
+<td colwidth="[410]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0d6e6a5abf8c407db3fdff18db0d57b9">
+<p nodeId="ea97c85a87444f92b69f03ed0ddc7870"><span font-size="14">时效性一般，分钟级</span></p>
+</td>
+<td colwidth="[339]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c1aa79826c6141ac96cf287fe0f62e79">
+<p nodeId="c293bea823ad40c8bd6f74ded56ada05"><span font-size="14">低时效，天级</span></p>
+</td>
+</tr>
+</table>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/302759630/306895611?contentType=0&amp;isNewContent=false" width="905" height="256.0409252669039" nodeId="e3d5d73d7fcf41feb31e20cf13dd6155" />
+<p nodeId="bfa4b0776fe64d2f8e30f1a3ab4f77ff" />
+<p align="start" nodeId="803b65cb341440fb86050bd6eee15328">在实时引擎已经覆盖的逻辑基础上，我们引入新的封装逻辑-个体因子，全局因子实现SQL语句的配置化管理，进而实现批量累计、聚合特征的计算，比如：近一年某商家的平均下单金额，近30天商户大盘下单均值，标准差等批数据的复杂逻辑。并<span color="rgb(36, 41, 46)">基于Spark和实时引擎底层</span>，实现多流和批数据的处理，解决上述场景无法处理的一些问题。</p>
+<h1 nodeId="2ccb57b7f93a49cd98d79c22a1911f8b">四、性能说明</h1>
+<p nodeId="b8f9b2bb3cc8424b9f41e9268282266c">千条规则执行效率在ms级别</p>
+<p nodeId="e271ba5c31bc49d1a9b9d8b1d693f8e6">SLA：4个9</p>
+<p nodeId="7fe580163c844b83b640174ed8e91e06" />
+</km-doc>

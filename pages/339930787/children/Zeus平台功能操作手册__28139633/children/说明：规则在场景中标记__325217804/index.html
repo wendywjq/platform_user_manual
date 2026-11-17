@@ -1,0 +1,20 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：规则在场景中标记</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-9">二、执行链路</a><a href="#section-11">三、操作指南</a><a href="#section-12">如何标记一条策略？</a><a href="#section-15">如何使用线上流量上下文加工离线特征？</a><a href="#section-17">如何长期标记一条策略？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：规则在场景中标记</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/325217804">查看学城原文</a></p><article>
+<h1>说明：规则在场景中标记</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p><span><strong>标记：</strong></span>用于业务方对配置的策略预执行，不做决策处理；当规则处于标记状态时，规则的决策不会对命中规则的用户产生影响，仅用于业务查看规则的命中情况；</p>
+<p><strong>标记周期：</strong>90天/长期（默认支持90天，如需长期标记则需要空间负责人审批）</p>
+<h1 id="section-9">二、执行链路</h1>
+<img src="assets/a5276a52ab32c1f0.svg" width="1076" height="575" alt="流程图">
+<h1 id="section-11">三、操作指南</h1>
+<h2 id="section-12">如何标记一条策略？</h2>
+<p><img src="assets/bb90b9e5831c569e.png" width="1439" height="374.11" alt="image.png"></p>
+<h2 id="section-15">如何使用线上流量上下文加工离线特征？</h2>
+<p>当标记周期选择「长期」时，会自动全执行标记规则，全量计算特征落日志。配置「长期」的操作方式见下方⬇️</p>
+<h2 id="section-17">如何长期标记一条策略？</h2>
+<ul>
+<li><strong>审批通知发送机制：</strong><span style="color:rgba(0, 0, 0, 0.87)">先判断申请人直系leader/同组同学（包含用户自己）是否在空间负责人中。如果在，上线申请只推送申请人直系leader/同组同学（包含用户自己）；如果leader/同组同学 都不在空间负责人列表，则将申请发送至空间负责人全员。</span></li>
+</ul>
+<p><img src="assets/1eeb9ba3a4d32383.png" width="1439" height="176.19" alt="image.png"></p>
+<p></p>
+</article></main></body></html>

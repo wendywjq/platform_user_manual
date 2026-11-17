@@ -1,0 +1,59 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：参数异常告警使用指南</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、新功能介绍</a><a href="#section-8">二、准备工作</a><a href="#section-28">三、使用说明</a><a href="#section-31">1、点击“场景”-&gt;“告警配置”进入告警配置页面</a><a href="#section-37">2、在告警配置页面配置相关配置项</a><a href="#section-57">3、最后通过大象报出异常情况如下</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：参数异常告警使用指南</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/118350711">查看学城原文</a></p><article>
+<h1>说明：参数异常告警使用指南</h1>
+<div style="none"></div>
+<h1 id="section-3">一、新功能介绍</h1>
+<p>参数异常告警允许用户配置告警场景，实时监控某些参数、累计的异常情况，根据配置的规则最终通过大象报出。</p>
+<p>支持报出两类异常：1、参数异常；2、累计异常。</p>
+<p>举例来说：比如某业务下输入了一些异常参数（即：某些参数值不正常，比如userid输入不应该为null，结果你输入了个userid=null），包括一些累计异常（比如uuid != null累计超过30次对业务来说已经不正常了）这些都会导致线上规则误伤，<span style="color:rgb(0, 0, 0)">参数异常告警要做的就是实时报出此类异常。</span></p>
+<h1 id="section-8"><span style="color:rgb(0, 0, 0)">二、准备工作</span></h1>
+<p><span style="color:rgb(0, 0, 0)">1、</span><span style="color:rgb(0, 0, 0)"><strong>创建监控场景：</strong></span><span style="color:rgb(0, 0, 0)">一个业务下允许创建多个监控场景，监控场景和普通场景一样，只是里面的规则是针对异常参数或者异常累计编写的。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><strong>监控场景里配置的规则限制：</strong></p>
+<p>如果要监控的是参数异常：规则里<span style="color:rgb(245, 34, 45)"><strong>不可以有累计因子</strong></span>，其他参数、因子正常使用。</p>
+<p>如果要监控的是累计异常：规则里<span style="color:rgb(245, 34, 45)"><strong>只允许有一个累计因子</strong></span>，不可以有参数或者其他因子。如果配置了多个累计因子，大象报出异常信息的时候只会报出一个。</p>
+</div>
+</div>
+<p>2、<strong>创建监控专用累计事件：</strong>为防止影响其他场景读/写累计，异常监控相关的累计使用一个单独的累计事件，存储在单独的tair，完全隔离。</p>
+<h1 id="section-28"><span style="color:rgb(0, 0, 0)">三、使用说明</span></h1>
+<p>使用该功能只需在zeus页面进行相关告警配置即可，具体操作如下：</p>
+<h2 id="section-31">1、点击“场景”-&gt;“告警配置”进入告警配置页面</h2>
+<p><img src="assets/46edebcba756d921.png" width="608" height="198" alt="image.png"></p>
+<p>初始化告警配置页面如下：</p>
+<p><img src="assets/7e8a87279ed90371.png" width="613" height="340" alt="image.png"></p>
+<h2 id="section-37">2、在告警配置页面配置相关配置项</h2>
+<p>2.1、首先在“累计事件ID”后面的输入框里填入<strong>新创建的监控专用累计事件ID</strong>，点击“更新”保存。</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>监控专用累计事件一个业务只有一个，支持修改</p>
+<p>没有累计事件ID无法新建告警配置</p>
+</div>
+</div>
+<p>2.2、点击“新建告警配置”，新建一个告警配置如下：</p>
+<ul>
+<li>告警名称：随意填写，为告警起个名字而已。</li>
+<li>监控场景：填写在准备阶段创建的监控场景ID，<strong>这里只支持填写一个场景ID</strong>，如果你创建了多个，那就在新建几个告警配置。</li>
+<li>被监控场景：填写要监控的普通场景（在这里非监控场景都视为普通场景），填进去的场景流量都会过监控场景，跑一遍监控场景里的规则。此处支持all，表示监控当前业务下所有场景（即全部流量都会过监控场景，此时流量较大，慎重选择）。</li>
+<li>告警通知名单：此处填写mis id，当发生异常时会将告警信息通过大象发给指定人。</li>
+</ul>
+<p><img src="assets/67f2c0de3da8325c.png" width="610" height="373" alt="image.png"></p>
+<p>至此就完成了一个告警配置的填写。如果需要创建多个告警配置，重复执行2.2即可。</p>
+<p><img src="assets/a88e1109f2fb3ae6.png" width="597" height="562" alt="image.png"></p>
+<h2 id="section-57">3、最后通过大象报出异常情况如下</h2>
+<p><img src="assets/b16b6f5b86f54918.png" width="516" height="209" alt="image.png"><img src="assets/8ecc08c38e638ef4.png" width="529" height="209" alt="image.png"></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><strong>【注意事项】</strong></p>
+<ol>
+<li>一个业务使用一个监控场景基本够用，尽量避免创建过多监控场景。</li>
+<li>尽量精确填写被监控场景，不要随意填"all"，此时流量较大，集群有被打挂风险。</li>
+<li>监控场景里的规则：标记不通过大象报出，生效才报出，但标记和生效都会过监控场景，查日志都可以查到场景、规则命中情况。</li>
+<li>需要报出累计异常时，累计条件和按何累计尽量写的严格些，避免类似“sceneId &gt; 0”这样宽泛的条件，防止产生累计热点key问题。</li>
+</ol>
+</div>
+</div>
+<p>有问题欢迎反馈zeus RD<span>@梁建华</span> <span>@郎周皓</span> <span>@王东</span> <span>@罗昊</span> <span>@吕笑千</span> <span>@马玉洁</span> <span>@杜方宇</span> <span>@杨飞菲</span> </p>
+</article></main></body></html>

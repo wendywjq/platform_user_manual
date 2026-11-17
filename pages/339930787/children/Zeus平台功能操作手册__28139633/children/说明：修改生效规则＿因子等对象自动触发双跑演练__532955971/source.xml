@@ -1,0 +1,118 @@
+<km-doc>
+<km-title nodeId="2da523e7d9994378b146df1253f0d1df">说明：修改生效规则/因子等对象自动触发双跑演练</km-title>
+<km-catalog style="none" nodeId="61a96f4134874959830dab0fe48f2276" />
+<h1 nodeId="3df79a603eed44a09000beaf1010081a">一、背景</h1>
+<ul nodeId="7162ac4db3db45e39da9001ec82dc9dd">
+<li nodeId="3fb5813aaad64d0489088ca382bb8c99">当规则、因子、决策等对象在场景配置中被生效引用时，直接修改其逻辑信息势必会影响线上生产，产生一定的风险：</li>
+<li nodeId="f94cae2ebe6a4e22b483cb9e1c9b5db6">例如，在登录场景中，一个规则在场景中生效，此时修改了规则的表达式，规则的执行结果会发生改变，预期应该命中给出拦截决策但实际未命中，此条流量没有被拦截，产生漏过情况。</li>
+<li nodeId="2f148f63a60c4858b10b02796b70bbf6">为防止此类情况的出现，用户需要去双跑演练中创建演练任务，在演练环境中进行生效对象逻辑信息的修改，之后双跑、查看结果是否符合预期、申请上线，完成修改，详情见<a href="https://km.sankuai.com/page/239430531" title="https://km.sankuai.com/page/239430531" autoUpdate="true" nodeId="de4d208f54894c838b86a3de1515805c">https://km.sankuai.com/page/239430531</a>；同时，当用户直接在页面上编辑生效对象时，会区分属性信息的编辑和逻辑信息的编辑，编辑逻辑信息时会自动触发双跑演练流程</li>
+</ul>
+<h1 nodeId="14b1269d05be4d09a989bd6ddbfb6951">二、名词解释</h1>
+<ul nodeId="ecc34e968fc8431dabf6173b770c23f9">
+<li nodeId="6dcc0475b8b24f98aada3b9b0593cce2">双跑演练：一种操作安全机制，<span color=" ">用户可以在演练环境（非线上环境）进行指定对象逻辑信息的修改，通过线上同流量模拟执行情况，与线上执行情况进行对比</span></li>
+<li nodeId="176393d039b34737a84bef6b648400fd">逻辑信息：对策略的执行过程及结果有影响的信息，例如， 表达式、变量名称（英文名称）、输出类型、场景配置的优先级、规则的决策等等</li>
+<li nodeId="329a79f311e3495eb28691756b700cc4">属性信息：与逻辑信息相对，对策略执行过程及结果无影响的信息，例如，共享业务方、规则因子标签等</li>
+<li nodeId="61b9a4fc03084449a6ce2c39d037cdce">未生效：在场景配置中处于未生效状态或者没有被生效对象引用</li>
+<li nodeId="6c9046ddcfa042d5b13f369422a2ff06">已生效：与未生效对应，在场景配置中处于生效状态或者已经被生效对象引用</li>
+</ul>
+<h1 nodeId="7e271f701aac4f2bb11c4c386bee0c24">三、操作指南</h1>
+<h2 nodeId="9b57071664df419bb3b7c1503bc3a4b8">1.用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/532955971/534295098?contentType=0&amp;isNewContent=false" width="960" height="276" nodeId="273827415d954293b0776da05cb3ef82" />
+<h2 nodeId="985d4188a5fa4159bb88e32a9f63c6f6">2.Quick Start</h2>
+<km-video src="https://km.sankuai.com/api/file/cdn/532955971/534128561?contentType=1" name="修改生效对象自动触发双跑演练.mov" size="30.26MB" width="0" height="0" nodeId="0e2285660499425eb9b88b44efd6def3" />
+<p nodeId="b29166468b3b4c448adcf80189553022" />
+<h2 nodeId="163abf7680af450d9c3033e62502da89">3.详细操作流程说明</h2>
+<h3 nodeId="6416e53244fa41788f8e2cbfddff6d15">Step1:进入需要编辑的的对象的详情页面</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="200cf6b9239c40109cdf4309c777a806">
+<tr nodeId="32f9bcba308242588e830718d4fa4f57">
+<th colwidth="[325]" nodeId="e4928e9af7ee4912a9290142d432c47e">
+<p nodeId="fcb69cc751f5441fa16eace21225bd6c"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[503]" nodeId="526ffa67d8794fd1a7c0ae1e9b78e1b1">
+<p nodeId="c77e9da7736b484ca3753c687b3eabca"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="de7aae154211484a842a7c2fe5664b08">
+<td colwidth="[325]" nodeId="4edad674cee249539f815a1561ea0825">
+<p nodeId="c75dd131ec0c4206ba26048022aa4581"><span font-size="14">找到要编辑的对象，进入其详情页面</span></p>
+</td>
+<td colwidth="[503]" nodeId="027ffac0bb16454eac94496dcd8218df">
+<p nodeId="126a486ed9424ce897239db8bb2c9a5f"><img src="https://km.sankuai.com/api/file/cdn/532955971/534348686?contentType=1&amp;isNewContent=false" name="image.png" width="436" height="208" nodeId="142f08df8e6d440c963be349ac92def0" /></p>
+<p nodeId="5ae4394960764130bd21c189e119b2ec" />
+</td>
+</tr>
+</table>
+<h3 nodeId="f69518dc0e95450492da2cd04567f9a4">Step2.1: 编辑对象的生效状态为已生效时编辑属性信息</h3>
+<table responsive="false" nodeId="a290f528249342b798cc76199419fc10">
+<tr nodeId="b1d37fe4645b4652b7ab2cee9cf04401">
+<th colwidth="[325]" nodeId="1bac1a9c0be04b26a3fdf8c3bd9756c8">
+<p nodeId="1df3d161eebd412a92ed9ad56bac4380"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[449]" nodeId="05d305227e004938aef65c073452ca08">
+<p nodeId="f2d5508113c840d3b6ac191fba90e08a"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="09095d714b18469abc76075808cf7e43">
+<td colwidth="[325]" nodeId="59fe6cdbadcf40c1acc40961a0a99b98">
+<p nodeId="8255f178703e444daabd1d212a24f15b"><span font-size="14">1.点击编辑属性信息</span></p>
+<p nodeId="8db0dc329e604184a65abab75678437e"><span font-size="14">2.进入编辑属性信息页面，正常编辑属性信息，编辑完成</span></p>
+</td>
+<td colwidth="[449]" nodeId="4330882faa434420812f6356d7bab366">
+<p nodeId="5afd4608d41d405fb423106cab47b146"><span font-size="14">1.</span></p>
+<p nodeId="0aaeba40b0a54bd08ce8edf6b536f850"><img src="https://km.sankuai.com/api/file/cdn/532955971/534253634?contentType=1&amp;isNewContent=false" name="image.png" width="376" height="173" nodeId="0b2c399967a94dc6b050aa9b49ceb269" /></p>
+<p nodeId="8ca2621aa92e4b1b8db45fbcf507d461"><span font-size="14">2.</span></p>
+<p nodeId="1ac058edb5374bfe821759fa7bb30669"><img src="https://km.sankuai.com/api/file/cdn/532955971/534198270?contentType=1&amp;isNewContent=false" name="image.png" width="368" height="156" nodeId="86e72e22c36e4799aa9a59753a60e36b" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="025f27f915bc40118bb6b254d9aff34c">Step2.2: 编辑对象的生效状态为已生效时编辑逻辑信息</h3>
+<table responsive="false" nodeId="db997857c5a64eea8dc941f677dc94ec">
+<tr nodeId="34cedc2340654a1ea126ab7eddd2a697">
+<th colwidth="[325]" nodeId="0dc4a6c9246a40abb248ce04c4438390">
+<p nodeId="b69a0e95610b404bbe18d23e72ae24b6"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[518]" nodeId="d2b2999d06484b7bb8288f5397a06f39">
+<p nodeId="a130c4dac77743d594c4421104563b5e"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="8ccce1efa1a04b139ef38c8b0a76a802">
+<td colwidth="[325]" nodeId="4bc71ae456274ebab59329e1dc20bcae">
+<p nodeId="240f5a504d8646cf8ee1cb4104ed249b"><span font-size="14">1.点击编辑逻辑信息</span></p>
+<p nodeId="0df48a3023da480a945863ab467cd839"><span font-size="14">2.创建演练任务</span></p>
+<p nodeId="b745ade420e54b7cb1cb85cad634d9c8"><span font-size="14">3.进入演练环境编辑对象逻辑信息页面</span></p>
+<p nodeId="a86abbe0a6b54aa88b399a025189665c"><span font-size="14">4.编辑完成，查看变更内容</span></p>
+<p nodeId="d8397e2fa0ad411a93035e8e2d3bb8d9"><span font-size="14">5.启动双跑（设置双跑流量和时间）或者退出演练环境</span></p>
+<p nodeId="b102419962964fb7805433f5b9778393"><span font-size="14">6.查看演练任务情况</span></p>
+<p nodeId="190bdb973d5c416cba8a5e4f2e9e3f8e"><span font-size="14">说明：编辑完成没有启动双跑，而是退出演练环境，编辑中的修改还会保存在创建的演练任务中，何时想启动双跑何时可以去启动双跑</span></p>
+</td>
+<td colwidth="[518]" nodeId="5bd6b35935f64c05a86118909ad8c42d">
+<p nodeId="ecdac385cc214c5182c5330cd207655b"><span font-size="14">1.</span></p>
+<p nodeId="b9f6e1956a0243adb2f4ea12a43f51fb"><img src="https://km.sankuai.com/api/file/cdn/532955971/534371724?contentType=1&amp;isNewContent=false" name="image.png" width="413" height="200" nodeId="01722faf053b490f8028b71d08f4ccde" /></p>
+<p nodeId="b5bdde69bb8146498731f4e36e97df8b"><span font-size="14">2.</span></p>
+<p nodeId="a1177574a7f04f66a77b536e25e9dd63"><img src="https://km.sankuai.com/api/file/cdn/532955971/533604094?contentType=1&amp;isNewContent=false" name="image.png" width="402" height="201" nodeId="8af700bc0b5641dfb5058dc3a93f0129" /></p>
+<p nodeId="b90d61cdcb1b46e5b78684114b3c5322"><span font-size="14">3.</span></p>
+<p nodeId="9befdb50fb524735be06bd1d0c00ef15"><img src="https://km.sankuai.com/api/file/cdn/532955971/534358815?contentType=1&amp;isNewContent=false" name="image.png" width="394" height="213" nodeId="5da1c6f1dfce48aa8e77047823c41414" /></p>
+<p nodeId="e923d2754b474fca84a384db673c1b6e"><span font-size="14">4.</span></p>
+<p nodeId="f9e3794f63fb4dd9a8ab0156d40506b3"><img src="https://km.sankuai.com/api/file/cdn/532955971/534262834?contentType=1&amp;isNewContent=false" name="image.png" width="388" height="184" nodeId="0f81d896d9b5407ca33f380f8cd1460c" /></p>
+<p nodeId="ff2db984071e4382a50606088389d0e4"><img src="https://km.sankuai.com/api/file/cdn/532955971/534400353?contentType=1&amp;isNewContent=false" name="image.png" width="392" height="203" nodeId="4a5eeca6816c4059b6d27cff9fbf60dd" /></p>
+<p nodeId="e156e279bcf54163959d48359c22f29b"><span font-size="14">5.</span></p>
+<p nodeId="76d8024e0e4e43b5bd7c647586665124"><img src="https://km.sankuai.com/api/file/cdn/532955971/534400478?contentType=1&amp;isNewContent=false" name="image.png" width="382" height="142" nodeId="35d6cffb4b524f69a342193a067faa1a" /></p>
+<p nodeId="78e926cb759b4070947e8170790434ff"><img src="https://km.sankuai.com/api/file/cdn/532955971/534263146?contentType=1&amp;isNewContent=false" name="image.png" width="386" height="184" nodeId="e2456e25f97440d2b69b78cfbc1a54b9" /></p>
+<p nodeId="734f565e7fb3453bb2435be3b10788ec"><span font-size="14">6.</span></p>
+<p nodeId="b91feb3c77e541b8a506bbf4d45697de"><img src="https://km.sankuai.com/api/file/cdn/532955971/534330549?contentType=1&amp;isNewContent=false" name="image.png" width="373" height="143" nodeId="1716b1d00f8048df929e8c8a1e4ccb56" /></p>
+<p nodeId="9b5a91c017984ad09f90771ddccf2c59"><img src="https://km.sankuai.com/api/file/cdn/532955971/534375926?contentType=1&amp;isNewContent=false" name="image.png" width="376" height="138" nodeId="d47b14db1aa7499d8cc48877c8aa514c" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="605e061f28cf45c6b9d3c1697af39086" />
+<h3 nodeId="5bf74bdb56204ed08ab2e4bf80ef21bc">Step3: 编辑对象的生效状态为未生效时按照原来的流程正常编辑</h3>
+<h2 nodeId="1f0e230f32d349839da200243e6fd08d" />
+<h1 nodeId="aa70ec6388cd4da3ab28ebafc0781197">四、FAQ</h1>
+<h3 nodeId="cdf775615b5a46819def2248ce41f790">Q1：目前能够自动触发双跑演练的修改对象都有哪些？</h3>
+<p nodeId="cc51e9aa74094deb83fe90b45d38b391">--A：已经实现的对象有普通规则，因子的普通因子、扩展因子-名单库因子、扩展因子-名单库因子（上海侧）、决策表因子。后面在迭代中会陆续实现因子的累计因子、因子工具因子、离线引擎-个体因子、离线引擎-全局因子，规则组，普通场景配置，路由场景配置，决策，因子工具，路由规则，参数，数据接口</p>
+<h3 nodeId="a2bc778e485a4f82a326389d7fa9ecb6">Q2：为什么我的决策是在场景配置中生效的，但是详情页面中却显示未生效呢？</h3>
+<p nodeId="05fdcce73fe94dbf9a8e4efec4bce317">--A：决策这一部分还未做区分已生效和未生效，无论是否生效，在详情页面都会显示未生效，先忽略，之后会在迭代中修复</p>
+<p nodeId="6c75b42bfacf4447b07dce3f23c605b3" />
+<p nodeId="a0b5003b2d0d4302903124e599036cab" />
+<p nodeId="1ffcf5a8d3c2472580bcd51460c28661" />
+</km-doc>

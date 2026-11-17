@@ -1,0 +1,40 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：依赖重导监测</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：离线引擎</a> / <a href="index.html">说明：依赖重导监测</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/2416057492">查看学城原文</a></p><article>
+<h1>说明：依赖重导监测</h1>
+<p>概念说明：离线任务执行依赖的表，重新运行之前时间周期的数据称为【重导】；重导后，离线任务拉起对应周期的新数据运行，称为【重跑】</p>
+<p>离线任务依赖分为2种表</p>
+<ul>
+<li>驱动表：即数据源表（一般是业务表），数据就绪后驱动离线任务执行</li>
+<li>特征表：生成离线特征的数据源表，特征可用来配置规则</li>
+</ul>
+<div class="note">
+<strong></strong>
+<div>
+<p>以上2种表发生重导时，都可能会影响离线任务的执行结果，因此需要进行重导检测，如有必要系统可自动发起离线任务重跑</p>
+<p>重导入库仅限「任务重导」<a href="https://data.sankuai.com/wanxiang/#/cantor/reloads/list" title="https://data.sankuai.com/wanxiang/#/cantor/reloads/list">https://data.sankuai.com/wanxiang/#/cantor/reloads/list</a>入口，XT的「执行计划」无法进入检测范围</p>
+<p><img src="assets/1666562b10e0d33b.png" width="1162" height="162.1" alt="image.jpeg"><img src="assets/c0de0be40bf2b73d.png" width="1162" height="134.49" alt="image.jpeg"></p>
+</div>
+</div>
+<div class="note">
+<strong>数据表配置规范</strong>
+<div>
+<p>XT数据表生产逻辑中，时间参数偏移必须是1</p>
+<p><img src="assets/6c851210923a2eb5.png" width="550" height="181" alt="image.jpeg"></p>
+</div>
+</div>
+<p>重导逻辑说明：</p>
+<ul>
+<li>
+<p>如果上游表重导范围与当前正在运行的任务无交叉，则无需终止当前任务，重跑仅拉起重导范围对应的任务周期</p>
+<ul>
+<li>举例：上游表重导周期为T-2到T-3，离线任务读取周期为T-1，则认为无交叉，当前<strong>离线任务</strong>不终止；并发起一个新<strong>离线任务</strong>重跑T-2到T-3周期的数据</li>
+</ul>
+</li>
+<li>
+<p>如果上游表重导范围与当前正在运行的任务有交叉，则需终止当前任务，重跑拉起重导范围对应的任务周期</p>
+<ul>
+<li>举例：上游表重导周期为T-1到T-3，离线任务读取周期为T-1，则认为有交叉，当前<strong>离线任务</strong>终止；并发起一个新<strong>离线任务</strong>重跑T-1到T-3周期的数据</li>
+</ul>
+</li>
+</ul>
+<p></p>
+</article></main></body></html>

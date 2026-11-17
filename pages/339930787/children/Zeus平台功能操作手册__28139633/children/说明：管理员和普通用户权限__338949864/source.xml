@@ -1,0 +1,186 @@
+<km-doc>
+<km-title nodeId="c56c115b92af4c9da8e6b834d7d8356d">说明：管理员和普通用户权限</km-title>
+<km-catalog style="none" nodeId="5f8b12b617d84b788d6f2e67466d1c18" />
+<h3 nodeId="d3a2ac383b084da893307c0c46451992">1.背景</h3>
+<p nodeId="3de05dad28304338848fdc426c44aede">在Zeus上创建了一个业务方后，需要给该业务方的员工赋予权限后他们才能使用Zeus平台，为了方便业务方员工权限的管理，Zeus平台上权限分为<span color="rgb(245, 35, 45)"><strong>管理员权限</strong></span>和<span color="rgb(245, 35, 45)"><strong>普通用户权限</strong></span>。</p>
+<h3 nodeId="5f28fd0d7a2a4df190c0fdb6173f669c">2.管理员权限与普通用户权限</h3>
+<p nodeId="f87a0f6dd52f47a68d65f277ec6c83cf">在读写权限上两类用户的权限没有区别，<span color="rgb(245, 35, 45)"><span font-size="19"><strong>唯一区别</strong></span></span><span color="rgb(245, 35, 45)">是管理员可以添加、移除业务下成员，监控报警，管理员也是紧急生效流程的审批人，而普通用户没有这些权限</span>。</p>
+<p nodeId="be0f23e263664883b9c1cbc6126ae65f">管理员添加/移除用户操作见文档<a href="https://km.sankuai.com/page/190456513" title="https://km.sankuai.com/page/190456513" autoUpdate="true" nodeId="5a380ed2aed54e93acac3200c72ec3a2">https://km.sankuai.com/page/190456513</a></p>
+<table borderColor="#cccccc" responsive="false" nodeId="b2a2cb48cd894b66804b6cd070cf8a99">
+<tr nodeId="d34d3ba5cd464aaab9aaddfbd9e2375f">
+<th colwidth="[127]" nodeId="90981707a0a34530a0c2512703115e57">
+<p nodeId="dc0dc857a4084aa0aec0179279982dc0" />
+</th>
+<th colspan="10" colwidth="[73,80,73,73,97,97,97,69,97,131]" bgColor="rgb(207, 255, 247)" nodeId="fd04072132e244d79d1ca78e13d57a54">
+<p nodeId="2718408118294dd1bcbc27c2cb2c687e"><span font-size="14"><strong>Zeus上的各项菜单权限</strong></span></p>
+</th>
+<th colspan="6" colwidth="[101,86,85,108,86,86]" bgColor="rgb(255, 232, 231)" nodeId="25dcdd7b075742a4bf283974c6d985fb">
+<p nodeId="8b2f7eabb3ef4d5bb924f43c1ff71b92"><span font-size="14"><strong>Zeus上的各项操作权限</strong></span></p>
+</th>
+</tr>
+<tr nodeId="b66723c39cc344d99f41a3e3ffb86c60">
+<td colwidth="[127]" nodeId="c0ff0d7b5e454a5eae8bb94874c00478">
+<p nodeId="a3315799d6cb4bda851e98d724894fbb" />
+</td>
+<td colwidth="[73]" bgColor="rgb(207, 255, 247)" nodeId="0ed2e0e99de948ac9c938788bf938989">
+<p nodeId="79f147a0c1774e0eaebcacf8c72217ad"><span font-size="14"><strong>参数</strong></span></p>
+</td>
+<td colwidth="[80]" bgColor="rgb(207, 255, 247)" nodeId="4c17fcc4c3b342b5886b3cc97ea1cbcc">
+<p nodeId="f51955f6e9fe44f4ba3b42210528e548"><span font-size="14"><strong>因子</strong></span></p>
+</td>
+<td colwidth="[73]" bgColor="rgb(207, 255, 247)" nodeId="32112dea2db447c28fe69343b83633a6">
+<p nodeId="53638fea39444f069d006cfcad06bb9d"><span font-size="14"><strong>规则</strong></span></p>
+</td>
+<td colwidth="[73]" bgColor="rgb(207, 255, 247)" nodeId="a12d649db6d44782b4e4d308916b0f20">
+<p nodeId="2986e8400291482ab7cb323dee58fd95"><span font-size="14"><strong>场景</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="b9034885db0847b2a8fe03fe7eac3d02">
+<p nodeId="c3589b4c155d48ffa8332dd952e67f6c"><span font-size="14"><strong>场景配置</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="6b6a63deb8a244a2a4102f743cc6443a">
+<p nodeId="15a81773675a4d0e89c263e3b2f23764"><span font-size="14"><strong>数据对接</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="2be245e2c95c4876854546f31f390ae9">
+<p nodeId="e430122657344b619a3b85dcb085aae7"><span font-size="14"><strong>数据统计</strong></span></p>
+</td>
+<td colwidth="[69]" bgColor="rgb(207, 255, 247)" nodeId="ed9a6d0daf304d0780a0fae3faadedbe">
+<p nodeId="ed5adfc50ca54796a405fb44bc40c166"><span font-size="14"><strong>权限</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="0b6f43e129ba4977b4ede7193ca12eff">
+<p nodeId="0a7d2d5dc62b432595f4dbf486bd3491"><span font-size="14"><strong>配置中心</strong></span></p>
+</td>
+<td colwidth="[131]" bgColor="rgb(207, 255, 247)" nodeId="397fd59ad03048a48b77e8781ff4f4e7">
+<p nodeId="21cba4d0afb1439497b98c258144b17f"><span color="null"><span font-size="14"><strong>Plus+工具中心</strong></span></span></p>
+</td>
+<td colwidth="[101]" bgColor="rgb(255, 232, 231)" nodeId="8d383bdffa784e8e9d0769f403f467c2">
+<p nodeId="9fdd12d44ebe4c22bdee226e08fe80bf"><span font-size="14"><strong>添加/写入</strong></span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 232, 231)" nodeId="fa21fc6f82654cf599202f752168a669">
+<p nodeId="ec8a1eb3cf2d407098ba2b45c5c969bc"><span font-size="14"><strong>删除</strong></span></p>
+</td>
+<td colwidth="[85]" bgColor="rgb(255, 232, 231)" nodeId="ffa6d03aaec4416eb3d8f9ed95060c5c">
+<p nodeId="d272d8dc8b694b4788cfe7d8838e27a6"><span font-size="14"><strong>修改</strong></span></p>
+</td>
+<td colwidth="[108]" bgColor="rgb(255, 232, 231)" nodeId="d8b70278f6f64be7ac1e89490071f9d8">
+<p nodeId="b6f280afe8de448cbb5fc834133a28dc"><span font-size="14"><strong>浏览/查看</strong></span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 232, 231)" nodeId="854d17ac9af0474485b3f77cd6a39848">
+<p nodeId="c35155aacf04401db3e6ac37d36d2ae4"><span font-size="14"><strong>下载</strong></span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 232, 231)" nodeId="6b09e615b91946e49c88148f9a2f64eb">
+<p nodeId="8da993ddfaa4466e85709e735dbfa280"><span font-size="14"><strong>禁用</strong></span></p>
+</td>
+</tr>
+<tr nodeId="103e1f1d05cb4d9693ced272340b4bad">
+<td colwidth="[127]" nodeId="8cbe056ff8274485a73e33142b126066">
+<p nodeId="c252f82166e948c2899be424b255dbda"><span color="#f5232d"><span font-size="14"><strong>管理员权限</strong></span></span></p>
+</td>
+<td colwidth="[73]" bgColor="rgb(207, 255, 247)" nodeId="ed50adb937734c19be7222f98c117e0c">
+<p nodeId="05ac7221378240cb864628a2785ead88"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[80]" bgColor="rgb(207, 255, 247)" nodeId="2f0fb197f9014c0385da29f58014a180">
+<p nodeId="ffba23922630464abf616b03e54cf673"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[73]" bgColor="rgb(207, 255, 247)" nodeId="910b6ae3670647178e5609b9ae258876">
+<p nodeId="c53f2ce8886d4b32bf031cbc64c271ff"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[73]" bgColor="rgb(207, 255, 247)" nodeId="c8f6fb734b6540318fbd4a84eb569687">
+<p nodeId="a7660714668642d29e45954fe5591c02"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="1d70617745f74c2399711b1024c1888e">
+<p nodeId="08af2011e60649769d105a556ed31623"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="04568cdd07ea427fb0f4929215567ad0">
+<p nodeId="a09cd001b1f24e449e8577ede1fcc24c"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="9700a4d6feac4821a2a1a11ec96f2583">
+<p nodeId="906a2c8ee39a4764a28e87eca270f052"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[69]" bgColor="rgb(207, 255, 247)" nodeId="c46c379ae96847a6a6c524e556b048de">
+<p nodeId="ae614e8cb2754998862bc1b0e9bde2b8"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="90777be0908a49348bcb28bc12c2e9a1">
+<p nodeId="84aef38795b34eaa89a5b527e6a4bdae"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[131]" bgColor="rgb(207, 255, 247)" nodeId="91c3dd978a79488cb230d6437fbb91c0">
+<p nodeId="210fab8d873a4480b2f708eabb6a97c0"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[101]" bgColor="rgb(255, 232, 231)" nodeId="f62cf5e057a74354a82fb7c028b77865">
+<p nodeId="eb53200624804ff2a0bddf461589e460"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 232, 231)" nodeId="ab99f9b0e2f74b309c0329375f835c3c">
+<p nodeId="d130b783ed01460f89f0ac0e0bfc1422"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[85]" bgColor="rgb(255, 232, 231)" nodeId="aa94e8dd387342318573a5aae7c2e106">
+<p nodeId="675c1ffa28294b2294291e37dd16d6f2"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[108]" bgColor="rgb(255, 232, 231)" nodeId="d63093be416c4e2a813735a6d038c036">
+<p nodeId="b5b44c9e96384fcd8c8c942f1dde45c5"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 232, 231)" nodeId="852eb433f6154220aa3c529623d60b40">
+<p nodeId="53535d45d44f4282b98c6bb330b416b3"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 232, 231)" nodeId="315c19415acf44449c8ee52ca4bec4ee">
+<p nodeId="9b1d08b0bd4949d6ab6945b18ff9a8bc"><span font-size="22"><strong>√</strong></span></p>
+</td>
+</tr>
+<tr nodeId="01a17d9f6b8b497d86f0ecd58ed0f55b">
+<td colwidth="[127]" nodeId="94342a29d85f4702a111fe312efb54d1">
+<p nodeId="50d86af6067f4a40abd1107f2ebdaae1"><span color="#f5232d"><span font-size="14"><strong>普通用户权限</strong></span></span></p>
+</td>
+<td colwidth="[73]" bgColor="rgb(207, 255, 247)" nodeId="76e3580427854e888531aa752d09ee99">
+<p nodeId="efe81ed43d8046bb97e9708d7acefc33"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[80]" bgColor="rgb(207, 255, 247)" nodeId="7f86a48559c1450da18a4eaafc61c5c0">
+<p nodeId="4ca35268f9f54176b4771990524ebb80"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[73]" bgColor="rgb(207, 255, 247)" nodeId="e0c5e7e28f6f4f1ebd549e548b5c852e">
+<p nodeId="5f1e6104d1dd4acd9b5ce4492fc19dee"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[73]" bgColor="rgb(207, 255, 247)" nodeId="254cbd9c494f4b03987be0608c5e0997">
+<p nodeId="7f24ca2c6ec245178990250bf45fa0eb"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="d1b3b33ab26d4804853366d69f8f394d">
+<p nodeId="77ee4d5d1f7b4895870218ab21f59d65"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="19f609425fe44b51be7ec54869c1e8f0">
+<p nodeId="bce9b63639e24adcae5ac0b0dc30e579"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="29d86533e6f5418baf4c605e6d7b8c9a">
+<p nodeId="83c58a73e2874864bc51b240e49b7e4f"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[69]" bgColor="rgb(207, 255, 247)" nodeId="a0f1a0a09fd34288a7199f40760f1c75">
+<p nodeId="e4a38810e5054af288bdc3d24caf5d72" />
+</td>
+<td colwidth="[97]" bgColor="rgb(207, 255, 247)" nodeId="05f7955f99824dac82e9846299161fe4">
+<p nodeId="eaa7a1cf438b47d9bdb4580ee8dfe913"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[131]" bgColor="rgb(207, 255, 247)" nodeId="5653ce86f8aa4f29a6643cfc397f190c">
+<p nodeId="661b1d46b8164a3bafe8bdf9c09bd8b5"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[101]" bgColor="rgb(255, 232, 231)" nodeId="8eb2b2ac21104b9b896b2dd44c000d98">
+<p nodeId="ce83e7243fca448096620343af01fa5a"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 232, 231)" nodeId="87e9d60cf1204a73ae50d56931a52cc0">
+<p nodeId="a679a43ace04477599d5b3e7a2d39ee1"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[85]" bgColor="rgb(255, 232, 231)" nodeId="4a4fa9acb11e47a485b5cf2155ca0e9b">
+<p nodeId="56d8f8f631394396b948f5f402a0d9fe"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[108]" bgColor="rgb(255, 232, 231)" nodeId="61b548c63bca48cbb4098cd19d865e63">
+<p nodeId="dd6bbef2c1964aa4862f4a3311367a31"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 232, 231)" nodeId="196fc7f5530a4cfaafc65567320d97ec">
+<p nodeId="d48ac24a92ca4cc8876fa42aa43f7f22"><span font-size="22"><strong>√</strong></span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 232, 231)" nodeId="7bd0f1af59b841e0a71cf91b8960f787">
+<p nodeId="258bca7692a849f58299e1a39647cc9f"><span font-size="22"><strong>√</strong></span></p>
+</td>
+</tr>
+</table>
+<p nodeId="d2fc4f7e3d48489e9551a76827b218d2"><span font-size="14"><strong>管理员权限：</strong></span>管理员可设置多个人，拥有的权限包括对Zeus上的各项菜单：<span color="rgb(245, 35, 45)">配置中心、策略规则中心（参数、因子、规则、场景）、报表、Plus+工具、监控预警、服务大厅、权限配置</span>的<span color="rgb(245, 35, 45)">浏览/查看、添加/写入、禁用、下载、修改、删除</span><span color="rgb(0, 0, 0)">的操作权限。</span></p>
+<p nodeId="29427f92086c4130ada925fd9208fe6a"><strong>普通用户权限：</strong>普通用户也可以设置多个人，拥有的权限包括对Zeus上的部分菜单：<span color="rgb(245, 35, 45)">配置中心、策略规则中心（参数、因子、规则、场景）、报表、Plus+工具、服务大厅</span>的<span color="rgb(245, 35, 45)">浏览/查看、添加/写入、禁用、下载、修改、删除</span><span color="rgb(0, 0, 0)">的操作权限。</span></p>
+<p nodeId="a5434976cffc4f4597b05bb0875582fd" />
+<p nodeId="bb8d939a138a4641af0feded77d0ae00" />
+<p nodeId="0ad6767ccb7c4dc48325c90bc6ac4037"><strong>相关资料：</strong><a href="https://km.sankuai.com/page/112713024" title="https://km.sankuai.com/page/112713024" autoUpdate="true" nodeId="44714467649541e983e17fd5a089c83d">https://km.sankuai.com/page/112713024</a></p>
+</km-doc>

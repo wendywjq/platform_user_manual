@@ -1,0 +1,216 @@
+<km-doc>
+<km-title nodeId="feaa2dc098af41b6a67eb3b3a0c0a4f3">说明：批量场景配置操作</km-title>
+<km-catalog style="none" nodeId="abea72c4ca0b4f02bbe2023d4129e8c9" />
+<h1 nodeId="0147aba963984e77b210e5c2424d73d5">一、解决问题</h1>
+<p nodeId="feb9ec6f7c5e439497ea493dad4b3564">规则平台的策略配置方式：逐条往场景中添加规则、决策和优先级，当规则量级较大时，需要进行批量操作，批量场景配置操作可支持用户进行场景配置的批量添加、修改、删除</p>
+<p nodeId="cd85277b76a6418e861fd866eb5eb7a3">原有旧前端页面存在以下问题，现通过前端升级解决：</p>
+<p nodeId="73c896d2b18c489fbb2b386cf427c7e8">1.批量操作数据量大时，页面经常崩溃。压测1500条数据添加正常</p>
+<p nodeId="229daa7f2e0d41deb617843c2b0d3dea">2.批量操作失败时，逐条提示错误信息，导致一直无法提交成功。调整为无问题的正常提交，有冲突信息提示修改后提交</p>
+<table borderColor="#cccccc" responsive="false" nodeId="4385627047ab4abfa6d7d5aea08cebf9">
+<tr nodeId="d364c4d132b840a2ab1c9c4984dab459">
+<th colwidth="[69]" nodeId="972f8b8db766420bb063eee4b87cfff6">
+<p nodeId="7c1a3383467f4b05abd80cbd67f7c1cd" />
+</th>
+<th colwidth="[685]" nodeId="76a880c5e91f450cae95b7002e732fa0">
+<p nodeId="b48662fc2fda476c9971b3072b108fff"><span font-size="14">维度</span></p>
+</th>
+</tr>
+<tr nodeId="648ba454bed14ffe964f2eae32afcf62">
+<td colwidth="[69]" nodeId="7ae05dd0c54842dcb759e2dcdbff7034">
+<p nodeId="234a558ded4249e7ad5928f73e8f97dc"><span font-size="14">添加</span></p>
+</td>
+<td colwidth="[685]" nodeId="23cb548d7e7d45eab4313db1fe60183f">
+<ol nodeId="106886ccd21b4c989f5b99e8adf9fe8b">
+<li nodeId="5a648667dd1b46489b914d7f82bfb66e"><span font-size="14">逐条选择</span><span color="rgb(48, 84, 235)"><span font-size="14">规则</span></span><span font-size="14">，一次添加多个（场景VS规则= n VS n）</span></li>
+<li nodeId="d4b8c5619cc04ff3880999d29db7b7df"><span font-size="14">逐条选择</span><span color="rgb(48, 84, 235)"><span font-size="14">规则组，</span></span><span font-size="14">一次添加多个（场景VS规则组= 1 VS n）</span></li>
+<li nodeId="c6e2a20949164771b00d67687686d122"><span font-size="14">按照</span><span color="rgb(48, 84, 235)"><span font-size="14">规则标签</span></span><span font-size="14">筛选规则，将标有同一个规则标签的规则添加到场景中（场景VS规则= 1 VS n）</span></li>
+<li nodeId="778f617e852d4465962b6766f01febdc"><span font-size="14">按照</span><span color="rgb(48, 84, 235)"><span font-size="14">场景标签</span></span><span font-size="14">筛选场景，将某个规则添加到标有同一个场景标签的场景中（场景VS规则= n VS 1）</span></li>
+<li nodeId="bd59e717b0cd458d8c1e1b925f3bb3f8"><span font-size="14">按照规则已形成的场景配置，将</span><span color="rgb(48, 84, 235)"><span font-size="14">某个决策新增</span></span><span font-size="14">到场景中</span></li>
+</ol>
+</td>
+</tr>
+<tr nodeId="35ac552074ac4cf6a8b0de1fcecd6944">
+<td colwidth="[69]" nodeId="33760d554ea440f683490a8433620670">
+<p nodeId="99cac355e6194fb4b41a936a9e4e3612"><span font-size="14">修改</span></p>
+</td>
+<td colwidth="[685]" nodeId="442c12ebdb3447cc9265776ae1f13543">
+<ol nodeId="984fc07af942481e9b8408432ee4d90b">
+<li nodeId="8c5b9bbb01ac47fdbfbd71475dd7ce3a"><span font-size="14">按照</span><span color="rgb(48, 84, 235)"><span font-size="14">场景</span></span><span font-size="14">筛选场景配置（单值），修改决策、决策理由、优先级和状态</span></li>
+<li nodeId="136aa077c3ba46e5bdcd474807bcaca2"><span font-size="14">按照</span><span color="rgb(48, 84, 235)"><span font-size="14">规则</span></span><span font-size="14">筛选场景配置（单值），修改决策、决策理由、优先级和状态</span></li>
+<li nodeId="5c37cc7ea09642b38ace568e52fbfad8"><span font-size="14">按照</span><span color="rgb(48, 84, 235)"><span font-size="14">规则组</span></span><span font-size="14">筛选场景配置（单值），修改决策、决策理由、优先级和状态</span></li>
+<li nodeId="0efc71d2f99143d1aeff775a28c08fda"><span font-size="14">按照</span><span color="rgb(48, 84, 235)"><span font-size="14">决策</span></span><span font-size="14">筛选场景配置（单值），修改决策、决策理由、优先级和状态</span></li>
+</ol>
+</td>
+</tr>
+<tr nodeId="372661a75df641419e2e8ec085e613b3">
+<td colwidth="[69]" nodeId="7b16e2f57866471c81247ef58cde04bc">
+<p nodeId="eaf34b3f4daf407683b48d9ed5487578"><span font-size="14">删除</span></p>
+</td>
+<td colwidth="[685]" nodeId="f559c4b28ed1463d9b6f05db16a5f75e">
+<p nodeId="23afae807f0941aeab9f609011b7fb42"><span font-size="14">待补充</span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="64de9f6093844b2da61b91d3656fda33">二、操作说明</h1>
+<h2 nodeId="c3d8cc86b17d45e38a21c681aa253d33">用户操作流程概述</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/363849268/364382693?contentType=0&amp;isNewContent=false" width="1325" height="205" nodeId="3c78285d34584a489886f5b5fc71980c" />
+<h2 nodeId="ffa5b2da78c74e19bed1026e5e2b3ef2">操作流程详情</h2>
+<ul nodeId="deb03a998ff44e82bd6b642e7eb987ec">
+<li nodeId="a334bff87ff6405d9e93d3ae051fbd85">
+<h3 nodeId="0f7d9cd7163648fcab8b4ba4e4eb0399">批量添加</h3>
+</li>
+</ul>
+<h4 nodeId="9bea23a6532f41c9a4e794a35df4198e">Step1：选择添加维度</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="b7f22426ee9247f2a8dd70f0f1741b4f">
+<tr nodeId="685a101c311c4004a2bfdeb822d25b12">
+<th colwidth="[438]" nodeId="8b7ece0c8a944664a27e181fe6cf061e">
+<p nodeId="7036b6fd0d5b4f13a840a24121367b55"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[776]" nodeId="8882c59d9a56471fb4e1eef9d9cdf04e">
+<p nodeId="88d01136424b4897a22910a3e3e7ac36"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="183240bb8c3a4321a89b76e37e8671dc">
+<td colwidth="[438]" nodeId="2991bf7b0b5544308afc3852bf0ab6c7">
+<p nodeId="280fd5ea629b4de680f86db174946802"><span font-size="14">【入口】</span></p>
+<p nodeId="9dec34f37f3545d98cb316df2560720a"><span font-size="14">添加维度</span></p>
+<ul nodeId="e13ee4d71c964177b4bd9533a39a7d0d">
+<li nodeId="cc23d82e57a34ad7ab91d2f23b3b5545"><span font-size="14">添加场景配置----逐条选择规则，一次添加多个</span></li>
+<li nodeId="7b515f4a66224e90b1023ba99fe9bd50"><span font-size="14">规则组方式添加----选择规则组，添加到场景中</span></li>
+<li nodeId="c5228a69b88f428dbee4350a86f8ca5a"><span font-size="14">规则标签方式添加----按照规则标签筛选规则，将标有同一个规则标签的规则添加到场景中</span></li>
+<li nodeId="06b8847f639b4dbebbe159f2da2253fb"><span font-size="14">场景标签方式添加----按照场景标签筛选场景，将某个规则添加到标有同一个场景标签的场景中</span></li>
+<li nodeId="d320a7a3ea694da3b02f8492ad6b87d2">
+<p nodeId="5284992e2dc64ec4bfa46c906259cc92"><span font-size="14">规则新增决策----按照规则已形成的场景配置，将某个决策新增到场景中</span></p>
+<p nodeId="cd4fb2fe1c97490e9028ffb40ce169b5" />
+</li>
+</ul>
+</td>
+<td colwidth="[776]" nodeId="57c4161fa6e943988fa723f3639ecb95">
+<p nodeId="480bb14418e8454d9f4fdfbb32914b58"><img src="https://km.sankuai.com/api/file/cdn/363849268/364183794?contentType=1&amp;isNewContent=false" name="image.png" width="606" height="382" nodeId="42548bfbd0a34d839ed0101214df711c" /></p>
+</td>
+</tr>
+<tr nodeId="f7131fddd2944b7291739414425a5f7a">
+<td colwidth="[438]" nodeId="c0d070a9099f45c29e9ea8f937f069e2">
+<p nodeId="22985deb604f40c995357029e5767688"><span font-size="14">【添加场景配置】</span></p>
+<p nodeId="3be6aaf7ec1b4bfba23664aca08a93e0"><span font-size="14">⚠️</span></p>
+<p nodeId="f28ec066ebb24b4eb1cc4dc4fe80d9dd"><span font-size="14">1.点击添加，永远固定在第一行！！！！</span></p>
+<p nodeId="2d55dc425c9d4a70816427f29efad354"><span font-size="14">2.选择规则时，默认提示最近创建的10条规则信息，若添加的规则不在提示信息内需要进行搜索</span></p>
+<p nodeId="ad70a7e0f5464ab98a544b5fb4e4d8ae"><span font-size="14">3.提交成功后，会提示成功信息，但不会跳转至列表页面。需要手动点击取消返回</span></p>
+<p nodeId="fe0edd9eedbd41bba6d7f6028cdd5011"><span font-size="14">（</span><span color="rgb(235, 47, 150)"><span font-size="14">若有需求可以提哈，反馈就行不用写需求文档</span></span><span font-size="14">）</span></p>
+</td>
+<td colwidth="[776]" nodeId="493adc2419524d9688f97226a05e8209">
+<p nodeId="a17f6ac553cc403ea5f566755f000115"><img src="https://km.sankuai.com/api/file/cdn/363849268/371270212?contentType=1&amp;isNewContent=false" name="image.png" width="747" height="390" nodeId="33f5fa7297f44611b5ff7c771bb9292d" /></p>
+<p nodeId="8a7b159c225c42bfb827698bf79d055c"><img src="https://km.sankuai.com/api/file/cdn/363849268/364259138?contentType=1&amp;isNewContent=false" name="image.png" width="747" height="284" nodeId="37c09dd2a40d4fb5977bda1dc660642c" /></p>
+</td>
+</tr>
+<tr nodeId="401c7ae1e74347888693660a9a9e5010">
+<td colwidth="[438]" nodeId="75f9ca5e4e9a4ea98313a64557502cfe">
+<p nodeId="377efc2304384840aeba8d78ee4265c3"><span font-size="14">【规则组方式添加】</span></p>
+<p nodeId="de21a94e688a4857b3d95e452fc82505"><span font-size="14">1.支持多个规则组选择</span></p>
+</td>
+<td colwidth="[776]" nodeId="b56bf7a03e1a4fccbed9aa5093d45a93">
+<p nodeId="7ba26ede0d6c46fca18bdeb12145f9ca"><img src="https://km.sankuai.com/api/file/cdn/363849268/364285256?contentType=1&amp;isNewContent=false" name="image.png" width="747" height="171" nodeId="bbe336078cb147dead622a59333e2845" /></p>
+<p nodeId="03f9ab820a9640d4b2d32873bf24a419" />
+</td>
+</tr>
+<tr nodeId="9fa248652fa44cf7b244f6d73b5cdff9">
+<td colwidth="[438]" nodeId="a44dc21d0a5e4a26abac2b1c7e0c9d8f">
+<p nodeId="9d612cbe55284976965cfd48db124101"><span font-size="14">【规则标签方式添加】</span></p>
+</td>
+<td colwidth="[776]" nodeId="25c1fb3e7e0f4bad8837490139b6fccd">
+<p nodeId="e47396802b1947178f1a178d91e33bc6"><img src="https://km.sankuai.com/api/file/cdn/363849268/364127326?contentType=1&amp;isNewContent=false" name="image.png" width="747" height="398" nodeId="1166238a9db44d3cb248fcb747897a1b" /></p>
+</td>
+</tr>
+<tr nodeId="9256474668374edbba592f1b929b5c2b">
+<td colwidth="[438]" nodeId="fe4b76a02c6d4dc4b497c6d4512f5e32">
+<p nodeId="af04182094f64f2aae00d191dbe6aea1"><span font-size="14">【场景标签方式添加】</span></p>
+</td>
+<td colwidth="[776]" nodeId="a698e85dd9e2472cb25604ef61431f47">
+<p nodeId="6dc2c310278c4fa5bfc2e4bee533dc5f"><img src="https://km.sankuai.com/api/file/cdn/363849268/364127392?contentType=1&amp;isNewContent=false" name="image.png" width="747" height="386" nodeId="7485716487eb41f6ac44f3b4a421e776" /></p>
+</td>
+</tr>
+<tr nodeId="0224e9ed51a14b5182d496e5c3866f01">
+<td colwidth="[438]" nodeId="f63e777276ab40fb865626e68dc714f3">
+<p nodeId="80d062c2bf2c4dbc97ad2a9815b05db9"><span font-size="14">【规则新增决策】</span></p>
+</td>
+<td colwidth="[776]" nodeId="5d9df3b037c944f796a88fe9e1730965">
+<p nodeId="d7df7286d34d407aa3016d698e4cdf9c"><img src="https://km.sankuai.com/api/file/cdn/363849268/364127398?contentType=1&amp;isNewContent=false" name="image.png" width="747" height="354" nodeId="71524ef3b22e4b78bd1c7bd2619a63c9" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="aba5f46e4bb64241ad5c9f493ef9dcc4">Step2:批量操作</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="0b59f9fc65fe480cb853480f28001446">
+<tr nodeId="7bb3fe6d80f44ee4a0ac17cb60b6e6b3">
+<th colwidth="[440]" nodeId="9c79dcdf99d14b1f9d3f2065dcc191e3">
+<p nodeId="696afcde76214b71918ce946597c1e29"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[779]" nodeId="a9e63f8abf8c48fe8c66c24a7ccff96f">
+<p nodeId="76a279db4b504c26bf40ed85f2cd1c28"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="a6a44ca71b214ffb8b400b3ec79842af">
+<td colwidth="[440]" nodeId="2900f0c5fba942da9511113ced4a48cd">
+<p nodeId="5329434511eb469db12c36cdcc7de3c8"><span font-size="14">【提交批量操作】</span></p>
+<p nodeId="b4626352882d487ebd1c6d09868e476f"><span font-size="14">1.提交成功后，会提示成功信息，但不会跳转至列表页面。需要手动点击取消返回</span></p>
+<p nodeId="7d0ba92b497d4532aa42ea97b9fa9545"><span font-size="14">（</span><span color="rgb(235, 47, 150)"><span font-size="14">若有需求可以提哈，反馈就行不用写需求文档</span></span><span font-size="14">）</span></p>
+</td>
+<td colwidth="[779]" nodeId="abb9199270a54d279a25fdb2cc5ae026">
+<p nodeId="7a15a697be634c9083aaf007d3539067"><img src="https://km.sankuai.com/api/file/cdn/363849268/364285284?contentType=1" name="image.png" width="750" height="420" nodeId="7b76c73424df4c7f8345969a0e2fcb61" /></p>
+<p nodeId="1530d4099ebe471c9745acd03a49c74a"><img src="https://km.sankuai.com/api/file/cdn/363849268/364285290?contentType=1" name="image.png" width="750" height="258" nodeId="f65c0f7a951842208afffec53a7af657" /></p>
+</td>
+</tr>
+</table>
+<ul nodeId="aa0d5b51962f4c8cbf6f6c2c1c599385">
+<li nodeId="a22d420bbdb0471590c6241c0957ede4">
+<h3 nodeId="4cbfacb84d244775892d8886f1b00d96">批量修改</h3>
+</li>
+</ul>
+<h4 nodeId="e45320f935ca4b188edd61d6abacf9c4">Step1：选择修改的筛选维度</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="66a4e9676ab4461f8cab4e8bf589a98a">
+<tr nodeId="c39bde6352e44752b09166d4855dc23c">
+<th colwidth="[442]" nodeId="ed717b3ffc0a473f8674840dc5fd8c97">
+<p nodeId="b33efa5aeeb544e28ca26b0dae58b72a"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[781]" nodeId="74035cb00b3349879b975590e319772f">
+<p nodeId="ab38aaa4de514031b711f4cb2ac8eb42"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="681aa5b1de0a461f91f67d87391172e7">
+<td colwidth="[442]" nodeId="46838213ed5a4854aeaf9d6aa2e59ff2">
+<p nodeId="ffa37271411d464880bb758db391a67b"><span font-size="14">【选择修改范围】</span></p>
+<p nodeId="365f8e38f45c4200817137798c71fe9f"><span font-size="14">1.场景、规则/规则组、决策，任意一个填写就可以进行筛选</span></p>
+<p nodeId="9b9e6b9108594875a4713e27f93b5dcc"><span font-size="14">2.场景当前仅支持单值.(</span><span color="rgb(235, 47, 150)"><span font-size="14">场景可以支持多值，若有需求可以提哈，反馈就行不用写需求文档</span></span><span font-size="14">)</span></p>
+<p nodeId="283cdaacd60f4fc3935c1a411e2969cf"><span font-size="14">3.初始化条件可以填写或不填写</span></p>
+</td>
+<td colwidth="[781]" nodeId="267d5a428f3c4e57bfe86221f5b72cc4">
+<p nodeId="bd447c62b9404eee9e2f39749dcfda83"><img src="https://km.sankuai.com/api/file/cdn/363849268/364331506?contentType=1&amp;isNewContent=false" name="image.png" width="752" height="417" nodeId="2d6d5b23a35b4921835ef4ba748169a6" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="7598ee6e10654c798a5c4c765d72c011">Step2:批量操作</h4>
+<table responsive="false" nodeId="4ef578ddeab1463190c68d404dbfdc8b">
+<tr nodeId="1a40cdf023064fa688759253d50d6a8e">
+<th colwidth="[442]" nodeId="641dc2c2457d4ec5bafb8ddf0ce5415a">
+<p nodeId="0bfada7bf44c433a99f7933d6b8153bb"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[781]" nodeId="48595e8b34ca427b8c2151657f5dedad">
+<p nodeId="77ee6b6bedcd4588aea2e04f9734dd78"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="cb9a51f1ed4b483c961cc94189bd3e1c">
+<td colwidth="[442]" nodeId="399a932a7f4e4ad3a0e2e84755d2025f">
+<p nodeId="2a569257afda4225ba4669321d17820e"><span font-size="14">【提交批量操作】</span></p>
+<p nodeId="007282c0bbfe41098393148ec0feb3ae"><span font-size="14">1.在进入下一步后，可选择某一条场景配置进行配置微调。其中决策new、状态new和优先级new均可修改，决策需要点击文字区域修改</span></p>
+<p nodeId="f746845373e2418782d7d617d27ea711"><span font-size="14">2.提交成功后，会提示成功信息，但不会跳转至列表页面。需要手动点击取消返回</span></p>
+<p nodeId="0f29885a3b1d4612903729e1dc5af25d"><span font-size="14">（</span><span color="rgb(235, 47, 150)"><span font-size="14">若有需求可以提哈，反馈就行不用写需求文档</span></span><span font-size="14">）</span></p>
+</td>
+<td colwidth="[781]" nodeId="fd9345698ee7412baae13c065c4e1d05">
+<p nodeId="4d5af9699ea2404a8aaa15125d22e1ad"><img src="https://km.sankuai.com/api/file/cdn/363849268/364310686?contentType=1" name="image.png" width="752" height="439" nodeId="86a6afa3f93944798fa1f0722a49c484" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="62618806c4074ad186733c96b47bc5d2">三、FAQ</h2>
+<h4 nodeId="e58fdbf086764202a1bc6ba92ea517f4">Q1：若是提交操作错了怎么办？</h4>
+<p nodeId="79310bd652cf4cc48cb8e7e9bc10a319">--A：目前平台没有撤回操作机制，若出现配置错误请联系Zeus值班进行后台调整</p>
+<p nodeId="2b1f922db1dd4dd186ee19659b470af9" />
+</km-doc>

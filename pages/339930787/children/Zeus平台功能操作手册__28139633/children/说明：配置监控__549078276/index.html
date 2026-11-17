@@ -1,0 +1,340 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：配置监控</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-96">二、名词解释</a><a href="#section-106">三、操作指南</a><a href="#section-107">1.用户操作流程说明</a><a href="#section-109">2.Quick Start</a><a href="#section-114">3.详细操作流程说明</a><a href="#section-123">Step1: 配置入口</a><a href="#section-137">Step2: 配置监控</a><a href="#section-347">Step3: 开启监控</a><a href="#section-375">Step4: 接收与处理告警消息</a><a href="#section-442">Step5: 关闭监控</a><a href="#section-466">4.补充说明</a><a href="#section-484">四、FAQ</a><a href="#section-485">Q1：规则命中但没有收到告警找谁排查？</a><a href="#section-494">Q2：告警发生延迟，找谁排查？</a><a href="#section-500">Q3：告警还支持其他维度么？</a><a href="#section-503">Q4：想看告警的日志数据，在哪里查看？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：配置监控</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/549078276">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：配置监控</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>如果你想监控Zeus上场景配置中规则的命中情况，可以使用该功能配置监控进行命中告警</p>
+<p><span style="color: ">目前监控能力覆盖范围（以下业务开通该功能）：</span></p>
+<details>
+<summary>erwa监控能力覆盖空间</summary>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.87)">1-反作弊</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">3-用户账号（北京侧）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">4-反刷单（北京侧）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">5-商户账号（北京侧）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">6-验证中心</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">8-处罚中心</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">9-Zeus测试</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">23-反作弊.酒店</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">24-反作弊.外卖</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">25-反作弊.支付</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">26-反作弊.团购</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">27-反作弊.猫眼</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">28-反作弊.其它</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">29-风控配置</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">33-反作弊反刷单（上海侧）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">34-运营平台</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">36-反刷单.酒店</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">37-用户账号（上海侧）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">38-通用反作弊（上海侧）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">39</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">40</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">51-数据安全</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">52</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">53</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">55</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">58-Zeus试用</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">66-</span><span style="color: ">金融服务平台信息安全-入侵检测</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">67-反作弊.租车</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">78-反作弊.出行</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">80-用户账号（北京侧）.虚假账号</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">90-反作弊.机票</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">91-</span><span style="color: ">SSO账号业务安全</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">96-数据测试验收</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">97-太平洋工单</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">98-反骗赔（北京）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">122-离线引擎</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">130-反入侵</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">152</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">155</span></p>
+</div>
+</details>
+<p><span style="color:rgba(0, 0, 0, 0.87)">希望添加开通支持新的业务空间，请联系wangyaliang进行配置。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>一个空间开启erwa能力，标记规则 和 生效规则 是两个配置，要分别开启。如果只开启了生效规则的erwa能力，则标记规则依旧无法被erwa监控</p>
+</div>
+</div>
+<h1 id="section-96">二、名词解释</h1>
+<p>告警监控：<span style="color:rgb(245, 35, 45)"> </span><span style="color: ">对网络运行的过程中出现的风险事件和状况进行监测和报告，告警指示这些事件和状况的结果</span></p>
+<p>告警维度：规则命中触发告警之后在告警明细中展示这些信息（后台也只记录这些信息）</p>
+<p>聚合时间：在该时间段之内命中规则仅触发告警一次，<span style="color:rgb(38, 38, 38)">不重复进行告警</span></p>
+<p>聚合维度：类似于SQL中的“groupby”，按照哪些字段进行聚合，在聚合时间之内所有风险在相同的聚合维度命中仅告出一次</p>
+<p>风险事件：注意区别于<a href="https://km.sankuai.com/page/1292077011" title="https://km.sankuai.com/page/1292077011">Tatooine事件</a>，erwa平台的风险事件含义是指：监控告警配置每次触发，都会产生的一个待用户关注的告警通知，同告警规则、同聚合维度、同聚合周期内的多次告出，都聚合在这个事件里，计风险次数。</p>
+<h1 id="section-106">三、操作指南</h1>
+<h2 id="section-107">1.用户操作流程说明</h2>
+<img src="assets/1b02bc5b9eb855bb.svg" width="647" height="170" alt="流程图">
+<h2 id="section-109">2.Quick Start</h2>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/549078276/564456120?contentType=1">屏幕录制2020-12-23 下午7.46.42.mov</a></figcaption></figure>
+<p></p>
+<h2 id="section-114">3.详细操作流程说明</h2>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color: ">原Erwa平台新建告警配置中的【Zeus实时】数据源，已于2022.11.1正式下线，实时数据源统一收口至【zeus-rpc】。对于实时规则的监控，请统一于zeus场景配置后方操作栏入口进行配置。</span></p>
+</div>
+</div>
+<table>
+<tr>
+<td colspan="2" style="background-color:rgb(247, 247, 247)">
+<h3 id="section-123"><span style="font-size:14px">Step1: 配置入口</span></h3>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">入口：</span></p>
+<p><span style="font-size:14px">点击场景--&gt;场景配置--&gt;选择目标场景配置</span></p>
+</td>
+<td>
+<p><img src="assets/c665ee5bb659b48b.png" width="739" height="295" alt="image.png"></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="background-color:rgb(247, 247, 247)">
+<h3 id="section-137"><span style="font-size:14px">Step2: 配置监控</span></h3>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1.点击“配置监控”；</span></p>
+<p><span style="font-size:14px">2.填写监控项配置内容并保存；</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="font-size:14px">通过Zeus入口配置监控后，会自动在Erwa告警平台生成一条监控告警配置（ID在zeus展开抽屉中可见）；其中，默认的监控逻辑为「该条场景配置的命中」，例：include(string.split(hitRules,','),55938)，55938即为zeus规则id。</span></p>
+<p><span style="font-size:14px">注意，该表达式隐含了</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">场景、决策</span></span><span style="font-size:14px">信息，即实际效果是该【场景-规则-决策】每当有命中数据，erwa就会结合聚合维度与聚合时间，决定是否告出。</span></p>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">项</span></p>
+</th>
+<th colspan="2">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">告警维度</span></p>
+<p><span style="font-size:14px">（</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="font-size:14px">）</span></p>
+</td>
+<td colspan="2">
+<ul>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">添加后会在</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">告警明细</span></span><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">中展示这些信息</span></span></li>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">自输入，可添加多个。</span></span><span style="color:rgb(29, 57, 196)"><span style="font-size:14px">注：输入字段后需要回车一下才能保存</span></span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">聚合时间</span><br><span style="font-size:14px">（非必填）</span></p>
+</td>
+<td colspan="2">
+<ul>
+<li><span style="font-size:14px">在该时间段之内命中规则仅触发告警一次</span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">，</span></span><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">不重复进行告警</span></span></li>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">支持时间段：</span></span><span style="font-size:14px">无、</span><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">15min、30min、1h、6h、12h、24h</span></span></li>
+<li><span style="font-size:14px">说明：</span><span style="color: "><span style="font-size:14px">如果选“无”，</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">命中即发送告警消息</span></span><span style="color: "><span style="font-size:14px">，没有上限</span></span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">聚合维度</span><br><span style="font-size:14px">（</span><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">非必填</span></span><span style="font-size:14px">）</span></p>
+</td>
+<td colspan="2">
+<ul>
+<li><span style="font-size:14px">类似于SQL中的”groupby“，按照哪些字段进行聚合。在聚合时间之内，相同的聚合维度命中仅告出一次，其余会计风险次数。</span></li>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">支持自输入多个维度，注：输入字段后需要</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">回车一下才能保存</span></span></li>
+<li><span style="color:rgb(29, 57, 196)"><span style="font-size:14px">说明：聚合维度必须是告警维度的子集（因为后台仅记录告警维度这些信息，如果聚合维度不在告警维度之内的话无法进行聚合）</span></span></li>
+</ul>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">对应聚合时间内，同聚合维度，仅首次触发会发送告警通知，后续触发都计风险次数；</span></span></p>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">24小时之内，对应聚合时间内，同感知规则id、同聚合维度只算一个风险事件，风险列表内仅展示一项，同时记录对应的触发次数作为风险次数，24小时之后会重新创建风险事件</span></span></p>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan="4">
+<p><span style="font-size:14px">告警通知</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">优先级</span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">（</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">）</span></span></p>
+</td>
+<td>
+<ul>
+<li><span style="color: "><span style="font-size:14px">这里配置的优先级起到通知展示作用，给业务查看</span></span></li>
+<li><span style="color: "><span style="font-size:14px">可以配置 P0/P1/P2/P3，优先级逐渐降低</span></span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">告警方式</span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">（</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">）</span></span></p>
+</td>
+<td>
+<ul>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">告警信息通过这些方式发送到告警通知人</span></span></li>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">可以多选大象、电话、邮件、短信</span></span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">告警负责人</span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">（</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">）</span></span></p>
+</td>
+<td>
+<ul>
+<li><span style="color: "><span style="font-size:14px">负责该条配置的人员，可以对该条配置进行修改</span></span></li>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">姓名+mis号（只能配置一个），支持检索</span></span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">告警通知人</span></span><br><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">（</span></span><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">非必填</span></span><span style="color:rgb(0, 0, 0)"><span style="font-size:14px">）</span></span></p>
+</td>
+<td>
+<ul>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">告警信息的接收人员，</span></span><span style="color: "><span style="font-size:14px">不填的话仅通知负责人</span></span></li>
+<li><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">填写mis号，可以配置多个（多个mis号之间英文逗号分隔）</span></span></li>
+</ul>
+</td>
+</tr>
+</table>
+<p><span style="font-size:14px">3.编辑监控项配置内容：</span></p>
+<p><span style="font-size:14px">在监控规则详情页中点击“编辑”，之后按照上面配置内容的流程进行即可</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.点击“配置监控”；</span></p>
+<p><img src="assets/787540b931d81d41.png" width="883" height="149" alt="image.png"></p>
+<p><span style="font-size:14px">2.填写监控项配置内容并保存；</span></p>
+<p><img src="assets/e67eaba78c9df4ab.png" width="651" height="531" alt="image.png"></p>
+<p><span style="font-size:14px">3.编辑监控项配置内容：</span></p>
+<p><img src="assets/0e293be43431387e.png" width="652" height="494" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="background-color:rgb(247, 247, 247)">
+<h3 id="section-347"><span style="font-size:14px">Step3: 开启监控</span></h3>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1.开启监控入口A：</span></p>
+<ul>
+<li><span style="font-size:14px">保存配置内容之后跳转监控规则详情页面（如右图），检查监控规则详情内容没问题后，点击”监控规则详情“后面的开关，打开监控</span></li>
+<li><span style="font-size:14px">确认弹框点击“开启” --&gt; 开启成功</span></li>
+</ul>
+<p><span style="font-size:14px">2.开启监控入口B：</span></p>
+<p><span style="font-size:14px">回到场景配置信息中，在场景配置的操作项中点击“开启监控”，进入监控规则详情页面，再按照开启监控入口1的操作进行即可</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">开启监控入口A：</span></p>
+<p><img src="assets/a8682e10dfd32134.png" width="233" height="184" alt="image.png"><img src="assets/fb93fc5fcd014e46.png" width="236" height="186" alt="image.png"><img src="assets/9d88a8c3cbf79ddb.png" width="260" height="187" alt="image.png"></p>
+<p><span style="font-size:14px">开启监控入口B：</span></p>
+<p><img src="assets/9abfa310d5b9ed70.png" width="883" height="135" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="background-color:rgb(247, 247, 247)">
+<h3 id="section-375"><span style="font-size:14px">Step4: 接收与处理告警消息</span></h3>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">以常用的大象告警消息为例进行介绍。（注：erwa告警是通过接入Radar服务来实现的）</span></p>
+<ul>
+<li><span style="font-size:14px">标题：固定文案[P3][故障][实时监控]，P几取决于用户告警配置里的设定</span></li>
+<li><span style="font-size:14px">监控对象：固定展示为erwa服务</span></li>
+<li><span style="font-size:14px">指标：感知事件ID（即风险事件：注意区别于</span><a href="https://km.sankuai.com/page/1292077011" title="https://km.sankuai.com/page/1292077011"><span style="font-size:14px">Tatooine事件</span></a><span style="font-size:14px">，erwa平台的风险事件含义是指：监控告警配置每次触发，都会产生的一个待用户关注的告警通知，同告警规则、同聚合维度、同聚合周期内的多次告出，都聚合在这个事件里，计风险次数。）</span></li>
+<li><span style="font-size:14px">当前告警时间：本次告警的时间</span></li>
+<li><span style="font-size:14px">首次告警时间：该监控告警配置首次告出时间</span></li>
+<li>
+<p><span style="font-size:14px">告警详情：</span></p>
+<ul>
+<li><span style="font-size:14px">报警注释：Radar中赋予的值，可不关心</span></li>
+<li><span style="font-size:14px">报警信息：用户配置的各个告警维度的具体值都会在这展示。</span></li>
+<li><span style="font-size:14px">感知规则：erwa上的告警配置ID与名称</span></li>
+</ul>
+</li>
+<li><span style="font-size:14px">查看报警：跳转erwa风险事件列表，如右图，可通过感知事件（风险事件）id查询</span></li>
+<li><span style="font-size:14px">规则配置：打开该告警配置的编辑页</span></li>
+<li><span style="color:rgb(152, 152, 152)"><span style="font-size:14px">ACK：radar告出自带按钮，时长不明。建议有ack需要可前往erwa平台进行操作。</span></span></li>
+<li><span style="color:rgb(152, 152, 152)"><span style="font-size:14px">无效：radar告出自带按钮，建议前往erwa平台进行操作。</span></span></li>
+<li><span style="font-size:14px">告警详情：跳转Radar服务告警查询页该条告警记录的详情</span></li>
+<li><span style="font-size:14px">拉群处理：拉相关告警人员成群</span></li>
+<li><span style="color:rgb(152, 152, 152)"><span style="font-size:14px">静默30分钟：radar告出自带按钮，建议有需要前往erwa平台进行ack操作。</span></span></li>
+</ul>
+<div class="note">
+<strong><span style="font-size:14px">目前通常用户对于Erwa告警内容的使用习惯为：获取报警信息后，直接去业务上/zeus策略中进行相关的排查与处理，并不在erwa平台做其他操作。Erwa上历史遗留的一些后置处理功能及实现情况 已较难追溯，建议可忽略。常规ACK操作可在Erwa操作栏实现。后续（2023年）平台将会统一规划监控告警与熔断服务的形态，会重新整理用户诉求。相关意见&amp;建议欢迎反馈❤️</span></strong>
+<div>
+<p><span style="font-size:14px">目前通常用户对于Erwa告警内容的使用习惯为：获取</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">报警信息</span></span><span style="font-size:14px">后，直接去业务上/zeus策略中进行相关的排查与处理，并不在erwa平台做其他操作。</span></p>
+<p><span style="font-size:14px">Erwa上历史遗留的一些后置处理功能及实现情况 已较难追溯，建议可忽略。常规ACK操作可在Erwa操作栏实现。</span></p>
+<p><span style="font-size:14px">后续（2023年）平台将会统一规划监控告警与熔断服务的形态，会重新整理用户诉求。相关意见&amp;建议欢迎反馈❤️</span></p>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/df2c18441cab3264.png" width="402" height="375" alt="image.jpeg"></p>
+<p><img src="assets/46b56bbcb50247f1.png" width="739" height="289" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="background-color:rgb(247, 247, 247)">
+<h3 id="section-442"><span style="font-size:14px">Step5: 关闭监控</span></h3>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1.找到目标场景配置，点击操作中的“查看监控”</span></p>
+<p><span style="font-size:14px">2.点击监控开关，关闭监控</span></p>
+<p><span style="font-size:14px">3.确认弹框点击“关闭” --&gt; 关闭成功</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.找到目标场景配置，点击操作中的“查看监控”</span></p>
+<p><img src="assets/86e1031902c3fcc3.png" width="883" height="145" alt="image.png"></p>
+<p><span style="font-size:14px">2.点击监控开关，关闭监控</span></p>
+<p><img src="assets/85cbd1237c2868a5.png" width="397" height="310" alt="image.png"></p>
+<p><span style="font-size:14px">3.确认弹框点击“关闭” --&gt; 关闭成功</span></p>
+<p><img src="assets/a4f3d6d076b59bce.png" width="339" height="267" alt="image.png"><img src="assets/13d37de7311f4761.png" width="346" height="265" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-466">4.补充说明</h2>
+<div class="note">
+<strong></strong>
+<div>
+<p>原Erwa平台新建告警配置中的【Zeus实时】数据源，已于2022.11.1正式下线，实时数据源统一收口至【zeus-rpc】。对于实时规则的监控，请统一于zeus场景配置后方操作栏入口进行配置。</p>
+</div>
+</div>
+<div class="note">
+<strong></strong>
+<div>
+<p>通过Zeus入口配置监控后，会自动在Erwa告警平台生成一条监控告警配置（ID在zeus展开抽屉中可见）；默认数据源为zeus-rpc；默认的监控逻辑为「该条场景配置的命中」，例：include(string.split(hitRules,','),55938)，55938即为zeus规则id。</p>
+<p>注意，该表达式隐含了<span style="color:rgb(245, 35, 45)">场景、决策</span>信息，即实际效果是该【场景-规则-决策】每当有命中数据，erwa就会结合聚合维度与聚合时间，决定是否告出。</p>
+</div>
+</div>
+<div class="note">
+<strong>目前通常用户对于Erwa告警内容的使用习惯为：获取报警信息后，直接去业务上/zeus策略中进行相关的排查与处理，并不在erwa平台做其他操作。Erwa上历史遗留的一些后置处理功能及实现情况 已较难追溯，建议可忽略。常规ACK操作可在Erwa操作栏实现。后续（2023年）平台将会统一规划监控告警与熔断服务的形态，会重新整理用户诉求。相关意见&amp;建议欢迎反馈❤️</strong>
+<div>
+<p>目前通常用户对于Erwa告警内容的使用习惯为：获取<span style="color:rgb(245, 35, 45)">报警信息</span>后，直接去业务上/zeus策略中进行相关的排查与处理，并不在erwa平台做其他操作。</p>
+<p>Erwa上历史遗留的一些后置处理功能及实现情况 已较难追溯，建议可忽略。常规ACK操作可在Erwa操作栏实现。</p>
+<p>后续（2023年）平台将会统一规划监控告警与熔断服务的形态，会重新整理用户诉求。相关意见&amp;建议欢迎反馈❤️</p>
+</div>
+</div>
+<h1 id="section-484">四、FAQ</h1>
+<h3 id="section-485">Q1：规则命中但没有收到告警找谁排查？</h3>
+<p>--A：<span style="color: ">提</span><span style="color: "><a href="https://tt.sankuai.com/ticket/create?cid=15&amp;tid=222&amp;iid=7409" title="tt"><span style="color: ">tt</span></a></span><span style="color: ">，然后联系</span><span style="color:rgba(0, 0, 0, 0.54)">it_rc_zeus</span><span style="color: ">排查</span></p>
+<h3 id="section-494">Q2：告警发生延迟，找谁排查？</h3>
+<p>--A：提<a href="https://tt.sankuai.com/ticket/create?cid=15&amp;tid=222&amp;iid=1443" title="tt">tt</a>, 然后<span style="color: ">联系</span><span style="color:rgba(0, 0, 0, 0.54)">it_rc_zeus</span><span style="color: ">排查</span></p>
+<h3 id="section-500">Q3：告警还支持其他维度么？</h3>
+<p>--A：<span style="color: ">Zeus日志里有的都支持，可以在告警规则中写明</span></p>
+<h3 id="section-503">Q4：想看告警的日志数据，在哪里查看？</h3>
+<p>--A：<span style="color: ">美团点评日志中心  </span></p>
+<p></p>
+</article></main></body></html>

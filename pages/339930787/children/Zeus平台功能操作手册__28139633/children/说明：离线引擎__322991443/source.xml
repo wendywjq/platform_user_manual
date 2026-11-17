@@ -1,0 +1,680 @@
+<km-doc>
+<km-title nodeId="7fa714ba85834305acf89f50cd939826">说明：离线引擎</km-title>
+<km-catalog style="none" nodeId="49f97f1557c84ea59d75ec9177075357" />
+<km-collapse active="false" nodeId="21fe028c2fdc4c049092139745949a93">
+<km-title>20250917最新录制说明</km-title>
+<km-content>
+<km-video src="https://km.sankuai.com/api/file/cdn/322991443/194832002722?contentType=1" name="video1269545591.mp4" size="80.11MB" width="0" height="0" nodeId="590850520b774acba8573dd048fb59d4" />
+<p nodeId="260de37dd71845a9a9432ff342fac27d" />
+</km-content>
+</km-collapse>
+<h1 nodeId="b8e8f1ff72a54f369ebc40d5ab9c0885">一、背景</h1>
+<p nodeId="c82c805b84aa432bb4d41f91cbeeefb7"><span color="rgb(59, 56, 56)"><strong>实时引擎无法处理的几种业务场景：</strong></span></p>
+<p nodeId="253693d23ba043ffac505fa284dc49d0"><span color="rgb(59, 56, 56)">（1）结合登陆+交易等多种行为判断风险</span></p>
+<p nodeId="659bebffca8a4de49ffe4267c841bcd0"><span color="rgb(59, 56, 56)">（2）风险变异后的离线回捞</span></p>
+<p nodeId="ade432a68b15438599b4355cb8f5116f"><span color="rgb(59, 56, 56)"><strong>离线引擎适用的场景-案例case：</strong></span></p>
+<p nodeId="c0916dafc7ba4786b7ba6c01d65ef0f8"><span color="rgb(59, 56, 56)">1.</span><span color="rgb(51, 51, 51)">商家为了销量、排名、补贴等利益进行的虚假交易，主要的风险表现是频繁操作改价、刷单。因此可通过</span><span color="">T+1日统计商户改价次数，当次数和成单量远远高的正常值的进行销量清除或补贴取消进行防控识别。</span></p>
+<p nodeId="918d2bece1f44ffca71323cbab6f93ab"><span color="">2.支付的反洗钱识别，主要风险表现是超大额多笔交易。因子可通过T+1日统计商家收入的订单额度和数量，当日单笔额度远远高的正常值且大额订单占比远远高一商家收入平均值则对这些订单进行二次审核。</span></p>
+<p nodeId="2dc4f599b81f4d22b7eb0dbbce4b446f"><span color="rgb(59, 56, 56)"><strong>离线引擎与实时引擎处理逻辑的差异：</strong></span></p>
+<p nodeId="5d5b89be205e447ca89b72435ccc1e38"><span color="rgb(59, 56, 56)">规则：用户在同商户上低价订单超过20单-----实时引擎，前20单通过第21单拦截；离线引擎，识别到有超过20单，并将识别到的20单以及超过20以上的订单都进行拦截</span></p>
+<p nodeId="ca669393d76f433f8186e652772b8d1c"><img src="https://km.sankuai.com/api/file/cdn/322991443/323026554?contentType=1&amp;isNewContent=true" name="image.png" width="356" height="190" nodeId="cd5a5d9c3f4e43a99e6cc2b9b5db8b13" /></p>
+<p nodeId="30dc8bd56d614261885326a685329aeb"><span color="rgb(59, 56, 56)"><strong>离线引擎与ETL的差别适用情况：</strong></span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="bff4f8b664504ecba8222cc118e0eebf">
+<tr nodeId="73eadb188ca7413f822d8da0bb9451d5">
+<th colwidth="[104]" nodeId="7bf308d582564423ae938a03b88f4498">
+<p nodeId="ac88fdbedfdb49a38eb4c57e1798869a" />
+</th>
+<th colwidth="[418]" nodeId="78b60701dfbd44818a23083bcd736401">
+<p nodeId="6330b78900d34eb1a2b8c6e1d9f08867"><span font-size="14">适用场景</span></p>
+</th>
+<th colwidth="[325]" nodeId="760f4513f6c845adb097614b55dd2536">
+<p nodeId="406c84aa931540b7a1f78822f040caaf"><span font-size="14">优势</span></p>
+</th>
+<th colwidth="[410]" nodeId="b9a0489609de42ab99e6a535228a94ed">
+<p nodeId="a93ceb6b29b04ab39b86a6531c0f7787"><span font-size="14">劣势</span></p>
+</th>
+</tr>
+<tr nodeId="e932b61d85314cadbd32917ed01e0a25">
+<td colwidth="[104]" nodeId="e590a9efabd6403f918252cc66f21006">
+<p nodeId="fb2ca9ee89c3419485cbfb52f8366dd0"><span font-size="14">ETL</span></p>
+</td>
+<td colwidth="[418]" nodeId="f0606e6844e14af7ba17b09530a2decb">
+<p nodeId="f0d91a47fde24e41869605f042babef7"><span font-size="14">1.</span><span color=""><span font-size="14">数据从来源端经过抽取（extract）、转换（transform）、加载（load）至目的端的过程---ETL 官方文档</span></span></p>
+<p nodeId="7e69f4ff4be94b7dbf28d5fb07868d13"><span color=""><span font-size="14">2.常见的数据调度处理都可以，包含离线引擎覆盖的场景</span></span></p>
+</td>
+<td colwidth="[325]" nodeId="e00681f5936f4fe2be44d1097eacceff">
+<p nodeId="38da63a2f1b44c7f92a4945e7d450eab"><span font-size="14">1.高阶的数据处理能力</span></p>
+<p nodeId="46d5a9234eeb414bae83197863a3f24e"><span font-size="14">2.灵活的调度管理</span></p>
+</td>
+<td colwidth="[410]" nodeId="4ba26d73e5404cd7ac04b3b535902036">
+<p nodeId="beaaef97aa624776943ef6195bc6f3e9"><span font-size="14">1.可阅读性差</span></p>
+<p nodeId="1fd0ed3a06d54f718c685d573729395d"><span font-size="14">2.在规则管理方面无特征、因子概念，长期无法实现特征沉淀</span></p>
+<p nodeId="123818e68e294b1a80478b9ef0004ba4"><span font-size="14">3.对下游的相关配置无法实现管理，产出hive表即完成</span></p>
+<p nodeId="ae09bd1c186d4530a0027c03fd0ecf57"><span font-size="14">4.在规则中新增加特征逻辑时需要修改多个XT任务</span></p>
+</td>
+</tr>
+<tr nodeId="0ea0d04387334175a4ad91791f4cf0d3">
+<td colwidth="[104]" nodeId="d422458147fe4ab2822963bd121ea322">
+<p nodeId="cc258583379d4850a15a0d610ae93ecb"><span font-size="14">离线引擎</span></p>
+</td>
+<td colwidth="[418]" nodeId="0eef2dbd4f1d44e4ac1497de6c9cb0e2">
+<p nodeId="8e9f2497bcf146568e9e4a973912d4a5"><span font-size="14">1.能抽象出来规则，且需要规则配置化的场景</span></p>
+<p nodeId="0f39b1681d544dea8b59c095b85c89a0"><span font-size="14">⚠️</span></p>
+<p nodeId="2981aab6b89b44cdb670080a758e1442"><span font-size="14">（1）一次性的数据清洗、跑数据不建议使用离线引擎</span></p>
+<p nodeId="21788dd465f34c9c9f294e405b72c567"><span font-size="14">（2）对数据时效性要求高（&lt;Today+1Day）的处理场景不建议使用离线引擎</span></p>
+</td>
+<td colwidth="[325]" nodeId="565ebf8cf5d04c86a0d95acf882ed617">
+<p nodeId="0710520f765d446d9b87e7cef71e3547"><span font-size="14">1.可抽象特征和规则并实现配置化管理</span></p>
+<p nodeId="5df16448908a4c1aaeb9954bf1d079ac"><span font-size="14">2.规则和特征的内容可阅读性强</span></p>
+<p nodeId="73d401719adc421b83202799c050454b"><span font-size="14">3.决策下发有统一的管理</span></p>
+<p nodeId="ad37f9b85bfa48f38b6f6a31d20d2e68"><span font-size="14">4.同实时引擎相似，具备便捷和灵活的规则管理、修改、验证和排查功能</span></p>
+</td>
+<td colwidth="[410]" nodeId="2ec52570cb9046dcb6e5a7641e1f012a">
+<p nodeId="fb824cbe96e440d0a119423bbe1a3a26"><span font-size="14">1.复杂的、高阶的SQL处理逻辑不适用</span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="0f5dcd7ee8a7411ebdfb804046a22993">二、操作说明</h1>
+<h2 nodeId="390eb5755e384416b1e9b9e309967bf2">1.操作流程概述</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/322991443/322979818?contentType=0&amp;isNewContent=true" width="857" height="116" nodeId="d9a6feaba34240b4b97f9237be023575" />
+<h2 nodeId="c9b52186fd2b4b49a24a0569393e0420">2.操作详细流程</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/322991443/323159303?contentType=0&amp;isNewContent=true" width="1155" height="214" nodeId="c732f1c6ce8440c99367b8b7987e59d8" />
+<km-note type="info" hiddenTitle="true" nodeId="63110eb98c7b41cca5043be832dd5c7a">
+<km-title></km-title>
+<km-content>
+<p nodeId="17bd2d839b954c2487923a8c35fb241a"><span color="rgb(245, 35, 45)">已经接入实时引擎的业务方，不需要单独开通离线业务可在当前业务方下即可使用。</span></p>
+<p nodeId="5053446238ec46b89bddd7f61cba1afc">使用方式：</p>
+<p nodeId="19a9d1098faa45508db79bf6d98dc2b7">01.离线数据接入系统中（数据管理：注册hive表）--&gt;02.绑定数据和场景的关系（离线映射）--&gt;03.创建规则、添加场景配置   就完成了。T+1你将收到执行结果数据</p>
+<p nodeId="49397d67fadb43bea86dd8d422ec4714">Tips：</p>
+<p nodeId="6ebb64c038b94f76a52e5a99aca38fd8">（1）目前还不支持实时测试功能，预计2020Q4底可支持<br />（2）接入离线引擎的hive表中必须有时间字段，包括但不限于datekey、dt，时间格式为yyyyMMdd</p>
+</km-content>
+</km-note>
+<h4 nodeId="f1adc76a5b26486fbccec174307ca370">Step1:注册hive表和参数</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="2352d183b47043e0bffeef4ca72dd3e6">
+<tr nodeId="2fdaf798d1214b7486fe74327ef160d8">
+<th colwidth="[382]" nodeId="ff7b8b4cb7674bb19fb7274753f0c5e8">
+<p nodeId="e14fcf5b08294e9f891e98c97463c0e2"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[1076]" nodeId="9abe41086e5f424abf57218f9b3d52e8">
+<p nodeId="cf8f250fadce4e0eb2ffb214f26e8ea6"><span font-size="14">示图</span></p>
+</th>
+</tr>
+<tr nodeId="29f5970e657747cab0adc3bc27ca2381">
+<td colwidth="[382]" nodeId="5824677eec8f48f38ab8c1622517b805">
+<p nodeId="258d055b6b224b28b80aeb0b8aae1f82"><span font-size="14">【入口】</span></p>
+<p nodeId="9230cb3a7b9947beb79887b92fdb20dd"><span font-size="14">在配置中心--&gt;数据管理</span></p>
+</td>
+<td colwidth="[1076]" nodeId="eb5ea8a107cf46a19c36237b3d63b4c1">
+<p nodeId="8da86877274547ce8434702d9d7727dc"><img src="https://km.sankuai.com/api/file/cdn/322991443/50079247529?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1054" height="223" nodeId="520f1656ccb5451a945e652e555ecb19" /></p>
+</td>
+</tr>
+<tr nodeId="6d354dd58fda431c974d22c94c090f75">
+<td colwidth="[382]" nodeId="77cf20c558af4e3daafbbb17fafe4bb1">
+<p nodeId="495763bd9ec5480db21a89517d4955eb"><span font-size="14">【添加hive表】</span></p>
+<p nodeId="68a25197f80542fcbb3aea244ecc29e3"><span font-size="14">核心配置</span></p>
+<ol nodeId="a4b36621c50240fe9291164e57b9d779">
+<li nodeId="77070ba2445249a780384ef581728e10"><span font-size="14">填写hive的库表名信息，注意dsn通常与库名相同</span></li>
+<li nodeId="40ad5487738a4d2db78f74c5ea9ba3da"><span font-size="14">系统取数字段：hive表中您需要的字段数据，建议您按需选择</span></li>
+<li nodeId="37ce70cc9a454d379851635887661d53"><span font-size="14">状态：就绪--表T+1调度，未就绪--表将不执行</span></li>
+<li nodeId="71094e6dc71b43478e39596567e38592"><span font-size="14">共享业务方：在Zeus系统中有使用和修改该表权限的业务方</span></li>
+</ol>
+<p nodeId="aab49eb6ab9943fb885b183f3f1757ba"><span font-size="14">hive表依赖配置</span></p>
+<ol nodeId="fdf5bef3e9014c7888972e0c5272f930">
+<li nodeId="b8052b01c5244089949176611e69239d"><span font-size="14">跟进您填写的hive表和系统取数字段，在系统中添加相关参数（避免用户注册完hive表后再手动注册参数）</span></li>
+<li nodeId="47544de42e39493c9ee2be95d65c06e4">
+<p nodeId="3e6e43c247b8478ea5fe1e38263a9fca"><span font-size="14">仅支持系统中没有的参数的中文备注修改，名称和类型在此处不支持修改，若需要修改请移步“参数管理”</span></p>
+<p nodeId="4f5993d10845442cb383182eeeea7b79"><span font-size="14">⚠️：已经在系统中注册的参数，此处不支持任何修改</span></p>
+</li>
+</ol>
+<p nodeId="cbf284b04d5645f3b269506d9b7d0334" />
+<km-note type="info" hiddenTitle="true" nodeId="55e623a0cfb3430eb4e159b12127389d">
+<km-title></km-title>
+<km-content>
+<p nodeId="bd63cdebee1541c1aca75f27476c7584"><span font-size="14">dsn怎么写：</span><a href="http://dsn.data.sankuai.com/dsn/v2#/search/blurry" title="http://dsn.data.sankuai.com/dsn/v2#/search/blurry" nodeId="1b3a9d5278204fdab03cc0e15c9c7e8b"><span font-size="14">http://dsn.data.sankuai.com/dsn/v2#/search/blurry</span></a></p>
+<p nodeId="fc9770c36c1247e0bf63c7480479dc33"><img src="https://km.sankuai.com/api/file/cdn/322991443/24978965331?contentType=1" name="image.jpeg" width="360" height="85" nodeId="b88978029e1e46efa5c0bc46df149d93" /></p>
+</km-content>
+</km-note>
+<p nodeId="f5c15401b1564180ab87d28d56e4a5c6" />
+</td>
+<td colwidth="[1076]" nodeId="5bd7352d115c440da2f06c02371603cd">
+<p nodeId="8d274f4f11154e3793aea64a4eacac83"><img src="https://km.sankuai.com/api/file/cdn/322991443/363919983?contentType=1&amp;isNewContent=false" name="image.png" width="1047" height="548" nodeId="80867bb6acfc43838e771408e0dcb84d" /></p>
+<p nodeId="b4444cffa933453cb99aff47b22b323e"><img src="https://km.sankuai.com/api/file/cdn/322991443/363843340?contentType=1&amp;isNewContent=false" name="image.png" width="1048" height="551" nodeId="0478d1b809a04b2caa1bef91f0bed904" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="210309d983e345a8a794c4eef43745ca">Step2:添加离线任务（hive与场景关联）</h4>
+<table borderColor="#cccccc" responsive="false" nodeId="eedb5c669e3a432d9d10a29c38a31097">
+<tr nodeId="9ef0bc31519e41aca1e8bb3519579efa">
+<th colwidth="[108]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="247a9e5313444059998ec79751f21d4c">
+<p nodeId="786f49254f95420a8d6471fd60b097dc"><span font-size="14">动作</span></p>
+</th>
+<th colwidth="[652]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="ae9be1f1c8dc44c5857bbc59258f1fbe">
+<p nodeId="71e2664d08e841c1bb3837a15105e15e"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[704]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="d8e0372f46f84751a1e7cda684b6f082">
+<p nodeId="bc9e84d60a5b40c1ba1142fc21ef4e40"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="07a5af53926c484ea064c5edcd1b767c">
+<td rowspan="4" colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c8aa20a92310498e84e479e8c815547b">
+<p align="start" nodeId="227c143ee94e41019a39c3f70e92eefd"><span font-size="14">增删改离线任务</span></p>
+<p align="start" nodeId="ee78aa11dc534bb6b350583460fa43fb" />
+<p align="start" nodeId="3bc69f81bd9d45a2a66134bd501cf3f9" />
+</td>
+<td colwidth="[652]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6799d2d57089496eade96e2bb78042d2">
+<p align="start" nodeId="86537e759b0f42f695219abe977cd72b"><span font-size="14"><strong>入口：</strong></span></p>
+<p align="start" nodeId="fa5882685004445bb07068566e36597f"><span font-size="14">zeus--&gt;配置中心--&gt;离线任务--&gt;离线任务详情</span></p>
+<p align="start" nodeId="f9f468006fa840b2af523a2b25d14822"><span font-size="14"><strong>列表展示页：</strong></span><span font-size="14">区分离线任务详情和调度详情</span></p>
+<p align="start" nodeId="58e32c334db544e0a4ff23dfe0dace95" />
+<p align="start" nodeId="c6051199249f4080a8a0728593049089"><span font-size="14"><strong>离线任务详情页：</strong></span></p>
+<ul nodeId="4c76137fb6ae4e2a887adf56a510b604">
+<li nodeId="9d319d84cc15420aa4c5d2da9398eb3c">
+<p align="start" nodeId="7cc2427e6c9f4152b9f04a0cc7cf99b2"><span font-size="14">查询区：</span></p>
+<ol nodeId="4c83c136a69242b69498f560bb1824a3">
+<li nodeId="2edb928f5e374e308bd7012a54e3b5c9">
+<p align="start" nodeId="87b1c64a97f44090bafd144560be4b3a"><span font-size="14">场景：请输入场景ID或名称，支持输入后下拉选</span></p>
+</li>
+<li nodeId="80cc35420a694ecb9ab8b4e8d5c58f46">
+<p align="start" nodeId="1b0e9aecf2a04f77b2df252a8db505fc"><span font-size="14">规则：请输入规则ID或名称，支持输入后下拉选</span></p>
+</li>
+<li nodeId="ec171503a9ca47638d6a76b4dd2e7644">
+<p align="start" nodeId="127121d9b16d40edab90e2d611fb4b31"><span font-size="14">数据源：请输入数据源ID或名称，支持输入后下拉选</span></p>
+</li>
+<li nodeId="eb2010899ca64bc0bd2e362f41659f3d">
+<p align="start" nodeId="ce47022298534afd938059a993a886b2"><span font-size="14">任务：请输入任务ID或名称</span></p>
+</li>
+<li nodeId="e008e42144084cf1a1d9ab6129f7f94b">
+<p align="start" nodeId="da9d737d78584d6fae0aaae20e84d04f"><span font-size="14">创建时间/修改时间：时间点选框，支持选择创建时间/修改时间在所配置的起止时间内的；</span></p>
+</li>
+<li nodeId="5081a7146ecd4d8cbf76478c4a6aad86">
+<p align="start" nodeId="79d1a8ec63cb4d869dcaeb2f1b4ade68"><span font-size="14">MIDSID：请输入misid，查询创建人/修改人</span></p>
+</li>
+</ol>
+</li>
+</ul>
+<ul nodeId="c342272867474f1ca784f0911490415f">
+<li nodeId="1ccaff1f67064aaf92d886ea201683fe">
+<p align="start" nodeId="3490d038c4ff4f74943c58a99d7bfdf7"><span font-size="14">列表展示项：</span></p>
+</li>
+</ul>
+<ol nodeId="0d9ea65fc265451abb4e2f61b81a4dce">
+<li nodeId="472fcbdc88c74e47b2873edacf19c7ff">
+<p align="start" nodeId="6e478c3f0db74a1db52656d055b305dd"><span font-size="14">任务id/任务名称/场景/数据源表/任务类型/场景时间/修改时间/修改时间/操作列</span></p>
+</li>
+<li nodeId="4b2211f5d5b44b4b8384d0ee5d4c5a01">
+<p align="start" nodeId="7244d3682e004faf9704b9c30b05c70c"><span font-size="14">其中，任务名称/场景/数据源表支持点击名称进行超链接至对应的详情页</span></p>
+</li>
+</ol>
+<ul nodeId="4db8ac1c3ab1429684f655ef69335f67">
+<li nodeId="5da820ee2c0b4420b8b16feecefe505b">
+<p align="start" nodeId="942fe2b95b51481aa28e2ef130a964b4"><span font-size="14">任务类型与操作列对应关系：</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="95ec408734d142cfb86b607ef78d0a98">
+<tr nodeId="cd6ca6709e67490e836b7c626b186018">
+<th colwidth="[97]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="6c8b3c8977b2474c8d1dcf06bd23b649">
+<p nodeId="06938a808fd1418d9bb40dbf1ef54325"><span color=""><span font-size="14">任务类型</span></span></p>
+</th>
+<th colwidth="[192]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="1c93b01055704c01bb6bc06503bebd1c">
+<p nodeId="cf45957bb2574dff8c4d67431839d3f5"><span font-size="14">任务说明</span></p>
+</th>
+<th colwidth="[192]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="602c7e8245ee40d5a5ae96355e2329ef">
+<p nodeId="d19c6ff8040545ca979d4485f0f21ea5"><span font-size="14">操作列</span></p>
+</th>
+</tr>
+<tr nodeId="3e1a62cf3f594e6eb424a03d62eab42b">
+<td colwidth="[97]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4c867dcc151b4d659a1d504abaa6db82">
+<p align="start" nodeId="a4919133b1484685813b1e81759321fe"><span font-size="14">周期任务</span></p>
+</td>
+<td colwidth="[192]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5f0517a3a43c4bcbb152831ebeeaaeaf">
+<p align="start" nodeId="21bf45f77d61470dbfbb5f8f5097bda9"><span font-size="14">按照配置周期进行定时执行的任务</span></p>
+</td>
+<td colwidth="[192]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b1f4b90c82ea468db5b9f696fd276e63">
+<p align="start" nodeId="4bea12fb075e45bbb2746d677eedf868"><span font-size="14">编辑/删除</span></p>
+</td>
+</tr>
+<tr nodeId="398479ec12de414097f161ad18ce4096">
+<td colwidth="[97]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5f28b414eb464ab181a5f0749463f826">
+<p align="start" nodeId="8186a390a0d64fe1b35bf9638628f67e"><span font-size="14">自定义任务</span></p>
+</td>
+<td colwidth="[192]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6ace14941ab244c2ae54bbc9da05a5c1">
+<p align="start" nodeId="2a62ef29850a4ba695830972187d38f9"><span font-size="14">仅执行一次的任务</span></p>
+</td>
+<td colwidth="[192]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4265edf54bb348338275e0529d34f753">
+<p align="start" nodeId="848d931f325a4476a181331a08d9085e"><span font-size="14">删除</span></p>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+</td>
+<td colwidth="[704]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7841527272e64466a62cf0b381925aab">
+<p align="start" nodeId="0f39446e63fe4aac8c01f616cad08f4c"><img src="https://km.sankuai.com/api/file/cdn/322991443/6127322815?contentType=1&amp;isNewContent=false" name="" width="682" height="329" nodeId="c347b09bfe3449a1bd54f3fac997dc59" /></p>
+<p align="start" nodeId="af3815d6c501402e93cb626f011415c4"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125914639?contentType=1&amp;isNewContent=false" name="" width="682" height="243" nodeId="b4e8f5889e244bb5b7ac08cbccbe45af" /></p>
+<p align="start" nodeId="a29303f9aa0247cfa3e550f8437ffe2f"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125948980?contentType=1&amp;isNewContent=false" name="" width="682" height="248" nodeId="3e2baafe6a5740599872e97f59a02d00" /></p>
+</td>
+</tr>
+<tr nodeId="19a02adffc204222901cf8d63270e77a">
+<td colwidth="[652]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9cb196d6740d477a94e5027a87d68d18">
+<p align="start" nodeId="9c356d128b124ca78d20f4041aa1196f"><span font-size="14"><strong>新建离线任务</strong></span></p>
+<p align="start" nodeId="e077b51304934523a4a1c24dc7ee36c4"><span font-size="14">点击离线任务详情页右上角的</span><km-status pattern="fill" color="#1890ff" nodeId="8cb8da6018d34a8ab95510fa69255a5c"><span font-size="14">​新建任务</span></km-status><span font-size="14">按钮，跳转至</span><km-status pattern="fill" color="#ccc" nodeId="97b8a26a0cab416f8d1e43cda667bcbe"><span font-size="14">​添加离线任务</span></km-status><span font-size="14">页面</span></p>
+<ul nodeId="c2833e1d888144bdaf0f470d6e555f72">
+<li nodeId="cee9d75ca77f4b329e00e99b0b19a4d9">
+<p align="start" nodeId="8b5cf86b1a894d0ea58b358d20edb062"><span font-size="14">基本信息：</span></p>
+</li>
+</ul>
+<ol nodeId="d4aa84c7617141629311dad933bd2f62">
+<li nodeId="fdfaef3eb0eb42cbbab349992073609f">
+<p align="start" nodeId="067af4e9f9214a4185fe2df442d283cf"><span font-size="14">任务名称：</span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span font-size="14">，请输入中文名称，长度不超过20个汉字；</span></p>
+</li>
+<li nodeId="2a3cf2a48db448728214fdf7899a4ee3">
+<p align="start" nodeId="0ca7b2fa5fb744cca0c7e686c55170f3"><span font-size="14">英文名称：</span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span font-size="14">，请输入英文、字符；长度不超过50个字符；</span></p>
+</li>
+<li nodeId="07a801f4b1804c87a8983408b3a2dc04">
+<p align="start" nodeId="22601df5e30248fc8ca1d5b9f4ae91ed"><span font-size="14">数据源：</span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span font-size="14">，请选择hive数据源；如果未找到指定数据源，点击下方蓝字「</span><span color="rgb(48, 84, 235)"><span font-size="14">未找到数据源？跳转注册数据源</span></span><span font-size="14">」，会跳转至数据源注册页面，注册完成后重新添加离线任务；</span></p>
+</li>
+<li nodeId="ef52d9c37fad4e139eba1d4d87733770">
+<p align="start" nodeId="e58dddc8357f420b8131470ee03aa18b"><span font-size="14">任务类型：</span><span color="rgb(245, 35, 45)"><span font-size="14">必选</span></span><span font-size="14">，二选一，周期任务/自定义任务</span><km-status pattern="fill" color="#f5222d" nodeId="1298fcb02ce94bdaa4a4029287ed706b"><span font-size="14">​下面3种类型目前181空间暂不可用</span></km-status></p>
+<ol nodeId="0f4138b483eb4b8dbd706defb2d2cba5">
+<li nodeId="2b2e96d26ef049ffa592d04f62a960d4"><span font-size="14">默认选择每天一次；指定执行时间可不填，指定后系统将不再检测上游是否就绪，到指定时间立即开始执行（就绪检测说明：</span><span font-size="14"><strong>多个表/多次调度写入上游表需要等到全部执行完成后，才认定为就绪</strong></span><span font-size="14">）</span></li>
+<li nodeId="4f4c99b82ddf4f27965575e3275c81cf"><span font-size="14">每小时一次：需要上游数据源有小时分区字段，同时周期需要选中小时对应的字段及填写阈值，注意填写阈值的设置，存在交叉的情况下会重复拉取</span></li>
+<li nodeId="1d9082b45e7e4556a8cd6becdbeabf1f"><span font-size="14">自定义表达式：最小间隔为1小时，书写形式参考</span><a href="https://km.sankuai.com/collabpage/1861989806" title="https://km.sankuai.com/collabpage/1861989806" autoUpdate="true" nodeId="285a9549f97b4186b573ee7597482abc"><span font-size="14">https://km.sankuai.com/collabpage/1861989806</span></a></li>
+</ol>
+</li>
+<li nodeId="c8e0edab29b54983a9632f3b4082648b">
+<p align="start" nodeId="f358a9f38b564760b70d871e3af6e2c4"><span font-size="14">周期：</span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span font-size="14">，如果选择的是周期任务，周期字段为所选的hive表中的某个字段，数字填N，表名执行是，执行</span><span color="rgb(245, 35, 45)"><span font-size="14">大于等于T-N天</span></span><span font-size="14">的数据，比如，N=1，表明每天执行前一天的数据；如果选择的自定义任务，周期字段仍旧是hive表中的字段，但是为时间窗口式选择起止时间，表明此次任务指定时间窗口的数据执行相应策略；</span></p>
+</li>
+<li nodeId="028e96eeb53a44cfb1c00fc1145fca8d">
+<p align="start" nodeId="76c1ff2e593c45f2ab5ebb3d5fe1bd3d"><span font-size="14">where条件：非必填，直接写sql，周期如果只想指定一天，需要在这里指定，如</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">dt = date_format(current_date, "yyyyMMdd")</span></span></p>
+</li>
+<li nodeId="f95c324238124c2e9ebf0c457627e67d"><span font-size="14">最晚执行时间：非必填，只能选到小时点，比如最晚执行时间16:00，比如到了16:00任务还没执行的话，</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">场景关联的数据源表/个体全局因子/特征因子仍未就绪，则会发大象通知（任务不执行）</span></span><span font-size="14">；</span></li>
+<li nodeId="22406d4f6bcd46c9ad91638579e6435e"><span font-size="14">执行时长上限：手动填写，需要小于8小时</span></li>
+<li nodeId="097318ce477f4e1ba2ddfb6120337911">
+<p align="start" nodeId="1caeb82e4b3f40479b8d392bfcdd0858"><span font-size="14">告警接收人：</span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span font-size="14">，支持填多个misid，针对任务执行情况的通知信息接收</span></p>
+</li>
+</ol>
+<ul nodeId="724f4128253240bcbdef9d5a41d1ad30">
+<li nodeId="65307625cb334622b12b936aa124d55a">
+<p align="start" nodeId="5a39b6478e854a3c853857b40b79af09"><span font-size="14">场景规则配置</span></p>
+<ol nodeId="7f3f41bbec564111b5b468bb52bde294">
+<li nodeId="9a1a58db7ebd41509d5dcc729f42460f">
+<p align="start" nodeId="a0c01c41d0434faaa5244ba6f0c63d19"><span font-size="14">场景：</span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span font-size="14">，需要先key入id或名称进行检索；</span></p>
+</li>
+<li nodeId="35b23c8941b84a4f96c44ba422db7d33">
+<p align="start" nodeId="deb6ee8d8c7a4c8c9f96bc0866fd70a4"><span font-size="14">规则：</span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span font-size="14">，根据上一步选定的场景默认全部带出，如果有不需要执行的规则，可以在此处进行删除；</span></p>
+</li>
+</ol>
+</li>
+</ul>
+</td>
+<td colwidth="[704]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c2c0a9cf719842d19544abf3632559d9">
+<p align="start" nodeId="1aa57f0cfc0d40ceae60b39dd42f3bcb"><img src="https://km.sankuai.com/api/file/cdn/322991443/103171990469?contentType=1&amp;isNewContent=false" name="image.jpeg" width="611" height="600" nodeId="51ca757ac0ff4150a94fd21b0827ee75" /></p>
+<p align="start" nodeId="ec865296db1a47a79f6c35449dedfc2b" />
+</td>
+</tr>
+<tr nodeId="0155167bf3204608ab556c6465825c4f">
+<td colwidth="[652]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9fb2f1e811aa42d8883708dc65aa2568">
+<p align="start" nodeId="98266ee84a2f45ef8f31e7ec2a2771f0"><span font-size="14"><strong>修改离线任务</strong></span></p>
+<p align="start" nodeId="d302eb7d921b42778b3df15ee9403322"><span font-size="14">针对周期任务，支持对离线任务进行修改，仅支持修改离线数据源字段、告警接收人、场景下的规则增删、周期字段和where条件。</span></p>
+<p align="start" nodeId="663bc5397c7541b591f81065cc8cfdbd" />
+<p align="start" nodeId="2d4d098b7436448585cb6b85c73a0d42"><span font-size="14"><strong>说明：周期任务当日修改后，第二天的调度才会以新的配置进行执行，因为当日的调度任务已经生成；</strong></span></p>
+</td>
+<td colwidth="[704]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7f07f184b43d48348752d15c4b3b899e">
+<p align="start" nodeId="104dfe25caea4b5a88742556e8e13689"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125284527?contentType=1&amp;isNewContent=false" name="" width="682" height="298" nodeId="bcb91159f5334b6481beb1e5d697e12e" /></p>
+</td>
+</tr>
+<tr nodeId="3f1235db53be431399114164d51284c4">
+<td colwidth="[652]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f0baad00249748aab61873de12827613">
+<p align="start" nodeId="0b1503b681b945eab3043d5c5436cd36"><span font-size="14"><strong>删除离线任务</strong></span></p>
+<ol nodeId="63f414ee221149b9a251074f4301293c">
+<li nodeId="88bcd7dbb7694a9fb7c06202f5737825">
+<p align="start" nodeId="a50b5a86028342c89c369a27e1da4d0e"><span font-size="14">无论是周期任务还是自定义任务，都支持对原本任务进行删除；</span></p>
+</li>
+<li nodeId="65e7353fcaf04319a71fd5697916fe41">
+<p align="start" nodeId="1bbea7adc79846e68b13a10cc58eab73"><span font-size="14">针对自定义任务：从配置好后，无论删不删任务，调度任务已经生成，会执行完成；</span></p>
+</li>
+<li nodeId="e03c1642047046e48f0284dde2d1af25">
+<p align="start" nodeId="307fcd01d96a4811a6999e92ca85acf0"><span font-size="14">针对周期任务：如果删除任务，则当日的调度还会执行，之后的调度不会再执行</span></p>
+</li>
+<li nodeId="1e02c30d0bd740dbac75e88babdf24fc">
+<p align="start" nodeId="2efe9dfe7c114785a385d6c4bb0deeed"><span font-size="14">无论删不删任务，历史的调度记录都会存在</span></p>
+</li>
+</ol>
+</td>
+<td colwidth="[704]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="78f0ec96d94d4eb4928853b2751eddc7">
+<p align="start" nodeId="af0f896533704d42b71c7b724b104e28"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125607676?contentType=1&amp;isNewContent=false" name="" width="337" height="118" nodeId="d4eb35c8f17545f8ab7dd60d6aa92064" /></p>
+<p align="start" nodeId="c285732139554db387b8795da3ef9f3d" />
+</td>
+</tr>
+<tr nodeId="e759622a1182446cacc358c4af014c23">
+<td rowspan="2" colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b026affae76c482fb1c943bdbf86af72">
+<p align="start" nodeId="11897013153c4abeb26bdcfae2ae2f69"><span font-size="14">调度详情</span></p>
+</td>
+<td colwidth="[652]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f014a97398ed42e8a5fa05dc4deff365">
+<p align="start" nodeId="400590b1213b4da08b4cdecb3ac75c9c"><span font-size="14"><strong>调度详情页</strong></span></p>
+<p align="start" nodeId="3c8f6d46b79f481c8d63ecf49ca9701d"><span font-size="14">查询区：</span></p>
+<ol nodeId="ac31d1d555194b5082b038f2750f0177">
+<li nodeId="3ba6139342d841c5a30d6a09053eb0b1">
+<p align="start" nodeId="cc2d0b7569164d3fb9dd83f93b6ae8c7"><span font-size="14">场景：请输入场景ID或名称，支持输入后下拉选</span></p>
+</li>
+<li nodeId="a0404452b4a049ba87d3631072075018">
+<p align="start" nodeId="e6a7bdb5569046b091b0793275634a37"><span font-size="14">调度状态：待执行、执行中、执行成功、执行失败、中止执行</span></p>
+</li>
+<li nodeId="d2ade7341bbf499fba05c6dbbbdce82c">
+<p align="start" nodeId="ec023c75d2a848d8b2d8e5f71c01525c"><span font-size="14">调度任务：请输入调度ID或者名称</span></p>
+</li>
+<li nodeId="eb1f30eba4174693b13cf704a54876e5">
+<p align="start" nodeId="9c4a1028e51743d096579e84db852da3"><span font-size="14">开始时间：查询调度任务的开始时间在所选时间至今的；</span></p>
+</li>
+<li nodeId="810805f6dbd5440d81073dbb6a0f4e2c">
+<p align="start" nodeId="19cc8bfab5064dc9ba6cce62d960adc3"><span font-size="14">结束时间：查询调度任务的结束时间从所选时间往前推；</span></p>
+</li>
+<li nodeId="ca8ea42b993740fa8e6a388c4e79fbd0">
+<p align="start" nodeId="ce2e1a2d626946e5a8d61f5a30d9fb3d"><span font-size="14">开始时间和结束时间可以组合查询</span></p>
+</li>
+</ol>
+<p align="start" nodeId="bb956afd17ea40e99299224f9dd36595"><span font-size="14">列表区：</span></p>
+<ol nodeId="9af7d952af1e42118be721a0ca6e798d">
+<li nodeId="a42e2ed7944242f1bcba8112575ff39f">
+<p align="start" nodeId="6a62a193087f48f498043367f6829f54"><span font-size="14">任务ID：展示的微离线任务的ID，比如一个周期任务会每天执行，输入id检索可以查看该离线任务的每天调度情况</span></p>
+</li>
+<li nodeId="4d24b05da67e417080e8afa7cd694dd0">
+<p align="start" nodeId="0b7aa5a8010643c2bb05f1c501447279"><span font-size="14">调度任务：名称为「调度ID-离线任务名称-调度执行日期」，点击可查看调度详情；</span></p>
+</li>
+<li nodeId="078ff230055f4fb4b49b643e7f081cf7">
+<p align="start" nodeId="ef0f50d2dc304e798d4701a2618b177b"><span font-size="14">调度对象：只有场景，可超链接至执行场景；</span></p>
+</li>
+<li nodeId="226d4afda9fe43c9a1fe328b64caa0ab">
+<p align="start" nodeId="ef5896894d9d4519ab1c4aa7c1d5c8ff"><span font-size="14">调度状态：展示状态；</span></p>
+</li>
+<li nodeId="12c077a9a3ea4da68083661c68ff1441">
+<p align="start" nodeId="08d8bd57eb924f329c58fee0ef08c906"><span font-size="14">开始时间：展示调度任务实际开始执行时间；</span></p>
+</li>
+<li nodeId="976507f9185941c69c8e02a010b8791c">
+<p align="start" nodeId="9e75b6a4109946eb82bb3e6850a01168"><span font-size="14">结束时间；展示该调度任务实际结束时间；</span></p>
+</li>
+<li nodeId="b5d89baa2e374b34a4af2a24a2853386">
+<p align="start" nodeId="0b0999e6a96943c89078b94e9166d6aa"><span font-size="14">执行版本：展示调度版本；</span></p>
+</li>
+<li nodeId="06f1d6b5c19f4945b196ff1e42928c37">
+<p align="start" nodeId="a764c3f56e344442b7ac03b64dc01720"><span font-size="14">操作：重跑，点击重跑按钮，可以跳出二次确认是否重跑弹框，</span><span font-size="14"><strong>执行中和待执行状态的不可重跑</strong></span></p>
+</li>
+</ol>
+<p align="start" nodeId="796037d860294a09a4c04ab5a38e72f3" />
+<p align="start" nodeId="328fe56649ca44d9b3d9e0a7b22ad52c" />
+</td>
+<td colwidth="[704]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a8df39b5a78445ef93df719bb4a1c929">
+<p align="start" nodeId="c679f35ded2c4e789e60db7cd27e7ec6"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125948983?contentType=1&amp;isNewContent=false" name="" width="682" height="220" nodeId="7b67d81a682940cba4ef04d619640a55" /></p>
+<p align="start" nodeId="1d4fc60e20464238adf300a560b8a059"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125607679?contentType=1&amp;isNewContent=false" name="" width="682" height="313" nodeId="32769dbdf04d4d0182909ceb26a20588" /></p>
+<p align="start" nodeId="f58742156e4d4dfeb934f2c8ab3ece67"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125284531?contentType=1&amp;isNewContent=false" name="" width="682" height="156" nodeId="f5069a7016894c88a2d9616cd3a5d68e" /></p>
+<p align="start" nodeId="3dbb6099fa8342c38d29533a3df0c9c1"><img src="https://km.sankuai.com/api/file/cdn/322991443/6127322816?contentType=1&amp;isNewContent=false" name="" width="328" height="118" nodeId="a00468d44351482eb78957f2e2b519df" /></p>
+</td>
+</tr>
+<tr nodeId="1489e9845d84450c94f7814d9df65aae">
+<td colwidth="[652]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="82430a4ff4ff477abdfc458712f18aa4">
+<p align="start" nodeId="48b4ea02c3aa4502a8c196b956433b39"><span font-size="14"><strong>调度详情页</strong></span></p>
+<p align="start" nodeId="6632434bbcde4f97bd18eeb1307019b3"><span font-size="14">点击列表页的调度任务名称，跳转调度任务详情</span></p>
+<p align="start" nodeId="4c16bcfa6f964ff696048af59ca84b6c"><span font-size="14">基本信息：展示离线任务的基本配置信息，即使离线任务删除或者被修改过，此处也会记录当时调度时的配置；</span></p>
+<p align="start" nodeId="887242c8d4894a70bb62170a837ec43c"><span font-size="14">任务信息：</span></p>
+<p align="start" nodeId="3da91196694c42f98939e0ba38ea6f83"><span font-size="14">展示该任务实际执行的规则</span></p>
+<p align="start" nodeId="28199ca764a74387b81405a1532880c6"><span font-size="14">规则id：</span></p>
+<p align="start" nodeId="d329499619164be198f1677dabfb6b51"><span font-size="14">规则名称：支持超链接至规则详情</span></p>
+<p align="start" nodeId="3c282e5eeb8a40f78c28c1ef1bb65e60"><span font-size="14">调用量：即该次调度任务实际有多少流量请求了该条规则；</span></p>
+<p align="start" nodeId="b2a3c5eb2609452c92936358ba697275"><span font-size="14">命中量：即该次调度任务实际有多少流量命中了该条规则；</span></p>
+<p align="start" nodeId="c2a313965c5f41f186f6a0f1546b7b96"><span font-size="14">操作：查看按天聚合结果，点击跳出弹框展示按天聚合的情况</span></p>
+</td>
+<td colwidth="[704]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="98e1d7bf8c464e7eb420a0a25dd775ac">
+<p align="start" nodeId="fc1edc7d54244d3a828527461486f36f"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125607680?contentType=1&amp;isNewContent=false" name="" width="682" height="312" nodeId="8814d3a52ffe45d18016bf4ea52d218b" /></p>
+<p align="start" nodeId="34a58048c5674972934333a8ce4f98aa"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125284529?contentType=1&amp;isNewContent=false" name="" width="413" height="176" nodeId="55f33938eb98454cb3136d3a4dcd9006" /></p>
+</td>
+</tr>
+<tr nodeId="e16d45980ee041b88e75e60fec974f57">
+<td rowspan="4" colwidth="[108]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3a689cdbf1e54c749f1416d24884d1f0">
+<p align="start" nodeId="ff50ef0cd7e840caba9d018826722e37"><span font-size="14">大象告警通知</span></p>
+</td>
+<td colwidth="[652]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4d6503a7c74949f899ff29f425146fb2">
+<p align="start" nodeId="d150395b9fa94f7d9911be871e907e54"><span font-size="14">每日执行情况统计通知</span></p>
+</td>
+<td colwidth="[704]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6b84b6ea3b0f40a291842a85f6f7e560">
+<p align="start" nodeId="5d6512fc9f094fb2ac7d83dc43933d33"><img src="https://km.sankuai.com/api/file/cdn/322991443/6126075066?contentType=1&amp;isNewContent=false" name="" width="682" height="191" nodeId="c8ee8e2cab164973a558b2f8962aaf71" /></p>
+</td>
+</tr>
+<tr nodeId="4023bcfabe1446b6ac0bd77257ebb2ce">
+<td colwidth="[652]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="70d2740853f64a4fadc2caaa1f2447d9">
+<p align="start" nodeId="ab46a64041ec47d5948aa3719dd923b8"><span font-size="14">执行失败通知</span></p>
+</td>
+<td colwidth="[704]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a7060011854c42e7948bbdf5a0369851">
+<p align="start" nodeId="8325bd1a20174ba59fdbd34b4c4c90ca"><img src="https://km.sankuai.com/api/file/cdn/322991443/6127322819?contentType=1&amp;isNewContent=false" name="" width="682" height="174" nodeId="9466699268da4a8aa3ecff75e5fec0dd" /></p>
+<p align="start" nodeId="ea4667a87e324f5eac3a566cbb1b9ab5"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125284528?contentType=1&amp;isNewContent=false" name="" width="682" height="111" nodeId="464257e12ea3407f836f5f6ab89bed5b" /></p>
+</td>
+</tr>
+<tr nodeId="aab7a57fec564e7eb2d5d9e59b57af38">
+<td colwidth="[652]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="28731795ae734d13bfbb470b1f9a0553">
+<p align="start" nodeId="771442b675a5433f8ecdfe9bab29e5c1"><span font-size="14">到达最晚执行时间执行通知</span></p>
+</td>
+<td colwidth="[704]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7f44638d03214f3ca7c041d9b7618b59">
+<p align="start" nodeId="2f31ec0931454fe68b487388c2924a4d"><img src="https://km.sankuai.com/api/file/cdn/322991443/6126078167?contentType=1&amp;isNewContent=false" name="" width="682" height="113" nodeId="3e8b77b029ca4696881b09d865d352bb" /></p>
+</td>
+</tr>
+<tr nodeId="2255052f73e84175bbfb564c568dc9c8">
+<td colwidth="[652]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7f0b40204aa14d9a9dcd978d69c48080">
+<p align="start" nodeId="a3b7d42376b84382b67d5e62b3ab6aab"><span font-size="14">执行时间过长任务通知</span></p>
+</td>
+<td colwidth="[704]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f26cb12328fa4b99a94cc6c2463e131f">
+<p align="start" nodeId="1ba15476da84449e952280e015378a38"><img src="https://km.sankuai.com/api/file/cdn/322991443/6125948986?contentType=1&amp;isNewContent=false" name="" width="682" height="76" nodeId="d1c5c11620ff4df1b93590b91152a54c" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="d6ca4021330c4beca3491e8c89ba8fda">Step3:创建因子</h4>
+<p nodeId="a7d97f02d0b543bb87c3ea1596f8f6da"><u>累计因子、决策表因子等离线引擎</u><strong><u>无法使用</u></strong></p>
+<km-note type="info" hiddenTitle="true" nodeId="7727ddb56d3249dfab37b96567dc1f19">
+<km-title></km-title>
+<km-content>
+<p nodeId="df2549d5b7b949c38db6ca53c9bb74ed">特殊说明：个体因子、全局因子</p>
+<p nodeId="b127dfe10b18462d9a9eeed340be22bc">作用：全局因子--宏观统计指标，比如：到综商户的平均订单金额；个体因子--聚合统计指标，比如：到综<strong>单</strong>商户的平均订单金额</p>
+</km-content>
+</km-note>
+<table responsive="false" nodeId="1762b4673fd04780a65f9a876f6c8cea">
+<tr nodeId="f6f409b7691744f89ede92973dcf3e33">
+<th colwidth="[594]" nodeId="c19902c9f6c645d49ed8a826330531ee">
+<p nodeId="2efab47036df462ab5ffdd8d8da3569c"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[876]" nodeId="2fdfb7735ef244fda888514328630115">
+<p nodeId="23573f6a05594145bd804951a351c931"><span font-size="14">示图</span></p>
+</th>
+</tr>
+<tr nodeId="05ff3c47dd114de0b8b1f994b857f9b1">
+<td colwidth="[594]" nodeId="1764eac6e3974a9eb3fd183ce02c8593">
+<p nodeId="a5cf5ac820c84ae684c24a9729e82a4a"><span font-size="14">【入口】策略部署-因子</span></p>
+</td>
+<td colwidth="[876]" nodeId="b80441aa745f481ea9cd3cb24ff5bd27">
+<p nodeId="af040e44be104c4db212d41ad1674b84"><img src="https://km.sankuai.com/api/file/cdn/322991443/50083674205?contentType=1&amp;isNewContent=false" name="image.jpeg" width="852" height="165" nodeId="ae12caab5d9d4d1989002f4e9b7498bb" /></p>
+<p nodeId="ec8d2897c29d40a7bc56a53494e3ac29"><img src="https://km.sankuai.com/api/file/cdn/322991443/324710624?contentType=1&amp;isNewContent=false" name="image.png" width="851" height="383" nodeId="f8871e45025b48389be856d1dfd7ce4f" /></p>
+</td>
+</tr>
+<tr nodeId="ef2800f707c04d71a2fa5a71636b51b2">
+<td colwidth="[594]" nodeId="2e1a903a3fd64b4ba2da680b08164b4d">
+<p nodeId="b5c875e568364ad5a8da133d0878a92a"><span font-size="14">【个体因子】</span></p>
+<ol nodeId="26cd83b2df004364bd5ae5286402a915">
+<li nodeId="92a2bb91750d403886a646de0263542d">
+<p nodeId="322102f9f61b417eb62ab222d029111e"><span font-size="14">个体因子可处理什么逻辑？</span></p>
+<p nodeId="57bcfdd5708c489ba221ae15ac336937"><span font-size="14">与累计类似，比如可以统计15天内单设备累计的支付账号数，累计到结果用于规则执行</span></p>
+</li>
+<li nodeId="93f1029adc0c4f25b4225e807e723f99"><span font-size="14">中英文名称正常填写即可，英文名称建议使用factor 开始</span></li>
+<li nodeId="11343b3232e44da492ecad005e182ad1"><span font-size="14">选择工具根据逻辑需求，选择个体因子</span></li>
+<li nodeId="6b83536b3eff4e699b0db6d3b1b83f03"><span font-size="14">库、表名为个体因子计算需要的原始数据表，且需要已经完成了Zeushive表注册（注册操作见Step1）</span></li>
+<li nodeId="594d5559233b41338fde1cfb324c1412">
+<p nodeId="1aa7b133da7c4058b24773e7451c5c5b"><span font-size="14">计算周期：</span></p>
+<ol nodeId="3e24a530078e4fada179f232ce0bd653">
+<li nodeId="df2614481f5c4504afe427ac2256bef8"><span font-size="14">“请选择周期”指统计周期的时间计算维度按照数据表中的哪一个字段进行计算</span></li>
+<li nodeId="4c46236e99bb4d4380477f1e57b0ef8b"><span font-size="14">数据统计的范围，目前仅支持天维度</span></li>
+</ol>
+</li>
+<li nodeId="7c19e05f88804cf6b73d8d6d3b62bdf2"><span font-size="14">计算类型、删除重复项、去重字段字面意思</span></li>
+<li nodeId="cd7a59796e82441b8692eb9ef57b2b0a"><span font-size="14">维度列：按何计算</span></li>
+<li nodeId="9e59f3ed71314bd9a89dcdd2f20e9c55"><span font-size="14">指标列：计算的是哪个值</span></li>
+<li nodeId="e47b35a0d03e488ebdc15e7594b3f996"><span font-size="14">where条件和having条件 ：该指标计算的复杂筛选逻辑</span></li>
+</ol>
+</td>
+<td colwidth="[876]" nodeId="1b7586eaf6d54bfd99c07485eb719dc6">
+<p nodeId="5a082500565d43338d0d4ae53ec6e6ca"><img src="https://km.sankuai.com/api/file/cdn/322991443/324773894?contentType=1&amp;isNewContent=false" name="image.png" width="456" height="433" nodeId="3664f7e5af6a46b69f14d2699a23c4c7" /></p>
+</td>
+</tr>
+<tr nodeId="71dc3dddc7e2403881c8798be264045d">
+<td colwidth="[594]" nodeId="4c3f568b87904c83a01b6222b8b8dd26">
+<p nodeId="0eac77effd96442a90a2aefb6c954db1"><span font-size="14">【全局因子】</span></p>
+<ol nodeId="33b186aa9185415d91e6f94641711a8a">
+<li nodeId="7b3e9c566e3847a7b87f30d93006af05">
+<p nodeId="970655de28a641bab9455de537f170ad"><span font-size="14">全局因子可处理什么逻辑？</span></p>
+<p nodeId="70bc3189bcb14838b080fc72ed75d7f8"><span font-size="14">基于个体因子的加全计算</span></p>
+</li>
+<li nodeId="9881d29af4a4410f8478765e8f50aed2"><span font-size="14">中英文名称正常填写即可，英文名称建议使用factor 开始</span></li>
+<li nodeId="22773440f1cb4684a33350196f1a1175"><span font-size="14">选择工具根据逻辑需求，选择全局因子</span></li>
+<li nodeId="6bcf0b886c704d5e957a9e12f02c6531"><span font-size="14">计算值：取自个体因子，基于个体因子计算的全局统计数据</span></li>
+<li nodeId="735a2c34ebdb4d24a01e943dbc7e4111"><span font-size="14">计算类型字面意思</span></li>
+</ol>
+</td>
+<td colwidth="[876]" nodeId="9ab87982cc4d4575b6e85262c7ae0647">
+<p nodeId="b607f1fdd77c4825a4d05ab6c451e983"><img src="https://km.sankuai.com/api/file/cdn/322991443/324731644?contentType=1&amp;isNewContent=false" name="image.png" width="656" height="228" nodeId="01a7a065c44a4ad6b9c9526684ef798c" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="ca989c415a7d46fa8e9e065fa73cf912">Step3:创建规则、决策、场景和场景配置</h4>
+<p nodeId="7629f0ebea174105b72f0eeae1f9b6e9">参考实时引擎配置方式即可<a href="https://km.sankuai.com/page/312585969" title="https://km.sankuai.com/page/312585969" autoUpdate="true" nodeId="9b724a0e683340258d2eb00f7c6b14f2">https://km.sankuai.com/page/312585969</a></p>
+<h4 nodeId="b1c6bf35aef545fd9745c881af6522ce">Step5:输出字段配置以及数据验证</h4>
+<table responsive="false" nodeId="d2be49369dbf430d8701a2a6cdd8ce0f">
+<tr nodeId="5bb22dfe7e3d4e1285ea69aebd4f8616">
+<th colwidth="[382]" nodeId="f20909e5116340159999c2c94236cefb">
+<p nodeId="8ec99221a6ea4b76a4b418a439e88063"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[1091]" nodeId="3c614cf230a04bc2a9bbbf515d278bb4">
+<p nodeId="6ccd9fd03bec4030870ac0dd9e57d5d1"><span font-size="14">示图</span></p>
+</th>
+</tr>
+<tr nodeId="b58a5d2b96a6431aa47602b06c2eae13">
+<td colwidth="[382]" nodeId="ed5572c7002f448bbf1cf91be46a405e">
+<p nodeId="2c1a8ede945e43928f4fe0c0cdca5e1a"><span font-size="14">【输出报表管理】</span></p>
+<p nodeId="7f8858ede6654053bc580ec6750174d9"><span font-size="14">⚠️当前尚未实现规则执行后的结果自定义输出，目前为统一的Zeus.log数据，需要业务根据自己期望提供给下游的目标格式，进行XT配置清洗。预计6月底完成自定义输出配置及同名单库、运营平台的打通</span></p>
+<p nodeId="2c4f97e8acb14b259196a025360f553a"><span font-size="14">Zeus.log数据表：</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">log.rc_zeus_request_business_122（只包含命中数据）</span></span></p>
+<p nodeId="336919a39c9c4c07b8258e35438919d9"><span font-size="14">账户安全数据表：</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">ba_rc.zeus_offline_result_to_tt_v3</span></span></p>
+</td>
+<td colwidth="[1091]" nodeId="7174672b540540849d9b732df07746d0">
+<p nodeId="81520661739a4969bc4a1f919e16be8a"><img src="https://km.sankuai.com/api/file/cdn/322991443/44123901966?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1069" height="113" nodeId="09580c418a384eda8990c12d844f4bde" /></p>
+</td>
+</tr>
+<tr nodeId="97efb5afeca44fdc9f826fefdb06c074">
+<td colwidth="[382]" nodeId="a44561e2e15c402d8c328e55ef3df386">
+<p nodeId="553beb2370814aaf85c57d5d24cd82db"><span font-size="14">【输出决策管理】</span></p>
+<p nodeId="9c124b82441c483e95aceca65a830100"><span font-size="14">当前只有「tuya处罚」可触达到tuya处罚中心，实时执行处罚；其他决策只输出表，如有新增决策需要执行，需研发配置开发；</span><a href="https://km.sankuai.com/collabpage/1785764509" title="https://km.sankuai.com/collabpage/1785764509" autoUpdate="true" nodeId="e200ec3eb3c243aa90e2e6c16fb0f6da"><span font-size="14">https://km.sankuai.com/collabpage/1785764509</span></a></p>
+</td>
+<td colwidth="[1091]" nodeId="a5487368e558473f847604ec7e92baf5">
+<p nodeId="1a94d934bf3441f6ba0f93989c8efdad"><img src="https://km.sankuai.com/api/file/cdn/322991443/50084927032?contentType=1&amp;isNewContent=false" name="image.jpeg" width="595" height="101" nodeId="255d5713eaea4a03837334754adf2ed2" /></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="22649d0e957540c3abdefa1a6bce6ad7">Step6:调度运行</h4>
+<p nodeId="ba7e384b26d44390b191133a7b6d675d">1.完成上述Step1至Step5的配置，T+1你会收到调度完成消息（暂时不能当天执行验证，后续陆续开放）</p>
+<p nodeId="1114c1137cee49a7aeef53fde8d8f60e"><img src="https://km.sankuai.com/api/file/cdn/322991443/323152302?contentType=1&amp;isNewContent=true" name="image.png" width="414" height="89" nodeId="66f176282d7f4342a318c0d93e8d6da6" /></p>
+<p nodeId="8cd2808c5cdc4a648bdf96aa2e1a8c3f">2.当运行出现异常时，可在调度管理中查看异常情况并进行重试</p>
+<table responsive="false" nodeId="1408d62d6f7341e6926c00ea999bc44f">
+<tr nodeId="c5ae983bd09e4e04ac29e2bfb252f817">
+<th colwidth="[382]" nodeId="ea31f7387d6e4623824d9675a18b9912">
+<p nodeId="b6b7e25739874231a3de762999e04403"><span font-size="14">操作说明</span></p>
+</th>
+<th colwidth="[1264]" nodeId="cd9fcca1656947f7a80aa3947f9aad29">
+<p nodeId="f9849d6114c948dd9242ed739cf68d79"><span font-size="14">示图</span></p>
+</th>
+</tr>
+<tr nodeId="9b9b5714adef4e72a27f71501d327c7b">
+<td colwidth="[382]" nodeId="3939f7370d52473a94194385fb91876a">
+<p nodeId="bf341059bcbc458e8dd3eb55a2c4ff27"><span font-size="14">【调度管理】</span></p>
+<p nodeId="1dc0152184da46e596eacb57f83e4d8d"><span font-size="14">入口：Plus+工具中心--&gt;离线调度</span></p>
+<p nodeId="f959dc764b5f49749da3d15c4c65f48a"><span font-size="14">（1）对于当天执行异常的任务可以进行重跑操作</span></p>
+<p nodeId="06960293581c436c92cb498e5b6fd7da"><span font-size="14">“场景因子异常”若是提示该异常信息，表明因因子计算异常，导致场景执行结果异常。点击重试，会从因子计算开始一直到场景执行都重跑；</span></p>
+<p nodeId="fe16e142506247bb9c4af9ef0c7240f5"><span font-size="14">“执行异常”若是提示该信息，表明当前状态下的内容执行异常，比如场景执行异常，点击重试，只会从场景执行重跑；</span></p>
+<p nodeId="61399a38df2a4e73b5dd203baf3aa0c5"><span font-size="14">（2）执行版本：为防止用户在日志查询时无法定位重跑数据，进行数据分析，在执行时会记录版本号。若出现重跑可根据版本号锁定相关日志信息</span></p>
+</td>
+<td colwidth="[1264]" nodeId="f704e28cf0c54db8a6c62218dcef9d07">
+<p nodeId="9c73d22d30494ed3abdd01b27b3637f2"><img src="https://km.sankuai.com/api/file/cdn/322991443/459419718?contentType=1&amp;isNewContent=false" name="image.png" width="1009" height="383" nodeId="2b99437a18ec40eb9c1b83bb797f3830" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="689ddc87df5544b39d7d4675795857d7">三、名次解释</h1>
+<p nodeId="09332e3ece174231a2c3c22d976c011c">数据管理：<span color="rgb(0, 0, 0)">在zeus上注册并管理离线hive表，包括查看、配置字段依赖映射等</span></p>
+<p align="start" nodeId="598815073fa844dba8801a825992c83d"><span color="rgb(0, 0, 0)">离线任务：离线任务和调度的查看与管理， 包括重跑离线任务</span></p>
+<p align="start" nodeId="02a4da79b89a43e382ef5757678bcdf6">调度任务：针对配置的离线任务，展示每次的调度情况</p>
+<h1 nodeId="968d34fd6adf4483bffd917de18d8533">四、FAQ</h1>
+<h4 nodeId="3352aa2e76204248a79febb757fbffe0">Q1:离线引擎处理数据的时效性</h4>
+<p nodeId="fe60a1cdbdc54978b173f6a955ec64e1">A：上游etl数据就绪后，开始离线引擎调度，抽取指定周期的数据；最小粒度可到小时</p>
+<h4 nodeId="45059cc8bbad41d7aae2cf30dc884ca3">Q2:可以多张hive表映射至同一个场景么？</h4>
+<p nodeId="2e4ff59ef23a47e29f1fd78132f44251">A：可以的，需要在离线映射中创建多个映射，即hive表与场景间是多对多的状态</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/322991443/324910915?contentType=0&amp;isNewContent=false" width="196" height="169" nodeId="378c60b73e6c4d618513b4313ccd2fa6" />
+<h4 nodeId="6ede1878ee514f27a2f14b7a153dfdb4">Q3:离线引擎可以调用外部数据么？</h4>
+<p nodeId="054c0b2b2dad4fe1a90832f5ac7badd0">A：除个体因子和全局因子外，其他类型的因子和参数都可以支持通过数据接口获取外部数据</p>
+<h4 nodeId="d73de629acd04bec837df398a31d6bd3">Q4:类似于这种SQL在离线引擎上怎样配置？</h4>
+<p nodeId="b423bc8d0c334fe7804f864fbf7e3c3a">A：（1）取数据逻辑，SQL代码如下，短期：建议使用数据接口方式实现以下取数逻辑。长期：规则平台考虑通用便捷的获取数据配置方式</p>
+<pre language="SQL" nodeId="02e7a08cab124f31aa98240e6d32be1d"><code>select userid from mart_creid.dpadm_credit_userif_black_dd where hp_statdate=today and user_role=1</code></pre>
+<p nodeId="0fb0263e4bc54a339ab5e224095c9478">（2）求最大、最小、均值等逻辑，SQL代码如下，使用个体因子</p>
+<pre language="SQL" nodeId="f94cad394ff64959997f7c633517f7c1"><code>select userid,
+      avg(amount)
+ from ba_rc.dpmid_credit_antifarming_oid_basicfeature_all
+where dt between '$now.delta(days=15).datekey' and '$now.datekey'
+group by userid</code></pre>
+<p nodeId="8eebe6b122be4c02a8031f2822153ca2">（3）求整体统计指标，比如：SQL代码如下，先建立个体因子，再建立全局因子</p>
+<pre language="SQL" nodeId="3e97bd49783647d6ab94e832fb5aa33c"><code>select avg(a.order_cnt)
+ from (
+       select userid,
+              count(distinct orderid) order_cnt
+         from ba_rc.dpmid_credit_antifarming_oid_basicfeature_all
+        where dt between '$now.delta(days=15).datekey' and '$now.datekey'
+        group by userid
+      ) a</code></pre>
+<p nodeId="3198142dd279433b98d6b023b7f4d7a3">（4）表与表之间的join如何实现？比如：SQL代码如下， <span color="rgb(250, 84, 29)">本期暂时无法实现，规划3期完成（2020Q3）</span></p>
+<pre language="SQL" isExpand="false" nodeId="a83781d08b8a49a7b6d5538375ce36fb"><code></code></pre>
+<h4 nodeId="bb446476eec64395875fc512c9d44095">Q5:现在已经有哪些库表的权限了？</h4>
+<p nodeId="43a2e82a675a49b08e2c69c5673555f1"><span color="rgba(0, 0, 0, 0.87)">A：目前已经完成了mart_hotelmining、mart_credit、ba_rc三个库的数据权限申请，</span><span color="rgb(250, 84, 29)">但还需要联系郎周皓将dsn、库名、表名、所需字段注册到zeus上</span></p>
+<h4 nodeId="65229e96d1ce428d9516031d5e8a7712">Q6:离线策略现在在ETL中，若迁移至离线引擎上怎么做迁移后的数据验证</h4>
+<p nodeId="fd739ad320fe421fa23f14cf7c477b6b">A：（1）梳理离线ETL数据以及策略结构，建议一个ETL对应一条规则 </p>
+<p nodeId="fb6a3ee795f34984983d9409d9115b1a">      （2）使用个体因子、全局因子以及其他因子进行特征逻辑配置和规则配置 </p>
+<p nodeId="26db6ab7abfc42c28daab37a885cc9c0">      （3）配置过规则的hive同场景的离线映射 </p>
+<p nodeId="5f6d256ccd1b4a0981c53bd58b75f2b5">      （4）启动离线任务获得运行结果 </p>
+<p nodeId="78157d8f834b4a2f970eacace9e2275a">      （5）运行结果比对，比对参考方案建议如下，获得两边的结果数据比对数据量和关键参数、因子结果即可</p>
+<p nodeId="9a8ab121e4ee4c96b362e37a41e3985c">⚠️如发现数据问题可大象zeus/it_rc_zeus</p>
+<pre language="SQL" isExpand="false" nodeId="e5cf58bc2ad24a42b647fadf5b2d2d23"><code>以下模块是批量了历史两个ETL，迁移至离线引擎后同一个场景下的两个规则，结果数据是否一致
+【引擎产生结果数据表】
+select get_json_object(paramcontext,'$.oid') oid,/*取关键参数*/
+       get_json_object(factorcontext,'$.factor_acc_15d_same_dpid_diff_thirdpaymentaccount') diff_pay_count,/*取关键因子*/
+       if( hitrules like '%33401%',1,null) rule_33401,/*取命中规则33401的数据*/
+       if( hitrules like '%33894%',1,null) rule_33894/*取命中规则33894的数据*/
+  from log.rc_zeus_request_business_122/*离线引擎产出的结果日志表*/
+ where dt = 20200427
+   and sceneid=5498/*规则执行对应的场景*/
+---------------------------------------------------------------------------------------------------------------------------------------------------   
+【ETL原始表】
+select oid,/*取关键参数*/
+       33401 as rule/*赋值标签，表明该表中的数据同命中33401规则数据逻辑一致*/
+       from ba_rc.dpmid_credit_antifarming_identicaldpid where dt='20200426'/*ETL结果数据产出表1*/
+union all
+select oid,
+       33894 as rule from /*赋值标签，表明该表中的数据同命中33894规则数据逻辑一致*/
+ba_rc.dpmid_credit_antifarming_identicalPaymentAccount where dt='20200426'/*ETL结果数据产出表2*/</code></pre>
+<h4 nodeId="2c08bb59b86040b49e340f4510522208">Q7:离线策略支持标记、双跑、回溯等用于逻辑验证的手段么？</h4>
+<p nodeId="54e70529e5044c91981e2bde8fc25766">A：支持标记和回溯，暂不支持双跑</p>
+<h4 nodeId="8c2a89b652e14f4aaf85b57a5dc4b183">Q8:离线策略支持规则组、决策附加信息、多级路由、因子工具和排查探针等策略管理和部署的工具么？</h4>
+<p nodeId="cc4717d8f66a47f98fa6df994f5ba971">A：支持</p>
+<h4 nodeId="fb68a3c4dda14a57981b4ae409870fa8">Q9:怎么给hive表申请权限</h4>
+<p nodeId="23b3b952ce404a2f8bf6a4c52c74ba58">A：详情见：<a href="https://km.sankuai.com/page/290492473" title="https://km.sankuai.com/page/290492473" autoUpdate="true" nodeId="62b297dd37514288bac72eb229ac2039">https://km.sankuai.com/page/290492473</a></p>
+<h4 nodeId="2c4e1b9a6a7549c8891ace8aaa1d4d3d">Q10 :离线策略执行结果如何查询？</h4>
+<p nodeId="84439ade6a9f4313a8813d519e552bce">A：两种方式</p>
+<p nodeId="397ca7bfae7d4cf59e49bd8357666220">（1）近15天的执行结果数据在Zeus数据统计--&gt;日志查询（离线任务）中查询实时命中情况，见下图；</p>
+<p nodeId="eaaa55aa9272450a83c946fe607d59fc">（2）通过hive表查询，hive表可查询时间是您收到离线引擎任务完成通知后即可查询</p>
+<p nodeId="be397ad88cdc4754b83229173facfce5"><img src="https://km.sankuai.com/api/file/cdn/322991443/323230534?contentType=1&amp;isNewContent=true" name="image.png" width="939" height="349" nodeId="b48a649c49d4440fb1fb468f90a45434" /></p>
+<h4 nodeId="1e79c1d6b1d74a06b80721d01dc7a331">Q11:我的业务方下怎么没有离线策略部署的功能？</h4>
+<p nodeId="30126872353f4e8c87d179772a187e50">A：目前已经全部开放，没有单独的离线引擎功能，在因子、场景支持离线数据和逻辑的执行。</p>
+<h4 nodeId="84b008e520d645e69ad308a23337e86a">Q12:我的离线任务配置的tuya处罚决策执行完了，为什么tuya查不到处罚记录？</h4>
+<p nodeId="4ac7bf17744849b0991d8daef26c93e4">A：执行处罚的任务每5分钟扫描一次，最大延迟10分钟，可稍等10分钟再验证</p>
+<p nodeId="e66a161ee59945ab8dd5181db5c0d806">B：请确认是否在tuya上配置了前置过滤规则，如果命中过滤规则，则不会进行处罚</p>
+<p nodeId="0ae0941c368e42eea2241ad893350834" />
+<p nodeId="dc78a1e0b05d4c12ad7b0f5db6ab4c36" />
+<p nodeId="75775e9a309d42cab71ad4a0f6df9d75" />
+<p nodeId="ddbbb975f071453590aa98bb4dd95bbc" />
+<p nodeId="badfe0218a3e4a8faa822014c102897d" />
+</km-doc>

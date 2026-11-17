@@ -1,0 +1,118 @@
+<km-doc>
+<km-title nodeId="9cebd2af636147d3a3aff21a1d965fc2">说明：tuya决策排查验证</km-title>
+<km-catalog style="none" nodeId="944d91c804d74186bc415b97dc0ba724" />
+<h3 nodeId="615413a29e5b41928a106922aada1ca4">一、背景</h3>
+<p nodeId="6b7fab483cd5435e9ec052421e9564d8">引擎调用tuya进行处罚的时候，需要经过多个系统处理，处理链路长，出现问题的概率高，现整理排查过程中的常见问题及排查路径，方便自主排查</p>
+<h3 nodeId="3cd7b756091a48e3a927a786b59a5d98">二、调用链路</h3>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1855340371/57997202769?contentType=0&amp;isNewContent=false" width="886" height="196" nodeId="d462fb9ce84f4f609ceccb44eea9dc38" />
+<h3 nodeId="9a23cfeb907b441ca3bf96dd4fbcc556">三、日志排查方法</h3>
+<p nodeId="2575e2e2c7a148c08a396bfd4a1c4bfc">已经封装成可用的报表，可直接查询使用</p>
+<p nodeId="177d435557a7432fb8854274dafef4e2"><a href="https://bi.sankuai.com/portal/24866" title="https://bi.sankuai.com/portal/24866" nodeId="d74eb89c55634987b259360942574837">https://bi.sankuai.com/portal/24866</a></p>
+<p nodeId="1ce9c4f32eae4993a1455ada58d6b25b" />
+<hr nodeId="f0ad038ab12746ff8c13f5bb4eec2166" />
+<p nodeId="d9d5e3eed43240e2bdbb59cf29a5dab2">以下是详细流程，只建议研发使用</p>
+<h4 nodeId="0d42471d8abe4225834cb975952f3e40">Zeus-引擎检测</h4>
+<ul nodeId="d58fb95d9a9b41d8961f345cdca90594">
+<li nodeId="15608816345b460a8c69b35d9e6d7256">
+<h5 nodeId="18db605328b94dc5af5337b88802f0ce">zeus-实时引擎日志查询：<span color="#FF4A47">核实是否命中tuya处罚决策</span></h5>
+<ul nodeId="d09efccdb0ac42288721bea59902d744">
+<li nodeId="82fe2e91568940739fba4cd7f3426ec7">
+<p nodeId="20c636c1ff5c4c58a514d01c991c2e79">实时（菜单查询）：</p>
+<ul nodeId="b78cba69db3c49d0a04c853357e4fb61">
+<li nodeId="689310bb78ba4852910a04101fc98776">线下环境：<a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/log" title="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/log" nodeId="cb3792f24b8f4451807ef2634878c27a">https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/log</a>（策略排查-日志查询）</li>
+<li nodeId="83cbc42560564b38aa29a7352af7d894">线上环境：<a href="https://zeus.sankuai.com/data_zeus_static/#/log" title=" https://zeus.sankuai.com/data_zeus_static/#/log" nodeId="4019035f96da4f91a12d875809263189"> https://zeus.sankuai.com/data_zeus_static/#/log</a>（策略排查-日志查询）</li>
+</ul>
+</li>
+<li nodeId="3f9bc7ae346a46b0b3d09b1c1b0957e0">离线hive表：ba_rc.base_log_zeus</li>
+</ul>
+</li>
+<li nodeId="2256a11d0a7f4b1dbf3d22d5c52babbe">
+<h5 nodeId="d27fd5c5565e4dfebc1ca51978d18374">zeus-离线引擎日志查询：</h5>
+<ul nodeId="cf4b5dc9b32547a8a59fe095f9b5e324">
+<li nodeId="9eabdc5a0b7c4c4aa039bbb3a5177654">实时-线上（mafka）：<a href="https://mafka.mws.sankuai.com/topic/20178041/detail/monitor?topicId=20178042&amp;envTag=prod&amp;buId=113&amp;action=monitor" title="https://mafka.mws.sankuai.com/topic/20178041/detail/monitor?topicId=20178042&amp;envTag=prod&amp;buId=113&amp;action=monitor" nodeId="13507e9d8cb447a4acb47fce7f73e36b">https://mafka.mws.sankuai.com/topic/20178041/detail/monitor?topicId=20178042&amp;envTag=prod&amp;buId=113&amp;action=monitor</a></li>
+<li nodeId="7a590f9c315b4823878aa4ddf8e4b31b">离线hive表：ba_rc.zeus_offline_request_test_v2<span bg="rgb(255, 255, 255)">（账号以外的）、</span>ba_rc.zeus_offline_request_v2_business_3<span bg="rgb(255, 255, 255)">（只有账号空间的）</span></li>
+<li nodeId="a1fb7792025943e2afa0010dbc5dc94c">
+<km-collapse active="false" nodeId="c1037a3854a14b39b2f758f89f99c97d">
+<km-title><strong><span color="#FF4A47">处罚不生效常见问题</span></strong></km-title>
+<km-content>
+<ol nodeId="52d0a3a6d48b445483025e090f41fdba">
+<li nodeId="e0dd592a94444eaba6485db786bea809">规则没生效：只有规则<strong>生效</strong>的情况下，才可以进行处置验证</li>
+<li nodeId="0ba8eeb46237493fa30c0c541ead4114">
+<p nodeId="7082aa5456164948866afd7f8576c6ca">决策附加信息拼接问题：</p>
+<ol nodeId="8cda583d538d43368a3844e160a18e70">
+<li nodeId="fbeea9e3cdad4332a0ecf872d8d4be9e">参数信息不全：不同处罚方式需要的参数不一样，具体参考<a href="https://km.sankuai.com/collabpage/1785764509#id-2.2.2%E7%BA%BF%E4%B8%8A%E5%A4%84%E7%BD%9A%E6%96%B9%E5%BC%8F%E6%9E%9A%E4%B8%BE" title="https://km.sankuai.com/collabpage/1785764509#id-2.2.2%E7%BA%BF%E4%B8%8A%E5%A4%84%E7%BD%9A%E6%96%B9%E5%BC%8F%E6%9E%9A%E4%B8%BE" autoUpdate="true" nodeId="4a171b53f57349cbb69869b705af25da">https://km.sankuai.com/collabpage/1785764509#id-2.2.2%E7%BA%BF%E4%B8%8A%E5%A4%84%E7%BD%9A%E6%96%B9%E5%BC%8F%E6%9E%9A%E4%B8%BE</a></li>
+<li nodeId="9fdff590840b4ea6bf89e11e011ad6c4">参数评价格式不正确：注意转义，不要配多/配少了，可参考别人已经配置的可用附加信息</li>
+</ol>
+</li>
+<li nodeId="9fa2ff3dc79144a79f13546c42ee1737">任务没运行：上游依赖数据源没有就绪，任务一直在等待状态，可去「调度详情」中验证是否已经执行完成，执行日志可查看进度百分比</li>
+</ol>
+</km-content>
+</km-collapse>
+</li>
+</ul>
+</li>
+<li nodeId="95552bd72a5d4f67acdf420f81cb4d70">
+<h5 nodeId="2147551395a848acad16570f0068bccb">zeus-近线引擎日志查询：</h5>
+<ul nodeId="20324cc53f6e45479043db160608c6f5">
+<li nodeId="79835449da854aff96e4f87c12eb094e">
+<p nodeId="acd39a6e1c394db4a40563d7e3f42e43">实时：</p>
+<ul nodeId="fdb8cdd8a7df44d69a2c2a8457e21e53">
+<li nodeId="c3d59a47bf724a39992ca7f4c407f310">测试环境（mafka）：<a href="https://mafka.mws-test.sankuai.com/topic/27238104/detail/message?topicId=27238106&amp;envTag=test&amp;buId=440&amp;action=monitor" title="https://mafka.mws-test.sankuai.com/topic/27238104/detail/message?topicId=27238106&amp;envTag=test&amp;buId=440&amp;action=monitor" nodeId="bcdfc25e68684211b5946ffe53de84fc">https://mafka.mws-test.sankuai.com/topic/27238104/detail/message?topicId=27238106&amp;envTag=test&amp;buId=440&amp;action=monitor</a>（消息管理-消息查询）</li>
+<li nodeId="a4bb653444404dba8dfda116563fd712">
+<p nodeId="e96e738759744d8b8ce52bdfc5fe5129">线上环境：</p>
+<ul nodeId="657f7b0ba58d42138ad699017cf578ae">
+<li nodeId="29b4903537d44993991053f2be9d083a"><a href="https://zeus.sankuai.com/data_zeus_static/#/log" title="https://zeus.sankuai.com/data_zeus_static/#/log" nodeId="a0b216fcd416466abde15866fe6a3168">https://zeus.sankuai.com/data_zeus_static/#/log</a>（策略排查-日志查询）<span color="#FA7414">无决策组件日志</span></li>
+<li nodeId="add3a3a85a3b469abccb15859e74ba63"><a href="https://mafka.mws.sankuai.com/topic/20178044/detail/message?topicId=20178045&amp;envTag=prod&amp;buId=113&amp;action=monitor" title="https://mafka.mws.sankuai.com/topic/20178044/detail/message?topicId=20178045&amp;envTag=prod&amp;buId=113&amp;action=monitor" nodeId="917d979158b34e85b3c0d439f83c5f72">https://mafka.mws.sankuai.com/topic/20178044/detail/message?topicId=20178045&amp;envTag=prod&amp;buId=113&amp;action=monitor</a>（mafka-消息管理-消息查询）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 nodeId="aa0868a7fd07407785b1fd0e3071311e">Tatooine-决策处理</h4>
+<ul nodeId="10ab40fae62846d2a129b983ddc55868">
+<li nodeId="a65283e5580b4fe8aa70f30ccf0c5302">
+<p nodeId="d2d9bb0d65634d7aa944370dbbe9b175">实时（日志中心）：根据msgID<km-footnote id="f517e2f3-e865-402d-a46f-400fe7188a05" annotate="" nodeId="43a033f8e09940f9b9ea9b30ccdc3555" />直接定位查询</p>
+<ul nodeId="ff987cc766e74a73bd567655fb5ceb81">
+<li nodeId="31853732b2054b90a9a715290e0b58f6">测试环境：<a href="http://logcenter.test.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" title="http://logcenter.test.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" nodeId="8c20d2287f9d4f3ca424d02a278abed4">http://logcenter.test.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D</a></li>
+<li nodeId="4383672981114c1f89fb065d8e429e9f">线上环境：<a href="http://logcenter.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" title="http://logcenter.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" nodeId="74aad9f77b38476dac75df153a3b9a2b">http://logcenter.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D</a></li>
+</ul>
+</li>
+<li nodeId="bc86f5890dd34a09a4ebf0d734ec4b67">离线hive表：<span bg="rgb(255, 255, 255)">log.tatooine_decision_post_processor（半小时左右同步一次）</span></li>
+</ul>
+<p nodeId="c576a0e5f3244d628fa4c02ae443d40f" />
+<h4 nodeId="50b04b7e3e2846e88f02432c56a58596">Tuya-处罚中心</h4>
+<ul nodeId="343aed33286a44ad87d6762b81017c5a">
+<li nodeId="e98accca17c94562af50d3b1ba4b7d25">
+<p nodeId="c2cbeb5f52f64afc8a40cea1140be359">实时：</p>
+<ul nodeId="7c8228625d1941b2852f37695d9fa626">
+<li nodeId="abaa021570f346688b72faee7f9c2ace">
+<p nodeId="79d5282b6393474cb8c7b2b2084575d4">测试环境：</p>
+<ul nodeId="658f3085094c4d3ab9a7de2a5a5d8d41">
+<li nodeId="c07662dcfb1c4137936245400a5acb2b">菜单查询：<a href="http://skywalker.rc.test.sankuai.com/tuya/search?is_manual=true&amp;is_system=true" title="http://skywalker.rc.test.sankuai.com/tuya/search?is_manual=true&amp;is_system=true" nodeId="6edee153c56d4ab6b38e2c5ce0d4bf13">http://skywalker.rc.test.sankuai.com/tuya/search?is_manual=true&amp;is_system=true</a>（操作记录）<u>免疫规则命中的处罚，也会显示成功，不一定准确</u></li>
+<li nodeId="f9032df28c36412e9e0c7b6022af089e">查询线上mysql表：tuya_task_operation，查看operation_extra信息（只有研发可查看，无法开放）</li>
+</ul>
+</li>
+<li nodeId="f91c3638c15b410f92dc549d381e5ac1">
+<p nodeId="cc3f0bda343a4b19aae8300fa053a8c2">线上环境：</p>
+<ul nodeId="375cdf35d1b040a4a23b966e11180506">
+<li nodeId="d790bce30b094256bd4acad87ad3f724">菜单查询：<a href="http://skywalker.rc-in.sankuai.com/tuya/search?is_manual=true&amp;is_system=true" title="http://skywalker.rc-in.sankuai.com/tuya/search?is_manual=true&amp;is_system=true" nodeId="2a94bfb68eef49f0a0b200adc9db88c6">http://skywalker.rc-in.sankuai.com/tuya/search?is_manual=true&amp;is_system=true</a>（操作记录）<u>免疫规则命中的处罚，也会显示成功，不一定准确</u></li>
+<li nodeId="5de5186cf9b44c958a6451ec728f64d0">查询线上mysql表：tuya_task_operation，查看operation_extra信息（只有研发可查看，无法开放）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li nodeId="745be272be4747ceaef71225f2a7e423">
+<p nodeId="10c4b9ef608f4c7095dab2f343a4e48b">离线hive表：</p>
+<ul nodeId="99d16881e8c7496ea5d0036bedb6f8b3">
+<li nodeId="37dd07bb030847e5a6b10aad37f9ae50"><span bg="rgb(255, 255, 255)">ba_rc.tuya_operation_log（T+1同步）</span></li>
+<li nodeId="c5b7c58f8ba540c58798e177f5ab00e9">log.rc_tuya_operation_log（H+1同步）</li>
+<li nodeId="6ab3ea08955a4e50a6e9f370f9e9b1d0">在operation_extra中解析，failReasonCode=20000/<span color="rgba(0, 0, 0, 0.87)">20001</span>时，为正常处罚成功；未处罚的可从operation_extra中查看到命中的具体是哪条前置过滤规则，可去8-处罚中心空间核实逻辑</li>
+</ul>
+</li>
+</ul>
+<km-footnote-list nodeId="0285ad38472a4f54b4849c07ca432eeb">
+<km-footnote-item footnoteNodeId="43a033f8e09940f9b9ea9b30ccdc3555" nodeId="584f4dfdb44f44bdb070a2b179b3e332"><p nodeId="d7a0dd4ac3ca413aa24048af1a586838">msgID：上游发消息的id</p></km-footnote-item>
+</km-footnote-list>
+</km-doc>

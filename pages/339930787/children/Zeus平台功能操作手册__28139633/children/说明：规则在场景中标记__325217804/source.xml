@@ -1,0 +1,20 @@
+<km-doc>
+<km-title nodeId="bf6f3e8640c74c9c9d91c8f188e2fb35">说明：规则在场景中标记</km-title>
+<km-catalog style="none" nodeId="ab9035d9abe448eebc6b74252f478a37" />
+<h1 nodeId="9c674ae4722641e0a54a7575038791e1">一、背景</h1>
+<p nodeId="78a8f990df2d475db8953e0974301397"><span color=""><strong>标记：</strong></span>用于业务方对配置的策略预执行，不做决策处理；当规则处于标记状态时，规则的决策不会对命中规则的用户产生影响，仅用于业务查看规则的命中情况；</p>
+<p nodeId="d4f03ca097614a3787fb57240fa1f98e"><strong>标记周期：</strong>90天/长期（默认支持90天，如需长期标记则需要空间负责人审批）</p>
+<h1 nodeId="79bcf07559464396a3d35b1a439575a9">二、执行链路</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/325217804/167038758905?contentType=0&amp;isNewContent=false" width="1076" height="575" nodeId="83602d1f89254ff6a4617d7f239dcee9" />
+<h1 nodeId="8b2d0f1c9e5d4e2ca450f7711d101d54">三、操作指南</h1>
+<h2 align="start" nodeId="b7bdcc88bbe14d7cbb46ee7fcc7582d4">如何标记一条策略？</h2>
+<p nodeId="18608a62d9cc4cdd8fa86b49a251e720"><img src="https://km.sankuai.com/api/file/cdn/325217804/167050768936?contentType=1&amp;isNewContent=false" name="image.png" width="1439" height="374.11" nodeId="c3ba24d4a4a84bbcac3725862da3f882" /></p>
+<h2 nodeId="efb7d7f7ecd146dd94b64e8492360045">如何使用线上流量上下文加工离线特征？</h2>
+<p nodeId="0643845196db428785e2f0f9e3ef5168">当标记周期选择「长期」时，会自动全执行标记规则，全量计算特征落日志。配置「长期」的操作方式见下方⬇️</p>
+<h2 nodeId="2df0547b76044969ad6d327c3cb73d21">如何长期标记一条策略？</h2>
+<ul nodeId="f798d68c0c6040329560e0681cbcc468">
+<li nodeId="5d54519912cb40fa94c4942d718d7ac3"><strong>审批通知发送机制：</strong><span color="rgba(0, 0, 0, 0.87)">先判断申请人直系leader/同组同学（包含用户自己）是否在空间负责人中。如果在，上线申请只推送申请人直系leader/同组同学（包含用户自己）；如果leader/同组同学 都不在空间负责人列表，则将申请发送至空间负责人全员。</span></li>
+</ul>
+<p nodeId="926d94842fc249f0b2edccc686b8d20f"><img src="https://km.sankuai.com/api/file/cdn/325217804/167064466212?contentType=1&amp;isNewContent=false" name="image.png" width="1439" height="176.19" nodeId="dbb82f53cffd4d6a94c3ad6a462a5e8c" /></p>
+<p nodeId="db0be3f05e4d47fb8cfc8ac689b38c1f" />
+</km-doc>

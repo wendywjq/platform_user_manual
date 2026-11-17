@@ -1,0 +1,118 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：修改生效规则/因子等对象自动触发双跑演练</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-9">二、名词解释</a><a href="#section-17">三、操作指南</a><a href="#section-18">1.用户操作流程说明</a><a href="#section-20">2.Quick Start</a><a href="#section-25">3.详细操作流程说明</a><a href="#section-26">Step1:进入需要编辑的的对象的详情页面</a><a href="#section-43">Step2.1: 编辑对象的生效状态为已生效时编辑属性信息</a><a href="#section-67">Step2.2: 编辑对象的生效状态为已生效时编辑逻辑信息</a><a href="#section-124">Step3: 编辑对象的生效状态为未生效时按照原来的流程正常编辑</a><a href="#section-125"></a><a href="#section-126">四、FAQ</a><a href="#section-127">Q1：目前能够自动触发双跑演练的修改对象都有哪些？</a><a href="#section-129">Q2：为什么我的决策是在场景配置中生效的，但是详情页面中却显示未生效呢？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：修改生效规则/因子等对象自动触发双跑演练</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/532955971">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：修改生效规则/因子等对象自动触发双跑演练</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<ul>
+<li>当规则、因子、决策等对象在场景配置中被生效引用时，直接修改其逻辑信息势必会影响线上生产，产生一定的风险：</li>
+<li>例如，在登录场景中，一个规则在场景中生效，此时修改了规则的表达式，规则的执行结果会发生改变，预期应该命中给出拦截决策但实际未命中，此条流量没有被拦截，产生漏过情况。</li>
+<li>为防止此类情况的出现，用户需要去双跑演练中创建演练任务，在演练环境中进行生效对象逻辑信息的修改，之后双跑、查看结果是否符合预期、申请上线，完成修改，详情见<a href="../说明：策略演练使用说明__239430531/index.html" title="https://km.sankuai.com/page/239430531">说明：策略演练使用说明</a>；同时，当用户直接在页面上编辑生效对象时，会区分属性信息的编辑和逻辑信息的编辑，编辑逻辑信息时会自动触发双跑演练流程</li>
+</ul>
+<h1 id="section-9">二、名词解释</h1>
+<ul>
+<li>双跑演练：一种操作安全机制，<span style="color: ">用户可以在演练环境（非线上环境）进行指定对象逻辑信息的修改，通过线上同流量模拟执行情况，与线上执行情况进行对比</span></li>
+<li>逻辑信息：对策略的执行过程及结果有影响的信息，例如， 表达式、变量名称（英文名称）、输出类型、场景配置的优先级、规则的决策等等</li>
+<li>属性信息：与逻辑信息相对，对策略执行过程及结果无影响的信息，例如，共享业务方、规则因子标签等</li>
+<li>未生效：在场景配置中处于未生效状态或者没有被生效对象引用</li>
+<li>已生效：与未生效对应，在场景配置中处于生效状态或者已经被生效对象引用</li>
+</ul>
+<h1 id="section-17">三、操作指南</h1>
+<h2 id="section-18">1.用户操作流程说明</h2>
+<img src="assets/9fde7e8f7357eede.svg" width="960" height="276" alt="流程图">
+<h2 id="section-20">2.Quick Start</h2>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/532955971/534128561?contentType=1">修改生效对象自动触发双跑演练.mov</a></figcaption></figure>
+<p></p>
+<h2 id="section-25">3.详细操作流程说明</h2>
+<h3 id="section-26">Step1:进入需要编辑的的对象的详情页面</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">找到要编辑的对象，进入其详情页面</span></p>
+</td>
+<td>
+<p><img src="assets/eeb9e0d0bfa02113.png" width="436" height="208" alt="image.png"></p>
+<p></p>
+</td>
+</tr>
+</table>
+<h3 id="section-43">Step2.1: 编辑对象的生效状态为已生效时编辑属性信息</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1.点击编辑属性信息</span></p>
+<p><span style="font-size:14px">2.进入编辑属性信息页面，正常编辑属性信息，编辑完成</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.</span></p>
+<p><img src="assets/a32d4f4913edc6ba.png" width="376" height="173" alt="image.png"></p>
+<p><span style="font-size:14px">2.</span></p>
+<p><img src="assets/c2ca2407c78ddb1d.png" width="368" height="156" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-67">Step2.2: 编辑对象的生效状态为已生效时编辑逻辑信息</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">1.点击编辑逻辑信息</span></p>
+<p><span style="font-size:14px">2.创建演练任务</span></p>
+<p><span style="font-size:14px">3.进入演练环境编辑对象逻辑信息页面</span></p>
+<p><span style="font-size:14px">4.编辑完成，查看变更内容</span></p>
+<p><span style="font-size:14px">5.启动双跑（设置双跑流量和时间）或者退出演练环境</span></p>
+<p><span style="font-size:14px">6.查看演练任务情况</span></p>
+<p><span style="font-size:14px">说明：编辑完成没有启动双跑，而是退出演练环境，编辑中的修改还会保存在创建的演练任务中，何时想启动双跑何时可以去启动双跑</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.</span></p>
+<p><img src="assets/ea91b76a7959dfd8.png" width="413" height="200" alt="image.png"></p>
+<p><span style="font-size:14px">2.</span></p>
+<p><img src="assets/27a1f837a025e007.png" width="402" height="201" alt="image.png"></p>
+<p><span style="font-size:14px">3.</span></p>
+<p><img src="assets/6b56080037791d71.png" width="394" height="213" alt="image.png"></p>
+<p><span style="font-size:14px">4.</span></p>
+<p><img src="assets/8a9b6406831323f1.png" width="388" height="184" alt="image.png"></p>
+<p><img src="assets/a7a2c7cfdae8ac75.png" width="392" height="203" alt="image.png"></p>
+<p><span style="font-size:14px">5.</span></p>
+<p><img src="assets/e864d211680e2196.png" width="382" height="142" alt="image.png"></p>
+<p><img src="assets/128cf9dbfc0b4a98.png" width="386" height="184" alt="image.png"></p>
+<p><span style="font-size:14px">6.</span></p>
+<p><img src="assets/125ee9953fe433d6.png" width="373" height="143" alt="image.png"></p>
+<p><img src="assets/47498c33f991fcb7.png" width="376" height="138" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h3 id="section-124">Step3: 编辑对象的生效状态为未生效时按照原来的流程正常编辑</h3>
+<h2 id="section-125"></h2>
+<h1 id="section-126">四、FAQ</h1>
+<h3 id="section-127">Q1：目前能够自动触发双跑演练的修改对象都有哪些？</h3>
+<p>--A：已经实现的对象有普通规则，因子的普通因子、扩展因子-名单库因子、扩展因子-名单库因子（上海侧）、决策表因子。后面在迭代中会陆续实现因子的累计因子、因子工具因子、离线引擎-个体因子、离线引擎-全局因子，规则组，普通场景配置，路由场景配置，决策，因子工具，路由规则，参数，数据接口</p>
+<h3 id="section-129">Q2：为什么我的决策是在场景配置中生效的，但是详情页面中却显示未生效呢？</h3>
+<p>--A：决策这一部分还未做区分已生效和未生效，无论是否生效，在详情页面都会显示未生效，先忽略，之后会在迭代中修复</p>
+<p></p>
+<p></p>
+<p></p>
+</article></main></body></html>

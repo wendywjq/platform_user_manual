@@ -1,0 +1,118 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：tuya决策排查验证</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、调用链路</a><a href="#section-7">三、日志排查方法</a><a href="#section-14">Zeus-引擎检测</a><a href="#section-17">zeus-实时引擎日志查询：核实是否命中tuya处罚决策</a><a href="#section-29">zeus-离线引擎日志查询：</a><a href="#section-53">zeus-近线引擎日志查询：</a><a href="#section-68">Tatooine-决策处理</a><a href="#section-81">Tuya-处罚中心</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：离线引擎</a> / <a href="index.html">说明：tuya决策排查验证</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1855340371">查看学城原文</a></p><article>
+<h1>说明：tuya决策排查验证</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<p>引擎调用tuya进行处罚的时候，需要经过多个系统处理，处理链路长，出现问题的概率高，现整理排查过程中的常见问题及排查路径，方便自主排查</p>
+<h3 id="section-5">二、调用链路</h3>
+<img src="assets/2e9c6f50927ea11b.svg" width="886" height="196" alt="流程图">
+<h3 id="section-7">三、日志排查方法</h3>
+<p>已经封装成可用的报表，可直接查询使用</p>
+<p><a href="https://bi.sankuai.com/portal/24866" title="https://bi.sankuai.com/portal/24866">https://bi.sankuai.com/portal/24866</a></p>
+<p></p>
+<hr>
+<p>以下是详细流程，只建议研发使用</p>
+<h4 id="section-14">Zeus-引擎检测</h4>
+<ul>
+<li>
+<h5 id="section-17">zeus-实时引擎日志查询：<span style="color:#FF4A47">核实是否命中tuya处罚决策</span></h5>
+<ul>
+<li>
+<p>实时（菜单查询）：</p>
+<ul>
+<li>线下环境：<a href="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/log" title="https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/log">https://zeus.mis.rc.test.sankuai.com/data_zeus_static/#/log</a>（策略排查-日志查询）</li>
+<li>线上环境：<a href="https://zeus.sankuai.com/data_zeus_static/#/log" title=" https://zeus.sankuai.com/data_zeus_static/#/log"> https://zeus.sankuai.com/data_zeus_static/#/log</a>（策略排查-日志查询）</li>
+</ul>
+</li>
+<li>离线hive表：ba_rc.base_log_zeus</li>
+</ul>
+</li>
+<li>
+<h5 id="section-29">zeus-离线引擎日志查询：</h5>
+<ul>
+<li>实时-线上（mafka）：<a href="https://mafka.mws.sankuai.com/topic/20178041/detail/monitor?topicId=20178042&amp;envTag=prod&amp;buId=113&amp;action=monitor" title="https://mafka.mws.sankuai.com/topic/20178041/detail/monitor?topicId=20178042&amp;envTag=prod&amp;buId=113&amp;action=monitor">https://mafka.mws.sankuai.com/topic/20178041/detail/monitor?topicId=20178042&amp;envTag=prod&amp;buId=113&amp;action=monitor</a></li>
+<li>离线hive表：ba_rc.zeus_offline_request_test_v2<span>（账号以外的）、</span>ba_rc.zeus_offline_request_v2_business_3<span>（只有账号空间的）</span></li>
+<li>
+<details>
+<summary><strong><span style="color:#FF4A47">处罚不生效常见问题</span></strong></summary>
+<div>
+<ol>
+<li>规则没生效：只有规则<strong>生效</strong>的情况下，才可以进行处置验证</li>
+<li>
+<p>决策附加信息拼接问题：</p>
+<ol>
+<li>参数信息不全：不同处罚方式需要的参数不一样，具体参考<a href="../说明：离线引擎tuya决策使用__1785764509/index.html" title="https://km.sankuai.com/collabpage/1785764509#id-2.2.2%E7%BA%BF%E4%B8%8A%E5%A4%84%E7%BD%9A%E6%96%B9%E5%BC%8F%E6%9E%9A%E4%B8%BE">说明：离线引擎tuya决策使用</a></li>
+<li>参数评价格式不正确：注意转义，不要配多/配少了，可参考别人已经配置的可用附加信息</li>
+</ol>
+</li>
+<li>任务没运行：上游依赖数据源没有就绪，任务一直在等待状态，可去「调度详情」中验证是否已经执行完成，执行日志可查看进度百分比</li>
+</ol>
+</div>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<h5 id="section-53">zeus-近线引擎日志查询：</h5>
+<ul>
+<li>
+<p>实时：</p>
+<ul>
+<li>测试环境（mafka）：<a href="https://mafka.mws-test.sankuai.com/topic/27238104/detail/message?topicId=27238106&amp;envTag=test&amp;buId=440&amp;action=monitor" title="https://mafka.mws-test.sankuai.com/topic/27238104/detail/message?topicId=27238106&amp;envTag=test&amp;buId=440&amp;action=monitor">https://mafka.mws-test.sankuai.com/topic/27238104/detail/message?topicId=27238106&amp;envTag=test&amp;buId=440&amp;action=monitor</a>（消息管理-消息查询）</li>
+<li>
+<p>线上环境：</p>
+<ul>
+<li><a href="https://zeus.sankuai.com/data_zeus_static/#/log" title="https://zeus.sankuai.com/data_zeus_static/#/log">https://zeus.sankuai.com/data_zeus_static/#/log</a>（策略排查-日志查询）<span style="color:#FA7414">无决策组件日志</span></li>
+<li><a href="https://mafka.mws.sankuai.com/topic/20178044/detail/message?topicId=20178045&amp;envTag=prod&amp;buId=113&amp;action=monitor" title="https://mafka.mws.sankuai.com/topic/20178044/detail/message?topicId=20178045&amp;envTag=prod&amp;buId=113&amp;action=monitor">https://mafka.mws.sankuai.com/topic/20178044/detail/message?topicId=20178045&amp;envTag=prod&amp;buId=113&amp;action=monitor</a>（mafka-消息管理-消息查询）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="section-68">Tatooine-决策处理</h4>
+<ul>
+<li>
+<p>实时（日志中心）：根据msgID<sup id="f517e2f3-e865-402d-a46f-400fe7188a05"></sup>直接定位查询</p>
+<ul>
+<li>测试环境：<a href="http://logcenter.test.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" title="http://logcenter.test.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D">http://logcenter.test.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D</a></li>
+<li>线上环境：<a href="http://logcenter.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D" title="http://logcenter.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D">http://logcenter.data.sankuai.com/search/tatooine_decision_post_processor/query/%7B%22start_time%22:%22now%2Fd%22,%22end_time%22:%22now%2Fd%22,%22keyword%22:%22%22,%22model%22:%22quick%22,%22from%22:0,%22sortInfo%22:%5B%7B%22es_datetime%22:%22desc%22%7D%5D%7D</a></li>
+</ul>
+</li>
+<li>离线hive表：<span>log.tatooine_decision_post_processor（半小时左右同步一次）</span></li>
+</ul>
+<p></p>
+<h4 id="section-81">Tuya-处罚中心</h4>
+<ul>
+<li>
+<p>实时：</p>
+<ul>
+<li>
+<p>测试环境：</p>
+<ul>
+<li>菜单查询：<a href="http://skywalker.rc.test.sankuai.com/tuya/search?is_manual=true&amp;is_system=true" title="http://skywalker.rc.test.sankuai.com/tuya/search?is_manual=true&amp;is_system=true">http://skywalker.rc.test.sankuai.com/tuya/search?is_manual=true&amp;is_system=true</a>（操作记录）<u>免疫规则命中的处罚，也会显示成功，不一定准确</u></li>
+<li>查询线上mysql表：tuya_task_operation，查看operation_extra信息（只有研发可查看，无法开放）</li>
+</ul>
+</li>
+<li>
+<p>线上环境：</p>
+<ul>
+<li>菜单查询：<a href="http://skywalker.rc-in.sankuai.com/tuya/search?is_manual=true&amp;is_system=true" title="http://skywalker.rc-in.sankuai.com/tuya/search?is_manual=true&amp;is_system=true">http://skywalker.rc-in.sankuai.com/tuya/search?is_manual=true&amp;is_system=true</a>（操作记录）<u>免疫规则命中的处罚，也会显示成功，不一定准确</u></li>
+<li>查询线上mysql表：tuya_task_operation，查看operation_extra信息（只有研发可查看，无法开放）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>离线hive表：</p>
+<ul>
+<li><span>ba_rc.tuya_operation_log（T+1同步）</span></li>
+<li>log.rc_tuya_operation_log（H+1同步）</li>
+<li>在operation_extra中解析，failReasonCode=20000/<span style="color:rgba(0, 0, 0, 0.87)">20001</span>时，为正常处罚成功；未处罚的可从operation_extra中查看到命中的具体是哪条前置过滤规则，可去8-处罚中心空间核实逻辑</li>
+</ul>
+</li>
+</ul>
+<div>
+<p><p>msgID：上游发消息的id</p></p>
+</div>
+</article></main></body></html>

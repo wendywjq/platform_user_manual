@@ -1,0 +1,40 @@
+<km-doc>
+<km-title nodeId="6b4ac7c1b3c0414fb185dc1b5f56c3bb">说明：依赖重导监测</km-title>
+<p nodeId="93d7bac92ca341a5a113ba378a04f270">概念说明：离线任务执行依赖的表，重新运行之前时间周期的数据称为【重导】；重导后，离线任务拉起对应周期的新数据运行，称为【重跑】</p>
+<p nodeId="651155789e9c421babd6b04882fb2f2c">离线任务依赖分为2种表</p>
+<ul nodeId="a0306712968946aab83fe7fb24e8e0b0">
+<li nodeId="8165e413c6fb4c9e9cd7b73b59130674">驱动表：即数据源表（一般是业务表），数据就绪后驱动离线任务执行</li>
+<li nodeId="eeecd8967b3e41068ba5b817d916b825">特征表：生成离线特征的数据源表，特征可用来配置规则</li>
+</ul>
+<km-note type="info" hiddenTitle="true" nodeId="84965036e7a749bf9770a86c38053657">
+<km-title></km-title>
+<km-content>
+<p nodeId="a4a0b0380f374c91abe03000d0cd3e24">以上2种表发生重导时，都可能会影响离线任务的执行结果，因此需要进行重导检测，如有必要系统可自动发起离线任务重跑</p>
+<p nodeId="c03637bf0f6149d8af92797f8a31d5fa">重导入库仅限「任务重导」<a href="https://data.sankuai.com/wanxiang/#/cantor/reloads/list" title="https://data.sankuai.com/wanxiang/#/cantor/reloads/list" nodeId="724b4eca44a048a998a812d29c0e3307">https://data.sankuai.com/wanxiang/#/cantor/reloads/list</a>入口，XT的「执行计划」无法进入检测范围</p>
+<p nodeId="54f16d446d444489acff1e957d20638c"><img src="https://km.sankuai.com/api/file/cdn/2416057492/116965073242?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1162" height="162.1" nodeId="098f539a4409463ba3b46b17b8754af2" /><img src="https://km.sankuai.com/api/file/cdn/2416057492/116970656326?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1162" height="134.49" nodeId="42d7a621fa114279b8055c34be984866" /></p>
+</km-content>
+</km-note>
+<km-note type="note" nodeId="819caa172da64fe380557cb671680813">
+<km-title>数据表配置规范</km-title>
+<km-content>
+<p nodeId="3fbe9c7a668c483d8bf033bd1bba0438">XT数据表生产逻辑中，时间参数偏移必须是1</p>
+<p nodeId="98eea0ee31d34a14be0ca1244e21d584"><img src="https://km.sankuai.com/api/file/cdn/2416057492/116972364672?contentType=1&amp;isNewContent=false" name="image.jpeg" width="550" height="181" nodeId="1588aec49a9d4745970d0d1f1fc8c477" /></p>
+</km-content>
+</km-note>
+<p nodeId="dc254f8a01a14db5978cd6bc00984269">重导逻辑说明：</p>
+<ul nodeId="500b194da0124758bee935e5430881ed">
+<li nodeId="fc2fd59349e2477699bd85e21e97316a">
+<p nodeId="69f2f566b13a40aa8d5fd803a89bb05b">如果上游表重导范围与当前正在运行的任务无交叉，则无需终止当前任务，重跑仅拉起重导范围对应的任务周期</p>
+<ul nodeId="b058161445b14d928748aeef40af1256">
+<li nodeId="1fb1c7cb4a2f40578b2929995fb6859e">举例：上游表重导周期为T-2到T-3，离线任务读取周期为T-1，则认为无交叉，当前<strong>离线任务</strong>不终止；并发起一个新<strong>离线任务</strong>重跑T-2到T-3周期的数据</li>
+</ul>
+</li>
+<li nodeId="fb11e500289c4a139c6cedaff034776c">
+<p nodeId="50240777aa494dd0b6c6315f25546f68">如果上游表重导范围与当前正在运行的任务有交叉，则需终止当前任务，重跑拉起重导范围对应的任务周期</p>
+<ul nodeId="4ea4a1ba53b345f5a2103ee4390cc936">
+<li nodeId="2167b689820a48cb9cac6f0ddbb6ab59">举例：上游表重导周期为T-1到T-3，离线任务读取周期为T-1，则认为有交叉，当前<strong>离线任务</strong>终止；并发起一个新<strong>离线任务</strong>重跑T-1到T-3周期的数据</li>
+</ul>
+</li>
+</ul>
+<p nodeId="121b2fff78eb46ee9a738a39e024cca0" />
+</km-doc>

@@ -1,0 +1,680 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：离线引擎</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-10">一、背景</a><a href="#section-101">二、操作说明</a><a href="#section-102">1.操作流程概述</a><a href="#section-104">2.操作详细流程</a><a href="#section-116">Step1:注册hive表和参数</a><a href="#section-175">Step2:添加离线任务（hive与场景关联）</a><a href="#section-556">Step3:创建因子</a><a href="#section-640">Step3:创建规则、决策、场景和场景配置</a><a href="#section-643">Step5:输出字段配置以及数据验证</a><a href="#section-679">Step6:调度运行</a><a href="#section-709">三、名次解释</a><a href="#section-715">四、FAQ</a><a href="#section-716">Q1:离线引擎处理数据的时效性</a><a href="#section-718">Q2:可以多张hive表映射至同一个场景么？</a><a href="#section-721">Q3:离线引擎可以调用外部数据么？</a><a href="#section-723">Q4:类似于这种SQL在离线引擎上怎样配置？</a><a href="#section-737">Q5:现在已经有哪些库表的权限了？</a><a href="#section-741">Q6:离线策略现在在ETL中，若迁移至离线引擎上怎么做迁移后的数据验证</a><a href="#section-750">Q7:离线策略支持标记、双跑、回溯等用于逻辑验证的手段么？</a><a href="#section-752">Q8:离线策略支持规则组、决策附加信息、多级路由、因子工具和排查探针等策略管理和部署的工具么？</a><a href="#section-754">Q9:怎么给hive表申请权限</a><a href="#section-757">Q10 :离线策略执行结果如何查询？</a><a href="#section-763">Q11:我的业务方下怎么没有离线策略部署的功能？</a><a href="#section-765">Q12:我的离线任务配置的tuya处罚决策执行完了，为什么tuya查不到处罚记录？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：离线引擎</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/322991443">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：离线引擎</h1>
+<div style="none"></div>
+<details>
+<summary>20250917最新录制说明</summary>
+<div>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/322991443/194832002722?contentType=1">video1269545591.mp4</a></figcaption></figure>
+<p></p>
+</div>
+</details>
+<h1 id="section-10">一、背景</h1>
+<p><span style="color:rgb(59, 56, 56)"><strong>实时引擎无法处理的几种业务场景：</strong></span></p>
+<p><span style="color:rgb(59, 56, 56)">（1）结合登陆+交易等多种行为判断风险</span></p>
+<p><span style="color:rgb(59, 56, 56)">（2）风险变异后的离线回捞</span></p>
+<p><span style="color:rgb(59, 56, 56)"><strong>离线引擎适用的场景-案例case：</strong></span></p>
+<p><span style="color:rgb(59, 56, 56)">1.</span><span style="color:rgb(51, 51, 51)">商家为了销量、排名、补贴等利益进行的虚假交易，主要的风险表现是频繁操作改价、刷单。因此可通过</span><span>T+1日统计商户改价次数，当次数和成单量远远高的正常值的进行销量清除或补贴取消进行防控识别。</span></p>
+<p><span>2.支付的反洗钱识别，主要风险表现是超大额多笔交易。因子可通过T+1日统计商家收入的订单额度和数量，当日单笔额度远远高的正常值且大额订单占比远远高一商家收入平均值则对这些订单进行二次审核。</span></p>
+<p><span style="color:rgb(59, 56, 56)"><strong>离线引擎与实时引擎处理逻辑的差异：</strong></span></p>
+<p><span style="color:rgb(59, 56, 56)">规则：用户在同商户上低价订单超过20单-----实时引擎，前20单通过第21单拦截；离线引擎，识别到有超过20单，并将识别到的20单以及超过20以上的订单都进行拦截</span></p>
+<p><img src="assets/8fa6080faa4081a4.png" width="356" height="190" alt="image.png"></p>
+<p><span style="color:rgb(59, 56, 56)"><strong>离线引擎与ETL的差别适用情况：</strong></span></p>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">适用场景</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">优势</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">劣势</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">ETL</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.</span><span><span style="font-size:14px">数据从来源端经过抽取（extract）、转换（transform）、加载（load）至目的端的过程---ETL 官方文档</span></span></p>
+<p><span><span style="font-size:14px">2.常见的数据调度处理都可以，包含离线引擎覆盖的场景</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.高阶的数据处理能力</span></p>
+<p><span style="font-size:14px">2.灵活的调度管理</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.可阅读性差</span></p>
+<p><span style="font-size:14px">2.在规则管理方面无特征、因子概念，长期无法实现特征沉淀</span></p>
+<p><span style="font-size:14px">3.对下游的相关配置无法实现管理，产出hive表即完成</span></p>
+<p><span style="font-size:14px">4.在规则中新增加特征逻辑时需要修改多个XT任务</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">离线引擎</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.能抽象出来规则，且需要规则配置化的场景</span></p>
+<p><span style="font-size:14px">⚠️</span></p>
+<p><span style="font-size:14px">（1）一次性的数据清洗、跑数据不建议使用离线引擎</span></p>
+<p><span style="font-size:14px">（2）对数据时效性要求高（&lt;Today+1Day）的处理场景不建议使用离线引擎</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.可抽象特征和规则并实现配置化管理</span></p>
+<p><span style="font-size:14px">2.规则和特征的内容可阅读性强</span></p>
+<p><span style="font-size:14px">3.决策下发有统一的管理</span></p>
+<p><span style="font-size:14px">4.同实时引擎相似，具备便捷和灵活的规则管理、修改、验证和排查功能</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1.复杂的、高阶的SQL处理逻辑不适用</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-101">二、操作说明</h1>
+<h2 id="section-102">1.操作流程概述</h2>
+<img src="assets/1e12d87e7c826c2e.svg" width="857" height="116" alt="流程图">
+<h2 id="section-104">2.操作详细流程</h2>
+<img src="assets/1cf641167cca8bec.svg" width="1155" height="214" alt="流程图">
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:rgb(245, 35, 45)">已经接入实时引擎的业务方，不需要单独开通离线业务可在当前业务方下即可使用。</span></p>
+<p>使用方式：</p>
+<p>01.离线数据接入系统中（数据管理：注册hive表）--&gt;02.绑定数据和场景的关系（离线映射）--&gt;03.创建规则、添加场景配置   就完成了。T+1你将收到执行结果数据</p>
+<p>Tips：</p>
+<p>（1）目前还不支持实时测试功能，预计2020Q4底可支持<br>（2）接入离线引擎的hive表中必须有时间字段，包括但不限于datekey、dt，时间格式为yyyyMMdd</p>
+</div>
+</div>
+<h4 id="section-116">Step1:注册hive表和参数</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示图</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">在配置中心--&gt;数据管理</span></p>
+</td>
+<td>
+<p><img src="assets/eefed76486a1f297.png" width="1054" height="223" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【添加hive表】</span></p>
+<p><span style="font-size:14px">核心配置</span></p>
+<ol>
+<li><span style="font-size:14px">填写hive的库表名信息，注意dsn通常与库名相同</span></li>
+<li><span style="font-size:14px">系统取数字段：hive表中您需要的字段数据，建议您按需选择</span></li>
+<li><span style="font-size:14px">状态：就绪--表T+1调度，未就绪--表将不执行</span></li>
+<li><span style="font-size:14px">共享业务方：在Zeus系统中有使用和修改该表权限的业务方</span></li>
+</ol>
+<p><span style="font-size:14px">hive表依赖配置</span></p>
+<ol>
+<li><span style="font-size:14px">跟进您填写的hive表和系统取数字段，在系统中添加相关参数（避免用户注册完hive表后再手动注册参数）</span></li>
+<li>
+<p><span style="font-size:14px">仅支持系统中没有的参数的中文备注修改，名称和类型在此处不支持修改，若需要修改请移步“参数管理”</span></p>
+<p><span style="font-size:14px">⚠️：已经在系统中注册的参数，此处不支持任何修改</span></p>
+</li>
+</ol>
+<p></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="font-size:14px">dsn怎么写：</span><a href="http://dsn.data.sankuai.com/dsn/v2#/search/blurry" title="http://dsn.data.sankuai.com/dsn/v2#/search/blurry"><span style="font-size:14px">http://dsn.data.sankuai.com/dsn/v2#/search/blurry</span></a></p>
+<p><img src="assets/3d4a6ce42ea91d5e.png" width="360" height="85" alt="image.jpeg"></p>
+</div>
+</div>
+<p></p>
+</td>
+<td>
+<p><img src="assets/5085fc16e1cf4fb4.png" width="1047" height="548" alt="image.png"></p>
+<p><img src="assets/8bde6f5bd9bdab2b.png" width="1048" height="551" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-175">Step2:添加离线任务（hive与场景关联）</h4>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">动作</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="4" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">增删改离线任务</span></p>
+<p></p>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>入口：</strong></span></p>
+<p><span style="font-size:14px">zeus--&gt;配置中心--&gt;离线任务--&gt;离线任务详情</span></p>
+<p><span style="font-size:14px"><strong>列表展示页：</strong></span><span style="font-size:14px">区分离线任务详情和调度详情</span></p>
+<p></p>
+<p><span style="font-size:14px"><strong>离线任务详情页：</strong></span></p>
+<ul>
+<li>
+<p><span style="font-size:14px">查询区：</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">场景：请输入场景ID或名称，支持输入后下拉选</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">规则：请输入规则ID或名称，支持输入后下拉选</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">数据源：请输入数据源ID或名称，支持输入后下拉选</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">任务：请输入任务ID或名称</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">创建时间/修改时间：时间点选框，支持选择创建时间/修改时间在所配置的起止时间内的；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">MIDSID：请输入misid，查询创建人/修改人</span></p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>
+<p><span style="font-size:14px">列表展示项：</span></p>
+</li>
+</ul>
+<ol>
+<li>
+<p><span style="font-size:14px">任务id/任务名称/场景/数据源表/任务类型/场景时间/修改时间/修改时间/操作列</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">其中，任务名称/场景/数据源表支持点击名称进行超链接至对应的详情页</span></p>
+</li>
+</ol>
+<ul>
+<li>
+<p><span style="font-size:14px">任务类型与操作列对应关系：</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:14px">任务类型</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">任务说明</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">操作列</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">周期任务</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">按照配置周期进行定时执行的任务</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">编辑/删除</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">自定义任务</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">仅执行一次的任务</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">删除</span></p>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/ce799804e714f84d.png" width="682" height="329" alt="原文图片"></p>
+<p><img src="assets/711ed011c3091f15.png" width="682" height="243" alt="原文图片"></p>
+<p><img src="assets/29a5e34efb70b520.png" width="682" height="248" alt="原文图片"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>新建离线任务</strong></span></p>
+<p><span style="font-size:14px">点击离线任务详情页右上角的</span><span style="color:#1890ff"><span style="font-size:14px">​新建任务</span></span><span style="font-size:14px">按钮，跳转至</span><span style="color:#ccc"><span style="font-size:14px">​添加离线任务</span></span><span style="font-size:14px">页面</span></p>
+<ul>
+<li>
+<p><span style="font-size:14px">基本信息：</span></p>
+</li>
+</ul>
+<ol>
+<li>
+<p><span style="font-size:14px">任务名称：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="font-size:14px">，请输入中文名称，长度不超过20个汉字；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">英文名称：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="font-size:14px">，请输入英文、字符；长度不超过50个字符；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">数据源：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="font-size:14px">，请选择hive数据源；如果未找到指定数据源，点击下方蓝字「</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">未找到数据源？跳转注册数据源</span></span><span style="font-size:14px">」，会跳转至数据源注册页面，注册完成后重新添加离线任务；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">任务类型：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必选</span></span><span style="font-size:14px">，二选一，周期任务/自定义任务</span><span style="color:#f5222d"><span style="font-size:14px">​下面3种类型目前181空间暂不可用</span></span></p>
+<ol>
+<li><span style="font-size:14px">默认选择每天一次；指定执行时间可不填，指定后系统将不再检测上游是否就绪，到指定时间立即开始执行（就绪检测说明：</span><span style="font-size:14px"><strong>多个表/多次调度写入上游表需要等到全部执行完成后，才认定为就绪</strong></span><span style="font-size:14px">）</span></li>
+<li><span style="font-size:14px">每小时一次：需要上游数据源有小时分区字段，同时周期需要选中小时对应的字段及填写阈值，注意填写阈值的设置，存在交叉的情况下会重复拉取</span></li>
+<li><span style="font-size:14px">自定义表达式：最小间隔为1小时，书写形式参考</span><a href="children/说明：crontab表达式配置__1861989806/index.html" title="https://km.sankuai.com/collabpage/1861989806">说明：crontab表达式配置</a></li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">周期：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="font-size:14px">，如果选择的是周期任务，周期字段为所选的hive表中的某个字段，数字填N，表名执行是，执行</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">大于等于T-N天</span></span><span style="font-size:14px">的数据，比如，N=1，表明每天执行前一天的数据；如果选择的自定义任务，周期字段仍旧是hive表中的字段，但是为时间窗口式选择起止时间，表明此次任务指定时间窗口的数据执行相应策略；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">where条件：非必填，直接写sql，周期如果只想指定一天，需要在这里指定，如</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">dt = date_format(current_date, "yyyyMMdd")</span></span></p>
+</li>
+<li><span style="font-size:14px">最晚执行时间：非必填，只能选到小时点，比如最晚执行时间16:00，比如到了16:00任务还没执行的话，</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">场景关联的数据源表/个体全局因子/特征因子仍未就绪，则会发大象通知（任务不执行）</span></span><span style="font-size:14px">；</span></li>
+<li><span style="font-size:14px">执行时长上限：手动填写，需要小于8小时</span></li>
+<li>
+<p><span style="font-size:14px">告警接收人：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="font-size:14px">，支持填多个misid，针对任务执行情况的通知信息接收</span></p>
+</li>
+</ol>
+<ul>
+<li>
+<p><span style="font-size:14px">场景规则配置</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">场景：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="font-size:14px">，需要先key入id或名称进行检索；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">规则：</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">必填</span></span><span style="font-size:14px">，根据上一步选定的场景默认全部带出，如果有不需要执行的规则，可以在此处进行删除；</span></p>
+</li>
+</ol>
+</li>
+</ul>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/415f99df0a4ae633.png" width="611" height="600" alt="image.jpeg"></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>修改离线任务</strong></span></p>
+<p><span style="font-size:14px">针对周期任务，支持对离线任务进行修改，仅支持修改离线数据源字段、告警接收人、场景下的规则增删、周期字段和where条件。</span></p>
+<p></p>
+<p><span style="font-size:14px"><strong>说明：周期任务当日修改后，第二天的调度才会以新的配置进行执行，因为当日的调度任务已经生成；</strong></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/cf141ab0cda6bad9.png" width="682" height="298" alt="原文图片"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>删除离线任务</strong></span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">无论是周期任务还是自定义任务，都支持对原本任务进行删除；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">针对自定义任务：从配置好后，无论删不删任务，调度任务已经生成，会执行完成；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">针对周期任务：如果删除任务，则当日的调度还会执行，之后的调度不会再执行</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">无论删不删任务，历史的调度记录都会存在</span></p>
+</li>
+</ol>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/0a0aec65e41b9846.png" width="337" height="118" alt="原文图片"></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">调度详情</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>调度详情页</strong></span></p>
+<p><span style="font-size:14px">查询区：</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">场景：请输入场景ID或名称，支持输入后下拉选</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">调度状态：待执行、执行中、执行成功、执行失败、中止执行</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">调度任务：请输入调度ID或者名称</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">开始时间：查询调度任务的开始时间在所选时间至今的；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">结束时间：查询调度任务的结束时间从所选时间往前推；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">开始时间和结束时间可以组合查询</span></p>
+</li>
+</ol>
+<p><span style="font-size:14px">列表区：</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">任务ID：展示的微离线任务的ID，比如一个周期任务会每天执行，输入id检索可以查看该离线任务的每天调度情况</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">调度任务：名称为「调度ID-离线任务名称-调度执行日期」，点击可查看调度详情；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">调度对象：只有场景，可超链接至执行场景；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">调度状态：展示状态；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">开始时间：展示调度任务实际开始执行时间；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">结束时间；展示该调度任务实际结束时间；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">执行版本：展示调度版本；</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">操作：重跑，点击重跑按钮，可以跳出二次确认是否重跑弹框，</span><span style="font-size:14px"><strong>执行中和待执行状态的不可重跑</strong></span></p>
+</li>
+</ol>
+<p></p>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/5dae94d8d4a3373c.png" width="682" height="220" alt="原文图片"></p>
+<p><img src="assets/c9a7d5a1a5a6e8e7.png" width="682" height="313" alt="原文图片"></p>
+<p><img src="assets/98c8130eb20a36ba.png" width="682" height="156" alt="原文图片"></p>
+<p><img src="assets/a20b9dd3934621a0.png" width="328" height="118" alt="原文图片"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px"><strong>调度详情页</strong></span></p>
+<p><span style="font-size:14px">点击列表页的调度任务名称，跳转调度任务详情</span></p>
+<p><span style="font-size:14px">基本信息：展示离线任务的基本配置信息，即使离线任务删除或者被修改过，此处也会记录当时调度时的配置；</span></p>
+<p><span style="font-size:14px">任务信息：</span></p>
+<p><span style="font-size:14px">展示该任务实际执行的规则</span></p>
+<p><span style="font-size:14px">规则id：</span></p>
+<p><span style="font-size:14px">规则名称：支持超链接至规则详情</span></p>
+<p><span style="font-size:14px">调用量：即该次调度任务实际有多少流量请求了该条规则；</span></p>
+<p><span style="font-size:14px">命中量：即该次调度任务实际有多少流量命中了该条规则；</span></p>
+<p><span style="font-size:14px">操作：查看按天聚合结果，点击跳出弹框展示按天聚合的情况</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/1910261ca9f4c324.png" width="682" height="312" alt="原文图片"></p>
+<p><img src="assets/eb340e352ff9dbcd.png" width="413" height="176" alt="原文图片"></p>
+</td>
+</tr>
+<tr>
+<td rowspan="4" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">大象告警通知</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">每日执行情况统计通知</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/ffa9ade7d48dc65f.png" width="682" height="191" alt="原文图片"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">执行失败通知</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/623a4708088927e7.png" width="682" height="174" alt="原文图片"></p>
+<p><img src="assets/eea05a2ff7fe3f75.png" width="682" height="111" alt="原文图片"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">到达最晚执行时间执行通知</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/28b4dac6b297e4f6.png" width="682" height="113" alt="原文图片"></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">执行时间过长任务通知</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/d9b14608be1d251f.png" width="682" height="76" alt="原文图片"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-556">Step3:创建因子</h4>
+<p><u>累计因子、决策表因子等离线引擎</u><strong><u>无法使用</u></strong></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>特殊说明：个体因子、全局因子</p>
+<p>作用：全局因子--宏观统计指标，比如：到综商户的平均订单金额；个体因子--聚合统计指标，比如：到综<strong>单</strong>商户的平均订单金额</p>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示图</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】策略部署-因子</span></p>
+</td>
+<td>
+<p><img src="assets/e421e195b3196b0d.png" width="852" height="165" alt="image.jpeg"></p>
+<p><img src="assets/575ac6c782e544d6.png" width="851" height="383" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【个体因子】</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">个体因子可处理什么逻辑？</span></p>
+<p><span style="font-size:14px">与累计类似，比如可以统计15天内单设备累计的支付账号数，累计到结果用于规则执行</span></p>
+</li>
+<li><span style="font-size:14px">中英文名称正常填写即可，英文名称建议使用factor 开始</span></li>
+<li><span style="font-size:14px">选择工具根据逻辑需求，选择个体因子</span></li>
+<li><span style="font-size:14px">库、表名为个体因子计算需要的原始数据表，且需要已经完成了Zeushive表注册（注册操作见Step1）</span></li>
+<li>
+<p><span style="font-size:14px">计算周期：</span></p>
+<ol>
+<li><span style="font-size:14px">“请选择周期”指统计周期的时间计算维度按照数据表中的哪一个字段进行计算</span></li>
+<li><span style="font-size:14px">数据统计的范围，目前仅支持天维度</span></li>
+</ol>
+</li>
+<li><span style="font-size:14px">计算类型、删除重复项、去重字段字面意思</span></li>
+<li><span style="font-size:14px">维度列：按何计算</span></li>
+<li><span style="font-size:14px">指标列：计算的是哪个值</span></li>
+<li><span style="font-size:14px">where条件和having条件 ：该指标计算的复杂筛选逻辑</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/30523dab2c874169.png" width="456" height="433" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【全局因子】</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">全局因子可处理什么逻辑？</span></p>
+<p><span style="font-size:14px">基于个体因子的加全计算</span></p>
+</li>
+<li><span style="font-size:14px">中英文名称正常填写即可，英文名称建议使用factor 开始</span></li>
+<li><span style="font-size:14px">选择工具根据逻辑需求，选择全局因子</span></li>
+<li><span style="font-size:14px">计算值：取自个体因子，基于个体因子计算的全局统计数据</span></li>
+<li><span style="font-size:14px">计算类型字面意思</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/a9af545ca17df472.png" width="656" height="228" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-640">Step3:创建规则、决策、场景和场景配置</h4>
+<p>参考实时引擎配置方式即可<a href="../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改规则__312585969/index.html" title="https://km.sankuai.com/page/312585969">说明：创建/修改规则</a></p>
+<h4 id="section-643">Step5:输出字段配置以及数据验证</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示图</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【输出报表管理】</span></p>
+<p><span style="font-size:14px">⚠️当前尚未实现规则执行后的结果自定义输出，目前为统一的Zeus.log数据，需要业务根据自己期望提供给下游的目标格式，进行XT配置清洗。预计6月底完成自定义输出配置及同名单库、运营平台的打通</span></p>
+<p><span style="font-size:14px">Zeus.log数据表：</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">log.rc_zeus_request_business_122（只包含命中数据）</span></span></p>
+<p><span style="font-size:14px">账户安全数据表：</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">ba_rc.zeus_offline_result_to_tt_v3</span></span></p>
+</td>
+<td>
+<p><img src="assets/2832951d9ff161ba.png" width="1069" height="113" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【输出决策管理】</span></p>
+<p><span style="font-size:14px">当前只有「tuya处罚」可触达到tuya处罚中心，实时执行处罚；其他决策只输出表，如有新增决策需要执行，需研发配置开发；</span><a href="children/说明：离线引擎tuya决策使用__1785764509/index.html" title="https://km.sankuai.com/collabpage/1785764509">说明：离线引擎tuya决策使用</a></p>
+</td>
+<td>
+<p><img src="assets/68dd098c10342088.png" width="595" height="101" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-679">Step6:调度运行</h4>
+<p>1.完成上述Step1至Step5的配置，T+1你会收到调度完成消息（暂时不能当天执行验证，后续陆续开放）</p>
+<p><img src="assets/63338f2cfca4f74d.png" width="414" height="89" alt="image.png"></p>
+<p>2.当运行出现异常时，可在调度管理中查看异常情况并进行重试</p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">操作说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">示图</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【调度管理】</span></p>
+<p><span style="font-size:14px">入口：Plus+工具中心--&gt;离线调度</span></p>
+<p><span style="font-size:14px">（1）对于当天执行异常的任务可以进行重跑操作</span></p>
+<p><span style="font-size:14px">“场景因子异常”若是提示该异常信息，表明因因子计算异常，导致场景执行结果异常。点击重试，会从因子计算开始一直到场景执行都重跑；</span></p>
+<p><span style="font-size:14px">“执行异常”若是提示该信息，表明当前状态下的内容执行异常，比如场景执行异常，点击重试，只会从场景执行重跑；</span></p>
+<p><span style="font-size:14px">（2）执行版本：为防止用户在日志查询时无法定位重跑数据，进行数据分析，在执行时会记录版本号。若出现重跑可根据版本号锁定相关日志信息</span></p>
+</td>
+<td>
+<p><img src="assets/f96ac868529f2662.png" width="1009" height="383" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-709">三、名次解释</h1>
+<p>数据管理：<span style="color:rgb(0, 0, 0)">在zeus上注册并管理离线hive表，包括查看、配置字段依赖映射等</span></p>
+<p><span style="color:rgb(0, 0, 0)">离线任务：离线任务和调度的查看与管理， 包括重跑离线任务</span></p>
+<p>调度任务：针对配置的离线任务，展示每次的调度情况</p>
+<h1 id="section-715">四、FAQ</h1>
+<h4 id="section-716">Q1:离线引擎处理数据的时效性</h4>
+<p>A：上游etl数据就绪后，开始离线引擎调度，抽取指定周期的数据；最小粒度可到小时</p>
+<h4 id="section-718">Q2:可以多张hive表映射至同一个场景么？</h4>
+<p>A：可以的，需要在离线映射中创建多个映射，即hive表与场景间是多对多的状态</p>
+<img src="assets/c06a092da2deb171.svg" width="196" height="169" alt="流程图">
+<h4 id="section-721">Q3:离线引擎可以调用外部数据么？</h4>
+<p>A：除个体因子和全局因子外，其他类型的因子和参数都可以支持通过数据接口获取外部数据</p>
+<h4 id="section-723">Q4:类似于这种SQL在离线引擎上怎样配置？</h4>
+<p>A：（1）取数据逻辑，SQL代码如下，短期：建议使用数据接口方式实现以下取数逻辑。长期：规则平台考虑通用便捷的获取数据配置方式</p>
+<pre><code>select userid from mart_creid.dpadm_credit_userif_black_dd where hp_statdate=today and user_role=1</code></pre>
+<p>（2）求最大、最小、均值等逻辑，SQL代码如下，使用个体因子</p>
+<pre><code>select userid,
+      avg(amount)
+ from ba_rc.dpmid_credit_antifarming_oid_basicfeature_all
+where dt between '$now.delta(days=15).datekey' and '$now.datekey'
+group by userid</code></pre>
+<p>（3）求整体统计指标，比如：SQL代码如下，先建立个体因子，再建立全局因子</p>
+<pre><code>select avg(a.order_cnt)
+ from (
+       select userid,
+              count(distinct orderid) order_cnt
+         from ba_rc.dpmid_credit_antifarming_oid_basicfeature_all
+        where dt between '$now.delta(days=15).datekey' and '$now.datekey'
+        group by userid
+      ) a</code></pre>
+<p>（4）表与表之间的join如何实现？比如：SQL代码如下， <span style="color:rgb(250, 84, 29)">本期暂时无法实现，规划3期完成（2020Q3）</span></p>
+<pre><code></code></pre>
+<h4 id="section-737">Q5:现在已经有哪些库表的权限了？</h4>
+<p><span style="color:rgba(0, 0, 0, 0.87)">A：目前已经完成了mart_hotelmining、mart_credit、ba_rc三个库的数据权限申请，</span><span style="color:rgb(250, 84, 29)">但还需要联系郎周皓将dsn、库名、表名、所需字段注册到zeus上</span></p>
+<h4 id="section-741">Q6:离线策略现在在ETL中，若迁移至离线引擎上怎么做迁移后的数据验证</h4>
+<p>A：（1）梳理离线ETL数据以及策略结构，建议一个ETL对应一条规则 </p>
+<p>      （2）使用个体因子、全局因子以及其他因子进行特征逻辑配置和规则配置 </p>
+<p>      （3）配置过规则的hive同场景的离线映射 </p>
+<p>      （4）启动离线任务获得运行结果 </p>
+<p>      （5）运行结果比对，比对参考方案建议如下，获得两边的结果数据比对数据量和关键参数、因子结果即可</p>
+<p>⚠️如发现数据问题可大象zeus/it_rc_zeus</p>
+<pre><code>以下模块是批量了历史两个ETL，迁移至离线引擎后同一个场景下的两个规则，结果数据是否一致
+【引擎产生结果数据表】
+select get_json_object(paramcontext,'$.oid') oid,/*取关键参数*/
+       get_json_object(factorcontext,'$.factor_acc_15d_same_dpid_diff_thirdpaymentaccount') diff_pay_count,/*取关键因子*/
+       if( hitrules like '%33401%',1,null) rule_33401,/*取命中规则33401的数据*/
+       if( hitrules like '%33894%',1,null) rule_33894/*取命中规则33894的数据*/
+  from log.rc_zeus_request_business_122/*离线引擎产出的结果日志表*/
+ where dt = 20200427
+   and sceneid=5498/*规则执行对应的场景*/
+---------------------------------------------------------------------------------------------------------------------------------------------------   
+【ETL原始表】
+select oid,/*取关键参数*/
+       33401 as rule/*赋值标签，表明该表中的数据同命中33401规则数据逻辑一致*/
+       from ba_rc.dpmid_credit_antifarming_identicaldpid where dt='20200426'/*ETL结果数据产出表1*/
+union all
+select oid,
+       33894 as rule from /*赋值标签，表明该表中的数据同命中33894规则数据逻辑一致*/
+ba_rc.dpmid_credit_antifarming_identicalPaymentAccount where dt='20200426'/*ETL结果数据产出表2*/</code></pre>
+<h4 id="section-750">Q7:离线策略支持标记、双跑、回溯等用于逻辑验证的手段么？</h4>
+<p>A：支持标记和回溯，暂不支持双跑</p>
+<h4 id="section-752">Q8:离线策略支持规则组、决策附加信息、多级路由、因子工具和排查探针等策略管理和部署的工具么？</h4>
+<p>A：支持</p>
+<h4 id="section-754">Q9:怎么给hive表申请权限</h4>
+<p>A：详情见：<a href="https://km.sankuai.com/page/290492473" title="https://km.sankuai.com/page/290492473">说明：Talos账号申请hive表权限的步骤</a></p>
+<h4 id="section-757">Q10 :离线策略执行结果如何查询？</h4>
+<p>A：两种方式</p>
+<p>（1）近15天的执行结果数据在Zeus数据统计--&gt;日志查询（离线任务）中查询实时命中情况，见下图；</p>
+<p>（2）通过hive表查询，hive表可查询时间是您收到离线引擎任务完成通知后即可查询</p>
+<p><img src="assets/2900ca6c52c32716.png" width="939" height="349" alt="image.png"></p>
+<h4 id="section-763">Q11:我的业务方下怎么没有离线策略部署的功能？</h4>
+<p>A：目前已经全部开放，没有单独的离线引擎功能，在因子、场景支持离线数据和逻辑的执行。</p>
+<h4 id="section-765">Q12:我的离线任务配置的tuya处罚决策执行完了，为什么tuya查不到处罚记录？</h4>
+<p>A：执行处罚的任务每5分钟扫描一次，最大延迟10分钟，可稍等10分钟再验证</p>
+<p>B：请确认是否在tuya上配置了前置过滤规则，如果命中过滤规则，则不会进行处罚</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/说明：离线引擎tuya决策使用__1785764509/index.html">说明：离线引擎tuya决策使用</a> <span class="status">已保存</span></li><li><a href="children/说明：tuya决策排查验证__1855340371/index.html">说明：tuya决策排查验证</a> <span class="status">已保存</span></li><li><a href="children/说明：crontab表达式配置__1861989806/index.html">说明：crontab表达式配置</a> <span class="status">已保存</span></li><li><a href="children/说明：离线引擎变更验证（废弃）__2029061341/index.html">说明：离线引擎变更验证（废弃）</a> <span class="status">已保存</span></li><li><a href="children/说明：离线任务-熔断配置__2157764712/index.html">说明：离线任务-熔断配置</a> <span class="status">已保存</span></li><li><a href="children/说明：离线引擎变更验证V2__2388150909/index.html">说明：离线引擎变更验证V2</a> <span class="status">已保存</span></li><li><a href="children/说明：依赖重导监测__2416057492/index.html">说明：依赖重导监测</a> <span class="status">已保存</span></li></ul></section></main></body></html>

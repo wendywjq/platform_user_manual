@@ -1,0 +1,224 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：离线引擎变更验证（废弃）</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-7">二、系统流程</a><a href="#section-9">三、操作说明</a><a href="#section-16">任务新增/变更</a><a href="#section-192">任务删除</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：离线引擎</a> / <a href="index.html">说明：离线引擎变更验证（废弃）</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/2029061341">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：离线引擎变更验证（废弃）</h1>
+<div style="none"></div>
+<h3 id="section-3">一、背景</h3>
+<ul>
+<li>离线引擎上线后，被越来越多的风险域使用，尤其是账号风险域的流量在快速增长，策略布控安全性日益凸显</li>
+<li>当前离线任务的任何变更，都是立即生效，无验证、审批、监控、熔断等能力进行保障</li>
+</ul>
+<h3 id="section-7">二、系统流程</h3>
+<img src="assets/891a96adfa335f92.svg" width="916" height="266" alt="流程图">
+<h3 id="section-9">三、操作说明</h3>
+<div class="note">
+<strong></strong>
+<div>
+<p>当前为1.0版本功能，只有大象消息交互，平台暂无交互页面，交互页面将于2024Q1上线</p>
+<p>当前功能只适用引擎V2架构，社区安全空间需迁移架构<sup id="856fbe50-3c75-421f-8f35-8be4fa513b1d"></sup>后使用</p>
+</div>
+</div>
+<h4 id="section-16">任务新增/变更</h4>
+<table>
+<tr>
+<th>
+<p>流程节点</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>提交人通知</p>
+</th>
+<th>
+<p>审批人通知</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>发起审批</p>
+</td>
+<td>
+<ul>
+<li>发起审批场景：</li>
+</ul>
+<ul>
+<li>离线任务</li>
+</ul>
+<ul>
+<li>新增：新增自定义/周期离线任务，初次上线</li>
+<li>修改：数据源、where条件、周期、规则选取的变动</li>
+</ul>
+<ul>
+<li>数据源：已经被引用配置离线任务的数据源，修改字段映射；删除取数字段</li>
+</ul>
+<ul>
+<li>发起审批校验：根据关联的<strong>离线任务id</strong>进行校验，如果已经有正在经历审批验证流程的离线任务，则不允许提交</li>
+<li>获取审批人优先级：同组织架构下的空间负责人 &gt; 其他空间负责人</li>
+</ul>
+</td>
+<td>
+<p><span style="color:#FF9D00">仍存在流程未完成的离线任务</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>zhangsan发起的审批流程未完成，请确认流程结束后再发起新流程</p>
+<p><span style="color:#FF9D00">正常提交</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【变更类型】：数据源字段映射变更<br>【变更内容】：userid-&gt;&gt;uid,business-&gt;&gt;biz <span style="color:rgb(56, 136, 255)">查看详情页</span><br>【关联数据源】：ba_rc.zeus_log<br>【关联离线任务】：123,236<br>【变更批次】：988<br>您已经向空间负责人（yaozhenzhen,duisisi）发起变更审批，请注意查看审批消息<br>上线流程：发起审批-&gt;数据测试-&gt;数据验证-&gt;上线</p>
+<p><span style="color:#FF9D00">审批人驳回后</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【变更类型】：数据源字段映射变更<br>【变更内容】：userid-&gt;&gt;uid,business-&gt;&gt;biz <span style="color:rgb(56, 136, 255)">查看详情页</span><br>【关联数据源】：ba_rc.zeus_log<br>【关联离线任务】：123,236<br>【变更批次】：988<br>您发起的变更已经被lisi驳回，请修改后重新发起</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 157, 0)">正常提交后审批人的通知</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【变更类型】：数据源字段映射变更<br>【变更内容】：userid-&gt;&gt;uid,business-&gt;&gt;biz <span style="color:rgb(56, 136, 255)">查看详情页</span><br>【关联数据源】：ba_rc.zeus_log<br>【关联离线任务】：123,236<br>【变更批次】：988<br>yaozhenzhen发起变更，请确认是否审批通过？</p>
+<p><span style="color:rgb(56, 136, 255)">通过     驳回</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>数据测试</p>
+</td>
+<td>
+<ul>
+<li>点击开始测试后，立即拉起当前配置执行，该阶段产出的数据单独存储，不会影响线上</li>
+</ul>
+</td>
+<td>
+<p><span style="color:rgb(255, 157, 0)">审批人通过后</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【变更类型】：数据源字段映射变更<br>【变更内容】：userid-&gt;&gt;uid,business-&gt;&gt;biz <span style="color:rgb(56, 136, 255)">查看详情页</span><br>【关联数据源】：ba_rc.zeus_log<br>【关联离线任务】：123,236<br>【变更批次】：988<br>您的变更已经被lisi审批通过，测试验证通过后正式上线使用</p>
+<p><span style="color:rgb(56, 136, 255)">开始测试    取消测试</span></p>
+<p><span style="color:rgb(255, 157, 0)">点击开始测试</span></p>
+<p>【Zeus离线引擎变更通知】<br>【离线任务】：<span style="color:rgb(56, 136, 255)">123,236</span><br>【变更批次】：988<br>变更后的离线任务已经开始测试，可点击离线任务id查看进度，运行完成后，将推送命中详情进行验证，验证通过后正式上线</p>
+<p><span style="color:rgb(255, 157, 0)">点击取消测试</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【离线任务】：123,236<br>【变更批次】：988<br>您的变更已经取消测试，上线流程终止，可修改后重新发起</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>数据验证</p>
+</td>
+<td>
+<ul>
+<li>
+<p><blockquote>测试结果通知按照离线任务聚合，如果修改项影响了多个任务，则会收到多个通知，请注意看离线任务ID的差异，需要分别确认</blockquote></p>
+<p></p>
+</li>
+<li>
+<p>常规上线：有数据结果且验证通过</p>
+<ul>
+<li>将通知中的验证SQL粘贴到魔数，即可获取到明细数据</li>
+</ul>
+</li>
+<li>强制上线：无数据结果，点击「验证通过上线」可完成强制上线，点击操作有日志记录，请谨慎使用</li>
+</ul>
+</td>
+<td>
+<p><span style="color:#FF9D00">系统执行测试完成-有数据</span></p>
+<p>【Zeus离线引擎变更通知】<br>【离线任务】：123<br>【输入量】：2000<br>【生效规则命中量】：800<br>【决策：命中量】：33268：200，6：600<br>【规则：top5命中量】：2717055：188，2717056：88，2717057：20，2717058：8<br>【查询验证SQL】：select 命中详情字段  from  测试数据表 where dt = 今天 and  变更批次=变更批次id<br>【变更批次】：988<br>任务已经测试完成，请前往<span style="color:rgb(56, 136, 255)">魔数</span>验证</p>
+<p><span style="color:rgb(56, 136, 255)">验证通过上线    验证不通过</span></p>
+<p><span style="color:rgb(255, 157, 0)">系统执行测试完成-无数据</span></p>
+<p>【Zeus离线引擎变更通知】<br>【离线任务】：123<br>【输入量】：0<br>【生效规则命中量】：0<br>【决策：命中量】：-<br>【规则：top5命中量】：-<br>【查询验证SQL】：-<br>【变更批次】：988<br>任务已经测试完成，输入量为0，是否仍要上线？</p>
+<p><span style="color:rgb(56, 136, 255)">验证通过上线    验证不通过</span></p>
+<p><span style="color:rgb(255, 157, 0)">点击验证不通过</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【离线任务】：123<br>【变更批次】：988<br>您的变更验证不通过，上线流程终止，可修改后重新发起</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>发布上线</p>
+</td>
+<td>
+<ul>
+<li>验证通过上线：仅配置生效，测试数据无法进行处置，需等待线上正常调度才可处置</li>
+<li>
+<p>执行逻辑：</p>
+<ul>
+<li>周期任务-天：如果今天运行过，则次日开始执行新配置，如果今天没有运行，按照当前逻辑检测即可</li>
+<li>周期任务-小时：上线后的时间，下一个小时开始执行新配置</li>
+<li>自定义任务：上线后，立即执行</li>
+</ul>
+</li>
+</ul>
+</td>
+<td>
+<p><span style="color:rgb(255, 157, 0)">点击验证通过上线</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【变更类型】：数据源字段映射变更<br>【变更内容】：userid-&gt;&gt;uid,business-&gt;&gt;biz <span style="color:rgb(56, 136, 255)">查看详情页</span><br>【关联数据源】：ba_rc.zeus_log<br>【关联离线任务】：123,236<br>【变更批次】：988<br>您的变更已经上线完成</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<h4 id="section-192">任务删除</h4>
+<table>
+<tr>
+<th>
+<p>流程节点</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>提交人通知</p>
+</th>
+<th>
+<p>审批人通知</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>发起审批</p>
+</td>
+<td>
+<ul>
+<li>发起审批场景：</li>
+</ul>
+<ul>
+<li>离线任务</li>
+</ul>
+<ul>
+<li>删除：已经在运行的离线任务删除，包含周期和自定义任务</li>
+</ul>
+<ul>
+<li>发起审批校验：根据关联的<strong>离线任务id</strong>进行校验，如果已经有正在经历审批验证流程的离线任务，则不允许提交</li>
+<li>获取审批人优先级：同组织架构下的空间负责人 &gt; 其他空间负责人</li>
+</ul>
+</td>
+<td>
+<p><span style="color:rgb(255, 157, 0)">正常提交</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>zhangsan发起的审批流程未完成，请确认流程结束后再发起新流程</p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【变更类型】：删除离线任务<br>【关联数据源】：ba_rc.zeus_log<br>【关联离线任务】：<span style="color:rgb(56, 136, 255)">123</span><br>【变更批次】：988<br>您已经向空间负责人（yaozhenzhen,duisisi）发起变更审批，请注意查看审批消息</p>
+<p><span style="color:rgb(255, 157, 0)">审批人通过后</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【变更类型】：删除离线任务<br>【关联数据源】：ba_rc.zeus_log<br>【关联离线任务】：<span style="color:rgb(56, 136, 255)">123</span><br>【变更批次】：988<br>您发起的变更已审批通过</p>
+<p><span style="color:rgb(255, 157, 0)">审批人驳回后</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【变更类型】：删除离线任务<br>【关联数据源】：ba_rc.zeus_log<br>【关联离线任务】：<span style="color:rgb(56, 136, 255)">123</span><br>【变更批次】：988<br>您发起的变更已经被lisi驳回</p>
+</td>
+<td>
+<p><span style="color:rgb(255, 157, 0)">正常提交后审批人的通知</span></p>
+<p>【Zeus离线引擎变更通知】</p>
+<p>【变更类型】：删除离线任务<br>【关联数据源】：ba_rc.zeus_log<br>【关联离线任务】：<span style="color:rgb(56, 136, 255)">123</span><br>【变更批次】：988<br>yaozhenzhen发起变更，请确认是否审批通过？</p>
+<p><span style="color:rgb(56, 136, 255)">通过     驳回</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p>宣讲视频</p>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/2029061341/78209910595?contentType=1">离线变更验证.mp4</a></figcaption></figure>
+<p></p>
+<div>
+<p><p>迁移架构：平台技术操作，业务同学配合观察即可</p></p>
+</div>
+</article></main></body></html>

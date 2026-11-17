@@ -1,0 +1,26 @@
+<km-doc>
+<km-title nodeId="7cb86ffc3e804290a94999230cd361ea">说明：操作日志查询</km-title>
+<km-catalog style="none" nodeId="13eba53a4bbc4653beaa5ecc9371684d" />
+<h1 nodeId="2f1277d0a0c140eaa3791ae1d624dfbf">1.背景</h1>
+<p nodeId="594d4f209a0f4065a843cbe611883aee">Zeus上的操作日志查询 是一个安全的防控手段和记录，记录了什么时间什么人对业务方内的场景、规则、因子的添加、更新和删除行为。</p>
+<h1 nodeId="f147a975ca3b436bab4e1e668626ce98">2.操作说明</h1>
+<h2 nodeId="7f1691ecdd7447078667492398597d73">step1：入口</h2>
+<p nodeId="5b9e587a49ee4eff8213af37651eac25">点击 <span color="rgb(245, 35, 45)">数据统计-&gt;操作日志查询</span> 进入操作日志查询页面，可以分别查看用户对 <span color="rgb(245, 35, 45)">场景、规则、因子</span> 的操作行为。</p>
+<p nodeId="b7c203c21e944cc9ba48486b408d9323"><img src="https://km.sankuai.com/api/file/cdn/339204372/339262129?contentType=1&amp;isNewContent=true" name="image.png" width="609" height="299" nodeId="b5245b1e15bc4a13be69759bc42634a9" /></p>
+<h2 nodeId="bbfa13e063a2461695595303e5e88467">step2：按场景查询</h2>
+<p nodeId="3e32733305954e44a5a43f33f5444d9e">（1）点击 <span color="rgb(245, 35, 45)">场景</span>，在<span color="rgb(245, 35, 45)">查询条件框中输入要查询的场景ID、操作行为以及时间的任意组合项</span>，删选出来要查询的场景，<span color="rgb(245, 35, 45)">或者直接在下面的场景列表中找到要查看的场景</span>，点击场景列表中展示出来的要查看的场景后面的 <span color="rgb(245, 35, 45)">查看详情</span>，</p>
+<p nodeId="d96781043daf40f28fd8d97c7141809a"><img src="https://km.sankuai.com/api/file/cdn/339204372/339341633?contentType=1&amp;isNewContent=true" name="image.png" width="931" height="309" nodeId="cb92e8f9a0cc4ba6a235a4aa91c877c0" /></p>
+<p nodeId="362bf0747ee64f5bb4ee248af23eaa13">（2）点击查看详情后显示该场景的具体操作日志，包括两部分，第一部分是基础的操作信息：<span color="rgb(245, 35, 45)">添加/更新/删除</span>，<span color="rgb(245, 35, 45)">操作人mis号</span>、<span color="rgb(245, 35, 45)">操作时间</span>，第二部分是场景配置信息：展示了场景配置中的<span color="rgb(245, 35, 45)">规则/规则组、决策/附加理由/理由、状态、优先级信息</span>，以及具体<span color="rgb(245, 35, 45)">新增内容</span>是什么（用绿色字体表示），<span color="rgb(245, 35, 45)">删除内容</span>是什么（用红色字体表示）。</p>
+<p nodeId="dd8098e60d194b01a8fad30c368e9723"><img src="https://km.sankuai.com/api/file/cdn/339204372/339245436?contentType=1&amp;isNewContent=true" name="image.png" width="342" height="347" nodeId="e853dd237677451781914a7ec1e2d24f" /></p>
+<h2 nodeId="e28db583d84a4974b2da20f0e21b001e">step3：按规则查询</h2>
+<p nodeId="2350fa062075472d972511afb6e7b9f2">（1）点击 <span color="rgb(245, 35, 45)">规则</span>，在<span color="rgb(245, 35, 45)">查询条件框中输入要查询的规则ID、操作行为以及时间的任意组合项</span>，删选出来要查询的规则，<span color="rgb(245, 35, 45)">或者直接在下面的规则列表中找到要查看的规则</span>，点击规则列表中展示出来的要查看的规则后面的 <span color="rgb(245, 35, 45)">查看详情</span>，</p>
+<p nodeId="98204bbf00644162bce4ed455669208f"><img src="https://km.sankuai.com/api/file/cdn/339204372/339317788?contentType=1&amp;isNewContent=true" name="image.png" width="843" height="278" nodeId="810721a78eac4a7faa4d08f22f7aaee8" /></p>
+<p nodeId="173b26234d9c41a78664e618aa07a5c8">（2）点击查看详情后显示该规则的具体操作日志，包括三部分，第一部分是基础的操作信息：<span color="rgb(245, 35, 45)">添加/更新/删除</span>，<span color="rgb(245, 35, 45)">操作人mis号</span>、<span color="rgb(245, 35, 45)">操作时间</span>，第二部分是规则内容：<span color="rgb(245, 35, 45)">规则英文名称</span>、<span color="rgb(245, 35, 45)">新版和旧版的规则内容（表达式）</span>，第三部分是规则信息：展示了规则 的<span color="rgb(245, 35, 45)">ID、名称、备注、标签、共享业务方、状态、客服备注、客服建议</span>信息，以及具体的<span color="rgb(245, 35, 45)">新增内容</span>是什么（用绿色字体表示），<span color="rgb(245, 35, 45)">删除内容</span>是什么（用红色字体表示）。</p>
+<p nodeId="1848ca003adc409199eb78798eb3b21b"><img src="https://km.sankuai.com/api/file/cdn/339204372/339198989?contentType=1&amp;isNewContent=true" name="image.png" width="242" height="255" nodeId="30b7f28fb9d84bc49fcd433a7a7f3996" />  <img src="https://km.sankuai.com/api/file/cdn/339204372/339293399?contentType=1&amp;isNewContent=true" name="image.png" width="227" height="260" nodeId="2fc31c40588144e09890d34ad88c340d" /></p>
+<h2 nodeId="afeeca73ae084483897c70be31e04023">step4：按因子查询</h2>
+<p nodeId="dd603ed80d6b418db905f91be30c9073">（1）点击 <span color="rgb(245, 35, 45)">因子</span>，在<span color="rgb(245, 35, 45)">查询条件框中选择要查询的因子、操作行为以及时间的任意组合项</span>，删选出来要查询的因子，<span color="rgb(245, 35, 45)">或者直接在下面的因子列表中找到要查看的因子</span>，点击因子列表中展示出来的要查看的因子后面的 <span color="rgb(245, 35, 45)">查看详情</span>，</p>
+<p nodeId="a3d7af8279e0492199f1caf904883c66"><img src="https://km.sankuai.com/api/file/cdn/339204372/339330480?contentType=1&amp;isNewContent=true" name="image.png" width="859" height="299" nodeId="01f58bf1bccc4dc39f141b4c9a80c190" /></p>
+<p nodeId="2a5576e4f5744550b5f54fc387e6628e">（2）点击查看详情后显示该因子的具体操作日志，包括三部分，第一部分是基础的操作信息：<span color="rgb(245, 35, 45)">添加/更新/删除</span>，<span color="rgb(245, 35, 45)">操作人mis号</span>、<span color="rgb(245, 35, 45)">操作时间</span>，第二部分是因子的基础内容：展示了因子 的<span color="rgb(245, 35, 45)">ID、名称、备注、共享业务方、状态、类型</span>信息，以及具体的<span color="rgb(245, 35, 45)">新增内容</span>是什么（用绿色字体表示），<span color="rgb(245, 35, 45)">删除内容</span>是什么（用红色字体表示），第三部分是历史版本：<span color="rgb(245, 35, 45)">因子英文名称</span>、<span color="rgb(245, 35, 45)">新版和旧版的因子内容（表达式）</span>。</p>
+<p nodeId="2dc58a2bd14948098b03c099a223d964"><img src="https://km.sankuai.com/api/file/cdn/339204372/339371750?contentType=1&amp;isNewContent=true" name="image.png" width="443" height="474" nodeId="b47a9543616142e298a84af6757496ea" />  <img src="https://km.sankuai.com/api/file/cdn/339204372/339371875?contentType=1&amp;isNewContent=true" name="image.png" width="429" height="480" nodeId="7709c430962b46d696e8b96e0032a3a4" /></p>
+<p nodeId="e7208486c50f4c3192a8e17948b081d5" />
+</km-doc>

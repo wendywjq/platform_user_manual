@@ -1,0 +1,118 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：crontab表达式配置</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">格式说明</a><a href="#section-6">Cron表达式触发最为常见，以0 15 10 5 6 ?为例:</a><a href="#section-36">常见举例</a><a href="#section-69">表达式验证</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：离线引擎</a> / <a href="index.html">说明：crontab表达式配置</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/1861989806">查看学城原文</a></p><article>
+<h1>说明：crontab表达式配置</h1>
+<div style="none"></div>
+<h3 id="section-3">格式说明</h3>
+<p>周一到周三每天上午10:15执行作业</p>
+<img src="assets/f7ed865c9201f52b.svg" width="646" height="196" alt="流程图">
+<h4 id="section-6">Cron表达式触发最为常见，以<strong>0 15 10 5 6 ?</strong>为例:</h4>
+<p>0 表示秒域</p>
+<p>15 表示分钟域</p>
+<p>10 表示小时域</p>
+<p>5 表示日期域</p>
+<p>6 表示月份域</p>
+<p>问号? 表示星期(因与日期冲突，这里不指定，1表示周日，2表示周一,以此类推)</p>
+<p></p>
+<p>符号解释:<br>星号（*）：可用在所有字段中，表示对应时间域的每一个时刻，例如，星号在分钟字段时，表示“每分钟”。</p>
+<p>问号（?）：该字符只在<span style="color:rgb(250, 116, 20)">日期和星期</span>字段中使用，它通常指定为“无意义的值”，相当于点位符。</p>
+<p>减号（-）：表达一个<span style="color:rgb(250, 116, 20)">范围</span>，如在小时字段中使用“10-12”，则表示从10到12点，即10，11，12。</p>
+<p>逗号（,）：表达一个<span style="color:rgb(250, 116, 20)">列表值</span>，如在星期字段中使用“MON，WED，FRI”，则表示星期一，星期三和星期五。</p>
+<p>斜杠（/）：x/y 表达一个<span style="color:rgb(250, 116, 20)">等步长序列</span>，x 为起始值，y 为增量步长值。如在分钟字段中使用0/15，则表示为0，15，30和45秒，而5/15在分钟字段中表示5，20，35，50，你也可以使用 */y，它等同于 0/y。</p>
+<div class="note">
+<strong></strong>
+<div>
+<ul>
+<li><span style="color:rgb(155, 17, 4)">星号*若在秒域则表示每秒执行，在分钟域表示每分钟执行，以此类推</span></li>
+<li>
+<p><span style="color:rgb(155, 17, 4)">由于天与星期域是冲突的，所以必须有一个不指定，使用英文问号表示</span></p>
+</li>
+<li><span style="color:rgb(195, 76, 64)">设置Cron时，调度间隔最好是要大于或者等于任务最大执行时长（离线引擎间隔不得小于1小时）</span></li>
+</ul>
+</div>
+</div>
+<h3 id="section-36">常见举例</h3>
+<table>
+<tr>
+<th>
+<p>表达式</p>
+</th>
+<th>
+<p>含义</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>0 5 10 * * ? </p>
+</td>
+<td>
+<p>每天10:05</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>0 5 0 1 * ?</p>
+</td>
+<td>
+<p>每个月1号00:05</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>0 0 0 ? * 5,6</p>
+</td>
+<td>
+<p>每周的周四和周五0点</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>0 10 9 ? * 1</p>
+</td>
+<td>
+<p>每周日的9:10</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>0 0 0/2 * * ?</p>
+</td>
+<td>
+<p>从0点开始，每隔2小时</p>
+</td>
+</tr>
+</table>
+<p></p>
+<h3 id="section-69">表达式验证</h3>
+<p>通过工具可查看后3次执行时间是否符合预期</p>
+<table>
+<tr>
+<th>
+<p>步骤1</p>
+</th>
+<th>
+<p>步骤2</p>
+</th>
+<th>
+<p>步骤3</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>点击<a href="https://crane.mws-test.sankuai.com/#/new/task/com.sankuai.zeus.offline" title="表达式测试地址">表达式测试地址</a>，随便选择一个任务，进行编辑，进入步骤2</p>
+<p><img src="assets/709037fe1cf2dd54.png" width="1443" height="448" alt="image.jpeg"></p>
+<p></p>
+<p>注：顶部提示的没有权限不影响测试操作，不需要申请权限</p>
+</td>
+<td>
+<p>点击弹窗内【工具】按钮，进入步骤3</p>
+<p><img src="assets/26d7d01156d1a6f4.png" width="368" height="391" alt="image.jpeg"></p>
+</td>
+<td>
+<p>直接将自定义表达式贴到【生成结果】中，未来三次执行时间将会自动生成</p>
+<p>-<span style="font-size:13px">-不会写表达式的也可以通过调整上面的参数生成表达式</span></p>
+<p><img src="assets/3ecb1128553417a3.png" width="307" height="414" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p></p>
+</article></main></body></html>

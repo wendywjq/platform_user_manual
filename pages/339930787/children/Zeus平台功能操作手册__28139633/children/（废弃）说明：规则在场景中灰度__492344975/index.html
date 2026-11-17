@@ -1,0 +1,415 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>（废弃）说明：规则在场景中灰度</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-108">二、名词解释</a><a href="#section-110">三、操作指南</a><a href="#section-111">1.用户操作流程说明</a><a href="#section-115">2.Quick Start</a><a href="#section-117">3.详细操作流程说明</a><a href="#section-118">Step1: 添加灰度场景配置</a><a href="#section-159">Step2: 验证恢复执行结果</a><a href="#section-180">Step3: 灰度状态结束（取消灰度/转为生效、标记离线）</a><a href="#section-207">4.特殊说明</a><a href="#section-220">四、FAQ</a><a href="#section-221">Q1：灰度执行的逻辑是怎样得到？</a><a href="#section-224">Q2：目前灰度的维度不满足业务诉求，如何增加灰度支持的维度？</a><a href="#section-229">Q3：灰度的维度除支持参数外，还支持普通因子、累计因子等扩展类型因子么？</a><a href="#section-231">Q4：规则从标记到灰度为什么需要进行强制标记30分钟？而规则从灰度到生效不需要进行强制灰度的限制呢？</a><a href="#section-235">Q5：规则灰度需要受静默期的限制么？</a><a href="#section-237">Q6：规则灰度流量的比例可设置的数据范围是？</a><a href="#section-239">Q7：怎么知道自己的业务方使用是哪种决策汇总方式？我所在的业务方可以直接使用么？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">（废弃）说明：规则在场景中灰度</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/492344975">查看学城原文</a></p><article>
+<h1>（废弃）说明：规则在场景中灰度</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p> 灰度验证意义：相对于标记状态，做规则的执行但不返回决策，可以评估配置的逻辑是否符合预期。灰度状态是在标记基础上，做规则的执行但仅返回部分决策，可以评估配置的决策对整体的影响同时也能实现A/Btest的逻辑，相较于直接生效，可以小流量低风险确认规则上线后的影响</p>
+<p><span style="color:rgb(75, 75, 75)"> 策略PM角度灰度来带的价值：安全保障_小流量线上验证规则上线前后对业务的影响</span></p>
+<p><span style="color:rgb(75, 75, 75)">⚠️⚠️ 此处返回决策的定义是在Zeus同业务交互的接口</span>GetDecisionResult（<a href="https://km.sankuai.com/page/28253497#id-%E8%8E%B7%E5%8F%96%E6%99%AE%E9%80%9A%E5%9C%BA%E6%99%AF%E5%86%B3%E7%AD%96%E6%8E%A5%E5%8F%A3" title="https://km.sankuai.com/page/28253497#id-%E8%8E%B7%E5%8F%96%E6%99%AE%E9%80%9A%E5%9C%BA%E6%99%AF%E5%86%B3%E7%AD%96%E6%8E%A5%E5%8F%A3">说明：Zeus在线服务RPC接入文档</a>）中，decisionIdList将会包含命中生效和灰度规则的决策。</p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">成员变量</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">类型</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">含义</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">requestId</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">String</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">请求ID</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">businessCode</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">int</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">请求业务方ID</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">sceneId</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">int</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">场景ID</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">decisionIdList</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">List&lt;Integer&gt;</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">决策id列表</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">sceneConfDetailList</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">List&lt;SceneConfDetail&gt;</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">命中规则对应的场景配置信息，包括状态、规则的决策、理由、优先级等</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">factorResultJson</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">String</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前场景所依赖所有因子的结果，json格式</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">hitRuleFactorResultJson</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">Map&lt;Integer, String&gt;</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前场景命中规则所依赖的因子</span></p>
+<p><span style="font-size:14px">key: ruleId</span></p>
+<p><span style="font-size:14px">value: 因子结果的json字符串，其中key是因子名，value是因子结果</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">errMsg</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">String</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">错误信息</span></p>
+</td>
+</tr>
+</table>
+<p><span style="color:rgb(245, 35, 45)"><strong>此处，decisionIdList 和 sceneConfDetailList 已包含了生效规则和灰度规则的命中结果，从结果中无法区分出灰度规则（灰度规则 status=48，结果内 status 被修改为 64 生效状态），可以通过查询实时日志进行区分。</strong></span></p>
+<h1 id="section-108">二、名词解释</h1>
+<p>无</p>
+<h1 id="section-110">三、操作指南</h1>
+<h2 id="section-111">1.用户操作流程说明</h2>
+<img src="assets/cf7b4f8108dfbe3a.svg" width="1266" height="416" alt="流程图">
+<ul>
+<li>场景配置中添加逻辑：场景+规则+决策+决策理由+决策附加信息+决策衍生参数+优先级+状态（生效、标记、离线、灰度）为唯一条件，注意灰度比例不同仍算做同一个场景配置，因此不允许重复添加</li>
+</ul>
+<h2 id="section-115">2.Quick Start</h2>
+<p></p>
+<h2 id="section-117">3.详细操作流程说明</h2>
+<h3 id="section-118">Step1: 添加灰度场景配置</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【添加“灰度”场景配置】</span></p>
+<ol>
+<li><span style="font-size:14px">在修改场景配置中，点击编辑，场景配置进入编辑状态，修改规则状态即可</span></li>
+<li>
+<p><span style="font-size:14px">灰度维度：目前支持requestId、userid，支持用户下拉框选择</span></p>
+<p><span style="font-size:14px">若业务期望增加新的维度可联系</span><span>@杜思思</span><span>@周强</span><span>@ZeusPM</span><span>@王雅靓</span><span style="font-size:14px">后台配置增加</span></p>
+</li>
+<li><span style="font-size:14px">灰度比例：手动输入1～99的整数</span></li>
+<li>
+<p><span style="font-size:14px">⚠️注意：</span></p>
+<ol>
+<li><span style="font-size:14px">规则灰度受到强制标记30分钟和静默期安全机制限制，即灰度前必须强制标记30分钟、在业务配置的静默期期间不允许修改场景配置</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/ae33fa42f6b4bdd4.png" width="901" height="462" alt="image.png"></p>
+<p><img src="assets/3615f097aa24b5b3.png" width="901" height="189" alt="image.png"></p>
+<p><img src="assets/2e2b27bb1d7a24e3.png" width="901" height="150" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-159">Step2: 验证恢复执行结果</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【实时日志查询】</span></p>
+<ol>
+<li><span style="font-size:14px">在日志查询条件中增加了灰度命中规则和执行规则流量的筛选条件，便于用户排查问题</span></li>
+<li><span style="font-size:14px">在日志结果中会显示命中灰度规则的规则信息，同时支持排查探针功能</span></li>
+</ol>
+</td>
+<td>
+<p><img src="assets/6136c5d71b360251.png" width="901" height="578" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-180">Step3: 灰度状态结束（取消灰度/转为生效、标记离线）</h3>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【灰度状态结束】</span></p>
+<ol>
+<li>
+<p><span style="font-size:14px">正常的场景配置状态变更流程即可</span></p>
+<ol>
+<li><span style="font-size:14px">编辑场景配置</span></li>
+<li><span style="font-size:14px">修改灰度相关的信息</span></li>
+<li><span style="font-size:14px">点击保存即可</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/10f6984803a14e0e.png" width="901" height="333" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-207">4.特殊说明</h2>
+<p>（1）目前灰度可支持选择的维度：</p>
+<ul>
+<li>默认：request、userid</li>
+<li>
+<p>支持业务定制化：</p>
+<ul>
+<li>本期若需要增加灰度维度可联系<span>@杜思思</span><span>@范文青</span><span>@王雅靓</span></li>
+<li>后期将支持管理员在业务在Zeus前端进行配置</li>
+</ul>
+</li>
+</ul>
+<p>（2）在日志查询中，灰度流量和命中灰度规则需要通过筛选条件进行区分</p>
+<h1 id="section-220">四、FAQ</h1>
+<h3 id="section-221">Q1：灰度执行的逻辑是怎样得到？</h3>
+<p>--A：<span style="color: ">给请求的信息打上java随机数，随机数符合用户设定区间的返回决策按照生效处理，不符合的不返回按照标记处理</span></p>
+<h3 id="section-224">Q2：目前灰度的维度不满足业务诉求，如何增加灰度支持的维度？</h3>
+<p>--A：见3.4.1目前灰度可支持选择的维度的支持业务定制化部分，默认：request、userid，若需要增加灰度维度可联系<span>@杜思思</span><span>@范文青</span><span>@王雅靓</span></p>
+<h3 id="section-229">Q3：灰度的维度除支持参数外，还支持普通因子、累计因子等扩展类型因子么？</h3>
+<p>--A：目前不支持因子作为灰度维度，短期内也不计划支持</p>
+<h3 id="section-231">Q4：规则从标记到灰度为什么需要进行强制标记30分钟？而规则从灰度到生效不需要进行强制灰度的限制呢？</h3>
+<p>--A：灰度的本质是挑选部分流量作为线上规则进行执行，被选中执行的灰度规则的决策结果是实时返回的，选中执行的灰度规则的所有逻辑都是和线上规则一致的。可以认为，生效状态其实就是灰度比例100%的一种特殊灰度状态。</p>
+<p>         因此从标记到灰度，必须强制标记30分钟，确认规则的执行结果是符合预期的，才能将状态改为灰度。</p>
+<p>         而灰度状态下，规则的执行结果是否符合预期已经通过经过强制标记验证过了，从灰度状态到生效状态不需要再经过一个强制灰度的过程。</p>
+<h3 id="section-235">Q5：规则灰度需要受静默期的限制么？</h3>
+<p>--A：受静默期限制，因此在灰度比例、维度修改、灰度状态变更等都会受到静默期限制</p>
+<h3 id="section-237">Q6：规则灰度流量的比例可设置的数据范围是？</h3>
+<p>--A：在（0.100）之间的整数，需要大于0且小于100</p>
+<h3 id="section-239">Q7：怎么知道自己的业务方使用是哪种决策汇总方式？我所在的业务方可以直接使用么？</h3>
+<p>--A：Zeus产品经过跟各业务方技术团队调研，确认以下业务方的决策汇总方式并给出您所在业务方是否可以直接使用的解决，尚未全部枚举</p>
+<details>
+<summary>各业务方汇总决策的方式</summary>
+<div>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">业务方/风险阈</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">businessid</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">决策汇总方</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">决策汇总方式</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">信息反馈人</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">是否可以直接使用规则灰度</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">是否业务侧RD已经做完兼容</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">业务安全</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">1,23,24,25,26,27,28,67,78,90,3,4,5,37,38,45,96,97,91,98,142</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">Tatooine接入，Tatooine汇总决策</span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">sceneConfDetailList</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">陈麒佰</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">是</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">是</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">内容安全</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">35,60,</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">保时洁接入，</span></p>
+<p><span style="font-size:14px">保时洁汇总决策</span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">sceneConfDetailList</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">田飞</span></p>
+<p><span style="font-size:14px">吴昊</span></p>
+<p><span style="font-size:14px">唐飞</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">否</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">否，1.22已发送征集通知，预计1.29完成兼容</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">验证中心</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">6</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">yoda接入，</span></p>
+<p><span style="font-size:14px">yoda汇总决策</span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">sceneConfDetailList</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">李瑞</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">否</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">否，1.22已发送征集通知，预计1.29完成兼容</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">支付安全</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">40,52,54,55,53,126,</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">warden接入，warden汇总决策</span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">sceneConfDetailList</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">李东阳</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">否</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">否，1.22已发送征集通知，预计1.29完成兼容</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">生态金融</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">49,73,75,108,109,110,111,112,113,114,115,116,117,124,134,123</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">审批系统接入，</span></p>
+<p><span style="font-size:14px">审批系统汇总决策</span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:14px">sceneConfDetailList</span></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">翁良</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">否</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">否，1.22已发送征集通知，预计1.29完成兼容</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">-待补充-</span></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<p></p>
+</div>
+</details>
+<p></p>
+</article></main></body></html>

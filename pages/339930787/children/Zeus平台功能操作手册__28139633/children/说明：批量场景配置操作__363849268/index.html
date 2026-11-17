@@ -1,0 +1,216 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：批量场景配置操作</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、解决问题</a><a href="#section-79">二、操作说明</a><a href="#section-80">用户操作流程概述</a><a href="#section-82">操作流程详情</a><a href="#section-85">批量添加</a><a href="#section-86">Step1：选择添加维度</a><a href="#section-170">Step2:批量操作</a><a href="#section-197">批量修改</a><a href="#section-198">Step1：选择修改的筛选维度</a><a href="#section-223">Step2:批量操作</a><a href="#section-248">三、FAQ</a><a href="#section-249">Q1：若是提交操作错了怎么办？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：批量场景配置操作</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/363849268">查看学城原文</a></p><article>
+<h1>说明：批量场景配置操作</h1>
+<div style="none"></div>
+<h1 id="section-3">一、解决问题</h1>
+<p>规则平台的策略配置方式：逐条往场景中添加规则、决策和优先级，当规则量级较大时，需要进行批量操作，批量场景配置操作可支持用户进行场景配置的批量添加、修改、删除</p>
+<p>原有旧前端页面存在以下问题，现通过前端升级解决：</p>
+<p>1.批量操作数据量大时，页面经常崩溃。压测1500条数据添加正常</p>
+<p>2.批量操作失败时，逐条提示错误信息，导致一直无法提交成功。调整为无问题的正常提交，有冲突信息提示修改后提交</p>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">维度</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">添加</span></p>
+</td>
+<td>
+<ol>
+<li><span style="font-size:14px">逐条选择</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">规则</span></span><span style="font-size:14px">，一次添加多个（场景VS规则= n VS n）</span></li>
+<li><span style="font-size:14px">逐条选择</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">规则组，</span></span><span style="font-size:14px">一次添加多个（场景VS规则组= 1 VS n）</span></li>
+<li><span style="font-size:14px">按照</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">规则标签</span></span><span style="font-size:14px">筛选规则，将标有同一个规则标签的规则添加到场景中（场景VS规则= 1 VS n）</span></li>
+<li><span style="font-size:14px">按照</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">场景标签</span></span><span style="font-size:14px">筛选场景，将某个规则添加到标有同一个场景标签的场景中（场景VS规则= n VS 1）</span></li>
+<li><span style="font-size:14px">按照规则已形成的场景配置，将</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">某个决策新增</span></span><span style="font-size:14px">到场景中</span></li>
+</ol>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">修改</span></p>
+</td>
+<td>
+<ol>
+<li><span style="font-size:14px">按照</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">场景</span></span><span style="font-size:14px">筛选场景配置（单值），修改决策、决策理由、优先级和状态</span></li>
+<li><span style="font-size:14px">按照</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">规则</span></span><span style="font-size:14px">筛选场景配置（单值），修改决策、决策理由、优先级和状态</span></li>
+<li><span style="font-size:14px">按照</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">规则组</span></span><span style="font-size:14px">筛选场景配置（单值），修改决策、决策理由、优先级和状态</span></li>
+<li><span style="font-size:14px">按照</span><span style="color:rgb(48, 84, 235)"><span style="font-size:14px">决策</span></span><span style="font-size:14px">筛选场景配置（单值），修改决策、决策理由、优先级和状态</span></li>
+</ol>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">删除</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">待补充</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-79">二、操作说明</h1>
+<h2 id="section-80">用户操作流程概述</h2>
+<img src="assets/7b3dee28d8d3a769.svg" width="1325" height="205" alt="流程图">
+<h2 id="section-82">操作流程详情</h2>
+<ul>
+<li>
+<h3 id="section-85">批量添加</h3>
+</li>
+</ul>
+<h4 id="section-86">Step1：选择添加维度</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【入口】</span></p>
+<p><span style="font-size:14px">添加维度</span></p>
+<ul>
+<li><span style="font-size:14px">添加场景配置----逐条选择规则，一次添加多个</span></li>
+<li><span style="font-size:14px">规则组方式添加----选择规则组，添加到场景中</span></li>
+<li><span style="font-size:14px">规则标签方式添加----按照规则标签筛选规则，将标有同一个规则标签的规则添加到场景中</span></li>
+<li><span style="font-size:14px">场景标签方式添加----按照场景标签筛选场景，将某个规则添加到标有同一个场景标签的场景中</span></li>
+<li>
+<p><span style="font-size:14px">规则新增决策----按照规则已形成的场景配置，将某个决策新增到场景中</span></p>
+<p></p>
+</li>
+</ul>
+</td>
+<td>
+<p><img src="assets/6684e59a5153dfac.png" width="606" height="382" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【添加场景配置】</span></p>
+<p><span style="font-size:14px">⚠️</span></p>
+<p><span style="font-size:14px">1.点击添加，永远固定在第一行！！！！</span></p>
+<p><span style="font-size:14px">2.选择规则时，默认提示最近创建的10条规则信息，若添加的规则不在提示信息内需要进行搜索</span></p>
+<p><span style="font-size:14px">3.提交成功后，会提示成功信息，但不会跳转至列表页面。需要手动点击取消返回</span></p>
+<p><span style="font-size:14px">（</span><span style="color:rgb(235, 47, 150)"><span style="font-size:14px">若有需求可以提哈，反馈就行不用写需求文档</span></span><span style="font-size:14px">）</span></p>
+</td>
+<td>
+<p><img src="assets/33156e51e0f72f8d.png" width="747" height="390" alt="image.png"></p>
+<p><img src="assets/b935e042e4214e55.png" width="747" height="284" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【规则组方式添加】</span></p>
+<p><span style="font-size:14px">1.支持多个规则组选择</span></p>
+</td>
+<td>
+<p><img src="assets/51e4c0213be79b9a.png" width="747" height="171" alt="image.png"></p>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【规则标签方式添加】</span></p>
+</td>
+<td>
+<p><img src="assets/ecba3d2289b939d5.png" width="747" height="398" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【场景标签方式添加】</span></p>
+</td>
+<td>
+<p><img src="assets/3f9779c53237ab3b.png" width="747" height="386" alt="image.png"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【规则新增决策】</span></p>
+</td>
+<td>
+<p><img src="assets/22e9b0b066dd4a39.png" width="747" height="354" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-170">Step2:批量操作</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【提交批量操作】</span></p>
+<p><span style="font-size:14px">1.提交成功后，会提示成功信息，但不会跳转至列表页面。需要手动点击取消返回</span></p>
+<p><span style="font-size:14px">（</span><span style="color:rgb(235, 47, 150)"><span style="font-size:14px">若有需求可以提哈，反馈就行不用写需求文档</span></span><span style="font-size:14px">）</span></p>
+</td>
+<td>
+<p><img src="assets/a60ac98e76ee8f97.png" width="750" height="420" alt="image.png"></p>
+<p><img src="assets/29f1bf6a8065ee30.png" width="750" height="258" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<ul>
+<li>
+<h3 id="section-197">批量修改</h3>
+</li>
+</ul>
+<h4 id="section-198">Step1：选择修改的筛选维度</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【选择修改范围】</span></p>
+<p><span style="font-size:14px">1.场景、规则/规则组、决策，任意一个填写就可以进行筛选</span></p>
+<p><span style="font-size:14px">2.场景当前仅支持单值.(</span><span style="color:rgb(235, 47, 150)"><span style="font-size:14px">场景可以支持多值，若有需求可以提哈，反馈就行不用写需求文档</span></span><span style="font-size:14px">)</span></p>
+<p><span style="font-size:14px">3.初始化条件可以填写或不填写</span></p>
+</td>
+<td>
+<p><img src="assets/a3a7202acc2a81cc.png" width="752" height="417" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h4 id="section-223">Step2:批量操作</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">页面</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">【提交批量操作】</span></p>
+<p><span style="font-size:14px">1.在进入下一步后，可选择某一条场景配置进行配置微调。其中决策new、状态new和优先级new均可修改，决策需要点击文字区域修改</span></p>
+<p><span style="font-size:14px">2.提交成功后，会提示成功信息，但不会跳转至列表页面。需要手动点击取消返回</span></p>
+<p><span style="font-size:14px">（</span><span style="color:rgb(235, 47, 150)"><span style="font-size:14px">若有需求可以提哈，反馈就行不用写需求文档</span></span><span style="font-size:14px">）</span></p>
+</td>
+<td>
+<p><img src="assets/bdeadee0b2e1de3a.png" width="752" height="439" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-248">三、FAQ</h2>
+<h4 id="section-249">Q1：若是提交操作错了怎么办？</h4>
+<p>--A：目前平台没有撤回操作机制，若出现配置错误请联系Zeus值班进行后台调整</p>
+<p></p>
+</article></main></body></html>

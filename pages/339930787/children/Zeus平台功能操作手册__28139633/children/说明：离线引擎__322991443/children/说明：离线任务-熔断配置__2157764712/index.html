@@ -1,0 +1,269 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：离线任务-熔断配置</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-2">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-22">三、操作指南</a><a href="#section-23">3.1系统流程</a><a href="#section-25">3.2详细步骤</a><a href="#section-205">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：离线引擎</a> / <a href="index.html">说明：离线任务-熔断配置</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/2157764712">查看学城原文</a></p><article>
+<h1>说明：离线任务-熔断配置</h1>
+<h1 id="section-2">一、背景</h1>
+<p>当前熔断能力只覆盖了实时、近线，但很多用户是实近离一起使用的，多引擎没有进行功能拉齐，因此对离线任务的熔断提出诉求，整体把控风险。</p>
+<p>功能效果：当离线任务-决策、离线任务-规则-决策、离线任务-决策组合命中情况产生异常，达到预设的熔断阈值时，将该批次执行结果进行自动阻断，不发送到下游，以此规避风险；使用者可对熔断数据进行分析，如果符合预期，可以一键继续下方，无需重跑任务。</p>
+<h1 id="section-5">二、名词解释</h1>
+<table>
+<tr>
+<th>
+<p>名词</p>
+</th>
+<th>
+<p>解释</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>离线任务</p>
+</td>
+<td>
+<p>数据源为离线hive，用于批量回捞历史风险，由数据源、数据范围（周期、where条件）、任务调度、执行场景/规则组成</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>批次</p>
+</td>
+<td>
+<p>离线任务每运行一次产生一个批次，用于区分不同运行周期产生的数据，每个批次独立进行计算熔断阈值，不进行累计；如每小时运行一次，一天则会产生24个批次</p>
+</td>
+</tr>
+</table>
+<h1 id="section-22">三、操作指南</h1>
+<h2 id="section-23">3.1系统流程</h2>
+<img src="assets/c1e607955144c43e.svg" width="1076" height="376" alt="流程图">
+<h2 id="section-25">3.2详细步骤</h2>
+<p><span style="color:#FF4A47"><span style="font-size:16px">因任务熔断默认使用【自动熔断】，请务必及时处理，否则将会不断升级</span></span></p>
+<div class="note">
+<strong>使用【自动熔断】必看！</strong>
+<div>
+<ol>
+<li>
+<p>使用自动熔断前，请先找到组织架构对应的SRE同学帮忙根据<a href="https://km.sankuai.com/page/1279838989" title="https://km.sankuai.com/page/1279838989">事件通知策略配置</a><strong>配置电话通知</strong>，否则电话通知将不可生效！</p>
+<ol>
+<li>告警电话呼出号码可能被手机识别成骚扰电话。建议将以下号码加白或加入通讯录：051480311605、051480311606、051485590912、051485590914、02151657926、02151657936、02151657940、02151657942</li>
+<li>
+<p>当前平台已默认配置以下通知策略</p>
+<details>
+<summary>平台已有通知策略，若以下升级策略不符合本组织架构诉求，可联系组织架构对应SRE同学帮忙配置。</summary>
+<div>
+<p>1）“美团/基础研发平台/信息安全部/风控和业务安全”架构下，需要事件在开始2分钟之后没有人响应的话，电话告警事件发起人，期间仍未响应，电话将连续打5次；再20分钟之后仍无人响应的话再次电话告警事件发起人X1，并拉事件发起人X1入群。</p>
+<p>2）“美团/基础研发平台/信息安全部/风控和业务安全/点评风控”架构下，需要事件在开始2分钟之后没有人响应的话，电话告警事件发起人，期间仍未响应，电话将连续打5次；再20分钟之后仍无人响应的话再次电话告警事件发起人X1，并拉事件发起人X1入群<span style="color:rgba(0, 0, 0, 0.87)">；</span>再30分钟后仍无人响应时，电话告警丁思远dingsiyuan 于陈群yuchenqun 林睿linrui06，并拉入群。</p>
+</div>
+</details>
+</li>
+</ol>
+</li>
+<li>自动熔断告警时，告警将逐级升级。请务必在处理ZeusRobot通知的<strong>同时处理Radar事件</strong>，否则告警仍将持续升级！！<br>处理方式Radar方式：点击开始处理--&gt;@radar处理完成<br><img src="assets/a7b6ec90b895ebde.png" width="203" height="203" alt="image.jpeg"><img src="assets/e2d6c9115fa893af.png" width="250" height="99" alt="image.jpeg"></li>
+</ol>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p>模块</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td rowspan="3">
+<p>配置入口</p>
+</td>
+<td>
+<p>1.配置中心-离线任务列表-熔断配置</p>
+</td>
+<td>
+<p><img src="assets/f7b84f01baecd39c.png" width="332" height="130" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>2.策略部署-场景配置列表-熔断相关</p>
+</td>
+<td>
+<p><img src="assets/aa867854f1c37b7d.png" width="328" height="138" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>3.安全管理-规则熔断列表-新建熔断</p>
+</td>
+<td>
+<p><img src="assets/a4f9d8200ceaa856.png" width="338" height="123" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>熔断配置</p>
+</td>
+<td>
+<p><strong>1.</strong>熔断模式选择任务熔断，<strong>熔断名称</strong>可编辑</p>
+<p><strong>2.作用范围</strong>：指定的任务、规则、决策才会参与计数，如果无需计算可使用排除机制</p>
+<ul>
+<li>输入多个请用<strong>英文逗号</strong>隔开(不能输入空格)</li>
+<li>输入“*”表示全部</li>
+<li>规则、决策<strong>至少填写一个</strong>，不可全部为空或填“*”<sup id="9f8ef55d-d867-4ffe-9930-f780e4104482"></sup></li>
+<li>“|”表示选择左侧的内容，但是<strong>排除</strong>其中包含的右侧的内容，例如“*|23”表示选择全部，但是排除其中包含ID为23的</li>
+</ul>
+<p><strong><span style="color:rgb(44, 62, 80)">3.作用时间</span></strong><span style="color:rgb(44, 62, 80)">：可选择熔断监控的时间范围，</span>系统将在设置的作用时间内检查数据，从而触发熔断；</p>
+<p>时间类型包括：自由时间段（自由选择时间范围）与星期模式（设置每天的统一时间段，自由选择一周中的星期数）。</p>
+<p>勾选排除节假日后，节假日不检查数据，例如设置了周六，同时勾选了排除节假日，则周六不检查数据</p>
+<p>添加作用时间：以‘和’的逻辑关系增加作用时间，即可通过添加多条作用时间，获得一个作用时间的并集。</p>
+<p><strong><span style="color:rgb(44, 62, 80)">4.熔断规则</span></strong><span style="color:rgb(44, 62, 80)">：以且条件（添加子规则）和或条件（添加熔断规则）来组织。</span></p>
+<p>单条熔断规则需要设置如下项：</p>
+<ul>
+<li>
+<p>时间周期（最近x分钟）：不可编辑，默认为本执行批次</p>
+</li>
+<li>
+<p>计算函数：<span>下拉列表选择，默认选择“命中量”，其余计算函数见右侧枚举，如无法满足熔断计算需求，可提供算法，平台增量开发</span></p>
+</li>
+<li>
+<p>对比关系：<span>下拉列表选择，&gt;, &gt;=, =, &lt;, &lt;=，默认为“&gt;=”</span></p>
+</li>
+<li>
+<p>阈值：<span>直接输入数值，系统根据指标匹配单位</span></p>
+</li>
+</ul>
+<p><strong>5.熔断动作</strong></p>
+<p>默认为自动熔断，大象通知，无频次上限<sup id="0bfa1db2-9093-44fd-98c3-3560fcb8ed0c"></sup></p>
+<p>通知人<strong>：</strong>可选择业务空间负责人、业务空间变更通知人、自定义。自定义：支持手动输入mis号，多个使用英文逗号隔开</p>
+<p>告警负责人：雷达拉群包含了配置所有通知人，并非唯一负责人；告警负责人的配置主要是为了锁定升级时对应的X1</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>当前配置熔断的同学若希望收到熔断告警，别忘记在自定义中加上自己的mis号～</p>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/949b8a87826a66e6.png" width="1058.77" height="600" alt="image.jpeg"></p>
+<p><img src="assets/7591693d77ce9255.png" width="1033.24" height="600" alt="image.jpeg"><img src="assets/5a0e07121454cb8b.png" width="1642" height="154.93" alt="image.jpeg"></p>
+<p><span style="color:rgb(250, 116, 20)">绝对值类函数</span></p>
+<ul>
+<li>命中量：按照主体计数</li>
+</ul>
+<p><span style="color:#FA7414">比对类</span><span style="color:rgb(250, 116, 20)">函数</span></p>
+<ul>
+<li>当前批次命中量比上个批次<sup id="01163cfb-8862-4a90-8c28-2134690f8fe9"></sup>上升值</li>
+<li>当前批次命中量比上个批次上升百分比</li>
+<li>当前批次命中量比上个批次下降值</li>
+<li>当前批次命中量比上个批次下降百分比</li>
+<li>当前批次命中量比前7个批次均值命中量上升值</li>
+<li>当前批次命中量比前7个批次均值命中量上升百分比</li>
+<li>当前批次命中量比前7个批次均值命中量下降值</li>
+<li>当前批次命中量比前7个批次均值命中量下降百分比</li>
+<li><span>社区安全动态函数（仅在181空间可见）</span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p>熔断配置列表</p>
+</td>
+<td>
+<p>提交完成配置后，将会在熔断配置列表出现一条配置记录。</p>
+<p>熔断模式：单点熔断 （场景-规则）/  任务熔断（任务-规则-决策）</p>
+<p>单点熔断的一二三级范围代表：场景-规则-决策</p>
+<p>任务熔断的一二三级范围代表：任务-规则-决策</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>一个任务可以配置多个熔断，但是同期只有有一个配置是启用状态；记得在此处选择配置拨亮状态开关，开启熔断监控。</p>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/721c5b9d57b8d0a2.png" width="1628.19" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>大象通知</p>
+</td>
+<td>
+<p>如右图展示的是大象通知的内容</p>
+<p>同一个批次触发的熔断，会合并到一起进行通知</p>
+<p>点击【熔断名称】可打开zeus熔断配置预览页</p>
+<p>点击【全部不处置】熔断符合预期，确认该数据不应该下发到下游</p>
+<p>点击【全部恢复处置】熔断不符合预期，确认该数据应该下发到下游，点击后立即下发</p>
+<p>点击【熔断记录】跳转到熔断记录列表页，可查看本批次的全部熔断记录</p>
+<p>点击【任务详情】跳转离线任务详情页</p>
+<p>熔断场景举例：如果一个熔断任务下配置了10条规则，同一执行批次中，只有2个规则达到了熔断阈值，则只熔断2个规则的数据，剩余8个规则的数据仍继续向下流转</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>如果只需要下发本批次部分数据，需前往熔断记录列表单独处理</p>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/e42fec30a9010cc0.png" width="228" height="283" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>熔断记录处理</p>
+</td>
+<td>
+<p>一个熔断ID代表一个执行批次，多条规则/决策触发，会产生多个重复的熔断ID</p>
+<p>单独处理某一部分数据时，请注意查看二级范围（规则）和三级范围（决策）</p>
+<p>恢复处置：数据发送到下游</p>
+<p>不处理：数据不发送到下游</p>
+<p>最近命中详情：跳转到dashboard，查询当前条件的详情数据，无需手动再次筛选</p>
+</td>
+<td>
+<p><img src="assets/5616359091f05765.png" width="1074.34" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-205">四、FAQ</h1>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>问题</p>
+</th>
+<th>
+<p>解答</p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>当一条数据同时被多个规则命中，且规则中既包含正常规则也包含熔断规则，这种情况下如何处理？</p>
+</td>
+<td>
+<p>熔断规则优先，如果命中熔断规则则拦截该数据</p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>当一条数据同时被多个熔断规则命中，恢复处置的时候需要逐个点击，点击第二条规则恢复处置的时候，会不会造成数据重复下发？</p>
+</td>
+<td>
+<p>系统会进行当前批次数据比对，已经下发过的数据不会进行再次下发</p>
+</td>
+</tr>
+</table>
+<p></p>
+<p></p>
+<div>
+<p><p>不可全部为空或填“*”：一个填*，另一个为空是可以的</p></p>
+<p><p>无频次上限：一个批次只运行一次，只能通知一次</p></p>
+<p><p>上个批次：不区分数据状态，即上一个批次的数据被熔断了，仍可参与比对计算</p></p>
+</div>
+</article></main></body></html>

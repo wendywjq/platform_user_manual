@@ -1,0 +1,110 @@
+<km-doc>
+<km-title nodeId="d1a6e774f69b4c41bb5ef05c5569017f">说明：名单库因子使用手册</km-title>
+<km-catalog style="none" nodeId="4f06d33211a54e0785ef2ee64e9c6adb" />
+<h1 nodeId="f5b5dd61a364497c8b7a2a12476c893b">1.背景</h1>
+<p nodeId="d359299cf15c4724a6c9e5775490a000"><span font-size="19"><strong>Zeus与名单库的联动</strong></span></p>
+<ul nodeId="3910f5b74a124ea7a5c6ecdba835d2c5">
+<li nodeId="ac460f3aab164f5ebc36b55d4194eb9f">
+<p nodeId="a6330e1c01b04a2f9d8068305dd9f5a0">在名单库联动的诉求中，主要分为策略查询名单库和策略写入名单库。首先要有一个名单库存储服务，再此基础上与引擎进行联动，查询服务通过因子（<span color="rgb(245, 35, 45)"><strong>名单库因子</strong></span>）、写入服务通过决策（携带附加信息的决策）实现最终的联动；</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/339769403/343731459?contentType=2&amp;isNewContent=false" width="832" height="224.19672131147541" nodeId="edc76b30cb5d48a4bb7dcd1b65481dda" />
+<p nodeId="101ecdee1b784c6ca6a3ef17ef259f43" />
+</li>
+<li nodeId="02b50a7a660241c1bb6165ce6d4e95fe">
+<p nodeId="20cecacd702544ab8b8d2aae87099d77"><strong>常用的特征逻辑封装</strong></p>
+<p nodeId="5844c4fc061d43d7bd21b175f8f5ccef"><span color="rgb(245, 35, 45)"><strong>名单库因子：</strong></span>与名单库联动过程中将查询名单的逻辑进行封装；</p>
+</li>
+</ul>
+<h1 nodeId="89a2d30c7b5746dd969c7a0043462553">2.操作说明</h1>
+<h2 nodeId="d9d4ffd5f4f0419f9a2ce3882980c281">2.1 先在skywalker上创建名单库</h2>
+<h3 nodeId="99e63655d33e47d685400243cce0cb6b">2.1.1 入口</h3>
+<p nodeId="3b08807620734698b4404f35ab32f27b"><span font-size="19"><strong><a href="http://rc-skywalker.sankuai.com/risklist" title="Skywalker" nodeId="c208ec8b65aa4ec79aef266df0578d2f"><span color="rgb(245, 35, 45)">Skywalker</span></a></strong></span><span color="rgb(245, 35, 45)">-数据产品-风控名单库-名单库管理-名单</span></p>
+<p nodeId="7661efabb55048099a805eb9de1808ce"><img src="https://km.sankuai.com/api/file/cdn/339769403/343775941?contentType=1&amp;isNewContent=false" name="image.png" width="836" height="443" nodeId="2d4b2efecacb42c98aa3107073d1e613" /></p>
+<h3 nodeId="938a5dda8d1f4ec1947faf200a94dbf2">2.1.2 创建名单</h3>
+<p nodeId="9de929e1f1564aa89ec9ac074f9339fe">点击 <span color="rgb(245, 35, 45)">新建名单</span>，填写 <span color="rgb(245, 35, 45)">名单名称</span> 和 <span color="rgb(245, 35, 45)">名单说明</span>，点击 <span color="rgb(245, 35, 45)">保存</span> 即可；</p>
+<table borderColor="#cccccc" responsive="false" nodeId="69b3d233a7bb4245b36600681c04451b">
+<tr nodeId="3e5df704f7f147e380ad3f9da9735fff">
+<td colwidth="[640]" nodeId="715d7f0c255d4523a8043e935ecd237f">
+<p nodeId="6bd802bef1954d0bb3891c641baa1764"><img src="https://km.sankuai.com/api/file/cdn/339769403/343820223?contentType=1" name="image.png" width="605" height="380" nodeId="30946f2e8b3f4a6c984190e2d2f873c8" /></p>
+<p nodeId="40a569ad0bf04c369c0456ee1c621005" />
+</td>
+<td colwidth="[633]" nodeId="df936142189745808f857a9d261490d6">
+<p nodeId="a6f5b19a22aa48428b376ba6240084d4"><img src="https://km.sankuai.com/api/file/cdn/339769403/343820259?contentType=1&amp;isNewContent=false" name="image.png" width="603" height="417" nodeId="4ecbe2af81fd434395a3b9fddfd04786" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="42e1561f818d4ba88c06ead077bc1e1b">2.1.3 添加名单配置</h3>
+<p nodeId="6f9a61fd944c4eb8af949f28b14aea5c">（1）点击 <span color="rgb(245, 35, 45)">添加名单配置</span>，填写<span color="rgb(245, 35, 45)">名单配置信息</span>；</p>
+<km-note type="warning" hiddenTitle="true" nodeId="6692a8e249704d7693ee734096c0be8d">
+<km-title></km-title>
+<km-content>
+<ul nodeId="60f130e83ba24e8980f8a1e88fbdf095">
+<li nodeId="d72c40eaadd84b80bc4aad7a28d7ceb6"><span color="rgb(245, 35, 45)">名单名称：</span>选择上一步创建的名单库或已有名单库；</li>
+<li nodeId="3722f815ce7441aab6e857fd9302c2b2"><span color="rgb(245, 35, 45)">值类型：</span>根据不同的场景和规则选择相应的值类型；</li>
+<li nodeId="b89f0d8e60e44102bca8823bdbc21d83"><span color="rgb(245, 35, 45)">名单类型：</span>根据需求可选黑名单/白名单/灰名单；</li>
+<li nodeId="20ba2d3ccd734b9e917ad283053b8942"><span color="rgb(245, 35, 45)">风险等级：</span>依据风险程度选择风险等级；</li>
+<li nodeId="e7f354d4c5e74180a656291e8e0b9c92"><span color="rgb(245, 35, 45)">备注：</span>可以描述该名单的用法，方便复用；</li>
+<li nodeId="7817f41e996c4878b5101cd88c2ec8b8"><span color="rgb(245, 35, 45)">风控业务标签：</span>根据需求选择；</li>
+<li nodeId="de718d519f324c9aa4181d0da2e4ec12"><span color="rgb(245, 35, 45)">业务方标签：</span>根据具体业务方进行选择；</li>
+<li nodeId="f4c2844d37aa47b484d0cb96c409d395"><span color="rgb(245, 35, 45)">名单分类标签：</span>根据相应规则或场景进行选择；</li>
+<li nodeId="5fd46ed132c743e99c40a8ede535931f"><span color="rgb(245, 35, 45)">点击继续添加可以同时添加多条名单配置</span>；</li>
+</ul>
+</km-content>
+</km-note>
+<table borderColor="#cccccc" responsive="false" nodeId="caee0460fd344b4d95c0fe3c18c237c7">
+<tr nodeId="cce63ba50096423bb81ae11a74144b97">
+<td colwidth="[645]" nodeId="79e94ec424024a4095e5a974937a67cc">
+<p nodeId="9849ab3aed21431786ed066e34bd09e1"><img src="https://km.sankuai.com/api/file/cdn/339769403/343778951?contentType=1&amp;isNewContent=false" name="image.png" width="615" height="350" nodeId="dd2dfb4060ef4005a12128b20936c032" /></p>
+<p nodeId="fdc47420fe874b00854358472c253fdc" />
+</td>
+<td colwidth="[675]" nodeId="377933a4f9814fadb1e84484441d7ff9">
+<p nodeId="982c6eb21c834d92811e6f6ae51144a8"><img src="https://km.sankuai.com/api/file/cdn/339769403/343798631?contentType=1&amp;isNewContent=false" name="image.png" width="645" height="381" nodeId="e5177d5c3d8f4bf1b201b3b78e3a3aa3" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="93639860a71c4d2bb2222a356281b63f" />
+<p nodeId="d3e009c7d1fe41ddbfe342319edc92b5"><span color=" ">（2）建完名单库并配置好后可以查询到相应的记录：</span></p>
+<p nodeId="d4e56055e2ff43b5983bbdc469486bcd"><img src="https://km.sankuai.com/api/file/cdn/339769403/343698429?contentType=1&amp;isNewContent=false" name="image.png" width="1034" height="344" nodeId="da62e878b7684a88a62c27de0c6d5f8f" /></p>
+<h2 nodeId="5a414bae491045758d08744118da8ddc">2.2 然后在Zeus上创建名单库因子</h2>
+<h3 nodeId="d6e9bd993fad44e697096143d878fdcb">2.2.1 入口</h3>
+<p nodeId="4a19e3ccfd3348aebb3114a240bfc8f8"><span color="rgb(245, 35, 45)">规则-&gt;因子-&gt;添加因子</span></p>
+<p nodeId="dd0a400b9e1d49079d80b9c3a94857fb"><img src="https://km.sankuai.com/api/file/cdn/339769403/343812707?contentType=1&amp;isNewContent=false" name="image.png" width="662" height="402" nodeId="1a96b99835944e32b94ad483eaa26a6f" /></p>
+<p nodeId="cdd3b0cf22f044abac0f7055433ff902" />
+<p nodeId="35eb781c154c4263bbbfd569191ac539">2.2.2 填写名单库因子<span color="rgb(0, 0, 0)">逻辑信息</span></p>
+<p nodeId="019cedf3196c4a9091be6a8d8d7417b3">（1）<span color="rgb(245, 35, 45)">选择工具</span>-&gt;<span color="rgb(245, 35, 45)">扩展因子</span>-&gt;<span color="rgb(245, 35, 45)">拓展类型</span>-&gt;<span color="rgb(245, 35, 45)">名单库因子</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="94695fa0f3604549ae63861cf998c3ce">
+<tr nodeId="77b360b10c9a49a18e154029f0f55a8a">
+<td colwidth="[691]" nodeId="83a2985480a6489a974ef60f2d1b2011">
+<p nodeId="e8cad41e083045ebb56ee0355e85d1ab"><img src="https://km.sankuai.com/api/file/cdn/339769403/343910116?contentType=1&amp;isNewContent=false" name="image.png" width="662" height="252" nodeId="d2cc3a1b1aff4e49b7f9259c05c0c05a" /></p>
+<p nodeId="2e705410f1dc4fa9b7c4b33d757d4772" />
+</td>
+<td colwidth="[848]" nodeId="f6f36a19f5764d23884f70c67562499c">
+<p nodeId="f8848484b8354acd9b4b7947e0139f23"><img src="https://km.sankuai.com/api/file/cdn/339769403/343814606?contentType=1&amp;isNewContent=false" name="image.png" width="819" height="314" nodeId="bb910d0e15a74d6c92b79db268977cbc" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="e41012e70e324f8b8ac1fab5ead0102b">（2）填写名单库因子的其他逻辑信息，<span color="rgb(245, 35, 45)">红框部分（名单类型、风险类型、值类型、风险等级）必须与创建名单库的时候完全一致；</span><span color="rgb(0, 0, 0)">填写完成后，点击 </span><span color="rgb(245, 35, 45)">下一步</span><span color="rgb(0, 0, 0)">；</span></p>
+<km-note type="warning" hiddenTitle="true" nodeId="20334c0b14db43e991cf0b97a5577d23">
+<km-title></km-title>
+<km-content>
+<ul nodeId="09f917fe5900481893759b9767967ea4">
+<li nodeId="9f2f999e959040bb81f39cd72f3c3692"><span color="rgb(245, 35, 45)">中文名称：</span>名单库因子的中文解释，方便后续理解和查询；</li>
+<li nodeId="67426039a1204bf88d521b898b9de161"><span color="rgb(245, 35, 45)">英文名称：</span>名单库因子英文名（依据命名规则命名，例如账户安全人员在创建中的命名规则是：<strong>factor_account_user_场景_业务方需求_值类型</strong>，例如“酒店注册场景下反爬黑名单注册拦截”对应“factor_account_user_register_hotelMTSIAccount_mobile”；）</li>
+<li nodeId="1833f317dac541f59950798d2ac63e6b"><span color="rgb(245, 35, 45)">值表达式：</span>aviator表达式，此处为与名单库的值类型取匹配的参数（账户安全人员在创建过程中举例：例如名单库的值类型为userid那此处也应为userid；但<strong>此处有坑</strong>，注册场景下手机号的值表达式不为mobile，为user，因为注册场景下业务方传的参数是user而非mobile）；</li>
+<li nodeId="47d2a57015814f71b085552849a19ca0"><span color="rgb(245, 35, 45)">名单类型：</span>选对应名单库的名单类型；</li>
+<li nodeId="ef8099414ca94bebb68968181991ae33"><span color="rgb(245, 35, 45)">风险类型：</span>选对应名单库；</li>
+<li nodeId="75fb460e88054ababbbcffbd7cc83be3"><span color="rgb(245, 35, 45)">值类型：</span>选对应名单库的值类型；</li>
+<li nodeId="b1438ed1b7c24f82abd404cbd475a81d"><span color="rgb(245, 35, 45)">风险等级：</span>选对应名单库的风险等级；</li>
+<li nodeId="5f9cd87c27924ae0a93b57d28c0b3b56"><span color="rgb(245, 35, 45)">过期时间：</span>可选，按需求填写；</li>
+</ul>
+</km-content>
+</km-note>
+<p nodeId="b1a094c62c50434e896b57de7d3384a6"><img src="https://km.sankuai.com/api/file/cdn/339769403/343861944?contentType=1&amp;isNewContent=false" name="image.png" width="1307" height="582" nodeId="59e6014b1ea145c19b8fd32fb446ef13" /></p>
+<h3 nodeId="5d8a13402b964a3889e850c92e96d0fc">2.2.3 为创建的名单库因子添加测试用例</h3>
+<p nodeId="672dccae1aa74a7985d1e036224c9203"><span color="rgb(245, 35, 45)">填写测试信息</span>之后点击<span color="rgb(245, 35, 45)"> 添加测试用例</span>，测试<span color="rgb(245, 35, 45)">成功</span>后，点击 <span color="rgb(245, 35, 45)">下一步</span>；</p>
+<p nodeId="e3965edb96c147e48c6b503957524aa0"><img src="https://km.sankuai.com/api/file/cdn/339769403/343864822?contentType=1&amp;isNewContent=false" name="image.png" width="1185" height="600" nodeId="a73429e80d974f56a99b65b74701a06d" /></p>
+<h3 nodeId="5d88d5c8bd3744459c1223683597c0e3">2.2.4 填写名单库因子的属性信息</h3>
+<p nodeId="f890e76781df48f1b48327f34840542f"><span color="rgb(245, 35, 45)">按照需要</span>选择<span color="rgb(245, 35, 45)">共享给的业务方</span>并为该名单库因子<span color="rgb(245, 35, 45)">添加标签</span>，点击<span color="rgb(245, 35, 45)"> 完成</span> ，至此，名单库因子创建完成；</p>
+<p nodeId="0b1d5561fd28471ab314dcda83cdf36f"><img src="https://km.sankuai.com/api/file/cdn/339769403/343992757?contentType=1&amp;isNewContent=false" name="image.png" width="1242" height="600" nodeId="2f966eab77dd48b8ab200f11ad10c1eb" /></p>
+<h1 nodeId="3a4fe7c5f5b04a5eb550739983742ac3">3. 名单库因子过期时间逻辑说明</h1>
+<p nodeId="0d7ada04115349f3a4e77e9e02307ba7"><a href="https://km.sankuai.com/page/1049826944" title="https://km.sankuai.com/page/1049826944" autoUpdate="true" nodeId="899075bbe45846a7837b26a9a7cec568">https://km.sankuai.com/page/1049826944</a></p>
+</km-doc>

@@ -1,0 +1,110 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：名单库因子使用手册</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">1.背景</a><a href="#section-20">2.操作说明</a><a href="#section-21">2.1 先在skywalker上创建名单库</a><a href="#section-22">2.1.1 入口</a><a href="#section-31">2.1.2 创建名单</a><a href="#section-46">2.1.3 添加名单配置</a><a href="#section-86">2.2 然后在Zeus上创建名单库因子</a><a href="#section-87">2.2.1 入口</a><a href="#section-138">2.2.3 为创建的名单库因子添加测试用例</a><a href="#section-146">2.2.4 填写名单库因子的属性信息</a><a href="#section-154">3. 名单库因子过期时间逻辑说明</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：名单库因子使用手册</a></div><p class="muted">保存日期：2026-11-17 · <a href="https://km.sankuai.com/collabpage/339769403">查看学城原文</a></p><article>
+<h1>说明：名单库因子使用手册</h1>
+<div style="none"></div>
+<h1 id="section-3">1.背景</h1>
+<p><span style="font-size:19px"><strong>Zeus与名单库的联动</strong></span></p>
+<ul>
+<li>
+<p>在名单库联动的诉求中，主要分为策略查询名单库和策略写入名单库。首先要有一个名单库存储服务，再此基础上与引擎进行联动，查询服务通过因子（<span style="color:rgb(245, 35, 45)"><strong>名单库因子</strong></span>）、写入服务通过决策（携带附加信息的决策）实现最终的联动；</p>
+<img src="assets/f4e233a02ef67708.svg" width="832" height="224.19672131147541" alt="流程图">
+<p></p>
+</li>
+<li>
+<p><strong>常用的特征逻辑封装</strong></p>
+<p><span style="color:rgb(245, 35, 45)"><strong>名单库因子：</strong></span>与名单库联动过程中将查询名单的逻辑进行封装；</p>
+</li>
+</ul>
+<h1 id="section-20">2.操作说明</h1>
+<h2 id="section-21">2.1 先在skywalker上创建名单库</h2>
+<h3 id="section-22">2.1.1 入口</h3>
+<p><span style="font-size:19px"><strong><a href="http://rc-skywalker.sankuai.com/risklist" title="Skywalker"><span style="color:rgb(245, 35, 45)">Skywalker</span></a></strong></span><span style="color:rgb(245, 35, 45)">-数据产品-风控名单库-名单库管理-名单</span></p>
+<p><img src="assets/aa9312254a9cd843.png" width="836" height="443" alt="image.png"></p>
+<h3 id="section-31">2.1.2 创建名单</h3>
+<p>点击 <span style="color:rgb(245, 35, 45)">新建名单</span>，填写 <span style="color:rgb(245, 35, 45)">名单名称</span> 和 <span style="color:rgb(245, 35, 45)">名单说明</span>，点击 <span style="color:rgb(245, 35, 45)">保存</span> 即可；</p>
+<table>
+<tr>
+<td>
+<p><img src="assets/ee98f2ca3e058825.png" width="605" height="380" alt="image.png"></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/67f3b208a4ec075b.png" width="603" height="417" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-46">2.1.3 添加名单配置</h3>
+<p>（1）点击 <span style="color:rgb(245, 35, 45)">添加名单配置</span>，填写<span style="color:rgb(245, 35, 45)">名单配置信息</span>；</p>
+<div class="note">
+<strong></strong>
+<div>
+<ul>
+<li><span style="color:rgb(245, 35, 45)">名单名称：</span>选择上一步创建的名单库或已有名单库；</li>
+<li><span style="color:rgb(245, 35, 45)">值类型：</span>根据不同的场景和规则选择相应的值类型；</li>
+<li><span style="color:rgb(245, 35, 45)">名单类型：</span>根据需求可选黑名单/白名单/灰名单；</li>
+<li><span style="color:rgb(245, 35, 45)">风险等级：</span>依据风险程度选择风险等级；</li>
+<li><span style="color:rgb(245, 35, 45)">备注：</span>可以描述该名单的用法，方便复用；</li>
+<li><span style="color:rgb(245, 35, 45)">风控业务标签：</span>根据需求选择；</li>
+<li><span style="color:rgb(245, 35, 45)">业务方标签：</span>根据具体业务方进行选择；</li>
+<li><span style="color:rgb(245, 35, 45)">名单分类标签：</span>根据相应规则或场景进行选择；</li>
+<li><span style="color:rgb(245, 35, 45)">点击继续添加可以同时添加多条名单配置</span>；</li>
+</ul>
+</div>
+</div>
+<table>
+<tr>
+<td>
+<p><img src="assets/9450d301d7f63700.png" width="615" height="350" alt="image.png"></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/e2da1d3b942d9e77.png" width="645" height="381" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="color: ">（2）建完名单库并配置好后可以查询到相应的记录：</span></p>
+<p><img src="assets/90269ef984f0656e.png" width="1034" height="344" alt="image.png"></p>
+<h2 id="section-86">2.2 然后在Zeus上创建名单库因子</h2>
+<h3 id="section-87">2.2.1 入口</h3>
+<p><span style="color:rgb(245, 35, 45)">规则-&gt;因子-&gt;添加因子</span></p>
+<p><img src="assets/6fbd692ab91a3f6c.png" width="662" height="402" alt="image.png"></p>
+<p></p>
+<p>2.2.2 填写名单库因子<span style="color:rgb(0, 0, 0)">逻辑信息</span></p>
+<p>（1）<span style="color:rgb(245, 35, 45)">选择工具</span>-&gt;<span style="color:rgb(245, 35, 45)">扩展因子</span>-&gt;<span style="color:rgb(245, 35, 45)">拓展类型</span>-&gt;<span style="color:rgb(245, 35, 45)">名单库因子</span></p>
+<table>
+<tr>
+<td>
+<p><img src="assets/7fe150b101a9cebd.png" width="662" height="252" alt="image.png"></p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/8216ddbdd25681e8.png" width="819" height="314" alt="image.png"></p>
+</td>
+</tr>
+</table>
+<p>（2）填写名单库因子的其他逻辑信息，<span style="color:rgb(245, 35, 45)">红框部分（名单类型、风险类型、值类型、风险等级）必须与创建名单库的时候完全一致；</span><span style="color:rgb(0, 0, 0)">填写完成后，点击 </span><span style="color:rgb(245, 35, 45)">下一步</span><span style="color:rgb(0, 0, 0)">；</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<ul>
+<li><span style="color:rgb(245, 35, 45)">中文名称：</span>名单库因子的中文解释，方便后续理解和查询；</li>
+<li><span style="color:rgb(245, 35, 45)">英文名称：</span>名单库因子英文名（依据命名规则命名，例如账户安全人员在创建中的命名规则是：<strong>factor_account_user_场景_业务方需求_值类型</strong>，例如“酒店注册场景下反爬黑名单注册拦截”对应“factor_account_user_register_hotelMTSIAccount_mobile”；）</li>
+<li><span style="color:rgb(245, 35, 45)">值表达式：</span>aviator表达式，此处为与名单库的值类型取匹配的参数（账户安全人员在创建过程中举例：例如名单库的值类型为userid那此处也应为userid；但<strong>此处有坑</strong>，注册场景下手机号的值表达式不为mobile，为user，因为注册场景下业务方传的参数是user而非mobile）；</li>
+<li><span style="color:rgb(245, 35, 45)">名单类型：</span>选对应名单库的名单类型；</li>
+<li><span style="color:rgb(245, 35, 45)">风险类型：</span>选对应名单库；</li>
+<li><span style="color:rgb(245, 35, 45)">值类型：</span>选对应名单库的值类型；</li>
+<li><span style="color:rgb(245, 35, 45)">风险等级：</span>选对应名单库的风险等级；</li>
+<li><span style="color:rgb(245, 35, 45)">过期时间：</span>可选，按需求填写；</li>
+</ul>
+</div>
+</div>
+<p><img src="assets/3b44db1f41dcecfe.png" width="1307" height="582" alt="image.png"></p>
+<h3 id="section-138">2.2.3 为创建的名单库因子添加测试用例</h3>
+<p><span style="color:rgb(245, 35, 45)">填写测试信息</span>之后点击<span style="color:rgb(245, 35, 45)"> 添加测试用例</span>，测试<span style="color:rgb(245, 35, 45)">成功</span>后，点击 <span style="color:rgb(245, 35, 45)">下一步</span>；</p>
+<p><img src="assets/d353b2ab266123a2.png" width="1185" height="600" alt="image.png"></p>
+<h3 id="section-146">2.2.4 填写名单库因子的属性信息</h3>
+<p><span style="color:rgb(245, 35, 45)">按照需要</span>选择<span style="color:rgb(245, 35, 45)">共享给的业务方</span>并为该名单库因子<span style="color:rgb(245, 35, 45)">添加标签</span>，点击<span style="color:rgb(245, 35, 45)"> 完成</span> ，至此，名单库因子创建完成；</p>
+<p><img src="assets/b63613b99b646ce4.png" width="1242" height="600" alt="image.png"></p>
+<h1 id="section-154">3. 名单库因子过期时间逻辑说明</h1>
+<p><a href="https://km.sankuai.com/page/1049826944" title="https://km.sankuai.com/page/1049826944">学城文档 1049826944（无权限读取标题）</a></p>
+</article></main></body></html>

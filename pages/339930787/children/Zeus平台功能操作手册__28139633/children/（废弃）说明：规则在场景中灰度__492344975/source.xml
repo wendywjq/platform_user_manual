@@ -1,0 +1,415 @@
+<km-doc>
+<km-title nodeId="30267ca314d44f56998e1c33ed6edab1">（废弃）说明：规则在场景中灰度</km-title>
+<km-catalog style="none" nodeId="27ebc28b8bac4b66bb39e9e58924c3f7" />
+<h1 nodeId="b88b1aa4b83a4e01b7da803034d47f11">一、背景</h1>
+<p nodeId="ef1e850bca224c86a3a796cccb0e1415"> 灰度验证意义：相对于标记状态，做规则的执行但不返回决策，可以评估配置的逻辑是否符合预期。灰度状态是在标记基础上，做规则的执行但仅返回部分决策，可以评估配置的决策对整体的影响同时也能实现A/Btest的逻辑，相较于直接生效，可以小流量低风险确认规则上线后的影响</p>
+<p align="start" nodeId="e9777ca209fd41a3b27695b69da971db"><span color="rgb(75, 75, 75)"> 策略PM角度灰度来带的价值：安全保障_小流量线上验证规则上线前后对业务的影响</span></p>
+<p nodeId="3f6d6206781c4caab7aad52f592cfff9"><span color="rgb(75, 75, 75)">⚠️⚠️ 此处返回决策的定义是在Zeus同业务交互的接口</span>GetDecisionResult（<a href="https://km.sankuai.com/page/28253497#id-%E8%8E%B7%E5%8F%96%E6%99%AE%E9%80%9A%E5%9C%BA%E6%99%AF%E5%86%B3%E7%AD%96%E6%8E%A5%E5%8F%A3" title="https://km.sankuai.com/page/28253497#id-%E8%8E%B7%E5%8F%96%E6%99%AE%E9%80%9A%E5%9C%BA%E6%99%AF%E5%86%B3%E7%AD%96%E6%8E%A5%E5%8F%A3" autoUpdate="true" nodeId="a649f939d1d44f2b8ac36655a5b08d1c">https://km.sankuai.com/page/28253497#id-%E8%8E%B7%E5%8F%96%E6%99%AE%E9%80%9A%E5%9C%BA%E6%99%AF%E5%86%B3%E7%AD%96%E6%8E%A5%E5%8F%A3</a>）中，decisionIdList将会包含命中生效和灰度规则的决策。</p>
+<table responsive="false" nodeId="48d410016d4c434f8b5218dc73f484ee">
+<tr nodeId="7ac2547f09b144f19e2862ea16778de1">
+<th colwidth="[184]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="3738fc42f8734714af327a536f0f2fc6">
+<p nodeId="d6c15e489b734dca82d1f4350215335f"><span font-size="14">成员变量</span></p>
+</th>
+<th colwidth="[176]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="3c7d62a3cf214370b7a1cb52d1450d59">
+<p nodeId="0ce2fc75235b443bb71cf8f1795d088b"><span font-size="14">类型</span></p>
+</th>
+<th colwidth="[472]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="43a83055236f4a2c87e417015f7e7d3d">
+<p nodeId="083b664c72d041c096bcaf1799c199c6"><span font-size="14">含义</span></p>
+</th>
+</tr>
+<tr nodeId="3ee4b75d51794c9ab7dc911cc7a670c3">
+<td colwidth="[184]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2a67a6de96a44ce38ac0b17d7e45fee4">
+<p nodeId="b5971e3c87d64011a9af4c482c4fbde6"><span font-size="14">requestId</span></p>
+</td>
+<td colwidth="[176]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4885e1e5c5c64e4a8b057f199bc4181c">
+<p nodeId="670c69ce432945f4a357b4a23f7ae389"><span font-size="14">String</span></p>
+</td>
+<td colwidth="[472]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2cfa8d72abe34c71b2cdd6ddb251efb6">
+<p nodeId="7a0838c2adc64d629a40ff007f119436"><span font-size="14">请求ID</span></p>
+</td>
+</tr>
+<tr nodeId="51d12cec6a1b45278b0f718d78fa9240">
+<td colwidth="[184]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cc1445983ca54bb380fbbf01bb153d0e">
+<p nodeId="0542c1392b2b4369aced6e42c50ae2aa"><span font-size="14">businessCode</span></p>
+</td>
+<td colwidth="[176]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e1db6f70aa544f3a9d337b8f9229eba5">
+<p nodeId="0f7094db097e43ff80a4f4d2d859c7e3"><span font-size="14">int</span></p>
+</td>
+<td colwidth="[472]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="60e6dc7e1c5d479abcf5b6895bdd450f">
+<p nodeId="84a7766bb426416aa77b1b1b31a912a5"><span font-size="14">请求业务方ID</span></p>
+</td>
+</tr>
+<tr nodeId="99220bb7e41d467599954313ba3fc292">
+<td colwidth="[184]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e8fd5248648f4175825a3d25640a0816">
+<p nodeId="82456015ac094e06aaf7ffcd6d70f6cf"><span font-size="14">sceneId</span></p>
+</td>
+<td colwidth="[176]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fb9ac9cfb8184960a37050195439bca8">
+<p nodeId="aaf76dafcd2b4265b15b1102bc38d20e"><span font-size="14">int</span></p>
+</td>
+<td colwidth="[472]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6abed8e600e64d52b2f112db70931269">
+<p nodeId="b4f2c71b4579441197d9092f116cd962"><span font-size="14">场景ID</span></p>
+</td>
+</tr>
+<tr nodeId="77dcf6d7e32640378f976609dac740c1">
+<td colwidth="[184]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2eb4874b7d534d1faf2c282a11fd65b3">
+<p nodeId="be7dbeb78fc24ade88df573b88ba19e3"><span font-size="14">decisionIdList</span></p>
+</td>
+<td colwidth="[176]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="64793351c7734fa8b0bea12be9faeddd">
+<p nodeId="8d6887136f374ec58deb7db5084e0277"><span font-size="14">List&lt;Integer&gt;</span></p>
+</td>
+<td colwidth="[472]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1ea7dee600ee42f78ff04bb4c0005ea5">
+<p nodeId="94a8849ea3214736899b18602c6a8dcd"><span font-size="14">决策id列表</span></p>
+</td>
+</tr>
+<tr nodeId="3fdbd7a3fec84594960093b0638f1977">
+<td colwidth="[184]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2c48eb4302be41c0b923673431d908e2">
+<p nodeId="ba7440a5707c46c29ef4a08cf5dead2d"><span font-size="14">sceneConfDetailList</span></p>
+</td>
+<td colwidth="[176]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3a2a329894fd4331a9d2a5f2c1814d61">
+<p nodeId="99658a8b7b304a10bff52d080b4189f2"><span font-size="14">List&lt;SceneConfDetail&gt;</span></p>
+</td>
+<td colwidth="[472]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b138321e82a744cfa02e567486c8a484">
+<p nodeId="eeb6a836e8ce4b01a35513f1f6409b39"><span font-size="14">命中规则对应的场景配置信息，包括状态、规则的决策、理由、优先级等</span></p>
+</td>
+</tr>
+<tr nodeId="6bf600c90cac45c5bd623f7091310854">
+<td colwidth="[184]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="87268b8028c34db683c2c8ec459ce349">
+<p nodeId="559256bf172a42668026fa217deb7dad"><span font-size="14">factorResultJson</span></p>
+</td>
+<td colwidth="[176]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="398706029e1a418294a309d42c9e6334">
+<p nodeId="984de3cf7bfe46d8a5342baf607bd8c0"><span font-size="14">String</span></p>
+</td>
+<td colwidth="[472]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="481e7625fec14ef5acfce54659dfb35f">
+<p nodeId="13952a11ce694786944ad2f1166cefbe"><span font-size="14">当前场景所依赖所有因子的结果，json格式</span></p>
+</td>
+</tr>
+<tr nodeId="926e7cf9b28d46df9bf3a1c23aa9b099">
+<td colwidth="[184]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6f1eea53760c4246a016457d483f2ad1">
+<p nodeId="5f96fcbe7fff4edb9f363f15bdda3520"><span font-size="14">hitRuleFactorResultJson</span></p>
+</td>
+<td colwidth="[176]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4742778efeae464bbe64fbc47f31f2f6">
+<p nodeId="f2d7e4da2d5341edb662ce6fa9435cdf"><span font-size="14">Map&lt;Integer, String&gt;</span></p>
+</td>
+<td colwidth="[472]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4f5fa95824f544d7a15a9e8599bd7782">
+<p nodeId="5a4cd6390afb4385b0f313687f58fe48"><span font-size="14">当前场景命中规则所依赖的因子</span></p>
+<p nodeId="7003d054a2764c918d5cc698c2f73934"><span font-size="14">key: ruleId</span></p>
+<p nodeId="3febaaef871b4fd092c6d425feaa1b44"><span font-size="14">value: 因子结果的json字符串，其中key是因子名，value是因子结果</span></p>
+</td>
+</tr>
+<tr nodeId="b31f0f56d80a4717b4a1d5e201e6bbc2">
+<td colwidth="[184]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2714ab65104d4146ade96a20f9e6cf5b">
+<p nodeId="66b03af133e34a0983535eb0ed223e3a"><span font-size="14">errMsg</span></p>
+</td>
+<td colwidth="[176]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e34512a896774414aae5c8fdfa7ad6a0">
+<p nodeId="3b7c2a6c536f4427a62a62a8a500d149"><span font-size="14">String</span></p>
+</td>
+<td colwidth="[472]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d09814b9bcef4f25a634f21674eb1129">
+<p nodeId="910c5e92b9da485094e7fe258db66655"><span font-size="14">错误信息</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="a07dfcff5be247538de641ea516b401e"><span color="rgb(245, 35, 45)"><strong>此处，decisionIdList 和 sceneConfDetailList 已包含了生效规则和灰度规则的命中结果，从结果中无法区分出灰度规则（灰度规则 status=48，结果内 status 被修改为 64 生效状态），可以通过查询实时日志进行区分。</strong></span></p>
+<h1 nodeId="4d81eaafdf1e440582581622f90b40b4">二、名词解释</h1>
+<p nodeId="b8ee6e3ca87c433686769818125ef061">无</p>
+<h1 nodeId="b8903dad4c204f14848a356fd896582e">三、操作指南</h1>
+<h2 nodeId="ade839f5a09f40debc8a40fc739b3ca6">1.用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/492344975/492540136?contentType=0&amp;isNewContent=true" width="1266" height="416" nodeId="b3c853d957ce45abafb3af3bfe6e9d33" />
+<ul nodeId="0449bcc6be4e4891bbb7db37316d98d5">
+<li nodeId="d20eeaa5e159499699bf1660441329a1">场景配置中添加逻辑：场景+规则+决策+决策理由+决策附加信息+决策衍生参数+优先级+状态（生效、标记、离线、灰度）为唯一条件，注意灰度比例不同仍算做同一个场景配置，因此不允许重复添加</li>
+</ul>
+<h2 nodeId="dfc89e62f95b4ef8a1d487882e45aea9">2.Quick Start</h2>
+<p nodeId="d3eae4147fd440a99735de1b33cc6564" />
+<h2 nodeId="9f4f502f67e44f94b87698c97ab4c447">3.详细操作流程说明</h2>
+<h3 nodeId="f9f9499768e148b59b95bb480a54a6fa">Step1: 添加灰度场景配置</h3>
+<table borderColor="#cccccc" responsive="false" nodeId="497da8b5dbda496ebcf418c05fe69043">
+<tr nodeId="2b7d67496cf64c80b2c66ca300930e56">
+<th colwidth="[325]" nodeId="15f358dff7084a5eb8680a84da16d087">
+<p nodeId="34e8b434910448da97c7ef73ebf7bd88"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="dd384cc9c9734ff4ba195303b48d9a53">
+<p nodeId="6a5038f4974d4a12a74c6a54a8e85d07"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="defae44758594c129eb2c0e9d26b14fe">
+<td colwidth="[325]" nodeId="4e075a377464498784d878a30e7d9276">
+<p nodeId="440542cf423546c09311494ac0d2a2ba"><span font-size="14">【添加“灰度”场景配置】</span></p>
+<ol nodeId="1f12fea30dda4e34b12a74c62e6e60a4">
+<li nodeId="233b92af04e54171b87f1c3a986ce6cf"><span font-size="14">在修改场景配置中，点击编辑，场景配置进入编辑状态，修改规则状态即可</span></li>
+<li nodeId="2cb071d7f3f843d7b3a9e37752197c5d">
+<p nodeId="3f5c817f9763463396e5145bf6eb23db"><span font-size="14">灰度维度：目前支持requestId、userid，支持用户下拉框选择</span></p>
+<p nodeId="f4be7ff95f2e4702b244cf77400fe44c"><span font-size="14">若业务期望增加新的维度可联系</span><km-mention name="杜思思" uid="dusisi" empId="" nodeId="4d46e65f8b30498b8bc01ae5982cc8ca" /><km-mention name="周强" uid="zhouqiang23" empId="" nodeId="db6d81a3f7ed4cca99bdc4350b2839ff" /><km-mention name="ZeusPM" uid="it_pm_rc_zeus" empId="" nodeId="72e92720bf514ba598fe9a1514a0bd9e" /><km-mention name="王雅靓" uid="wangyaliang" empId="" nodeId="1ddc9dd00aed4946a389bc73bbb251f1" /><span font-size="14">后台配置增加</span></p>
+</li>
+<li nodeId="773df90592004db3a3fbd27b69643c06"><span font-size="14">灰度比例：手动输入1～99的整数</span></li>
+<li nodeId="7895aa0d06624d64872ab31e3eae0c50">
+<p nodeId="cc5ff7dc426747fbbcdde62d41b30575"><span font-size="14">⚠️注意：</span></p>
+<ol nodeId="11e85f21f5c1489ba14388b24892d93b">
+<li nodeId="6663ebc3c08847f59d453a549461f93e"><span font-size="14">规则灰度受到强制标记30分钟和静默期安全机制限制，即灰度前必须强制标记30分钟、在业务配置的静默期期间不允许修改场景配置</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[930]" nodeId="cef05161a3dd4a67ada35e62adbdec1c">
+<p nodeId="7fe0da88d4fd4720b7217c8cfc665ffc"><img src="https://km.sankuai.com/api/file/cdn/492344975/492631866?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="462" nodeId="d6543dbea7684f74ac91aa409bfac3e7" /></p>
+<p nodeId="c970735cd13548738ae660220b5cfe94"><img src="https://km.sankuai.com/api/file/cdn/492344975/492715272?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="189" nodeId="8fd225a7f2dd409d813109d1a2982fd9" /></p>
+<p nodeId="3ce241f92f634e1f8bb84778cf1a41c7"><img src="https://km.sankuai.com/api/file/cdn/492344975/492752501?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="150" nodeId="913ea1ca75494dc88fff3b88acefbdad" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="a58df096ea364998b7fbd4022fc75bfb">Step2: 验证恢复执行结果</h3>
+<table responsive="false" nodeId="6fc89cc228fb4dd7808880ae97ccebe8">
+<tr nodeId="2926493f34314e0aa4b1aeeec739ed62">
+<th colwidth="[325]" nodeId="436be3c6193a4420a73db370a271bc83">
+<p nodeId="4aef20318cd24a3abaed0db1a67359e8"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="07e5713f57de427db210a79037ae2034">
+<p nodeId="c045301a864747e18280db9c12597504"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="25bbeb99f2784e55b5f7bc482e546091">
+<td colwidth="[325]" nodeId="d5ead872e58d47a2bb1dbce35b62671c">
+<p nodeId="02cb6640b6ad4918b28413d4dac837cb"><span font-size="14">【实时日志查询】</span></p>
+<ol nodeId="7eb3127015e5403896f205fd20299013">
+<li nodeId="367ffc8b894d45b5b80bd7a6bf482783"><span font-size="14">在日志查询条件中增加了灰度命中规则和执行规则流量的筛选条件，便于用户排查问题</span></li>
+<li nodeId="89c0d7d6f1fa49db839972755e2465d1"><span font-size="14">在日志结果中会显示命中灰度规则的规则信息，同时支持排查探针功能</span></li>
+</ol>
+</td>
+<td colwidth="[930]" nodeId="aa5d250eabb24e3191709199a38c5e0b">
+<p nodeId="b0e1bfba25df45149d68d650aa8767e0"><img src="https://km.sankuai.com/api/file/cdn/492344975/492744955?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="578" nodeId="ed5d183f1eb841128987e0042cde4798" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="9f00401ab6d34517bf2e082c97191561">Step3: 灰度状态结束（取消灰度/转为生效、标记离线）</h3>
+<table responsive="false" nodeId="7f4361c71cec4bde90cbaaa1041c3f8d">
+<tr nodeId="ade1c75338e145bc9f21c0d293600a56">
+<th colwidth="[325]" nodeId="c8deeeaf7cce4697a04c9ec2a9c495f7">
+<p nodeId="8b4f783d446348da88386677c702ba14"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[930]" nodeId="e759339cc8c640b39235a5937a37f3db">
+<p nodeId="f1d215ba53c846398604a7d5b628acbb"><span font-size="14">页面</span></p>
+</th>
+</tr>
+<tr nodeId="989946530f8946bca05212d3e2f253ba">
+<td colwidth="[325]" nodeId="fcfb53d1277a4d6b9a06d15e58392249">
+<p nodeId="4249d611ebda4b5eb746c9cca75e0f2f"><span font-size="14">【灰度状态结束】</span></p>
+<ol nodeId="8043b4621f7f4c16b520e2530c13285c">
+<li nodeId="818f52e5034e4f3683ce30d987ef0b46">
+<p nodeId="04887e7e8ef5407c913cfc195dd69c63"><span font-size="14">正常的场景配置状态变更流程即可</span></p>
+<ol nodeId="88d7d3404440462491511df80987e29a">
+<li nodeId="8b2406dc355040a69c4b43d155d975f8"><span font-size="14">编辑场景配置</span></li>
+<li nodeId="f6c4085ce16e4d299275c15d5d435cd6"><span font-size="14">修改灰度相关的信息</span></li>
+<li nodeId="6efc95f204b34b3a8687b6996898db94"><span font-size="14">点击保存即可</span></li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[930]" nodeId="59f66133087441ecb731f0331d901564">
+<p nodeId="7c1a0cd09a804b6a997d20a6af93febe"><img src="https://km.sankuai.com/api/file/cdn/492344975/492767395?contentType=1&amp;isNewContent=false" name="image.png" width="901" height="333" nodeId="19c3362d2e8941a99ca9d93ea9554c3b" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="b65b947c00b14984a01c0227808c47b8">4.特殊说明</h2>
+<p nodeId="3b102c01445a4f88a0de0a9c75ecfdbe">（1）目前灰度可支持选择的维度：</p>
+<ul nodeId="c0e2bd4ff03040e8b01a8234adbffd64">
+<li nodeId="aae274280e324ce481b9e499ec7838df">默认：request、userid</li>
+<li nodeId="0505277e76b54e5294275b709a404175">
+<p nodeId="f004604c3b4649edb14deea64af8de93">支持业务定制化：</p>
+<ul nodeId="4a84a945b0974cfbafc6709c40115013">
+<li nodeId="ee1175b27b3b453caa4de10ad6b97b45">本期若需要增加灰度维度可联系<km-mention name="杜思思" uid="dusisi" empId="" nodeId="ca67f412e2b14b6293cce648a3e92c6b" /><km-mention name="范文青" uid="fanwenqing" empId="" nodeId="75e5416d16b74983b721ce920153629a" /><km-mention name="王雅靓" uid="wangyaliang" empId="" nodeId="7a7760cd99f8462b80590cfb2008f654" /></li>
+<li nodeId="c6ac19cc27d6472d96d1ba32159d0aec">后期将支持管理员在业务在Zeus前端进行配置</li>
+</ul>
+</li>
+</ul>
+<p nodeId="93dc7cf20dc64a849459f2b68b911724">（2）在日志查询中，灰度流量和命中灰度规则需要通过筛选条件进行区分</p>
+<h1 nodeId="b7ec9d69ed3a4ab4bb30b6153475a214">四、FAQ</h1>
+<h3 nodeId="428347ddaa9a4afa81d544fe6b2f987d">Q1：灰度执行的逻辑是怎样得到？</h3>
+<p nodeId="0a958ed019f04eefbdc8055034056249">--A：<span color=" ">给请求的信息打上java随机数，随机数符合用户设定区间的返回决策按照生效处理，不符合的不返回按照标记处理</span></p>
+<h3 nodeId="7e08420e404d44f5a16da4cea6a9cd4b">Q2：目前灰度的维度不满足业务诉求，如何增加灰度支持的维度？</h3>
+<p nodeId="53db65bff239409788ea071740eafd9a">--A：见3.4.1目前灰度可支持选择的维度的支持业务定制化部分，默认：request、userid，若需要增加灰度维度可联系<km-mention name="杜思思" uid="dusisi" empId="" nodeId="c75e14d44c3d4f678e4a30f9928ce557" /><km-mention name="范文青" uid="fanwenqing" empId="" nodeId="5d6f4dc9600645108213a4fd0a9b9787" /><km-mention name="王雅靓" uid="wangyaliang" empId="" nodeId="b90576aa95814bc19f7b7ef323e535d9" /></p>
+<h3 nodeId="4516950254674e7dad934b8c48b9b97a">Q3：灰度的维度除支持参数外，还支持普通因子、累计因子等扩展类型因子么？</h3>
+<p nodeId="ce51a2abac1d4bbb92f44e453ab4f5c8">--A：目前不支持因子作为灰度维度，短期内也不计划支持</p>
+<h3 nodeId="9f6235836c6447369ec513f4952ba96c">Q4：规则从标记到灰度为什么需要进行强制标记30分钟？而规则从灰度到生效不需要进行强制灰度的限制呢？</h3>
+<p nodeId="69f45ded118248c8a7f1a5e0fa8fb02c">--A：灰度的本质是挑选部分流量作为线上规则进行执行，被选中执行的灰度规则的决策结果是实时返回的，选中执行的灰度规则的所有逻辑都是和线上规则一致的。可以认为，生效状态其实就是灰度比例100%的一种特殊灰度状态。</p>
+<p nodeId="83e7721e0228430d8b1c45129b59f793">         因此从标记到灰度，必须强制标记30分钟，确认规则的执行结果是符合预期的，才能将状态改为灰度。</p>
+<p nodeId="cec5b280d9c5407a89975e865c863734">         而灰度状态下，规则的执行结果是否符合预期已经通过经过强制标记验证过了，从灰度状态到生效状态不需要再经过一个强制灰度的过程。</p>
+<h3 nodeId="cf3065082c7d4c5485faa08e751698af">Q5：规则灰度需要受静默期的限制么？</h3>
+<p nodeId="e5c1c40260674387bb1ea671a6f599ab">--A：受静默期限制，因此在灰度比例、维度修改、灰度状态变更等都会受到静默期限制</p>
+<h3 nodeId="738237e509c64521beb9656e794359f5">Q6：规则灰度流量的比例可设置的数据范围是？</h3>
+<p nodeId="661c312fee1d46efaad6ad2b47afa01b">--A：在（0.100）之间的整数，需要大于0且小于100</p>
+<h3 nodeId="589b2f3bbf0e4f89b1923b8118b0b6d5">Q7：怎么知道自己的业务方使用是哪种决策汇总方式？我所在的业务方可以直接使用么？</h3>
+<p nodeId="3c06168074d043b49fde8704277e2038">--A：Zeus产品经过跟各业务方技术团队调研，确认以下业务方的决策汇总方式并给出您所在业务方是否可以直接使用的解决，尚未全部枚举</p>
+<km-collapse nodeId="8aa1a36adda34f1ea8c9cf3fad67462b">
+<km-title>各业务方汇总决策的方式</km-title>
+<km-content>
+<table borderColor="#cccccc" responsive="false" nodeId="2824711b79994123ac1def1e5f37e27a">
+<tr nodeId="851810a598134098887678516499e0d4">
+<th colwidth="[129]" nodeId="464a795e21044a28b419880bba98d923">
+<p nodeId="cf2c41395b984b0da10628479205d6aa"><span font-size="14">业务方/风险阈</span></p>
+</th>
+<th colwidth="[272]" nodeId="99a3df3e680842b092f720f1d18f9d6b">
+<p nodeId="c4d2be45a8b348048da082194569ea76"><span font-size="14">businessid</span></p>
+</th>
+<th colwidth="[148]" nodeId="671450d5d46c466b8d348fb422bef809">
+<p nodeId="7da62cc5f90f450a8a5c5983e907b955"><span font-size="14">决策汇总方</span></p>
+</th>
+<th colwidth="[176]" nodeId="2aa8d9d53c464481a30cfe6791312f77">
+<p nodeId="f052960bf1134b5eafdbb4428fd5a7b9"><span font-size="14">决策汇总方式</span></p>
+</th>
+<th colwidth="[73]" nodeId="c045378cfe9d4b7198873b1157f1b5cf">
+<p nodeId="4e9534dd29464049a55b6e953ba27b74"><span font-size="14">信息反馈人</span></p>
+</th>
+<th colwidth="[133]" nodeId="b51afe6b4d86433c96e5bd1c92592f09">
+<p nodeId="6ecba4cbb9714d09be6f6466630b0030"><span font-size="14">是否可以直接使用规则灰度</span></p>
+</th>
+<th colwidth="[166]" nodeId="5eb259b2ef114ab7bafd8673c7a5e3f3">
+<p nodeId="75a200304920421c901d13c4011b3b5d"><span font-size="14">是否业务侧RD已经做完兼容</span></p>
+</th>
+</tr>
+<tr nodeId="687c445bf9c445bba7d171abc3927aca">
+<td colwidth="[129]" nodeId="1ecb54a8e0d34ce5b74e37b69f85a404">
+<p nodeId="ab9ba0ac86364aff80fa40fd609da4f2"><span font-size="14">业务安全</span></p>
+</td>
+<td colwidth="[272]" nodeId="635306a0f7004e9a88310d4fa091bfb1">
+<p nodeId="797ec649068042a383e8803341615acd"><span font-size="14">1,23,24,25,26,27,28,67,78,90,3,4,5,37,38,45,96,97,91,98,142</span></p>
+</td>
+<td colwidth="[148]" nodeId="562c941506dc4e08a7e2f1c480bdfd91">
+<p nodeId="842e83ecb07d4617a43bad5b4aa59727"><span font-size="14">Tatooine接入，Tatooine汇总决策</span></p>
+</td>
+<td colwidth="[176]" nodeId="c48dd4881b1d43cfaf50059220a7d1df">
+<p nodeId="d8b6659a47004d5789ddc0fc5243974b"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">sceneConfDetailList</span></span></p>
+</td>
+<td colwidth="[73]" nodeId="edccc9ff7ab84f1ea25e6498daed5e05">
+<p nodeId="406855f62fa04fa38868dd3f8fb1ac0f"><span font-size="14">陈麒佰</span></p>
+</td>
+<td colwidth="[133]" nodeId="8c98b13388e4427eb5c0fbe40de23fd1">
+<p nodeId="fc81414020d34bc685b25bab180a0e14"><span font-size="14">是</span></p>
+</td>
+<td colwidth="[166]" nodeId="9578b91609194e5abe5b007ff4790878">
+<p nodeId="f32f05f19a6c4baa9479b7e0b2197c66"><span font-size="14">是</span></p>
+</td>
+</tr>
+<tr nodeId="edfae7593284430f9ceddc6d7051c238">
+<td colwidth="[129]" nodeId="8fdd053f3e2d490cb9f5f2d95ab04785">
+<p nodeId="04ce3007b08f4d139203a9e90c267760"><span font-size="14">内容安全</span></p>
+</td>
+<td colwidth="[272]" nodeId="270263cbff764ca0b17b85245fb1a406">
+<p nodeId="fe09e8ea17874e1db4b8e1856a283e9e"><span font-size="14">35,60,</span></p>
+</td>
+<td colwidth="[148]" nodeId="f6bd1fb81b184d549a179cab55e58844">
+<p nodeId="920cd544b19d43d3b7c96fefb2efa0db"><span font-size="14">保时洁接入，</span></p>
+<p nodeId="ddc68535d4914ab696e44a10a9d5036a"><span font-size="14">保时洁汇总决策</span></p>
+</td>
+<td colwidth="[176]" nodeId="4e516a191f824a9ea0abe5f3fb1721bf">
+<p nodeId="85c8f1c0564042b1b130bfee9815e220"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">sceneConfDetailList</span></span></p>
+</td>
+<td colwidth="[73]" nodeId="5b8156d6866e4815a212a0d91a277eb4">
+<p nodeId="fb096f74487b442b892d8775cb49e660"><span font-size="14">田飞</span></p>
+<p nodeId="895e5985e22f45d3923fb312a2de3627"><span font-size="14">吴昊</span></p>
+<p nodeId="29d99dd7f46c4d4aa848d7e509099970"><span font-size="14">唐飞</span></p>
+</td>
+<td colwidth="[133]" nodeId="bf17bca7d5244439972295053383f13c">
+<p nodeId="564ea91284564d7b8dd9f421bba6e0ae"><span font-size="14">否</span></p>
+</td>
+<td colwidth="[166]" nodeId="6c226bdf34d245dc91e7d2ab7be5ab21">
+<p nodeId="d35aa4416a4440f1928d1191b7ca2bdf"><span font-size="14">否，1.22已发送征集通知，预计1.29完成兼容</span></p>
+</td>
+</tr>
+<tr nodeId="d4d03365cffc40f29ff96746fdf6fcd4">
+<td colwidth="[129]" nodeId="aeed5f0a5080435b8f0ed7bf3b47c7d0">
+<p nodeId="02b60d3a368b4377bb28b3128dfd7228"><span font-size="14">验证中心</span></p>
+</td>
+<td colwidth="[272]" nodeId="2d08a2b90a3e4c69b779768528aee357">
+<p nodeId="3ecd342f3fc44e159b238a36b6a86bf1"><span font-size="14">6</span></p>
+</td>
+<td colwidth="[148]" nodeId="aa3f8d408dba476d84c251a25398521e">
+<p nodeId="f1ad918dc29b41aaba4a4f90d77fa687"><span font-size="14">yoda接入，</span></p>
+<p nodeId="7794cad68418460b854063e9a6112a7a"><span font-size="14">yoda汇总决策</span></p>
+</td>
+<td colwidth="[176]" nodeId="c591a655029d46ea8b6099e67a7bce96">
+<p nodeId="0676938b22a24c089b942a5f2d49cf4a"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">sceneConfDetailList</span></span></p>
+</td>
+<td colwidth="[73]" nodeId="c5415de53a364cf8b7688ece246af175">
+<p nodeId="a19b1adcfd9a433d8852d5597a393e46"><span font-size="14">李瑞</span></p>
+</td>
+<td colwidth="[133]" nodeId="9acb606d003a4bdfab6077b93395aacd">
+<p nodeId="356ea0e33b8e451a85e39eecfbd44e52"><span font-size="14">否</span></p>
+</td>
+<td colwidth="[166]" nodeId="df6d471cfe554d76913536b5609858eb">
+<p nodeId="ca6aa30680de4d1d8e3669940843e5ce"><span font-size="14">否，1.22已发送征集通知，预计1.29完成兼容</span></p>
+</td>
+</tr>
+<tr nodeId="ca52b2dba479463282a01c000597b62b">
+<td colwidth="[129]" nodeId="0e22fba5c55646bbae5d4e10e1bbd8d2">
+<p nodeId="4a56b9e09e6140e1b27fc9eb477332c4"><span font-size="14">支付安全</span></p>
+</td>
+<td colwidth="[272]" nodeId="2ca19329089a4deb8bb038764c49bfde">
+<p nodeId="eb11fd5f39c1409281dce4eb9a72966b"><span font-size="14">40,52,54,55,53,126,</span></p>
+</td>
+<td colwidth="[148]" nodeId="2584540ad8b049cfa45cac39b32e708e">
+<p nodeId="c3962db6d7814f16a194a8dcfe4bfbc5"><span font-size="14">warden接入，warden汇总决策</span></p>
+</td>
+<td colwidth="[176]" nodeId="bfdff938315549c4b137223f9efaec66">
+<p nodeId="4039f67027f64249bdc3e457a18d75d7"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">sceneConfDetailList</span></span></p>
+</td>
+<td colwidth="[73]" nodeId="ebc5509909a844cd9e63eb0b071fde6c">
+<p nodeId="0a182a1514c348eeaf9462520a26eaab"><span font-size="14">李东阳</span></p>
+</td>
+<td colwidth="[133]" nodeId="5d5d5c3fb29e4850b706e8b35b298295">
+<p nodeId="6bf60bf2b15e41b4a8359891cb063075"><span font-size="14">否</span></p>
+</td>
+<td colwidth="[166]" nodeId="13fdfd02c7464ef1937086789c65f9e6">
+<p nodeId="1dd97000a48e4454aa169ef3566912e7"><span font-size="14">否，1.22已发送征集通知，预计1.29完成兼容</span></p>
+</td>
+</tr>
+<tr nodeId="244ee955c12e42eb87b07ea824e27f47">
+<td colwidth="[129]" nodeId="7d0184810e2d45238d93fc8c83cc685f">
+<p nodeId="090e8d2255ff46719c11fe4983f34fea"><span font-size="14">生态金融</span></p>
+</td>
+<td colwidth="[272]" nodeId="ce73cb3407b048e2a2b1325dfbf83c66">
+<p nodeId="1026687b08474e1bb8a2e98ee834ea91"><span font-size="14">49,73,75,108,109,110,111,112,113,114,115,116,117,124,134,123</span></p>
+</td>
+<td colwidth="[148]" nodeId="3ee82a3b761e41eeb0b31fb68dc500da">
+<p nodeId="38926e47c663442b89b918b8b41e54b6"><span font-size="14">审批系统接入，</span></p>
+<p nodeId="51892135955947dfa0eafbff4ef549de"><span font-size="14">审批系统汇总决策</span></p>
+</td>
+<td colwidth="[176]" nodeId="e8d22a6e6471448ea564e92e930e76ce">
+<p nodeId="759c6fc71f4e4cc580352fb2e8c11998"><span color="rgba(0, 0, 0, 0.87)"><span font-size="14">sceneConfDetailList</span></span></p>
+</td>
+<td colwidth="[73]" nodeId="f8616ba94f0848a8b1147b112a2608ac">
+<p nodeId="daed2fde078141f2b9736e2ef1f1d9f9"><span font-size="14">翁良</span></p>
+</td>
+<td colwidth="[133]" nodeId="b45cc0b4ca8648d597a555c1eb35cd9f">
+<p nodeId="451105991d2e48bcacb24a755392c39e"><span font-size="14">否</span></p>
+</td>
+<td colwidth="[166]" nodeId="5f297ef8f3f24267a8cec04f6714a5cf">
+<p nodeId="3510770ce7dc41d98a4239e4f0a92546"><span font-size="14">否，1.22已发送征集通知，预计1.29完成兼容</span></p>
+</td>
+</tr>
+<tr nodeId="3bbed37eaa644e64bb2f413ff5b67faa">
+<td colwidth="[129]" nodeId="b04bd902c65c43a6b73ed778f93c41f5">
+<p nodeId="0d064713e92c46ec968213d5c69365ae"><span font-size="14">-待补充-</span></p>
+</td>
+<td colwidth="[272]" nodeId="a8dc49fcbfc8482b961bd3c342c9089a">
+<p nodeId="fa5ce6c6d69c453a8569dff69387c602" />
+</td>
+<td colwidth="[148]" nodeId="a5fa5fe56b7c4bd6831a4c3d17675c6d">
+<p nodeId="c91af76f6d7248379fd3ac47c3e5e443" />
+</td>
+<td colwidth="[176]" nodeId="6e3bab5875014cb9b8b439bca88880f5">
+<p nodeId="244c3a87498947ac944fa6fa00a49f22" />
+</td>
+<td colwidth="[73]" nodeId="504382d125bf4504b7c560d475f349bf">
+<p nodeId="1d638714c0d2431da05def208fdab35b" />
+</td>
+<td colwidth="[133]" nodeId="6f04c1b9552e42f1a7fdb8cfb2005e9c">
+<p nodeId="df009b91670148dc9f05792b1ff5d710" />
+</td>
+<td colwidth="[166]" nodeId="8465681461b34effb710ba9abe1b58cd">
+<p nodeId="bf957b64d0454cbb932eca191f9d2318" />
+</td>
+</tr>
+</table>
+<p nodeId="5c8ff4149a16437493fc2898100af0bd" />
+</km-content>
+</km-collapse>
+<p nodeId="6f11b58aa3374968ba06de2bc796c626" />
+</km-doc>

@@ -1,0 +1,340 @@
+<km-doc>
+<km-title nodeId="61e3f212214d4d4da6419014ff11325c">说明：配置监控</km-title>
+<km-catalog style="none" nodeId="b6129896ea7f457987cbec8c0e8e3d57" />
+<h1 nodeId="f3c472e892784b51a6682fdbf565c885">一、背景</h1>
+<p nodeId="a16238708f284021b8fd194ffc838ee4">如果你想监控Zeus上场景配置中规则的命中情况，可以使用该功能配置监控进行命中告警</p>
+<p nodeId="4bf9412457d34b6fb3e6a892108d6f4f"><span color=" ">目前监控能力覆盖范围（以下业务开通该功能）：</span></p>
+<km-collapse active="false" nodeId="fc2842132ed8444db466054c09f95835">
+<km-title>erwa监控能力覆盖空间</km-title>
+<km-content>
+<p nodeId="6a6ed4103d6b48df928d01b780c9a680"><span color="rgba(0, 0, 0, 0.87)">1-反作弊</span></p>
+<p nodeId="40d00525967443b39b4905683817f319"><span color="rgba(0, 0, 0, 0.87)">3-用户账号（北京侧）</span></p>
+<p nodeId="bf28d4f5248d4ee4a67cca73177cbb06"><span color="rgba(0, 0, 0, 0.87)">4-反刷单（北京侧）</span></p>
+<p nodeId="41aca2100f9447a08c727322ea7dc309"><span color="rgba(0, 0, 0, 0.87)">5-商户账号（北京侧）</span></p>
+<p nodeId="231b7285dea949bdbc8fcc3a3ba1460a"><span color="rgba(0, 0, 0, 0.87)">6-验证中心</span></p>
+<p nodeId="39d8df6aaea34f24baeb08dc38f2a110"><span color="rgba(0, 0, 0, 0.87)">8-处罚中心</span></p>
+<p nodeId="824d5f5e1d23468290f1673e52d62589"><span color="rgba(0, 0, 0, 0.87)">9-Zeus测试</span></p>
+<p nodeId="0371bc94a05c45709e6d7db01de85185"><span color="rgba(0, 0, 0, 0.87)">23-反作弊.酒店</span></p>
+<p nodeId="8681d16494ad4f5ab96516f1cc3b260b"><span color="rgba(0, 0, 0, 0.87)">24-反作弊.外卖</span></p>
+<p nodeId="347d74742ae346ebacd5dcce4a24a1f7"><span color="rgba(0, 0, 0, 0.87)">25-反作弊.支付</span></p>
+<p nodeId="59e4c063805b41d5beb9a87ccbc4c50d"><span color="rgba(0, 0, 0, 0.87)">26-反作弊.团购</span></p>
+<p nodeId="f74d8344a31949329b34b80c7583cfc2"><span color="rgba(0, 0, 0, 0.87)">27-反作弊.猫眼</span></p>
+<p nodeId="1c2b0206454644d8849f549ea56d31e3"><span color="rgba(0, 0, 0, 0.87)">28-反作弊.其它</span></p>
+<p nodeId="1c2e5d8d207442a4916ffda7aa001457"><span color="rgba(0, 0, 0, 0.87)">29-风控配置</span></p>
+<p nodeId="94d61a49d59b4a84b0ee153001f69505"><span color="rgba(0, 0, 0, 0.87)">33-反作弊反刷单（上海侧）</span></p>
+<p nodeId="d4b43add8f9e463bbbaf149cb0cf078e"><span color="rgba(0, 0, 0, 0.87)">34-运营平台</span></p>
+<p nodeId="b77ccd8c8d75493495904ecd9f37c4b2"><span color="rgba(0, 0, 0, 0.87)">36-反刷单.酒店</span></p>
+<p nodeId="9986838457c74a5d92465711f9a6bd05"><span color="rgba(0, 0, 0, 0.87)">37-用户账号（上海侧）</span></p>
+<p nodeId="7409bbd6f45b481cbad525be17535f6f"><span color="rgba(0, 0, 0, 0.87)">38-通用反作弊（上海侧）</span></p>
+<p nodeId="995e8c2888574c8f96c2bbd79cdcf534"><span color="rgba(0, 0, 0, 0.87)">39</span></p>
+<p nodeId="06d088546f5149bd8dd67f84327aa382"><span color="rgba(0, 0, 0, 0.87)">40</span></p>
+<p nodeId="bec354866ab04091b36bc48070ce9f08"><span color="rgba(0, 0, 0, 0.87)">51-数据安全</span></p>
+<p nodeId="aead2a151c9c4395a290ec24919dfcb3"><span color="rgba(0, 0, 0, 0.87)">52</span></p>
+<p nodeId="0d612497a36644f3848ebac03aac33fc"><span color="rgba(0, 0, 0, 0.87)">53</span></p>
+<p nodeId="a393ddc5b9834a168b408d67a34bd392"><span color="rgba(0, 0, 0, 0.87)">55</span></p>
+<p nodeId="66973c1e8c3e498baf4618d06e2dc3e0"><span color="rgba(0, 0, 0, 0.87)">58-Zeus试用</span></p>
+<p nodeId="709d0c93f0df401e9dc6d1ba39294807"><span color="rgba(0, 0, 0, 0.87)">66-</span><span color=" ">金融服务平台信息安全-入侵检测</span></p>
+<p nodeId="73a57c9d8b094646a24a8107ecf8605b"><span color="rgba(0, 0, 0, 0.87)">67-反作弊.租车</span></p>
+<p nodeId="49451326bc2d4ee8a0ea6b00e8df3a98"><span color="rgba(0, 0, 0, 0.87)">78-反作弊.出行</span></p>
+<p nodeId="3f9a3df4ec70466ea6b9f3e7559da712"><span color="rgba(0, 0, 0, 0.87)">80-用户账号（北京侧）.虚假账号</span></p>
+<p nodeId="55f525e6745548bf82e03816c1500522"><span color="rgba(0, 0, 0, 0.87)">90-反作弊.机票</span></p>
+<p nodeId="16b37b1a5dc94acdb3b8b056f6320510"><span color="rgba(0, 0, 0, 0.87)">91-</span><span color=" ">SSO账号业务安全</span></p>
+<p nodeId="5907201d2afe47349b88ca059d0ec2a1"><span color="rgba(0, 0, 0, 0.87)">96-数据测试验收</span></p>
+<p nodeId="8751f6ec184a43ffa5c55d85f52bdcc1"><span color="rgba(0, 0, 0, 0.87)">97-太平洋工单</span></p>
+<p nodeId="a9904167e68f4133a3eeb756d8f7f50d"><span color="rgba(0, 0, 0, 0.87)">98-反骗赔（北京）</span></p>
+<p nodeId="4972fec1ab9f43cb8fd39a303f099c7b"><span color="rgba(0, 0, 0, 0.87)">122-离线引擎</span></p>
+<p nodeId="de41b605bc184e06bb8238af7a565c03"><span color="rgba(0, 0, 0, 0.87)">130-反入侵</span></p>
+<p nodeId="189807b2519d452b808a1db91e0b7275"><span color="rgba(0, 0, 0, 0.87)">152</span></p>
+<p nodeId="f575467d0a084f519ed70a4ce7305092"><span color="rgba(0, 0, 0, 0.87)">155</span></p>
+</km-content>
+</km-collapse>
+<p nodeId="873593e9c67341f1b6a8749c01e66564"><span color="rgba(0, 0, 0, 0.87)">希望添加开通支持新的业务空间，请联系wangyaliang进行配置。</span></p>
+<km-note type="warning" hiddenTitle="true" nodeId="52be6a0ab546495a9221ffce20cb9233">
+<km-title></km-title>
+<km-content>
+<p nodeId="c37977125c4d4e2684bf6bc4e6e39347">一个空间开启erwa能力，标记规则 和 生效规则 是两个配置，要分别开启。如果只开启了生效规则的erwa能力，则标记规则依旧无法被erwa监控</p>
+</km-content>
+</km-note>
+<h1 nodeId="8befe0939ab64b0685f6514b1c1cbf69">二、名词解释</h1>
+<p nodeId="359837a5538144cb8652e2ed2eec6711">告警监控：<span color="rgb(245, 35, 45)"> </span><span color=" ">对网络运行的过程中出现的风险事件和状况进行监测和报告，告警指示这些事件和状况的结果</span></p>
+<p nodeId="e518793a7d644257b1328c4c3efec3bf">告警维度：规则命中触发告警之后在告警明细中展示这些信息（后台也只记录这些信息）</p>
+<p nodeId="a35c5f1166794e638c4f01efe157adfe">聚合时间：在该时间段之内命中规则仅触发告警一次，<span color="rgb(38, 38, 38)">不重复进行告警</span></p>
+<p nodeId="7da1696b54a945c6bdab6fdade93394b">聚合维度：类似于SQL中的“groupby”，按照哪些字段进行聚合，在聚合时间之内所有风险在相同的聚合维度命中仅告出一次</p>
+<p nodeId="181c6d9bd8bb4a79bf07bc94c79fd343">风险事件：注意区别于<a href="https://km.sankuai.com/page/1292077011" title="Tatooine事件" nodeId="7180bf9aaa55496f9ba85d86ea35422e">Tatooine事件</a>，erwa平台的风险事件含义是指：监控告警配置每次触发，都会产生的一个待用户关注的告警通知，同告警规则、同聚合维度、同聚合周期内的多次告出，都聚合在这个事件里，计风险次数。</p>
+<h1 nodeId="560459c0e6aa4b799b801a90281cbe8a">三、操作指南</h1>
+<h2 nodeId="9f11f0173b9844c4b2a8eab3f92a83bc">1.用户操作流程说明</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/549078276/11182888556?contentType=0&amp;isNewContent=false" width="647" height="170" nodeId="b06d0ce2d14041758e8604cb28fae1be" />
+<h2 nodeId="c44eb6e9ae274724b03a222c3a51c126">2.Quick Start</h2>
+<km-video src="https://km.sankuai.com/api/file/cdn/549078276/564456120?contentType=1" name="屏幕录制2020-12-23 下午7.46.42.mov" size="33.60MB" width="0" height="0" nodeId="ada97d8ed6f94896851388af1aafc795" />
+<p nodeId="1ee97bce1b5b4ca28d15ef1d69fb12fb" />
+<h2 nodeId="1b59c556c6a04cf4b3b1f7446ae8bd0a">3.详细操作流程说明</h2>
+<km-note type="info" hiddenTitle="true" nodeId="f717f3e0cd634d4fbc3dbd2a698fad1f">
+<km-title></km-title>
+<km-content>
+<p nodeId="5c245735c7bb4fae8d444ff1c8ef39a0"><span color=" ">原Erwa平台新建告警配置中的【Zeus实时】数据源，已于2022.11.1正式下线，实时数据源统一收口至【zeus-rpc】。对于实时规则的监控，请统一于zeus场景配置后方操作栏入口进行配置。</span></p>
+</km-content>
+</km-note>
+<table borderColor="#cccccc" responsive="false" nodeId="03cc36d9d24c4c03a3e758b6382f1172">
+<tr nodeId="623651b4cc8f403f914542c38ec9f001">
+<td colspan="2" colwidth="[579,761]" bgColor="rgb(247, 247, 247)" nodeId="f1f9d14b4f8648cc9da7c2c9a0007f7d">
+<h3 nodeId="8ff56e39f405446f953b5bb8197b9fba"><span font-size="14">Step1: 配置入口</span></h3>
+</td>
+</tr>
+<tr nodeId="e65981e4afd34a07abd187a33ae84e59">
+<td colwidth="[579]" nodeId="beba0cd78d5f49aba3524d15880ad45a">
+<p nodeId="65b5a14f78d24e408eb38bf03c8d7b0e"><span font-size="14">入口：</span></p>
+<p nodeId="9fd3f107286041df8197f5db262d8594"><span font-size="14">点击场景--&gt;场景配置--&gt;选择目标场景配置</span></p>
+</td>
+<td colwidth="[761]" nodeId="168496d381c941b58ca0a292a2d1f4bb">
+<p nodeId="f2e5744d47534a32a35afdae4c2c8653"><img src="https://km.sankuai.com/api/file/cdn/549078276/564476170?contentType=1&amp;isNewContent=false" name="image.png" width="739" height="295" nodeId="7f45b281ed364453a882a177e4b2ecb5" /></p>
+<p nodeId="552086464faa41a3a17a3ac7e1c43043" />
+</td>
+</tr>
+<tr nodeId="c667ae80077e4df68bb88f348ab78b9a">
+<td colspan="2" colwidth="[579,761]" bgColor="rgb(247, 247, 247)" nodeId="e1154a26f6da464eaf14ef63e54ca562">
+<h3 nodeId="cf401767c11d49de8419c26cc3830228"><span font-size="14">Step2: 配置监控</span></h3>
+</td>
+</tr>
+<tr nodeId="dbc6c8185e274f8496011d0631455af3">
+<td colwidth="[579]" nodeId="b07e50f6fe6640f09d432be7673b8f4d">
+<p nodeId="01d4b304fdd647e28ef361607e947767"><span font-size="14">1.点击“配置监控”；</span></p>
+<p nodeId="8d7ebb3b17084301a4303853b42532de"><span font-size="14">2.填写监控项配置内容并保存；</span></p>
+<km-note type="note" hiddenTitle="true" nodeId="0059ecb5bcf340ecbfb0aa1b4d2f59ab">
+<km-title></km-title>
+<km-content>
+<p nodeId="ae9c5e9b5a334ed28507b403ef5f9410"><span font-size="14">通过Zeus入口配置监控后，会自动在Erwa告警平台生成一条监控告警配置（ID在zeus展开抽屉中可见）；其中，默认的监控逻辑为「该条场景配置的命中」，例：include(string.split(hitRules,','),55938)，55938即为zeus规则id。</span></p>
+<p nodeId="18b96f735bdc4a518321cdfeb81b2aab"><span font-size="14">注意，该表达式隐含了</span><span color="rgb(245, 35, 45)"><span font-size="14">场景、决策</span></span><span font-size="14">信息，即实际效果是该【场景-规则-决策】每当有命中数据，erwa就会结合聚合维度与聚合时间，决定是否告出。</span></p>
+</km-content>
+</km-note>
+<table responsive="false" nodeId="f34ae0e7b68b4fb6bc13031a91dcb2f7">
+<tr nodeId="2fc3fa803cf54eb9bb41cfffc7822980">
+<th colwidth="[92]" nodeId="e2af1069f5fa40ab9a9e5737d1c0e425">
+<p nodeId="0400e263e604468bb57e1872d6f0c056"><span font-size="14">项</span></p>
+</th>
+<th colspan="2" colwidth="[92,376]" nodeId="266d8d4091a74ae8bbad6c5e7a06c4c5">
+<p nodeId="d3f5f35729c34137a17f370e6703eb09"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="0baa07d9fb834ed883699e25adeacc3f">
+<td colwidth="[92]" nodeId="ec0639ac921440c68d0624c9e29dd7f9">
+<p nodeId="e3c3ef33c2d240fe9c9c76b8b68a48d9"><span font-size="14">告警维度</span></p>
+<p nodeId="f15cbcaba0b349bca32645ba8f2485c3"><span font-size="14">（</span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span font-size="14">）</span></p>
+</td>
+<td colspan="2" colwidth="[92,376]" nodeId="c53e9907a75d4077813240efdf03f5fd">
+<ul nodeId="a6c2a2f249c94f0d9e5c04036a3a405f">
+<li nodeId="7772c09010d24f549f6a06308b23c6e7"><span color="rgb(38, 38, 38)"><span font-size="14">添加后会在</span></span><span color="rgb(245, 35, 45)"><span font-size="14">告警明细</span></span><span color="rgb(38, 38, 38)"><span font-size="14">中展示这些信息</span></span></li>
+<li nodeId="ffc94ce2ac434ab2b2cda3c66f4df0dd"><span color="rgb(38, 38, 38)"><span font-size="14">自输入，可添加多个。</span></span><span color="rgb(29, 57, 196)"><span font-size="14">注：输入字段后需要回车一下才能保存</span></span></li>
+</ul>
+</td>
+</tr>
+<tr nodeId="6ec6b617a34a4689acd51dc246d53eca">
+<td colwidth="[92]" nodeId="41a86b151c3b44548efb9c0f95a40764">
+<p nodeId="5bb619285e5542c795c947d8bdff4712"><span font-size="14">聚合时间</span><br /><span font-size="14">（非必填）</span></p>
+</td>
+<td colspan="2" colwidth="[92,376]" nodeId="e6f683ad69154d2192d0e0b545973839">
+<ul nodeId="36a799aeff8d432caf44ee7be1645099">
+<li nodeId="3d72d809b1014a3793d2f83980d7b9c5"><span font-size="14">在该时间段之内命中规则仅触发告警一次</span><span color="rgb(0, 0, 0)"><span font-size="14">，</span></span><span color="rgb(38, 38, 38)"><span font-size="14">不重复进行告警</span></span></li>
+<li nodeId="6f9737b9b9d24558b7b6864146139062"><span color="rgb(38, 38, 38)"><span font-size="14">支持时间段：</span></span><span font-size="14">无、</span><span color="rgb(38, 38, 38)"><span font-size="14">15min、30min、1h、6h、12h、24h</span></span></li>
+<li nodeId="927a59e319b84a198103d976ba1202ef"><span font-size="14">说明：</span><span color=" "><span font-size="14">如果选“无”，</span></span><span color="rgb(245, 35, 45)"><span font-size="14">命中即发送告警消息</span></span><span color=" "><span font-size="14">，没有上限</span></span></li>
+</ul>
+</td>
+</tr>
+<tr nodeId="a2e5d1b90ce64e5593f2d41b88b8d24f">
+<td colwidth="[92]" nodeId="4cdbf2e46a0a4a329e561fb2a80f8538">
+<p nodeId="2a5522868dc2475bbd06e6de7e198b58"><span font-size="14">聚合维度</span><br /><span font-size="14">（</span><span color="rgb(38, 38, 38)"><span font-size="14">非必填</span></span><span font-size="14">）</span></p>
+</td>
+<td colspan="2" colwidth="[92,376]" nodeId="97305b7ea44e4aba93af6c62b4b283cb">
+<ul nodeId="1ec4007582294ad6ae4a6f1f86e85b60">
+<li nodeId="4a1fe039a4fe4125b8de246c41e2863e"><span font-size="14">类似于SQL中的”groupby“，按照哪些字段进行聚合。在聚合时间之内，相同的聚合维度命中仅告出一次，其余会计风险次数。</span></li>
+<li nodeId="8441664284cf45529bdff04cd47b7c30"><span color="rgb(38, 38, 38)"><span font-size="14">支持自输入多个维度，注：输入字段后需要</span></span><span color="rgb(245, 35, 45)"><span font-size="14">回车一下才能保存</span></span></li>
+<li nodeId="014b3ad42d0e4929924be9aeb779c113"><span color="rgb(29, 57, 196)"><span font-size="14">说明：聚合维度必须是告警维度的子集（因为后台仅记录告警维度这些信息，如果聚合维度不在告警维度之内的话无法进行聚合）</span></span></li>
+</ul>
+<km-note type="warning" hiddenTitle="true" nodeId="7fc67b40aaaf46d9a9598a9814a296b4">
+<km-title></km-title>
+<km-content>
+<p nodeId="ac17425914244f94bed5cf85f11d41e0"><span color="rgb(38, 38, 38)"><span font-size="14">对应聚合时间内，同聚合维度，仅首次触发会发送告警通知，后续触发都计风险次数；</span></span></p>
+<p nodeId="ce501baac81344e6a846577e57f0c421"><span color="rgb(38, 38, 38)"><span font-size="14">24小时之内，对应聚合时间内，同感知规则id、同聚合维度只算一个风险事件，风险列表内仅展示一项，同时记录对应的触发次数作为风险次数，24小时之后会重新创建风险事件</span></span></p>
+</km-content>
+</km-note>
+</td>
+</tr>
+<tr nodeId="5caaa2b3856242fd88d48404a1d5f7a6">
+<td rowspan="4" colwidth="[92]" nodeId="9f54a9aa82314479b110b8c4d59ee589">
+<p nodeId="f234ee2710cc44839fdfbc1f482a2908"><span font-size="14">告警通知</span></p>
+</td>
+<td colwidth="[92]" nodeId="3c8238e493464a27a7c650ba89612ddf">
+<p nodeId="126fa627dc05403ba1a5a22fdb570966"><span font-size="14">优先级</span><br /><span color="rgb(0, 0, 0)"><span font-size="14">（</span></span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span color="rgb(0, 0, 0)"><span font-size="14">）</span></span></p>
+</td>
+<td colwidth="[376]" nodeId="6f9bedd254ca43a7a5db4c19cae5c1a2">
+<ul nodeId="ab1291970288498489fadce55ded2d81">
+<li nodeId="2fdcf1b9fffd4655a26d2cfcb7fd0f39"><span color=" "><span font-size="14">这里配置的优先级起到通知展示作用，给业务查看</span></span></li>
+<li nodeId="8f5b1ce2bdf84047b14ea9e505c62d3c"><span color=" "><span font-size="14">可以配置 P0/P1/P2/P3，优先级逐渐降低</span></span></li>
+</ul>
+</td>
+</tr>
+<tr nodeId="5e9f20a100e845bab9b62737e432edb9">
+<td colwidth="[92]" nodeId="c937e5e5ab72441cbf9cc5934af44094">
+<p nodeId="8a34f1496e2f4afb80e089ec01b9d593"><span color="rgb(38, 38, 38)"><span font-size="14">告警方式</span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14">（</span></span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span color="rgb(0, 0, 0)"><span font-size="14">）</span></span></p>
+</td>
+<td colwidth="[376]" nodeId="dd4637b32b89441fa00b20c1c58ce911">
+<ul nodeId="347288831f224d8ea7f6dca959432a89">
+<li nodeId="ffe79c888d624e8bb54d67c9a9966fc5"><span color="rgb(38, 38, 38)"><span font-size="14">告警信息通过这些方式发送到告警通知人</span></span></li>
+<li nodeId="a922bfe051ee4deaa64754ddad3ef39c"><span color="rgb(38, 38, 38)"><span font-size="14">可以多选大象、电话、邮件、短信</span></span></li>
+</ul>
+</td>
+</tr>
+<tr nodeId="3071ce7c8a814d41885ae35cd3c360f9">
+<td colwidth="[92]" nodeId="b36b69eb0fc141709031fe8540838b14">
+<p nodeId="60757c91f195404b94f1d8fde3b118b1"><span color="rgb(38, 38, 38)"><span font-size="14">告警负责人</span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14">（</span></span><span color="rgb(245, 35, 45)"><span font-size="14">必填</span></span><span color="rgb(0, 0, 0)"><span font-size="14">）</span></span></p>
+</td>
+<td colwidth="[376]" nodeId="7c2d1c7028e944c982a91c68fd71b0b0">
+<ul nodeId="e6d3c2d729154362b026e87ff29314fa">
+<li nodeId="0217f097123648d0a54e26fbbe51adc1"><span color=" "><span font-size="14">负责该条配置的人员，可以对该条配置进行修改</span></span></li>
+<li nodeId="2a3aa39e304543dba84e70a29448b59d"><span color="rgb(38, 38, 38)"><span font-size="14">姓名+mis号（只能配置一个），支持检索</span></span></li>
+</ul>
+</td>
+</tr>
+<tr nodeId="c8fe5e1f27144399a178611fcefc827d">
+<td colwidth="[92]" nodeId="0e454f5dd6cd48088c178a28e6eefef2">
+<p nodeId="51e2512ff5804fbdb02cbe20c7ffb8f4"><span color="rgb(38, 38, 38)"><span font-size="14">告警通知人</span></span><br /><span color="rgb(0, 0, 0)"><span font-size="14">（</span></span><span color="rgb(38, 38, 38)"><span font-size="14">非必填</span></span><span color="rgb(0, 0, 0)"><span font-size="14">）</span></span></p>
+</td>
+<td colwidth="[376]" nodeId="7486b5769e2747e08aeaf2a7da1ec6ec">
+<ul nodeId="ec8ba3f3176e4c1eb5497352cf3d689b">
+<li nodeId="6a8b6c238466432485becc865c35aa96"><span color="rgb(38, 38, 38)"><span font-size="14">告警信息的接收人员，</span></span><span color=" "><span font-size="14">不填的话仅通知负责人</span></span></li>
+<li nodeId="0875b6655b6d47a7bfa6cd9812e9ef17"><span color="rgb(38, 38, 38)"><span font-size="14">填写mis号，可以配置多个（多个mis号之间英文逗号分隔）</span></span></li>
+</ul>
+</td>
+</tr>
+</table>
+<p nodeId="fb72bbf225384354b9799c611be52b7e"><span font-size="14">3.编辑监控项配置内容：</span></p>
+<p nodeId="945e0481ed8a4bc8a3b798dc9143f611"><span font-size="14">在监控规则详情页中点击“编辑”，之后按照上面配置内容的流程进行即可</span></p>
+</td>
+<td colwidth="[761]" nodeId="8e6084d97d064f088b06259b9264db59">
+<p nodeId="7ad0c0d24cea4164a2306dac31008ecb"><span font-size="14">1.点击“配置监控”；</span></p>
+<p nodeId="2d1da962b2f347dbbbc243d6f361bdff"><img src="https://km.sankuai.com/api/file/cdn/549078276/564401999?contentType=1" name="image.png" width="883" height="149" nodeId="7afc941a835b4c8fabd1848964750442" /></p>
+<p nodeId="d71f00d21ce84a3e813821fa75fbce94"><span font-size="14">2.填写监控项配置内容并保存；</span></p>
+<p nodeId="08df936ce85146cfbd2210acc49de166"><img src="https://km.sankuai.com/api/file/cdn/549078276/564546839?contentType=1" name="image.png" width="651" height="531" nodeId="90d6d338312343b684192234876e6980" /></p>
+<p nodeId="7d232a393068433ba1f499ed7c652f48"><span font-size="14">3.编辑监控项配置内容：</span></p>
+<p nodeId="b4eaf396ebdf4f8f89eedf4ee38a2c49"><img src="https://km.sankuai.com/api/file/cdn/549078276/565008850?contentType=1" name="image.png" width="652" height="494" nodeId="4f5be1a654c94a968e5f6d18ae4d9a1e" /></p>
+</td>
+</tr>
+<tr nodeId="aed698f4fd6c4ad8aa95662cf1408cad">
+<td colspan="2" colwidth="[579,761]" bgColor="rgb(247, 247, 247)" nodeId="0d33f1ad30634c82a210b4cc836c20f4">
+<h3 nodeId="99bd2dc9ee874b1ca4f2866d93aadfe5"><span font-size="14">Step3: 开启监控</span></h3>
+</td>
+</tr>
+<tr nodeId="528337c126d9462cb28dddcd9e079377">
+<td colwidth="[579]" nodeId="ad0e796cf2da408e8d9b4c98fa8cbe7d">
+<p nodeId="894bb5345c09458bbccdaa964c10b7a0"><span font-size="14">1.开启监控入口A：</span></p>
+<ul nodeId="62b5e2dee108480db5ed7e37aeed0804">
+<li nodeId="5cef8df3b3e949c48b2ccce0f2e5dd0c"><span font-size="14">保存配置内容之后跳转监控规则详情页面（如右图），检查监控规则详情内容没问题后，点击”监控规则详情“后面的开关，打开监控</span></li>
+<li nodeId="7c9c629338164662ae8289ae6da11b40"><span font-size="14">确认弹框点击“开启” --&gt; 开启成功</span></li>
+</ul>
+<p nodeId="aa5891bddd1d40eaafcb1842bad6ea92"><span font-size="14">2.开启监控入口B：</span></p>
+<p nodeId="88e1430e60ff452d8e9946940ef2cdd3"><span font-size="14">回到场景配置信息中，在场景配置的操作项中点击“开启监控”，进入监控规则详情页面，再按照开启监控入口1的操作进行即可</span></p>
+</td>
+<td colwidth="[761]" nodeId="93f5cc58e58e414a958fd45a51182235">
+<p nodeId="76140aa626a94962931b388a585465a5"><span font-size="14">开启监控入口A：</span></p>
+<p nodeId="c194081e93074ae39d1a7b8b986c2ec4"><img src="https://km.sankuai.com/api/file/cdn/549078276/564969646?contentType=1" name="image.png" width="233" height="184" nodeId="344d0d33dd5e44438bf76e38f3f93d5f" /><img src="https://km.sankuai.com/api/file/cdn/549078276/565153222?contentType=1" name="image.png" width="236" height="186" nodeId="809806448aed4270b427e0cf0456d57d" /><img src="https://km.sankuai.com/api/file/cdn/549078276/565165319?contentType=1" name="image.png" width="260" height="187" nodeId="e8b2d7d8ac4d491b8bbb1da37584efff" /></p>
+<p nodeId="2b967d05bbe84c6aba4cc2fe060e810a"><span font-size="14">开启监控入口B：</span></p>
+<p nodeId="57d5cbf9c5244fbc961120826a491667"><img src="https://km.sankuai.com/api/file/cdn/549078276/565100224?contentType=1" name="image.png" width="883" height="135" nodeId="b6e8be0a924c44688effae9f41836090" /></p>
+</td>
+</tr>
+<tr nodeId="f1a73f0d90954430ab63c6231956148a">
+<td colspan="2" colwidth="[579,761]" bgColor="rgb(247, 247, 247)" nodeId="8546be7548654d6f80cbbacd0aee64f5">
+<h3 nodeId="b4da282457d5416c9aa7744ea3eae77e"><span font-size="14">Step4: 接收与处理告警消息</span></h3>
+</td>
+</tr>
+<tr nodeId="1488451c875749a39c75513fe611e230">
+<td colwidth="[579]" nodeId="b6356a06888d472e88e039920d74c84e">
+<p nodeId="126221b291c640f58a718fab20736ee5"><span font-size="14">以常用的大象告警消息为例进行介绍。（注：erwa告警是通过接入Radar服务来实现的）</span></p>
+<ul nodeId="2134f42eb683403380dacd20b0ffa244">
+<li nodeId="64f6044f2bdf42fc8f935a5fd7f90f60"><span font-size="14">标题：固定文案[P3][故障][实时监控]，P几取决于用户告警配置里的设定</span></li>
+<li nodeId="ea256de372464c34b9359bb2f6e6dd04"><span font-size="14">监控对象：固定展示为erwa服务</span></li>
+<li nodeId="bf69bf4a039c4b79baff5eb96f337fd5"><span font-size="14">指标：感知事件ID（即风险事件：注意区别于</span><a href="https://km.sankuai.com/page/1292077011" title="Tatooine事件" nodeId="326eb5bc95ef40c6b1177572e5cee831"><span font-size="14">Tatooine事件</span></a><span font-size="14">，erwa平台的风险事件含义是指：监控告警配置每次触发，都会产生的一个待用户关注的告警通知，同告警规则、同聚合维度、同聚合周期内的多次告出，都聚合在这个事件里，计风险次数。）</span></li>
+<li nodeId="b75767ded82242e797ebd038b1c146cb"><span font-size="14">当前告警时间：本次告警的时间</span></li>
+<li nodeId="d5ad9abb289d444784f2882ab7afcf04"><span font-size="14">首次告警时间：该监控告警配置首次告出时间</span></li>
+<li nodeId="f9c6cd61196f47698f3376c3bbc464dd">
+<p nodeId="21385e3ecf7846e791ff03739c8ecdbc"><span font-size="14">告警详情：</span></p>
+<ul nodeId="53fd8b27bd0a46b3b6775dc61627a43a">
+<li nodeId="dd8bf8049d5149eea7ec756958af8487"><span font-size="14">报警注释：Radar中赋予的值，可不关心</span></li>
+<li nodeId="97afbceaf5564b2fb7da701cb15ab252"><span font-size="14">报警信息：用户配置的各个告警维度的具体值都会在这展示。</span></li>
+<li nodeId="30f4f330a98549568fd66a22ab13e336"><span font-size="14">感知规则：erwa上的告警配置ID与名称</span></li>
+</ul>
+</li>
+<li nodeId="8fb64ad62c51457e943921dd8e0a3449"><span font-size="14">查看报警：跳转erwa风险事件列表，如右图，可通过感知事件（风险事件）id查询</span></li>
+<li nodeId="0264deb56688468cb29b9063b8302626"><span font-size="14">规则配置：打开该告警配置的编辑页</span></li>
+<li nodeId="a6a6b9f70e9e4578bd315f2ef0032294"><span color="rgb(152, 152, 152)"><span font-size="14">ACK：radar告出自带按钮，时长不明。建议有ack需要可前往erwa平台进行操作。</span></span></li>
+<li nodeId="f631e150d14c4f6c801583cdbd1c6fd7"><span color="rgb(152, 152, 152)"><span font-size="14">无效：radar告出自带按钮，建议前往erwa平台进行操作。</span></span></li>
+<li nodeId="38d763f4c3bd4031b32a308ccaaa2b85"><span font-size="14">告警详情：跳转Radar服务告警查询页该条告警记录的详情</span></li>
+<li nodeId="38aaec3e0c0b440fa6ca475d18c2b785"><span font-size="14">拉群处理：拉相关告警人员成群</span></li>
+<li nodeId="f0bab5b82bb5477f8ff881fb64aec66c"><span color="rgb(152, 152, 152)"><span font-size="14">静默30分钟：radar告出自带按钮，建议有需要前往erwa平台进行ack操作。</span></span></li>
+</ul>
+<km-note type="tip" hiddenTitle="true" nodeId="77a3cff21a25401e9683112c402741ea">
+<km-title><span font-size="14">目前通常用户对于Erwa告警内容的使用习惯为：获取报警信息后，直接去业务上/zeus策略中进行相关的排查与处理，并不在erwa平台做其他操作。Erwa上历史遗留的一些后置处理功能及实现情况 已较难追溯，建议可忽略。常规ACK操作可在Erwa操作栏实现。后续（2023年）平台将会统一规划监控告警与熔断服务的形态，会重新整理用户诉求。相关意见&amp;建议欢迎反馈❤️</span></km-title>
+<km-content>
+<p nodeId="35430d3728624095a0a1f03978af1258"><span font-size="14">目前通常用户对于Erwa告警内容的使用习惯为：获取</span><span color="rgb(245, 35, 45)"><span font-size="14">报警信息</span></span><span font-size="14">后，直接去业务上/zeus策略中进行相关的排查与处理，并不在erwa平台做其他操作。</span></p>
+<p nodeId="758b09597bb84cfbb5808f19863e4c38"><span font-size="14">Erwa上历史遗留的一些后置处理功能及实现情况 已较难追溯，建议可忽略。常规ACK操作可在Erwa操作栏实现。</span></p>
+<p nodeId="27e5918f928644ffbc8691b2cf4e1b2b"><span font-size="14">后续（2023年）平台将会统一规划监控告警与熔断服务的形态，会重新整理用户诉求。相关意见&amp;建议欢迎反馈❤️</span></p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[761]" nodeId="cbcae9af879a4f8591371071d5a43d03">
+<p nodeId="be329618c5984ccd9b8b73677ed69dcc"><img src="https://km.sankuai.com/api/file/cdn/549078276/11266443319?contentType=1&amp;isNewContent=false" name="image.jpeg" width="402" height="375" nodeId="01a4b27a3e36421ba8770f9fd9954f52" /></p>
+<p nodeId="4304a16157c440ee81be8894c41f37a3"><img src="https://km.sankuai.com/api/file/cdn/549078276/11266476924?contentType=1&amp;isNewContent=false" name="image.jpeg" width="739" height="289" nodeId="ab1f75fc83d94c08a8173b2fa3014035" /></p>
+</td>
+</tr>
+<tr nodeId="84655a55d73e46adb99d717d384a56dc">
+<td colspan="2" colwidth="[579,761]" bgColor="rgb(247, 247, 247)" nodeId="599c55be65bc469ca235dad2d626d171">
+<h3 nodeId="eb4e5689bb3242b48a7bbdd81d21bd41"><span font-size="14">Step5: 关闭监控</span></h3>
+</td>
+</tr>
+<tr nodeId="90a3c977d4834b3c8c33f862e9d637bc">
+<td colwidth="[579]" nodeId="7f25110a5a6c4644ba782abe8779ee15">
+<p nodeId="11fab9f4fb284c92bc23d7efc13cd587"><span font-size="14">1.找到目标场景配置，点击操作中的“查看监控”</span></p>
+<p nodeId="f0425f0b0e9e4778937896b34784c671"><span font-size="14">2.点击监控开关，关闭监控</span></p>
+<p nodeId="ba4297a0823f431987a9fb373d754279"><span font-size="14">3.确认弹框点击“关闭” --&gt; 关闭成功</span></p>
+</td>
+<td colwidth="[761]" nodeId="0769d9cddc0d41f4bd80dd0f94d1a8e4">
+<p nodeId="57335a9ae4a141768d90257e295bf4b1"><span font-size="14">1.找到目标场景配置，点击操作中的“查看监控”</span></p>
+<p nodeId="ccfcd56b84944f6aa261de208780bb90"><img src="https://km.sankuai.com/api/file/cdn/549078276/565050707?contentType=1" name="image.png" width="883" height="145" nodeId="971f466ff60a4a4194ca003adedb41d4" /></p>
+<p nodeId="b6e0aa71286b4e5fab53237f30722727"><span font-size="14">2.点击监控开关，关闭监控</span></p>
+<p nodeId="a709387ec4604f1b89efbc71f400b9f8"><img src="https://km.sankuai.com/api/file/cdn/549078276/565120424?contentType=1" name="image.png" width="397" height="310" nodeId="52847f959f014f6da9b266d0986c8ca1" /></p>
+<p nodeId="d1ba63ab241442139bed198ccecd140d"><span font-size="14">3.确认弹框点击“关闭” --&gt; 关闭成功</span></p>
+<p nodeId="0a107fe4a46a46a7bd1bfd34af2e13c6"><img src="https://km.sankuai.com/api/file/cdn/549078276/565166636?contentType=1" name="image.png" width="339" height="267" nodeId="2cd8f043a8154859a49a88cf9c60bc6d" /><img src="https://km.sankuai.com/api/file/cdn/549078276/565156159?contentType=1" name="image.png" width="346" height="265" nodeId="a3b9b352c9a646809afdf6ae2051678a" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="7185246ceb884e98a967ce224a3ad702">4.补充说明</h2>
+<km-note type="info" hiddenTitle="true" nodeId="a1c6bd18a5474299aba1e5720f22a5c6">
+<km-title></km-title>
+<km-content>
+<p nodeId="82aef2405a584df1a9b8cfab86fdd5af">原Erwa平台新建告警配置中的【Zeus实时】数据源，已于2022.11.1正式下线，实时数据源统一收口至【zeus-rpc】。对于实时规则的监控，请统一于zeus场景配置后方操作栏入口进行配置。</p>
+</km-content>
+</km-note>
+<km-note type="note" hiddenTitle="true" nodeId="d3a9f955b9324773936c562a21c03d37">
+<km-title></km-title>
+<km-content>
+<p nodeId="20f4437579144cba8415bc16680afaf7">通过Zeus入口配置监控后，会自动在Erwa告警平台生成一条监控告警配置（ID在zeus展开抽屉中可见）；默认数据源为zeus-rpc；默认的监控逻辑为「该条场景配置的命中」，例：include(string.split(hitRules,','),55938)，55938即为zeus规则id。</p>
+<p nodeId="f72c10dd186a42c98acfbd549000b6e5">注意，该表达式隐含了<span color="rgb(245, 35, 45)">场景、决策</span>信息，即实际效果是该【场景-规则-决策】每当有命中数据，erwa就会结合聚合维度与聚合时间，决定是否告出。</p>
+</km-content>
+</km-note>
+<km-note type="tip" hiddenTitle="true" nodeId="3ebba803e80a4231bb53fe58d7e435cb">
+<km-title>目前通常用户对于Erwa告警内容的使用习惯为：获取报警信息后，直接去业务上/zeus策略中进行相关的排查与处理，并不在erwa平台做其他操作。Erwa上历史遗留的一些后置处理功能及实现情况 已较难追溯，建议可忽略。常规ACK操作可在Erwa操作栏实现。后续（2023年）平台将会统一规划监控告警与熔断服务的形态，会重新整理用户诉求。相关意见&amp;建议欢迎反馈❤️</km-title>
+<km-content>
+<p nodeId="5395a287241c4595a81e29fc27ac5f8b">目前通常用户对于Erwa告警内容的使用习惯为：获取<span color="rgb(245, 35, 45)">报警信息</span>后，直接去业务上/zeus策略中进行相关的排查与处理，并不在erwa平台做其他操作。</p>
+<p nodeId="f17f77c4049e4f39bcf01db621fb7ac0">Erwa上历史遗留的一些后置处理功能及实现情况 已较难追溯，建议可忽略。常规ACK操作可在Erwa操作栏实现。</p>
+<p nodeId="fcfff675797e40cf85f8abf88e8740ce">后续（2023年）平台将会统一规划监控告警与熔断服务的形态，会重新整理用户诉求。相关意见&amp;建议欢迎反馈❤️</p>
+</km-content>
+</km-note>
+<h1 nodeId="f589e09898524cf98709932dcfa40019">四、FAQ</h1>
+<h3 nodeId="0eb089ed19e3450385ebb80c1d361cb9">Q1：规则命中但没有收到告警找谁排查？</h3>
+<p nodeId="6d1dbe3baf1748e6a906b5a8b8716a55">--A：<span color=" ">提</span><span color=" "><a href="https://tt.sankuai.com/ticket/create?cid=15&amp;tid=222&amp;iid=7409" title="tt" nodeId="05816068f83345c88e6d2e7cf5ab2769"><span color=" ">tt</span></a></span><span color=" ">，然后联系</span><span color="rgba(0, 0, 0, 0.54)">it_rc_zeus</span><span color=" ">排查</span></p>
+<h3 nodeId="9db06cd5efdf45da8757704f0a53af8e">Q2：告警发生延迟，找谁排查？</h3>
+<p nodeId="6b78df556d0b4f0490a431f283c2af34">--A：提<a href="https://tt.sankuai.com/ticket/create?cid=15&amp;tid=222&amp;iid=1443" title="tt" nodeId="921fae6571e844db8651a73b04569217">tt</a>, 然后<span color=" ">联系</span><span color="rgba(0, 0, 0, 0.54)">it_rc_zeus</span><span color=" ">排查</span></p>
+<h3 nodeId="8d1c4adbe5494c38b7eff66ab9be1109">Q3：告警还支持其他维度么？</h3>
+<p nodeId="88b0871172c54867a18b850b14ad82a3">--A：<span color=" ">Zeus日志里有的都支持，可以在告警规则中写明</span></p>
+<h3 nodeId="63f5b854d8924e45be344a9c495b4f28">Q4：想看告警的日志数据，在哪里查看？</h3>
+<p nodeId="92e6f209db11454e971b0644411a35a4">--A：<span color=" ">美团点评日志中心  </span></p>
+<p nodeId="7ca091bcc564477286b7fe1427153694" />
+</km-doc>

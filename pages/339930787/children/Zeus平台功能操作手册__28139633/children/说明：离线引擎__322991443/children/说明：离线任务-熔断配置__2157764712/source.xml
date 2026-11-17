@@ -1,0 +1,269 @@
+<km-doc>
+<km-title nodeId="03101b37e1fa43679854d34f94f3e90e">说明：离线任务-熔断配置</km-title>
+<h1 nodeId="73f85135c5424b379b359cb6e6d9ce1d">一、背景</h1>
+<p nodeId="74d65063dbae4b6aa8aca1ddf6be332b">当前熔断能力只覆盖了实时、近线，但很多用户是实近离一起使用的，多引擎没有进行功能拉齐，因此对离线任务的熔断提出诉求，整体把控风险。</p>
+<p nodeId="d6c00b0c615f4d6dbb6b4e474403a5f9">功能效果：当离线任务-决策、离线任务-规则-决策、离线任务-决策组合命中情况产生异常，达到预设的熔断阈值时，将该批次执行结果进行自动阻断，不发送到下游，以此规避风险；使用者可对熔断数据进行分析，如果符合预期，可以一键继续下方，无需重跑任务。</p>
+<h1 nodeId="551345b8c0d8455383474922b43a3fe4">二、名词解释</h1>
+<table responsive="false" nodeId="a9dea35cc34e4d2ca75060226ad7d264">
+<tr nodeId="85c5d1fc314e4b7c9bb0e2e72b672d3b">
+<th colwidth="[120]" nodeId="758362507b6a49388e777aae7df2e4dc">
+<p nodeId="5c6ec64580244da9b4d738b66aab7cd0">名词</p>
+</th>
+<th colwidth="[806]" nodeId="eaf5da45842e4810a779b860dfd04be4">
+<p nodeId="1fea2d2825704d43962c9b25c2a53f86">解释</p>
+</th>
+</tr>
+<tr nodeId="cb6c47c61b064524870fe1c6e4f9c5b1">
+<td colwidth="[120]" nodeId="1180cd46d3964a93b7247dc9f368abcb">
+<p nodeId="c5bbcc2b277f4d38bd4a3c303a6ed27f">离线任务</p>
+</td>
+<td colwidth="[806]" nodeId="8da8572680114363b5283f61341de9c3">
+<p nodeId="7590821aceb34cac865aa059cc19839d">数据源为离线hive，用于批量回捞历史风险，由数据源、数据范围（周期、where条件）、任务调度、执行场景/规则组成</p>
+</td>
+</tr>
+<tr nodeId="e3d790c3bf1b4408ba62d05298cccd4e">
+<td colwidth="[120]" nodeId="c28894ccc6b641549739ab02c0f1e6c5">
+<p nodeId="5025640674784f35984eef58b6b43468">批次</p>
+</td>
+<td colwidth="[806]" nodeId="6254406d22cc4934896412a897cfacee">
+<p nodeId="80c34aac8b854b168f9ad4ad2dc5833a">离线任务每运行一次产生一个批次，用于区分不同运行周期产生的数据，每个批次独立进行计算熔断阈值，不进行累计；如每小时运行一次，一天则会产生24个批次</p>
+</td>
+</tr>
+</table>
+<h1 nodeId="6998db347b2444b79c986786b40e8e4b">三、操作指南</h1>
+<h2 nodeId="0990018e295b4e8ca59cf95609e0a7e4">3.1系统流程</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/2157764712/90640106493?contentType=0&amp;isNewContent=false" width="1076" height="376" nodeId="9af4ed90dd374137951805772c4ed7b6" />
+<h2 nodeId="fa9473f89c4243cd9329482407b0d52f">3.2详细步骤</h2>
+<p nodeId="9f819034c1aa4124a24fcea51ce6bfa8"><span color="#FF4A47"><span font-size="16">因任务熔断默认使用【自动熔断】，请务必及时处理，否则将会不断升级</span></span></p>
+<km-note type="warning" nodeId="13da099ad94f4f5599adc096759c44fe">
+<km-title>使用【自动熔断】必看！</km-title>
+<km-content>
+<ol nodeId="9eb66a7475a2451391a046af10993580">
+<li nodeId="3e988d3612a44a1386306385931e2697">
+<p nodeId="745146a41987475d88482a487ed73694">使用自动熔断前，请先找到组织架构对应的SRE同学帮忙根据<a href="https://km.sankuai.com/page/1279838989" title="https://km.sankuai.com/page/1279838989" autoUpdate="true" nodeId="7e9aa12b71e3421698d908909cac30e5">https://km.sankuai.com/page/1279838989</a><strong>配置电话通知</strong>，否则电话通知将不可生效！</p>
+<ol nodeId="a530f68a2fda4b26868759d928c02f5b">
+<li nodeId="5cde90d81bab4d66a05e32160008e0ce">告警电话呼出号码可能被手机识别成骚扰电话。建议将以下号码加白或加入通讯录：051480311605、051480311606、051485590912、051485590914、02151657926、02151657936、02151657940、02151657942</li>
+<li nodeId="4fdad4349f844ff98d7d5740500b6b77">
+<p nodeId="f9802c9fea25412f90026276605d6633">当前平台已默认配置以下通知策略</p>
+<km-collapse active="false" nodeId="5d721e7e1a2e4a2c8d34dcf606b2cbaa">
+<km-title>平台已有通知策略，若以下升级策略不符合本组织架构诉求，可联系组织架构对应SRE同学帮忙配置。</km-title>
+<km-content>
+<p nodeId="0cd7b470142a4d12b2c25d95cd73afcc">1）“美团/基础研发平台/信息安全部/风控和业务安全”架构下，需要事件在开始2分钟之后没有人响应的话，电话告警事件发起人，期间仍未响应，电话将连续打5次；再20分钟之后仍无人响应的话再次电话告警事件发起人X1，并拉事件发起人X1入群。</p>
+<p nodeId="10e1cce0afc243bbb68dc3b3b0ec732f">2）“美团/基础研发平台/信息安全部/风控和业务安全/点评风控”架构下，需要事件在开始2分钟之后没有人响应的话，电话告警事件发起人，期间仍未响应，电话将连续打5次；再20分钟之后仍无人响应的话再次电话告警事件发起人X1，并拉事件发起人X1入群<span color="rgba(0, 0, 0, 0.87)">；</span>再30分钟后仍无人响应时，电话告警丁思远dingsiyuan 于陈群yuchenqun 林睿linrui06，并拉入群。</p>
+</km-content>
+</km-collapse>
+</li>
+</ol>
+</li>
+<li nodeId="ebb157f8dfe946ec915d351e253b8bae">自动熔断告警时，告警将逐级升级。请务必在处理ZeusRobot通知的<strong>同时处理Radar事件</strong>，否则告警仍将持续升级！！<br />处理方式Radar方式：点击开始处理--&gt;@radar处理完成<br /><img src="https://km.sankuai.com/api/file/cdn/2157764712/90639297631?contentType=1&amp;isNewContent=false" name="image.jpeg" width="203" height="203" nodeId="5243d2e016a44f02b6005336c99c7aab" /><img src="https://km.sankuai.com/api/file/cdn/2157764712/90646540000?contentType=1&amp;isNewContent=false" name="image.jpeg" width="250" height="99" nodeId="cda36d2175b641479332cd7284616fd6" /></li>
+</ol>
+</km-content>
+</km-note>
+<table responsive="false" nodeId="9728344157f047b18ee61b91127b387d">
+<tr nodeId="29993995463744949a0b685557431ae3">
+<th colwidth="[157]" nodeId="fff766c6627e4f59b04209c23302778a">
+<p nodeId="353373ae45a642559ec460073f7f098a">模块</p>
+</th>
+<th colwidth="[510]" nodeId="a50abdf1867041548c241115c614ee9a">
+<p nodeId="530b86ee96844198b1ac2a24ece6d6fe">说明</p>
+</th>
+<th colwidth="[571]" nodeId="6f9bffe1b1604b4d99862a2c8d3cc5ae">
+<p nodeId="a7aa84946189467d9aed08e4c75fbb05">图例</p>
+</th>
+</tr>
+<tr nodeId="c8973daf90d5443997ce2f2ae8fcebbd">
+<td rowspan="3" colwidth="[157]" nodeId="6a6084d718df465496e8cc704baa32b3">
+<p nodeId="feb6473b9c7f4b668a104865107c1317">配置入口</p>
+</td>
+<td colwidth="[510]" nodeId="6719b6a670f74ed3aed7bb9a033ee72c">
+<p nodeId="693bbc1536024d5c98d33cad36578cee">1.配置中心-离线任务列表-熔断配置</p>
+</td>
+<td colwidth="[571]" nodeId="8a4a94411ffb43c1a9eea23ea0ec0008">
+<p nodeId="1a0578fb7ad044c58c94c2c90e966d91"><img src="https://km.sankuai.com/api/file/cdn/2157764712/90614493078?contentType=1&amp;isNewContent=false" name="image.jpeg" width="332" height="130" nodeId="bc06f4d3887a4859a75169f83b9963e5" /></p>
+</td>
+</tr>
+<tr nodeId="cc62ffa82e214b7db96ff5793103e397">
+<td colwidth="[510]" nodeId="6801a836a50e44678689cee28a092ba1">
+<p nodeId="1da2ca5bcafc446ba1603ead4d8b3e05">2.策略部署-场景配置列表-熔断相关</p>
+</td>
+<td colwidth="[571]" nodeId="173957476789417ab07f71ffb3f82b6e">
+<p nodeId="81b3a1ce7b0c43e1b141c34d745a2c6a"><img src="https://km.sankuai.com/api/file/cdn/2157764712/90612224014?contentType=1&amp;isNewContent=false" name="image.jpeg" width="328" height="138" nodeId="d62dc57272324f6199e64727f16a5830" /></p>
+</td>
+</tr>
+<tr nodeId="c6edc31a24da4401a6caec7aa913466b">
+<td colwidth="[510]" nodeId="e700855b8aa2493a8b7adf8102c496af">
+<p nodeId="e9a4a781660d4e7d9bc6dbf930486556">3.安全管理-规则熔断列表-新建熔断</p>
+</td>
+<td colwidth="[571]" nodeId="947c6dfd9593450093f40713b156bb6e">
+<p nodeId="68bf4ea206f343fcb5fb302b729b5b0a"><img src="https://km.sankuai.com/api/file/cdn/2157764712/90618480407?contentType=1&amp;isNewContent=false" name="image.jpeg" width="338" height="123" nodeId="357b6722c8f14c8893251c21ce0cee32" /></p>
+</td>
+</tr>
+<tr nodeId="6960209a690c442fa7e0a2ef8ee3399f">
+<td colwidth="[157]" nodeId="5f07064b8ede41a59e206eb59e72f96e">
+<p nodeId="f1ae550c6c90405c97d715a04103eb27">熔断配置</p>
+</td>
+<td colwidth="[510]" nodeId="64f2e16d9bb04faaa0f0fbb19c3bcdfa">
+<p nodeId="a89833c578e04be999c8413554dc1d78"><strong>1.</strong>熔断模式选择任务熔断，<strong>熔断名称</strong>可编辑</p>
+<p nodeId="8099af04459943bc98dda225436706a0"><strong>2.作用范围</strong>：指定的任务、规则、决策才会参与计数，如果无需计算可使用排除机制</p>
+<ul nodeId="fb2cf21cd36c497ba1e057df20344ebe">
+<li nodeId="b04d6184bd9e444e8814e9a40c14edef">输入多个请用<strong>英文逗号</strong>隔开(不能输入空格)</li>
+<li nodeId="4b6f3adca9d14cc79d830f5358d1c244">输入“*”表示全部</li>
+<li nodeId="7cf60b7419664e1b8b4bba3c186a0ba5">规则、决策<strong>至少填写一个</strong>，不可全部为空或填“*”<km-footnote id="9f8ef55d-d867-4ffe-9930-f780e4104482" annotate="" nodeId="151cba142cf54d5fb118ce885b40cd62" /></li>
+<li nodeId="4e7e75cf38814fb6906fa0693c0f707c">“|”表示选择左侧的内容，但是<strong>排除</strong>其中包含的右侧的内容，例如“*|23”表示选择全部，但是排除其中包含ID为23的</li>
+</ul>
+<p nodeId="34fb07d1cb284e96aded8355a7fd6c3f"><strong><span color="rgb(44, 62, 80)">3.作用时间</span></strong><span color="rgb(44, 62, 80)">：可选择熔断监控的时间范围，</span>系统将在设置的作用时间内检查数据，从而触发熔断；</p>
+<p align="start" nodeId="48d7eca105ec4ac59aea3abc495e93a3">时间类型包括：自由时间段（自由选择时间范围）与星期模式（设置每天的统一时间段，自由选择一周中的星期数）。</p>
+<p align="start" nodeId="66eb852b73de41c59bab836b5ec60b77">勾选排除节假日后，节假日不检查数据，例如设置了周六，同时勾选了排除节假日，则周六不检查数据</p>
+<p align="start" nodeId="7be3d6a05d784af584338a54053101d9">添加作用时间：以‘和’的逻辑关系增加作用时间，即可通过添加多条作用时间，获得一个作用时间的并集。</p>
+<p align="start" nodeId="fbe1ac97d9854740a1b19263677092ae"><strong><span color="rgb(44, 62, 80)">4.熔断规则</span></strong><span color="rgb(44, 62, 80)">：以且条件（添加子规则）和或条件（添加熔断规则）来组织。</span></p>
+<p align="start" nodeId="d5f9b5b28a5c44e6bde0e9bf56e3db79">单条熔断规则需要设置如下项：</p>
+<ul nodeId="1a05c3b2775f4d9f9bf070bc0a805f55">
+<li nodeId="ea80a5ce6d2d40d1960868cf379bdfec">
+<p align="start" nodeId="4e00ff61e0ac4403ad7bd22ea967158e">时间周期（最近x分钟）：不可编辑，默认为本执行批次</p>
+</li>
+<li nodeId="4f2325f66e81441aa532ce1f2f1e1f6c">
+<p align="start" nodeId="27951c5713be46a79b60879071b3e308">计算函数：<span color="">下拉列表选择，默认选择“命中量”，其余计算函数见右侧枚举，如无法满足熔断计算需求，可提供算法，平台增量开发</span></p>
+</li>
+<li nodeId="ced5a9a3376f4f08af37f984a80eca63">
+<p align="start" nodeId="eb9465772f90451b9410a1661feab48e">对比关系：<span color="">下拉列表选择，&gt;, &gt;=, =, &lt;, &lt;=，默认为“&gt;=”</span></p>
+</li>
+<li nodeId="61887ffe77934617aef0de82ecffb78d">
+<p align="start" nodeId="bfa2b3f6c0e248d0839356113b1b6aaf">阈值：<span color="">直接输入数值，系统根据指标匹配单位</span></p>
+</li>
+</ul>
+<p nodeId="05ef1e3cbb2c400392e625fe06e2341f"><strong>5.熔断动作</strong></p>
+<p nodeId="319591fd69764fc3be95cc1b1f9d7da5">默认为自动熔断，大象通知，无频次上限<km-footnote id="0bfa1db2-9093-44fd-98c3-3560fcb8ed0c" annotate="" nodeId="4e0cd730709444c8bb304b6ac8e3bbf8" /></p>
+<p align="start" nodeId="2554b5cd1f734801ac9003edccf97723">通知人<strong>：</strong>可选择业务空间负责人、业务空间变更通知人、自定义。自定义：支持手动输入mis号，多个使用英文逗号隔开</p>
+<p nodeId="c66bc275373e421c8f212ceadad2fe98">告警负责人：雷达拉群包含了配置所有通知人，并非唯一负责人；告警负责人的配置主要是为了锁定升级时对应的X1</p>
+<km-note type="warning" hiddenTitle="true" nodeId="670657b199f24dc4964a6ca383cb2cd2">
+<km-title></km-title>
+<km-content>
+<p nodeId="d1fe6612d5ad4ebda744b81f8b05862d">当前配置熔断的同学若希望收到熔断告警，别忘记在自定义中加上自己的mis号～</p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[571]" nodeId="336e89463c44407b8530bda90f6544f6">
+<p nodeId="facd7c0b67e846508b5b156a1869ab66"><img src="https://km.sankuai.com/api/file/cdn/2157764712/90628262409?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1058.77" height="600" nodeId="edef1bdf3db848349acfb5ccf6bcd9f2" /></p>
+<p nodeId="5b31f0cbcd854f81b474aee84ae87744"><img src="https://km.sankuai.com/api/file/cdn/2157764712/90626734980?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1033.24" height="600" nodeId="6cc16ffb94cd4323abf52bd870d0d8a3" /><img src="https://km.sankuai.com/api/file/cdn/2157764712/90630024286?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1642" height="154.93" nodeId="97cfcb6d333f4127a7eade397f89b4bc" /></p>
+<p nodeId="b6065ce1ca7b488684ec4beb025800e8"><span color="rgb(250, 116, 20)">绝对值类函数</span></p>
+<ul nodeId="43cb3ea52b5546249582756fa252f71b">
+<li nodeId="400964e3d31e4cbc85ab4ccb778c2929">命中量：按照主体计数</li>
+</ul>
+<p nodeId="d6d5356bad214d378b64c9ae85ab294c"><span color="#FA7414">比对类</span><span color="rgb(250, 116, 20)">函数</span></p>
+<ul nodeId="5cc12fa59b1a4f8cb49ab77039b81802">
+<li nodeId="a303b074ee2d4429a2d3789c38a307f4">当前批次命中量比上个批次<km-footnote id="01163cfb-8862-4a90-8c28-2134690f8fe9" annotate="" nodeId="6f81b8855ade4f7ab8c3a7656b616bfb" />上升值</li>
+<li nodeId="6dfe54782f2546d69483688274238281">当前批次命中量比上个批次上升百分比</li>
+<li nodeId="abe196fc119f480c8f195445c3d33378">当前批次命中量比上个批次下降值</li>
+<li nodeId="5d37aaa7ba1943509083c9c021b30f28">当前批次命中量比上个批次下降百分比</li>
+<li nodeId="d052997ba05d42328c2e198db1718458">当前批次命中量比前7个批次均值命中量上升值</li>
+<li nodeId="ca3b359cb3924e14855785a8bf13c997">当前批次命中量比前7个批次均值命中量上升百分比</li>
+<li nodeId="4adfa20cc7a744378e0400051edc667d">当前批次命中量比前7个批次均值命中量下降值</li>
+<li nodeId="4c3ddde01ee04e22b38e52abec27a279">当前批次命中量比前7个批次均值命中量下降百分比</li>
+<li nodeId="5cb39c46bc6344eeb5eb59278b0b579a"><span bg="rgb(255, 255, 255)">社区安全动态函数（仅在181空间可见）</span></li>
+</ul>
+</td>
+</tr>
+<tr nodeId="baa029c8e24a4a0da39f69eb8979dc6f">
+<td colwidth="[157]" nodeId="136858f1a17149c3bd652f8fddcbd85d">
+<p nodeId="9363bcde476c4dc8a81768912e212cc3">熔断配置列表</p>
+</td>
+<td colwidth="[510]" nodeId="ae05dee9773c49b2a9bd4a2fa2f82419">
+<p nodeId="d002ea34fb9d47acb4fdc62e450723c0">提交完成配置后，将会在熔断配置列表出现一条配置记录。</p>
+<p nodeId="42d3299f2d2b416cb5148786f7c4f12b">熔断模式：单点熔断 （场景-规则）/  任务熔断（任务-规则-决策）</p>
+<p nodeId="1a5181351cab4d8483a1809d97a220ff">单点熔断的一二三级范围代表：场景-规则-决策</p>
+<p nodeId="c2c8e047e4504aa6bd66d59c782fb9d5">任务熔断的一二三级范围代表：任务-规则-决策</p>
+<km-note type="note" hiddenTitle="true" nodeId="f62b2d71922d4cf085fc880a399d1248">
+<km-title></km-title>
+<km-content>
+<p nodeId="1a1045fb17b341bc9845b1a2f30416cd">一个任务可以配置多个熔断，但是同期只有有一个配置是启用状态；记得在此处选择配置拨亮状态开关，开启熔断监控。</p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[571]" nodeId="b250cf1767324e618f050e2ab3b35be2">
+<p nodeId="39083399cf994df99078de4fdf00fa71"><img src="https://km.sankuai.com/api/file/cdn/2157764712/90631656566?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1628.19" height="600" nodeId="a606756a6f3947229cd873729d9f21ec" /></p>
+</td>
+</tr>
+<tr nodeId="318f9ec2572549d890d17f5ccf3254c3">
+<td colwidth="[157]" nodeId="9d66cdf80e0142a4b70a32c6a15bbff8">
+<p nodeId="1ca66b0a347e4384888c13921201b620">大象通知</p>
+</td>
+<td colwidth="[510]" nodeId="4cd4dc0301794c24a6c4f7404255cba5">
+<p nodeId="677cb422f81f4969a8fdd295a740a20e">如右图展示的是大象通知的内容</p>
+<p nodeId="0ff21913dedb4d648826a06522d71c4a">同一个批次触发的熔断，会合并到一起进行通知</p>
+<p nodeId="1bd82c3e00564166b4b27d18e2dd9409">点击【熔断名称】可打开zeus熔断配置预览页</p>
+<p nodeId="a25a7bcaa8d64134b81acd11d2eda80d">点击【全部不处置】熔断符合预期，确认该数据不应该下发到下游</p>
+<p nodeId="f153ed6f61d74b07a7e0b178b0b94f26">点击【全部恢复处置】熔断不符合预期，确认该数据应该下发到下游，点击后立即下发</p>
+<p nodeId="3a56057c0f1f457c87e6557db9bec1a4">点击【熔断记录】跳转到熔断记录列表页，可查看本批次的全部熔断记录</p>
+<p nodeId="16758d1d4b304a69956b982a3a5a1c70">点击【任务详情】跳转离线任务详情页</p>
+<p nodeId="69a1bbce3f0c42e99fd96a7fcaf0e525">熔断场景举例：如果一个熔断任务下配置了10条规则，同一执行批次中，只有2个规则达到了熔断阈值，则只熔断2个规则的数据，剩余8个规则的数据仍继续向下流转</p>
+<km-note type="note" hiddenTitle="true" nodeId="5d16ded331924760b41365d03b214452">
+<km-title></km-title>
+<km-content>
+<p nodeId="afcc75542c0e4bcea7e3a38bd7be3d76">如果只需要下发本批次部分数据，需前往熔断记录列表单独处理</p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[571]" nodeId="d6fd507b85c743bc80e3c87d6b518bec">
+<p nodeId="91a0a8ecc005444890af91d005a52927"><img src="https://km.sankuai.com/api/file/cdn/2157764712/90629919777?contentType=1&amp;isNewContent=false" name="image.jpeg" width="228" height="283" nodeId="3d53771648104d5c8cbc35360722eb09" /></p>
+</td>
+</tr>
+<tr nodeId="9a4137d06b7c4ef382544210ce44c891">
+<td colwidth="[157]" nodeId="27b0afebf604479081221563030f9327">
+<p nodeId="97cfd1eac06849309a637a7fa565b9db">熔断记录处理</p>
+</td>
+<td colwidth="[510]" nodeId="735c04fe43e544458f449fb920236fa1">
+<p nodeId="7e3078f051714d2e86f773f8ab997cfe">一个熔断ID代表一个执行批次，多条规则/决策触发，会产生多个重复的熔断ID</p>
+<p nodeId="5cbbd1f130164fb88ff4e4da4570a554">单独处理某一部分数据时，请注意查看二级范围（规则）和三级范围（决策）</p>
+<p nodeId="e799556aa94044249070426fdf64e00d">恢复处置：数据发送到下游</p>
+<p nodeId="e797580dae3f4d8b8b51daa1e57fe4a4">不处理：数据不发送到下游</p>
+<p nodeId="a08719c6a88d4da9a597065b77851d12">最近命中详情：跳转到dashboard，查询当前条件的详情数据，无需手动再次筛选</p>
+</td>
+<td colwidth="[571]" nodeId="21781974525d41518880db424cea1e1a">
+<p nodeId="991bf34aaca04e5c95d87b2693f116d1"><img src="https://km.sankuai.com/api/file/cdn/2157764712/90637010636?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1074.34" height="600" nodeId="ec5c3a03f9f444afb6d5fee755917c07" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="5df32ff980f7439a9f20959d3175352e">四、FAQ</h1>
+<table responsive="false" nodeId="5f15dd1d6b4f410bbd4d821c0252689e">
+<tr nodeId="dd19558027884bcea30768174964f015">
+<th colwidth="[50]" nodeId="96299ade6ea14c2c814326f7d10083c7">
+<p nodeId="faf23db4a46c4116ab864ad76f73bb03" />
+</th>
+<th colwidth="[599]" nodeId="5e2f6e9bff584ab09adf41a842f09855">
+<p nodeId="8b8b0585af144985b896b22c09f5ac45">问题</p>
+</th>
+<th colwidth="[602]" nodeId="250ec4b1e8e24ee5bd6450aa1c3bce44">
+<p nodeId="3ccd1d594e0443e0a34bc3f75631b1c6">解答</p>
+</th>
+</tr>
+<tr nodeId="e834f15c475c469f8ddecc088a0a0f53">
+<td colwidth="[50]" numCell="true" nodeId="ddcfe7f1aff147c7a17a969a0eed2e99">
+<p nodeId="a86753993b55493499cff63a601827fb" />
+</td>
+<td colwidth="[599]" nodeId="ed5fae3b508441afa1636e2b3f870f7a">
+<p nodeId="bc7429adaa3b4060b037ae15c9fcb16c">当一条数据同时被多个规则命中，且规则中既包含正常规则也包含熔断规则，这种情况下如何处理？</p>
+</td>
+<td colwidth="[602]" nodeId="972b02c8266b417785e4f0fe68339e3b">
+<p nodeId="b9ab4482ccf4428fba7f248842ba1045">熔断规则优先，如果命中熔断规则则拦截该数据</p>
+</td>
+</tr>
+<tr nodeId="1349d3dc6ca64f1c89921282662810e9">
+<td colwidth="[50]" numCell="true" nodeId="6cea3c00000544ed95b564cf025c22ed">
+<p nodeId="d1a5431787024bb49ab8d1bb65b3838d" />
+</td>
+<td colwidth="[599]" nodeId="646cd19360c148f19a21d9a211eb7a96">
+<p nodeId="14d8636ad8bc4084af3f4fdd63db91c1">当一条数据同时被多个熔断规则命中，恢复处置的时候需要逐个点击，点击第二条规则恢复处置的时候，会不会造成数据重复下发？</p>
+</td>
+<td colwidth="[602]" nodeId="5fb8b73a51ec4b3bb98405d5f04cad2f">
+<p nodeId="f7ad6939c94a4cba8db8e027ec8016d8">系统会进行当前批次数据比对，已经下发过的数据不会进行再次下发</p>
+</td>
+</tr>
+</table>
+<p nodeId="56e8715a221c470999ffb40504762afc" />
+<p nodeId="e4089cc84bd9437e881fe12722d2a369" />
+<km-footnote-list nodeId="4d6a3964b2bc4a2cba1c83ffbd22ad47">
+<km-footnote-item footnoteNodeId="151cba142cf54d5fb118ce885b40cd62" nodeId="1f79039b7f7c40feb0251a7545981551"><p nodeId="058ae515ddc74084bec5aef5da3029d9">不可全部为空或填“*”：一个填*，另一个为空是可以的</p></km-footnote-item>
+<km-footnote-item footnoteNodeId="4e0cd730709444c8bb304b6ac8e3bbf8" nodeId="f87b7af66e68459ba9ab80860b22b471"><p nodeId="64e13baf7efb4008b542f20999e1a47d">无频次上限：一个批次只运行一次，只能通知一次</p></km-footnote-item>
+<km-footnote-item footnoteNodeId="6f81b8855ade4f7ab8c3a7656b616bfb" nodeId="2b6fadf664264bb5b5823b2266c338d5"><p nodeId="ce41d09824784d32af40f6e4e5fbfa5e">上个批次：不区分数据状态，即上一个批次的数据被熔断了，仍可参与比对计算</p></km-footnote-item>
+</km-footnote-list>
+</km-doc>
