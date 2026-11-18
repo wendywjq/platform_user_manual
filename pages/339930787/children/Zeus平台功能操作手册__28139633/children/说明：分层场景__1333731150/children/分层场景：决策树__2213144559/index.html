@@ -1,0 +1,287 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>分层场景：决策树</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-10">一、概述</a><a href="#section-28">二、操作指南</a><a href="#section-30">2.1 决策总览组件</a><a href="#section-114">2.2 条件组件</a><a href="#section-221">2.3 输出组件</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：分层场景</a> / <a href="index.html">分层场景：决策树</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/2213144559">查看学城原文</a></p><article>
+<h1>分层场景：决策树</h1>
+<div style="none"></div>
+<div class="note">
+<strong></strong>
+<div>
+<p>分层场景整体配置方式参考：<a href="../../index.html" title="https://km.sankuai.com/collabpage/1333731150">说明：分层场景</a><br>使用地址：<a href="https://zeus.sankuai.com/data_zeus_static/#/layerScene" title="https://zeus.sankuai.com/data_zeus_static/#/layerScene">https://zeus.sankuai.com/data_zeus_static/#/layerScene</a></p>
+</div>
+</div>
+<h1 id="section-10">一、概述</h1>
+<ul>
+<li>
+<p><strong>决策树解决什么问题？</strong></p>
+<p>决策树可对于策略包输出的决策集合进行复杂逻辑编排，通过决策编排逻辑输出最终决策至下游。</p>
+</li>
+<li>
+<p><strong>决策树能做什么范围内的决策合并？</strong></p>
+<p>目前仅适用于分层场景，进行场景内决策合并。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>决策引擎的决策合并现状：</strong></p>
+<p>决策引擎包括 场景内合并 和 场景间合并 两次决策合并输出。<br>单个场景内决策合并：普通场景配置的策略由下游系统Tatooine、保时洁<span style="color:rgb(0, 0, 0)">承接，通过规则优先级PK出最终决策；分层场景配置策略由Zeus决策树PK输出最终决策；</span><br>多个场景间决策合并：主要由下游系统Tatooine、保时洁<span style="color:rgb(0, 0, 0)">承接；</span></p>
+</blockquote>
+<h1 id="section-28">二、操作指南</h1>
+<img src="assets/7dbe680eed6af0b6.svg" width="1320" height="263" alt="流程图">
+<h2 id="section-30">2.1 决策总览组件</h2>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">功能模块</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><strong><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">说明</span></span></strong></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">决策总览</span></p>
+<p><span style="font-size:13px">组件</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">1.概念说明</span></p>
+<p><span style="font-size:13px">决策总览：分层场景的决策树的起始节点。展示当前分层场景识别树配置的策略所涉及到的所有决策/附加信息列表，将作为整个决策树输入进入决策树进行判断。</span></p>
+<p></p>
+<p><span style="font-size:13px">2.操作说明</span></p>
+<ul>
+<li>
+<p><span style="font-size:13px">拖拽：使用引线与下层的条件组件相连。用例测试时，会检验有无断开的节点。决策树将默认生成一个决策总览组件，无需用户自行从组件库中拖拽。在树中单击组件，右侧即切换为该组件的详情。</span></p>
+</li>
+<li>
+<p><span style="font-size:13px">连线：决策总览组件下方有一个空心圆，代表该节点可以连接1条线。【0进1出，下方只能与条件组件输入连接】鼠标点按组件下方的圆形，拖动到下方层组件上方圆形处即可建立连线。</span></p>
+</li>
+<li>
+<p><span style="font-size:13px">清除：决策总览组件不可清除</span></p>
+</li>
+</ul>
+<p></p>
+<p><span style="font-size:13px">3.决策总览节点详情</span></p>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span><span style="font-size:13px">项</span></span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:13px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">基本信息</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">ID</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">在组件左侧，有一个数字即为该组件在该分层场景中的编号ID，查询日志时可以根据ID定位到规则出自于哪个组件。</span></p>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">决策总览</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">决策信息列表</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">展示同步决策/异步决策两个tab，表中展示决策ID/名称、来源识别树节点</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">附加信息列表</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">展示 附加信息ID/名称、来源识别树节点、来源决策</span></p>
+</td>
+</tr>
+</table>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/d4c0fc299db3f21f.png" width="1259.74" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-114">2.2 条件组件</h2>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">功能模块</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><strong><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">说明</span></span></strong></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">条件组件</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">1.概念说明</span></p>
+<p><span style="font-size:13px">条件组件：同IF...ELSE逻辑，当满足何种条件时执行某个输出动作。配置方式为交互式，可对以下参数进行判断，如有更多判断诉求可联系</span><span>@刘思淼</span><span style="font-size:13px">。配置方式参考</span><span style="font-size:13px"><a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改规则__312585969/index.html" title="https://km.sankuai.com/page/312585969#id-2.2%E4%BA%A4%E4%BA%92%E5%BC%8F%E9%85%8D%E7%BD%AE%E8%A7%84%E5%88%99"><span style="font-size:13px">规则交互式配置说明</span></a></span></p>
+<table>
+<tr>
+<th>
+<p><span style="font-size:13px">风险域</span></p>
+</th>
+<th>
+<p><span style="font-size:13px">左变量</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:13px">业务安全</span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:13px">命中决策ID </span></span><em><span style="color:rgb(127, 127, 127)"><span style="font-size:13px">hit_decision_id</span></span></em></p>
+</td>
+</tr>
+<tr>
+<td rowspan="5" style="vertical-align:middle">
+<p><span style="font-size:13px">内容安全</span></p>
+</td>
+<td>
+<p><span style="font-size:13px">接入点 </span><em><span style="color:#7F7F7F"><span style="font-size:13px">ACCESS_POINT</span></span></em></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:13px">命中决策ID </span></span><em><span style="color:#7F7F7F"><span style="font-size:13px">hit_decision_id</span></span></em></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:13px">识别树命中的标签 </span></span><em><span style="color:#7F7F7F"><span style="font-size:13px">hit_tag_codes</span></span></em></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:13px">识别树命中的内容类型 </span></span><em><span style="color:#7F7F7F"><span style="font-size:13px">hit_content_types</span></span></em></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:13px">命中的规则ID </span></span><em><span style="color:#7F7F7F"><span style="font-size:13px">hit_rule_id</span></span></em></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="font-size:13px">2.操作说明</span></p>
+<ul>
+<li>
+<p><span style="font-size:13px">拖拽：使用引线与上层决策总览/条件组件相连，下层条件/输出组件相连。用例测试时，会检验有无断开的节点。在树中单击组件，右侧即切换为该组件的详情。</span></p>
+</li>
+<li>
+<p><span style="font-size:13px">连线：条件组件上下右侧有三个空心圆。上侧仅可作为输入，下右侧仅可作为输出。【1进2出，只能由决策总览/条件组件输入，只能向条件/输出组件输出】鼠标点按组件下方的圆形，拖动到下方层组件上方圆形处即可建立连线。</span></p>
+</li>
+<li>
+<p><span style="font-size:13px">清除：鼠标悬浮组件后点击右键进行删除。</span></p>
+</li>
+</ul>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/d94ecdd4785a8dad.png" width="1252.88" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-221">2.3 输出组件</h2>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">功能模块</span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><strong><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">说明</span></span></strong></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">输出组件</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:13px">1.概念说明</span></p>
+<p><span style="font-size:13px">输出组件：当满足条件时要执行何种输出动作。下拉框可选择输出内容</span></p>
+<blockquote>
+<p><span style="font-size:13px">决策：单选，命中后向下游输出该决策</span></p>
+<p><span style="font-size:13px">附加信息：输出全量命中的生效规则配置附加信息</span></p>
+<p><span style="font-size:13px">决策理由：单选，命中后向下游输出该决策理由</span></p>
+</blockquote>
+<table>
+<tr>
+<th>
+<p><span style="font-size:13px">风险域</span></p>
+</th>
+<th>
+<p><span style="font-size:13px">左变量</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:13px">业务安全</span></p>
+</td>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:13px">命中决策ID </span></span><em><span style="color:rgb(127, 127, 127)"><span style="font-size:13px">hit_decision_id</span></span></em></p>
+</td>
+</tr>
+<tr>
+<td rowspan="5" style="vertical-align:middle">
+<p><span style="font-size:13px">内容安全</span></p>
+</td>
+<td>
+<p><span style="font-size:13px">接入点 </span><em><span style="color:rgb(127, 127, 127)"><span style="font-size:13px">ACCESS_POINT</span></span></em></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:13px">命中决策ID </span></span><em><span style="color:rgb(127, 127, 127)"><span style="font-size:13px">hit_decision_id</span></span></em></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:13px">识别树命中的标签 </span></span><em><span style="color:rgb(127, 127, 127)"><span style="font-size:13px">hit_tag_codes</span></span></em></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:13px">识别树命中的内容类型 </span></span><em><span style="color:rgb(127, 127, 127)"><span style="font-size:13px">hit_content_types</span></span></em></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:rgba(0, 0, 0, 0.84)"><span style="font-size:13px">命中的规则ID </span></span><em><span style="color:rgb(127, 127, 127)"><span style="font-size:13px">hit_rule_id</span></span></em></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="font-size:13px">2.操作说明</span></p>
+<ul>
+<li>
+<p><span style="font-size:13px">拖拽：使用引线与上层条件组件相连。用例测试时，会检验有无断开的节点。在树中单击组件，右侧即切换为该组件的详情。</span></p>
+</li>
+<li>
+<p><span style="font-size:13px">连线：条件组件上左侧有两个空心圆。均作为输入。【1进0出，只能由条件组件输入】鼠标点按组件下方的圆形，拖动到下方层组件上方圆形处即可建立连线。</span></p>
+</li>
+<li>
+<p><span style="font-size:13px">清除：鼠标悬浮组件后点击右键进行删除。</span></p>
+</li>
+</ul>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><img src="assets/49648b31536ce942.png" width="1270.86" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+</article><section class="panel"><h2>下级文档</h2><ul class="children"><li><a href="children/决策树模板说明__2213172993/index.html">决策树模板说明</a> <span class="status">已保存</span></li></ul></section></main></body></html>

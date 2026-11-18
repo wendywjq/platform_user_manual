@@ -1,0 +1,159 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：数据管理</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、功能说明与适用场景</a><a href="#section-19">二、使用概览</a><a href="#section-21">三、操作指南</a><a href="#section-142">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：数据管理</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/1577280785">查看学城原文</a></p><article>
+<h1>说明：数据管理</h1>
+<div style="none"></div>
+<h1 id="section-3">一、功能说明与适用场景</h1>
+<ul>
+<li>数据管理：主要做入引擎数据的初始化定义，包含hive表、MQ两种信息。需用户前置在<a href="https://km.sankuai.com/page/986699376" title="https://km.sankuai.com/page/986699376">万象</a>上，将hive表/MQ(kafka/Mafka) 做Zeus读取授权，Zeus权限名称<img src="assets/f9fc0f543ea0e84c.png" width="125" height="27" alt="image.jpeg">。注册后，可在Zeus近线引擎-画布、离线引擎-场景使用。其中mafka可不用申请</li>
+<li>
+<p>注册后，引用MQ/hive的作业（画布/场景）中的策略，将以初始化后的参数为执行输入信息key，因此数据映射过程需要用户关注：</p>
+<ol>
+<li>若映射过程中 数据原始参数与平台参数命名、类型一致，则在后续策略中可以直接使用该命名；</li>
+<li>若数据原始参数与平台参数名不一致，则后续策略中需要使用平台参数；</li>
+<li>若数据原始参数与平台参数名一致、类型不一致，且在做映射时允许该情况，则后续策略中需要使用平台参数的类型；</li>
+</ol>
+</li>
+<li>为什么要做数据初始化？</li>
+</ul>
+<p>a.以近线为例，<span style="color:rgba(0, 0, 0, 0.87)">Flink会自动退化到kryo序列化器，这种序列化器是非flink自身实现的且性能较差，导致作业序列化以及网络传输成本高，从而影响作业性能</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)">b.需要做数据源与执行策略逻辑间的映射，若无该功能，需要上游业务配合，面向多风险域、多业务方存在冗余开发成本。</span></p>
+<h1 id="section-19">二、使用概览</h1>
+<img src="assets/1102b2ab32378e90.svg" width="786" height="316" alt="流程图">
+<h1 id="section-21">三、操作指南</h1>
+<table>
+<tr>
+<th>
+<p>说明（以MQ为例）</p>
+</th>
+<th>
+<p>页面</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【入口】</p>
+<p>配置中心--&gt;数据管理--&gt;新建MQ</p>
+</td>
+<td>
+<p><img src="assets/bdd0c09d0fdb06fb.png" width="1192" height="454.45" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【新建】</p>
+<ul>
+<li>
+<p>Kafka：</p>
+<ul>
+<li><span>名称：kafka topic的名称，必填</span></li>
+<li>namespace：支持中英文，为topic所在的space组，必填</li>
+<li>水印时间：即Watermark<sup id="006afdca-8e52-49d5-ac13-f5fb77c22a0c">水印时间：即Watermark：对于窗口类的组件，Watermark可以理解成一个窗口延迟触发机制，用用来解决乱序问题的。我们可以设置Watermark的延时时长t，每次系统会校验已经到达的数据中最大的maxEventTime，然后认定eventTime小于maxEventTime - t的所有数据都已经到达，如果有窗口的停止时间等于maxEventTime – t，那么这个窗口被触发执行</sup></li>
+<li>时间维度：指画布/任务执行的时间戳，如果不填topic中的时间字段，则默认系统时间戳，即画布开始运行的时间字段，非必填；若填写需要设定时间维度格式。</li>
+<li>
+<p>时间维度格式：支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</p>
+<p>默认原格式说明：<span style="color:rgba(0, 0, 0, 0.87)">只处理时间戳格式字段且被格式化成秒级别</span></p>
+</li>
+<li>备注：用户可对该kafka组件进行备注，非必填</li>
+<li>日志类型：即确定所选kafka topic的日志类型，支持Log、NewLog、Snappy，必选</li>
+</ul>
+</li>
+<li>
+<p>Mafka：</p>
+<ul>
+<li>
+<p><span style="font-size:14px">名称：支持中英文数字等，不超过128字符。填写后画布中央的组件名称会变更，必填</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">namespace：支持中英文，为topic所在的space组，必填</span></p>
+</li>
+<li><span>subscribeGroup：mafka消费组</span></li>
+<li>
+<p><span style="font-size:14px">Topic：指整个画布配置的topic的名称，必填</span></p>
+</li>
+<li><span style="font-size:14px">消费组appkey</span></li>
+<li>
+<p><span style="font-size:14px">是否配置set消费：默认不配置set消费</span></p>
+<ol>
+<li>跨set消费：选中后，将消费所有set</li>
+<li>指定set<span>消费</span>：选中后，需指定一个cell</li>
+</ol>
+</li>
+<li>
+<p><span>消费起点：默认选中从最新消费</span></p>
+<ol>
+<li>从最新消费</li>
+<li>指定消费起始时间：需选择<span style="color:rgb(0, 0, 0)">消费起始的时间，默认回溯一天。如果需要回溯多天消息，请先前往</span><a href="http://mafka.mws-test.sankuai.com/consumer/95119569/detail/track?showPriority=1&amp;topicId=26027805&amp;consumerId=95119572&amp;buId=5&amp;action=monitor" title="mafka平台申请白名单">mafka平台申请白名单</a><span style="color:rgb(0, 0, 0)">，若未申请白名单但选择多天，系统将自动只回溯一天消息</span></li>
+<li>接上次消费</li>
+</ol>
+</li>
+<li>
+<p><span style="font-size:14px">时间维度：指画布任务执行的时间戳，如果不填topic中的时间字段，则默认系统时间戳，即画布开始运行的时间字段，非必填</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">时间维度格式：支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">备注：用户可对该组件进行备注，非必填</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">日志类型：即确定所选topic的日志类型，支持Log、NewLog、Snappy，必选</span></p>
+</li>
+</ul>
+</li>
+</ul>
+<p></p>
+</td>
+<td>
+<p><img src="assets/fe5c406fd5deff22.png" width="1192" height="459.87" alt="image.jpeg"></p>
+<p><img src="assets/3f7e7320f8fa246a.png" width="1439" height="498.5" alt="image.jpeg"></p>
+<p><img src="assets/47cdd5535f6fe137.png" width="1150.06" height="600" alt="image.jpeg"></p>
+<p><img src="assets/9a4b9882e953546f.png" width="569" height="198" alt="image.jpeg"></p>
+<p><img src="assets/33dbecfcf669b295.png" width="583" height="255" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【查询】</p>
+<p>支持Topic、最后修改人和类型的筛选</p>
+</td>
+<td>
+<p><img src="assets/4ef4523b2b5b13c4.png" width="1439" height="504.49" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【编辑】</p>
+<ul>
+<li><span style="color:rgba(0, 0, 0, 0.9)">编辑页面入口：MQ详情页面</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.9)">只允许时间维度、时间维度格式、水印时间(ms)、备注、日志类型和共享业务方修改</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.9)">其中水印时间(ms)和日志类型修改，会导致画布作业重启</span></li>
+<li><span style="color:rgba(0, 0, 0, 0.9)">支持增量添加MQ下的参数</span></li>
+</ul>
+</td>
+<td>
+<p><img src="assets/5af9618b08f7f8c9.png" width="1439" height="570.41" alt="image.jpeg"></p>
+<p><img src="assets/925d9dd9517ed51b.png" width="1439" height="497.98" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【查看引用】</p>
+<p>引用信息查看入口：MQ详情--&gt;被引用信息</p>
+</td>
+<td>
+<p><img src="assets/07443e4b787716a2.png" width="1439" height="249.12" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-142">四、FAQ</h1>
+<p><strong>Q1：除MQ注册外，是否支持批量参数注册？</strong></p>
+<p>A：支持，可使用<a href="https://zeus.sankuai.com/data_zeus_static/#/param/multiAdd" title="参数批量注册">参数批量注册</a></p>
+<p><strong>Q2：注册好的MQ如何与策略相关联，实现数据--&gt;策略的关联？</strong></p>
+<p>A：截止2023Q1 目前只支持近线-画布作业的关联，在画布中引用kafka/Mafka组件即可；近线-场景规则作业可在「配置中心--&gt;数据映射」中添加MQ与场景见的映射</p>
+<p><strong>Q3：注册好的hive表如何与策略相关联，实现数据--&gt;策略的关联？</strong></p>
+<p>A：在「配置中心--&gt;离线任务」中添加hive与场景见的映射</p>
+<p><strong>Q4: 怎么使用水印时间</strong>？</p>
+<p><img src="assets/651e3d77ac0648d4.png" width="651" height="134" alt="image.jpeg"></p>
+<div>
+<p><p>水印时间：即Watermark：对于窗口类的组件，Watermark可以理解成一个窗口延迟触发机制，用用来解决乱序问题的。我们可以设置Watermark的延时时长t，每次系统会校验已经到达的数据中最大的maxEventTime，然后认定eventTime小于maxEventTime - t的所有数据都已经到达，如果有窗口的停止时间等于maxEventTime – t，那么这个窗口被触发执行</p></p>
+</div>
+</article></main></body></html>

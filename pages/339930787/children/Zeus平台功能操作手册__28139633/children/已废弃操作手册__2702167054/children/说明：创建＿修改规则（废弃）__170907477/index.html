@@ -1,0 +1,236 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：创建/修改规则（废弃）</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-9">二、名词解释</a><a href="#section-15">三、配置指南</a><a href="#section-16">3.1 因子配置指南</a><a href="#section-17">3.1.1 创建</a><a href="#section-45">3.1.2 修改</a><a href="#section-46">修改逻辑信息</a><a href="#section-74">修改属性信息</a><a href="#section-80">3.2 规则配置指南</a><a href="#section-81">3.2.1 创建</a><a href="#section-135">3.1.2 修改</a><a href="#section-136">修改逻辑信息</a><a href="#section-166">修改属性信息</a><a href="#section-171">3.3 特殊说明</a><a href="#section-172">累计因子修改说明</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">已废弃操作手册</a> / <a href="index.html">说明：创建/修改规则（废弃）</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/170907477">查看学城原文</a></p><article>
+<h1>说明：创建/修改规则（废弃）</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>升级规则、因子创建、编辑流程：</p>
+<p>1、解决标签、共享业务方等属性信息修改，因强制更新导致无法快速修改问题；</p>
+<p>2、解决内容-表达式、结果类型修改，涉及的强制更新导致修改操作复杂问题；</p>
+<p>3、解决规则、因子配置过程中的提示信息错误、缺失问题；</p>
+<p>4、解决因子无标签，导致无法快速搜索问题；</p>
+<h1 id="section-9">二、名词解释</h1>
+<p>属性信息：标签、共享业务方</p>
+<p>逻辑信息：表达式、状态、英文名称</p>
+<p>强制更新：若本次操作影响线上表达式的执行结果，需先将线上状态取消后再进行操作或者强行变更信息；</p>
+<p>智能测试：规则、因子修改时按系统安全执行的双跑测试流程管理，即：当修改规则、因子、因子工具时，若影响线上策略的执行，将会进入智能测试流程，进行修改生效前的双跑。双跑期间，线上仍按照修改前的规则、因子逻辑执行；修改的逻辑为标记状态执行。</p>
+<p>公示：规则、因子修改生效前的系统信息公示，为修改生效前的信息同步机制，默认30分钟，系统自动执行；</p>
+<h1 id="section-15">三、配置指南</h1>
+<h2 id="section-16">3.1 因子配置指南</h2>
+<h3 id="section-17">3.1.1 创建</h3>
+<p><strong>Step1: 进入</strong><span style="color:rgb(47, 84, 235)"><strong>因子列表</strong></span><strong>页面，点击“添加因子”，进入创建因子页面</strong></p>
+<p><img src="assets/73e604bd25d57773.png" width="700" height="389" alt="image.png"></p>
+<p><strong>Step2 : 按照页面提示依次填写因子的“逻辑信息”--&gt;“测试用例”--&gt;“属性信息”</strong></p>
+<p><img src="assets/b0f1bcccc7e0da0b.png" width="698" height="351" alt="image.png"></p>
+<p></p>
+<p><img src="assets/c9a03703f08d917f.png" width="914" height="349" alt="image.png"></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意：</p>
+<ul>
+<li>英文名称：驼峰命名</li>
+<li>选择工具：普通因子/累计因子/决策表因子/名单库因子，同原在因子列表页面中配置扩展因子相同</li>
+<li>因子内容：原表达式书写</li>
+<li>
+<p>点击保持草稿：草稿信息不保持在列表中，当再次点击"添加因子"时，提示有草稿信息</p>
+<p><img src="assets/7c6d949082ff8983.png" width="453" height="204" alt="image.png"></p>
+</li>
+</ul>
+<p>点击保持草稿：草稿信息不保持在列表中，当再次点击"添加因子"时，提示有草稿信息,可使用或者废弃</p>
+</div>
+</div>
+<h3 id="section-45">3.1.2 修改</h3>
+<h4 id="section-46">修改逻辑信息</h4>
+<p><strong>Step1:在因子列表中找到需要修改的因子，并点击因子进入编辑页面</strong></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意：</p>
+<p>此时若有其他人正在编辑该因子，您将收到提示xxmis号正在修改，需xx修改完成/退出编辑状态后，您方可修改。若您急于修改请大象联系该用户退出编辑状态。</p>
+<p><img src="assets/749eddcf2a88b4ab.png" width="296" height="60" alt="image.png"></p>
+</div>
+</div>
+<p><strong>Step2:进入编辑页面后，修改因子仍需要经过测试，并且至少有一条新增的成功的测试用例方可提交修改，之后启动智能测试任务。</strong></p>
+<p><strong>Step3:智能测试流程：设定标记时间（人工设定）--&gt;双跑标记（系统执行）--&gt;双跑完成（系统执行）--&gt;验证数据是否正常（系统提供数据人工验证）--&gt;数据正常，公示上线（人工确认）--&gt;公示30分钟，自动上线生效（系统执行）--&gt;智能测试完成</strong></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意</p>
+<ul>
+<li>修改因子，在智能测试中会依据引用因子的规则在其场景配置同期命中量作为对比数据；</li>
+<li>为什么要有公示----因子存在多业务方共用的情况，当一个业务方修改时会影响其他业务方，因子公示会将因子确认修改的信息和双跑结果以大象消息通知给其他业务方，若通知后30分钟内其他业务方无异议则成功；若有异议则需业务方大象同修改人沟通，终止修改；</li>
+<li>双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？本期不支持，若有需求后续二期增加。</li>
+<li>修改需要紧急上线怎么办？--可选择紧急上线申请，可跳过双跑标记、公示期。</li>
+</ul>
+<ul>
+<li>
+<p>紧急上线：用户在编辑页面中逻辑修改并确认提交后，进行紧急上线申请，填写理由--&gt;系统将相关申请信息通过大象公众号推送给引用方的业务负责人--&gt;负责人审批通过--&gt;修改执行完成</p>
+<p><img src="assets/82742c37045b0d26.png" width="205" height="208" alt="image.png"></p>
+</li>
+</ul>
+</div>
+</div>
+<h4 id="section-74">修改属性信息</h4>
+<p><strong>Step1:在因子列表中找到需要修改的因子，并点击因子进入编辑页面</strong></p>
+<p><strong>Step2:进入编辑页面后，在引导页第三部分“属性信息”中，修改共享信息、标签信息等，修改后点击“提交”，完成修改；</strong></p>
+<p></p>
+<h2 id="section-80">3.2 规则配置指南</h2>
+<h3 id="section-81">3.2.1 创建</h3>
+<p><strong>Step1: 进入</strong><span style="color:rgb(47, 84, 235)"><strong>规则列表</strong></span><strong>页面，点击“添加规则”，进入创建规则页面</strong></p>
+<p><img src="assets/1655dc8b89a51fe2.png" width="1018" height="393" alt="image.png"></p>
+<p><strong>Step2 : 按照页面提示依次填写规则的“逻辑信息”--&gt;“测试用例”--&gt;“属性信息”</strong></p>
+<p><img src="assets/e7bbd81da8c8254f.png" width="1013" height="445" alt="image.png"></p>
+<p></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意</p>
+<ul>
+<li>英文名称：驼峰命名，且仅支持小写字母</li>
+<li>规则内容配置：支持表达式和模版混合使用的方式；也可以单独使用表达式、模版配置；</li>
+<li>
+<p>模版配置：升级原有模版配置，支持区间数据配置、空值nil配置，含义说明如下：</p>
+<p><img src="assets/f15d5e9af6501aaa.png" width="354" height="188" alt="image.png"></p>
+<table>
+<tr>
+<th colspan="2">
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">说明</span></p>
+</th>
+</tr>
+<tr>
+<td rowspan="2">
+<p><span style="font-size:14px">空值（null）包含在内</span></p>
+</td>
+<td>
+<ul>
+<li><span style="font-size:14px">不包含</span></li>
+</ul>
+</td>
+<td>
+<p><span style="font-size:14px">判断不等于nil时，执行上述逻辑，满足条件命中；不满足条件，未命中；等于nil时，未命中；</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<ul>
+<li><span style="font-size:14px">包含</span></li>
+</ul>
+</td>
+<td>
+<p><span style="font-size:14px">不需要考虑nil值情况，空值也参与逻辑判断</span></p>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+<ul>
+<li>满足条件：支持，满足以上所有条件--同所有&amp;&amp;条件；满足以上任意条件--同所有||条件；其他条件--支持用户按序号自定义组合逻辑；</li>
+<li>点击保持草稿：草稿信息不保持在列表中，当再次点击"添加规则"时，提示有草稿信息可使用或者废弃</li>
+</ul>
+</div>
+</div>
+<p></p>
+<h3 id="section-135">3.1.2 修改</h3>
+<h4 id="section-136">修改逻辑信息</h4>
+<p><strong>Step1:进入</strong><span style="color:rgb(47, 84, 235)"><strong>规则列表</strong></span><strong>页面，需要修改的规则，并点击规则进入编辑页面</strong></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意：</p>
+<p>此时若有其他人正在编辑该因子，您将收到提示xxmis号正在修改，需xx修改完成/退出编辑状态后，您方可修改。若您着急修改请大象联系该用户退出编辑状态。</p>
+<p><img src="assets/c3c70c83c4ade1f5.png" width="296" height="60" alt="image.png"></p>
+</div>
+</div>
+<p><strong>Step2:进入编辑页面后，修改规则仍需要经过测试，并且至少有一条新增的成功的测试用例后方可提交修改，之后启动智能任务。</strong></p>
+<p><strong>Step3:智能测试流程：设定标记时间（人工设定）--&gt;双跑标记（系统执行）--&gt;双跑完成（系统执行）--&gt;验证数据是否正常（系统提供数据人工验证）--&gt;数据正常，公示上线（人工确认）--&gt;公示30分钟，自动上线生效（系统执行）--&gt;智能测试完成</strong></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意</p>
+<ul>
+<li>修改规则，在智能测试中会使用规则在其场景配置同期命中量作为对比数据；</li>
+<li>为什么要有公示--规则存在多业务方共用的情况，当一个业务方修改时会影响其他业务方，公示会将规则确认修改的信息和双跑结果以大象消息通知给其他业务方，若通知后30分钟内其他业务方无异议则成功；若有异议则需大象同修改人沟通，终止修改生效；</li>
+<li>双跑标记最长时间为30分钟，想要延长双跑标记时间可以么？本期不支持，若有需求后续二期增加。</li>
+<li>修改需要紧急上线怎么办？--可选择紧急上线申请，可跳过双跑标记、公示期。</li>
+</ul>
+<ul>
+<li>
+<p>紧急上线：用户提交紧急上线申请，填写理由--&gt;系统将相关申请信息通过大象公众号推送给 Zeus业务负责人--&gt;负责人审批通过--&gt;修改执行完成</p>
+<img src="assets/3b491295122411d9.svg" width="216" height="219" alt="流程图">
+</li>
+</ul>
+</div>
+</div>
+<h4 id="section-166">修改属性信息</h4>
+<p><strong>Step1:在规则列表中找到需要修改的规则，并点击规则进入编辑页面</strong></p>
+<p><strong>Step2:进入编辑页面后，在引导页第三部分“属性信息”中，修改共享信息、标签信息等，修改后点击“提交”，完成修改；</strong></p>
+<h2 id="section-171">3.3 特殊说明</h2>
+<h3 id="section-172">累计因子修改说明</h3>
+<p>累计因子创建流程无变化</p>
+<p>累计因子逻辑信息双跑说明：</p>
+<p>（1）修改读取条件：累计因子的数据无变化</p>
+<p>（2）修改  累计事件、累计周期、累计类型、按何累计、累计值、满足何种条件累计 的配置条件时</p>
+<img src="assets/5bd9d78de2cbd9e6.svg" width="706" height="180" alt="流程图">
+<p>例如：近5天同ip注册用户数</p>
+<p>假设每天同ip注册用户数分布如下，Day6 对“满足何种条件累计”进行了修改，此时累计数据的写入条件发生变化，第六天的数据由2个变为6个。</p>
+<p>当前版本实现的累计因子双跑，近5天同ip注册用户数，【线上生效】=3+4+2+5+<span style="color:rgb(245, 34, 45)">2</span>=16个；【双跑】=3+4+2+5+<span style="color:rgb(245, 34, 45)">6</span>=20个，【智能测试修改完成后】=3+4+2+5+<span style="color:rgb(245, 34, 45)">6</span>=20个</p>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day1</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day2</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day3</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day4</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day5</span></p>
+</th>
+<th>
+<p><span style="font-size:14px">Day6</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:14px">同ip注册用户数</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">2个</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">3个</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">4个</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">2个</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">5个</span></p>
+</td>
+<td>
+<p><span style="font-size:14px">2个--&gt;6个</span></p>
+</td>
+</tr>
+</table>
+<div class="note">
+<strong></strong>
+<div>
+<p>为什么这样做？</p>
+<p>当前累计因子不支持回溯，因此若按照新逻辑重新执行，会导致数据断层，【双跑】=6，涉及累计类的规则命中量均会异常</p>
+<p>同时后续累计因子支持回溯，该技术方案可无缝衔接；</p>
+</div>
+</div>
+<p></p>
+</article></main></body></html>

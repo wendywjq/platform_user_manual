@@ -1,0 +1,79 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>分层场景识别模板使用说明</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-10">一、识别模版解决什么问题</a><a href="#section-22">二、用户旅程</a><a href="#section-24">三、操作指南</a><a href="#section-25">STEP 0 -- 前置准备工作：给规则打上风险标签（标识规则的防控能力）</a><a href="#section-49">STEP 1 -- 创建模版</a><a href="#section-67">STEP 2 -- 在分层场景里使用模版</a><a href="#section-87">四、特殊同步逻辑说明</a><a href="#section-100">五、Q&amp;A</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：分层场景</a> / <a href="index.html">分层场景识别模板使用说明</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/2254837925">查看学城原文</a></p><article>
+<h1>分层场景识别模板使用说明</h1>
+<div style="none"></div>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="font-size:12px">内安策略使用说明参考：</span><span style="font-size:12px"><a href="https://km.sankuai.com/collabpage/2526945985" title="https://km.sankuai.com/collabpage/2526945985">20241016- 策略模版使用文档说明书</a></span></p>
+</div>
+</div>
+<h1 id="section-10">一、识别模版解决什么问题</h1>
+<p><span style="font-size:15px"><strong>解决通用策略逻辑复用问题。</strong></span><span style="font-size:15px">支持类决策流模版能力，沉淀通用业务语义多层级复杂策略逻辑，快速实例化至分层场景应用。</span></p>
+<ul>
+<li><span style="font-size:12px">通用策略在多个场景下在布控时，使用模版一次引用提升策略管理&amp;布控效率</span></li>
+<li><span style="font-size:12px">支持模版内部分策略在特殊业务下无需生效，满足差异化布控诉求</span></li>
+<li><span style="font-size:12px">辅助通能标准沉淀，以快速支持业务活动展开。</span></li>
+</ul>
+<h1 id="section-22">二、用户旅程</h1>
+<img src="assets/678bc3fa0de37fde.svg" width="598" height="423" alt="流程图">
+<h1 id="section-24">三、操作指南</h1>
+<h2 id="section-25">STEP 0 -- 前置准备工作：给规则打上风险标签（标识规则的防控能力）</h2>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>示意图</p>
+</th>
+</tr>
+<tr>
+<td>
+<div class="note">
+<strong>什么是风险标签</strong>
+<div>
+<p>执行命中后，能向下游传递这部分信息，以对风控结果做进一步有精细化运营的诉求。参考文档：<a href="../../../说明：Zeus标签管理__1357665105/children/说明：风险标签（infocode）__1357166907/index.html" title="https://km.sankuai.com/collabpage/1357166907">说明：风险标签（infocode）</a></p>
+</div>
+</div>
+<p><strong>规则打上风险标签，在模版使用的时候会有什么效果？</strong></p>
+<ul>
+<li>可以通过风险标签批量使用模版下的部分策略，以满足不同场景下的差异化布控诉求。</li>
+<li><span style="color:rgb(0, 0, 0)">若规则未配置风险标签，则这条策略默认和模版内策略状态保持一致，且可以任意手动修改。</span></li>
+</ul>
+</td>
+<td>
+<p><img src="assets/b8b4ec709d3d7453.png" width="367" height="179" alt="image.jpeg"><img src="assets/88b750a4413ee432.png" width="1194.4" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-49">STEP 1 -- 创建模版</h2>
+<ol>
+<li><strong>左侧菜单【策略部署】-【分层场景】，选择页面【模版列表】TAB</strong><br><img src="assets/669be15680533a01.png" width="473" height="237" alt="image.jpeg"></li>
+<li>
+<p><strong>填写模版需要的相关信息</strong></p>
+<p>a）负责人：可设定多名，限制仅负责人可对模版进行删除（后续会支持仅负责人对模版进行编辑）<br>b）允许实例化修改：即是否允许该模版被使用到分层场景里之后，手动对模版内的内容进行编辑 或 通过标签批量选择部分策略进行使用<br><img src="assets/4951a07d647404df.png" width="472" height="236" alt="image.jpeg"></p>
+</li>
+<li>
+<p><strong>完成模版配置，方式同分层场景，可参考分层场景配置说明</strong></p>
+<p><img src="assets/7dab6d8c0322c1fa.png" width="466" height="233" alt="image.jpeg"></p>
+</li>
+</ol>
+<h2 id="section-67">STEP 2 -- 在分层场景里使用模版</h2>
+<ol>
+<li><strong>左侧菜单【策略部署】-【分层场景】，选择页面【场景列表】TAB，新建场景或选择已有场景。分层场景的选择请参考</strong><a href="../../index.html" title="https://km.sankuai.com/collabpage/1333731150">说明：分层场景</a><br><img src="assets/210ced3737c8e9d4.png" width="476" height="240" alt="image.jpeg"></li>
+<li>
+<p><strong>选择识别树-左侧工具栏中策略模版节点，选择策略模版节点拖动进分层场景拓扑图</strong></p>
+<p><img src="assets/424875ae1f2f16d4.png" width="478" height="255" alt="image.jpeg"><img src="assets/64ca4b56a43b3764.png" width="480" height="217" alt="image.jpeg"></p>
+</li>
+<li><strong>完成模版信息填写，选择需要使用的识别模版并勾选需要使用的防控标签，若规则无标签选择后对应策略状态自动与模版内状态保持一致。且模版内策略如果修改，此处实例化分层场景中的策略会同步修改。</strong><br><img src="assets/4d9cd54aeaeea7d8.png" width="473" height="236" alt="image.jpeg"></li>
+<li><strong>手动对需要特殊调整的策略进行修改。可修改范围：决策/决策理由/附加信息。手动特殊调整后，该条策略将不随模版内策略修改而同步。</strong></li>
+</ol>
+<p></p>
+<h1 id="section-87">四、特殊同步逻辑说明</h1>
+<p><span style="font-size:16px"><strong>原则一：单标签纬度「标签勾选优先级 大于 手动修改优先级」</strong></span></p>
+<p><span style="color:#7F7F7F">当风险标签未勾选时，用户手动修改策略的状态均无效（后端仍然全部置为离线）；当风险标签勾选时，且用户有手动修改策略状态，取用户手动修改的状态为准。例如：策略A有 1/2 两个标签，策略B有1/3 标签，勾选了 1 标签，这时候 AB都被选中，然后手动把B置为离线，再勾选 3 标签，B应该此时仍然被选中</span></p>
+<p><span style="color:#000"><strong>原则二：若模版内存在规则无风险标签，这条策略可以任意手动修改。</strong></span></p>
+<p><span style="color:#000"><strong>原则三：如果变更一条规则的风险标签，则这条策略默认离线。需要进入分层场景中勾选新的风险标签</strong></span></p>
+<p></p>
+<h1 id="section-100"><span style="color:#000"><strong>五、Q&amp;A</strong></span></h1>
+</article></main></body></html>

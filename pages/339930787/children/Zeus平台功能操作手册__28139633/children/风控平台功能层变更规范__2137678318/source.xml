@@ -1,0 +1,698 @@
+<km-doc>
+<km-title nodeId="7f5d65e1b1d5418ebc21836b18286149">风控平台功能层变更规范</km-title>
+<km-catalog style="none" nodeId="6db7f78a7b094f638c0ee5c39e88a527" />
+<h2 nodeId="46dbf404a9134945b7c53d0ef58e003e">一、基本信息说明</h2>
+<p nodeId="45cb9c847c5848c7b99a08b27acc34d8">风控功能层定义及范围：风控工具平台上的功能，包含Tatooine、Zeus、Hera等平台上的功能。</p>
+<p nodeId="28096e7a5696435fb604d70acbeef5db">适用用户：B类用户-信息安全下风控策略产品、风控算法工程师、风控平台产品及风险运营；C类用户-信息安全下安全技术研发。</p>
+<p nodeId="b41758ce087e416ca1b2ebf0e94cdd68" />
+<h2 nodeId="0f4a1ec42e9f4707a3dfa8674fdf6807">二、SLA保证</h2>
+<p nodeId="10be8385c0d3440297c107295a9d2ffa">服务可用率: &gt;99.99%</p>
+<p nodeId="6416d98760ba4b6496564492c23f9198">响应耗时：39线 &lt; 200ms</p>
+<p nodeId="f2c167dafd454ff99b5e433c6f787acb" />
+<h2 nodeId="75b4d55f2d05443da72eef6d8674cf4f">三、变更规范</h2>
+<h3 nodeId="144af4e26be94ff0a29d03f261ff9072">3.1 功能应用的变更规范</h3>
+<blockquote nodeId="06c8b48cc87e4fad97300b7e3668af53">
+<p nodeId="d4884a6137324b86857e63862be9f270"><em><span font-size="12">操作对象：B类用户</span></em></p>
+</blockquote>
+<h4 nodeId="edaf2ed3b020448bb689018c8b9cba5e">3.1.1 用户变更前</h4>
+<ul nodeId="e140184586a04b579c5cf0d2ea025419">
+<li nodeId="603efc04dcd746de9e1f60600ac4e536">变更前需评估变更的影响范围。</li>
+<li nodeId="b7d927e5447a4811ab4b09f8c7033fab">依据变更影响范围进行变更评审、周知，针对上游影响范围大，需发起变更评审环节、公示和确认。</li>
+<li nodeId="46f3bc94a10b43f894e4523a48b96028">变更前周知变更的影响范围内的相关同学，开始发起变更。</li>
+</ul>
+<h4 nodeId="ef6e3eb3c2ee42f48761e35caea23239">3.1.2 变更操作中</h4>
+<table responsive="false" nodeId="eb9b106e66e944a6984e108e46a8d0e0">
+<tr nodeId="91f6a41bbb84425aad3cc7eb3a7c5eb7">
+<th colwidth="[99]" nodeId="b90ae430f1734ee4bfdf19edf25c0ce3">
+<p nodeId="b444239258f24e9cb398b8e61a778a86"><span font-size="15">产品线</span></p>
+</th>
+<th colwidth="[576]" nodeId="e85bbf98f54b41dc9b813fd707a6c501">
+<p nodeId="b3c2348981b7418fb9f703543e756baf"><span font-size="15">变更对象</span></p>
+</th>
+<th colwidth="[141]" nodeId="c312e22b48ed42ba8c3a63e4803c7708">
+<p nodeId="bb41019d06954678ae67c47d31c7378c"><span font-size="15">变更要求及规范</span></p>
+</th>
+<th colwidth="[160]" nodeId="90430a608abd43c8bf1089acc4b15674">
+<p nodeId="f3e651e1d9294a7e912e47bbb97fda90"><span font-size="15">平台操作手册</span></p>
+</th>
+</tr>
+<tr nodeId="1db925e0cbf0493b8198ffe9ccb483f5">
+<td colwidth="[99]" nodeId="4376e7fa06c946d2a2b6d5409501a033">
+<p nodeId="ffbf378d7ab644ccb71db900161e56c3"><span font-size="15">Tatooine</span></p>
+</td>
+<td colwidth="[576]" nodeId="82ae0358b579440b9cee0dff784dae59">
+<p nodeId="02e13114bfa5426284005513efd83933"><span font-size="15">事件-场景流量映射、事件接口协议</span></p>
+</td>
+<td rowspan="3" colwidth="[141]" nodeId="775a115a7ce749cb8acb9f4e4da0bafe">
+<p nodeId="b683bdc7b89b4f4d9e19e3832ca09c15"><span font-size="15">可评估</span></p>
+<p nodeId="839e6111598a4a28ab88c7d874f22c37"><span font-size="15">可审批</span></p>
+<p nodeId="688847e46cf54f84b4e096d17c1761c2"><span font-size="15">可周知</span></p>
+<p nodeId="0e204b7c10b44e9faa65c609f1dc857b"><span font-size="15">可灰度</span></p>
+<p nodeId="9341a79f665e46a7b54cb94890877926"><span font-size="15">可监控</span></p>
+<p nodeId="014043e155c74533ab13f94073d2d298"><span font-size="15">可回滚</span></p>
+</td>
+<td colwidth="[160]" nodeId="3a9aaee427654094957f976f6db8d327">
+<p nodeId="601b8d34eec14d4b9852d5241a2863e0"><span font-size="15">待补充</span></p>
+</td>
+</tr>
+<tr nodeId="713814a2fda240da9701bda8dcc1ca42">
+<td colwidth="[99]" nodeId="dc4c5e21282a4fa3a413b30c453e01d7">
+<p nodeId="a7fbd75aede444f88a09630603ed6e45"><span font-size="15">Zeus</span></p>
+</td>
+<td colwidth="[576]" nodeId="8df06348912240a9af414b74c635b77e">
+<p nodeId="24adac59c4ef4e38a12ceab9af2e2b27"><span font-size="15">风控策略逻辑变更（即场景、规则、决策、特征、附加信息、决策理由、话术等）</span></p>
+</td>
+<td colwidth="[160]" nodeId="9aded59f572246aaac623e5082e44ee2">
+<p nodeId="f94a5311712640b9b1f9142bd1f2be68"><span font-size="15"><a href="https://km.sankuai.com/page/1359152952" title="https://km.sankuai.com/page/1359152952" autoUpdate="true" nodeId="6556b6d8bdb94a6392d4183a3de5af96"><span font-size="15">https://km.sankuai.com/page/1359152952</span></a></span></p>
+</td>
+</tr>
+<tr nodeId="124b59ce597148f287023d121bd65c17">
+<td colwidth="[99]" nodeId="663f515ee2514bdf9969914a71ab2fc1">
+<p nodeId="ead32cbabe2248079a6a3cd53c75c987"><span font-size="15">Hera</span></p>
+</td>
+<td colwidth="[576]" nodeId="07e9ca2ac99a4a2b8cbebe359a52ec08">
+<p nodeId="ac4d7333fd9745ddabcfa2bcc4843f19"><span font-size="15">风控排查类、交付类SOP流程变更</span></p>
+</td>
+<td colwidth="[160]" nodeId="238a43119be04771998bd0ceb8e7a38b">
+<p nodeId="19f445f9aa72468c8115b53542ea183e"><a href="https://km.sankuai.com/collabpage/2169766464" title="https://km.sankuai.com/collabpage/2169766464" autoUpdate="true" nodeId="c61c898a3889468384db5f041e412b5d">https://km.sankuai.com/collabpage/2169766464</a></p>
+</td>
+</tr>
+</table>
+<h4 nodeId="b331336c9e324d2682f0dbd826af39ba">3.1.3 变更完成</h4>
+<p nodeId="40d055f6780c4e0c9db0a99da401931f">对于发布完成的变更，需要持续关注流量、命中量和客诉量波动数据是否异常，至少观察时间大于1小时，如出现异常也应首先采取回滚方案进行回滚。</p>
+<h3 nodeId="8a663a6a8b684b83a270e6d65ba3df7b">3.2 功能建设的变更规范</h3>
+<blockquote nodeId="2fd0ad3314ef4a16acfb3915b1705637">
+<p nodeId="03cd670a403748db850d776a170395d2"><em><span font-size="12">操作对象：C类用户</span></em></p>
+</blockquote>
+<h4 nodeId="165a6e6cf2a747d3abb71e460db681b1">3.2.1 需求阶段</h4>
+<p nodeId="129ce1ac772b402eaac1f1db4790ac34">1） 需求方案设计阶段需要考虑可灰度能力、业务影响面评估等。</p>
+<h4 nodeId="4673b8b6783f4cb7a1e789b9f37a587d">3.2.2 开发阶段</h4>
+<p nodeId="88ddf0e4523341a7b639d0aa5f59288a">1) 开发代码需要保证一定的单测覆盖率，增量行覆盖率&gt;50%；</p>
+<p nodeId="231af5411f2e41dc9dcb3f209b877fdb">2) 代码提交至少经过两位review 通过后、且qa流水线无异常卡点后方可提交合并；</p>
+<p nodeId="7a23bb37658d436abed8adabff4e584c">3) 代码功能需经过qa测试或者qa评估稳定性风险后，方可上线；</p>
+<h4 nodeId="742105b43356435692fe54fd4fdafa2c">3.2.3 发布/变更执行的阶段</h4>
+<p nodeId="5d5270122b954eafa52433c80765408b">1）上线前发mcm周知相关业务方、leader审批，同时拉关键业务方配合观察业务指标稳定性等。</p>
+<p nodeId="89cc301207a540e98d283c36f2535e5f">2）<km-quote quoteId="2137678318--a78ac929-11d4-4796-94d8-890728b5adf4">可灰度，功能上线支持分批灰度上线，每批间隔观察时间至少半小时；针对影响面较大的功能迭代，需要支持按风险域可灰度；</km-quote></p>
+<p nodeId="dd50976e88b54f4183ab3ac9bb02c7f3">3）上线过程中需观察服务稳定性，如超时、平响等性能指标，还需要关注关键风险域业务指标是否有异常，如关键场景决策率等，整体<a href="https://raptor.mws.sankuai.com/dashboard/list?dashboardType=base&amp;contents=7,48,52132&amp;dashboard=103789&amp;isCore=false" title="监控大盘" nodeId="aabf04d0aab645b8a2de95db73e61b29">监控大盘</a>有无异常等。</p>
+<h4 nodeId="3bbbd157b0204c35bb0276c65b3fae26">3.2.4 变更完成阶段</h4>
+<p nodeId="ddc155dbcdaa420d83ff3c63be0970cf">1）异常情况：先回滚后查因；同步通报给leader和相关负责人；</p>
+<h3 nodeId="bbc57533c8e24cedae804d262a05eb97">3.3 模型变更规范</h3>
+<p nodeId="cce4ec851f714970a91d242dfbc3a2a7"><em><span font-size="12">操作对象：B类用户</span></em></p>
+<h4 nodeId="d875f2ef0874439e996a49377e80432a">3.3.1模型训练/准备阶段</h4>
+<p nodeId="a3a82dd7a89d44919ced594de3c68120">1）模型训练产出后上线前需要经过线下数据集效果评估符合预期后(具体参考不通模型的准召率等指标)，才可上线。</p>
+<p nodeId="84048b85160840b8b9d14c6daf122e3d">2）定制化模型(如有)上线前，需要梳理相应输出决策的监控指标(预期决策效果，影响面评估)，并完成相应指标监控/卡控能力(如处置熔断配置等)后，方可上线</p>
+<h4 nodeId="20e588fbba4c4d5d85ded8197235091b">3.3.2 模型上线阶段</h4>
+<p nodeId="ae5d7072d84c4b78a9ddd3c380487081">1）在线推理模型上线(已有模型版本更新)需按照一定比例经过灰度阶段(如1%-10%-50%-100%)，每个阶段有一定观察窗口(如至少10min以上，观察指标：线上对应场景决策率、耗时变化等)；新上线模型，依赖上游规则引用，具体参考规则上线流程。</p>
+<p nodeId="5259c3c429934191a94b214f8994a89b">2）近线模型如团伙挖掘，模型调整需经过近线引擎的安全生产能力，灰度逐步生效(每一步灰度需要控制一定时间间隔，如半小时，观察具体指标：近线任务延迟、决策结果等)。</p>
+<p nodeId="7523e665ff83418ab939eb3a56c93ef0">3）能力层面风控模型平台需支持：模型灰度能力，模型服务sla监控、近线安全生产、场景的决策率变化等。</p>
+<h4 nodeId="e82c1333822b49f29a809725a43b5b37">3.3.3 模型上线完成</h4>
+<p nodeId="e80059c1e5e1449db559f74880bfc259">1）模型服务异常情况下支持告警通报(异常告警发群消息、拉雷达等)；近线模型输出结果异常监控告警</p>
+<p nodeId="17aa6ce661b043efa90f73a4fecbf54b">2）异常模型支持版本一键回滚、熔断、模型一键下线等；近线模型输出熔断、任务下线；</p>
+<h2 nodeId="ec16e22e50784513bc7505816ad9fbf0">四、能力建设</h2>
+<table responsive="false" nodeId="b875dcfd840e456e83668b94c530a016">
+<tr nodeId="5646038f35924c89a20636bef75aed3f">
+<th colwidth="[120]" nodeId="e05af6dfb8164a37bd11e58c84e59a70">
+<p nodeId="ea2913822caa4348991de435b2b6a66f" />
+</th>
+<th colwidth="[460]" nodeId="32a74709089943e39cd16c96499c6ceb">
+<p nodeId="726139a000e94d67942aefc43d89b22f">能力项</p>
+</th>
+<th colwidth="[173]" nodeId="7f7358bae4654f7884532178c3afb67d">
+<p nodeId="b906bed852cd41f7a141ad5151e54ad7">预计完成时间</p>
+</th>
+<th colwidth="[120]" nodeId="d5f7cc197d9a4428818404b6d44c5a9d">
+<p nodeId="a54c36d55e6e4057a8bf1fdf82bf8004">产品</p>
+</th>
+<th colwidth="[120]" nodeId="e7e32d0348f14171bd06d96037ba794f">
+<p nodeId="0b66d457287f45f0ac57e154f2eaf5af">研发</p>
+</th>
+</tr>
+<tr nodeId="0c0a0b68a4e14369ac8467c17ab22775">
+<td rowspan="6" colwidth="[120]" nodeId="9d83e282299b49c3b9dcf71231fa9705">
+<p nodeId="02144d7df1224055aca2a6abb29c2fda">zeus</p>
+</td>
+<td colwidth="[460]" nodeId="d47d0b8776d5435e9295f5664ebd4bd0">
+<p nodeId="3e9d98b3fbde484aba26a71562de033f">horae告警优化，提升告警准确率，支持场景-决策纬度的监控高级</p>
+</td>
+<td colwidth="[173]" nodeId="8b4bd4078b5a497984abc9d498cc14ca">
+<p nodeId="2c745bb69c7b42738471ae577b8e8b7e">2024.4</p>
+</td>
+<td colwidth="[120]" nodeId="47177bd5c2f74807b679af3588d362ba">
+<p nodeId="fe44c968dced4aeea6013b02e93f8124">-</p>
+</td>
+<td colwidth="[120]" nodeId="aa20fd096b71450d8f8d9e196b9d7fa2">
+<p nodeId="4f2fd2268d634377bf49f614d79b9529"><km-mention name="郭鹏" uid="guopeng22" empId="" nodeId="f979a47cc1d343e5aa1e0b5ab462ab25" /><km-mention name="郭东方" uid="guodongfang02" empId="" nodeId="dc19c1e0496b42a5b6fb1230f013cf9d" /></p>
+</td>
+</tr>
+<tr nodeId="80abb1a48f5845d399551dc5002af163">
+<td colwidth="[460]" nodeId="6a71e97fd6a04e2193d8aaab0ee1e282">
+<p nodeId="c1e2f09b44884b9a814b2f8fbc5f783d">上线流程涉及数据变更流程卡控</p>
+</td>
+<td colwidth="[173]" nodeId="a05e90ec4ca4443aad6e9cfd975d4f53">
+<p nodeId="35b74eee8f0f445d997cad24b7ea98fd">2024.4</p>
+</td>
+<td colwidth="[120]" nodeId="ebbbff231004492c884fee430d3cece8">
+<p nodeId="d9ae1b33ab7349109782a07c913b3417">-</p>
+</td>
+<td colwidth="[120]" nodeId="6d6d088697d9463993742924e191f806">
+<p nodeId="5430e37f2fd64eda9e21d25e7ed3c15e"><km-mention name="陈猛" uid="chenmeng20" empId="" nodeId="461da2bd85d746a3a145b94d5bfb7394" /></p>
+</td>
+</tr>
+<tr nodeId="3f21d63ab5b5439abbdad7128d42f908">
+<td colwidth="[460]" nodeId="f95fca32bc3845e48207b2fdaf6e284b">
+<p nodeId="be88f5c61d43495eb41c43ca986d0e75">zeus核心日志增加sla保障，如重点字段的取值分布dqc任务</p>
+</td>
+<td colwidth="[173]" nodeId="b023ca420fd34d09ae690c8ded0aa08b">
+<p nodeId="f1532471b5484507886b8b2d0169987b">2024.4</p>
+</td>
+<td colwidth="[120]" nodeId="78f30ce6b42d4ce4a2f7617bc2db12e5">
+<p nodeId="5eb5e6e418e44c17a9a316011331ea71">-</p>
+</td>
+<td colwidth="[120]" nodeId="e28665d57f834ac4bf618422b0007d79">
+<p nodeId="fc76f7600e8745379ab1f739fdbe8b55"><km-mention name="牛志向" uid="niuzhixiang" empId="" nodeId="5289f19967984c07912a865e352d8941" /></p>
+</td>
+</tr>
+<tr nodeId="969d6bd9b3714c95887bf652ef377243">
+<td colwidth="[460]" nodeId="e1a7cc3032cd471b8811c88637313f89">
+<p nodeId="88b75e5c933c4772af280f44e86d6f6e">离线引擎监控大盘&amp;告警配置</p>
+</td>
+<td colwidth="[173]" nodeId="628b13150a584c728163d68f65aa963d">
+<p nodeId="92b844cfb2c047ae953b83c27a054b91">2024.4</p>
+</td>
+<td colwidth="[120]" nodeId="5c666f9a6d8a42da9c46f16ce79d68f8">
+<p nodeId="5fa67f76e57f407397027ebde2af41b3"><km-mention name="姚珍珍" uid="yaozhenzhen" empId="" nodeId="4c82dd530009483e9ac6fbc2407c740c" /></p>
+</td>
+<td colwidth="[120]" nodeId="3923cec1c2d34c6d97cf0c72360df6c0">
+<p nodeId="7c42fef2934b4fd5825f25a5cc73a6d0"><km-mention name="秦银" uid="qinyin02" empId="" nodeId="6ef69685faaf40ffa2881dfb8c67db5b" /></p>
+</td>
+</tr>
+<tr nodeId="a9277a3eacd3411d97f2c8a0fbbbddde">
+<td colwidth="[460]" nodeId="94c13e30f87141b7aea78af17ec6843e">
+<p nodeId="f158998f0fdf4245b74e59d98081a45c">离线任务维度灰度能力</p>
+</td>
+<td colwidth="[173]" nodeId="de0d51b49aa04fc68f4735ab6d5a8ae2">
+<p nodeId="9ecfefd312ce497895225ed9a8190492">2024.4-5</p>
+</td>
+<td colwidth="[120]" nodeId="561a25b4ab8e41a4917b27cbc96e9601">
+<p nodeId="b8aa37ead0c64828862a7269bc310a32"><km-mention name="姚珍珍" uid="yaozhenzhen" empId="" nodeId="5e317e18a6824199838f909d1f0244cd" /></p>
+</td>
+<td colwidth="[120]" nodeId="d726876a2586432b9feab89d7350e9ef">
+<p nodeId="88098ceae2804f25a50f4727b66f7cc4"><km-mention name="秦银" uid="qinyin02" empId="" nodeId="6330738916d640a4be4d5e22e8af1875" /></p>
+</td>
+</tr>
+<tr nodeId="1f6b87b0e88d45a383d17837263f43f7">
+<td colwidth="[460]" nodeId="d2225ea4f0ff45bfafadd9b5482d8c11">
+<p nodeId="8719483194cf4a8e9bf3ae9f83a11e88">zeus监控功能支持业务可配置</p>
+</td>
+<td colwidth="[173]" nodeId="cab2f6afb07e491cba80f606f47932e5">
+<p nodeId="78e1af6310dd444eb3f483d519f415c7">2024.6</p>
+</td>
+<td colwidth="[120]" nodeId="6821bf61e72940bba20e2a2fe2175ffb">
+<p nodeId="9b5545d8c48a4d5e99b2079855f74365"><km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="a2e2a2710bbe4221b777f685d305ef5e" /></p>
+</td>
+<td colwidth="[120]" nodeId="7ff056f44cd14e558dee00a18dde0a7f">
+<p nodeId="b09c9ba6f51145eba4a8111d3cfa7011"><km-mention name="郭东方" uid="guodongfang02" empId="" nodeId="1adfa0de2cbe4016ad3f5e49603de3e0" /></p>
+</td>
+</tr>
+<tr nodeId="74358aff62334820a5cae53fb208a21d">
+<td rowspan="3" colwidth="[120]" nodeId="11389b073d864ce2b5a26055dbfe7400">
+<p nodeId="77715a87d9ba428cb020e060e6014614">模型</p>
+</td>
+<td colwidth="[460]" nodeId="e1aa037468dd4db8bb952b0a993e759d">
+<p nodeId="4811f1eab8be4dda966af4918181eac8">模型上线过程中的灰度卡控，包括观察时间限制等</p>
+</td>
+<td colwidth="[173]" nodeId="5565e66218824d0d82b40860a7930137">
+<p nodeId="9c07e673e2bb4843b5dbf659d3627f7e">2024.10</p>
+</td>
+<td colwidth="[120]" nodeId="3e1e9bb016134bdbabe3003ff3a86f2b">
+<p nodeId="11f6cac1e552432da0ea9609e2914249" />
+</td>
+<td colwidth="[120]" nodeId="434f0364c089441786809717f16badc2">
+<p nodeId="0d475d508a7b499eaa1fd50de77059bd"><km-mention name="姜涛" uid="jiangtao59" empId="" nodeId="71e5d940f64640e686eb2c5a3250ff3b" /></p>
+</td>
+</tr>
+<tr nodeId="97e9e830793945128381b3c209e842c4">
+<td colwidth="[460]" nodeId="3667b0e49971484ab81a4fbc3545376d">
+<p nodeId="b9fca5f2b12141e9bb66688faf072b02">模型任务上线前评估能力</p>
+</td>
+<td colwidth="[173]" nodeId="f384b4f5b0ce4654a5a7a59356ee378f">
+<p nodeId="a9144aaaef1e417e83e88eaec7885447">2024.6</p>
+</td>
+<td colwidth="[120]" nodeId="fc3be40505a94de38b4e105bee6462a8">
+<p nodeId="39f0530469684d8991015ebe250cf525" />
+</td>
+<td colwidth="[120]" nodeId="35486f65f5a94cff96edb07903dc1947">
+<p nodeId="7cad9af76f464f2995c7eb298014be4d"><km-mention name="姜涛" uid="jiangtao59" empId="" nodeId="b96ebe2870914658ae8302b94d86ae05" /></p>
+</td>
+</tr>
+<tr nodeId="64b7ae1d992144f3b92a5192c3507e6c">
+<td colwidth="[460]" nodeId="f3bfd89e49f74bf2842926798906771d">
+<p nodeId="ee90f36fb3dd4667848266594b6efd78">模型监控(业务指标、系统指标)、告警</p>
+</td>
+<td colwidth="[173]" nodeId="0bf40c829dd248938161d9f51cb80418">
+<p nodeId="d705be1668d14227a3fd7b043aef3d8f">2024.4-8</p>
+</td>
+<td colwidth="[120]" nodeId="339d5be9b9dd4eb08ed877dd6ffa34d2">
+<p nodeId="09e44905a1c04371970e2c2a615efbfd" />
+</td>
+<td colwidth="[120]" nodeId="bbb33bf1c3a74a0dbde29db4c2b066a0">
+<p nodeId="b192bfebf61048f8a2abf7703feeab40"><km-mention name="姜涛" uid="jiangtao59" empId="" nodeId="b1fb4faf181040168803d5957dadfd8d" /></p>
+</td>
+</tr>
+<tr nodeId="c823479694fc4f4d863d53ea55adde74">
+<td rowspan="3" colwidth="[120]" nodeId="0a82e41890da44fdacb55e167d3d97f4">
+<p nodeId="c6f0fc78238f4977bfc313de5aaa2030">Tatooine</p>
+</td>
+<td colwidth="[460]" nodeId="1ebb4849b2654ad68c30b9e0edf6064b">
+<p nodeId="a955544b8df84b9e85b10b760751bb8c">变更审批：事件场景映射、事件累计映射、虚拟事件路由、</p>
+<p nodeId="4d4bd749c81e457dbd069e7af951ce1f">活动映射、异步处理、参数扩展、兜底决策理由、兜底风险等级支持变更审批及消息通知</p>
+</td>
+<td colwidth="[173]" nodeId="d69238a16c9844f0a67dd9be3010261e">
+<p nodeId="d59beb3f0f2a418b8b61bedc872ff441">2024.8</p>
+</td>
+<td colwidth="[120]" nodeId="952fe2e099d74903a5f42515e84172a1">
+<p nodeId="d6eb2135e3eb42ffa0b9e65c5f6380dc"><km-mention name="王荣华" uid="wangronghua02" empId="" nodeId="9019cf8f941543e99604cdff50e866e5" /></p>
+</td>
+<td colwidth="[120]" nodeId="537933d6b1eb48a8aa152977ea489bf9">
+<p nodeId="0d9cf968a3f141d58a25e74c493b7386"><km-mention name="张锡川" uid="zhangxichuan03" empId="" nodeId="9d067401698b4a2c821342437febddc2" /></p>
+</td>
+</tr>
+<tr nodeId="a7e9ff11b5b74da69f239d651103e893">
+<td colwidth="[460]" nodeId="0c0f6d14d92942dcba7b67dc299b55d2">
+<p nodeId="0de5d84286d645ca9c25e1a59468d3b1">一期灰度发布：事件管理高频变更及高风险的信息，进行灰度发布管控；事件场景映射、事件累计映射、虚拟事件路由</p>
+</td>
+<td colwidth="[173]" nodeId="4ff78ed8ff6349f492a91725c8c8f97a">
+<p nodeId="3c9eef40665d4ec1ae4bdd2d619d55fd">2024.10</p>
+</td>
+<td colwidth="[120]" nodeId="7f9cb4a30d48473db09a68c61551cc4c">
+<p nodeId="01e28e5e3b474179a3bc07b18087bbce"><km-mention name="王荣华" uid="wangronghua02" empId="" nodeId="bd628515d9cc4a6f8cc915ec5caafa4e" /></p>
+</td>
+<td colwidth="[120]" nodeId="7899012388f94afe8114a2af473ded7d">
+<p nodeId="b1f07e466555443ba7150a27e2bfe9ba"><km-mention name="张锡川" uid="zhangxichuan03" empId="" nodeId="55d34fa6d0854d5ea7cd5d0740557384" /></p>
+</td>
+</tr>
+<tr nodeId="d62b511714b2476eb97d88c5cd8a1a55">
+<td colwidth="[460]" nodeId="7bec931ef19e4978bb6207c4b3bdd954">
+<p nodeId="2673421a526d4586a924c2db52b6884a">二期灰度发布：事件管理低频变更及高风险的信息，进行灰度发布管控；活动映射、异步处理、参数扩展、兜底决策理由、兜底风险等级</p>
+</td>
+<td colwidth="[173]" nodeId="557a0568e0b3484b93fbc9b6b62012ae">
+<p nodeId="d3d415e3f4bb45c586aca8ae03cdabd3">2024.11</p>
+</td>
+<td colwidth="[120]" nodeId="b567358e94424782bfb1891ea0ea1795">
+<p nodeId="7ad513289d324abc87cf5aa8e6c5b3c9"><km-mention name="王荣华" uid="wangronghua02" empId="" nodeId="cbbb0e39092646b0958a3aff1d1c6a85" /></p>
+</td>
+<td colwidth="[120]" nodeId="93f6760ddaf24e4e8d26e4dcf7b95758">
+<p nodeId="8405f300345041a9910b6221aace1e29"><km-mention name="张锡川" uid="zhangxichuan03" empId="" nodeId="41dd7117b3ad45178e904c6c1d4e25eb" /></p>
+</td>
+</tr>
+<tr nodeId="de205b246c264215bacb7d9669db7413">
+<td rowspan="2" colwidth="[120]" nodeId="fb78ca6c33ad4046b97b34c6bc795283">
+<p nodeId="ce450e9c3a6c444d96ca77c379575b10">Hera</p>
+</td>
+<td colwidth="[460]" nodeId="f4a04b97f4a04883b18a82516e008bf7">
+<p nodeId="2d6acdefe7534cfebae860a468df78fe">中低优模块支持变更审批（高优部分已覆盖）</p>
+<km-collapse active="false" nodeId="47ee4ef2ffec46bf81e26f76374951d7">
+<km-title>覆盖功能模块列表</km-title>
+<km-content>
+<table responsive="false" nodeId="16d5cea23fde41419a9f55df912e7a3f">
+<tr nodeId="460518e1f6b74577a811dcf16eabcdf6">
+<th colwidth="[56]" nodeId="c4ea503096d943a29329b4efba48a14a">
+<p nodeId="5a08f5a884594a0091eff82b421c0d42">编号</p>
+</th>
+<th colwidth="[185]" nodeId="0c6ae2b673214aa485df1aace65b419a">
+<p nodeId="39e8dcec5eea4380b16bb1ea797eb34f">策略变更名称</p>
+</th>
+<th colwidth="[109]" nodeId="183d161ef3074ad18c59a85008edf723">
+<p nodeId="e842cb9172014d568370e036b014a509">业务敏感性</p>
+</th>
+<th colwidth="[108]" nodeId="8f0f57c2a6c6450bb7f4707e83c9cd12">
+<p nodeId="292c5a513c99402bb5e57a86e4841321">变更频率</p>
+</th>
+<th colwidth="[167]" nodeId="c4a6a38d927e459b84e01d6c3b3ca26b">
+<p nodeId="480dc8a823cd4059b45b010e87c7198d">备注</p>
+</th>
+</tr>
+<tr nodeId="266398e827414b279255e60ae8e245e1">
+<th colwidth="[56]" numCell="true" nodeId="15c3bcd8a133420ba8ee2165f07b6f0b">
+<p nodeId="5997a7edaea1496b95e2b798ad0be121" />
+</th>
+<td colwidth="[185]" bgColor="rgb(255, 232, 231)" nodeId="bf64590c76dc46fab832483630ff695c">
+<p nodeId="79bbc40b3c8b43abbdf55220b8f179b5"><span color="rgb(51, 51, 51)">通用管理-运营配置</span></p>
+</td>
+<td colwidth="[109]" bgColor="rgb(255, 232, 231)" nodeId="82707ef900f04ed3bc434357cfb07f8d">
+<p nodeId="5e98785252bb4b6b95bd59d36423bca7">高</p>
+</td>
+<td colwidth="[108]" bgColor="rgb(255, 232, 231)" nodeId="7331250a281b44cfa1e4c157f4a79746">
+<p nodeId="5e17ca8916664203aa83f739f7907039">低</p>
+</td>
+<td colwidth="[167]" bgColor="rgb(255, 232, 231)" nodeId="b9848a99056c497ebb7401127a3c68e3">
+<p nodeId="77bfbe79719748a2aeae846ec8627709">高优，已上线</p>
+</td>
+</tr>
+<tr nodeId="ffe3d6eb52754ea38a6f68dc69af6e5a">
+<th colwidth="[56]" numCell="true" nodeId="2c745d90bf084def83f9dba7f7d526f4">
+<p nodeId="4fdc5f69ff224558bb9a82925eb748c9" />
+</th>
+<td colwidth="[185]" bgColor="rgb(255, 232, 231)" nodeId="e1b9e995971c427fba022828c421b690">
+<p nodeId="2403fcea2c554a728d3526859fb07e96"><span color="rgb(51, 51, 51)">处罚中心-分层配置</span></p>
+</td>
+<td colwidth="[109]" bgColor="rgb(255, 232, 231)" nodeId="263cb5b5b445474888967649f4543801">
+<p nodeId="4ff859b2c4244ca9bea53d2a3f8b1227">高</p>
+</td>
+<td colwidth="[108]" bgColor="rgb(255, 232, 231)" nodeId="671d8ff5f54840f585f3d309e1f61ff0">
+<p nodeId="22158daf3d4f41b5bf9c4fc92b381b9b">低</p>
+</td>
+<td colwidth="[167]" bgColor="rgb(255, 232, 231)" nodeId="66b8a0da34024caa9775ee673ff371bc">
+<p nodeId="b81b701b1a054805832f03b862c0f486">高优，已上线</p>
+</td>
+</tr>
+<tr nodeId="bd6bc003a8d8468cb94c0c8bea9f4e78">
+<th colwidth="[56]" numCell="true" nodeId="d764d0ee3c7740aeafcd6e7e7fbf7425">
+<p nodeId="d997d2bd42424a67971e6a1961524987" />
+</th>
+<td colwidth="[185]" bgColor="rgb(255, 232, 231)" nodeId="a26b125ff3c7479cb53402ff97173c83">
+<p nodeId="247ca3bd29874486bc0022d78f6500b0"><span color="rgb(51, 51, 51)">处罚中心-普通处罚</span></p>
+</td>
+<td colwidth="[109]" bgColor="rgb(255, 232, 231)" nodeId="54518bd318d242679c0087383edb38b4">
+<p nodeId="52ba03c8de37456dac593d8f918279a6">高</p>
+</td>
+<td colwidth="[108]" bgColor="rgb(255, 232, 231)" nodeId="4c6dddaed20447c2a9832487f3ebb74b">
+<p nodeId="046d953f74ad4f10a47b0f9726595b03">低</p>
+</td>
+<td colwidth="[167]" bgColor="rgb(255, 232, 231)" nodeId="ec61a117b3a8480e891c13b3e4bcc7e0">
+<p nodeId="a497eabcb918400e8a1a09b296905010">高优，已上线</p>
+</td>
+</tr>
+<tr nodeId="728a7f3b6e4e46e9ae1324e099810a56">
+<th colwidth="[56]" numCell="true" nodeId="84d49ee9a9ec4fb9bdc210e68d263947">
+<p nodeId="81578e3afccb44ed9bbbaa85e5a6834c" />
+</th>
+<td colwidth="[185]" bgColor="rgb(255, 232, 231)" nodeId="e7d99917b18e4e78be734425fb782a3d">
+<p nodeId="62e453fc7dc544b08ba1b4509591267e"><span color="rgb(51, 51, 51)">处罚中心-处罚方式</span></p>
+</td>
+<td colwidth="[109]" bgColor="rgb(255, 232, 231)" nodeId="df5d72ba15c54042b2faa71a0f40ebe3">
+<p nodeId="279fcf04e25f49e2a4e9cea92ddec6ea">高</p>
+</td>
+<td colwidth="[108]" bgColor="rgb(255, 232, 231)" nodeId="3f49084ad0884c3bad3e4cf8a61a5cbc">
+<p nodeId="aafba284d66a4caa9bdbbfeb9fa5ac8a">低</p>
+</td>
+<td colwidth="[167]" bgColor="rgb(255, 232, 231)" nodeId="62abe54a515441d6af5a2f5ec4282deb">
+<p nodeId="0678117ea7ed49968e91a08cf32136bf">高优，已上线</p>
+</td>
+</tr>
+<tr nodeId="f596ab06014b43f49d940eac9b599745">
+<th colwidth="[56]" numCell="true" nodeId="5c5688424fe44ed0a0ff0be14ac91578">
+<p nodeId="097ac47fbbe94b5daebe4e428cbbb47b" />
+</th>
+<td colwidth="[185]" bgColor="rgb(252, 252, 202)" nodeId="a957e09b5f7f4251b9a86fedfa8209dc">
+<p nodeId="e33fafeaef9844bbb5ecd7dd850e7749">通用管理-应急管控</p>
+</td>
+<td colwidth="[109]" bgColor="rgb(252, 252, 202)" nodeId="f0fba3f58c4e4714b99dd21309d83f5c">
+<p nodeId="901abf4197784219835d8210cf9c3ab4">高</p>
+</td>
+<td colwidth="[108]" bgColor="rgb(252, 252, 202)" nodeId="ebf6167a8e5a400785ad03f55de62880">
+<p nodeId="edf466f1520c445085d8a8863fe06d24">低</p>
+</td>
+<td colwidth="[167]" bgColor="rgb(252, 252, 202)" nodeId="3f88d55a92104710bb0708a0ce9c4aab">
+<p nodeId="5963baa56ad6450b849cf0e26d5da2c6">高优，已上线</p>
+</td>
+</tr>
+<tr nodeId="1c9b765aa58b4185b9bf3388c9ce2bef">
+<th colwidth="[56]" numCell="true" nodeId="9e4d96a22d6d4c2f84b6af166ce7000d">
+<p nodeId="f5804ac711c745f98c9829adb7a642f7" />
+</th>
+<td colwidth="[185]" nodeId="f09ec463a16e41e59a63ba7abd6d3f07">
+<p nodeId="213b2606a05b49b0a92ff9ccc496823f">风险排查-排查场景</p>
+</td>
+<td colwidth="[109]" nodeId="33db20ae5634466bba7d797cd1f91c4e">
+<p nodeId="f7abe2bbb8544e1c93b8cfdb2deb99e9">中</p>
+</td>
+<td colwidth="[108]" nodeId="d36df9d57fce45569e22e5d61c8f9413">
+<p nodeId="304d2952a47e4a2680a7c18453b5900e">中</p>
+</td>
+<td colwidth="[167]" nodeId="63c3d56fbc494febbf56a3d2bcb77990">
+<p nodeId="e7ad7db26f8049eca3cd32d25a8b5d5f">中</p>
+</td>
+</tr>
+<tr nodeId="8bfd858ae548403dbe9f826e6f65b984">
+<th colwidth="[56]" numCell="true" nodeId="43bb977460ab4d6983742c0fc32cd756">
+<p nodeId="49022778bae94dbca79999e30089a510" />
+</th>
+<td colwidth="[185]" nodeId="45f0761864dd4319a71b5cf71d38ee06">
+<p nodeId="db79cb1205b2414fb487e00c088d01cc">反馈工单-映射场景</p>
+</td>
+<td colwidth="[109]" nodeId="b6d8f2f512334063b51d2256afe244d0">
+<p nodeId="32176aaf5a7c47079e8773ced318fd85">中</p>
+</td>
+<td colwidth="[108]" nodeId="cfe58a50859749c09fdea16a36c3098c">
+<p nodeId="862508de0ed3436baa4ec47ddac5e646">中</p>
+</td>
+<td colwidth="[167]" nodeId="deadd540780b46a0a79112654bea3ade">
+<p nodeId="877ec6cda08a433da13aa670cac6b4ae">中</p>
+</td>
+</tr>
+<tr nodeId="a986f7c6d49b4dee9bc105f87f8c361c">
+<th colwidth="[56]" numCell="true" nodeId="15fe7835245a4ad38fddf77253a87ce2">
+<p nodeId="903a5eb82fd94cffa80d317cb34dc77f" />
+</th>
+<td colwidth="[185]" nodeId="06884ae34b804d09b16acfa44cf6727a">
+<p nodeId="4fa0a6e714a7452b964f76bcca105b1d">事件库-事件接入</p>
+</td>
+<td colwidth="[109]" nodeId="b05cfb98fcf84fa190849283c994e96d">
+<p nodeId="95b7ca0b11804620aa344e39c4b12e0c">中</p>
+</td>
+<td colwidth="[108]" nodeId="6629c9334e0f4c7a9aa57637b67dcde7">
+<p nodeId="40fdfe4e8351454db3c60ce38cb12e5a">中</p>
+</td>
+<td colwidth="[167]" nodeId="a964b6077a0344e987ba94e6ee3080a3">
+<p nodeId="933e7457932a48bcbed1aafa8f2216e3">中</p>
+</td>
+</tr>
+<tr nodeId="42b4bc7a5eee421da9bb54ded32eace6">
+<th colwidth="[56]" numCell="true" nodeId="0b1026a07b0e4679826fa483280f64f7">
+<p nodeId="6f804d7e4f554f469f6a0002c9b06c28" />
+</th>
+<td colwidth="[185]" nodeId="02e9a5a95ed84057a9565f2a7df2db37">
+<p nodeId="91eaa60557b242b19c0da48b72497cd9">通用管理-业务接入</p>
+</td>
+<td colwidth="[109]" nodeId="3736aa7305ee451c858918667aea4892">
+<p nodeId="117a2435ef0d471c9c24c899497cffc7">中</p>
+</td>
+<td colwidth="[108]" nodeId="37a8cc0c296a4fe397fbb1809e0417a3">
+<p nodeId="de667934118747aaa8c42b3b8cc2ff17">中</p>
+</td>
+<td colwidth="[167]" nodeId="e70f7c4576774958bb6df7bbe803ee1b">
+<p nodeId="ed71eb04c14c4558888278771bf204e5">低优</p>
+</td>
+</tr>
+<tr nodeId="a040f59471b84a799b3dd6d4db2c837b">
+<th colwidth="[56]" numCell="true" nodeId="4cba07ed7452453a92d04615282dedba">
+<p nodeId="01d6fe3a49f548a797377be6ac2a0fe7" />
+</th>
+<td colwidth="[185]" nodeId="043beaa41b344c95a7e8e07d0919f6f7">
+<p nodeId="174c81547b22491e9a33c0368ddfdc83">通用管理-字典管理</p>
+</td>
+<td colwidth="[109]" nodeId="6b68ffe282e4403d860e8fadb35ad06f">
+<p nodeId="6c86b1c27c5340dab5d0725c452dc089">中</p>
+</td>
+<td colwidth="[108]" nodeId="9837cbdba64a4da2bf182aaf096ffbb1">
+<p nodeId="230388a1b36d4374bcc3f76ea95ee764">中</p>
+</td>
+<td colwidth="[167]" nodeId="4588835a1e744ed49dcc507013a3cec0">
+<p nodeId="04bb91e708ab42c5837aaafdfc23c9c8">低优</p>
+</td>
+</tr>
+<tr nodeId="5d99f13150e94c9fb0c31b44f3cabcb6">
+<th colwidth="[56]" numCell="true" nodeId="9bda425d999e4bb7aec6aeba0b594767">
+<p nodeId="5d8407af41af46dfbb711f802c1ab7a9" />
+</th>
+<td colwidth="[185]" nodeId="bd8ece8c6d354adbaced2e41a23208fc">
+<p nodeId="f574e76ee7134ce6bc229106ebcedbd6">通用管理-参数管理</p>
+</td>
+<td colwidth="[109]" nodeId="462da53ef0ab4311b7b088b3a667515f">
+<p nodeId="a50121c7548e4ea6b816dbfad90b7a8e">中</p>
+</td>
+<td colwidth="[108]" nodeId="fc4a025baa71430e9feb6d3355b10fde">
+<p nodeId="9ff30dded4f3469db8b1b11159cc4128">中</p>
+</td>
+<td colwidth="[167]" nodeId="7b018903fcd0490395776255b65e38d4">
+<p nodeId="ff95e301ed3b41c0bdfb4792e8faf985">低优</p>
+</td>
+</tr>
+<tr nodeId="c72b82f7bb504ae781bc38afc8217aa1">
+<th colwidth="[56]" numCell="true" nodeId="2a7e6588e1c14a71b92cbee87b8e345e">
+<p nodeId="e09b6d747eab4e9780432ffc588625f2" />
+</th>
+<td colwidth="[185]" nodeId="8308b5b4f310425e97cfac8db2fa877d">
+<p nodeId="783848c186c44f7da9f625f7fbfbeb07">通用管理-调度任务</p>
+</td>
+<td colwidth="[109]" nodeId="edb0e0edfc2642c7b9d01c56c24913b0">
+<p nodeId="1feeaa041403412f9f97e0c3681527a5">中</p>
+</td>
+<td colwidth="[108]" nodeId="07eefc9754704eb6ac34998777756a20">
+<p nodeId="aaf6b411652e4e90ad0b32592dc495e4">中</p>
+</td>
+<td colwidth="[167]" nodeId="8fa48e59d36841538a87a608c6140dc2">
+<p nodeId="ee7a0ab2105448d6b60bd7970f02a092">低优</p>
+</td>
+</tr>
+<tr nodeId="c7ff859a5a7c43508a6d6bfd2ed210e1">
+<th colwidth="[56]" numCell="true" nodeId="e09ca693dd75446592ead46c1242e5fa">
+<p nodeId="c9a24f22ea6249c8841de616b60a913d" />
+</th>
+<td colwidth="[185]" nodeId="d1d70550ec1f413a9b8256532fcd3a21">
+<p nodeId="24e613e957b944098cb1c1a26bf2e194">反馈工单-模版配置</p>
+</td>
+<td colwidth="[109]" nodeId="ff87b977e6914591b9760472f54bf0b1">
+<p nodeId="9363bcbf9a22418ab6b5abbc904b9665">中</p>
+</td>
+<td colwidth="[108]" nodeId="ff0b3647e83a461a8f7dd1262be9b51f">
+<p nodeId="1d4081ac482a4e1f9ecd0fa99dcd06a4">中</p>
+</td>
+<td colwidth="[167]" nodeId="a81e267ffad44e3196bb7d457bf2746f">
+<p nodeId="cf3867e5d18c425bb91f5aa38acbc1a3">低优</p>
+</td>
+</tr>
+<tr nodeId="b0c9f425bfa6455fa9cc36990a108f87">
+<th colwidth="[56]" numCell="true" nodeId="c197b554b6ed4f318c0d2e8b1d53afed">
+<p nodeId="0071518c1f5f4fd5b282ec62e5a7183d" />
+</th>
+<td colwidth="[185]" nodeId="a3d81252b62140d78e8d92402de92bfa">
+<p nodeId="9473e553666043989f97a6bb3dd6c8bf">审核中心-审核场景</p>
+</td>
+<td colwidth="[109]" nodeId="3ed6259d733d491faf3fa8282abf8657">
+<p nodeId="904f1ac39ce04024b96839cb014d3d31">中</p>
+</td>
+<td colwidth="[108]" nodeId="1ca01a690a9b46d68214f65166a0b88f">
+<p nodeId="4ae1c74a4784496a820c101b8a7cce7e">中</p>
+</td>
+<td colwidth="[167]" nodeId="4931cdf0b1cf484e8b436fd3404d0690">
+<p nodeId="b9ec0a685a124b0ba56267f2c0a759d8">低优</p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+</td>
+<td colwidth="[173]" nodeId="8d7e4e7053b94c14bcb79f435efa9453">
+<p nodeId="ba9226db20e24f3f979df7d08216c9dc">2024.9</p>
+</td>
+<td colwidth="[120]" nodeId="67d4ee0c76504616ac72014538de4ef3">
+<p nodeId="4cb25b0f29974412bf626b8eabab02a1"><km-mention name="姚珍珍" uid="yaozhenzhen" empId="" nodeId="a625151892a4450db69c0e2d1f1a4565" /></p>
+</td>
+<td colwidth="[120]" nodeId="2c223e2d76a24201b0c88901f1065323">
+<p nodeId="cef7a7dac56d4835b4576fcf696ea3a1"><km-mention name="闫文茜" uid="yanwenxi" empId="" nodeId="94b12afe5d9d4a0385e6f88a3d84ceff" /></p>
+</td>
+</tr>
+<tr nodeId="f301aaab65034209b30a1ec261824e18">
+<td colwidth="[460]" nodeId="fe1f6bbf1b81414480df4aeb62513886">
+<p nodeId="dd7418815a2e48b48220d86a498f04dd">风险排查、事件库模块支持业务自主配置SLA监控</p>
+</td>
+<td colwidth="[173]" nodeId="2387976b26b1433692337cc0b1245dfa">
+<p nodeId="197e5e78f00b4c948e357759012fd99a">2024.6</p>
+</td>
+<td colwidth="[120]" nodeId="f845b04523c94a649e9e85785c922ed3">
+<p nodeId="a4f3dfb5bced454fa5af0feb033df982"><km-mention name="姚珍珍" uid="yaozhenzhen" empId="" nodeId="cc53bd913ac2434697cdfdda3fe5ef34" /></p>
+</td>
+<td colwidth="[120]" nodeId="8a9101ea092443168ce7cd12fe726b83">
+<p nodeId="8f31191fc88d4c17aa79cd4aa7a4e07a"><km-mention name="闫文茜" uid="yanwenxi" empId="" nodeId="317357a5303f4a56964adf649ececbdd" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="5c1b27c4d6ca415a9c96066dbc0bea78">五、SLA保障</h2>
+<table responsive="false" nodeId="8ce6a7d9d4474f6c987671d6ac321c98">
+<tr nodeId="5a19c5ffa511484e9b08d8b2c8b51b4c">
+<th colwidth="[120]" nodeId="1c53eb4a7e9c47e19776ebf880fba6fb">
+<p nodeId="f59b6018a930483088701ef7198b91ea">平台</p>
+</th>
+<th colwidth="[474]" nodeId="69adb960385f4a49972784e698aafb4a">
+<p nodeId="3267ca31ca554fe69f6df629c19c8d58">指标</p>
+</th>
+<th colwidth="[343]" nodeId="51b9ed2fdcba448db70fa71ea5229ff2">
+<p nodeId="72262555de59444a90e2541b24be4316">保障值</p>
+</th>
+<th colwidth="[120]" nodeId="018a8df8803844cc87b2f52d7e8ec837">
+<p nodeId="89fe91498c2642e1b3489b6eaf1983a4">研发</p>
+</th>
+</tr>
+<tr nodeId="917acff5b5964a0da99ccd5a71a6a23a">
+<td colwidth="[120]" nodeId="0b0b4a56d4c64374a93bc40a67555e86">
+<p nodeId="7729240cbd79405cb3add067dd63c1b1">Tatooine</p>
+</td>
+<td colwidth="[474]" nodeId="cb4f4c9ba6ac4cccb19d88eebfb59552">
+<p nodeId="e8c7ec28ad8c43768d2ca0cb31181637">服务可用性</p>
+<p nodeId="d5a6970ed1b94e0d990f74f3a8ed35b6">TP999</p>
+</td>
+<td colwidth="[343]" nodeId="86b3bc12afda47ac9f42a0100d17b6f0">
+<p nodeId="c8046b79ebcd4a36bdc7c02baeed771e">服务可用性 &gt;99.99%</p>
+<p nodeId="39a10b5c19354d29b0dd087c5c655b1a">TP999&lt;300ms</p>
+</td>
+<td colwidth="[120]" nodeId="eb43563e63584d3d897a81104164186c">
+<p nodeId="feabcd533ff04f7ea71c99469907d32e"><km-mention name="张锡川" uid="zhangxichuan03" empId="" nodeId="06df920f243e4ca18b2a1c9de0c7e327" /></p>
+</td>
+</tr>
+<tr nodeId="5803e3e542184b3ab0f25839ecf54be2">
+<td colwidth="[120]" nodeId="4e202441b7ec4ac199746683a6cb3005">
+<p nodeId="3158bb51c8ac408fbe1b131e890af97e">zeus</p>
+</td>
+<td colwidth="[474]" nodeId="cffe67703dc14ac7a166e797471cd068">
+<p nodeId="769b168e6764456fbcfaa7922c86eb14">服务可用性</p>
+<p nodeId="d0f33190a8d540fa8b130f8ad063181d">TP999</p>
+</td>
+<td colwidth="[343]" nodeId="7c92f421b52c4deea2d55f42efa7d5a6">
+<p nodeId="37df19f7e90f473397e4cd2afb8a5dec">服务可用性 &gt;99.99%</p>
+<p nodeId="72d3eea5dd7446d49b6f51ca5ea953c4">TP999&lt;250ms</p>
+</td>
+<td colwidth="[120]" nodeId="5cf3026a35c14954abe4a57ab555bb01">
+<p nodeId="5be009a896604e1da3f3d37ae017af4d"><km-mention name="谢鹏飞" uid="xiepengfei05" empId="" nodeId="c9395e86a0634ab486fa6d1513a47a58" /></p>
+</td>
+</tr>
+<tr nodeId="228a734037f6494dbfd5ff170321816e">
+<td colwidth="[120]" nodeId="bbf5c9209df44468a5f255e1662f561f">
+<p nodeId="1a6556714d5149b0a140bdd9d10a4417">在线推理</p>
+</td>
+<td colwidth="[474]" nodeId="6d8b933d527344a1a675dfd557ab3e13">
+<p nodeId="74cbcd3e8ca242e9848b1cd14588c053">服务可用性</p>
+</td>
+<td colwidth="[343]" nodeId="f771c59eda17415987ed879358d54895">
+<p nodeId="72d731b96df04dafa9f1a3ddf6012c08">服务可用性 &gt;99.99%</p>
+</td>
+<td colwidth="[120]" nodeId="cade3208f50840b4bb0808282cf4034e">
+<p nodeId="a96ae4bf401e4acb8d2ae1d147fbb800"><km-mention name="张宪贺" uid="xianhe.zhang" empId="" nodeId="a031266366bc46068e81e3f3b337aaf4" /></p>
+</td>
+</tr>
+<tr nodeId="36319dffc51d4854878501d12a07445a">
+<td colwidth="[120]" nodeId="827f8e832cdb4c2190be2434f12116ad">
+<p nodeId="f5545b4f7b22423d9236a72bd8b4cf9c">近线引擎</p>
+</td>
+<td colwidth="[474]" nodeId="863958dd4d984a5ca413eb0a906efbc9">
+<p nodeId="75beaa8c476b43cebf0eff6a9a60bac9">账号安全下S和A级作业低可用时长</p>
+</td>
+<td colwidth="[343]" nodeId="c6300e5e73f6491797a86f37b56d1e20">
+<p nodeId="31f5337949364c168eb0f79a6a07bee0">&lt;1%</p>
+</td>
+<td colwidth="[120]" nodeId="92f2950f890b4afb9431ab2125780bc0">
+<p nodeId="cd6e5dd553164177a215ed73622e24ee"><km-mention name="葛磊" uid="gelei05" empId="" nodeId="6e646e3f2941452eacd7f2bf6cda441e" /></p>
+</td>
+</tr>
+<tr nodeId="9b0ea833c55a45e9b0fa6488b367c8c3">
+<td colwidth="[120]" nodeId="6f574f9761944dada12a067e8f585e88">
+<p nodeId="da53e120ce3d43aa83be064a3191edbd">Hera</p>
+</td>
+<td colwidth="[474]" nodeId="8406caff0ea44b7da02e36f90b672657">
+<p nodeId="783435068e1d49cfafc15754f25721e8">服务可用性</p>
+</td>
+<td colwidth="[343]" nodeId="890673a6c7a843dbbfc4910649e8dd71">
+<p nodeId="bac5d07f2f774377bb555240a6f6396b">服务可用性 &gt;99.99%</p>
+</td>
+<td colwidth="[120]" nodeId="dc9357a118f84118bbd684c2cdb8b45e">
+<p nodeId="3efc19f6b6ca4d80820dae82da850695"><km-mention name="张义波" uid="zhangyibo05" empId="" nodeId="e55e6b6f12864d9c816c290bb64df24d" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="b523c488568b45149cf09f52c437ee00" />
+<p nodeId="02c729e018e247279e21a042ffbf751a" />
+<km-footnote-list nodeId="d67cdc328f104395b4a6aa47b029eeb2">
+
+</km-footnote-list>
+</km-doc>

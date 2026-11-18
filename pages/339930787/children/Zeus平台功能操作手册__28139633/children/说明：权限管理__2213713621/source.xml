@@ -1,0 +1,214 @@
+<km-doc>
+<km-title nodeId="efc9910f74da43179d9330d336080d44">说明：权限管理</km-title>
+<km-catalog style="none" nodeId="53b4c2c5c97447d1994cc0fd8da2931c" />
+<km-note type="warning" hiddenTitle="true" nodeId="651365d9e5f14671927552a5b75144bd">
+<km-title></km-title>
+<km-content>
+<p nodeId="d11aacd4538e40299f57d3448cf39eba">本文档面向使用Zeus的策略、算法等用户。其余超管新增、空间增删等操作内部产研测同学可参考:<a href="https://km.sankuai.com/collabpage/2256113622" title="https://km.sankuai.com/collabpage/2256113622" autoUpdate="true" nodeId="61d3d6b8828e432fb63c18837785f654">https://km.sankuai.com/collabpage/2256113622</a>。</p>
+</km-content>
+</km-note>
+<h1 nodeId="f3cbcdadb2ea459b8b78835712bb7f52">一、权限管理能解决什么问题</h1>
+<p nodeId="c583a32b6a1d482f86a92ee32bb2c785">使用Zeus时您可能遇到以下问题:</p>
+<ul nodeId="3b5f670de02641a9b7dc59ff89dbf01b">
+<li nodeId="3ae0ca8b3fc549daa1091f57d793a141">如何申请Zeus权限?</li>
+<li nodeId="43de0b87c2dc46dfb399f15995506d8b">如何成为空间管理员?</li>
+<li nodeId="5ce4d67c7e364564829aff8137c303fa">我是空间管理员，如何给新成员配置权限？</li>
+<li nodeId="addce1d0999946edb04c0a942ece2ad2">如何管理策略资产？</li>
+</ul>
+<p nodeId="088154cbd6bc416eb655b299a68618be">本篇指南将描述 Zeus自助申请与审批流程\批量授权流程\策略资产负责人设定与交接流程 解决上述问题。<span color="#FF4A47"><strong>如有更多问题可联系PM</strong></span><km-mention name="王铭嫣(Mingyan Wang)" uid="wangmingyan03" empId="22209197" nodeId="7cc2cbf1e87c48c98c004cc0e7047f05" /><span color="#FF4A47"><strong>RD</strong></span><km-mention name="谢鹏飞" uid="xiepengfei05" empId="4935665" nodeId="1b6d893cc3c342d7a0fc660dfab95560" /><span color="#FF4A47"><strong>。</strong></span></p>
+<h1 nodeId="939b7458416d4b2c9bcf054ae639cc9a">二、用户操作链路</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/2213713621/100886897063?contentType=0&amp;isNewContent=false" width="801" height="555" nodeId="ed9e55c7bbf24f4abb7ae3ba2ba218a0" />
+<h1 nodeId="fef3ee39dd2b49c3b93f3e2ed7693678">三、具体操作步骤</h1>
+<h2 nodeId="9aaee12757104be69f78b6dff08000bd">3.1 如何申请Zeus空间权限</h2>
+<table responsive="false" nodeId="3918373c5d43407f8eaad8d3fce0ad4a">
+<tr nodeId="b54b585d0da54d348a832ebfeeac2f2b">
+<th colwidth="[638]" nodeId="d1aa38fb948240b7841cc39c1e6cb6f4">
+<p nodeId="18340aa74a4043e6af51892c0811af56"><km-quote quoteId="2213713621--2c35b99d-400c-4bff-8b73-07b00e074f98">【我没有使用Zeus】</km-quote></p>
+</th>
+<th colwidth="[802]" nodeId="afe9ce714f054362ace4cdd19cc68dfa">
+<p nodeId="5a834c830a6a4deaaca79e0c7e8cd240">【我有某个Zeus空间权限，需要其他空间权限】</p>
+</th>
+</tr>
+<tr nodeId="3494952d5e0f479db4f318d68c05d7f6">
+<td colwidth="[638]" nodeId="6e7a468473fc472197d0326a4e62d60e">
+<ol nodeId="b621406454114c9283a23a61b26f8453">
+<li nodeId="0485a84217ed46a3b2bcc910e0413050">进入<a href="https://zeus.sankuai.com/data_zeus_static/#/scene" title="Zeus" nodeId="7bb1d1e5efd64aae9050db27b4a5e5d3">Zeus</a>，你将看到如下页面：<img src="https://km.sankuai.com/api/file/cdn/2213713621/100779726476?contentType=1&amp;isNewContent=false" name="image.jpeg" width="483" height="288" nodeId="f69a1ba8d5db4122a82c65226f2bf75d" /></li>
+<li nodeId="082404879117442aa79eff5a44633b88">点击【申请权限】文字按钮，页面将弹出权限申请框，<span color="#FF4A47">勾选自己需要的空间权限</span>：<img src="https://km.sankuai.com/api/file/cdn/2213713621/100779741394?contentType=1&amp;isNewContent=false" name="image.jpeg" width="485" height="297" nodeId="55fa2f34f57546779fe071c31380dfe4" /></li>
+<li nodeId="49dc4669704d49dcad64ff276fb9431a">
+<p nodeId="c53c7210aa504e3f98e531a15693a498">选择需要申请的空间资源，填写申请时长，并提交。将进入审批流：</p>
+<km-note type="tip" hiddenTitle="true" nodeId="5bc4ea1c800c42ae8eaee3e53759f8b3">
+<km-title></km-title>
+<km-content>
+<p nodeId="0bf57028bf82473ca1e878af05088008">Q：为什么申请失败，无法查询到对应账户信息？</p>
+<p nodeId="bb566846e2b04b73b61769fc3b1426a4">A：请申请同学确认是否为当天入职同学。将军令员工信息查询时效为T+1，入职第二天再次进行申请即可。</p>
+</km-content>
+</km-note>
+<p nodeId="39c589e545bb4f9a992dbab750a9d4e5"><img src="https://km.sankuai.com/api/file/cdn/2213713621/100787707472?contentType=1&amp;isNewContent=false" name="image.jpeg" width="981.29" height="600" nodeId="2080e009cc93406eaaaef7922f902271" /></p>
+</li>
+<li nodeId="a1a429a759734b6886087394b431e332">审批流为 对应空间管理员审批通过（√） 即可获取权限<img src="https://km.sankuai.com/api/file/cdn/2213713621/100794314687?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1456.3333740234375" height="239.14" nodeId="c9d1e8b90e074463aa3f4f1b4b592087" /></li>
+</ol>
+<blockquote nodeId="1fe7d644250745269ee7328d4604da3e">
+<p nodeId="7ea6d954975d466b83badcc156ed6cf0">此时管理员将会收到审批通知：<br /><img src="https://km.sankuai.com/api/file/cdn/2213713621/100871862069?contentType=1&amp;isNewContent=false" name="image.jpeg" width="218" height="172" nodeId="d0ef1d25ab8d414face391f9562e0b7f" /></p>
+</blockquote>
+</td>
+<td colwidth="[802]" nodeId="f7febc903ddc42269813f5c6f5864fa0">
+<ol nodeId="1adad40222ba439190bdb16bdca4201e">
+<li nodeId="34c1ee6a8075487696c345ee99ab3b3e">进入<a href="https://zeus.sankuai.com/data_zeus_static/#/scene" title="Zeus" nodeId="37393b1155a24755a0d290b9d5ca7390">Zeus</a>，你将看到如下页面：<br /><img src="https://km.sankuai.com/api/file/cdn/2213713621/100788873853?contentType=1&amp;isNewContent=false" name="image.jpeg" width="448" height="264" nodeId="652a685f257b47db8dba9e312ada9ad5" /></li>
+<li nodeId="0ba47746bece4c199e6c8f44e87f17b9">
+<p nodeId="4fd8d4d32b9d4560b5aa1c62adde5522">点击导航栏空间下拉列表，可以看到全量Zeus空间，选择想要申请的空间点击【申请权限】</p>
+<km-note type="tip" hiddenTitle="true" nodeId="0e307ebe31744ff2aedcb7ba947515c3">
+<km-title></km-title>
+<km-content>
+<p nodeId="40e177ca3b914c9c974c2c50fe3e65d3">Q：申请弹窗中仅展示空间ID，看不到对应空间中文名称很不方便，能否展示空间ID-中文名？</p>
+<p nodeId="e3dfba6871754121b57274dc35cb1d56">A：由于将军令资源命名限制，无法展示中文名称权限资源，该问题已向将军令同学反馈，优化后将上线支持。当前可通过Zeus导航栏下拉列表查询全量Zeus空间ID与中文名关系。</p>
+</km-content>
+</km-note>
+<p nodeId="d7fe07851819401894a7845aff013d78"><img src="https://km.sankuai.com/api/file/cdn/2213713621/100789003518?contentType=1&amp;isNewContent=false" name="image.jpeg" width="305" height="186" nodeId="a1e4181ada644eb58f8ea6cb8dd035f4" /></p>
+</li>
+<li nodeId="037fdab0c20948209d3eddc0407a67d8">
+<p nodeId="45cf6fa1342e463b8fc7c6f766cebd81">选择需要申请的空间资源，填写申请时长，并提交。将进入审批流：</p>
+<km-note type="note" hiddenTitle="true" nodeId="4c64947fbb804740bbb89d052c74b974">
+<km-title></km-title>
+<km-content>
+<p nodeId="81720c5c2983465c87f491935e3493be"><a href="https://km.sankuai.com/page/1305499997" title="https://km.sankuai.com/page/1305499997" autoUpdate="true" nodeId="6df04d518f7248ee999c66e18cb006d4">https://km.sankuai.com/page/1305499997</a></p>
+</km-content>
+</km-note>
+<p nodeId="c4437311def54be3ae7398e18cca6062"><img src="https://km.sankuai.com/api/file/cdn/2213713621/100912998890?contentType=1&amp;isNewContent=false" name="image.jpeg" width="669" height="402" nodeId="2baa9e9a42c042bb8479ad546051b913" /></p>
+</li>
+<li nodeId="fb1674a7101c4f47ab235c6118abc83f">审批流为 对应空间管理员审批通过（√） 即可获取权限<img src="https://km.sankuai.com/api/file/cdn/2213713621/100794314687?contentType=1" name="image.jpeg" width="1456" height="239" nodeId="6664d641fd1449bca418e0d78c6eca35" /></li>
+</ol>
+<blockquote nodeId="f5a6f3fb7261470986934d5f41cd0180">
+<p nodeId="51086935c9244c619ca418170e7d34e4">此时管理员将会收到审批通知：<br /><img src="https://km.sankuai.com/api/file/cdn/2213713621/100871862069?contentType=1" name="image.jpeg" width="218" height="172" nodeId="fd00f410643a471782b416fef403c464" /></p>
+<p nodeId="f6945fedd55141c2a51904546067283d" />
+</blockquote>
+</td>
+</tr>
+</table>
+<h2 nodeId="dea2e4231a81497cadc0b8916d14ce8b">3.2 管理员如何主动批量授权空间权限</h2>
+<table responsive="false" nodeId="1fd73508452143ce9123dcea2cbff5e1">
+<tr nodeId="49b44c63543a4668afd8bdc331024902">
+<th colwidth="[796]" nodeId="0c56b5877fe1433489cbd4076300f38f">
+<p nodeId="e3915386ab96423282c789e92c1eef80">步骤</p>
+</th>
+</tr>
+<tr nodeId="321f289cdde74f97bd416bebdad93528">
+<td colwidth="[796]" nodeId="6a07c14ccf4b4c45b87183a366d29fa3">
+<ol nodeId="fb0cf88c49024af0aee3d5753fcaec72">
+<li nodeId="c0f88e448e5f4c01af764ebe0ea0248f">先确认我是当前空间的管理员<img src="https://km.sankuai.com/api/file/cdn/2213713621/100787773719?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1243.7" height="600" nodeId="a01468a98f5b46b7884ad27a50d0d100" /></li>
+<li nodeId="f94b643fe3a146b89da8ae445fa8f2d8">点击[<a href="https://zeus.sankuai.com/data_zeus_static/#/userPriv" title="Zeus-权限管理-权限管理" nodeId="5f5a8ddd785c466bae6cd198d3f5d0bc">Zeus-权限管理-权限管理</a>]，点击【<a href="https://dt.sankuai.com/auth/add" title="添加用户权限按钮" nodeId="4f7ede87f7a04e41835fd4d2dcdf1e9c">添加用户权限按钮</a>】，跳转将军令页面对于用户权限进行批量授权<img src="https://km.sankuai.com/api/file/cdn/2213713621/100790179258?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1249.29" height="600" nodeId="78b96dbff2b7408299a4c0fb4af5be50" /></li>
+<li nodeId="03ec2475a5eb4750af60c5f663363be1">跳转将军令页面，选择要授权的资源和用户<img src="https://km.sankuai.com/api/file/cdn/2213713621/100846882621?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1247.71" height="600" nodeId="edb08e0c64b344d48e2f06115d64a4d6" /><img src="https://km.sankuai.com/api/file/cdn/2213713621/100844341688?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1235.6" height="600" nodeId="f2021d9b3ff64909bd9a812f02c92503" /></li>
+</ol>
+</td>
+</tr>
+</table>
+<h2 nodeId="9284a3ba56de4311b4ebcf81d0aefab6">3.3 如何成为某一空间管理员</h2>
+<table responsive="false" nodeId="222d93a1d2a940df877c575e28348468">
+<tr nodeId="b41da65f24e7405f90d0e0950b4ed04c">
+<th colwidth="[797]" nodeId="32159798ca8f44e6b66e0da782798231">
+<p nodeId="6889cb95ea5e4d6b9a74ded28299059d">步骤</p>
+</th>
+</tr>
+<tr nodeId="d2d906b8b78c4a62adfb8e069d4acea6">
+<td colwidth="[797]" nodeId="3ba46c661d764be7a6404fec2314c454">
+<km-note type="tip" hiddenTitle="true" nodeId="a9dbaaef8cd34b3ea0c390dd6dd38378">
+<km-title></km-title>
+<km-content>
+<p nodeId="6cca0aa4bc744cfb921dfbbca6f5516a">Q：为什么空间管理员不能有自助申请和审批流程？</p>
+<p nodeId="8c39e97816e143cfbeb2e33fc53aa7c3">A：当前将军令无法支持该种模式，待将军令支持后我们将上线支持。</p>
+</km-content>
+</km-note>
+<ol nodeId="970fcf880dde413f9d8c00bb67553529">
+<li nodeId="f7ba4cf71d6840e2bfe4ffa1c4163600">前往[<a href="https://zeus.sankuai.com/data_zeus_static/#/businessGroupMappings" title="Zeus-权限管理-业务方管理" nodeId="00fa799f148942238a9fac2c941d763e">Zeus-权限管理-业务方管理</a>]，查询我所需要业务负责人成员，并通过大象联系其中任一同学<img src="https://km.sankuai.com/api/file/cdn/2213713621/100842580900?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1297.39" height="600" nodeId="8fb494dafde245589cba48197eb3ca14" /></li>
+<li nodeId="4cc6738529e740539324815662e21d62">对应空间负责人同学，可在[<a href="https://zeus.sankuai.com/data_zeus_static/#/businessGroupMappings" title="Zeus-权限管理-业务方管理" nodeId="e2015d4998914315bd15282531e65013">Zeus-权限管理-业务方管理</a>]页面点击业务名称文字链接，在弹窗中负责人一栏添加需要新增的misid，添加后系统将自动关联将军令生效。<img src="https://km.sankuai.com/api/file/cdn/2213713621/100843769849?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1292.78" height="600" nodeId="d10960769520400d806bb2a60cc3250e" /></li>
+</ol>
+</td>
+</tr>
+</table>
+<h2 nodeId="d680b9eb6fae45ecba58d9b152bc1d34">3.4 如何主动发起策略资产批量转移</h2>
+<table responsive="false" nodeId="9124724a59904e3b88aad6947a297fd1">
+<tr nodeId="1094205bf6844f17ae7a045931be2079">
+<th colwidth="[760]" nodeId="2cbc0fafb3784d34bf0cedcbfc20971d">
+<p nodeId="7bec88018dc646ba9a755db821fb19e2">步骤</p>
+</th>
+</tr>
+<tr nodeId="b372248440f64c93a9bd3bc68f31329c">
+<td colwidth="[760]" nodeId="8796c1fc9b2d4546888d82bff1d7af8d">
+<km-note type="tip" hiddenTitle="true" nodeId="7a5e652c614c4bbe9a35658c59662981">
+<km-title></km-title>
+<km-content>
+<p nodeId="47f3624b3a004fb293fc5269eb97d200">Q：Zeus有什么策略资产需要我管理？</p>
+<p nodeId="b7a25ccca028460ea578c1992f7531fd">A：目前Zeus场景资源负责人关联将军令系统，可用于成本管理及线上问题跟踪，后续如有诉求可进一步考虑基于负责人配置场景策略的权限限制。后续将逐步对于Zeus平台上如规则、模板、日志看板等资产进行关联负责人管理。</p>
+</km-content>
+</km-note>
+<ol nodeId="c2bd444fa8ca4392be73dd7257d9d6d3">
+<li nodeId="534474dcc1c64c79b9f2153b13afd611">前往将军令系统</li>
+</ol>
+<p nodeId="485605c8e72a446ca2d5c4ca93a0f417"><img src="https://km.sankuai.com/api/file/cdn/2213713621/100791968741?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1259.74" height="600" nodeId="e84b8fac18054d7ebf5ea12ff936ee04" /><br /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="cc7e8e425aec4e39b66e5238eed654b5">3.5 我离职了，权限/资产将如何处置</h2>
+<table responsive="false" nodeId="71a3fb5c841d40cca20b9bcdb3c25254">
+<tr nodeId="b53b01e599e2437e9e382058ef0cf3f5">
+<th colwidth="[146]" nodeId="e0ab1a79c9b54f7abf1666c6c185ad04">
+<p nodeId="04b3858562844cb89e49a59dae63cea3" />
+</th>
+<th colwidth="[763]" nodeId="bce42fd6b26f45a5a3c6edb44e08cd41">
+<p nodeId="a19ceee98db54308967fbd74f6a72905"><strong>用户提交离职申请</strong></p>
+</th>
+<th colwidth="[763]" nodeId="bd1304036df4407aabc7913da1608950">
+<p nodeId="85c08487da1447659855119922648fa1"><strong>直属</strong><span color=""><strong>上级通过HR系统离职申请</strong></span></p>
+</th>
+</tr>
+<tr nodeId="5d383552bc6642f6aa580a48ec3a5089">
+<td colwidth="[146]" nodeId="6c904722308c43d893269a0606126801">
+<p nodeId="0b4223ae27124eda87a56bcb8978891e">空间普通成员权限</p>
+</td>
+<td colwidth="[763]" nodeId="23deeb1db4c04fbbb688f781a9274899">
+<ul nodeId="57a3ea2036454590b3899760ae3e3fb6">
+<li nodeId="c6e4021597e94d36bfaa17d53e1a527d">直属上级收到大象通知，确认【回收】或【保留】</li>
+</ul>
+</td>
+<td colwidth="[763]" nodeId="c665f5b35a9d453a93f44ff6ba6e28e3">
+<ul nodeId="564668f90bda4ffca9aa99503c935f1e">
+<li nodeId="8b4c7576ff4143358e189b78ff1a8ac0"><km-quote quoteId="2213713621--1e155c6a-c08d-4044-b773-ebf38fab22ea">系统自动回收权限</km-quote>，不会更新至其余同学名下。</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="d0c2ccc00a8d4c2dbbbdf2a113e7c3c0">
+<td colwidth="[146]" nodeId="3249f0462f2442b8a10741670a629f9c">
+<p nodeId="6b462f2a67a14032bbda1ed74c86adbd">空间管理员权限/资产</p>
+</td>
+<td colwidth="[763]" nodeId="27d32dd041414bde82dd297a1e4132f0">
+<ul nodeId="bd12feb586704688a7c7f8ae4dc95a04">
+<li nodeId="f1b8944242e64e949afee68f991b944d">
+<p nodeId="4e51909b27ee4567997eeec40948f3a5">直属上级收到大象通知，选择是否为该用户设置工作交接人或由离职员工自行移交</p>
+<ul nodeId="6a4f7e6611ff4eb3a0ea0dd096809529">
+<li nodeId="75c39349bacd475ab58cb069d38db7fb"><span color="black"><strong>立即设置工作交接人</strong></span><strong>：</strong>若上级领导选择<strong>【立即</strong><span color="black"><strong>设置工作交接人</strong></span><strong>】</strong>，进入将军令【权限移交】页面，原管理员默认为待离职用户，输入现管理员的MIS号完成一键移交（仅由大象通知入口进入权限移交页面时，原管理员默认为待离职员工MIS号）<img src="https://km.sankuai.com/api/file/cdn/2213713621/100885106136?contentType=1&amp;isNewContent=false" name="" width="918" height="180.6173285198556" nodeId="1f67ec584ab44d348a4728fa01e1d56b" /></li>
+<li nodeId="eb453df8014c40e8af53152aaf14e1dc">由离职员工自行移交：前往将军令系统<img src="https://km.sankuai.com/api/file/cdn/2213713621/100791968741?contentType=1" name="image.jpeg" width="1259" height="600" nodeId="fb8ddcb220314673a919bde3d67da1dc" /></li>
+</ul>
+</li>
+</ul>
+</td>
+<td colwidth="[763]" nodeId="ee63b04f028445f480baa709d736edda">
+<ul nodeId="6607343e74b0489e9e3875480900a3be">
+<li nodeId="8bd8ebd7aa0a44db8849c4aeed576c83">直属上级通过HR系统离职申请后，若该用户仍存在未移交且管理员唯一的资源，则将该资源的管理员权限默认移交上级</li>
+</ul>
+</td>
+</tr>
+</table>
+<p nodeId="9a06b3c4d8ec497997c7c8d31e06e4e1" />
+<h1 nodeId="c4cac8ecfa594c2fb67f0ff9911a3e4a">四、<km-quote quoteId="2213713621--ccab2032-251e-4220-8f4d-9ba768eb1d8c">Q&amp;A</km-quote></h1>
+<h2 nodeId="4d278e7726584c40bdcf623a5efd909e">Q：为什么将军令系统无法查到我的账号信息，无法进行权限申请或被授予操作</h2>
+<p nodeId="c245ca69f03e43c8987304b998083566"><span font-size="15">A：请申请同学确认是否为当天入职同学。将军令员工信息查询时效为T+1，入职第二天再次进行申请即可。如第二天仍无法解决，请提</span><span font-size="15"><a href="https://tt.sankuai.com/ticket/create?cid=15&amp;tid=222&amp;iid=7409" title="TT工单" nodeId="98b82f339ae041df8841db7056cc8496"><span font-size="15">TT工单</span></a></span><span font-size="15">解决</span></p>
+<h2 nodeId="79590fb4c5a143f78f5751e0883d6993">Q：申请弹窗中仅展示空间ID，看不到对应空间中文名称很不方便，能否展示空间ID-中文名？</h2>
+<p nodeId="0f4c88342ca346bc88925c2c796450ff"><span font-size="15">A：由于将军令资源命名限制，无法展示中文名称权限资源，该问题已向将军令同学反馈，优化后将上线支持。当前可通过Zeus导航栏下拉列表查询全量Zeus空间ID与中文名关系。</span></p>
+<h2 nodeId="d5624fc3aee8424bb041b91126667afc">Q：为什么空间管理员不能有自助申请和审批流程？</h2>
+<p nodeId="7a1c7f40b441479b807857abe51d0e99"><span font-size="15">A：当前将军令无法支持该种模式，待将军令支持后我们将上线支持。</span></p>
+<h2 nodeId="e33b03729b654957889610ff097a6823">Q：我可以管理什么策略资产？</h2>
+<p nodeId="eee7b04e03b644af927fa0b4e17e073d"><span font-size="15">A：目前Zeus场景资源负责人关联将军令系统，可用于成本管理及线上问题跟踪，后续如有诉求可进一步考虑基于负责人配置场景策略的权限限制。后续将逐步对于Zeus平台上如规则、模板、日志看板等资产进行关联负责人管理。</span></p>
+<h2 nodeId="02ebba225d0f4d4ea088ce7ec06787b5"><span font-size="15">Q：是否支持资产部分交接？</span></h2>
+<p nodeId="6fc2c65f8721462393621d6a026373a2"><span font-size="15">A：将军令当前暂不支持此类交接，待将军令支持后我们将上线支持。</span></p>
+<p nodeId="6260ed97c5464ed48aa7117d69d8c571" />
+<p nodeId="a5f32b3cd9d6414cbcbbd4b970f2df40" />
+</km-doc>

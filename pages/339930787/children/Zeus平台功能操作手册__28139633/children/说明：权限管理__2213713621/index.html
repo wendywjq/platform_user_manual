@@ -1,0 +1,214 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：权限管理</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-8">一、权限管理能解决什么问题</a><a href="#section-24">二、用户操作链路</a><a href="#section-26">三、具体操作步骤</a><a href="#section-27">3.1 如何申请Zeus空间权限</a><a href="#section-90">3.2 管理员如何主动批量授权空间权限</a><a href="#section-107">3.3 如何成为某一空间管理员</a><a href="#section-126">3.4 如何主动发起策略资产批量转移</a><a href="#section-143">3.5 我离职了，权限/资产将如何处置</a><a href="#section-189">四、Q&amp;A</a><a href="#section-191">Q：为什么将军令系统无法查到我的账号信息，无法进行权限申请或被授予操作</a><a href="#section-198">Q：申请弹窗中仅展示空间ID，看不到对应空间中文名称很不方便，能否展示空间ID-中文名？</a><a href="#section-201">Q：为什么空间管理员不能有自助申请和审批流程？</a><a href="#section-204">Q：我可以管理什么策略资产？</a><a href="#section-207">Q：是否支持资产部分交接？</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：权限管理</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/2213713621">查看学城原文</a></p><article>
+<h1>说明：权限管理</h1>
+<div style="none"></div>
+<div class="note">
+<strong></strong>
+<div>
+<p>本文档面向使用Zeus的策略、算法等用户。其余超管新增、空间增删等操作内部产研测同学可参考:<a href="https://km.sankuai.com/collabpage/2256113622" title="https://km.sankuai.com/collabpage/2256113622">学城文档 2256113622（无权限读取标题）</a>。</p>
+</div>
+</div>
+<h1 id="section-8">一、权限管理能解决什么问题</h1>
+<p>使用Zeus时您可能遇到以下问题:</p>
+<ul>
+<li>如何申请Zeus权限?</li>
+<li>如何成为空间管理员?</li>
+<li>我是空间管理员，如何给新成员配置权限？</li>
+<li>如何管理策略资产？</li>
+</ul>
+<p>本篇指南将描述 Zeus自助申请与审批流程\批量授权流程\策略资产负责人设定与交接流程 解决上述问题。<span style="color:#FF4A47"><strong>如有更多问题可联系PM</strong></span><span>@王铭嫣(Mingyan Wang)</span><span style="color:#FF4A47"><strong>RD</strong></span><span>@谢鹏飞</span><span style="color:#FF4A47"><strong>。</strong></span></p>
+<h1 id="section-24">二、用户操作链路</h1>
+<img src="assets/ac35b164804053fb.svg" width="801" height="555" alt="流程图">
+<h1 id="section-26">三、具体操作步骤</h1>
+<h2 id="section-27">3.1 如何申请Zeus空间权限</h2>
+<table>
+<tr>
+<th>
+<p><blockquote>【我没有使用Zeus】</blockquote></p>
+</th>
+<th>
+<p>【我有某个Zeus空间权限，需要其他空间权限】</p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li>进入<a href="https://zeus.sankuai.com/data_zeus_static/#/scene" title="Zeus">Zeus</a>，你将看到如下页面：<img src="assets/4296b1726c47632e.png" width="483" height="288" alt="image.jpeg"></li>
+<li>点击【申请权限】文字按钮，页面将弹出权限申请框，<span style="color:#FF4A47">勾选自己需要的空间权限</span>：<img src="assets/81fe5edfb081f347.png" width="485" height="297" alt="image.jpeg"></li>
+<li>
+<p>选择需要申请的空间资源，填写申请时长，并提交。将进入审批流：</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>Q：为什么申请失败，无法查询到对应账户信息？</p>
+<p>A：请申请同学确认是否为当天入职同学。将军令员工信息查询时效为T+1，入职第二天再次进行申请即可。</p>
+</div>
+</div>
+<p><img src="assets/2fdfb0580d3c6187.png" width="981.29" height="600" alt="image.jpeg"></p>
+</li>
+<li>审批流为 对应空间管理员审批通过（√） 即可获取权限<img src="assets/84392142c1fe1c7b.png" width="1456.3333740234375" height="239.14" alt="image.jpeg"></li>
+</ol>
+<blockquote>
+<p>此时管理员将会收到审批通知：<br><img src="assets/97a4bf1cd3b020fd.png" width="218" height="172" alt="image.jpeg"></p>
+</blockquote>
+</td>
+<td>
+<ol>
+<li>进入<a href="https://zeus.sankuai.com/data_zeus_static/#/scene" title="Zeus">Zeus</a>，你将看到如下页面：<br><img src="assets/c4ab3c591f48ec33.png" width="448" height="264" alt="image.jpeg"></li>
+<li>
+<p>点击导航栏空间下拉列表，可以看到全量Zeus空间，选择想要申请的空间点击【申请权限】</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>Q：申请弹窗中仅展示空间ID，看不到对应空间中文名称很不方便，能否展示空间ID-中文名？</p>
+<p>A：由于将军令资源命名限制，无法展示中文名称权限资源，该问题已向将军令同学反馈，优化后将上线支持。当前可通过Zeus导航栏下拉列表查询全量Zeus空间ID与中文名关系。</p>
+</div>
+</div>
+<p><img src="assets/91c6f8042b7fbac5.png" width="305" height="186" alt="image.jpeg"></p>
+</li>
+<li>
+<p>选择需要申请的空间资源，填写申请时长，并提交。将进入审批流：</p>
+<div class="note">
+<strong></strong>
+<div>
+<p><a href="https://km.sankuai.com/page/1305499997" title="https://km.sankuai.com/page/1305499997">将军令可设置审批代办人啦～从此假期免受审批信息打扰🔕</a></p>
+</div>
+</div>
+<p><img src="assets/8e162f713763864d.png" width="669" height="402" alt="image.jpeg"></p>
+</li>
+<li>审批流为 对应空间管理员审批通过（√） 即可获取权限<img src="assets/97303e58f494aae0.png" width="1456" height="239" alt="image.jpeg"></li>
+</ol>
+<blockquote>
+<p>此时管理员将会收到审批通知：<br><img src="assets/6d293e37e837154d.png" width="218" height="172" alt="image.jpeg"></p>
+<p></p>
+</blockquote>
+</td>
+</tr>
+</table>
+<h2 id="section-90">3.2 管理员如何主动批量授权空间权限</h2>
+<table>
+<tr>
+<th>
+<p>步骤</p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li>先确认我是当前空间的管理员<img src="assets/66ff5526ac7b03d4.png" width="1243.7" height="600" alt="image.jpeg"></li>
+<li>点击[<a href="https://zeus.sankuai.com/data_zeus_static/#/userPriv" title="Zeus-权限管理-权限管理">Zeus-权限管理-权限管理</a>]，点击【<a href="https://dt.sankuai.com/auth/add" title="添加用户权限按钮">添加用户权限按钮</a>】，跳转将军令页面对于用户权限进行批量授权<img src="assets/8527611963ef7756.png" width="1249.29" height="600" alt="image.jpeg"></li>
+<li>跳转将军令页面，选择要授权的资源和用户<img src="assets/6874e67ac5cf026a.png" width="1247.71" height="600" alt="image.jpeg"><img src="assets/9b7e85ac94b03aa3.png" width="1235.6" height="600" alt="image.jpeg"></li>
+</ol>
+</td>
+</tr>
+</table>
+<h2 id="section-107">3.3 如何成为某一空间管理员</h2>
+<table>
+<tr>
+<th>
+<p>步骤</p>
+</th>
+</tr>
+<tr>
+<td>
+<div class="note">
+<strong></strong>
+<div>
+<p>Q：为什么空间管理员不能有自助申请和审批流程？</p>
+<p>A：当前将军令无法支持该种模式，待将军令支持后我们将上线支持。</p>
+</div>
+</div>
+<ol>
+<li>前往[<a href="https://zeus.sankuai.com/data_zeus_static/#/businessGroupMappings" title="Zeus-权限管理-业务方管理">Zeus-权限管理-业务方管理</a>]，查询我所需要业务负责人成员，并通过大象联系其中任一同学<img src="assets/59f25ab2d3f01123.png" width="1297.39" height="600" alt="image.jpeg"></li>
+<li>对应空间负责人同学，可在[<a href="https://zeus.sankuai.com/data_zeus_static/#/businessGroupMappings" title="Zeus-权限管理-业务方管理">Zeus-权限管理-业务方管理</a>]页面点击业务名称文字链接，在弹窗中负责人一栏添加需要新增的misid，添加后系统将自动关联将军令生效。<img src="assets/25003c9ca16cc53e.png" width="1292.78" height="600" alt="image.jpeg"></li>
+</ol>
+</td>
+</tr>
+</table>
+<h2 id="section-126">3.4 如何主动发起策略资产批量转移</h2>
+<table>
+<tr>
+<th>
+<p>步骤</p>
+</th>
+</tr>
+<tr>
+<td>
+<div class="note">
+<strong></strong>
+<div>
+<p>Q：Zeus有什么策略资产需要我管理？</p>
+<p>A：目前Zeus场景资源负责人关联将军令系统，可用于成本管理及线上问题跟踪，后续如有诉求可进一步考虑基于负责人配置场景策略的权限限制。后续将逐步对于Zeus平台上如规则、模板、日志看板等资产进行关联负责人管理。</p>
+</div>
+</div>
+<ol>
+<li>前往将军令系统</li>
+</ol>
+<p><img src="assets/a9e13457631252f7.png" width="1259.74" height="600" alt="image.jpeg"><br></p>
+</td>
+</tr>
+</table>
+<h2 id="section-143">3.5 我离职了，权限/资产将如何处置</h2>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><strong>用户提交离职申请</strong></p>
+</th>
+<th>
+<p><strong>直属</strong><span><strong>上级通过HR系统离职申请</strong></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p>空间普通成员权限</p>
+</td>
+<td>
+<ul>
+<li>直属上级收到大象通知，确认【回收】或【保留】</li>
+</ul>
+</td>
+<td>
+<ul>
+<li><blockquote>系统自动回收权限</blockquote>，不会更新至其余同学名下。</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p>空间管理员权限/资产</p>
+</td>
+<td>
+<ul>
+<li>
+<p>直属上级收到大象通知，选择是否为该用户设置工作交接人或由离职员工自行移交</p>
+<ul>
+<li><span style="color:black"><strong>立即设置工作交接人</strong></span><strong>：</strong>若上级领导选择<strong>【立即</strong><span style="color:black"><strong>设置工作交接人</strong></span><strong>】</strong>，进入将军令【权限移交】页面，原管理员默认为待离职用户，输入现管理员的MIS号完成一键移交（仅由大象通知入口进入权限移交页面时，原管理员默认为待离职员工MIS号）<img src="assets/1f72f42ad004d317.png" width="918" height="180.6173285198556" alt="原文图片"></li>
+<li>由离职员工自行移交：前往将军令系统<img src="assets/ef404fef83f81da5.png" width="1259" height="600" alt="image.jpeg"></li>
+</ul>
+</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>直属上级通过HR系统离职申请后，若该用户仍存在未移交且管理员唯一的资源，则将该资源的管理员权限默认移交上级</li>
+</ul>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-189">四、<blockquote>Q&amp;A</blockquote></h1>
+<h2 id="section-191">Q：为什么将军令系统无法查到我的账号信息，无法进行权限申请或被授予操作</h2>
+<p><span style="font-size:15px">A：请申请同学确认是否为当天入职同学。将军令员工信息查询时效为T+1，入职第二天再次进行申请即可。如第二天仍无法解决，请提</span><span style="font-size:15px"><a href="https://tt.sankuai.com/ticket/create?cid=15&amp;tid=222&amp;iid=7409" title="TT工单"><span style="font-size:15px">TT工单</span></a></span><span style="font-size:15px">解决</span></p>
+<h2 id="section-198">Q：申请弹窗中仅展示空间ID，看不到对应空间中文名称很不方便，能否展示空间ID-中文名？</h2>
+<p><span style="font-size:15px">A：由于将军令资源命名限制，无法展示中文名称权限资源，该问题已向将军令同学反馈，优化后将上线支持。当前可通过Zeus导航栏下拉列表查询全量Zeus空间ID与中文名关系。</span></p>
+<h2 id="section-201">Q：为什么空间管理员不能有自助申请和审批流程？</h2>
+<p><span style="font-size:15px">A：当前将军令无法支持该种模式，待将军令支持后我们将上线支持。</span></p>
+<h2 id="section-204">Q：我可以管理什么策略资产？</h2>
+<p><span style="font-size:15px">A：目前Zeus场景资源负责人关联将军令系统，可用于成本管理及线上问题跟踪，后续如有诉求可进一步考虑基于负责人配置场景策略的权限限制。后续将逐步对于Zeus平台上如规则、模板、日志看板等资产进行关联负责人管理。</span></p>
+<h2 id="section-207"><span style="font-size:15px">Q：是否支持资产部分交接？</span></h2>
+<p><span style="font-size:15px">A：将军令当前暂不支持此类交接，待将军令支持后我们将上线支持。</span></p>
+<p></p>
+<p></p>
+</article></main></body></html>

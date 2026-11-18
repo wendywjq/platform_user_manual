@@ -1,0 +1,239 @@
+<km-doc>
+<km-title nodeId="ecb8d0ab08014bb78658077604265440">说明：管理类标签</km-title>
+<km-catalog style="none" nodeId="c9611840a635459eb837c7a10f4e797d" />
+<h1 align="start" nodeId="5da0ab8a3215405b8f7e069efb98d7c9"><span color="rgb(0, 0, 0)"><strong>一、背景</strong></span></h1>
+<p align="start" nodeId="f48b6d8d3e9a45119450bb2a153a7670">随着风控规则、活动场景数量越来越多，维护成本日益增加，为解决上述问题，推出标签体系，为规则和活动场景分类。标签有多重分类维度，且分类维度有可能会新增，不同业务会有不同的分类维度，以反作弊为例，按公司业务分类：支付、早餐、外卖；按新人属性分类，如纯新客、品类新客、非新客等。总结下标签有如下作用：</p>
+<ul nodeId="b27c9fab1e90454bb8f25d97a00a1baa">
+<li nodeId="1c010df14d85410d80b9cd58b8b1c3cf">方便批量处理：出现参数异常，相关规则批量设置为不生效；新增活动场景，可按照标签批量添加规则</li>
+</ul>
+<ul nodeId="0a654b1483c04a1fa27831d8097fb239">
+<li nodeId="3a9091addd1d4ece8a289e7ba8217238">查询、统计需求：提供查询接口用于统计分析</li>
+</ul>
+<p nodeId="e1b6448692454158bb1fd87b7eddfc7a" />
+<h1 nodeId="c218139b66f94c8bb6f959fa908dd937">二、名词解释</h1>
+<table responsive="false" nodeId="3d56a97c0df5484bad232962ae893253">
+<tr nodeId="24221fe7c7474379b3191926d800830a">
+<th colwidth="[96]" nodeId="32b3b1f86c30476787ba9a27aa573914">
+<p nodeId="0d74044b145149ceb35d654c3aed7750">名词</p>
+</th>
+<th colwidth="[861]" nodeId="94a5804f2c984847b9b5cba96456de68">
+<p nodeId="5a27f069598947958730dadc591faab0">解释</p>
+</th>
+</tr>
+<tr nodeId="fdedda41998e41e7acfc66af4254e70e">
+<td colwidth="[96]" nodeId="ad97e7c50fee40fc9942af2905dad26e">
+<p nodeId="724acba87e1e45278d895bd8a8f27b7d">管理类标签</p>
+</td>
+<td colwidth="[861]" nodeId="7a5ab8ab1e434a729139ca49dbc7b799">
+<p align="start" nodeId="7e529ef1b0064614b334661cfeca6528">管理类标签用于在平台管理规则、场景等实体。</p>
+</td>
+</tr>
+<tr nodeId="534b4c32fa224456a6d5d6cf071d4264">
+<td colwidth="[96]" nodeId="63d84f0a5f4d4e96a5d5b75cc10f5591">
+<p nodeId="61174029ec5d4ece944f066a1fad06d2">风险标签</p>
+</td>
+<td colwidth="[861]" nodeId="56f110a30c6744308df679646461d310">
+<p nodeId="bfb2118f44464b02b06d4bde4ab19f03">风险标签仅能与规则绑定，有优先级属性，用于将规则本身携带的信息归类成体系。规则在命中后，会将这部分信息实时输出给调用方/下游。<a href="https://km.sankuai.com/collabpage/1357166907" title="https://km.sankuai.com/collabpage/1357166907" autoUpdate="true" nodeId="838cb5f696104c938df884a788aea902">https://km.sankuai.com/collabpage/1357166907</a></p>
+</td>
+</tr>
+<tr nodeId="873270e197e540c69d0e79e9884fdeb8">
+<td colwidth="[96]" nodeId="0ee25fd5a7b84a73b53e4169f5a85e0a">
+<p nodeId="b4323f136af4450694557b3990a08eb5">父标签</p>
+</td>
+<td colwidth="[861]" nodeId="bae688f821a94d0ab3a598084f3c384d">
+<p nodeId="1ae8449f835d4b79829c776fbc51d067">当前标签归属的上一级标签即为当前标签的父标签。</p>
+</td>
+</tr>
+<tr nodeId="81f14fbe1f44422091d5f331641d9bd1">
+<td colwidth="[96]" nodeId="7e5b690a6a7b47b28766a09031c70193">
+<p nodeId="d7664c1b77f74adbb9dc9ab46bf044ac">标签层级</p>
+</td>
+<td colwidth="[861]" nodeId="4f90a376d67e43ac89d80d4ce4b41869">
+<p nodeId="ff82d2ad79d042ce8ccfb41504f6bcd9">目前支持最多形成6级关系。即用户可创建的最高标签层级为1级 ，最低为6级</p>
+</td>
+</tr>
+<tr nodeId="d820ac4f506a4244b7074efa91c272be">
+<td colwidth="[96]" nodeId="39d50084e99f4541ba837417f0cdb835">
+<p nodeId="1f94ada0bbaf48edb87e081000dff182">根标签</p>
+</td>
+<td colwidth="[861]" nodeId="0855c302ac3844c793b3000246e6cd1a">
+<p nodeId="50f69b6f3f024728992ad2f2b93d2cd0">系统内置的0级标签，默认作为所有1级标签的父标签。</p>
+</td>
+</tr>
+</table>
+<p nodeId="cb75d7d246004adb81835bef297fe940" />
+<h1 nodeId="5ac4c8f6b81c4337957d409c6e90e2a3">三、操作说明</h1>
+<h2 nodeId="ed74a443958a44b895ea69a62429d1ea">3.1 标签管理</h2>
+<table responsive="false" nodeId="6904e8c004ea40c295cb521548dd3e6a">
+<tr nodeId="6176c2a25f42433e8d50e51a3260bdcb">
+<th colwidth="[126]" nodeId="5e5768276fe246979582b75bb86903a2">
+<p nodeId="11ce58408d064c89a2d8097b56f07c5b">模块</p>
+</th>
+<th colwidth="[516]" nodeId="e0f0c50ae8e24953b5f9c9b1f72b8354">
+<p nodeId="dc8434b214db40c188a7ba7bd94c51eb">说明</p>
+</th>
+<th colwidth="[528]" nodeId="ec699f7955784dbeb0743b2e4c274180">
+<p nodeId="a2eb81e0e6864b00be65e16ae64d8bd0">图例</p>
+</th>
+</tr>
+<tr nodeId="f2fd03840c92476eae82aba041a44d4c">
+<td colwidth="[126]" nodeId="e3d357f0fdc944cc9df5993345a11d1f">
+<p nodeId="baa0f83e9d7c4ac4bbaf0a873493e6e9">管理类标签-管理页</p>
+</td>
+<td colwidth="[516]" nodeId="e75d0f55afc746149623e82f5019023f">
+<p nodeId="045813a9892c4fbc821f53db6690dc9a"><strong>配置中心-标签-管理类标签</strong></p>
+<p nodeId="87df00cae06f4951b43fc9a2eb5022a6">定义：管理类标签用于在平台管理规则、场景等实体。</p>
+<p nodeId="66f43ff9a80544f0abffb8f83a8ee375">标签以层级方式查看，可点每个标签前方的箭头，选择展开或收起其子标签。</p>
+</td>
+<td colwidth="[528]" nodeId="02ef7921f6ed4427a2fbdb9fef2e2b50">
+<p nodeId="2f9489f1f551475c8ee26ecfb6246050"><img src="https://km.sankuai.com/api/file/cdn/1357692026/142003285054?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1206.92" height="600" nodeId="3fcf5baa1fbc45eda857b8069b94964f" /></p>
+</td>
+</tr>
+<tr nodeId="d16ebdd3a8fc4f7096e36306f26c075d">
+<td colwidth="[126]" nodeId="b73fade94c594afb808440c14964d593">
+<p align="start" nodeId="2e3cf895c3fe400aabc862fb0bfe9110">创建新标签</p>
+</td>
+<td colwidth="[516]" nodeId="e03ec52e50b1417fba1da875af45f90a">
+<p nodeId="aa20c0faf6084541a71986576472417a">在标签页面点击<span color="rgb(245, 35, 45)"> 添加标签</span>，填写要创建的新标签的信息，包括 <span color="rgb(245, 35, 45)">名称、标签类型、父标签ID、标签必选</span>，点击 <span color="rgb(245, 35, 45)">添加</span> 即可；</p>
+<ul nodeId="9652312a3c7b4bec9d6302d57110792e">
+<li nodeId="2eb44b33c55d40a4af224415f1175592"><span color="rgb(245, 35, 45)">名称：</span>自定义；</li>
+<li nodeId="ea6fe04ad4714acda334a284b8997458"><span color="rgb(245, 35, 45)">标签类型：</span>规则/场景，选择一种类型；</li>
+<li nodeId="370518ec3be0419f971d3f44b5bca1c5"><span color="rgb(245, 35, 45)">父标签ID：</span>默认创建的标签为父标签/根标签，如果创建的标签是现有标签的子标签，可以在此选择父标签（父标签/根标签与子标签之间的关系类似于一级分类和二级分类，这样设定是便于标签的管理；需要注意的是：在规则/场景/参数/因子中添加标签时，添加的是父标签，如果父标签下面有子标签的话会再选择父标签下面的的某个子标签）</li>
+<li nodeId="e5dbfd8acfe94999a08799c4832e027a">
+<p nodeId="25e7f2f2dcce4b639c069b2141d5a4cd"><span color="rgb(245, 35, 45)">标签必选：</span>默认否，如果选择【是】表明在创建规则/场景时，该标签会成为一个必选下拉框，用户需要下拉选择其中的标签（这些标签都是<u>必选标签</u>的末级子标签），打在当前编辑的规则/场景上；</p>
+<km-collapse active="false" nodeId="ab1cf7241e2b4bb2b7558df161772384">
+<km-title>标签必选 示例</km-title>
+<km-content>
+<p nodeId="313c43fc39674c009a511c548c7baca6">如下图，该空间将规则标签中的一级标签【规则标签测试】设置为【必选】标签。则在规则编辑中，【规则标签测试】成为了独立的下拉选择框。里面可选择的内容即【规则标签测试】下方的末级子标签。</p>
+<p nodeId="6c14f0d0c77c41448640787c23c7e1f4">Q：为啥【测试标签】、【测试标签层级】这两个没有出现在下拉选项里<br />A：因为其下方还有更下级的标签【测试得分】，目前实现上会直接取到末级。</p>
+<p nodeId="515e788109f04c01a055cd305d96afb9"><img src="https://km.sankuai.com/api/file/cdn/1357692026/27988521374?contentType=1" name="image.jpeg" width="1371" height="600" nodeId="750eb07e7b8c4b9cba2c2d0aef761c35" /></p>
+<p nodeId="913182a482ac427aa10ef890644d1df0"><img src="https://km.sankuai.com/api/file/cdn/1357692026/27977927077?contentType=1" name="image.jpeg" width="1003" height="600" nodeId="f83d9b4749be4ea3966c29dbf66c63db" /></p>
+</km-content>
+</km-collapse>
+</li>
+<li nodeId="6aa02a7ae4d74c0eab833cb0d785940c"><span color="rgb(245, 35, 45)">共享业务方：</span>把该标签共享给哪个zeus空间；</li>
+</ul>
+</td>
+<td colwidth="[528]" nodeId="3a2dbcb017eb409b82a64a621fd6d5a6">
+<p nodeId="0952d220b146424590ab32ff169ab91c"><img src="https://km.sankuai.com/api/file/cdn/1357692026/4168772774?contentType=1" name="image.jpeg" width="488" height="312" nodeId="125acea2eeee4767b7267a0d6a23f12f" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="2c0b0420a8e6483aa73278bec3cdb5c2">3.2  给对象打标</h2>
+<p nodeId="703cdbc846704db3a25f6b46d211ebe3">给各类对象打管理类标签，方法基本相同，都在对象的编辑页，点击新增标签，下拉选择即可。</p>
+<table responsive="false" nodeId="eb7f2e12cc784c3da4be798e3a7281e1">
+<tr nodeId="e82cc2df5d804d02b4a8894dbcd8c514">
+<th colwidth="[137]" nodeId="36dd57765025452da6cf965c978f1b4c">
+<p nodeId="9f4d4b14c6594f0fb0054fea7c3eb103">操作</p>
+</th>
+<th colwidth="[205]" nodeId="bad4750779a64ba0a23be1be03915f02">
+<p nodeId="7489bf1b876e4afba15f08b9acd4c67e">文档指南</p>
+</th>
+</tr>
+<tr nodeId="75376ea594d04877b8ddf56da2008154">
+<td colwidth="[137]" nodeId="22d6737ff249425081f3e28c8e09317b">
+<p nodeId="2dc7a2863ee3440fa42fa820a997e771">给规则打标</p>
+</td>
+<td colwidth="[205]" nodeId="a85a2e10b1e1454a9ed5aae3a3ea2ce3">
+<p nodeId="ba163ce5ad074f3ab2b78986f6672f1a"><a href="https://km.sankuai.com/page/312585969" autoUpdate="true" nodeId="372df6be7b8540499a0cb5cd874fe112"></a></p>
+</td>
+</tr>
+<tr nodeId="cf9d734d9f0843df8f1baf0631fcf0b1">
+<td colwidth="[137]" nodeId="11611006ef7b4ba9bf5558985d56a014">
+<p nodeId="662918320d5146d6af832515b3a36630">给场景打标</p>
+</td>
+<td colwidth="[205]" nodeId="bfee7f29c16a4175a6c2ca6b9e5c654b">
+<p nodeId="1333449b42a441079f135e731cd5d7b2"><a href="https://km.sankuai.com/page/220134551" title="说明：创建/修改场景" autoUpdate="true" nodeId="bf1449e4fac945d881acc54e3e935ba0">说明：创建/修改场景</a></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="c84f45f97d334dca9e4ef717209fb372">3.3  批量打标与批量删除</h2>
+<table responsive="false" nodeId="10e601349042436ba25f14bd63043ac2">
+<tr nodeId="3b763f8f2563484fa569b1ca71594ff8">
+<th colwidth="[91]" nodeId="3f4cc0f873ee4dcbb182cc3a0fb8c299">
+<p nodeId="f9d182ac4ff348a7b1276cefa9f259fe" />
+</th>
+<th colwidth="[516]" nodeId="472059a0c2ad4dcb9d72da50cc86bc38">
+<p nodeId="be131e53bb994c2b988ca0a9328ebe2d">说明</p>
+</th>
+<th colwidth="[424]" nodeId="b9d0126a908e4f35a4aafb7b52f0844a">
+<p nodeId="d745aba03a5248c982b0d65f50bd2d5c">示意图</p>
+</th>
+</tr>
+<tr nodeId="ce2dfe91038342638606c6139f1ffd10">
+<td colwidth="[91]" nodeId="4fc9b8c9bf884d98a6d3e0b60dbd5f9c">
+<p nodeId="6df94c0d28db432097ef5e964b7ad301">批量打标</p>
+</td>
+<td colwidth="[516]" nodeId="85391baf592c49fa8feec00c247433fd">
+<p nodeId="59fb67b332fd4210823e39aba66e31f4"><strong>功能描述</strong>：搜索定位<span color="rgb(0, 0, 0)">一批对象（规则、场景），选择一个期望配置的标签。给这批对象批量打标</span></p>
+<p nodeId="b76a60b7f0a74623b939ba655f6ba862"><strong>入口：</strong>批量操作-批量打标签</p>
+<p nodeId="8f00d18e27484455b71088bfe058aeeb"><strong>1.搜索要打标的对象</strong></p>
+<p nodeId="5f7a9a128b4f49d9ae0a2f8037a332ff">对象类型：选择要打标签的对象<span color="rgba(0, 0, 0, 0.9)">（规则、场景），点击【查询】下方配置标签List会根据搜索条件展示所有搜到的对象。</span></p>
+<km-note type="info" hiddenTitle="true" nodeId="c0ee97986edd40739957fc93fea5abaa">
+<km-title></km-title>
+<km-content>
+<p nodeId="27daafd4c2ac4e72b7bd64d462049c55">也可以选择按文件查询对象，准备txt文件，英文逗号隔开所有对象id。上传后，点击确认导入即可在下方list出现对象。示例：</p>
+<km-attachment src="https://km.sankuai.com/api/file/cdn/1357692026/142012472249?contentType=0" name="a.txt" size="28B" nodeId="c0bbaac0ba8d4eb7892535208cec76d3" />
+<p nodeId="bf83e778fd074dcdb614f2bb143aa862">​</p>
+</km-content>
+</km-note>
+<p nodeId="fedfd5f226824daeb8d6d2cde957d3f9"><span color="rgba(0, 0, 0, 0.9)"><strong>2.批量配置标签</strong></span></p>
+<p nodeId="c10417fadfb442ab884150372ac9b321"><span color="rgba(0, 0, 0, 0.9)">需要在此处选择，想要给这批对象打上什么标签。（对象为规则时，还需要选择打管理类还是风险标签）如图中，选择“zq测试2级”后，下方List中所有对象将要打上的标签都变为“zq测试2级”。</span></p>
+<p nodeId="577a70840a2147c38a2e6adb09481e8d"><span color="rgba(0, 0, 0, 0.9)"><strong>3.配置标签</strong></span></p>
+<p nodeId="f35992d26e6243d19d3d560c7f67b683"><span color="rgba(0, 0, 0, 0.9)">此时可以针对其中具体的某条对象进行微调，下拉选择别的标签。</span></p>
+<p nodeId="7ad7d027b6fd42c699768ddb5dec555d"><span color="rgba(0, 0, 0, 0.9)"><strong>4.确认打标</strong></span></p>
+<p nodeId="3c7a93a078854dd19147b6ea325d40f4"><span color="rgba(0, 0, 0, 0.9)">勾选最终需要确认打标的项目。</span></p>
+<p nodeId="2a64192d08fb44358d29bb8f0b81601a"><span color="rgba(0, 0, 0, 0.9)">最后点击【确认打标】，将给勾选项目，打上所配置的标签。</span></p>
+</td>
+<td colwidth="[424]" nodeId="bdca6ee5faf946d1b2d83686a1811a8b">
+<p nodeId="9df1660b938d4963ad4acbfe116b2009"><img src="https://km.sankuai.com/api/file/cdn/1357692026/142018241562?contentType=1&amp;isNewContent=false" name="image.jpeg" width="368" height="184" nodeId="75a85eea21aa4b9ebcb19092d7a42e18" /></p>
+<p nodeId="860917ffa40a4e71bb3350435918aa2d"><img src="https://km.sankuai.com/api/file/cdn/1357692026/142010553556?contentType=1&amp;isNewContent=false" name="image.jpeg" width="367" height="233" nodeId="313a30a81cf643c6a6036a7d50252820" /></p>
+<p nodeId="3696a5eca3ff4a63b86911648390367d"><img src="https://km.sankuai.com/api/file/cdn/1357692026/142012151754?contentType=1&amp;isNewContent=false" name="image.jpeg" width="355" height="189" nodeId="4b397d77117a415fa750fc92abb3975e" /></p>
+</td>
+</tr>
+<tr nodeId="5e39e96388604b8c91e0f837ef0dbddd">
+<td colwidth="[91]" nodeId="b9dee66068954730a83cf3b0e80a2c11">
+<p nodeId="4586ab58eb01471db4e16f44203a31de">批量删除</p>
+</td>
+<td colwidth="[516]" nodeId="373c5a7b1113472ab6231e86e5c89bd8">
+<p nodeId="4fe361730bd249f8ba149f096119060d"><strong>功能描述</strong>：<span color="rgb(0, 0, 0)">搜索定位一批具有一个共同标签的对象（规则、场景），将从对象中删除该标签。</span></p>
+<p nodeId="769f9c8ddb3a4a38bece9ab7fd2f63a6"><strong>1.搜索要删除的对象标签</strong></p>
+<p nodeId="865109b5ec6d426983b18fe4b622323e">对象类型：选择要删除标签的对象<span color="rgba(0, 0, 0, 0.9)">（规则、场景）</span></p>
+<p nodeId="e5aa0364b08c486bb19303ae0294af8c"><span color="rgba(0, 0, 0, 0.9)"><strong>2.配置标签</strong></span></p>
+<p nodeId="dc3184b9fa104ffe9e8488079315184a"><span color="rgba(0, 0, 0, 0.9)">下方配置标签list中，可以勾选最终需要确认删除的标签。</span></p>
+<p nodeId="844992ac789d44a1b49f99b3e4184590"><span color="rgba(0, 0, 0, 0.9)"><strong>3.确认删除</strong></span></p>
+<p nodeId="ee3c991ebb644d229e8ef3afdbcae8bd"><span color="rgba(0, 0, 0, 0.9)">最后点击【确认删除】，将会把该标签从对象中删去引用关系。</span></p>
+</td>
+<td colwidth="[424]" nodeId="fab3c09946a94acaa04b842e7e0b3647">
+<p nodeId="bd1ecb8908de4246afcad8c4ada19f05"><img src="https://km.sankuai.com/api/file/cdn/1357692026/142011513738?contentType=1&amp;isNewContent=false" name="image.jpeg" width="399" height="140" nodeId="d3b76bd95fda41c9bb566fe00513e3df" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="0219fcd99bbf4bc3ac285b1e009115d7">四、FAQ</h1>
+<table responsive="false" nodeId="ca599600f8b54e60ab52543461537e98">
+<tr nodeId="35770e2c5e614e55880c039cd2b1bfa5">
+<th colwidth="[50]" nodeId="6343d5a0f4d148158b5138be17399331">
+<p nodeId="d051f8dd816649b7951b68010f40aab3" />
+</th>
+<th colwidth="[446]" nodeId="235d6e0945734c2e9d0ca7e4f94a9f0c">
+<p nodeId="188c7c036e2943dc83053f28ff24629b">问题</p>
+</th>
+<th colwidth="[745]" nodeId="20030ff0cc2b4230b0d350406c2b2166">
+<p nodeId="b354012a10e746a18e40157cfd79f9d9">答</p>
+</th>
+</tr>
+<tr nodeId="0d20f108649a4710879117f743703269">
+<td colwidth="[50]" nodeId="87e543eecf6548febd556a4857e1ed32">
+<p nodeId="43867938a64443fc8a87243be3c41130" />
+</td>
+<td colwidth="[446]" nodeId="0e81483189b24e7fb6f04283906a0ea0">
+<p nodeId="6e6e67d645f24d0b9c33d7d6741a8d0a" />
+</td>
+<td colwidth="[745]" nodeId="d4fc73a7febc4a41b1dd5b73b42de42e">
+<p nodeId="b52da9fee4fc4d46a856560cc9d4dfe1" />
+</td>
+</tr>
+</table>
+<p nodeId="276c6b99d37c4b5a98c232ebe0519af5" />
+<p nodeId="e7568d7340b84bfab31074974095267c"><span color="rgba(0, 0, 0, 0.87)"><span font-size="22">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+</km-doc>

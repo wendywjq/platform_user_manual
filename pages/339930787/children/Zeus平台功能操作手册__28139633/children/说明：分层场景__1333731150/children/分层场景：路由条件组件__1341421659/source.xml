@@ -1,0 +1,348 @@
+<km-doc>
+<km-title nodeId="e9ebb2f70ea04c0784e417938e47fa39">分层场景：路由条件组件</km-title>
+<km-catalog style="none" nodeId="5aa8115d09064516860c83c00e52d9d3" />
+<h1 nodeId="cbc3820a15be4632a38e5c9f722a7a08">一、背景</h1>
+<p nodeId="34211ca6113d4e5bb0b54765151ca06e">分层场景与普通场景的核心能力差异在于支持使用短路、路由等部署方法，构造出一个具有层级执行关系的图。这些能力集成在「路由条件组件」中。本文将介绍如何配置该组件。</p>
+<h1 nodeId="2293c47c3d1447f9a269fd365b1d7edc">二、名词解释</h1>
+<table responsive="false" nodeId="b0c3769d06024a49bb69ec193fea3628">
+<tr nodeId="fa3ba03bb21248248f8f81484ae8410f">
+<th colwidth="[107]" verticalAlign="top" bgColor="rgb(0, 55, 166)" nodeId="86faa9d7e2a74628a4647867518a859a">
+<p nodeId="0b941eb8b68c46948f78473dd13edd66"><span color="rgb(255, 255, 255)"><span font-size="15">名词</span></span></p>
+</th>
+<th colwidth="[915]" verticalAlign="top" bgColor="rgb(0, 55, 166)" nodeId="0f54370681f8444688eb1a345eab2752">
+<p nodeId="99c62b04e7c949559bde9c6b51755d2d"><span color="rgb(255, 255, 255)"><span font-size="15">解释</span></span></p>
+</th>
+</tr>
+<tr nodeId="1064c4877bda4e4d9d2d471be2d0fee9">
+<td colwidth="[107]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8f2390c2982347d3aeed15c58bc47b4e">
+<p align="center" nodeId="2f5650de601c407fa067240cfa3041eb"><span font-size="15"><a href="https://km.sankuai.com/page/1333731150" title="分层场景" nodeId="a3cccb6b791445a795af9aa10f746803"><strong>分层场景</strong></a></span></p>
+</td>
+<td colwidth="[915]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e120da74e9f14f8e96cb22e3b5d56ecc">
+<p align="start" nodeId="229f80a3a7044911969473dd765cfc6a"><span font-size="15">新的规则集合实体，对标过去一个普通场景，在场景内支持以层级关系+路由条件组织成树状的执行链路，使场景内策略达到分层执行的效果。因超时（或短路）未执行的链路将获得</span><span font-size="15"><strong>补偿</strong></span><span font-size="15">。</span></p>
+</td>
+</tr>
+<tr nodeId="11b3012cfc8b43c682568c61523f8560">
+<td colwidth="[107]" nodeId="c26598f0d76a42d192b6a0226c99b989">
+<p align="center" nodeId="262e052b49674123a9590a0bec990d31"><span font-size="15"><strong>路由条件</strong></span></p>
+</td>
+<td colwidth="[915]" nodeId="cd3ff80700eb411697f78e9ef6bd3641">
+<p nodeId="5281707530ea4818a9844d6886e203bd"><span font-size="14">连接不同层级的策略节点的组件。</span><span color=""><span font-size="14">请求满足分支上的路由条件才能执行对应的下游的策略，类似多级路由中多个路由规则的集成，但不在规则列表中维护，仅归此分层场景所有，不支持跨树共享。在路由条件组件中，可选择启用决策相关的</span></span><span color=""><span font-size="14"><strong>短路条件</strong></span></span><span color=""><span font-size="14">。</span></span></p>
+</td>
+</tr>
+<tr nodeId="e25580a9ca1448248baddb0fbf19cc69">
+<td colwidth="[107]" nodeId="007e23f2a7af46aa96c82ecef6103391">
+<p align="center" nodeId="d0d7e518caac4dc1b205ef443873bbab"><span color=""><span font-size="15"><strong>短路条件</strong></span></span></p>
+</td>
+<td colwidth="[915]" nodeId="f1be39fcd0d6439d9a87abacf84de4b0">
+<p nodeId="b97b8fa7fb4645bf92fa28dfa9811a65"><span color="rgb(38, 38, 38)"><span font-size="14">「路由条件组件」里的一个配置项。如果开启短路条件，执行到该节点时会优先判断短路条件是否满足，满足则短路，不再往下路由。不满足则继续判断路由条件来决定是否向下个策略节点路由。</span></span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="6cf1efb143994744b1e46de0fb5993a1">三、使用指南</h1>
+<h2 nodeId="44485512eb8b4679a59495d9f7102124">3.1 部署</h2>
+<table responsive="false" nodeId="974c8266399e4d37b65357b8c879b990">
+<tr nodeId="a283564b0ab846aca8edc03fcf384229">
+<th colwidth="[624]" verticalAlign="top" bgColor="rgb(0, 55, 166)" nodeId="cc16dc80bd4040c1a1593c853ea46a3a">
+<p nodeId="e588a71748f8452a8747edab25a61972"><span color="rgb(255, 255, 255)"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[671]" verticalAlign="top" bgColor="rgb(0, 55, 166)" nodeId="e166cb9b066749dfb829be16b7f46cab">
+<p nodeId="103b9334c4c542fa814f0521b5c64d42"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="175a6d7f9a084b0aa2a264a9fa7816e1">
+<td colwidth="[624]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e01b9cfcfda04d87988233215c2f11ab">
+<p nodeId="7e089dbd6ac44b0d951a8a1743b0493c">部署操作</p>
+<ul nodeId="698b1a5ca51a46f4bdcfc839f7e567d1">
+<li nodeId="f3222b5749414cfa94583bdddc8f8d7e">
+<p align="start" nodeId="d633939c846340b0956ffa6e73bc650e"><span font-size="14">拖拽：第一个拖进树的组件必须为策略节点。使用引线与上下层的路由条件组件相连。用例测试时，会检验有无断开的节点。成功在屏中拖拽出一个策略组件，将默认展开节点详情（右侧抽屉），在树中单击任意组件，右侧即切换为该组件的详情。</span></p>
+</li>
+<li nodeId="72fe4fe0c1984b9f8afdc12327a36096">
+<p align="start" nodeId="0f106652c9e0479da107f0c518da4263"><span font-size="14">连线：路由条件组件上下各有一个空心圆，上方可以连接1条线，下方可连n条线。【1进n出，上方只能与策略节点输出连接，下方只能与策略节点输入连接】鼠标点按组件下方的圆形，拖动到下方层组件上方圆形处即可建立连线。</span></p>
+</li>
+<li nodeId="5d203ce8d6bc49e39ec279d9d0625e20">
+<p align="start" nodeId="49f3839ed361453587cd10c52f552bf2"><span font-size="14">清除：右键组件，点击删除后将该节点从分层场景中清除。对引线也可右键，点击删除即可删除策略节点之间的连线</span></p>
+</li>
+</ul>
+<p nodeId="45729e518926429289a0f9a1e7f371f9" />
+<p nodeId="253830e47185467f88076d6b9351aa52">基本信息</p>
+<ul nodeId="ef5d58de47bf4b20b117ec33be9ff0fb">
+<li nodeId="d15f70ac09c042119da7a062f249d3ca"><span font-size="14">名称：可编辑，随时更新。在分层场景保存生效时真正生效。</span></li>
+<li nodeId="bd4b1387fb6741d38ecd711a8f183252"><span font-size="14">备注：可编辑，随时更新。在分层场景保存生效时真正生效。</span></li>
+</ul>
+<km-note type="info" hiddenTitle="true" nodeId="efca18a5f4ee43a89a946ade64d05904">
+<km-title></km-title>
+<km-content>
+<p nodeId="bfd2c5d5218448eeaea3367e0953502f"><span font-size="14">在组件左侧，有一个数字即为该组件在该分层场景中的编号ID。</span></p>
+<p nodeId="d3c223d978754c3e9c099d0fae75900b"><span font-size="14">路由条件配置完成后，可以与下方多个策略节点相连接。需要在对应引线上选择对应判断哪个分支的条件，下方</span><span color="rgb(245, 35, 45)"><span font-size="14">不同引线上不允许选择相同的分支</span></span><span font-size="14">。</span></p>
+</km-content>
+</km-note>
+<p align="start" nodeId="037b32571edc43b883260a11efbce129" />
+</td>
+<td colwidth="[671]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9cc54c7e69d445d1bf9fc6d4aad45fe4">
+<p nodeId="9620517073784589aaa3a7adc61f1eb5"><span font-size="14">选择分支</span></p>
+<p nodeId="898e323e7a584124b13b2229662552db"><img src="https://km.sankuai.com/api/file/cdn/1341421659/32014219323?contentType=1&amp;isNewContent=false" name="image.jpeg" width="481" height="363" nodeId="93482eec37ac4a72a3664bc9fa6ee50e" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="88c3e614685544d095d4a13d9e8a0591">3.2 短路条件</h2>
+<table responsive="false" nodeId="5f32a71e87c449979cd894e79abdb6a7">
+<tr nodeId="19cfa079dda3442da35fb832e89cd918">
+<th colwidth="[643]" verticalAlign="top" bgColor="rgb(0, 55, 166)" nodeId="5d12003e3b6546caa262e4efc6977b8b">
+<p nodeId="ceb5050ade7c48d8ba230856c57cd7ec"><span color="rgb(255, 255, 255)"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[671]" verticalAlign="top" bgColor="rgb(0, 55, 166)" nodeId="4ef53e4984414eedb97503487fee57d4">
+<p nodeId="f7475922a10c45708d99bce8ee36ae9b"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="7f95e4cc94054cdb98499a91560fa24f">
+<td colwidth="[643]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2560eebdcc3b48669a9a246ab4c25e25">
+<p nodeId="da48bb5fb26d4dccbd0fd92f0aaaf9cc"><span font-size="15">1.启用短路条件</span></p>
+<p align="start" nodeId="bd42a655655a4903aaa234c9622f30a7"><span font-size="15">默认不启用。选择「是」则</span><span color="rgb(38, 38, 38)"><span font-size="15">开启短路条件。</span></span></p>
+<p nodeId="83f6a07ed08f48a49138c2a6a64b59e5"><span color="rgb(38, 38, 38)"><span font-size="15">效果：执行到该节点时会优先判断短路条件是否满足，满足则短路，不再往下路由；不满足则继续判断路由条件来决定是否向下个策略节点路由。</span></span></p>
+<p nodeId="88a02fb4ad38445b928d38d98e94ff32"><span font-size="15">启用后需要输入关于</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">parent_decision_ids的表达式作为判断条件。</span></span></p>
+<km-note type="info" hiddenTitle="true" nodeId="aa88fcbd316746c49a9d27891601b66c">
+<km-title></km-title>
+<km-content>
+<p nodeId="652fd10cac0146f39c40ac04ef7d18e9">请使用Aviator语法输入。短路条件只允许使用系统内置参数<span color="rgba(0, 0, 0, 0.87)">parent_decision_ids（含义：</span><span font-size="15">上一个策略节点输出的决策ID</span><span color="rgba(0, 0, 0, 0.87)">），使用其他参数/因子都会提示报错。</span></p>
+</km-content>
+</km-note>
+<km-note type="tip" hiddenTitle="true" nodeId="1e41348818fc4046a3ed76e723d59b03">
+<km-title></km-title>
+<km-content>
+<p nodeId="b98da08dc8e54b87b4988f2f801a8cd9">parent_decision_ids为<strong><u>数组类型</u></strong>，其中的元素为int型。例如：[65,25,103]，可参考下方常用例子输入表达式。</p>
+</km-content>
+</km-note>
+<table responsive="false" nodeId="94efb7fe951a469f8dc3ba3749067766">
+<tr nodeId="f925175c18d54e05b1ff57f157f7479b">
+<th colwidth="[50]" nodeId="16091e31b58c4d6abc784a5383d11210">
+<p nodeId="7847321b25bd436c8fde26c881d955b5" />
+</th>
+<th colwidth="[251]" nodeId="04564cb3700140d1a3c8b08d6cd27fca">
+<p nodeId="75088992d6854ed382fe5208d7a685ca"><span font-size="15">说明</span></p>
+</th>
+<th colwidth="[303]" nodeId="5da38a229b8a4fc3ac5241491a996193">
+<p nodeId="c3e041febb1444fd8c50a4a85ac23a99"><span font-size="15">示例</span></p>
+</th>
+</tr>
+<tr nodeId="f03f5208f5a149c68184730701c75614">
+<td colwidth="[50]" numCell="true" nodeId="b7d16734d0c74d59a9e5bb47aa81f658">
+<p nodeId="07be07004f5b4c8bb1ec8ec0422efe5e" />
+</td>
+<td colwidth="[251]" nodeId="8a90c7c67c2d41248448a48cae463e9b">
+<p nodeId="29bd4349962a4c4284151a08980c1591"><span font-size="15">上一个策略节点输出的决策ID非空</span></p>
+</td>
+<td colwidth="[303]" nodeId="1404fdc44b6a4c32b42d860089a4bc9a">
+<p nodeId="26f786b86ccc4623beae99ab9cd8066a"><span font-size="15">str(parent_decision_ids) != '[]'</span></p>
+</td>
+</tr>
+<tr nodeId="d19c9426dd0b4298b1ce92ff988bf4ce">
+<td colwidth="[50]" numCell="true" nodeId="58da632de5534807af50406c7b739c73">
+<p nodeId="903d12457fd946a48bb380446ecc4e52" />
+</td>
+<td colwidth="[251]" verticalAlign="middle" nodeId="492c90e58d604cfea751bd10755b8317">
+<p nodeId="6663350cea81415089d3feebc4dcfe19"><span font-size="15">上一个策略节点输出的决策ID为2</span></p>
+</td>
+<td colwidth="[303]" nodeId="45dd834bbcf94c11b39aaec34e234834">
+<p nodeId="0a0bd1f905574745a08d038cf8fd1b71"><span font-size="15">count(parent_decision_ids) == 1 &amp;&amp; include(parent_decision_ids, 2)</span></p>
+</td>
+</tr>
+<tr nodeId="cb8f69d2133f4c13932e4ebdeae58531">
+<td colwidth="[50]" numCell="true" nodeId="a4f592ef47a14184a1cd34a3fa468f88">
+<p nodeId="b8bd8fb4365544fba544aed35f93ce41" />
+</td>
+<td colwidth="[251]" verticalAlign="middle" nodeId="2f9a4ef9bb7c4571ab8c93a2c321e7b0">
+<p nodeId="e22bfe4382d047f99d9638b546c4944f"><span font-size="15">上一个策略节点输出的决策ID为24或14</span></p>
+</td>
+<td colwidth="[303]" nodeId="a81f39943036413e81166ef7eea6a094">
+<p nodeId="2461ab1a4bd74fb88fb170291dcd0b5a"><span font-size="15">count(parent_decision_ids) == 1 &amp;&amp; include(parent_decision_ids, 24) || include(parent_decision_ids, 14)</span></p>
+</td>
+</tr>
+<tr nodeId="493782f8518449e79104d271cefd7122">
+<td colwidth="[50]" numCell="true" nodeId="27f9205028ae4f00acf1e0de136754dd">
+<p nodeId="815f844a265740cea68b3f5aa416eca9" />
+<p nodeId="69ea162e45d3410cbd5cd00bc2c4d63c" />
+</td>
+<td colwidth="[251]" verticalAlign="middle" nodeId="e3c9015c28b74135a21187861678f223">
+<p nodeId="101fb6b3439d468a9ce42d561f431eec"><span font-size="15">上一个策略节点输出的决策ID列表包含77</span></p>
+</td>
+<td colwidth="[303]" nodeId="9c6de1381bec41f5a5b4b6c9b074720e">
+<p nodeId="0164a8d129064f4da5a1a540bca4d14a"><span font-size="15">include(parent_decision_ids, 77)</span></p>
+</td>
+</tr>
+<tr nodeId="575b4ec4be824fe488820b19ec387988">
+<td colwidth="[50]" numCell="true" nodeId="6a5987b247da472f85d987b617bcf3cc">
+<p nodeId="910378a56b034e36b63e402f1d628358" />
+</td>
+<td colwidth="[251]" verticalAlign="middle" nodeId="c7dfdf47399940e5864e301fa96d8da1">
+<p nodeId="1bd7fd79a00a4703a8650e8f4d19206b"><span font-size="15">上一个策略节点输出的决策ID列表包含77和2</span></p>
+</td>
+<td colwidth="[303]" nodeId="59dbf6eb3d1f4c1594463d15396312e3">
+<p nodeId="22279a26e283436b8b32bceef4cd1960"><span font-size="15">include(parent_decision_ids, 77) &amp;&amp; include(parent_decision_ids, 2)</span></p>
+</td>
+</tr>
+<tr nodeId="8d0a398bf8354ecf810510b696a5215e">
+<td colwidth="[50]" numCell="true" nodeId="babc40a56a1342499e6be7e29dc83689">
+<p nodeId="877f8766a42d4c90be63a3f4c51ebf38" />
+</td>
+<td colwidth="[251]" verticalAlign="middle" nodeId="f249173b70ee4307b05fe36fc67f0f93">
+<p nodeId="159aac2d988a4efaaf2ed0164e18c54b"><span font-size="15">上一个策略节点输出的决策ID列表包含77或2</span></p>
+</td>
+<td colwidth="[303]" nodeId="7edea993bdb74140a041053b94cd29a6">
+<p nodeId="f0ad705efeed492ea7c6f8e8cfad97c8"><span font-size="15">include(parent_decision_ids, 77) || include(parent_decision_ids, 2)</span></p>
+</td>
+</tr>
+<tr nodeId="0cc4b36578004ed79330c2c1e0c1c113">
+<td colwidth="[50]" numCell="true" nodeId="5cbff60f392f45ed9dae2863a7db84d7">
+<p nodeId="f1d47e3f04b9490c89a339dbcb1837e4" />
+</td>
+<td colwidth="[251]" verticalAlign="middle" nodeId="df596f60e6a341f3a5427249e1824b84">
+<p nodeId="2b0b0e7a28c445ed8d5fe3b57a62264e"><span font-size="15">上一个策略节点输出的决策ID列表包含77但是不包含2</span></p>
+</td>
+<td colwidth="[303]" nodeId="0ac40739447d4426b0c248c2aa566e69">
+<p nodeId="de58cb2edb674d499d54cd461220c13a"><span font-size="15">include(parent_decision_ids, 77) &amp;&amp; !include(parent_decision_ids, 2)</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="d9f32bb6112241e7b8a772edbb18e887"><span font-size="15">2.测试短路逻辑</span></p>
+<p nodeId="358eb61785e44cc7828223f490968a15"><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">点击【短路条件测试】，可以测试表达式的逻辑执行。在输入框设定该条表达式的输入值，即parent_decision_ids的值，选择执行后期望的输出，即命中与否。</span></span></p>
+<p nodeId="63d009be492b467f9ef8b35e0b5d9af7"><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">点击测试按钮将会告知用户测试的结果为成功还是失败。</span></span></p>
+<p nodeId="0f5c4870c5e5452a9af63f76ded296d3"><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">未进行测试，或是最新测试未通过时，状态为未就绪；</span></span></p>
+<p nodeId="0c811245552146a29d94fa4f5f49e144"><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">最新测试通过时，状态为已就绪。</span></span></p>
+<km-note type="tip" hiddenTitle="true" nodeId="68a1273e3858497c847d36353a96035e">
+<km-title></km-title>
+<km-content>
+<p nodeId="a4571acb01ca448f8f31a7d8b1f14b1c"><span font-size="14">1.此处并不会记录历史的测试结果，仅提示当前测试的通过与否，请在分层场景的「用例测试」环节之前确认短路条件逻辑就绪。</span></p>
+<p nodeId="79f78891fd6048f3b30282bd6535ccd0"><span font-size="14">2.短路条件仅允许使用zeus内置的参数parent_decision_ids</span></p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[671]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="54898d9e558b4df6aabc64f4d50d355b">
+<p nodeId="665e0b35c3b9470885e02c006dc5e7ce"><span font-size="14">测试短路条件</span></p>
+<p nodeId="e28e5607571d486eb9b22d9b436bd225"><img src="https://km.sankuai.com/api/file/cdn/1341421659/32013535880?contentType=1" name="image.jpeg" width="645" height="490" nodeId="27cd92f681ba43e2be095905b47b574b" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="70ab66f6467a4a56a1e1decbe5910856" />
+<h2 nodeId="98691e020e414843a83960232cb89d32">3.3 路由条件</h2>
+<table responsive="false" nodeId="efbc40b7210b4817a479615580475020">
+<tr nodeId="6b80e03b661245bf8a0e85c63d957d5d">
+<th colwidth="[643]" bgColor="#0037A6" nodeId="11c4c6345f8647babd767141122b2831">
+<p nodeId="15c7f9371e294d0485a10165cee66180"><span color="#FFF"><span font-size="15">说明</span></span></p>
+</th>
+<th colwidth="[671]" bgColor="#0037A6" nodeId="541d85c01c474e8c94d9996290958917">
+<p nodeId="8b19732008b64b02a52b2e1fba04d59a"><span color="#FFF">图</span></p>
+</th>
+</tr>
+<tr nodeId="cc07d15789fa4408aaa305a15aab2860">
+<td colwidth="[643]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8f4b2c1f8b144ee280e8f42769a76080">
+<p nodeId="79d27dbd502f4018adb0d32a31d2865a"><span font-size="15">1.输入表达式</span></p>
+<p align="start" nodeId="9dbb9a9de9e54dcc9c9b8744a60d7111"><span font-size="15">请使用Aviator语法在路由条件各个分支中输入判断条件。路由条件分支默认至少1个，可以新增删除分支，分支校验不允许空。</span></p>
+<p nodeId="d804da815777481e89d93d09698d396d"><span font-size="15">分支表达式的含义即为命中对应条件，即可向该分支指向的下一个策略节点路由。</span></p>
+<km-note type="note" hiddenTitle="true" nodeId="57abd8d059b148cfaaec750fabb36c2f">
+<km-title></km-title>
+<km-content>
+<p nodeId="2fd873db4fd944db84365b66823ef056">注意，路由条件仅支持普通参数，不支持因子与fetcher出参。若配置fetcher出参作为路由，<span color="rgb(255, 74, 71)">执行时将作为空值处理</span>！！</p>
+</km-content>
+</km-note>
+<p nodeId="f51f31bacd82460f9b0c8784a07be49a" />
+<p nodeId="6f1254bd60cf401f92e3e1a71a064775"><span font-size="15">2.测试路由逻辑</span></p>
+<p align="start" nodeId="df632db240a7486682077ebd32a57c29"><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">点击【路由条件测试】，可以测试表达式的逻辑执行。</span></span></p>
+<p nodeId="9c29b5da69f54430be8deb518f4a2deb"><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">在输入框设定分支条件的输入值，即各个分支涉及到的参数的值，再填写执行后期望的输出，即命中的分支id的list，</span></span><span color="rgb(245, 35, 45)"><span font-size="15">多个则用逗号（中文英文都可）隔开，例如：分支1，分支2 </span></span><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">。</span></span></p>
+<p nodeId="c1991b8684d24b7b9f27bf25329d5102"><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">点击测试按钮将会告知用户测试的结果为成功还是失败。</span></span></p>
+<p nodeId="7934abacd08f40fc8f0774f713a36ece"><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">未进行测试，或是最新测试未通过时，状态为未就绪；</span></span></p>
+<p nodeId="fb369a4654df47999e203847349f7ed1"><span color="rgba(0, 0, 0, 0.87)"><span font-size="15">最新测试通过时，状态为已就绪。</span></span></p>
+<km-note type="tip" hiddenTitle="true" nodeId="e8ed52c7b35b4c17bbd082b0f0c154ec">
+<km-title></km-title>
+<km-content>
+<p nodeId="82be13d47082425d974eaa3f4f518f4a"><span color="rgba(0, 0, 0, 0.9)"><span font-size="14">1.此处并不会记录历史的测试结果，仅提示当前测试的通过与否，请在用例测试前确认短路条件逻辑就绪。</span></span></p>
+<p nodeId="645edef5e62c42aea1adbebd8cea0a8f"><span color="rgba(0, 0, 0, 0.9)"><span font-size="14">2.路由条件仅允许使用在zeus上注册过的参数，不允许使用因子。</span></span></p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[671]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ea0cd6cb11ec4e008306077e2046b111">
+<p nodeId="0b5b0de574554ced8c55fed25915698a"><span font-size="14">测试路由条件的多个分支</span></p>
+<p nodeId="8eaa503535a6410fb5b9d7d24bb08819"><img src="https://km.sankuai.com/api/file/cdn/1341421659/32015101603?contentType=1" name="image.jpeg" width="649" height="394" nodeId="d1c50626c59a4ec8ba650627ba02241b" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="bca9157ac3504eb29330f7ffd1add24a">3.4 其他Aviator文档</h2>
+<table responsive="false" nodeId="76bc06a8eb1c4eea869516b4e86c0401">
+<tr nodeId="d0192133b2414884a1cb164b186580aa">
+<th colwidth="[50]" bgColor="#0037A6" nodeId="d595da237aea48519b464baf614d3969">
+<p nodeId="e7b94a791c4c4c97b76c8d6e8c1cd72d" />
+</th>
+<th colwidth="[479]" bgColor="#0037A6" nodeId="471ed01baf9c428580145a29cb33d1ec">
+<p nodeId="a6338558177b4173aa7187bb6959e612"><span color="#FFF">说明</span></p>
+</th>
+<th colwidth="[471]" bgColor="#0037A6" nodeId="8d3a1d7ce56b483684fe930fe0647f41">
+<p nodeId="c8b183c70396484c88eaf8ae49402ec0"><span color="#FFF">链接</span></p>
+</th>
+</tr>
+<tr nodeId="daa3046fbbfa4c1884096799608c515d">
+<td colwidth="[50]" numCell="true" nodeId="1490c517b404402fa52a898fb724869d">
+<p nodeId="e9b2f0e47a02407c9eb8a4834f5cfee6" />
+</td>
+<td colwidth="[479]" nodeId="98f98815ec804dc58f08fd97bc8615ae">
+<p nodeId="95ec3c2bc15545129d7ea4ab0e7d24b4">Aviator语法：详细介绍Aviator语法，包括基本类型和语法，函数等</p>
+</td>
+<td colwidth="[471]" nodeId="9fe1cd04be3b4022b3a4feb51591c86e">
+<p nodeId="e3453fae2e63480299246e35bd034d08"><a href="https://www.yuque.com/boyan-avfmj/aviatorscript/cpow90" title="https://www.yuque.com/boyan-avfmj/aviatorscript/cpow90" nodeId="3eaefa8ad1c543a2a4da7f58cb36861b">https://www.yuque.com/boyan-avfmj/aviatorscript/cpow90</a></p>
+</td>
+</tr>
+<tr nodeId="4b3ab0c07a8a46d3b403418f449f81ed">
+<td colwidth="[50]" numCell="true" nodeId="50d1d5d366e34ed3aacd055fec0c42e8">
+<p nodeId="64fdffe3795a4ee9b6bd66d34a1ee5ab" />
+</td>
+<td colwidth="[479]" nodeId="f88220be67744bbbb3d96c94603ac4b2">
+<p nodeId="94241965366c4bba99f820dd72971183">内置函数：详细介绍Aviator内置函数，包括函数书写，函数功能等</p>
+</td>
+<td colwidth="[471]" nodeId="532e269cecf84438a25ece0074f900b3">
+<p nodeId="25e6f11a35c043dfa0cb030d71cfe419"><a href="https://km.sankuai.com/page/28163535#id-4.6%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0" title="https://km.sankuai.com/page/28163535#id-4.6%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0" autoUpdate="true" nodeId="23954c09921346f2b56d5d3d8bb2559a">https://km.sankuai.com/page/28163535#id-4.6%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0</a></p>
+</td>
+</tr>
+<tr nodeId="57b52841e2da4a418f7f35f9c15d703f">
+<td colwidth="[50]" numCell="true" nodeId="e9c6c53ab367481584a660a5c6038423">
+<p nodeId="94a495a469524a578684ef493e064977" />
+</td>
+<td colwidth="[479]" nodeId="8cf02e4dffa74b328fb2c3b7427d221d">
+<p nodeId="b8df5518e59645c290a98fd8fce26635">自定义拓展函数：详细介绍zeus现有自定义拓展函数</p>
+</td>
+<td colwidth="[471]" nodeId="c2330b1de7b4498cbee5f3f8e4385bbb">
+<p nodeId="d5206feafd51426ab8aa1a91fd6b6797"><a href="https://km.sankuai.com/page/28155153" title="https://km.sankuai.com/page/28155153" autoUpdate="true" nodeId="7d5e8ad5ae654131bcea20df60022b93">https://km.sankuai.com/page/28155153</a></p>
+</td>
+</tr>
+<tr nodeId="682ce7f0b4ba4cc1b149aa32a8f40f48">
+<td colwidth="[50]" numCell="true" nodeId="06a34ca1e5634310b13a36f2ac8172c0">
+<p nodeId="5eada0cd2f424c4e957802548662a6cb" />
+</td>
+<td colwidth="[479]" nodeId="dcc452bb946c473099fc89fc81b08b46">
+<p nodeId="69e95d5d57134cd289a02a9b277d6500">高阶表达式Array和Map的使用</p>
+</td>
+<td colwidth="[471]" nodeId="1633602d82c749abba85ce4a16602167">
+<p nodeId="390f7cb4a2e941979a5f45559b1b18d6"><a href="https://km.sankuai.com/page/397391232" title="https://km.sankuai.com/page/397391232" autoUpdate="true" nodeId="19fb1dea7c3a44d48de57ebca0424e55">https://km.sankuai.com/page/397391232</a></p>
+</td>
+</tr>
+</table>
+<p nodeId="e5875daf2ad2496ca1d633f6617aa165" />
+<h1 nodeId="434c2ac3b4484245930808241c1a8db1">四、FAQ</h1>
+<table responsive="false" nodeId="c8b453fdd09646ac8a8e210d62337b74">
+<tr nodeId="4dbf9ebdc2c34be19a30fe167264874c">
+<th colwidth="[561]" bgColor="rgb(0, 55, 166)" nodeId="23c6b314cd1f47b4b6c7875ac1b185aa">
+<p nodeId="d67e47fa603442ba93af0353e7a94d0c"><span color="rgb(255, 255, 255)">问题</span></p>
+</th>
+<th colwidth="[724]" bgColor="rgb(0, 55, 166)" nodeId="9a26769322864dbb9fa41938d9509e96">
+<p nodeId="a2086baefd3e44c099ad1fbd35c7b58e"><span color="rgb(255, 255, 255)">答</span></p>
+</th>
+</tr>
+<tr nodeId="8c9b726014234accbb98cf5e5be40b2e">
+<td colwidth="[561]" nodeId="c43e7fb099f54b7ab1d219b6cbd7bbe0">
+<p nodeId="3e88bb5999114527bb6ea588eddc9b85" />
+</td>
+<td colwidth="[724]" nodeId="0806174429454859825ddcdfbfc2c3a1">
+<p nodeId="54706b6d6a404f4dad1a616afe307405" />
+</td>
+</tr>
+</table>
+<p nodeId="80406004e7c4475f92bdcaea6656a482" />
+<p nodeId="da2fdace6a0e410b9294b9628baac0da"><span color="rgba(0, 0, 0, 0.87)"><span font-size="22">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+</km-doc>

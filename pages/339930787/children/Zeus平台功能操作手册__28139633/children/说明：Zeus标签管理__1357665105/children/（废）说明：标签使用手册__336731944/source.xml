@@ -1,0 +1,50 @@
+<km-doc>
+<km-title nodeId="724d59ce023240aa823ec773ae2cf339">（废）说明：标签使用手册</km-title>
+<km-catalog style="none" nodeId="9777dbab14d041e4b7db049efb22b363" />
+<p nodeId="75baa7891ae444b28b075e6ad8a40023" />
+<p nodeId="e268c8ae1bee4d458a553eb09fefeea5"><span color="rgb(245, 35, 45)"><span font-size="32">文档已废弃，请移步新版</span></span><span font-size="32"> </span><a href="https://km.sankuai.com/page/1357665105" title="https://km.sankuai.com/page/1357665105" autoUpdate="true" nodeId="83e266612e804bc6bc52c8c037e2917e">https://km.sankuai.com/page/1357665105</a></p>
+<h1 align="start" nodeId="298679b1aaf64c83a202aa6a2a27a344"><span color="rgb(0, 0, 0)"><strong>1.背景</strong></span></h1>
+<p align="start" nodeId="d3ebbd04a42d493a8e99205a21a184cb">随着风控规则、活动场景数量越来越多，维护成本日益增加，为解决上述问题，推出标签体系，为规则和活动场景分类。标签有多重分类维度，且分类维度有可能会新增，不同业务会有不同的分类维度，以反作弊为例，按公司业务分类：支付、早餐、外卖；按新人属性分类，如纯新客、品类新客、非新客等。总结下标签有如下作用：</p>
+<ul nodeId="9710c20d7b2c40c9bab8d43a2632fede">
+<li nodeId="c9705d7b89154833b6a341c9a3489387">方便批量处理：出现参数异常，相关规则批量设置为不生效；新增活动场景，可按照标签批量添加规则</li>
+</ul>
+<ul nodeId="1a294392cbba4281a4b58a1b6b4ea107">
+<li nodeId="eb69b3b8df0748e791f1806a515d3973">查询、统计需求：提供查询接口用于统计分析</li>
+</ul>
+<h1 nodeId="6637e5d5b9854cb3b4d5162770b4d53e">2.操作说明</h1>
+<h2 nodeId="6ce810c08d4942118776d724de84619a">2.1 入口</h2>
+<p nodeId="0807dffa8a534fcea2192478598a98df"><span color="rgb(245, 35, 45)">配置中心-&gt;标签</span></p>
+<p nodeId="80e191a82b4746cbbc1a0796bdac8d06"><img src="https://km.sankuai.com/api/file/cdn/336731944/343020690?contentType=1&amp;isNewContent=false" name="image.png" width="1041" height="239" nodeId="9a33fd7d69804582a4fce765d29b1648" /></p>
+<h2 align="start" nodeId="cb5b008101164bb69de5b1b8641651ba">2.2 添加/创建新标签</h2>
+<p nodeId="99d7700f894242348cb0f0c9644f0575">在标签页面点击<span color="rgb(245, 35, 45)"> 添加标签</span>，填写要创建的新标签的信息，包括 <span color="rgb(245, 35, 45)">名称、标签类型、父标签ID、标签必选、共享业务方</span>，点击 <span color="rgb(245, 35, 45)">添加</span> 即可；</p>
+<km-note type="warning" hiddenTitle="true" nodeId="9a9fb397288049dc8ea6213c2a31c211">
+<km-title></km-title>
+<km-content>
+<p nodeId="82fb078eb65f45e59f004b4f2082157f"><span color="rgb(245, 35, 45)">名称：</span>自定义；</p>
+<p nodeId="050ab9bc134648a38e101e4af8612d90"><span color="rgb(245, 35, 45)">标签类型：</span>规则/场景/参数/因子，选择一种类型；</p>
+<p nodeId="0dd59aff3368418d89767c4002ef3aad"><span color="rgb(245, 35, 45)">父标签ID：</span>默认创建的标签为父标签/根标签，如果创建的标签是现有标签的子标签，可以在此选择父标签（父标签/根标签与子标签之间的关系类似于一级分类和二级分类，这样设定是便于标签的管理；需要注意的是：在规则/场景/参数/因子中添加标签时，添加的是父标签，如果父标签下面有子标签的话会再选择父标签下面的的某个子标签）</p>
+<p nodeId="f8f9f6f54dfe4e9db37f838c02134866"><span color="rgb(245, 35, 45)">标签必选：</span>默认否，如果选择 是 表明在创建规则/场景/参数/因子时该标签是必选项；</p>
+<p nodeId="948728f3ba664e66b2ecd2a89b5eed01"><span color="rgb(245, 35, 45)">共享业务方：</span>把该标签共享给谁；</p>
+</km-content>
+</km-note>
+<p nodeId="cd8bc1daaec9413b92655cb8e0e877d2"><img src="https://km.sankuai.com/api/file/cdn/336731944/343031280?contentType=1&amp;isNewContent=false" name="image.png" width="611" height="388" nodeId="925445401964472da10708ed1b075a8d" /></p>
+<h2 nodeId="75c6f60b256349929159f6af9329034c">2.3 为规则/场景/参数/因子打标签</h2>
+<h3 nodeId="a287e833dbcb4c6bb533b8bb234ce6b0">2.3.1 批量打标签</h3>
+<p nodeId="b1a42a074c084c8a898559e25bd0634d">在标签页面点击<span color="rgb(245, 35, 45)"> 批量打标签</span>，首先<span color="rgb(245, 35, 45)">搜索需要打标签的对象</span>，填写搜索条件： <span color="rgb(245, 35, 45)">对象类型</span>（规则/场景/参数/因子，选择一种）、<span color="rgb(245, 35, 45)">对象标签</span>、<span color="rgb(245, 35, 45)">上传要搜索的对象的ID</span>（txt格式，<span color="rgb(0, 0, 0)">对象id之间用","分隔</span>）；</p>
+<p nodeId="7391fe78b7c04e89b53bddf0688193ad"><span color="rgb(245, 35, 45)">然后配置标签初始化</span>，选择 默认标签 （<span color="rgb(245, 35, 45)">不选择某个标签：</span>查询出来的对象的标签不会改变，要手动一个一个去打标签；<span color="rgb(245, 35, 45)">选择某个标签：</span>查询出来的对象会被批量打上选择的这个标签，也可以再次手动进行修改）；</p>
+<p nodeId="1de1f0b4d9d34b4aaa3599c48d7e6374"><img src="https://km.sankuai.com/api/file/cdn/336731944/342719643?contentType=1&amp;isNewContent=false" name="image.png" width="896" height="395" nodeId="18207eb4ffe944ae9e2afa7a7db65577" /></p>
+<p nodeId="f5a1d3c412224e3381eb135b63a00588">Tips:</p>
+<p nodeId="e7bba5ac2c744e6982622810170124b7"><img src="https://km.sankuai.com/api/file/cdn/336731944/369029573?contentType=1&amp;isNewContent=false" name="image.png" width="640" height="166" nodeId="dcd85fc2aca64faa85801a1b8ca5346f" /></p>
+<p nodeId="48d301b08dfb4f9bad49b7553169ebec" />
+<p nodeId="aaec06a7f8774f499e83938260730382">完成之后点击 <span color="rgb(245, 35, 45)">重置表格</span>，按照 上面填写的查询条件和标签配置初始化的选择内容，打标签的对象会以<span color="rgb(245, 35, 45)">标签</span>可编辑的状态<span color="rgb(245, 35, 45)">列表展示在下方</span>，可以<span color="rgb(245, 35, 45)">手动添加/修改对象的标签，</span><span color="rgb(0, 0, 0)">打完标签后，</span><span color="rgb(245, 35, 45)">选择要提交的对象</span><span color="rgb(0, 0, 0)">（列表中每条对象前面有选择框，勾上即可），点击列表下方的 </span><span color="rgb(245, 35, 45)">确定</span><span color="rgb(0, 0, 0)">，批量打标签操作 完毕</span>；</p>
+<p nodeId="7cfab117162d49e6b3669b72378d048a"><img src="https://km.sankuai.com/api/file/cdn/336731944/343365148?contentType=1&amp;isNewContent=false" name="image.png" width="900" height="600" nodeId="5ade2dc1f39a4ecebbf4d4112b05167a" /></p>
+<p nodeId="1aff97ad5caf42f4bfa956e4f237ce21" />
+<h3 nodeId="4d2de890df7d41bcaeafec0f26361c8a">2.3.2 在创建规则/场景/参数/因子的过程中打标签</h3>
+<p nodeId="1bd2fe925db94f51821d31454d32321b">见具体 规则/场景/参数/因子 的创建文档<a href="https://km.sankuai.com/page/312585969" autoUpdate="true" nodeId="d1512c8842314054bb7f119d4378458b"></a>、<a href="https://km.sankuai.com/page/220134551" title="说明：创建/修改场景" autoUpdate="true" nodeId="93acf55dc54240a199c68f581a30d3db">说明：创建/修改场景</a>、<u><a href="https://km.sankuai.com/page/312476852" title="说明：创建/修改参数" autoUpdate="true" nodeId="8b60ac7683184bbb909612ee3ffdcacf">说明：创建/修改参数</a></u><u>、</u><a href="https://km.sankuai.com/page/312512823" title="说明：创建/修改因子" autoUpdate="true" nodeId="f6e4d1ac79ed4a9f980123458cf2f345">说明：创建/修改因子</a>；</p>
+<p nodeId="6ab81273099d42e7b735a5fafd6d284d" />
+<h2 nodeId="70f586a28d2c49188dca2e418d83a7b5">2.4 批量删除对象标签</h2>
+<p nodeId="b06738fc7f4f4a93aee2cf2952ae7872">在标签页面点击<span color="rgb(245, 35, 45)"> 批量删除对象标签</span>，首先<span color="rgb(245, 35, 45)">搜索需要删除标签的对象</span>，填写搜索条件： <span color="rgb(245, 35, 45)">对象类型</span>（规则/场景/参数/因子，选择一种）、<span color="rgb(245, 35, 45)">对象标签</span>；</p>
+<p nodeId="3e1936ce7bd74a11b02996c9be2986f1"><img src="https://km.sankuai.com/api/file/cdn/336731944/343262863?contentType=1&amp;isNewContent=false" name="image.png" width="873" height="356" nodeId="f6f755578c00442dacc0d5ec737b7542" /></p>
+<p nodeId="0d75e306f443498ebd99d5078dc2b373">完成之后点击 <span color="rgb(245, 35, 45)">重置表格</span>，按照 上面填写的查询条件，<span color="rgb(245, 35, 45)">需要删除标签的对象</span>会以<span color="rgb(245, 35, 45)">标签状态</span>可编辑的状态<span color="rgb(245, 35, 45)">列表展示在下方</span>，可以<span color="rgb(245, 35, 45)">手动修改标签状态（保留或者删除），</span><span color="rgb(0, 0, 0)">确定之后</span><span color="rgb(245, 35, 45)">选择要提交的对象</span><span color="rgb(0, 0, 0)">（列表中每条对象前面有选择框，勾上即可），点击列表下方的 </span><span color="rgb(245, 35, 45)">确定</span><span color="rgb(0, 0, 0)">，批量</span>删除对象标签操作<span color="rgb(0, 0, 0)"> 完毕</span>；</p>
+<p nodeId="c043ac610efc4dccac262532124c8f61" />
+</km-doc>

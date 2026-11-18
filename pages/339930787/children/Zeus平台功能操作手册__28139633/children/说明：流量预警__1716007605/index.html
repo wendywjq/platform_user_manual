@@ -1,0 +1,89 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：流量预警</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-7">一、背景</a><a href="#section-11">二、名词解释</a><a href="#section-15">三、操作指南</a><a href="#section-16">3.1 功能链路</a><a href="#section-18">3.2 步骤说明</a><a href="#section-83">四、Q&amp;A</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：流量预警</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/1716007605">查看学城原文</a></p><article>
+<h1>说明：流量预警</h1>
+<div style="none"></div>
+<div class="note">
+<strong></strong>
+<div>
+<p>当前仅支持线上环境普通场景配置离线转为标记、线上环境涉及标记规则的变更、策略实验。后续将迭代发布管控相关的生效规则引起的fetcher波动预警。</p>
+</div>
+</div>
+<h1 id="section-7">一、背景</h1>
+<p>       Zeus规则执行时可能通过第三方数据接口调用下游模型，容易因为请求突增而打挂下游模型服务。造成模型服务请求骤增的原因有：流量的波动（增长） 以及 因规则逻辑变更引起的模型调用量变化。</p>
+<p>前者相对不可控，而针对后者可以在规则变更节点，对流量波动进行评估从而进行相关告警。本功能通过对于涉及接口的策略变更进行评估和告警，周知接口负责人可能对下游造成的影响。</p>
+<p></p>
+<h1 id="section-11">二、名词解释</h1>
+<p>流量预警：平台针对各类策略变更情况，自动预估相关接口变更后的请求波动，所提前发出的警告通知</p>
+<p>数据收费接口：后续 分层的短路补偿中，绕过收费接口，以及未来对收费的统计会用到这个标识。<br></p>
+<h1 id="section-15">三、操作指南</h1>
+<h2 id="section-16">3.1 功能链路</h2>
+<img src="assets/dc0539d84e41d8cc.svg" width="526" height="286" alt="流程图">
+<h2 id="section-18">3.2 步骤说明</h2>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><strong><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">说明</span></span></strong></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><strong>Step 1：配置fetcher告警阈值</strong></p>
+<ul>
+<li>
+<p>入口：[数据接口注册弹窗]、[编辑数据接口]</p>
+<ul>
+<li>接口收费：后续根据改标识统计收费情况及分层的短路补偿中将绕过收费接口</li>
+<li>预警通知人：misid。阈值告警将发送给负责人+预警通知人。</li>
+<li>
+<p>流量预警条件：<span style="color:#FF4A47">未填写阈值默认不执行告警</span><span style="color:#000">。</span></p>
+<ul>
+<li>计算函数：平均QPS 增加绝对值；QPS峰值 增加绝对值；平均QPS 增长百分比；QPS峰值 增长百分比</li>
+<li>自定义阈值：手动输入，校验数值型<br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td>
+<td>
+<p><img src="assets/b65d7655812633cd.png" width="1304.64" height="600" alt="image.jpeg">​<img src="assets/c12b2afcf5505655.png" width="1306.12" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<p><strong>Step 2：各类涉及预警的策略变更情况</strong></p>
+<ul>
+<li>
+<p>非高风险变更（即无需走发布管控，线上直接变更的变更情况）</p>
+<ul>
+<li>
+<p>涉及场景标记规则：</p>
+<ul>
+<li>因子编辑页：<br><img src="assets/c6387ba5ecf0a62a.png" width="743" height="361" alt="image.jpeg"></li>
+<li>规则编辑页：</li>
+<li>场景配置由离线转为标记：<br><img src="assets/04aff530c64380f6.png" width="743" height="357" alt="image.jpeg"></li>
+</ul>
+</li>
+<li>实验发布涉及fetcher变更：<br><img src="assets/aacfb63db995a3c6.png" width="746" height="362" alt="image.jpeg"></li>
+<li>发布管控涉及fetcher变更：<br><img src="assets/fde0adc3d5944ad4.png" width="769" height="375" alt="image.jpeg"></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>Step 3 ：收到大象告警消息</strong></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-83">四、Q&amp;A</h1>
+<p>Q：一个场景中如果不同规则引用同一个fetcher，是否会重复调用？不同场景间是否会重复调用？</p>
+<p>A：暂时视为不重复调用</p>
+</article></main></body></html>

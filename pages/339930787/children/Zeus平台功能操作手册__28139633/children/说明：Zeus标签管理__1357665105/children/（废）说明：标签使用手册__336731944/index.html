@@ -1,0 +1,50 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>（废）说明：标签使用手册</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-9">1.背景</a><a href="#section-17">2.操作说明</a><a href="#section-18">2.1 入口</a><a href="#section-23">2.2 添加/创建新标签</a><a href="#section-43">2.3 为规则/场景/参数/因子打标签</a><a href="#section-44">2.3.1 批量打标签</a><a href="#section-75">2.3.2 在创建规则/场景/参数/因子的过程中打标签</a><a href="#section-84">2.4 批量删除对象标签</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：Zeus标签管理</a> / <a href="index.html">（废）说明：标签使用手册</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/336731944">查看学城原文</a></p><article>
+<h1>（废）说明：标签使用手册</h1>
+<div style="none"></div>
+<p></p>
+<p><span style="color:rgb(245, 35, 45)"><span style="font-size:32px">文档已废弃，请移步新版</span></span><span style="font-size:32px"> </span><a href="../../index.html" title="https://km.sankuai.com/page/1357665105">说明：Zeus标签管理</a></p>
+<h1 id="section-9"><span style="color:rgb(0, 0, 0)"><strong>1.背景</strong></span></h1>
+<p>随着风控规则、活动场景数量越来越多，维护成本日益增加，为解决上述问题，推出标签体系，为规则和活动场景分类。标签有多重分类维度，且分类维度有可能会新增，不同业务会有不同的分类维度，以反作弊为例，按公司业务分类：支付、早餐、外卖；按新人属性分类，如纯新客、品类新客、非新客等。总结下标签有如下作用：</p>
+<ul>
+<li>方便批量处理：出现参数异常，相关规则批量设置为不生效；新增活动场景，可按照标签批量添加规则</li>
+</ul>
+<ul>
+<li>查询、统计需求：提供查询接口用于统计分析</li>
+</ul>
+<h1 id="section-17">2.操作说明</h1>
+<h2 id="section-18">2.1 入口</h2>
+<p><span style="color:rgb(245, 35, 45)">配置中心-&gt;标签</span></p>
+<p><img src="assets/c4973b93d6f636e7.png" width="1041" height="239" alt="image.png"></p>
+<h2 id="section-23">2.2 添加/创建新标签</h2>
+<p>在标签页面点击<span style="color:rgb(245, 35, 45)"> 添加标签</span>，填写要创建的新标签的信息，包括 <span style="color:rgb(245, 35, 45)">名称、标签类型、父标签ID、标签必选、共享业务方</span>，点击 <span style="color:rgb(245, 35, 45)">添加</span> 即可；</p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:rgb(245, 35, 45)">名称：</span>自定义；</p>
+<p><span style="color:rgb(245, 35, 45)">标签类型：</span>规则/场景/参数/因子，选择一种类型；</p>
+<p><span style="color:rgb(245, 35, 45)">父标签ID：</span>默认创建的标签为父标签/根标签，如果创建的标签是现有标签的子标签，可以在此选择父标签（父标签/根标签与子标签之间的关系类似于一级分类和二级分类，这样设定是便于标签的管理；需要注意的是：在规则/场景/参数/因子中添加标签时，添加的是父标签，如果父标签下面有子标签的话会再选择父标签下面的的某个子标签）</p>
+<p><span style="color:rgb(245, 35, 45)">标签必选：</span>默认否，如果选择 是 表明在创建规则/场景/参数/因子时该标签是必选项；</p>
+<p><span style="color:rgb(245, 35, 45)">共享业务方：</span>把该标签共享给谁；</p>
+</div>
+</div>
+<p><img src="assets/d336042bb7fc47cc.png" width="611" height="388" alt="image.png"></p>
+<h2 id="section-43">2.3 为规则/场景/参数/因子打标签</h2>
+<h3 id="section-44">2.3.1 批量打标签</h3>
+<p>在标签页面点击<span style="color:rgb(245, 35, 45)"> 批量打标签</span>，首先<span style="color:rgb(245, 35, 45)">搜索需要打标签的对象</span>，填写搜索条件： <span style="color:rgb(245, 35, 45)">对象类型</span>（规则/场景/参数/因子，选择一种）、<span style="color:rgb(245, 35, 45)">对象标签</span>、<span style="color:rgb(245, 35, 45)">上传要搜索的对象的ID</span>（txt格式，<span style="color:rgb(0, 0, 0)">对象id之间用","分隔</span>）；</p>
+<p><span style="color:rgb(245, 35, 45)">然后配置标签初始化</span>，选择 默认标签 （<span style="color:rgb(245, 35, 45)">不选择某个标签：</span>查询出来的对象的标签不会改变，要手动一个一个去打标签；<span style="color:rgb(245, 35, 45)">选择某个标签：</span>查询出来的对象会被批量打上选择的这个标签，也可以再次手动进行修改）；</p>
+<p><img src="assets/ffc2fecd179b9634.png" width="896" height="395" alt="image.png"></p>
+<p>Tips:</p>
+<p><img src="assets/8d28e95b2fd3e1c4.png" width="640" height="166" alt="image.png"></p>
+<p></p>
+<p>完成之后点击 <span style="color:rgb(245, 35, 45)">重置表格</span>，按照 上面填写的查询条件和标签配置初始化的选择内容，打标签的对象会以<span style="color:rgb(245, 35, 45)">标签</span>可编辑的状态<span style="color:rgb(245, 35, 45)">列表展示在下方</span>，可以<span style="color:rgb(245, 35, 45)">手动添加/修改对象的标签，</span><span style="color:rgb(0, 0, 0)">打完标签后，</span><span style="color:rgb(245, 35, 45)">选择要提交的对象</span><span style="color:rgb(0, 0, 0)">（列表中每条对象前面有选择框，勾上即可），点击列表下方的 </span><span style="color:rgb(245, 35, 45)">确定</span><span style="color:rgb(0, 0, 0)">，批量打标签操作 完毕</span>；</p>
+<p><img src="assets/54e1c25ae8e27266.png" width="900" height="600" alt="image.png"></p>
+<p></p>
+<h3 id="section-75">2.3.2 在创建规则/场景/参数/因子的过程中打标签</h3>
+<p>见具体 规则/场景/参数/因子 的创建文档<a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改规则__312585969/index.html" title="https://km.sankuai.com/page/312585969">说明：创建/修改规则</a>、<a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改场景__220134551/index.html" title="https://km.sankuai.com/page/220134551">说明：创建/修改场景</a>、<u><a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改参数__312476852/index.html" title="https://km.sankuai.com/page/312476852">说明：创建/修改参数</a></u><u>、</u><a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改因子__312512823/index.html" title="https://km.sankuai.com/page/312512823">说明：创建/修改因子</a>；</p>
+<p></p>
+<h2 id="section-84">2.4 批量删除对象标签</h2>
+<p>在标签页面点击<span style="color:rgb(245, 35, 45)"> 批量删除对象标签</span>，首先<span style="color:rgb(245, 35, 45)">搜索需要删除标签的对象</span>，填写搜索条件： <span style="color:rgb(245, 35, 45)">对象类型</span>（规则/场景/参数/因子，选择一种）、<span style="color:rgb(245, 35, 45)">对象标签</span>；</p>
+<p><img src="assets/dceb6a632f99b5fd.png" width="873" height="356" alt="image.png"></p>
+<p>完成之后点击 <span style="color:rgb(245, 35, 45)">重置表格</span>，按照 上面填写的查询条件，<span style="color:rgb(245, 35, 45)">需要删除标签的对象</span>会以<span style="color:rgb(245, 35, 45)">标签状态</span>可编辑的状态<span style="color:rgb(245, 35, 45)">列表展示在下方</span>，可以<span style="color:rgb(245, 35, 45)">手动修改标签状态（保留或者删除），</span><span style="color:rgb(0, 0, 0)">确定之后</span><span style="color:rgb(245, 35, 45)">选择要提交的对象</span><span style="color:rgb(0, 0, 0)">（列表中每条对象前面有选择框，勾上即可），点击列表下方的 </span><span style="color:rgb(245, 35, 45)">确定</span><span style="color:rgb(0, 0, 0)">，批量</span>删除对象标签操作<span style="color:rgb(0, 0, 0)"> 完毕</span>；</p>
+<p></p>
+</article></main></body></html>

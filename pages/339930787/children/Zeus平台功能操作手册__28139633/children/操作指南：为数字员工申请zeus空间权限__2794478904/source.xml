@@ -1,0 +1,27 @@
+<km-doc>
+<km-title nodeId="5b40037da1574757a9a51c15f6f51289">操作指南：为数字员工申请zeus空间权限</km-title>
+<km-catalog style="none" nodeId="58295e8942104fe5b8edaef450353cbd" />
+<h2 nodeId="c9e6d7d5-4354-4004-bb93-0b107105c4fa">一、背景</h2>
+<p nodeId="02046e0a82d84e8e944582640154413a">随着业务智能化进程的不断推进，各团队陆续引入数字员工（如虚拟助手、自动化流程机器人等智能辅助应用）以提升运营效率。此类数字员工需以独立身份访问和使用 Zeus 智能决策平台执行相应操作。</p>
+<p nodeId="6e12487a-6884-4afd-bdf1-b17a66493340">为保障平台资源访问的安全性与合规性，数字员工在使用前须完成相应业务空间的权限申请。由于数字员工不具备独立操作能力，需由其实际账号负责人代为发起权限申请，经zeus空间管理员审核通过后方可获得对应空间的访问权限。</p>
+<h2 nodeId="478e8623a43c4cdfb65027701c2ff223">二、虚拟账号负责人操作链路</h2>
+<ol nodeId="b98bd375b60c49e7984d9deba378f379">
+<li nodeId="f3566eb6c44f462197e390997a58e805">
+<h3 nodeId="b0a98b07d3604e6386277adfa80de8d3">Step1 打开<a href="https://auth.sankuai.com/apply" title="https://auth.sankuai.com/apply" nodeId="2f19a3f66d054427b4ef8f6c6039cc60">https://auth.sankuai.com/apply</a>，进入权限申请页面<br /><img src="https://km.sankuai.com/api/file/cdn/2794478904/261682395986?contentType=1&amp;isNewContent=false" name="image.png" width="592" height="331" nodeId="5b091bc473654746beccc14052c27529" /></h3>
+</li>
+<li nodeId="138a1da92b264099a387fa8d0797464b">
+<h3 nodeId="68b2b85b02ba4afc860122ef58890cc6">Step2 需求方选择【个人】，填写虚拟员工的MISID，选择权限有效期</h3>
+<p nodeId="90aa57dba6454c46a2b420d83d3370a7"><img src="https://km.sankuai.com/api/file/cdn/2794478904/261678501769?contentType=1&amp;isNewContent=false" name="image.png" width="759" height="143" nodeId="dd16473510f7406ca72b891ce650e248" /></p>
+</li>
+<li nodeId="d0dda6ea8abf4d02b136c9d055621c9e">
+<h3 nodeId="b5d4c6c16ef046478f3e9b124a686660">Step3 在资源信息模块点击【添加资源】，在上方查询框中依次选择【风控智能决策平台(Zeus)】、【业务成员】，选择需要申请的zeus空间编号（不确定要申请哪个zeus空间，可以询问风控策略BP），选择完成后点击确定</h3>
+<p nodeId="a99ed73ae14f40c28dfc71ad1d34a878"><img src="https://km.sankuai.com/api/file/cdn/2794478904/261685049329?contentType=1&amp;isNewContent=false" name="图片.png" width="1222" height="316.39" nodeId="643889213fe44d59945c4b4e57b3fc00" /></p>
+</li>
+<li nodeId="d88118dede6b49c58bb6ef9ca323b3e3">
+<h3 nodeId="0ea198870dde41d8a490a32bd4521d4f">Step4 填写【申请原因】后，点击【提交申请】，等待空间管理员审批通过即可</h3>
+<p nodeId="5ea163a8aa8c403384304259a9d60cab"><img src="https://km.sankuai.com/api/file/cdn/2794478904/261687966626?contentType=1&amp;isNewContent=false" name="图片.png" width="1222" height="412.37" nodeId="b8f73c2b41ea480c94ce474a293641c4" /></p>
+<h3 nodeId="64448391bd9341d5b2e92b47e26e8c3f">⚠️注意！仅数字员工的账号负责人可以代申请</h3>
+<p nodeId="228cc4c6953f4ba4b7dc13c706e67d45"><img src="https://km.sankuai.com/api/file/cdn/2794478904/261687902628?contentType=1&amp;isNewContent=false" name="image.png" width="750" height="448" nodeId="ce35125710ff4dfebe854154966c0eac" /></p>
+</li>
+</ol>
+</km-doc>

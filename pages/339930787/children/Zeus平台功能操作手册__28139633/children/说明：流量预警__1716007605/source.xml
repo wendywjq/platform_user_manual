@@ -1,0 +1,89 @@
+<km-doc>
+<km-title nodeId="556f8899ada0494b897a7eeaf5040a18">说明：流量预警</km-title>
+<km-catalog style="none" nodeId="4aaf1579ef5041e69622f6d23333b1f0" />
+<km-note type="warning" hiddenTitle="true" nodeId="7e5859441cc24cf596efc7018452b21c">
+<km-title></km-title>
+<km-content>
+<p nodeId="a2ed99bede404da7b2833c4946b845fa">当前仅支持线上环境普通场景配置离线转为标记、线上环境涉及标记规则的变更、策略实验。后续将迭代发布管控相关的生效规则引起的fetcher波动预警。</p>
+</km-content>
+</km-note>
+<h1 nodeId="1e989f2f453b44138e835deb1f108551">一、背景</h1>
+<p nodeId="4c475a12e77a4702b161f1f201b1e310">       Zeus规则执行时可能通过第三方数据接口调用下游模型，容易因为请求突增而打挂下游模型服务。造成模型服务请求骤增的原因有：流量的波动（增长） 以及 因规则逻辑变更引起的模型调用量变化。</p>
+<p nodeId="8c9518a7088948cba871890b5125c1e2">前者相对不可控，而针对后者可以在规则变更节点，对流量波动进行评估从而进行相关告警。本功能通过对于涉及接口的策略变更进行评估和告警，周知接口负责人可能对下游造成的影响。</p>
+<p nodeId="e0e74a519b1a41628cb13a4d3776c78e" />
+<h1 nodeId="f5cce6d8c9c0433b9a8c3d506cd5f4eb">二、名词解释</h1>
+<p nodeId="2370989642e64b1fa17e13ab61ea7ba6">流量预警：平台针对各类策略变更情况，自动预估相关接口变更后的请求波动，所提前发出的警告通知</p>
+<p nodeId="5c6c891ac07c4372ae729bc383b6119e">数据收费接口：后续 分层的短路补偿中，绕过收费接口，以及未来对收费的统计会用到这个标识。<br /></p>
+<h1 nodeId="5f93258cb73844db826cc57d492b709b">三、操作指南</h1>
+<h2 nodeId="04ef9ef591284164b9ac1605e2f2f7d5">3.1 功能链路</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1716007605/66744709686?contentType=0&amp;isNewContent=false" width="526" height="286" nodeId="01da50ed4b454b9fb31a5f539979718e" />
+<h2 nodeId="51014c3a526a49d5b15511ddc5519247">3.2 步骤说明</h2>
+<table responsive="false" nodeId="1bd21e6a5e4640329c9136a80d438b72">
+<tr nodeId="e38a4240f1224213b976bf71512f714c">
+<th colwidth="[602]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="eba04711edf54b4f887503609a0b934c">
+<p nodeId="a6d69ffdf8974642ac796bcb0bf09dc6"><strong><span color="rgb(255, 255, 255)"><span font-size="14">说明</span></span></strong></p>
+</th>
+<th colwidth="[671]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="87b7dcdc84644a6d9aa0fe601c2d9f34">
+<p nodeId="f613660919c540bfaf120f0b0cde1935"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="bdd97ed850d94de78a91e4ae6e3eb1cf">
+<td colwidth="[602]" nodeId="56f590a871cd4da4a8d3d467cb4244a3">
+<p nodeId="d83663086a914983b58470aa9743f5be"><strong>Step 1：配置fetcher告警阈值</strong></p>
+<ul nodeId="2632a898fa1f4117afe21a6ea6cbec24">
+<li nodeId="6837699a671c4886b755c06015cd9edc">
+<p nodeId="21c8258fb40140febba6a371d5dc1d5a">入口：[数据接口注册弹窗]、[编辑数据接口]</p>
+<ul nodeId="5525a2c6dfb04719bd440fd740c2f050">
+<li nodeId="27c35af4187d428881efdf624e4661c7">接口收费：后续根据改标识统计收费情况及分层的短路补偿中将绕过收费接口</li>
+<li nodeId="9c6ddd357be449148af4f7e78e358bb4">预警通知人：misid。阈值告警将发送给负责人+预警通知人。</li>
+<li nodeId="281df57eef79432b8001c9d7f05b4df9">
+<p nodeId="4fdbf29b42a34944af6c4f574ebadf1f">流量预警条件：<span color="#FF4A47">未填写阈值默认不执行告警</span><span color="#000">。</span></p>
+<ul nodeId="398ff54d379d453ba9933fb4e417b446">
+<li nodeId="ac67211fd7b54542b0234f98d27883d7">计算函数：平均QPS 增加绝对值；QPS峰值 增加绝对值；平均QPS 增长百分比；QPS峰值 增长百分比</li>
+<li nodeId="8d37153f99834e47bbd8592961c2b737">自定义阈值：手动输入，校验数值型<br /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td>
+<td colwidth="[671]" nodeId="7f927e9a35264789af6609c599d178e5">
+<p nodeId="3477e0a5132d4dbdb17408bc65d1b83a"><img src="https://km.sankuai.com/api/file/cdn/1716007605/66744232480?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1304.64" height="600" nodeId="13ef1d977fb24aaaa738a670fd8514cf" />​<img src="https://km.sankuai.com/api/file/cdn/1716007605/66745248150?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1306.12" height="600" nodeId="63f05539ce51455a844a9a34d1ae7ebe" /></p>
+</td>
+</tr>
+<tr nodeId="c03a3a0895604c23a7094ab8c3253705">
+<td colspan="2" colwidth="[602,671]" nodeId="f9afabd66d994461ba85dbde171dad70">
+<p nodeId="0b9f4679f4444b229dc75a45389417ec"><strong>Step 2：各类涉及预警的策略变更情况</strong></p>
+<ul nodeId="3eb700c36ae140fa9e14405e10554337">
+<li nodeId="5860181a6c9f4e3cae9bd04e2531d394">
+<p nodeId="2d4329602fd948138fc481f6055eac64">非高风险变更（即无需走发布管控，线上直接变更的变更情况）</p>
+<ul nodeId="a32817ad64494b588b9a9d380aab30be">
+<li nodeId="5d6796df92ee4e2db64dbd5bb4d67d2c">
+<p nodeId="3d453c955c074e32a127283e8f141efa">涉及场景标记规则：</p>
+<ul nodeId="64b983a9078d402cb272bd4dfcda49d5">
+<li nodeId="b81bc07c686c48b19515b4826c9cf917">因子编辑页：<br /><img src="https://km.sankuai.com/api/file/cdn/1716007605/66859069957?contentType=1&amp;isNewContent=false" name="image.jpeg" width="743" height="361" nodeId="a850f17dcf5143dbb391896e83a81774" /></li>
+<li nodeId="1d2673964f464010b5af0a8456969fb0">规则编辑页：</li>
+<li nodeId="2f16b0223e0046b3baf5e5f304903355">场景配置由离线转为标记：<br /><img src="https://km.sankuai.com/api/file/cdn/1716007605/66859530646?contentType=1&amp;isNewContent=false" name="image.jpeg" width="743" height="357" nodeId="a8895a9c10464f7ebd4bbb888f4c839d" /></li>
+</ul>
+</li>
+<li nodeId="e379ed2fe3184c9ca421279600388b5a">实验发布涉及fetcher变更：<br /><img src="https://km.sankuai.com/api/file/cdn/1716007605/66866076770?contentType=1&amp;isNewContent=false" name="image.jpeg" width="746" height="362" nodeId="79726b61b0664fa9bf3733ab4979ee1a" /></li>
+<li nodeId="e4a63a8d81be4e56ae61126d717bcca3">发布管控涉及fetcher变更：<br /><img src="https://km.sankuai.com/api/file/cdn/1716007605/66870248909?contentType=1&amp;isNewContent=false" name="image.jpeg" width="769" height="375" nodeId="34de76f0cc624f949c79bd636c2bc9bd" /></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="1eaf54afeace4a01bbbd073fc3925323">
+<td colwidth="[602]" nodeId="8b7754a18be94adaaff552ec491c77fa">
+<p nodeId="041cd50a06ee4623adfc06dd76756111"><strong>Step 3 ：收到大象告警消息</strong></p>
+</td>
+<td colwidth="[671]" nodeId="2c203640400047ebb5ee3a053fec0007">
+<p nodeId="10ac3354796742148cffa1a3061c59b0" />
+</td>
+</tr>
+</table>
+<p nodeId="ea48a9313f7242e7bce8a9a14ee61f30" />
+<h1 nodeId="ef0e5b07af6d4605b6a82347194c3470">四、Q&amp;A</h1>
+<p nodeId="6a94bf24cadf4122b2c715fc4dc3bde2">Q：一个场景中如果不同规则引用同一个fetcher，是否会重复调用？不同场景间是否会重复调用？</p>
+<p nodeId="7bd48b6d565b47ce9b36ffcee3230afd">A：暂时视为不重复调用</p>
+</km-doc>

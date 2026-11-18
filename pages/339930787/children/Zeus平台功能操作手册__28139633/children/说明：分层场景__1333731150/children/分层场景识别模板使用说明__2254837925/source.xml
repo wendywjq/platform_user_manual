@@ -1,0 +1,79 @@
+<km-doc>
+<km-title nodeId="7415ddd2ad3d42cfbeb8ec71340db723">分层场景识别模板使用说明</km-title>
+<km-catalog style="none" nodeId="9830c53487a543a19ca24d0225e441b5" />
+<km-note type="info" hiddenTitle="true" nodeId="95957b638893411297c974725caf6802">
+<km-title></km-title>
+<km-content>
+<p nodeId="d3858909846241bcb44e049dec8ed70c"><span font-size="12">内安策略使用说明参考：</span><span font-size="12"><a href="https://km.sankuai.com/collabpage/2526945985" title="20241016- 策略模版使用文档说明书" autoUpdate="true" nodeId="b91350a2b1d14ff9953ef7c6573bec97">20241016- 策略模版使用文档说明书</a></span></p>
+</km-content>
+</km-note>
+<h1 nodeId="323b87c7812a40638cce77ea0ac09361">一、识别模版解决什么问题</h1>
+<p nodeId="1512cc47d14847fab1db10fb05a89ab5"><span font-size="15"><strong>解决通用策略逻辑复用问题。</strong></span><span font-size="15">支持类决策流模版能力，沉淀通用业务语义多层级复杂策略逻辑，快速实例化至分层场景应用。</span></p>
+<ul nodeId="0df99d15c46d44bf81fc3ca863d76cd3">
+<li nodeId="dd1e285f11cb4aa2930883bc5ef917c0"><span font-size="12">通用策略在多个场景下在布控时，使用模版一次引用提升策略管理&amp;布控效率</span></li>
+<li nodeId="2640dd3dc74d405e8a2c3a34aef06182"><span font-size="12">支持模版内部分策略在特殊业务下无需生效，满足差异化布控诉求</span></li>
+<li nodeId="ef9157ff480e44799011441aee33022c"><span font-size="12">辅助通能标准沉淀，以快速支持业务活动展开。</span></li>
+</ul>
+<h1 nodeId="3553c40fc4ec473297a344ed2cab7f11">二、用户旅程</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/2254837925/130320456696?contentType=0&amp;isNewContent=false" width="598" height="423" nodeId="078dd77c62fc493bbcb4b6729edfa64e" />
+<h1 nodeId="b0cebceb7be54553b21b505029a3df6f">三、操作指南</h1>
+<h2 nodeId="62b0dcb72f264c40969174d7544f0ea7">STEP 0 -- 前置准备工作：给规则打上风险标签（标识规则的防控能力）</h2>
+<table responsive="false" nodeId="b89a80f09794470aa842341834b5052b">
+<tr nodeId="17601b87899f4d7f95d53f044ddaa748">
+<th colwidth="[571]" nodeId="bfe8e890eb934733a22f264e96c231b1">
+<p nodeId="cfadbade7c8e4c1697b8e7e12d784738">说明</p>
+</th>
+<th colwidth="[388]" nodeId="ed2509ca2cc14c4cb1bc81e3507e08cc">
+<p nodeId="3d5e8323f3e042068653f859041afb67">示意图</p>
+</th>
+</tr>
+<tr nodeId="8616222f899a40c09b1c6843c6b9bca1">
+<td colwidth="[571]" nodeId="ae506cbb28724fac8c3ce6b13d555d91">
+<km-note type="tip" nodeId="fd1001873a0341e9b3067d7bcd75d896">
+<km-title>什么是风险标签</km-title>
+<km-content>
+<p nodeId="48fbb819e4a8485c87b56f57a9e4251a">执行命中后，能向下游传递这部分信息，以对风控结果做进一步有精细化运营的诉求。参考文档：<a href="https://km.sankuai.com/collabpage/1357166907" title="说明：风险标签（infocode）" autoUpdate="true" nodeId="9a863a9e33fb4a398cdd7b377adbfce4">说明：风险标签（infocode）</a></p>
+</km-content>
+</km-note>
+<p nodeId="206ffdbfb672424b96b95b8fc5d8ffe8"><strong>规则打上风险标签，在模版使用的时候会有什么效果？</strong></p>
+<ul nodeId="a92cbc4c737c4af98de692a609ab8498">
+<li nodeId="20113356580b487a93463182c2072574">可以通过风险标签批量使用模版下的部分策略，以满足不同场景下的差异化布控诉求。</li>
+<li nodeId="42ba893a3be245d69743326942d37179"><span color="rgb(0, 0, 0)">若规则未配置风险标签，则这条策略默认和模版内策略状态保持一致，且可以任意手动修改。</span></li>
+</ul>
+</td>
+<td colwidth="[388]" nodeId="8463a5ba5b2747cdaac1545c2e737548">
+<p nodeId="58a716be254c4c418b9aab90c7c37ad9"><img src="https://km.sankuai.com/api/file/cdn/2254837925/128364733248?contentType=1&amp;isNewContent=false" name="image.jpeg" width="367" height="179" nodeId="3755c5b2808349f79a5fa7e2ed1219e4" /><img src="https://km.sankuai.com/api/file/cdn/2254837925/128508415003?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1194.4" height="600" nodeId="d4df0430354d403f86fa814f13c71cb5" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="57f8e3f9ef094794b5886257923b7695">STEP 1 -- 创建模版</h2>
+<ol nodeId="6bd7213179124ee3b98a0f76adf08ea7">
+<li nodeId="e6d24ea2c077464b858847d5c897a929"><strong>左侧菜单【策略部署】-【分层场景】，选择页面【模版列表】TAB</strong><br /><img src="https://km.sankuai.com/api/file/cdn/2254837925/126590219367?contentType=1&amp;isNewContent=false" name="image.jpeg" width="473" height="237" nodeId="9a6b32c60f36479e9402df28a12266bd" /></li>
+<li nodeId="751dfcd725b64f5d8099e616baacefdc">
+<p nodeId="bd8ba3e4e352439f8190105124c1d446"><strong>填写模版需要的相关信息</strong></p>
+<p nodeId="f660d55a6c744e22ad8002f135ad831e">a）负责人：可设定多名，限制仅负责人可对模版进行删除（后续会支持仅负责人对模版进行编辑）<br />b）允许实例化修改：即是否允许该模版被使用到分层场景里之后，手动对模版内的内容进行编辑 或 通过标签批量选择部分策略进行使用<br /><img src="https://km.sankuai.com/api/file/cdn/2254837925/126589588357?contentType=1&amp;isNewContent=false" name="image.jpeg" width="472" height="236" nodeId="0a6d9b9331d640629f920f743ad9307d" /></p>
+</li>
+<li nodeId="7a15c72f05774f62b1d65f788aeae8b7">
+<p nodeId="cf2cd48bd8ac4009b1cf6dfcf35a1a9e"><strong>完成模版配置，方式同分层场景，可参考分层场景配置说明</strong></p>
+<p nodeId="f7ed6a98100b41d1a2fa0f6784b4ccd8"><img src="https://km.sankuai.com/api/file/cdn/2254837925/126589109319?contentType=1&amp;isNewContent=false" name="image.jpeg" width="466" height="233" nodeId="16f8d89edd3544198be8e13bcb7669ea" /></p>
+</li>
+</ol>
+<h2 nodeId="17e2bda2bfc94f5baddf333dc2f061d0">STEP 2 -- 在分层场景里使用模版</h2>
+<ol nodeId="521c36a9475c4bc3a1d55ab22066c0f1">
+<li nodeId="a7dee5a5c0cf4b05a7a1020a99923f77"><strong>左侧菜单【策略部署】-【分层场景】，选择页面【场景列表】TAB，新建场景或选择已有场景。分层场景的选择请参考</strong><a href="https://km.sankuai.com/collabpage/1333731150" title="https://km.sankuai.com/collabpage/1333731150" autoUpdate="true" nodeId="06718c6e159549888daf45949e35e4e8">https://km.sankuai.com/collabpage/1333731150</a><br /><img src="https://km.sankuai.com/api/file/cdn/2254837925/127033651907?contentType=1&amp;isNewContent=false" name="image.jpeg" width="476" height="240" nodeId="5af9ea98610f421d810132b1c66f6d1a" /></li>
+<li nodeId="8b62d0b871bf4f69a58deacb7c2d6726">
+<p nodeId="28e35c2d2d4f46a499b786898e05af3b"><strong>选择识别树-左侧工具栏中策略模版节点，选择策略模版节点拖动进分层场景拓扑图</strong></p>
+<p nodeId="84476398625f4c0facacdd4b8f98f932"><img src="https://km.sankuai.com/api/file/cdn/2254837925/127041973416?contentType=1&amp;isNewContent=false" name="image.jpeg" width="478" height="255" nodeId="f7cfc920244b4217bd16c7cfbacc14bd" /><img src="https://km.sankuai.com/api/file/cdn/2254837925/127041180813?contentType=1&amp;isNewContent=false" name="image.jpeg" width="480" height="217" nodeId="60a003be65ba4afd946ee16925303f3c" /></p>
+</li>
+<li nodeId="2ee015f290ad4ac9aefbd7f2101a8874"><strong>完成模版信息填写，选择需要使用的识别模版并勾选需要使用的防控标签，若规则无标签选择后对应策略状态自动与模版内状态保持一致。且模版内策略如果修改，此处实例化分层场景中的策略会同步修改。</strong><br /><img src="https://km.sankuai.com/api/file/cdn/2254837925/127042865109?contentType=1&amp;isNewContent=false" name="image.jpeg" width="473" height="236" nodeId="fd06a979f4cb423086d289c7ab3a15e6" /></li>
+<li nodeId="4b7651acfc764221b91ed95347ef6085"><strong>手动对需要特殊调整的策略进行修改。可修改范围：决策/决策理由/附加信息。手动特殊调整后，该条策略将不随模版内策略修改而同步。</strong></li>
+</ol>
+<p nodeId="3a7f29e8bdfa47d3b7427b601a29d8cb" />
+<h1 nodeId="ef203ccb315241fdb1e77fccf56bb416">四、特殊同步逻辑说明</h1>
+<p nodeId="50d3c4e2e0e04ea9ad8ae001fc499048"><span font-size="16"><strong>原则一：单标签纬度「标签勾选优先级 大于 手动修改优先级」</strong></span></p>
+<p nodeId="951aec328416496faa22839997fc571a"><span color="#7F7F7F">当风险标签未勾选时，用户手动修改策略的状态均无效（后端仍然全部置为离线）；当风险标签勾选时，且用户有手动修改策略状态，取用户手动修改的状态为准。例如：策略A有 1/2 两个标签，策略B有1/3 标签，勾选了 1 标签，这时候 AB都被选中，然后手动把B置为离线，再勾选 3 标签，B应该此时仍然被选中</span></p>
+<p nodeId="8267520390604970909510f0c02dce85"><span color="#000"><strong>原则二：若模版内存在规则无风险标签，这条策略可以任意手动修改。</strong></span></p>
+<p nodeId="122efff86d96465fb6186b5e0659d6e5"><span color="#000"><strong>原则三：如果变更一条规则的风险标签，则这条策略默认离线。需要进入分层场景中勾选新的风险标签</strong></span></p>
+<p nodeId="25ccb810b5244a4e8268ef5e12087608" />
+<h1 nodeId="8d83deb8474f41089dfc443d8d0be53d"><span color="#000"><strong>五、Q&amp;A</strong></span></h1>
+</km-doc>

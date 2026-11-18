@@ -1,0 +1,426 @@
+<km-doc>
+<km-title nodeId="8dbfa3f3c81c48aebbf0fa6c733ca693">说明：累计服务指南</km-title>
+<km-catalog style="none" nodeId="fa96cd71d03e44aa802b18cf162ef5b6" />
+<km-collapse active="false" nodeId="a1c97af980974874b81147f42c285ba4">
+<km-title><span color="rgb(0, 145, 85)"><strong>🌟累计服务功能上线记录</strong></span></km-title>
+<km-content>
+<table responsive="false" nodeId="e98eb9e7b9bf4912b47431eb444304a9">
+<tr nodeId="763d3d93108c46f8a8e94a2da7427f4e">
+<th colwidth="[116]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="9f4d53d7801a40bfaf31e48c7037affe">
+<p nodeId="9025330b6850487dad7d42d2fcf67e39"><span color=""><span font-size="14">上线时间</span></span></p>
+</th>
+<th colwidth="[1198]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="51793a021e984af6b0885cdb845f9c70">
+<p nodeId="db69ce676e8d4ad884e53dd23f97ebbc"><span font-size="14">功能说明</span></p>
+</th>
+</tr>
+<tr nodeId="f9baa034e8ea4117ab16d86407064bee">
+<td colwidth="[116]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b4942c4d05714233a57959be35649b46">
+<p align="start" nodeId="3e3deadff6ab4662a52d9e99e67e6626"><span font-size="14">20221116 </span></p>
+</td>
+<td colwidth="[1198]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="bc5431cfe4c14854a16092ecdf80ac0d">
+<p align="start" nodeId="d4214179d9b648df893874e7c1e5f638"><span font-size="14">注意：基于金融与Zeus达成的一致，部分金融业务不做Zeus功能迭代，上线功能不包含的业务空间有：</span><span color="rgb(245, 35, 45)"><span font-size="14">48、49、68、73、108及下的子空间（110、111、112、113、114、115、116、117、124、134、148、151、158）、109。</span></span></p>
+<p align="start" nodeId="8febad3dc7fd418a9fb7dd2b0d408ba1"><span font-size="14"><strong>1、增加最大值、最小值累计函数</strong></span></p>
+<p align="start" nodeId="5826b3e7107f443fb5a673da4ed19db0"><span font-size="14">入口：新增累计因子-&gt;累计类型，可选择最大值、最小值</span></p>
+<p align="start" nodeId="b81475a43eda41778e7d57cf02173491"><span font-size="14">函数逻辑：在累计周期内取最大值和最小值</span><span color="rgb(245, 35, 45)"><span font-size="14">，默认值为-9999.0</span></span><span font-size="14">，此外对实现逻辑做说明：</span></p>
+<p align="start" nodeId="0fbfbd7cc27147859028236da6d45260"><span font-size="14">1）如果累计周期单位是自然日、自然周，最大值、最小值</span><span color="rgb(245, 35, 45)"><span font-size="14">是按照实际的累计时间</span></span><span font-size="14">范围内进行统计的。比如累计A的累计逻辑是：取2个自然日 Price的最大值，当前时间是2022-11-16 14:00:00，那累计因子的取值逻辑是 取：2022-11-15 00:00:00至2022-11-16 23:59:59 Price的最大值。</span></p>
+<p align="start" nodeId="1c29a7c4ad274c19b6f3e93fb86172c9"><span font-size="14">2）如果累计周期是非自然日、自然周即正常的年、月、日...，由于计算资源成本，在实现逻辑上会有周期范围的扩大（扩大千分之一），比如累计因子B的累计逻辑是：取2日Price的最大值，那累计因子的取值逻辑是：2022-11-14 14:00:00 往前推（（2日=172800秒）/1000=172.8秒）至2022-11-16 14:00 ，即</span><span color="rgb(245, 35, 45)"><span font-size="14">累计周期被扩大了千分之一</span></span><span font-size="14">。</span></p>
+<p align="start" nodeId="c6b0983a752d40348256602e7d7a0f5d"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131907317?contentType=1&amp;isNewContent=false" name="" width="382" height="228" nodeId="7547223eb6fc4e658436265a92deef60" /></p>
+<p align="start" nodeId="4ace869603d14b22b89315b491e59f36" />
+<p align="start" nodeId="3e50889b322c437ba5f4dc39b808f19e"><span font-size="14"><strong>2、读累计条件设置</strong></span></p>
+<p align="start" nodeId="9599500bf65a4450afebff9aefa88bf0"><span font-size="14">增加“无”读累计配置项：如果不展开高级设置，自行配置，系统将自动默认未设置读累计条件。</span></p>
+<p align="start" nodeId="7d469821b8114b0ca72219ea68d427eb"><span font-size="14">读累计条件是累计高级配置项，</span><span color="rgb(245, 35, 45)"><span font-size="14">本期上线前默认读写累计条件一致，上线后需用户在高级配置中选择读累计条件设置</span></span><span font-size="14">，请各位用户特别注意。这里对读累计条件的作用做解释：</span></p>
+<p align="start" nodeId="4b4c9b237ce74e8d911090591ce9646e"><span font-size="14">如下图：设置读累计条件即为满足读累计条件的时候才会真正请求累计服务返回当前在累计周期内累计到的值（次数/求和/最近几次明细..），否则返回默认值null，如果将读累计条件设置成“无”，则任意请求都能取到当前累计到的实际值（注意不是写累计喔，是取到当前的累计值），从策略感知上，同一个累计因子 读累计条件为“无”的 要比设置读累计条件的，实际读取到累计因子值的范围更大（因为会有一部分请求不满足读累计条件 而请求不到累计因子实际值）。</span></p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1626109941/33131324172?contentType=0&amp;isNewContent=false" width="776" height="426" nodeId="4890f478621e4edea108231bc4627e83" />
+<p align="start" nodeId="b6d56f0c9d4740cba6438cf2054d5eb2" />
+<p align="start" nodeId="a576e20d5ed440258550480ba3020b48" />
+<p align="start" nodeId="e9947636f64642f98bf1b383fade389d" />
+<p align="start" nodeId="f09d4352e5224820990f6ac3e914c6b2"><span font-size="14"><strong>3、累计查询（持续优化中）</strong></span></p>
+<p align="start" nodeId="e053a6c5933b4b87a96d3477e370779b"><span font-size="14">将读写累计查询入口合并（短期内老读写累计查询入口仍保留，预计12月初将读累计查询、写累计查询菜单下掉，只保留本次新增的累计查询），累计查询功能如下：</span></p>
+<p align="start" nodeId="8bfc29680bcb43548fe3ae541dc0086c"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131828689?contentType=1&amp;isNewContent=false" name="" width="85" height="103" nodeId="139d246444b64541ab03912be27c8a0b" /></p>
+<p align="start" nodeId="17a657afa899405b99b4e98867aac708"><span font-size="14">1）支持读写累计查询在一个页面切换。</span></p>
+<p align="start" nodeId="c4cc43803a854c1ab2bec0e62ecc812f"><span font-size="14">2）支持读写累计离线查询，最多可支持1000条明细的查询，查询结果请关注【</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"><strong>Scorpio累计服务</strong></span></span><span font-size="14">】应用号，查询结果可点击累计明细文件，（</span><span color="rgb(245, 35, 45)"><span font-size="14">注意：只有将累计因子迁移到新新累计服务中的累计因子才支持累计离线查询，累计服务迁移是由研发统一迁移，无需策略操作，迁移前将会主动联系各相关用户。）</span></span></p>
+<p align="start" nodeId="2c7654bf60eb48188c269c59f90f957c"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131324173?contentType=1&amp;isNewContent=false" name="" width="261" height="135" nodeId="363009077ae54f7e86ea7980096d553f" /></p>
+<p align="start" nodeId="549be53857154a6da089b3e30f16b045"><span font-size="14">累计明细中包含以下字段：</span></p>
+<p align="start" nodeId="4c362608438341469d70a7d87ed82d25"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131697531?contentType=1&amp;isNewContent=false" name="" width="1171" height="165" nodeId="893eed27c7f24d1e90f9992144761d21" /></p>
+<p align="start" nodeId="5cb9113faead4b4991044f0d8bf6af7e"><span font-size="14">3）查询结果：</span></p>
+<ul nodeId="aa600df387674314b3e66160f24c63d7">
+<li nodeId="095330cdd35248e6ab630823fc8f1d01">
+<p align="start" nodeId="6433b70a79d9486bbb3956725ac7e274"><span font-size="14">读累计实时查询：支持近10条明细返回</span></p>
+</li>
+<li nodeId="825873ff62c4415694a99de5ae2a39b3">
+<p align="start" nodeId="a8f23f77e98f425385163d4b5b425595"><span font-size="14">写累计实时查询：支持近4天明细查询</span></p>
+</li>
+<li nodeId="ec70a324cd7f424d99338ba757904383">
+<p align="start" nodeId="e4245e6dc55d4e288f10c7e6e2e37ab8"><span font-size="14">读累计离线插叙：支持近1000条数据的查询、支持按照时间点往前推一个累计周期的明细查询</span></p>
+</li>
+<li nodeId="89e479557ec3418897dfe756cdc3aa80">
+<p align="start" nodeId="ce949b15736b46beb833e5bf9b8ac1f6"><span font-size="14">写累计离线查询：支持近1000条数据的产讯，支持按照时间区间的累计明细查询</span></p>
+</li>
+</ul>
+<p align="start" nodeId="2816435bd1d94de1811af87e845676ba"><span font-size="14"><strong>4、恢复累计周期自然日、自然周的选择入口。</strong></span></p>
+</td>
+</tr>
+<tr nodeId="3a5be446f889460889fcf000975136c2">
+<td colwidth="[116]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c00934d20b254eb1872f4a55e9bc64d2">
+<p align="start" nodeId="cac14160f14e4db5be9d29e441b2ae9e"><span font-size="14">20220914 </span></p>
+</td>
+<td colwidth="[1198]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8db1538e3b944f03a84f27cc176d3532">
+<p align="start" nodeId="16a31861ca2a4222ad8362d788f8062e"><span font-size="14"><strong>1、累计回溯下线</strong></span></p>
+<p align="start" nodeId="549e534405f14301a0392f49ef8ea314"><span font-size="14">由于当前回溯有限，且回溯准确性难以保障，因此对回溯功能短期下线，预计2023H1逐步回归。累计因子回溯下线后对您的影响：</span></p>
+<p align="start" nodeId="53bfc83abf174ff8b10976bc4b82a472"><span font-size="14">1）策略验证：规则回溯-&gt;新建回溯-&gt;去掉累计因子线上回溯入口。</span></p>
+<p align="start" nodeId="0ee855149db043a9a7392a659cff4de4"><span font-size="14">2）累计因子详情：在累计因子状态字段旁去掉 【累计回溯】入口。</span></p>
+<p align="start" nodeId="333fbf9ab58740ddb601b46221710193"><span font-size="14">3）对存量累计回溯任务：只可查看回溯内容，但不可对任务再复制。</span></p>
+<p align="start" nodeId="40a8df9bc9bf4325b9e9979d61fbdb6d"><span font-size="14">2、</span><span font-size="14"><strong>累计因子配置额外字段下线</strong></span></p>
+<p align="start" nodeId="087fdb8fdbd04eb19e6367dbe1afba43"><span font-size="14">经前期调研，【额外字段】是低使用率高成本字段，增量累计因子将不允许添加该字段，存量已配置该字段的累计因子可查看但不可编辑。</span></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<h1 align="start" nodeId="60c6c252ad0744be81645e7ef40008d5">一、服务定位</h1>
+<p align="start" nodeId="c2a6d341d3de424ea94e57324db90e03"><span color="rgb(0, 0, 0)"><strong>定位：</strong></span>累计服务是服务于<span color="rgb(255, 74, 71)">风控策略、算法</span>对<span color="rgb(255, 74, 71)">时序类</span>数据高效加工并<span color="rgb(255, 74, 71)">应用在Zeus实近离</span>风险防控场景中的数据解决方案。</p>
+<p align="start" nodeId="63d1957483ba461a8581af19033e97ff"><span color="rgba(0, 0, 0, 0.5)">*注意：累计服务当前只服务于应用在Zeus的使用场景，暂不对外单独提供服务。</span></p>
+<p align="start" nodeId="5cef12825cdc47c9b51d53ca4407f026"><span color="rgb(0, 0, 0)"><strong>使用场景：</strong></span><span color="rgb(0, 0, 0)">对某一周期的业务请求 计数、求和、取最近几次、求最大值/最小值。</span></p>
+<ul nodeId="32b42ac47ce348f2ba875e1dffda5d6e">
+<li nodeId="831c79a55913432c9ae386dfe02ed97e">
+<p align="start" nodeId="bc717eadfaf441249e9a2bc7e77ae815"><span color="rgba(0, 0, 0, 0.5)">计数：对某一周期内同一主体的客体计数，比如，累计最近1天内同mobile登录的userid的个数</span></p>
+</li>
+<li nodeId="dfbde2cd4bb44b3391379fda4586ab98">
+<p align="start" nodeId="78a73c2c4bbb4ee5ab81089cae9617ce"><span color="rgba(0, 0, 0, 0.5)">求和：对某一周期内同一主体的客体求和，比如，累计近1周内同一userid下的支付总额</span></p>
+</li>
+<li nodeId="a61354ff734a4feaa4a6926d466fd25c">
+<p align="start" nodeId="f8106c3ae6134ce9aed559b9b2396f3b"><span color="rgba(0, 0, 0, 0.5)">最近几次：对罗列某一周期内同一主体的客体详情，（当前仅支持</span><span color="rgb(255, 74, 71)">最近100次</span><span color="rgba(0, 0, 0, 0.5)">的累计）比如，累计最近1月同一userid最近5次所在城市的信息</span></p>
+</li>
+<li nodeId="fe29c668fc4d4dc08b346cb871dd04dd">
+<p align="start" nodeId="286507b60f6543a39268c4886e2eb72f"><span color="rgba(0, 0, 0, 0.5)">最大值/最小值：对某一周期内同一主体的客体做比较，取最大值/最小值，比如，累计最近1自然周内同一userid退款金额最大值/最小值</span></p>
+</li>
+</ul>
+<h1 align="start" nodeId="4be5b11004eb4eb787e8c3edf32b0006">二、累计计算原理</h1>
+<p align="start" nodeId="549acb7eebf34aa495865d89c5b1faf8">为便于大家更好的理解累计的计算原理和调用链路，对累计服务的上下游数据依赖、配置依赖、及累计服务计算原理进行说明。累计服务分为写和读两个过程：</p>
+<p align="start" nodeId="2999b6f186fd4237b2f0d5bb5e8bf699">写累计：即按照累计的计算逻辑对符合条件的请求记录到累计服务中，累计服务经过计算明细给出累计聚合值。</p>
+<p align="start" nodeId="78c7a8925ba74b10ad3653f1a86660d1">读累计：即在执行规则逻辑时读取满足读累计条件的累计主体此刻的值，读累计结果的应用通常是在zeus以累计因子的形态应用在规则中。</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1626109941/33131744330?contentType=0&amp;isNewContent=false" width="1013" height="1128" nodeId="a0fb91d366aa4aaab0e524a4fb4e335e" />
+<p nodeId="057085b932ec4e5a80902281a5219f99" />
+<p align="start" nodeId="694cb9f1bc3244a8af58b48723c63b43"><strong>写累计说明：</strong></p>
+<ul nodeId="3b7b567321d3490798529a3b6031a445">
+<li nodeId="73b7bea4f59a4f6a91ce6f0538ea43ad">
+<p align="start" nodeId="804ebd9354a24615bc2c51a6e27a7e94">风控事件与累计事件关联：仅限于通过Tatooine接入Zeus的业务，事件关联是为了将具体的业务请求与计入累计因子的请求来源做绑定。</p>
+</li>
+</ul>
+<km-collapse active="false" nodeId="3694400ae57d4cbfaadae2d64f1fcd09">
+<km-title><span color="rgb(0, 88, 219)"><strong>事件与累计事件的关联配置</strong></span></km-title>
+<km-content>
+<p align="start" nodeId="a09857292a1d4729a6f4f04f41237faf">事件与累计事件关联的配置入口：<a href="https://hansolo.vip.sankuai.com/#/eventManageList" title="https://hansolo.vip.sankuai.com/#/eventManageList" nodeId="b01cdc0eda27473d872610de83d44bca">https://hansolo.vip.sankuai.com/#/eventManageList</a></p>
+<p align="start" nodeId="8b12ab23881f41ca99491fa949461a54"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33132272132?contentType=1&amp;isNewContent=false" name="" width="728" height="600" nodeId="217f5b45897b4f4abb9187a544f95c69" /></p>
+</km-content>
+</km-collapse>
+<p align="start" nodeId="f0fc4e74396343d6a1ae95c100dfd8dc"> <span color="rgba(0, 0, 0, 0.5)"> *非zeus接入的业务，使用累计服务需要在每个请求加上累计因子的ID （具体字段待确认）</span></p>
+<ul nodeId="3f5194ee180c40bcb7cc5020b84b3b11">
+<li nodeId="07f02a0fee684adca2ec97e5e0b4c048">
+<p align="start" nodeId="2c9bec56a858484fa7b84c7cfba94a9a">是否满足写累计条件：即累计因子配置中的满足何种条件累计。</p>
+</li>
+</ul>
+<p align="start" nodeId="72db09697da94c16a51ebb2a027612a4"><strong>读累计说明：</strong></p>
+<ul nodeId="529894263f194ea183304d3a0f49f29e">
+<li nodeId="9d5370305e9a444fb2ca56af54b28fb3">
+<p align="start" nodeId="ef45bbef89aa4ac8b4465304ab37ad9e">读累计条件校验：即在zeus规则中引用累计因子时，调用累计服务读取累计当前值，注意：如果设定了读累计条件则只有满足读累计条件的请求才能获取到累计值，否则均返回默认值"null"。</p>
+</li>
+</ul>
+<h1 align="start" nodeId="f01fc0ea21464617b5689057851b24a4">三、累计因子配置与应用</h1>
+<h2 align="start" nodeId="5a6e9b3bc8b044d0bf2e4841ca71b70c">🚩快速上手</h2>
+<p align="start" nodeId="b5ca37f7418f40cabb3a7428b03a1aaa">从操作层面，累计因子配置与应用步骤可分为：</p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1626109941/33131907315?contentType=0&amp;isNewContent=false" width="826" height="66" nodeId="b3412ce92f4f42f284b47e5a2d118711" />
+<p nodeId="fd82b07839844c969ae46e6f3d5b570e" />
+<km-collapse active="false" nodeId="7634828c8fac4f0f8a8ec90334110e55">
+<km-title><span color="rgb(22, 111, 247)"><strong>操作演示</strong></span></km-title>
+<km-content>
+<ul nodeId="3cb664b4bfb94f0a93aaeb0ad4df515b">
+<li nodeId="681870ab18054a879df2a33fe0b90bff">
+<p align="start" nodeId="3a64992a515e42fb94d92256fc0f8d5c"><span color="rgb(255, 74, 71)"><strong>step1 ：创建累计事件</strong></span></p>
+<p align="start" nodeId="86bcb898fe1f44dea6029b41ba25ecd1"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131324171?contentType=1&amp;isNewContent=false" name="" width="584" height="295" nodeId="199df457600c4a63b0de775702cf1bee" /></p>
+</li>
+<li nodeId="0b342609c98548caaffa527529498254">
+<p align="start" nodeId="c0487f387ff14041a601460d923f0fed"><span color="rgb(255, 74, 71)"><strong>step2 ：风控事件与累计事件关联</strong></span></p>
+</li>
+</ul>
+<p align="start" nodeId="d394dfb911ae43b7a9a402d43997f9e6">      <img src="https://km.sankuai.com/api/file/cdn/1626109941/33131697528?contentType=1&amp;isNewContent=false" name="" width="567" height="200" nodeId="200f58e6250647c7bb296dd077bf2e79" /></p>
+<p align="start" nodeId="c62586f73d9d4e0f9342b4311ecc13db">     <img src="https://km.sankuai.com/api/file/cdn/1626109941/33131744329?contentType=1&amp;isNewContent=false" name="" width="574" height="279" nodeId="09cb463a2ab3407e89e54f3fa382e7bd" /></p>
+<ul nodeId="9623cccdfab04f2b8d3ad6a4922cc034">
+<li nodeId="10ad662021f94d9b98656f5c58c30759">
+<p align="start" nodeId="169bfbd9b7dd4d19ad84c99b5eb74731"><span color="rgb(255, 74, 71)"><strong>step3 ：配置累计因子</strong></span></p>
+<p align="start" nodeId="4b4227b7edd042d2b9a2a229748fcb99"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131524412?contentType=1&amp;isNewContent=false" name="" width="605" height="323" nodeId="827024264ef54f1d918beb0c1b5ffaa2" /></p>
+</li>
+<li nodeId="e8ec3b1b63014bd6ac6133528ceca6d9">
+<p align="start" nodeId="9aca93f88c8641b98092105319cf4032"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131697526?contentType=1&amp;isNewContent=false" name="" width="880" height="244" nodeId="674a7f586817449ba683d0c6eb888613" /></p>
+</li>
+<li nodeId="467c10a86cbb48c3817b3504c06c9582">
+<p align="start" nodeId="c4631991c7fe43ac9267ab3de09780ca"><span color="rgb(255, 74, 71)"><strong>step4 ：累计因子设置上线</strong></span></p>
+<p align="start" nodeId="fd2a1f6da1c54b99aca9fb36574dcee2"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131406593?contentType=1&amp;isNewContent=false" name="" width="585" height="422" nodeId="781b0d61c4dc4dc69b26c96731e62056" /></p>
+</li>
+<li nodeId="438e413cc331440bb49126f7c3e1c8fb">
+<p align="start" nodeId="127dc682d3da4003819db0e636d982b6"><span color="rgb(255, 74, 71)"><strong>step5 ：如有累计因子相关问题，累计排查</strong></span></p>
+<p align="start" nodeId="bfcf11944be74d369b1332e597cdac2b"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131744327?contentType=1&amp;isNewContent=false" name="" width="665" height="364" nodeId="1d28229c342f4ad484aa96c5b1d0b62c" /></p>
+<p align="start" nodeId="7e3c5699ed1244928392409a6020183f" />
+</li>
+</ul>
+</km-content>
+</km-collapse>
+<h2 align="start" nodeId="282cd44cb32e4b7096bacdce3959291f">3.1 累计事件配置</h2>
+<p align="start" nodeId="a3a5dd5e840a4a17807a1b6683ff377e">首先区分事件与累计事件的概念：</p>
+<p align="start" nodeId="63da78763de74485a262970c5022255b"><strong>事件：</strong><span color="">业务活动中用户的风险行为节点，详情可参考</span><a href="https://km.sankuai.com/page/1292077011" title="Tatooine事件的理解" autoUpdate="true" nodeId="1cb8ec53f8c24a9b94bb32269abf11d2">Tatooine事件的理解</a></p>
+<p align="start" nodeId="aa26ca1f7b144b2883ff60fccde79b37"><strong>累计事件：</strong>是对多个同类似业务的事件的管理，一个/多个事件对应一个累计事件。</p>
+<p align="start" nodeId="a892d9d2af4d44c28e5a3ce31f7cd6f9"><strong>事件-累计事件-累计因子的请求链路</strong>（图文 from<a href="https://km.sankuai.com/page/1292077011" title="Tatooine事件的理解" autoUpdate="true" nodeId="18286c98742140b79f374a7291eecb13">Tatooine事件的理解</a>）</p>
+<ul nodeId="16cbe4fc6114447a846b675d9fa29bea">
+<li nodeId="0a8f411cda074f0c8f20d8c995e8af89">
+<p align="start" nodeId="ff41d52f70d145ea8b090585cd7f7192">请求通过事件进入Zeus会触发该事件所关联的累计事件（可关联多个）。</p>
+</li>
+<li nodeId="ca85f296373a45a29aeb9e6e1bf04f50">
+<p align="start" nodeId="bcce81464d3e44f5ac520764e9365ce4">每个累计事件下管理了一组累计因子。累计因子在配置的时候可以选择对应的累计事件，完成配置后就被添加到该累计事件下。</p>
+</li>
+<li nodeId="a86d69735e7d4496b95fbb8bae86827d">
+<p align="start" nodeId="c54f5610eb4c40e9ac0410223aba113b">请求触发对应的累计事件，即遍历累计事件下所有的累计因子，符合写条件的，累计因子便会执行写入，不满足写条件的则无事发生。</p>
+</li>
+</ul>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1626109941/33131324167?contentType=0&amp;isNewContent=false" width="786" height="401" nodeId="7e3ca570abdf457a9756c0af88de60af" />
+<p nodeId="830b272dea2e4ec59464b3861ec87e5b" />
+<p align="start" nodeId="6483b6e010ef4783810250e1c64da786"><strong>操作：</strong></p>
+<table responsive="false" nodeId="08c1ecfcd8ae4abd9d7fd400cf587b68">
+<tr nodeId="20ace2807f284c9daf6e8181055e2a87">
+<th colwidth="[135]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="4527d084dc744616b2d44531978897ab">
+<p nodeId="1c717097735c42b4b9d35f199041f2ce"><span font-size="14">功能</span></p>
+</th>
+<th colwidth="[601]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="20806a2474434734b72baa808401b3bf">
+<p nodeId="ef6718f909be4c0cb0a7d873d65b69fa"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[599]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="0814a6257f6e4c1c850aba1616df7cfc">
+<p nodeId="d6d5fe7ba911475b9ddca8d3efa9743c"><span font-size="14">图例</span></p>
+</th>
+</tr>
+<tr nodeId="83aaf810f46f4b338e1a06597caff73f">
+<td colwidth="[135]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d17a27de7062410bae02c57008042af5">
+<p align="start" nodeId="1625f0b70dc44a7f8b7cdf32d34ff2c8"><span font-size="14">新增累计事件</span></p>
+</td>
+<td colwidth="[601]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e271f23eaeea49f6b9c830ad167c2c1a">
+<p align="start" nodeId="81cee9575fb84d528781728fdda60959"><span font-size="14">累计事件配置入口：Zeus-&gt;配置中心-&gt;累计事件-&gt;添加事累计事件</span></p>
+<p align="start" nodeId="9324b4bd02b0421092a4ec18f394aa5f"><span font-size="14">说明：配置累计事件需对累计事件的业务含义、及共享方进行定义。共享方：zeus允许对同业务群的业务空间共享。共享时需注意，共享方需有与该累计事件绑定的事件，累计因子才会真正累计到值。</span></p>
+<p align="start" nodeId="caaeff728e92453ab7d37ddd8ff2c135"><span font-size="14">举例：1-反作弊将累计事件【1610094-活动事件】累计事件分享给同业务群的3-用户账户，而 【1610094-活动事件】只关联了交易活动相关事件，那么在3下基于【610094-活动事件】累计事件加工的累计因子不会对本业务的请求做累计。</span></p>
+<p align="start" nodeId="6d3b9599b1344d8b9aba63e13c762122"><span font-size="14">因此，累计事件的共享场景是 累计事件的事件来源于多个业务，且需要在事件配置中 对事件与累计事件绑定。</span></p>
+</td>
+<td colwidth="[599]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a73c7c71c2a64c378747d65c1ae902ad">
+<p align="start" nodeId="88b55018dd0f47048f65b4bca078d6cb"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131697525?contentType=1&amp;isNewContent=false" name="" width="577" height="295" nodeId="fd66d8e3451841789b3f332044c96b5a" /></p>
+</td>
+</tr>
+</table>
+<h2 align="start" nodeId="36796a257d0e440ca7ab1d9176a25298">3.2 累计事件与事件关联</h2>
+<p align="start" nodeId="97da7db1a4a74251b987bedd8b312faa">如3.1所述，事件需与累计事件产生关联关系才可有真实的业务请求。</p>
+<p align="start" nodeId="55c243f8b62e443db7ed124b9306e47d"><strong>操作：</strong></p>
+<table responsive="false" nodeId="dfd941fd459e48688ebd5642de654305">
+<tr nodeId="5d2fe0f194ff442ab28dd31c7477d884">
+<th colwidth="[135]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="5b875d75372c45f8a78fc0fa8d1718e2">
+<p nodeId="118588bb3f834cfebce250f4ea1dba88"><span font-size="14">功能</span></p>
+</th>
+<th colwidth="[578]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="196052009bdb485591ee9ebf6eec2176">
+<p nodeId="9f0f4252f9a14738a658b6dcf17e378e"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[599]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="04a77ec6b382483e8fcaf757c69adb61">
+<p nodeId="a0e0e92a490d441fbf6e14a8911cf8a5"><span font-size="14">图例</span></p>
+</th>
+</tr>
+<tr nodeId="1032ddeb70ca44ce98f9af72aa76e384">
+<td colwidth="[135]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6f7d2bf5208d4e548a377828a28d3809">
+<p align="start" nodeId="52e2128695fd44ee9329256b32504486"><span font-size="14">累计事件与事件关联</span></p>
+</td>
+<td colwidth="[578]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a46f050b0f124610a02b3a368fe32725">
+<p align="start" nodeId="60689901357a4cc09db5320181930e3b"><span font-size="14">累计事件配置入口：配置中心-&gt;累计事件-&gt;添加事累计事件</span></p>
+<ol nodeId="2f4ad35d03354c00a11019698e2a624d">
+<li nodeId="3f5f44cc4254426f8f40e371f6ebaf7e">
+<p align="start" nodeId="fceb7f0628bc44488b9a8a40eabdd60d"><span font-size="14">事件配置入口：在接入平台-&gt;风险管理-&gt;</span><a href="https://hansolo.vip.sankuai.com/#/eventManageList" title="事件管理" nodeId="c63c2d9990b84478a3a64be46d997538"><span font-size="14">事件管理</span></a><span font-size="14"> </span></p>
+</li>
+</ol>
+<p align="start" nodeId="b1540aa2a60443e99f6acf56fcce32d0"><span font-size="14">2. 关联配置：对要关联的事件编辑，在关联累计中选择要关联的累计事件，一个事件允许关联多个累计事件。</span></p>
+<p align="start" nodeId="c09f0f48b3ce42d7ac55fa536b914622" />
+</td>
+<td colwidth="[599]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="013a2c8eac4c44cbb3f58edbffcd6aee">
+<ol nodeId="335c962a24e74c989cd68259387512e3">
+<li nodeId="7977cb129da14eed8efda510c24e1e97">
+<p align="start" nodeId="0c902cb689144b89ba97b713fe537ab4"><span font-size="14">入口：接入平台</span></p>
+</li>
+</ol>
+<p align="start" nodeId="6ec51d1466c44bec88b134cc02e005b7"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131324166?contentType=1&amp;isNewContent=false" name="" width="567" height="197" nodeId="245f59d18036434d8859a39f31cbb63f" /></p>
+<p align="start" nodeId="3d845a7cbf204ed0bcd54dadf394e7f2"><span font-size="14">2. 配置：编辑事件，关联累计事件</span></p>
+<p align="start" nodeId="cc11ab0eaaec4a878fa47fc8078d6770"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131324165?contentType=1&amp;isNewContent=false" name="" width="552" height="271" nodeId="cba0bfe2ccb046bcaf36d179181f566a" /></p>
+</td>
+</tr>
+</table>
+<h2 align="start" nodeId="78dc3a09eb894af0b2808f5742bfb095">3.3  累计因子配置</h2>
+<table responsive="false" nodeId="f17980cce4f54207ab2f76ac163298ee">
+<tr nodeId="53582d57e2c749d8b045defc58e5bde0">
+<th colwidth="[135]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="d0cb3cfc7adf416587a2f327817f6d9f">
+<p nodeId="6cfad09509034782b4a60adc4f5014b8"><span font-size="14">功能</span></p>
+</th>
+<th colwidth="[578]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="ac61b662819a4d668de6407b9fff3a13">
+<p nodeId="7a5c3fce64674e8fa996d9f5696f61b2"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[599]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="279651d51d384256b919a5ae8c53ceb0">
+<p nodeId="c89f9d9555df48d5969a008f4af72c09"><span font-size="14">图例</span></p>
+</th>
+</tr>
+<tr nodeId="7730fb5af1c14b3b8fe9ea8beea5f5d2">
+<td colwidth="[135]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7e243912024944d78a40cd75a43cb661">
+<p align="start" nodeId="6c440b92fd7147479f6208f77d60ff2f"><span font-size="14">累计事件与事件关联</span></p>
+</td>
+<td colwidth="[578]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4fd87dc8a4fe41518944d310eaefe6ac">
+<p align="start" nodeId="bfef09bdcf274981b3c7c6b9846c3fae"><span font-size="14">1.入口：Zeus-&gt;因子-&gt;添加因子-&gt;累计因子</span></p>
+<p align="start" nodeId="5ba27afb60b34404b08b5d889f945f78"><span font-size="14">2.配置说明：</span></p>
+<ul nodeId="4b3ad0194ec441d4a218763b26e77d7a">
+<li nodeId="0756c0d6d808425384c0a7946a827c5e">
+<p align="start" nodeId="ecf2eef039e547eeb7c17be8e119f032"><span font-size="14">累计事件：即累计因子的请求来源（注意：累计事件与哪些事件相关联，那么这些事件中满足写累计条件的请求都会写累计）。</span></p>
+</li>
+<li nodeId="38de83b34a74460da9ca1c223787b06e">
+<p align="start" nodeId="30b3ff824416430ca57b9b28f6c8ccda"><span font-size="14">累计周期：即累计因子是计算近x年/月/周/日/时/分钟/秒/自然日/自然周的数据，</span></p>
+<km-note type="tip" hiddenTitle="true" nodeId="7d2099f8483b4e73a7e2958c01f36e91">
+<km-title></km-title>
+<km-content>
+<p align="start" nodeId="ad85096e7e394d4ea076b6bb81c974fc"><span font-size="14">自然日、自然周与日、周的区别，比如当前时间是点2022-11-11 14:00:00 ，2个自然日累计的是 2022-11-10 00:00:00 至 2022-11-11 23:59:59 这个时间周期，2日则累计的是2022-11-09 14:00:00 至 2022-11-11 14:00:00，自然周与周的区别同理。</span></p>
+</km-content>
+</km-note>
+<km-note type="warning" hiddenTitle="true" nodeId="0bf21c4213144605856f15158f831a31">
+<km-title></km-title>
+<km-content>
+<p align="start" nodeId="3d0db1b3d49045e48d7d676d1f0068e7"><span font-size="14">累计周期请不要超过1年，原因：周期越长成本越高，且长周期因子如无回溯需等到满足一个累计周期后才会准确。</span></p>
+</km-content>
+</km-note>
+</li>
+<li nodeId="823a4fb540a643ee82d1faf5f331ee85">
+<p align="start" nodeId="2a8a854dd0494f0cbbd71a52a4722c7a"><span font-size="14">累计函数：即累计具体的计算函数，</span><span color="rgb(245, 35, 45)"><span font-size="14">可分为计数（默认值: 0）、求和（默认值： 0.0）、最近几次（默认值： null ）、最大值/最小值（默认值： -9999.0）</span></span><span color="rgb(0, 0, 0)"><span font-size="14"> 。</span></span></p>
+<km-note type="warning" hiddenTitle="true" nodeId="19c919d98b264b1f95b2a6e7d42df800">
+<km-title></km-title>
+<km-content>
+<p align="start" nodeId="8bf6945ff3f2442f9f1f0aa04fb5be36"><span font-size="14">关于累计明细的返回：</span><span color="rgb(0, 0, 0)"><span font-size="14">计数、求和、最近几次 默认返回调用方最近10次的累计明细（累计明细和累计值是两个概念，累计明细是满足写累计条件的请求的请求详情）</span></span></p>
+</km-content>
+</km-note>
+</li>
+<li nodeId="0b156d77096a452f98a9c61a24d3bde6">
+<p align="start" nodeId="12ac27c4e6a3418ebe8669eeaf7fed61"><span color="rgb(0, 0, 0)"><span font-size="14">累计客体：即“累计值”，指累计因子是对哪些维度的字段统计，比如：</span></span><span font-size="14">累计最近一天内同mobile登录的userid的个数，其中mobile是累计客体；支持因子、参数，且累计值是唯一的。</span></p>
+</li>
+<li nodeId="fd9e7f05a14f4c1c94eb47ebcd0585e4">
+<p align="start" nodeId="4a262633ced342ccbe59d1178dbaecef"><span font-size="14">累计主体：即“按何累计”，是指累计是对哪些维度的聚合值，比如：累计最近一天内同mobile登录的userid的个数，其中是userid是累计主体。</span></p>
+</li>
+<li nodeId="ac081c578f834321a4273e4bbcd57080">
+<p align="start" nodeId="8d7cd14fe7c34f03bf3e81cce119c289"><span font-size="14">满足何种条件累计：即当请求满足何种条件时会执行写累计服务，才会真实的累计请求值。</span></p>
+<p align="start" nodeId="29449b559e704e1dbdcb612ab7dc2042"><span font-size="14">高级设置项</span></p>
+</li>
+<li nodeId="b63ccb66be934dcbab138fb253496985">
+<p align="start" nodeId="1610f1afe17a4427929090cf45efbcdb"><span font-size="14">额外字段：原为返回风控调用方的累计相关的附加字段，基于对历史使用频次和使用成本考虑20220914将该字段的配置入口下线，存量已配置的将继续保留，增量累计因子将不支持额外字段的返回。</span></p>
+</li>
+<li nodeId="65cf1b874fda4f71a0ee150a0f402e4a">
+<p align="start" nodeId="bde64d33e21c4aa6a909d941057b7e4e"><span font-size="14">读取条件设置：默认为“无”，用户可自行选择 自定义读累计条件、读写累计条件一致、无读累计条件</span></p>
+<km-collapse active="false" nodeId="d3a5c83e8e034de2b2548fb34b2d9d4a">
+<km-title><span color="rgb(22, 111, 247)"><span font-size="14">读累计条件含义的说明</span></span></km-title>
+<km-content>
+<p align="start" nodeId="409cddd1413642e6973c569278b33f93"><span font-size="14">如下图：设置读累计条件即为满足读累计条件的时候才会真正请求累计服务返回当前在累计周期内累计到的值（次数/求和/最近几次明细..），否则返回默认值null，如果将读累计条件设置成“无”，则任意请求都能取到当前累计到的实际值（注意不是写累计喔，是取到当前的累计值），从策略感知上，同一个累计因子 读累计条件为“无”的 要比设置读累计条件的，实际读取到累计因子值的范围更大（因为会有一部分请求不满足读累计条件 而请求不到累计因子实际值）。</span></p>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1626109941/33131406589?contentType=0&amp;isNewContent=false" width="776" height="426" nodeId="7480977bca7c48cbad56f8ef0796dbbf" />
+<p align="start" nodeId="4fdf4aeb613d408ca3d14a361128aeec" />
+</km-content>
+</km-collapse>
+</li>
+<li nodeId="a4275412fb314825b8303d910a3a09e9">
+<p align="start" nodeId="93b7a987d4ca40888e60906348456ac0"><span font-size="14">是否累计自身：即本次请求如果满足累计条件是否将自身累计到累计结果中，注意：</span><span color="rgb(255, 74, 71)"><span font-size="14">如果引用该累计因子的事件与累计因子中配置的累计事件未绑定，则即使配置了累计自身 累计明细也不会写入到累计明细中，只是在本次请求将累计结果值计算在累计结果内。（计数：累计结果值+1、求和：加行累计值、最近几次：将本次请求算为最新一次、最大值/最小值：将本次算在求最值的数据范围内）。</span></span></p>
+</li>
+</ul>
+</td>
+<td colwidth="[599]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6880c12935584d2db4c2814e30867f36">
+<p align="start" nodeId="256746e568fe4467826d216a34dda370"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131524410?contentType=1&amp;isNewContent=false" name="" width="577" height="314" nodeId="38c29bf7cf7a4b2b89a19c3497773a2e" /></p>
+<p align="start" nodeId="d1c4b7c77ca647b8bd3a0936ef627033"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131524409?contentType=1&amp;isNewContent=false" name="" width="577" height="159" nodeId="1e3ff9f657ed4434b87b78479df7186a" /></p>
+<p align="start" nodeId="e6ff821ea54843258651b920f5970ea2" />
+</td>
+</tr>
+</table>
+<h2 align="start" nodeId="e20b1401f72c475a9151f84a7d7b0ab1">3.4  累计因子排查</h2>
+<table responsive="false" nodeId="018113c15af34b7abcbaee08b3bafec8">
+<tr nodeId="b064fe94f5ca4e208c084c76df78608b">
+<th colwidth="[135]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="3312105b09d4476d9cbbfee90c52045a">
+<p nodeId="6253ce18a0e2436e95fea12a15de3d47"><span font-size="14">功能</span></p>
+</th>
+<th colwidth="[578]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="8cc87b5762d340dcb3614b94f4e683a3">
+<p nodeId="6bc01245535549cdb267fff5532e6c3b"><span font-size="14">说明</span></p>
+</th>
+<th colwidth="[599]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="e19f08088f0e43cc97eb118a080a4492">
+<p nodeId="8a9dfcadf8c0479ea1478e26b79a3ab2"><span font-size="14">图例</span></p>
+</th>
+</tr>
+<tr nodeId="c234f58eba384fe4a67e3fcb035b8123">
+<td colwidth="[135]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="52ee31a833ae40189cbb619b73558e78">
+<p align="start" nodeId="6e1bbd517ff741ebb11fdefc270af4db"><span font-size="14">累计事件与事件关联</span></p>
+</td>
+<td colwidth="[578]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6c89e66f2fca4941844fdae5979adc54">
+<p align="start" nodeId="e1ef6f6826dd46b8b8febac8e061ef40"><span font-size="14">1.入口：Zeus-&gt;策略排查-&gt;累计查询</span></p>
+<p align="start" nodeId="f2e5fb6209b84b639ad0ad874f0df436"><span font-size="14">2.配置说明：</span></p>
+<p align="start" nodeId="eab81ffbfbc4472b9acb4c8b6f6b5b2c"><span font-size="14">1）累计查询为将读累计和写累计查询功能集成的入口，支持读累计/写累计查询、实时/离线查询在一个页面切换（后续读累计查询、写累计查询单独入口将逐步下线）。</span></p>
+<km-note type="tip" hiddenTitle="true" nodeId="95af39af5b994e6f95acfbf00a638ccc">
+<km-title></km-title>
+<km-content>
+<p align="start" nodeId="8b424501bf7e416eaeb398da7d98e616"><span font-size="14"><strong>读累计查询和写累计查询有什么区别？</strong></span></p>
+<p align="start" nodeId="86789c8671034f91bfa02534e56f7d6d"><span font-size="14">读累计查询是指按照规则执行时读取到的累计因子值所对应的累计明细详情（实时查询是从当前时点的读累计，离线查询是所选时间点往前推一个累计周期的累计明细详情），写累计查询是指在所选时间段实际被写入的累计明细</span><span color="rgb(0, 0, 0)"><span font-size="14">，同一个请求读累计和写累计明细可能不同，比如，当次请求不满足读累计条件则读累计明细将为空，但写累计明细可能存在。</span></span></p>
+<p align="start" nodeId="8fac3ad8d3dd4a0d9fca5c70d8084ac7"><span font-size="14">此外基于成本和查询效率考虑，读写累计明细展示上做了以下限制：</span></p>
+<ul nodeId="88c80566327f4dc09b1ae8722052f844">
+<li nodeId="9debc35c163641c294bf406cd6dc490a">
+<p align="start" nodeId="b1cd1eeaa6f04087b8483cb1a05f4b92"><span font-size="14">读累计实时查询：支持近10条明细返回</span></p>
+</li>
+<li nodeId="33ef21d3589540afa030bae29fd6872f">
+<p align="start" nodeId="c4d320a0b04d4465a93f523bccef9f78"><span font-size="14">写累计实时查询：支持近4天明细查询</span></p>
+</li>
+<li nodeId="da0ae65575dd484bb4964c8d265b95b5">
+<p align="start" nodeId="bdfff33bbb2247e0ac14c282919eb3ef"><span font-size="14">读累计离线插叙：支持近1000条数据的查询、支持按照时间点往前推一个累计周期的明细查询</span></p>
+</li>
+<li nodeId="c8d8c1e133264c4d83787cabdff100b3">
+<p align="start" nodeId="be3a6022aa584cd3ac97d9f40ca40723"><span font-size="14">写累计离线查询：支持近1000条数据的产讯，支持按照时间区间的累计明细查询</span></p>
+</li>
+</ul>
+</km-content>
+</km-note>
+<p align="start" nodeId="40ea641118574670a0eaaad43ac7dd6a"><span font-size="14">2）查询明细：</span></p>
+<p align="start" nodeId="1e8613094a0d4a66848409d90c552a04"><span font-size="14">读累计查询查询到的是累计客体的值，以图所示，累计因子</span><span color="rgba(0, 0, 0, 0.84)"><span font-size="14">factor_account_dfpid_login_userid_cnt_5min</span></span><span font-size="14">的key为userid 则累计明细为userid的取值，共1条。</span></p>
+<p align="start" nodeId="4ce076b5832d46dda91ccbacfff2d7c4"><span font-size="14">而写累计查询查询到的是某一事件段写入累计请求的详情。</span></p>
+<p align="start" nodeId="d9377dd6a3544371b9f95407c4c1f03c"><span font-size="14">3）支持读写累计离线查询，最多可支持1000条明细的查询，查询结果请关注【</span><span color="rgba(0, 0, 0, 0.87)"><span font-size="14"><strong>Scorpio累计服务</strong></span></span><span font-size="14">】应用号，查询结果可点击累计明细文件，（</span><span color="rgb(245, 35, 45)"><span font-size="14">注意：只有将累计因子迁移到新新累计服务中的累计因子才支持累计离线查询，累计服务迁移是由研发统一迁移，无需策略操作，迁移前将会主动联系各相关用户。）</span></span></p>
+<p align="start" nodeId="6a8cfee8c7474ad48b642e7843d27ba4"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131324163?contentType=1&amp;isNewContent=false" name="" width="556" height="288" nodeId="5584d99407dc449da822b991b186c086" /></p>
+<p align="start" nodeId="7ee8fe992dd14909a21f6f982d1cb2e1"><span font-size="14">累计明细中包含以下字段：</span></p>
+<p align="start" nodeId="d7cb11d638bf4d5298919c4455b92312"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131744323?contentType=1&amp;isNewContent=false" name="" width="556" height="78" nodeId="3cb9b6f4635b4fd0b02ca5ea0a8ccdb0" /></p>
+<km-note type="warning" hiddenTitle="true" nodeId="699670279fba4d82b6c4eb23151f1026">
+<km-title></km-title>
+<km-content>
+<p align="start" nodeId="4367ff8f84044687950729f115f19818"><span font-size="14">根据读写累计查询排查累计相关问题时需特别注意累计因子中是否配置了“累计自身”，如果配置了且当次请求满足写累计条件，如果是计数zeus会自动将累计值加1，但如果此次请求不包含在累计事件中，累计明细将不会记录，会出现实际累计明细数和累计结果值相差1的情况。</span></p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[599]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="88312a82eb3142fa8fa9329cb5b29dfa">
+<p align="start" nodeId="4fe33a7d3d484bc29d30e479dc3442f2"><span font-size="14">入口：策略排查-&gt;累计查询</span></p>
+<p align="start" nodeId="55659cdd2788441f93e673132a1bb361"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131524408?contentType=1&amp;isNewContent=false" name="" width="577" height="318" nodeId="919cdf0c946742b4a53244c7ffeb831b" /></p>
+<p align="start" nodeId="a3c53a36b5094599896c0089f53ed006"><span font-size="14">读累计查询</span></p>
+<p align="start" nodeId="18e5df89e9b64a539d2766eb8648e4cb"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131321766?contentType=1&amp;isNewContent=false" name="" width="577" height="359" nodeId="63f37a34669b41aea5c6a114d0b12c61" /></p>
+<p align="start" nodeId="9738e15e81714858a347068fae3e7f3a"><span font-size="14">写累计查询</span></p>
+<p align="start" nodeId="50c9b5a10847462d8fc1b37f8c110d08"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131524406?contentType=1&amp;isNewContent=false" name="" width="577" height="341" nodeId="ab14d584a0754f5cb924d4aea335fbfb" /></p>
+<p align="start" nodeId="1536ff78a18e44bd970cdc7b74ca4359" />
+<p align="start" nodeId="cef45d06bf6449d59c5ac5c80620ed75" />
+<p align="start" nodeId="1cde156f1ca247db8962c7ed51349c08" />
+<p align="start" nodeId="fc322e1a97844d2db34d5158edb54e64" />
+</td>
+</tr>
+</table>
+<h1 align="start" nodeId="636a69205fd04b79bfe6104c070ab708">四、常见问题</h1>
+<h2 align="start" nodeId="cd682f20c08d4d918e9f4b62412e2e3f">4.1  累计因子是否支持跨风控事件累计？</h2>
+<p align="start" indent="1" nodeId="8e9187e454c648c9ac75e0f752169233">支持，累计哪些风控事件是通过与累计事件的关联关系决定的，如果一个累计因子需要跨事件累计只许在Tatooine事件管理中将对应的风控事件与累计事件绑定就可以了。事件管理入口：<a href="https://hansolo.vip.sankuai.com/#/eventManageList" title="https://hansolo.vip.sankuai.com/#/eventManageList" nodeId="7da89de90dfc4bdcae1db85051d05e36">https://hansolo.vip.sankuai.com/#/eventManageList</a></p>
+<p align="start" nodeId="24f5d421a30e4cdeb67ee3753922c21a"><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131406586?contentType=1&amp;isNewContent=false" name="" width="491" height="226" nodeId="ca78dde263bc4c609408279287b70cd0" /><img src="https://km.sankuai.com/api/file/cdn/1626109941/33131524407?contentType=1&amp;isNewContent=false" name="" width="378" height="210" nodeId="6aeb0d30d5fd4dd79df49d0f55a2d5f0" /></p>
+<h2 align="start" nodeId="b9bbfba95e28487fa50c436542862311">4.2  满足何种条件累计、读累计条件设置、累计值中都支持哪些参数/因子的配置？</h2>
+<p align="start" nodeId="c5533436077b418bb61a4569e7f0e771">    满足何种条件累计、读条件设置、累计值都仅支持在zeus已配置的参数/因子，即使上游有传值也需先将参数在zeus配置好。但特别注意，为避免调用逻辑混乱，这几种条件都不支持scenceid risklevel的配置。</p>
+<h2 align="start" nodeId="646c14f05abc4b6b9e4e6f0d86382933">4.3  我所属的业务不是通过Tatooine接入Zeus的，想使用累计因子应该怎么做？</h2>
+<p align="start" nodeId="bfd71ea2cf89421dae17c9c40d5dc3df">可通过调用zeus的上游业务在调起zeus时传入事件id的方式使用累计服务。</p>
+<h2 align="start" nodeId="a852eab38e1d4bc880cb2f213f1c05c9" />
+<p align="start" nodeId="cbdd892c087d4ec1a24b6a693969e14b" />
+<p align="start" nodeId="25e520c2205c44dd9e4764047fd0cbf7"><span color="rgb(245, 35, 45)"><span font-size="19">如有疑问请联系：</span></span></p>
+<p align="start" nodeId="d124a0451c344ae1a0877594327aff64"><span color="rgb(245, 35, 45)"><span font-size="19">研发  luohao11 </span></span></p>
+<p align="start" nodeId="af8bd05594d2417b99fdb08b9abca912"><span color="rgb(245, 35, 45)"><span font-size="19">产品  jinlidan</span></span></p>
+<p align="start" nodeId="45ab2bd6ce974e71a9d790b726056879" />
+<p align="start" nodeId="119e347e52e44c92ac5f814659c7348d" />
+<p nodeId="3a096e7f684044d5ace05c852e02c6c8"><br /></p>
+</km-doc>

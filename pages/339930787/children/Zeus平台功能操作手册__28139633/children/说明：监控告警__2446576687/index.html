@@ -1,0 +1,1279 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：监控告警</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-17">一、监控定位与概述</a><a href="#section-35">二、快速入门</a><a href="#section-42">2.1 宣讲视频</a><a href="#section-46">2.2 快速入门</a><a href="#section-48">2.3 高频监控场景</a><a href="#section-49">场景A--流量波动监控（请求量波动）</a><a href="#section-135">场景B--风险攻击监控（拦截率/拦截量波动）</a><a href="#section-209">场景C--风险误伤监控（客诉/申述量波动）</a><a href="#section-291">三、功能详细指南</a><a href="#section-292">3.1 告警配置</a><a href="#section-931">3.2 告警告出与分析</a><a href="#section-998">四、FAQ</a><a href="#section-999">4.1 为什么我配置的监控规则开启了，但一直没有消息告出？</a><a href="#section-1008">4.2 我想按例如userid/shopid等业务属性字段进行流量筛选或聚合，我要怎么操作？</a><a href="#section-1015">4.3 为什么只有命中量指标，我想计算请求量如何配置？</a><a href="#section-1027">4.4 为什么我配了告警到大象群，但是没用呢？</a><a href="#section-1031">五、未来迭代计划</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：监控告警</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/2446576687">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：监控告警</h1>
+<div class="note">
+<strong><span style="color:#FF4A47"><strong>如果你想要对风控链路的流量/攻击/误伤量级进行监测，请往下看 ⬇️</strong></span></strong>
+<div>
+<ul>
+<li>平台功能链接地址：<a href="https://zeus.sankuai.com/data_zeus_static/#/monitorAlertList" title="https://zeus.sankuai.com/data_zeus_static/#/monitorAlertList">https://zeus.sankuai.com/data_zeus_static/#/monitorAlertList</a>  </li>
+<li>目前功能开放空间：1，3，4，5，6，152，181，184，198</li>
+</ul>
+<p><strong>新空间监控功能使用申请或使用疑问请联系产品：</strong><span>@刘思淼</span><strong> 技术：</strong><span>@崔垚</span></p>
+</div>
+</div>
+<div style="none"></div>
+<h1 id="section-17">一、监控定位与概述</h1>
+<p><strong>支持自定义监控数据源，当监控流量指标波动产生异常达到预设阈值时将发出异常告警并支持生成风险事件等操作以此规避风险。</strong></p>
+<ul>
+<li>服务范围：信安风控策略/算法</li>
+<li>监控范围：Tatooine、Zeus实<span style="color:#A6A6A6">近离、Hera</span><span style="color:rgb(166, 166, 166)">（置灰待建设）</span>等风控系统流量</li>
+<li>能力支持：监控数据来源自定义、监控逻辑配置、监控消息告出等能力</li>
+</ul>
+<details>
+<summary><span style="color:#3888FF">监控和熔断是什么关系</span></summary>
+<div>
+<ul>
+<li><strong>相同点：</strong>监控功能在底层执行上趋同于熔断能力，可对于指定数据源某一指标波动情况进行监控，判断对应指标波动是否达到预设的异常阈值。</li>
+<li><strong>区别：</strong>监控和熔断的功能定位和应用范围不同。熔断可对于异常的场景配置进行转非生效的操作，而监控仅可对于异常情况进行告出。因此天然熔断的应用范围远小于监控，仅限于对于Zeus平台上某一生效策略进行熔断，而对于非生效策略或非Zeus平台数据无法进行操作。监控可对于Zeus、Hera、Tatooine、自定义hive表数据源等Zeus上下游系统及非系统操作数据进行监控。</li>
+</ul>
+</div>
+</details>
+<h1 id="section-35">二、快速入门</h1>
+<div class="note">
+<strong>使用前请先了解</strong>
+<div>
+<p><strong>我们监控的实质上是日志表中的 Zeus请求。</strong><br>比如携带了某些信息的请求（例campaignId=123的请求）、或者命中了规则/决策的请求（即计算该规则结果为true的请求）、又或者是命中了某场景/事件的请求（即进入该场景/事件的请求量，符合进入该场景/事件条件的请求）</p>
+</div>
+</div>
+<h2 id="section-42">2.1 宣讲视频</h2>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/2446576687/130473733953?contentType=1">video1231011809.mp4</a></figcaption></figure>
+<h2 id="section-46">2.2 快速入门</h2>
+<img src="assets/b5e1c8a534bb2d20.svg" width="913" height="366" alt="流程图">
+<h2 id="section-48">2.3 高频监控场景</h2>
+<h3 id="section-49">场景A--流量波动监控（请求量波动）</h3>
+<ul>
+<li><strong>监控诉求解析：</strong>对某个事件/活动/场景的请求量进行监控，即监控 命中该事件/活动/场景的请求量 </li>
+</ul>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>示意图</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【配置说明】</p>
+<div class="note">
+<strong></strong>
+<div>
+<p><strong>监控范围是在圈选符合条件的请求</strong></p>
+</div>
+</div>
+<p><strong>重点配置说明：</strong></p>
+<table>
+<tr>
+<th colspan="2">
+<p></p>
+</th>
+<th>
+<p>配置内容</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>SQL逻辑</p>
+</th>
+</tr>
+<tr>
+<td rowspan="5" style="vertical-align:middle">
+<p>监控范围</p>
+</td>
+<td style="vertical-align:middle">
+<p>命中场景</p>
+</td>
+<td>
+<p>包含 490、527</p>
+</td>
+<td>
+<p>筛选进入490和527场景的请求</p>
+</td>
+<td rowspan="5">
+<pre><code>Select count(distinct requestid)
+from zeus_request_table
+where sceneid in （490，527）
+Group by campaignid</code></pre>
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>命中规则</p>
+</td>
+<td>
+<p>无需命中</p>
+</td>
+<td>
+<p>取全量进入场景的请求，无需筛选命中某规则的请求</p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>命中决策</p>
+</td>
+<td>
+<p>无需命中</p>
+</td>
+<td>
+<p>取全量进入场景的请求，无需筛选命中某决策的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>自定义筛选项</p>
+</td>
+<td>
+<p>活动ID（campaign）=123，141</p>
+</td>
+<td>
+<p>取活动ID为123或141的请求</p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>聚合方式</p>
+</td>
+<td>
+<p>是，按活动ID纬度聚合</p>
+</td>
+<td>
+<p>按照活动ID纬度，每个活动内的请求单独计算</p>
+</td>
+</tr>
+</table>
+</td>
+<td>
+<p>示例：监控场景490和527，单活动请求量阈值<br><img src="assets/592af6ea4d122552.png" width="1152.16" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【告警说明】</p>
+<p><strong>若按照某纬度进行聚合，则此处按照聚合纬度告出有问题的请求相关信息（由于大象消息限制，此处最多展示5组消息）</strong><br>例如此处监控配置是每个活动内的请求是否满足阈值设定，因此此处告出信息中明确是哪个活动请求异常达到监控设定阈值<br>此处告出campaign=123的活动达到阈值，当前命中为2；campaign=141的活动达到阈值，当前命中为3</p>
+</td>
+<td>
+<p><img src="assets/1d7271b0d0bf7cec.png" width="156" height="125" alt="image.jpeg"><img src="assets/196b85e5ca98e7a5.png" width="250" height="128" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-135">场景B--风险攻击监控（拦截率/拦截量波动）</h3>
+<p><strong>监控诉求解析：</strong>对某个事件/活动/场景的拦截率进行监控，即监控 命中该事件/活动/场景的的请求量中输出决策为拦截的请求占比</p>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>示意图</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【配置说明】</p>
+<div class="note">
+<strong></strong>
+<div>
+<p><strong>决策率=</strong>COUNT(DISTINCT CASE WHEN decisionid = 监控范围选择的决策 THEN requestid END) * 1.0 / COUNT(DISTINCT requestid)</p>
+</div>
+</div>
+<p><strong>重点配置说明：</strong></p>
+<table>
+<tr>
+<th colspan="2">
+<p></p>
+</th>
+<th>
+<p>配置内容</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>SQL逻辑</p>
+</th>
+</tr>
+<tr>
+<td rowspan="4" style="vertical-align:middle">
+<p>监控范围</p>
+</td>
+<td style="vertical-align:middle">
+<p>命中场景</p>
+</td>
+<td>
+<p>包含 527</p>
+</td>
+<td>
+<p>筛选进入527场景的请求</p>
+</td>
+<td rowspan="4">
+<pre><code>SELECT 
+    COUNT(DISTINCT CASE WHEN decisionid = 2 THEN requestid END) * 1.0 / COUNT(DISTINCT requestid) AS ratio
+FROM 
+    zeus_request_table
+WHERE 
+    sceneid in (527);
+</code></pre>
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>命中规则</p>
+</td>
+<td>
+<p>全选</p>
+</td>
+<td>
+<p>取全量进入场景且有命中场景下任一规则的请求</p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>命中决策</p>
+</td>
+<td>
+<p>包含 2-6拦截</p>
+</td>
+<td>
+<p>取全量进入场景的请求且有命中场景下任一决策为2-6拦截的请求</p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>聚合方式</p>
+</td>
+<td>
+<p>否</p>
+</td>
+<td>
+<p>不聚合</p>
+</td>
+</tr>
+</table>
+</td>
+<td>
+<p><img src="assets/32e3e3d6ecb3b99f.png" width="1209.13" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【告警说明】</p>
+<p><strong>此处无聚合，则根据全监控范围内的请求是否异常达到监控设定阈值</strong></p>
+</td>
+<td>
+<p><img src="assets/2a4b0991d2a9f646.png" width="241" height="164" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h3 id="section-209">场景C--风险误伤监控（客诉/申述量波动）</h3>
+<p><strong>监控诉求解析：</strong>对某个事件/活动/场景下的策略产生的客诉量进行监控，即监控 命中该事件/活动/场景的请求量所导致的客诉量</p>
+<table>
+<tr>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>示意图</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【配置说明】</p>
+<div class="note">
+<strong></strong>
+<div>
+<p><strong>监控范围是Hive表｜具体表结构参考：</strong></p>
+<p>到店处罚：mart_jiulv_jrc.dws_hotel_rc_stra_clue_punish_ss_d</p>
+<p>到家处罚：mart_waimai_risk.fact_wm_ps__owl_audit_poi_audit_punish_agg_es</p>
+</div>
+</div>
+<p><strong>重点配置说明：</strong></p>
+<table>
+<tr>
+<th colspan="2">
+<p></p>
+</th>
+<th>
+<p>配置内容</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>SQL逻辑</p>
+</th>
+</tr>
+<tr>
+<td rowspan="5" style="vertical-align:middle">
+<p>监控范围</p>
+</td>
+<td style="vertical-align:middle">
+<p>命中场景</p>
+</td>
+<td>
+<p>包含 13044</p>
+</td>
+<td>
+<p>筛选进入13044场景的请求</p>
+</td>
+<td rowspan="5">
+<pre><code>Select count(distinct requestid)
+from zeus_request_table
+where sceneid in （13044）
+And ruleid in （2358755）
+And decisionid in （35067）</code></pre>
+<p></p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>命中规则</p>
+</td>
+<td>
+<p>包含 2358755</p>
+</td>
+<td>
+<p>取全量进入场景的请求且有命中场景下任一规则为2358755的请求</p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>命中决策</p>
+</td>
+<td>
+<p>包含 35067</p>
+</td>
+<td>
+<p>取全量进入场景的请求且有命中场景下任一决策为35067的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>自定义筛选项</p>
+</td>
+<td>
+<p>--</p>
+</td>
+<td>
+<p>--</p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>聚合方式</p>
+</td>
+<td>
+<p>否</p>
+</td>
+<td>
+<p>不聚合</p>
+</td>
+</tr>
+</table>
+</td>
+<td>
+<p><img src="assets/ffe4be13e68cfe3c.png" width="1221.28" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【告警说明】</p>
+<p><strong>此处无聚合，则根据全监控范围内的请求是否异常达到监控设定阈值</strong></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<h1 id="section-291">三、功能详细指南</h1>
+<h2 id="section-292">3.1 告警配置</h2>
+<table>
+<tr>
+<th>
+<p>操作链路</p>
+</th>
+<th>
+<p>一级功能</p>
+</th>
+<th>
+<p>功能详述</p>
+</th>
+<th>
+<p>页面示例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>数据源可监控</p>
+</td>
+<td>
+<p>圈定监控数据</p>
+</td>
+<td>
+<div class="note">
+<strong></strong>
+<div>
+<p>监控范围圈选都是在筛选<strong>请求。</strong>例如：筛选userid=123的请求；筛选命中了规则=a/决策=b的请求</p>
+</div>
+</div>
+<ul>
+<li>
+<p>数据来源：Tatooine | Zeus </p>
+<p><span style="color:#4D4D4D"><span style="font-size:12px">选择需要监控的系统，将决定底层监控任务圈定日志。其中对于Zeus数据源，需要再次筛选流量类型：场景（实时）/ 画布（近线）/ 离线任务（离线）</span></span></p>
+</li>
+<li>
+<p>流量筛选：请求命中某个场景/请求命中某个规则/请求命中某个决策/请求命中某个事件/请求携带某个参数值</p>
+<ul>
+<li>每个风险域/空间支持50个以内提报<blockquote>自定义筛选字段</blockquote>进行流量筛选<br><span style="color:rgb(127, 127, 127)"><span style="font-size:12px">例如酒旅风控提报门店ID-poiid、商品ID-dealid、供应商id-supplier，这三个字段则将共用于日志查询筛选和监控数据源过滤维度</span></span></li>
+<li>
+<p><span style="color:#000"><span style="font-size:15px">筛选方式：</span></span></p>
+<details>
+<summary><span style="color:#166FF7">字段和操作符详述</span></summary>
+<div>
+<table>
+<tr>
+<th style="vertical-align:middle">
+<p>字段</p>
+</th>
+<th>
+<p>操作符</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>命中场景</p>
+</td>
+<td>
+<p>包含</p>
+</td>
+<td>
+<p>筛选进入某些场景的请求</p>
+</td>
+</tr>
+<tr>
+<td rowspan="6" style="vertical-align:middle">
+<p>命中规则</p>
+</td>
+<td>
+<p>包含规则</p>
+</td>
+<td>
+<p>筛选命中某些规则之一的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>包含规则组</p>
+</td>
+<td>
+<p>通过规则组批量筛选命中某些规则之一的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>包含管理标签</p>
+</td>
+<td>
+<p>通过管理标签批量筛选命中某些规则之一的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>包含风险标签</p>
+</td>
+<td>
+<p>通过风险标签批量筛选命中某些规则之一的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>全选</p>
+</td>
+<td>
+<p>筛选命中全部规则之一的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>无需命中</p>
+</td>
+<td>
+<p>取全量进入场景的请求，无需筛选命中某规则的请求</p>
+</td>
+</tr>
+<tr>
+<td rowspan="3" style="vertical-align:middle">
+<p>命中决策</p>
+</td>
+<td>
+<p>包含</p>
+</td>
+<td>
+<p>筛选命中某些决策之一的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>全选</p>
+</td>
+<td>
+<p>筛选命中全部规则之一的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>无需命中</p>
+</td>
+<td>
+<p>取全量进入场景的请求，无需筛选命中某决策的请求</p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:middle">
+<p>命中事件</p>
+</td>
+<td>
+<p>包含</p>
+</td>
+<td>
+<p>筛选进入某些事件之一的请求</p>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="vertical-align:middle">
+<p>命中接入点</p>
+</td>
+<td>
+<p>包含</p>
+</td>
+<td>
+<p>筛选进入事件下某些接入点之一的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>全选</p>
+</td>
+<td>
+<p>筛选进入事件下全部接入点之一的请求</p>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="vertical-align:middle">
+<p>命中风险等级</p>
+</td>
+<td>
+<p>包含</p>
+</td>
+<td>
+<p>筛选事件下命中某些风险等级之一的请求</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>全选</p>
+</td>
+<td>
+<p>筛选事件下命中全部风险等级之一的请求</p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+</li>
+</ul>
+</li>
+<li>聚合方式：是否对数据源中某个key做groupby聚合逻辑。比如监测77领券事件下的每个活动的请求量，这里“每个活动”就是对活动字段做的聚合。此处可选择的key同筛选字段</li>
+</ul>
+</td>
+<td rowspan="3">
+<p><img src="assets/739ab40b5462c4a4.png" width="933.33" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td rowspan="2">
+<p>逻辑可配置</p>
+</td>
+<td>
+<p>配置监控规则</p>
+</td>
+<td>
+<ul>
+<li>指标：指定监控的内容，例如请求量、用户量等。具体指标参考：<a href="https://km.sankuai.com/collabpage/2092740263" title="https://km.sankuai.com/collabpage/2092740263">监控指标梳理</a>（如当前指标不能满足诉求，请直接评论这个文档）</li>
+<li>监控周期：聚合Xmin内的数据进行计算</li>
+<li>
+<p>计算逻辑：对数据进行何种计算处理，具体的计算逻辑如下</p>
+<details>
+<summary><span style="color:#166FF7">计算函数详细说明</span></summary>
+<div>
+<table>
+<tr>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p></p>
+</th>
+<th style="background-color:rgb(247, 247, 247);vertical-align:top">
+<p><span style="font-size:14px">计算函数</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">对比关系</span></p>
+</th>
+<th style="background-color:rgb(246, 246, 246);vertical-align:top">
+<p><span style="font-size:14px">阈值</span></p>
+</th>
+<th style="background-color:rgb(247, 247, 247);vertical-align:top">
+<p><span style="font-size:14px">逻辑说明</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td rowspan="2" style="color:rgba(0, 0, 0, 0.87);background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">绝对值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">数值，单位适配计算函数</span></p>
+</td>
+<td style="color:rgba(0, 0, 0, 0.87);background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span><span style="font-size:12px">最近N分钟 （指标）绝对量（按维度去重）</span></span><span style="font-size:12px">&gt;=阈值</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&lt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span><span style="font-size:12px">最近N分钟 （指标）绝对量（按维度去重）</span></span><span style="font-size:12px">&lt;=阈值</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">最近N分钟绝对量比之前N分钟上升值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=M-N</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较上一时间周期内绝对量上升值（上一时间周期时间绝对量N，当前时间周期内绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">最近N分钟绝对量比之前N分钟下降值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=N-M</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较上一时间周期内绝对量下降值（上一时间周期绝对量N，当前时间周期绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">最近N分钟绝对量比之前N分钟上升百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较上一时间周期内绝对量上升百分比（上一时间周期绝对量N，当前时间周期绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">最近N分钟绝对量比之前N分钟下降百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（N-M）/M*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较上一时间周期内绝对量下降百分比 （上一时间周期绝对量N，当前时间周期绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比昨天同一时间上升值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=M-N</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较昨天同时间周期内绝对量上升值（昨天同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比昨天同一时间下降值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=N-M</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较昨天同时间周期内绝对量下降值 （昨天同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比昨天同一时间上升百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较昨天同时间周期内绝对量上升百分比（昨天同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比昨天同一时间下降百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（N-M）/M*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较昨天同时间周期内绝对量下降百分比（昨天同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比上周同一时间上升值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=M-N</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较上周同时间周期内绝对量上升值（上周同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比上周同一时间下降值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=N-M</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较上周同时间周期内绝对量下降值 （上周同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比上周同一时间上升百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较上周同时间周期内绝对量上升百分比（上周同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比上周同一时间下降百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（N-M）/M*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较上周同时间周期内绝对量下降百分比（上周时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比基线上升值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="color:rgba(0, 0, 0, 0.87);background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=当前值-基线值</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量与基线相比上升数值</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比基线下降值</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="color:rgba(0, 0, 0, 0.87);background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=基线值-当前值</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量与基线相比下降数值</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量基线上升百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（当前值-基线值）/基线</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量与基线相比上升百分比</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">当前绝对量比基线下降百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:12px">=（基线值-当前值）/基线</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量与基线相比下降百分比</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p>当前绝对量相比过去7天最大绝对量上升百分比</p>
+</td>
+<td style="background-color:rgb(255, 242, 240);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较过去7天内最大绝对量量上升百分比（过去7天内最大绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p>当前绝对量相比过去7天最大绝对量下降百分比</p>
+</td>
+<td style="background-color:rgb(255, 242, 240);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较过去7天内最大绝对量量下降百分比（过去7天内最大绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p>当前绝对量相比过去3天平均值上升百分比</p>
+</td>
+<td style="background-color:rgb(255, 242, 240);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240);vertical-align:top">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较过去3天平均值上升百分比（过去3天内平均值N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p>当前绝对量相比过去3天平均值下降百分比</p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较过去3天平均值下降百分比（过去3天内平均值N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:14px">当前绝对量比昨天平均值上升百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240);vertical-align:top">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较昨天平均值上升百分比（昨天平均值N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:14px">当前绝对量比昨天平均值上升百分比</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(255, 242, 240)">
+<p><span style="font-size:12px">=（M-N）/N*100%</span></p>
+<p><span style="font-size:12px">当前时间周期内绝对量较昨天平均值下降百分比（昨天平均值N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(237, 250, 244)">
+<p>离群点计算</p>
+</td>
+<td style="background-color:rgb(237, 250, 244)">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(237, 250, 244)">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(237, 250, 244)">
+<p><span style="font-size:12px">=（单个原始数据值-总体平均值）/总体标准差</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="background-color:rgb(237, 250, 244)">
+<p>3sigma异常值检测方法</p>
+</td>
+<td style="background-color:rgb(237, 250, 244)">
+<p><span style="font-size:12px">&gt;=</span></p>
+</td>
+<td style="background-color:rgb(237, 250, 244)">
+<p><span style="font-size:14px">同上</span></p>
+</td>
+<td style="background-color:rgb(237, 250, 244)">
+<p><a href="https://km.sankuai.com/collabpage/1703707611#id-%E7%86%94%E6%96%AD%E9%98%88%E5%80%BC%E8%AE%A1%E7%AE%97" title="https://km.sankuai.com/collabpage/1703707611#id-%E7%86%94%E6%96%AD%E9%98%88%E5%80%BC%E8%AE%A1%E7%AE%97">熔断模块梳理</a></p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+</li>
+<li>去重方式：固定字段orderid、poiid、uuid、userid、mobile、merchantId</li>
+<li>触发次数：时间周期内满足该触发次数后该监控规则命中</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p>配置监控通知</p>
+</td>
+<td>
+<ul>
+<li>告警负责人</li>
+<li>通知方式：大象、短信、电话</li>
+<li>通知内容：解析字段内容</li>
+<li>通知频次：无</li>
+<li>通知人：自定义支持人/大象群通知</li>
+</ul>
+<div class="note">
+<strong>大象群配置前请先看</strong>
+<div>
+<ol>
+<li><strong>如何知道自己大象群ID是多少？</strong><br>进入网页版大象（<a href="https://x.sankuai.com" title="https://x.sankuai.com ">https://x.sankuai.com </a>）--&gt;点击想查询的大象群聊天窗口--&gt;查看此时url中的大象群ID复制即可。<br><img src="assets/79abaa61bfdca462.png" width="1202" height="264" alt="image.jpeg"></li>
+<li><strong>将ID配置到监控配置自定义群中</strong><img src="assets/83099dc54da21d7a.png" width="839" height="95" alt="image.jpeg"></li>
+<li><strong>将大象群ID提供给</strong><span>@刘思淼</span><span style="color:#FF4A47"><strong>（很重要的一步！否则无法告警给大象群）</strong></span></li>
+<li><span style="color:#000"><strong>大象群群主将收到大象消息，点击【通过】即邀请公众号进群发送告警</strong></span><img src="assets/5d0940bc6e1165aa.png" width="1100" height="332" alt="image.jpeg"></li>
+</ol>
+</div>
+</div>
+<p></p>
+</td>
+</tr>
+</table>
+<h2 id="section-931">3.2 告警告出与分析</h2>
+<table>
+<tr>
+<th>
+<p>操作链路</p>
+</th>
+<th>
+<p>一级功能</p>
+</th>
+<th>
+<p>功能详述</p>
+</th>
+<th>
+<p>页面示例</p>
+</th>
+</tr>
+<tr>
+<td rowspan="3">
+<p>告警数据可分析可下钻</p>
+</td>
+<td>
+<p>告警触发通知</p>
+</td>
+<td>
+<p>告警消息告警至监控公众号或大象群</p>
+<p></p>
+</td>
+<td>
+<table>
+<tr>
+<th>
+<p>公众号告警</p>
+</th>
+<th>
+<p>大象群告警</p>
+</th>
+</tr>
+<tr>
+<td>
+<p><img src="assets/28a8cee7ee62ef54.png" width="216" height="133" alt="image.jpeg"></p>
+</td>
+<td>
+<p><img src="assets/cf7b0397de0f8680.png" width="209" height="204" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<p>告警记录查询</p>
+</td>
+<td>
+<p>告警记录</p>
+<table>
+<tr>
+<th>
+<p>字段</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>告警状态</p>
+</td>
+<td>
+<p>已恢复/未恢复<br><span style="font-size:12px">监控配置所设定的监测时间周期内，监测是否存在数据异常。若存在，则状态为未恢复；若不存在，则状态为恢复</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>处理时间线</p>
+</td>
+<td>
+<p>包括「告警发生、ack、数据恢复」三类时间节点</p>
+</td>
+</tr>
+</table>
+<p></p>
+</td>
+<td rowspan="2">
+<p><img src="assets/92ef74ed98d675c8.png" width="1251.52" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>告警处置</p>
+</td>
+<td>
+<p>ACK<br><span style="font-size:12px">静默操作，对于打扰过多的监控告警可设定告警静默一段时间</span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-998">四、FAQ</h1>
+<h2 id="section-999">4.1 为什么我配置的监控规则开启了，但一直没有消息告出？</h2>
+<p>监控规则存在屏蔽期，即当<span style="color:rgb(38, 38, 38)">用户创建新的熔断配置之前，相关的监控单元并未建立，计数的历史数据为0。因此，在监控创建后初期，需要</span><span style="color:rgb(245, 35, 45)">至少</span><span style="color:rgb(38, 38, 38)">收集一个周期的数据，才可进行正式的报出，正式报出前的这段时间为</span><span style="color:rgb(245, 35, 45)"><em>报出屏蔽期</em></span><span style="color:rgb(38, 38, 38)">，在这段时间内无法收到告警消息。具体屏蔽期示例及各计算函数屏蔽时间的参考文档：</span><a href="../说明：规则熔断__1091686902/children/说明：监控＿熔断报出屏蔽期__1214650678/index.html" title="https://km.sankuai.com/page/1214650678">说明：监控/熔断报出屏蔽期</a>。</p>
+<h2 id="section-1008">4.2 我想按例如userid/shopid等业务属性字段进行流量筛选或聚合，我要怎么操作？</h2>
+<p>首先，确认当前空间是否支持你所需要的自定义业务属性字段。如没有，则提需给<span>@刘思淼</span>新增相应字段。</p>
+<p>此处拿poiid为例，我的诉求是筛选出poiid为一批固定门店的流量，并计算每个门店的命中某策略的命中量。因此我的操作是：<br>1）选定流量范围 2）添加poiid自定义筛选项，筛选需要监控的一批poiid 3）选择聚合，按照poiid进行聚合<br><img src="assets/4f18f01734efa745.png" width="980" height="237" alt="image.jpeg"></p>
+<h2 id="section-1015">4.3 为什么只有命中量指标，我想计算请求量如何配置？</h2>
+<p><strong>结论：场景/事件的请求量=场景/事件的命中量</strong><br><strong>配置方式：</strong><br><img src="assets/21c8681742aae189.png" width="320" height="83" alt="image.jpeg"></p>
+<p><span style="font-size:12px">解释说明：监控的主体是Zeus</span><span style="font-size:12px"><strong>请求。因此</strong></span><span style="font-size:12px">请求命中场景即进入该场景的请求量，符合进入该场景条件的请求。命中规则/决策：即命中该规则的请求量，符合该规则逻辑（计算结果为True）的请求。无需命中规则/决策</span></p>
+<h2 id="section-1027">4.4 为什么我配了告警到大象群，但是没用呢？</h2>
+<p>监控配置好大象群后，需要复制大象群ID提供给<span>@刘思淼</span>再在公众号上进行配置。具体步骤参考上文：<a href="index.html" title="https://km.sankuai.com/collabpage/2446576687#b-4b71d2e4cc7240049cd4a418b7b223e4">说明：监控告警</a></p>
+<h1 id="section-1031">五、未来迭代计划</h1>
+<table>
+<tr>
+<th>
+<p>版本</p>
+</th>
+<th>
+<p>建设内容</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>V1.0</p>
+</td>
+<td>
+<p><strong>建设整体基本的配置-监控-告出链路</strong></p>
+<p>a. 数据源配置：支持 Tatooine 和 Zeus-实时场景流量 配置</p>
+<p>b. 监控逻辑配置：支持 非自定义计算函数逻辑 以及 固定解析 字段内容</p>
+<p>c. 告警通知与分析：支持 大象消息告警 及 页面记录告警 信息，并对告警信息进行ACK处理</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>V2.0</p>
+</td>
+<td>
+<p>a. 数据源配置：支持Zeus近线和离线接入配置</p>
+<p>b. 监控逻辑：支持账户离群点、UGC正态分布等自定义计算函数；支持设定触发n次后告警</p>
+<p>c. 告警通知与分析：与Hera事件库联动支持转风险事件</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>V3.0</p>
+</td>
+<td>
+<p>a. 数据源配置：支持Hera和自定义hive数据源配置</p>
+<p>b. 监控逻辑：支持告警测试；支持熔断相关优化</p>
+<p>c. 告警通知与分析：支持拉群处理</p>
+<p>d. 告警配置可跟踪可治理：监控配置告警情况报表</p>
+</td>
+</tr>
+</table>
+<p><strong>如有更多诉求暂未在当前规划中，可联系PM</strong><span>@刘思淼</span><strong>～</strong><br><img src="assets/bb5cf005e30786cc.png" width="115" height="115" alt="image.jpeg"><br></p>
+</article></main></body></html>

@@ -1,0 +1,287 @@
+<km-doc>
+<km-title nodeId="850240bc7e7d4c0ebf51dbb823dd6912">分层场景：决策树</km-title>
+<km-catalog style="none" nodeId="2e98e81d708741b3a476fa72847c009e" />
+<km-note type="info" hiddenTitle="true" nodeId="ce1afb12fe3e40beaef44ca3a85ae0f5">
+<km-title></km-title>
+<km-content>
+<p nodeId="31d9d13b0b7844cda666612a5f8ad781">分层场景整体配置方式参考：<a href="https://km.sankuai.com/collabpage/1333731150" title="https://km.sankuai.com/collabpage/1333731150" autoUpdate="true" nodeId="1aaea1278d054dbd95035ccc338c643e">https://km.sankuai.com/collabpage/1333731150</a><br />使用地址：<a href="https://zeus.sankuai.com/data_zeus_static/#/layerScene" title="https://zeus.sankuai.com/data_zeus_static/#/layerScene" nodeId="dcda0aa908d14141838d8352f4fbe2ff">https://zeus.sankuai.com/data_zeus_static/#/layerScene</a></p>
+</km-content>
+</km-note>
+<h1 nodeId="afb36dcf583243a59f30a66ff45d99c2">一、概述</h1>
+<ul nodeId="4701012f006d453c9126e85f0764b39a">
+<li nodeId="c074f246d34945acb1ed44ce57a05fcd">
+<p nodeId="bf366829691247d2aa856381aa159f45"><strong>决策树解决什么问题？</strong></p>
+<p nodeId="93be9f9d96a049d792356e561840d6cd">决策树可对于策略包输出的决策集合进行复杂逻辑编排，通过决策编排逻辑输出最终决策至下游。</p>
+</li>
+<li nodeId="f6df9e9717ed4d4585a0f8d38db2bf39">
+<p nodeId="48b0ef672bc24fa6850b6ef9c9432a0c"><strong>决策树能做什么范围内的决策合并？</strong></p>
+<p nodeId="40e4aced26bb481eb5e878b9f31ef63c">目前仅适用于分层场景，进行场景内决策合并。</p>
+</li>
+</ul>
+<blockquote nodeId="c23e2de9c0a4407aa9a44434512bceff">
+<p nodeId="8cf409d53b5f4d7a99db311832878e72"><strong>决策引擎的决策合并现状：</strong></p>
+<p nodeId="03de2f05db994a52bd09e9d9dc43d36e">决策引擎包括 场景内合并 和 场景间合并 两次决策合并输出。<br />单个场景内决策合并：普通场景配置的策略由下游系统Tatooine、保时洁<span color="rgb(0, 0, 0)">承接，通过规则优先级PK出最终决策；分层场景配置策略由Zeus决策树PK输出最终决策；</span><br />多个场景间决策合并：主要由下游系统Tatooine、保时洁<span color="rgb(0, 0, 0)">承接；</span></p>
+</blockquote>
+<h1 nodeId="02d09c0fb68d49a69c21d5880904a92a">二、操作指南</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/2213144559/103575349569?contentType=0&amp;isNewContent=false" width="1320" height="263" nodeId="281a022c0c38433a9b743d099f89b2ee" />
+<h2 nodeId="e7bb3048ff33424f81f5333b28eabea2">2.1 决策总览组件</h2>
+<table responsive="false" nodeId="1b4e00fc17984cbd89d77f3bb6a2f701">
+<tr nodeId="52c35bfe5c0241b897f2411c30eaae24">
+<th colwidth="[93]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="5cb83f6544694d3687cf6a5c4dd94819">
+<p nodeId="87df0412eaac4e13a7922c0a82eeb467"><span color="rgb(255, 255, 255)"><span font-size="14">功能模块</span></span></p>
+</th>
+<th colwidth="[645]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="bf16aa2dde414b538fc87c6d46de9eef">
+<p nodeId="6d075142b8964f5e8f726a699a5aa376"><strong><span color="rgb(255, 255, 255)"><span font-size="14">说明</span></span></strong></p>
+</th>
+<th colwidth="[671]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="f60b1196bee34754ac70dfbdd4d0a417">
+<p nodeId="2304a6303fe147febec35cc86d774cbe"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="9874bb7e5be84553aa4dddcdb7bc3185">
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="89552a92f3ba4f3188a098d147728832">
+<p align="start" nodeId="1f696e1f73ac4804932b914ce2f20b79"><span font-size="13">决策总览</span></p>
+<p nodeId="cf032ce4e3a8418c97147a8963d767ae"><span font-size="13">组件</span></p>
+</td>
+<td colwidth="[645]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2a2d5f1f0a2c418b89e1eff1ed53171f">
+<p align="start" nodeId="eded008c242c4e56a36901e459948600"><span font-size="13">1.概念说明</span></p>
+<p align="start" nodeId="7a5b13128e6a4052a4151b4ed22c0a90"><span font-size="13">决策总览：分层场景的决策树的起始节点。展示当前分层场景识别树配置的策略所涉及到的所有决策/附加信息列表，将作为整个决策树输入进入决策树进行判断。</span></p>
+<p nodeId="40a2d66f25f743d2a0c783a614cfc128" />
+<p align="start" nodeId="a31c9f5a3bad40509fac7b0b11dd4475"><span font-size="13">2.操作说明</span></p>
+<ul nodeId="5a2fe6e0ce2145aab21ffe281158e653">
+<li nodeId="80a0f49457e84161bfa0afddd136d823">
+<p align="start" nodeId="4b9f9e06f9d545e8bf00041767c61ee9"><span font-size="13">拖拽：使用引线与下层的条件组件相连。用例测试时，会检验有无断开的节点。决策树将默认生成一个决策总览组件，无需用户自行从组件库中拖拽。在树中单击组件，右侧即切换为该组件的详情。</span></p>
+</li>
+<li nodeId="ed2c42fedd0d42fa970ceb9bca4ee45a">
+<p align="start" nodeId="c09ae929b9564c229228da82edf55990"><span font-size="13">连线：决策总览组件下方有一个空心圆，代表该节点可以连接1条线。【0进1出，下方只能与条件组件输入连接】鼠标点按组件下方的圆形，拖动到下方层组件上方圆形处即可建立连线。</span></p>
+</li>
+<li nodeId="d90e963d792f4e079fe1fb4822ea646a">
+<p align="start" nodeId="b91d142b7b1b467386e04bb7f208da3e"><span font-size="13">清除：决策总览组件不可清除</span></p>
+</li>
+</ul>
+<p nodeId="5207faa960f249cfb26d066fabe65585" />
+<p align="start" nodeId="f9f9a30be9fb4e7cba957894ee878e4f"><span font-size="13">3.决策总览节点详情</span></p>
+<table borderColor="#cccccc" responsive="false" nodeId="f73f774e5ffb42b39606e41d67ca2247">
+<tr nodeId="555694a106834ea4ba7790bd032f0611">
+<th colwidth="[78]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="61095d77c0ea4a48a024ec579ee77d62">
+<p nodeId="807ee7f4f96641ff8b29774256923170" />
+</th>
+<th colwidth="[110]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="457c36bce728478da68c58b87e024187">
+<p nodeId="70cdc8e106db4328aa755b570191e7ba"><span color=""><span font-size="13">项</span></span></p>
+</th>
+<th colwidth="[451]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="a71895d329ec4fa48c9f74ed7c8ba805">
+<p nodeId="94398c2ef80b4ed5b60558742c3e305d"><span font-size="13">说明</span></p>
+</th>
+</tr>
+<tr nodeId="ad3d876a60b5431d8fe879dd74cefb56">
+<td colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9acd4762c3b64859909c364718868f74">
+<p align="start" nodeId="d3d1fa19fafe40c18732bf132f544f00"><span font-size="13">基本信息</span></p>
+</td>
+<td colwidth="[110]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5155da84fc2e43e998077ad1d850cd9b">
+<p align="start" nodeId="e410a5a869ea4c4e93de0243abd8fede"><span font-size="13">ID</span></p>
+</td>
+<td colwidth="[451]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="9e67f287f26f4068a94e89a357fb14a2">
+<p align="start" nodeId="48c6f8bc14ac4e80a0a82e187046105a"><span font-size="13">在组件左侧，有一个数字即为该组件在该分层场景中的编号ID，查询日志时可以根据ID定位到规则出自于哪个组件。</span></p>
+</td>
+</tr>
+<tr nodeId="048c7f3e1ec74ba6a7a99263e1305938">
+<td rowspan="2" colwidth="[78]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c3632c77262e43d9b909c569dcc8a462">
+<p align="start" nodeId="4942c3e91d694dd8bc7ee96dd47bbfc8"><span font-size="13">决策总览</span></p>
+</td>
+<td colwidth="[110]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a3b358dad78d42ad9ea1046894a1954e">
+<p align="start" nodeId="bde07e97a4354dfeacf5de58f6b45c7f"><span font-size="13">决策信息列表</span></p>
+</td>
+<td colwidth="[451]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7431172501d84d29b6a1c48a7f52bd15">
+<p align="start" nodeId="9019a4354baf4f07a38daf89e4f71192"><span font-size="13">展示同步决策/异步决策两个tab，表中展示决策ID/名称、来源识别树节点</span></p>
+</td>
+</tr>
+<tr nodeId="3e377510ad5046fd8636163785c8271b">
+<td colwidth="[110]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fdcade2e536e4d198b58e354e21c87c1">
+<p align="start" nodeId="4228d1ba28744a51ad2061fc67fa87f4"><span font-size="13">附加信息列表</span></p>
+</td>
+<td colwidth="[451]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="df3ce85825464011b66d183e2098eab1">
+<p nodeId="79a0103b753c4029aec63f470a50cfed"><span font-size="13">展示 附加信息ID/名称、来源识别树节点、来源决策</span></p>
+</td>
+</tr>
+</table>
+</td>
+<td colwidth="[671]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="51e636635fce4ca49ec14d51646ce155">
+<p align="start" nodeId="b825a6356a604c96ad97af70fa0f4cdb"><img src="https://km.sankuai.com/api/file/cdn/2213144559/103581217474?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1259.74" height="600" nodeId="19ebc145396d47058c49d1de3692d4fa" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="14c74e857e0c4dad98165a86f93406c6">2.2 条件组件</h2>
+<table responsive="false" nodeId="724a99aa2ca74a16a23fba3152f16395">
+<tr nodeId="d65df990b8ec4fb49f53ebcae0d35bc4">
+<th colwidth="[93]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="7bfcce21fb304824ac31d9042760e09c">
+<p nodeId="24308dee2b104aa0a34a617ea82c3219"><span color="rgb(255, 255, 255)"><span font-size="14">功能模块</span></span></p>
+</th>
+<th colwidth="[645]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="31c8faeac49f40baaa8b3f3741cbf4b8">
+<p nodeId="6da85d9d2dde4d2ba10c94ff1f04601e"><strong><span color="rgb(255, 255, 255)"><span font-size="14">说明</span></span></strong></p>
+</th>
+<th colwidth="[671]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="3cb7c14a09e84681838cf3e3cee1b40d">
+<p nodeId="5430221090e04b3abb943b4dc55beb9d"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="3bd87448fdc84362bb6a9d23efe7e27c">
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="48510d80690647c18bfabab024f034a9">
+<p align="start" nodeId="d855b649c1af4fdba454b06eac7292c5"><span font-size="13">条件组件</span></p>
+</td>
+<td colwidth="[645]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3feedfea2e9e4611bebb285d7d719e85">
+<p align="start" nodeId="7a9250d0a707481fb798811adc32b573"><span font-size="13">1.概念说明</span></p>
+<p nodeId="2db99e9560934c628f19822d78b1694e"><span font-size="13">条件组件：同IF...ELSE逻辑，当满足何种条件时执行某个输出动作。配置方式为交互式，可对以下参数进行判断，如有更多判断诉求可联系</span><km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="60b8cb098eae48aca32548a3bfc88b73" /><span font-size="13">。配置方式参考</span><span font-size="13"><a href="https://km.sankuai.com/page/312585969#id-2.2%E4%BA%A4%E4%BA%92%E5%BC%8F%E9%85%8D%E7%BD%AE%E8%A7%84%E5%88%99" title="规则交互式配置说明" nodeId="693cb83684654a7dbee4b36c6e431294"><span font-size="13">规则交互式配置说明</span></a></span></p>
+<table responsive="false" nodeId="b7a04140e1954776a7023db65fe4a562">
+<tr nodeId="8fa54d0d3a6d49a59130ba6dda350ae0">
+<th colwidth="[81]" nodeId="6b0f62e00044406f821d85699c7491ee">
+<p nodeId="d479f5c3ac88435991f0e21d20c32809"><span font-size="13">风险域</span></p>
+</th>
+<th colwidth="[278]" nodeId="20c5595850624b1882c27b7099e05ca2">
+<p nodeId="caf8b6ba324f4149886e2e4b10212ed6"><span font-size="13">左变量</span></p>
+</th>
+</tr>
+<tr nodeId="74d638ebf14d4070b9048831f913731a">
+<td colwidth="[81]" nodeId="96ba859157934f2cacbb4f35812a3003">
+<p nodeId="45005dbf4aff47068fb60f5f2639ff9b"><span font-size="13">业务安全</span></p>
+</td>
+<td colwidth="[278]" nodeId="25d1f1761cec4091a70bb2174abcec5f">
+<p nodeId="6b1f2eeadefd418899841e4b47b03099"><span color="rgba(0, 0, 0, 0.84)"><span font-size="13">命中决策ID </span></span><em><span color="rgb(127, 127, 127)"><span font-size="13">hit_decision_id</span></span></em></p>
+</td>
+</tr>
+<tr nodeId="8704b8ff86e7470986beba89f0e49320">
+<td rowspan="5" colwidth="[81]" verticalAlign="middle" nodeId="c2a8cfa6f60541bbadb7543aec33a852">
+<p nodeId="4103f23578784cacaa05b0a508d9a966"><span font-size="13">内容安全</span></p>
+</td>
+<td colwidth="[278]" nodeId="c2187a4d2db4402fbe4904e2db8c41f8">
+<p nodeId="334890799804428d866c073234438af4"><span font-size="13">接入点 </span><em><span color="#7F7F7F"><span font-size="13">ACCESS_POINT</span></span></em></p>
+</td>
+</tr>
+<tr nodeId="52e33686927c4df6be3a8f26946aba8a">
+<td colwidth="[278]" nodeId="dbd8972c72e34ffeb7adbec23209f13a">
+<p nodeId="d82236b5681449fc96cc276e4ceaa8a5"><span color="rgba(0, 0, 0, 0.84)"><span font-size="13">命中决策ID </span></span><em><span color="#7F7F7F"><span font-size="13">hit_decision_id</span></span></em></p>
+</td>
+</tr>
+<tr nodeId="8d833435ecd747e0acd682b5792a8494">
+<td colwidth="[278]" nodeId="2558d68c50644b018635264612adf564">
+<p nodeId="1906414c968149ec8c170bcd856b7f05"><span color="rgba(0, 0, 0, 0.84)"><span font-size="13">识别树命中的标签 </span></span><em><span color="#7F7F7F"><span font-size="13">hit_tag_codes</span></span></em></p>
+</td>
+</tr>
+<tr nodeId="bba214df11af4814acec8112245122d8">
+<td colwidth="[278]" nodeId="ca4edaa75ddd4b37ad37d97116e58b44">
+<p nodeId="3681e959ed4d4d2c8844893fc6d42a38"><span color="rgba(0, 0, 0, 0.84)"><span font-size="13">识别树命中的内容类型 </span></span><em><span color="#7F7F7F"><span font-size="13">hit_content_types</span></span></em></p>
+</td>
+</tr>
+<tr nodeId="51e70fd61c40463680d3a60e76831a6f">
+<td colwidth="[278]" nodeId="c7671b40851548d2819e6cac6d4eb4d0">
+<p nodeId="2a14fc94ef9644daa8486a2c08f68a1a"><span color="rgba(0, 0, 0, 0.84)"><span font-size="13">命中的规则ID </span></span><em><span color="#7F7F7F"><span font-size="13">hit_rule_id</span></span></em></p>
+</td>
+</tr>
+</table>
+<p nodeId="f6878b391d864f638cde6d738bc9c3c7" />
+<p align="start" nodeId="a63ca14cfcda4bbd9f35e1719afd25db"><span font-size="13">2.操作说明</span></p>
+<ul nodeId="e7919ebb0f6a4a8cacecb149eea465cd">
+<li nodeId="c09b06f7338f49b9a685639e0e8fa599">
+<p align="start" nodeId="2b0daa7ca7864de09711fc903bce10b8"><span font-size="13">拖拽：使用引线与上层决策总览/条件组件相连，下层条件/输出组件相连。用例测试时，会检验有无断开的节点。在树中单击组件，右侧即切换为该组件的详情。</span></p>
+</li>
+<li nodeId="e23efea675044dcf9cc4e78b81f8a761">
+<p align="start" nodeId="49ad346c0d644c6da3ef887ca5daeacd"><span font-size="13">连线：条件组件上下右侧有三个空心圆。上侧仅可作为输入，下右侧仅可作为输出。【1进2出，只能由决策总览/条件组件输入，只能向条件/输出组件输出】鼠标点按组件下方的圆形，拖动到下方层组件上方圆形处即可建立连线。</span></p>
+</li>
+<li nodeId="ddc19bf5b5114c84bce2e41814bad405">
+<p align="start" nodeId="af156b666051473f9bebfd845287e2a0"><span font-size="13">清除：鼠标悬浮组件后点击右键进行删除。</span></p>
+</li>
+</ul>
+</td>
+<td colwidth="[671]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="af5314cb7d174fa0bf0bd39e4c992057">
+<p align="start" nodeId="650ed7a781904881bfe0a547c0daef4e"><img src="https://km.sankuai.com/api/file/cdn/2213144559/103586500163?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1252.88" height="600" nodeId="06c44537447840a5a0b7404eeb524fee" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="8593cca2e0fe4723a73607f991feec17">2.3 输出组件</h2>
+<table responsive="false" nodeId="c020f621806d4c3090d95a27a0f72c82">
+<tr nodeId="daa00550246f459a94f69ea30f7daedd">
+<th colwidth="[93]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="96076382a17f417fb156b64f149ba9f0">
+<p nodeId="db378dc5520743e8bfe1951f1c7ba645"><span color="rgb(255, 255, 255)"><span font-size="14">功能模块</span></span></p>
+</th>
+<th colwidth="[645]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="a8e4373ed68c44c1ad716db98446088f">
+<p nodeId="c8912f03bbb247d1bf067b3fa2109bf4"><strong><span color="rgb(255, 255, 255)"><span font-size="14">说明</span></span></strong></p>
+</th>
+<th colwidth="[671]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="ca23171a7b8e4ad080c5aedaba3e66ef">
+<p nodeId="c5ad33befba340e48e7d8371081affc0"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="5710cde000284612b0d09ba06fc683e7">
+<td colwidth="[93]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1540fe16384b4c9a9697dbe3ab1a8b70">
+<p align="start" nodeId="83f3ab6f7c82429aa031221175c8fd60"><span font-size="13">输出组件</span></p>
+</td>
+<td colwidth="[645]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d2591fea4d2b4231ba7fca2ca369bc57">
+<p align="start" nodeId="e26b88a9c88e44f4af7d2e6133a92fcd"><span font-size="13">1.概念说明</span></p>
+<p nodeId="50a6e073c4cb4e1590e9e189e6235b19"><span font-size="13">输出组件：当满足条件时要执行何种输出动作。下拉框可选择输出内容</span></p>
+<blockquote nodeId="0a86504015d44f2ea79a7b82630dc73b">
+<p nodeId="3950eb57e1e14cb59393c993ee2ce67d"><span font-size="13">决策：单选，命中后向下游输出该决策</span></p>
+<p nodeId="6fdd259df5db441086b653a104ed44a4"><span font-size="13">附加信息：输出全量命中的生效规则配置附加信息</span></p>
+<p nodeId="d92c1bdd6ba4443a98e12163bd87266f"><span font-size="13">决策理由：单选，命中后向下游输出该决策理由</span></p>
+</blockquote>
+<table responsive="false" nodeId="5d0b3f670e3e4373b06265b5f3b7765f">
+<tr nodeId="341eb2a53513471691fe3ffdb87aceb0">
+<th colwidth="[81]" nodeId="c94ee27d8d3b49e38fcdc5e5e243cb16">
+<p nodeId="cdab5d7263cb4ef590d504a2f5e9f0f0"><span font-size="13">风险域</span></p>
+</th>
+<th colwidth="[278]" nodeId="c874d9b5235a4d5b8342a8fdfe1059b2">
+<p nodeId="859d15ffaf1049d18ad6d7e2c8bdb112"><span font-size="13">左变量</span></p>
+</th>
+</tr>
+<tr nodeId="8a133f98ffa745f3a64b069e55c4d828">
+<td colwidth="[81]" nodeId="846a8a93f40e42a5886169bee30ed632">
+<p nodeId="0f51fa7ef46c47af95b4fb081cc7de91"><span font-size="13">业务安全</span></p>
+</td>
+<td colwidth="[278]" nodeId="4dbbbfcacc014007af03bbeb03c729cf">
+<p nodeId="b877f59a2d8d48aea93917e24bcaf199"><span color="rgba(0, 0, 0, 0.84)"><span font-size="13">命中决策ID </span></span><em><span color="rgb(127, 127, 127)"><span font-size="13">hit_decision_id</span></span></em></p>
+</td>
+</tr>
+<tr nodeId="9b73049ede6d479b9410d2845963d008">
+<td rowspan="5" colwidth="[81]" verticalAlign="middle" nodeId="5b5ad68222034893baf95abae8c2fd56">
+<p nodeId="218eb2dbd3544dd7ad15e8590c2e496f"><span font-size="13">内容安全</span></p>
+</td>
+<td colwidth="[278]" nodeId="ba8d194dcfad46089ca495cb886a4bc4">
+<p nodeId="97863965eacc4cc4bb5f916d264ead78"><span font-size="13">接入点 </span><em><span color="rgb(127, 127, 127)"><span font-size="13">ACCESS_POINT</span></span></em></p>
+</td>
+</tr>
+<tr nodeId="98aa2c6ca8be4a90898a23c324d2b51d">
+<td colwidth="[278]" nodeId="0c17271862724f1298bca80d6d9e8f01">
+<p nodeId="78647fcd29db4e96825ef2294e969162"><span color="rgba(0, 0, 0, 0.84)"><span font-size="13">命中决策ID </span></span><em><span color="rgb(127, 127, 127)"><span font-size="13">hit_decision_id</span></span></em></p>
+</td>
+</tr>
+<tr nodeId="9643078761c74331998b71d0fb8d092a">
+<td colwidth="[278]" nodeId="0f76df569354441990310a11ac3a2d41">
+<p nodeId="6c93510288f545b683dc1461e7b4c65c"><span color="rgba(0, 0, 0, 0.84)"><span font-size="13">识别树命中的标签 </span></span><em><span color="rgb(127, 127, 127)"><span font-size="13">hit_tag_codes</span></span></em></p>
+</td>
+</tr>
+<tr nodeId="17bcd40bed434fe3978756953f0b7287">
+<td colwidth="[278]" nodeId="2fa561cd16a842279e2884ca089e2615">
+<p nodeId="b89ae8ddcd8c4f1091233bc8afd8c2c3"><span color="rgba(0, 0, 0, 0.84)"><span font-size="13">识别树命中的内容类型 </span></span><em><span color="rgb(127, 127, 127)"><span font-size="13">hit_content_types</span></span></em></p>
+</td>
+</tr>
+<tr nodeId="1db0f5d2039f454dbe82e3214888b0da">
+<td colwidth="[278]" nodeId="9546dd6398eb4066be93c00ed43f8491">
+<p nodeId="7a3ac5763f4f4724a2dfd8319a89bca3"><span color="rgba(0, 0, 0, 0.84)"><span font-size="13">命中的规则ID </span></span><em><span color="rgb(127, 127, 127)"><span font-size="13">hit_rule_id</span></span></em></p>
+</td>
+</tr>
+</table>
+<p nodeId="b8f4c0bc980449dfaefe3d4148fce7ed" />
+<p align="start" nodeId="a8b592f282ce4e78b69b4b51a6e6d4c3"><span font-size="13">2.操作说明</span></p>
+<ul nodeId="27010a05dd8542fda4b4de6107bce266">
+<li nodeId="d0fca3aab91949d6a89c9ca8b8fac36c">
+<p align="start" nodeId="9d4e17edf55b4d9e852f6e9a049124af"><span font-size="13">拖拽：使用引线与上层条件组件相连。用例测试时，会检验有无断开的节点。在树中单击组件，右侧即切换为该组件的详情。</span></p>
+</li>
+<li nodeId="3feb287e3adc46adb6059070d8742526">
+<p align="start" nodeId="f113bf29c723471184cc8ae10ceea41f"><span font-size="13">连线：条件组件上左侧有两个空心圆。均作为输入。【1进0出，只能由条件组件输入】鼠标点按组件下方的圆形，拖动到下方层组件上方圆形处即可建立连线。</span></p>
+</li>
+<li nodeId="5bafa303a1014402a389f633048fa00d">
+<p align="start" nodeId="03241fc3dd4b4cbf9f6aa95b393850d5"><span font-size="13">清除：鼠标悬浮组件后点击右键进行删除。</span></p>
+</li>
+</ul>
+</td>
+<td colwidth="[671]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="16fb60a062b84d2fbb4e139a0ff15f8e">
+<p align="start" nodeId="ab8a8cacf0f84f94aa4bd73df46fea1f"><img src="https://km.sankuai.com/api/file/cdn/2213144559/103587958090?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1270.86" height="600" nodeId="904bd7a6a1ff4db1b815709e3dfa533e" /></p>
+</td>
+</tr>
+</table>
+</km-doc>

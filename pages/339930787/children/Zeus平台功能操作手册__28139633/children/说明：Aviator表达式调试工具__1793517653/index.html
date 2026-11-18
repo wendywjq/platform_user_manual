@@ -1,0 +1,89 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：Aviator表达式调试工具</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-6">二、操作指南</a><a href="#section-67">三、FAQ</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：Aviator表达式调试工具</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/1793517653">查看学城原文</a></p><article>
+<h1>说明：Aviator表达式调试工具</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>当前<span style="font-size:15px">zeus的Aviator配置过程中存在布控效率低、测试不到位等问题。为提升功能易用性，对于aviator使用相关痛点进行集中解决。</span></p>
+<h1 id="section-6">二、操作指南</h1>
+<table>
+<tr>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:rgb(0, 58, 140);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【功能入口】</p>
+<ul>
+<li>直接入口：Plus+工具中心-表达式调试工具</li>
+<li>
+<p>跳转入口：</p>
+<ul>
+<li>因子/规则测试页</li>
+<li>分层场景表达式框旁</li>
+<li>画布表达式框旁</li>
+</ul>
+</li>
+</ul>
+<p></p>
+<p>[逻辑信息]</p>
+<ol>
+<li>
+<p>aviator表达式：输入需要调试的aviator表达式，<span style="color:#FF4A47">目前仅支持展示Aviator5的执行明细</span></p>
+<ol>
+<li>输入方式：手动自行输入 or 从因子/规则/画布表达式/分层场景表达式跳转带入</li>
+<li>输入完成后，请一定要点击"确定"按钮完成对表达式的校验，否则无法进行下面的测试用例添加！！</li>
+</ol>
+</li>
+</ol>
+<p>[添加测试信息]</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>此步前，请先点击aviator表达式输入框右下角的"确定"按钮，完成表达式校验</p>
+</div>
+</div>
+<ol>
+<li>添加方式/期望输出类型/期望输出值：同因子测试逻辑</li>
+<li>测试选中语句：鼠标可选中上方aviator表达式中某段语句，进行部分调试</li>
+</ol>
+<p>[测试结果]</p>
+<ol>
+<li>
+<p>分为当前测试结果和历史测试结果：</p>
+<ol>
+<li>
+<p>当前测试结果：</p>
+<ol>
+<li>表格展示测试逻辑、输入、期望输出、实际输出、结果、测试人。可点击左侧蓝色箭头查看全部内容</li>
+<li>
+<p>执行明细：</p>
+<ol>
+<li>蓝色框展示各输入值的数据类型</li>
+<li>黄色框展示执行结果即具体出错的原因</li>
+<li>灰色框展示表达式编译、参数解析、执行过程中的执行明细。目前仅支持展示Aviator5的执行明细</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/12323e31e1f4096c.png" width="1229.46" height="600" alt="image.jpeg"></p>
+<p><img src="assets/917fb89d4baa892d.png" width="1229.46" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-67">三、FAQ</h1>
+<ol>
+<li>
+<p>为什么规则/因子测试中测试结果执行没有问题并且测试通过，但在aviator表达式单独调试的时候报错执行错误？</p>
+<p>可以看一下调试工具中输入参数类型是否正确。由于<span>调试工具的参数不指定参数类型，系统只能依赖用户输入的类型进行解析无法进行强制转换兜底，例如输入字符串的时候需要两边加引号才能解析，否则系统无法区分字符串和数字。</span></p>
+</li>
+</ol>
+</article></main></body></html>

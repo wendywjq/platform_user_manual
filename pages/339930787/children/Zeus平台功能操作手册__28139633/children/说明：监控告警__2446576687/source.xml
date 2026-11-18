@@ -1,0 +1,1279 @@
+<km-doc>
+<km-title nodeId="1eaf305405bb4736b7545eda327917a2">说明：监控告警</km-title>
+<km-note type="tip" nodeId="462488fd0d864c388c895f856d442859">
+<km-title><span color="#FF4A47"><strong>如果你想要对风控链路的流量/攻击/误伤量级进行监测，请往下看 ⬇️</strong></span></km-title>
+<km-content>
+<ul nodeId="44c907d0c6504f678d3b0b7413d91287">
+<li nodeId="7f401f311d374b638629e983b73bc9d7">平台功能链接地址：<a href="https://zeus.sankuai.com/data_zeus_static/#/monitorAlertList" title="https://zeus.sankuai.com/data_zeus_static/#/monitorAlertList" nodeId="72276617014a4357ac674c8eb326124a">https://zeus.sankuai.com/data_zeus_static/#/monitorAlertList</a>  </li>
+<li nodeId="15a20e3e68874ef18e0ce51ac2fe2931">目前功能开放空间：1，3，4，5，6，152，181，184，198</li>
+</ul>
+<p nodeId="fb69e2a386a04ff6a3c4d67f7c85b0fd"><strong>新空间监控功能使用申请或使用疑问请联系产品：</strong><km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="86cbf5fb3ff2414a8a1722fa0fea947e" /><strong> 技术：</strong><km-mention name="崔垚" uid="cuiyao06" empId="" nodeId="73800b0c17584ba1b403b49e25081b5d" /></p>
+</km-content>
+</km-note>
+<km-catalog style="none" nodeId="0c0abea7fc7649be80a06618d02afc72" />
+<h1 nodeId="77c766508c01488eb22e1001412a28b8">一、监控定位与概述</h1>
+<p nodeId="3c9093dd16934be3bda207e0304624b0"><strong>支持自定义监控数据源，当监控流量指标波动产生异常达到预设阈值时将发出异常告警并支持生成风险事件等操作以此规避风险。</strong></p>
+<ul nodeId="83c61a0c3b4e46d688640a907871fd60">
+<li nodeId="dee414666453429ab2f2bce3fa24079c">服务范围：信安风控策略/算法</li>
+<li nodeId="c35285352fea451a87a6e67dce3f067a">监控范围：Tatooine、Zeus实<span color="#A6A6A6">近离、Hera</span><span color="rgb(166, 166, 166)">（置灰待建设）</span>等风控系统流量</li>
+<li nodeId="29786a9df5e54f2c8a28cfa85f048e12">能力支持：监控数据来源自定义、监控逻辑配置、监控消息告出等能力</li>
+</ul>
+<km-collapse active="false" nodeId="3297dfaa392e4c108c9106ad26a37f5f">
+<km-title><span color="#3888FF">监控和熔断是什么关系</span></km-title>
+<km-content>
+<ul nodeId="11dae480afd24276ad23f7e1ab1b8f24">
+<li nodeId="e338ba201d3e4470b618c9f708499392"><strong>相同点：</strong>监控功能在底层执行上趋同于熔断能力，可对于指定数据源某一指标波动情况进行监控，判断对应指标波动是否达到预设的异常阈值。</li>
+<li nodeId="fdd460c85e5f4ba0b520b0c665b5f6d2"><strong>区别：</strong>监控和熔断的功能定位和应用范围不同。熔断可对于异常的场景配置进行转非生效的操作，而监控仅可对于异常情况进行告出。因此天然熔断的应用范围远小于监控，仅限于对于Zeus平台上某一生效策略进行熔断，而对于非生效策略或非Zeus平台数据无法进行操作。监控可对于Zeus、Hera、Tatooine、自定义hive表数据源等Zeus上下游系统及非系统操作数据进行监控。</li>
+</ul>
+</km-content>
+</km-collapse>
+<h1 nodeId="253aaf71b0744a52acce6e135a8a7d24">二、快速入门</h1>
+<km-note type="info" nodeId="41d4c256d1db415e87ce67ff45da352e">
+<km-title>使用前请先了解</km-title>
+<km-content>
+<p nodeId="18a22350d86b4c36ba2b467792066cbf"><strong>我们监控的实质上是日志表中的 Zeus请求。</strong><br />比如携带了某些信息的请求（例campaignId=123的请求）、或者命中了规则/决策的请求（即计算该规则结果为true的请求）、又或者是命中了某场景/事件的请求（即进入该场景/事件的请求量，符合进入该场景/事件条件的请求）</p>
+</km-content>
+</km-note>
+<h2 nodeId="de6af8308aea4997842b1ff36767d393">2.1 宣讲视频</h2>
+<km-video src="https://km.sankuai.com/api/file/cdn/2446576687/130473733953?contentType=1" name="video1231011809.mp4" size="38.28MB" width="0" height="0" nodeId="feab92bc332942f687b5bcfda8932274" />
+<h2 nodeId="1e8b7bc4fcc34eea8b4e395909088319">2.2 快速入门</h2>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/2446576687/130194765227?contentType=0&amp;isNewContent=false" width="913" height="366" nodeId="236edc54037540b6b2c225415cd33a44" />
+<h2 nodeId="53d2f0b5d8124a1f91d8720520e5c51a">2.3 高频监控场景</h2>
+<h3 nodeId="fe3dde90aad0403fa0436cf685035405">场景A--流量波动监控（请求量波动）</h3>
+<ul nodeId="78d4446a65dc4acfac1d626fbee9306b">
+<li nodeId="d72dbfbc722a4d338d257e6833d56fd0"><strong>监控诉求解析：</strong>对某个事件/活动/场景的请求量进行监控，即监控 命中该事件/活动/场景的请求量 </li>
+</ul>
+<table responsive="false" nodeId="a9e87f1bf5a24c1e8edcdc6ce3c1de12">
+<tr nodeId="c7947f5f47fe45ff924ad8da72126738">
+<th colwidth="[1042]" nodeId="3f7fa381af4f4549944c1e527fe5b1a5">
+<p nodeId="2dacd94601e24dd1b4de7cf5e1b354ef">说明</p>
+</th>
+<th colwidth="[466]" nodeId="721dab93c8c14293b0cc9d530ce46cb1">
+<p nodeId="a194ca40b8c54c54815b9d2c22b94537">示意图</p>
+</th>
+</tr>
+<tr nodeId="9ad0c5d2e39c4740a833b8be75055853">
+<td colwidth="[1042]" nodeId="8817824df1b14d3889259c15337ace5d">
+<p nodeId="d1fa6f97f7c84e269e37915c44dd715d">【配置说明】</p>
+<km-note type="tip" hiddenTitle="true" nodeId="073033e2ca544650b17cdfb6bdf72ce9">
+<km-title></km-title>
+<km-content>
+<p nodeId="39be1e330fe943b0b71194e272fe773e"><strong>监控范围是在圈选符合条件的请求</strong></p>
+</km-content>
+</km-note>
+<p nodeId="68e3e105b56b4e16a4581bc71755ba76"><strong>重点配置说明：</strong></p>
+<table responsive="false" nodeId="fbd4f8f01be94c98bb4d6e5e75aa8ed9">
+<tr nodeId="3006a6ce1c4443d984262c11147e5e0f">
+<th colspan="2" colwidth="[86,115]" nodeId="ddf6d22b6014433db60115d5c986eec3">
+<p nodeId="0990c5b37d1049d1bb3a13c6e1cf031a" />
+</th>
+<th colwidth="[175]" nodeId="0a9291d560e743f4ab100a218d5d2f24">
+<p nodeId="d3421506ec6c407ca13b99ede4e96962">配置内容</p>
+</th>
+<th colwidth="[261]" nodeId="31cbe8ebc121423ca296262b8b0401bc">
+<p nodeId="d6b8f12010284fd68609a9e549f751c3">说明</p>
+</th>
+<th colwidth="[435]" nodeId="1590654c272f42e493da1faa3cbd63e4">
+<p nodeId="d99872c1d2ed4696b278db19a7713c0c">SQL逻辑</p>
+</th>
+</tr>
+<tr nodeId="b76237a0a4d14312bb601850f29f7796">
+<td rowspan="5" colwidth="[86]" verticalAlign="middle" nodeId="6371bbf74c814b0980fd5781d8fc2055">
+<p nodeId="9a33560ccc204904bcaad266fc7af447">监控范围</p>
+</td>
+<td colwidth="[115]" verticalAlign="middle" nodeId="6bc00e14023a44b790a1fe1044ea7b41">
+<p nodeId="3f3ffe1d6699446fba55c3212f1c13a8">命中场景</p>
+</td>
+<td colwidth="[175]" nodeId="9e20ff3147ba47b8a4b82ea12520d82e">
+<p nodeId="bf6dc866d48c481d9146cb622005af74">包含 490、527</p>
+</td>
+<td colwidth="[261]" nodeId="7fcb859a62f64f49986e42fd32a5633b">
+<p nodeId="6d2c4cfd406f4a6c8fe44c0f0230355d">筛选进入490和527场景的请求</p>
+</td>
+<td rowspan="5" colwidth="[435]" nodeId="425d83df9ae748c8b2bcde2b71ca79f9">
+<pre language="SQL" isExpand="false" nodeId="ab6cbabb07e54c5ca8eeca9c53f4aa75"><code>Select count(distinct requestid)
+from zeus_request_table
+where sceneid in （490，527）
+Group by campaignid</code></pre>
+<p nodeId="31e95499b1334995a53a9bdbec7a1cb8" />
+</td>
+</tr>
+<tr nodeId="95bcd76b0b114d3d834d0497ba6fa483">
+<td colwidth="[115]" verticalAlign="middle" nodeId="c868d7de45604fa986c871aac727e381">
+<p nodeId="190b126794364f8ab8ef413cf9a41ebd">命中规则</p>
+</td>
+<td colwidth="[175]" nodeId="9682df311e8647a2ab51313fd5d1f07e">
+<p nodeId="3d0a67a0be5f4d728df8cbdf18f2a703">无需命中</p>
+</td>
+<td colwidth="[261]" nodeId="18805d0c822f4d54be22f1b0fd90d8bd">
+<p nodeId="adcef34662a3462d91028fd3c93c1e75">取全量进入场景的请求，无需筛选命中某规则的请求</p>
+</td>
+</tr>
+<tr nodeId="f558c06bebce43b6a2ea05bbcc5a5ab1">
+<td colwidth="[115]" verticalAlign="middle" nodeId="620d092c3f8c45a3b299477d996d8f7d">
+<p nodeId="49b0309f209b411085515a68c52a00a0">命中决策</p>
+</td>
+<td colwidth="[175]" nodeId="8ddc11b0d1f042369a9cc4b5dd1ef74c">
+<p nodeId="d341486feac247f38d9bce8692a4eb4a">无需命中</p>
+</td>
+<td colwidth="[261]" nodeId="5759ef21de3f42bd9b49dbbe425e8780">
+<p nodeId="d93a5ab4119942359ccaf1bb200c0766">取全量进入场景的请求，无需筛选命中某决策的请求</p>
+</td>
+</tr>
+<tr nodeId="abad6df113054c94827578b2c5194f39">
+<td colwidth="[115]" nodeId="00e7bb292d2149c88e2e9bf81f2eeb8f">
+<p nodeId="8f2ee744f48f4c9cba97a78a265f2503">自定义筛选项</p>
+</td>
+<td colwidth="[175]" nodeId="158e7e89ecf24a4888359f1e9aff7e2d">
+<p nodeId="1b3fc5dff7b44b6e902df2efc0e0e65e">活动ID（campaign）=123，141</p>
+</td>
+<td colwidth="[261]" nodeId="5eae1b2375f24ddeb27625972ecaf3df">
+<p nodeId="641d6659ae934c59b7930d3018168309">取活动ID为123或141的请求</p>
+</td>
+</tr>
+<tr nodeId="a3ce877ac7d44516a578fe040d64c732">
+<td colwidth="[115]" verticalAlign="middle" nodeId="70b388182ea04722ae6b3566e9d091c2">
+<p nodeId="b03fec86c595419b897c52c84a51a9d4">聚合方式</p>
+</td>
+<td colwidth="[175]" nodeId="4198889c11ae476da3edf99c5440044d">
+<p nodeId="1050aa6fa7904d9797d5660e04050f95">是，按活动ID纬度聚合</p>
+</td>
+<td colwidth="[261]" nodeId="c70937c23f104ab9b8a4724fc28d8103">
+<p nodeId="6ec4fe3f834141759f99a1aef16dbca3">按照活动ID纬度，每个活动内的请求单独计算</p>
+</td>
+</tr>
+</table>
+</td>
+<td colwidth="[466]" nodeId="6774cdf930914396ab5f72b5ea4ed11c">
+<p nodeId="8fbcad4b2afc4e729ead599ea9a95181">示例：监控场景490和527，单活动请求量阈值<br /><img src="https://km.sankuai.com/api/file/cdn/2446576687/127900618250?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1152.16" height="600" nodeId="003668776c894338983759419e258099" /></p>
+</td>
+</tr>
+<tr nodeId="1979c2276e564babaa33baa776babc1b">
+<td colwidth="[1042]" nodeId="bbb56216254d4942a7fe07c896ab8491">
+<p nodeId="5a3799e237c342a4a81b9ab6d541b77c">【告警说明】</p>
+<p nodeId="b2f1dd709df7499995c70161be52c169"><strong>若按照某纬度进行聚合，则此处按照聚合纬度告出有问题的请求相关信息（由于大象消息限制，此处最多展示5组消息）</strong><br />例如此处监控配置是每个活动内的请求是否满足阈值设定，因此此处告出信息中明确是哪个活动请求异常达到监控设定阈值<br />此处告出campaign=123的活动达到阈值，当前命中为2；campaign=141的活动达到阈值，当前命中为3</p>
+</td>
+<td colwidth="[466]" nodeId="97a24ed44ed948379e558c583b28106e">
+<p nodeId="e47037553cb24665b34cad6211dca3ca"><img src="https://km.sankuai.com/api/file/cdn/2446576687/127935363803?contentType=1&amp;isNewContent=false" name="image.jpeg" width="156" height="125" nodeId="9125d56bef0044a7ab9eae92010d0127" /><img src="https://km.sankuai.com/api/file/cdn/2446576687/127935519242?contentType=1&amp;isNewContent=false" name="image.jpeg" width="250" height="128" nodeId="3ed2da0b7a4546fa8453495d08cdb68e" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="bb4e6db2dd6c480ab2c69316bd7432a2">场景B--风险攻击监控（拦截率/拦截量波动）</h3>
+<p nodeId="216312bc9f0c4fbeb2071d01986ef92e"><strong>监控诉求解析：</strong>对某个事件/活动/场景的拦截率进行监控，即监控 命中该事件/活动/场景的的请求量中输出决策为拦截的请求占比</p>
+<table responsive="false" nodeId="119b032a3d14410fb443ebedfc8abd9c">
+<tr nodeId="e614d47936364dadbdaca86efc88a623">
+<th colwidth="[1048]" nodeId="494fa41be0bf4992b262f8494f9c3aad">
+<p nodeId="3b60b55f296c49289e5dd587e0996b45">说明</p>
+</th>
+<th colwidth="[425]" nodeId="2c0aed9402c64232821e8240fa739bfb">
+<p nodeId="8ddf05b1174b4f399644a107c18e1eb5">示意图</p>
+</th>
+</tr>
+<tr nodeId="8da8a791f57546db8d501163011e1ec1">
+<td colwidth="[1048]" nodeId="74dbfe0df58549ea800b505bc21f896b">
+<p nodeId="97f88b73d8e54940925a8296fe34e97f">【配置说明】</p>
+<km-note type="tip" hiddenTitle="true" nodeId="fd86c500c7784570839e2b905072c907">
+<km-title></km-title>
+<km-content>
+<p nodeId="d7e45cfdf6a146d28dc8354730c5df18"><strong>决策率=</strong>COUNT(DISTINCT CASE WHEN decisionid = 监控范围选择的决策 THEN requestid END) * 1.0 / COUNT(DISTINCT requestid)</p>
+</km-content>
+</km-note>
+<p nodeId="9a6df88ea5784805af24a1b27e6e150e"><strong>重点配置说明：</strong></p>
+<table responsive="false" nodeId="8f670b3445244e0e80c3e776f42d1793">
+<tr nodeId="637072cb002943beac4ff453ec2e7cf0">
+<th colspan="2" colwidth="[82,81]" nodeId="1783ea89afb248508c17848d5a8da1c2">
+<p nodeId="af516abb2a9e444593caa77df0d0652f" />
+</th>
+<th colwidth="[115]" nodeId="db48244073204d09adb0efcb92998668">
+<p nodeId="65b2333a39244b6081cc7b3460b16782">配置内容</p>
+</th>
+<th colwidth="[199]" nodeId="cb3ea0569c954a8687a1ca1f641d2480">
+<p nodeId="fbb2c45f4bdf41b6b4dd1a048f5355a5">说明</p>
+</th>
+<th colwidth="[594]" nodeId="2eb491ad7d074fb5ba0e6d3d1869a654">
+<p nodeId="c3a0b49f9d794570929f05541c65423d">SQL逻辑</p>
+</th>
+</tr>
+<tr nodeId="9fad02cf11974e38bdcd5ceb65824683">
+<td rowspan="4" colwidth="[82]" verticalAlign="middle" nodeId="9edcbd79e0dc437fa55a605840729cc2">
+<p nodeId="3d6f11b57bd34bfe993183993253bfb4">监控范围</p>
+</td>
+<td colwidth="[81]" verticalAlign="middle" nodeId="8f7b368260bd4124aaaadfa1a8c4de72">
+<p nodeId="a37ad71f06f042ce9ac137bfadc4a9d6">命中场景</p>
+</td>
+<td colwidth="[115]" nodeId="ac92cdef06a74d4da2ad8db773048143">
+<p nodeId="1ea022a9080b4bbcb19a4830d3c343ec">包含 527</p>
+</td>
+<td colwidth="[199]" nodeId="14791bb1d8684ac7b8cbaaee657f9b53">
+<p nodeId="92a99cb26916438297a1801056cb1f92">筛选进入527场景的请求</p>
+</td>
+<td rowspan="4" colwidth="[594]" nodeId="25d7f924bc3c467f8d9864ed46dd6a9f">
+<pre language="SQL" isExpand="false" nodeId="d2db2389b1284242bd4ca43d7796cf31"><code>SELECT 
+    COUNT(DISTINCT CASE WHEN decisionid = 2 THEN requestid END) * 1.0 / COUNT(DISTINCT requestid) AS ratio
+FROM 
+    zeus_request_table
+WHERE 
+    sceneid in (527);
+</code></pre>
+<p nodeId="3f380775f3b346cc9fcd58e99bcc3d30" />
+</td>
+</tr>
+<tr nodeId="ddf437cf11754753b6672ddb73675c71">
+<td colwidth="[81]" verticalAlign="middle" nodeId="b161ac14c7b045768f3a4f033a038beb">
+<p nodeId="8bc16e3a66e44848a8e8e7cbf883d073">命中规则</p>
+</td>
+<td colwidth="[115]" nodeId="818307ee810d46d59ff3a11496ef1af9">
+<p nodeId="ee67716804a74d119658e11008b7f5c3">全选</p>
+</td>
+<td colwidth="[199]" nodeId="3460ce3ab9514de6af2ed6edbea08931">
+<p nodeId="b6bd0d443e274be5949d79308ed94e83">取全量进入场景且有命中场景下任一规则的请求</p>
+</td>
+</tr>
+<tr nodeId="ee510c1e08cd4cc4a33883a5d6b77255">
+<td colwidth="[81]" verticalAlign="middle" nodeId="6a55cb30c1d442f5a6d7348cc1149219">
+<p nodeId="b9fc21d8031e4fe9abe0fd05a2a3f47b">命中决策</p>
+</td>
+<td colwidth="[115]" nodeId="e15ecf6ae7af44f5b0ebb9f18fb034c3">
+<p nodeId="4f2eb1df92894490b5a78540a38390c5">包含 2-6拦截</p>
+</td>
+<td colwidth="[199]" nodeId="5dfb7c9d48124546aa41a82435a6ed7c">
+<p nodeId="1bb933e2cfde4c5e86e6b3b3f090f91e">取全量进入场景的请求且有命中场景下任一决策为2-6拦截的请求</p>
+</td>
+</tr>
+<tr nodeId="3af0621be06d42359bc1bc3e697815fd">
+<td colwidth="[81]" verticalAlign="middle" nodeId="c7a4dc162ccb4e788ca61f76b8fa512d">
+<p nodeId="ca77bc995cd740bf8b13f2816a361913">聚合方式</p>
+</td>
+<td colwidth="[115]" nodeId="bb876d4e38a04d95a00406c03dfa862e">
+<p nodeId="30bc9e13912444afb54f25def6b9ae40">否</p>
+</td>
+<td colwidth="[199]" nodeId="604068291e074ddb817efbd5b5793bc4">
+<p nodeId="e3650d11e73448b4961d8c31a4f67618">不聚合</p>
+</td>
+</tr>
+</table>
+</td>
+<td colwidth="[425]" nodeId="35a03b5f1fe3444c95f5beff05805a28">
+<p nodeId="07bb43bff4024ee0ae48bc48fed32e18"><img src="https://km.sankuai.com/api/file/cdn/2446576687/127596906411?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1209.13" height="600" nodeId="f8b9b4ad350145b0a22e76e046287674" /></p>
+</td>
+</tr>
+<tr nodeId="825c7e036bc741afb44ee1459d3938fe">
+<td colwidth="[1048]" nodeId="22044ee0e7a147afb217797606684847">
+<p nodeId="b060d10c4291453192060a05d40804ed">【告警说明】</p>
+<p nodeId="b736520ba1144faaaa845a42a28edc3d"><strong>此处无聚合，则根据全监控范围内的请求是否异常达到监控设定阈值</strong></p>
+</td>
+<td colwidth="[425]" nodeId="0b96df602f11423c8481295e0a65f4ce">
+<p nodeId="8788a91a7ab846ed93e11493bca59a88"><img src="https://km.sankuai.com/api/file/cdn/2446576687/127932931534?contentType=1&amp;isNewContent=false" name="image.jpeg" width="241" height="164" nodeId="4c224470f4bf41518a2b4db21416b70e" /></p>
+</td>
+</tr>
+</table>
+<h3 nodeId="cbded586e1b74072ab93b1e8251fd885">场景C--风险误伤监控（客诉/申述量波动）</h3>
+<p nodeId="f4fa704c008b42c287454571c83fb5c7"><strong>监控诉求解析：</strong>对某个事件/活动/场景下的策略产生的客诉量进行监控，即监控 命中该事件/活动/场景的请求量所导致的客诉量</p>
+<table responsive="false" nodeId="95834d8e328f458997c2f775dde4709c">
+<tr nodeId="9d0f132563514926ba9a918db6415953">
+<th colwidth="[1257]" nodeId="9c869388e2fe4b3f928e3ce074cf00ea">
+<p nodeId="695b2f14947343afb524fe77fa4e2749">说明</p>
+</th>
+<th colwidth="[425]" nodeId="02e671dbdab34f1b82613b6b4f47b36e">
+<p nodeId="3323e9c35024491fb4c491b2a8e088e4">示意图</p>
+</th>
+</tr>
+<tr nodeId="e2f0b198a74d47aaa80326579145de55">
+<td colwidth="[1257]" nodeId="c55a061a69ca49af981bf0a2f92fc71c">
+<p nodeId="83bad54e956c4add8a94b96ea0783b00">【配置说明】</p>
+<km-note type="tip" hiddenTitle="true" nodeId="941468df7d2042548d8018cc0f0a8190">
+<km-title></km-title>
+<km-content>
+<p nodeId="f054f40a4c974c86b043d77d1ae94915"><strong>监控范围是Hive表｜具体表结构参考：</strong></p>
+<p nodeId="b9f20d1a08464be5a7b46dc4d8e60bf5">到店处罚：mart_jiulv_jrc.dws_hotel_rc_stra_clue_punish_ss_d</p>
+<p nodeId="efebc51f10f948b08cb86ecab3668434">到家处罚：mart_waimai_risk.fact_wm_ps__owl_audit_poi_audit_punish_agg_es</p>
+</km-content>
+</km-note>
+<p nodeId="56d11e3dcfd74ecfa6e818f84cf312b3"><strong>重点配置说明：</strong></p>
+<table responsive="false" nodeId="e155647b4f7047368bf75cc796f63fb7">
+<tr nodeId="c740a6d191d34998ba45897658988eea">
+<th colspan="2" colwidth="[86,115]" nodeId="e654f9d8fda945bb87a0bb1aa4a20205">
+<p nodeId="3c9f50d296ae4fd4a01d12725f1e2e5d" />
+</th>
+<th colwidth="[175]" nodeId="7aafb2c5771e461183b719da8e57c46c">
+<p nodeId="cb229fdcecec440d9057d251c897aceb">配置内容</p>
+</th>
+<th colwidth="[261]" nodeId="8a5cd268036a4b34b663463c6580c896">
+<p nodeId="2be3f9f446f74c25a739dfa45fa3920e">说明</p>
+</th>
+<th colwidth="[435]" nodeId="fbc96e8bfc67469baa12a37a5e7e889b">
+<p nodeId="f347d391ec8849309b1e55a891f0c68d">SQL逻辑</p>
+</th>
+</tr>
+<tr nodeId="4cf604602c14468a9e988fa68de84efc">
+<td rowspan="5" colwidth="[86]" verticalAlign="middle" nodeId="0bcb94d80836416bbbe173c549b8f44b">
+<p nodeId="3cb5a037fa854169ac2360af3f70a4d3">监控范围</p>
+</td>
+<td colwidth="[115]" verticalAlign="middle" nodeId="f3989cf3e3774e42a3b9445b389d601e">
+<p nodeId="c13409ab872d4ff6a5845ac23a8f107d">命中场景</p>
+</td>
+<td colwidth="[175]" nodeId="b8e8048e06cf4667b7ec10c26cab3ca4">
+<p nodeId="ce31687248674dd3bf16ee651914ae18">包含 13044</p>
+</td>
+<td colwidth="[261]" nodeId="ad920355d11e4a169e7f8e61cd0dcd17">
+<p nodeId="e965e4b406f44449addc4e908e00cd18">筛选进入13044场景的请求</p>
+</td>
+<td rowspan="5" colwidth="[435]" nodeId="81febae99d9c499d93528cb36472ae16">
+<pre language="SQL" isExpand="false" nodeId="abc098f5610e427884aa2bd7065caf31"><code>Select count(distinct requestid)
+from zeus_request_table
+where sceneid in （13044）
+And ruleid in （2358755）
+And decisionid in （35067）</code></pre>
+<p nodeId="4a5de566874b4c2ebcb6fd56a91c44b5" />
+</td>
+</tr>
+<tr nodeId="8203111a988c4e5f89bcd72d799e23c2">
+<td colwidth="[115]" verticalAlign="middle" nodeId="b05e7502f10f42fdbde5bb2cdbe3cebb">
+<p nodeId="4caeb8ffa5084ffbb501d07fd00781ca">命中规则</p>
+</td>
+<td colwidth="[175]" nodeId="557c5aa1702041ebbc7e2e97af9141f4">
+<p nodeId="fb1004b23e28421c8eee3c6b727c609b">包含 2358755</p>
+</td>
+<td colwidth="[261]" nodeId="a08fa108ea53425db9a66900f41ed54a">
+<p nodeId="4f44e42dd1ac4187bf8d2db381b3d1b9">取全量进入场景的请求且有命中场景下任一规则为2358755的请求</p>
+</td>
+</tr>
+<tr nodeId="309867857bc74100a255531d3f95adfd">
+<td colwidth="[115]" verticalAlign="middle" nodeId="34b1a61a674f424bb04123c5411518fc">
+<p nodeId="6ad20044a625401690a7121d38306e8b">命中决策</p>
+</td>
+<td colwidth="[175]" nodeId="a2e870ae5afd4ce99966192091da003c">
+<p nodeId="59bc7c8e17d5461d927ee8deab6638e8">包含 35067</p>
+</td>
+<td colwidth="[261]" nodeId="2f69be2c3e624168b14ba22691a34eb1">
+<p nodeId="d67d9e95c9a74b688181d440d2829273">取全量进入场景的请求且有命中场景下任一决策为35067的请求</p>
+</td>
+</tr>
+<tr nodeId="255fff218ed14406b420918c4ecce31a">
+<td colwidth="[115]" nodeId="1bfd9e0189af4e16ae3267829c8de685">
+<p nodeId="9eb8dbfb86084de7862fa19ed794d86d">自定义筛选项</p>
+</td>
+<td colwidth="[175]" nodeId="7447e9254adc4fc1a729446d26b45602">
+<p nodeId="14dddae420384d4e8aab4c69547a5aa3">--</p>
+</td>
+<td colwidth="[261]" nodeId="a16fee8b4ca343b7895b64091d680b64">
+<p nodeId="e4a2ae1e45274c079afb36d3130f321b">--</p>
+</td>
+</tr>
+<tr nodeId="621dc59132a4405d8a86217239d2990e">
+<td colwidth="[115]" verticalAlign="middle" nodeId="4da03a73d182428198844c47480214d1">
+<p nodeId="2dc048a6c2d74b8cbff009f075204836">聚合方式</p>
+</td>
+<td colwidth="[175]" nodeId="45413209d17843f89e16e0f56cce57a5">
+<p nodeId="0196c1072e0648f38cfa2a8468e0486b">否</p>
+</td>
+<td colwidth="[261]" nodeId="2d17e185c62d416085511816bd522436">
+<p nodeId="9fd8994053224fee87c071102a0c5dc9">不聚合</p>
+</td>
+</tr>
+</table>
+</td>
+<td colwidth="[425]" nodeId="412318eede604c0798072c85e08936e0">
+<p nodeId="4fe8fda97d7d4a5b9400b2af4e039625"><img src="https://km.sankuai.com/api/file/cdn/2446576687/127977423543?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1221.28" height="600" nodeId="4d40efda909d4406a77a6bf9dfb552c6" /></p>
+</td>
+</tr>
+<tr nodeId="123d5f24d51e46e089073f79e10fbcb7">
+<td colwidth="[1257]" nodeId="9d74597a928e4c22acfc8f8a8a4dbfea">
+<p nodeId="97759156eee84334b72e8bd7ba1c3365">【告警说明】</p>
+<p nodeId="fffe5abea1f242699d5cea04f8f528ec"><strong>此处无聚合，则根据全监控范围内的请求是否异常达到监控设定阈值</strong></p>
+</td>
+<td colwidth="[425]" nodeId="85e4e46d1e0e4d248336c44083b24922">
+<p nodeId="0925f38040584c9fa7ae1354c1fde34f" />
+</td>
+</tr>
+</table>
+<h1 nodeId="c0ef9a7edadf46ce9da5d88d5101fdb5">三、功能详细指南</h1>
+<h2 nodeId="8af2440b8ac24039af5a10b3a776fcf3">3.1 告警配置</h2>
+<table responsive="false" nodeId="a9018b150db146a9accc6916577e480c">
+<tr nodeId="61a32c4ac805486db86784011146b410">
+<th colwidth="[115]" nodeId="0989e9cb5ed24d27975bb7b5df4e293e">
+<p nodeId="55efb18046b8453bbd2d5b4366c84ba1">操作链路</p>
+</th>
+<th colwidth="[119]" nodeId="3dad35c2e28c46adaf12ae4f1b2f7245">
+<p nodeId="4e5897ba16ea460a8327ea8d0f7a8974">一级功能</p>
+</th>
+<th colwidth="[602]" nodeId="28baf327184543dfa53c78c256eaa559">
+<p nodeId="f6e87af651a84ae4b9b8030d59809ce0">功能详述</p>
+</th>
+<th colwidth="[1351]" nodeId="39a8e8b7c8e344babfbc204ed29dcb16">
+<p nodeId="9b59572d6dae4b64beb1e5e90e449ca6">页面示例</p>
+</th>
+</tr>
+<tr nodeId="656a0656024e4ea0a3f0ae125ffa60f8">
+<td colwidth="[115]" nodeId="4435a1f2b9af48489aeef2ca874a3f25">
+<p nodeId="08b3ee4183de42e8b989f9b7006be0ec">数据源可监控</p>
+</td>
+<td colwidth="[119]" nodeId="f856e9827cfe4e3491b59b9c8363b14b">
+<p nodeId="145e3efd73e949c2a1b5c182ec8648e6">圈定监控数据</p>
+</td>
+<td colwidth="[602]" nodeId="645f8b21c0c14436913583efe3c4a1cc">
+<km-note type="info" hiddenTitle="true" nodeId="e814b8973d8240e19833181c07c6071d">
+<km-title></km-title>
+<km-content>
+<p nodeId="20e92657dc6a4924b3cf8a2ec339245c">监控范围圈选都是在筛选<strong>请求。</strong>例如：筛选userid=123的请求；筛选命中了规则=a/决策=b的请求</p>
+</km-content>
+</km-note>
+<ul nodeId="d5276d0c4b064ea0ab9ef8329f25ab67">
+<li nodeId="f22d3179a2a846e5896239563ebbebe3">
+<p nodeId="5cb3c2a2b1824359bbaa3f9a98f526ad">数据来源：Tatooine | Zeus </p>
+<p nodeId="25b981e0b67d4453b33b925b6cb91669"><span color="#4D4D4D"><span font-size="12">选择需要监控的系统，将决定底层监控任务圈定日志。其中对于Zeus数据源，需要再次筛选流量类型：场景（实时）/ 画布（近线）/ 离线任务（离线）</span></span></p>
+</li>
+<li nodeId="66dbbeb3236f4faa9f0db02cf2a20d1f">
+<p nodeId="53c88fd2e15f465790b53f527bbf40b4">流量筛选：请求命中某个场景/请求命中某个规则/请求命中某个决策/请求命中某个事件/请求携带某个参数值</p>
+<ul nodeId="fe0ed8d5d8d94b9bb141750f1fce8cdd">
+<li nodeId="ce5fd61cc7c0499da4804e00bc55c44a">每个风险域/空间支持50个以内提报<km-quote quoteId="2446576687--7ca695b5-ca56-40e7-8f7a-081ccb992844">自定义筛选字段</km-quote>进行流量筛选<br /><span color="rgb(127, 127, 127)"><span font-size="12">例如酒旅风控提报门店ID-poiid、商品ID-dealid、供应商id-supplier，这三个字段则将共用于日志查询筛选和监控数据源过滤维度</span></span></li>
+<li nodeId="80e451a2374647bbaba536934b70ffc1">
+<p nodeId="a886184ad52c4b2c8a689fac8197fd77"><span color="#000"><span font-size="15">筛选方式：</span></span></p>
+<km-collapse active="false" nodeId="a304aa70dcf04ec78f016c6cd4a4b407">
+<km-title><span color="#166FF7">字段和操作符详述</span></km-title>
+<km-content>
+<table responsive="false" nodeId="831c9158b01142f39c0d776a2de93ddc">
+<tr nodeId="e757f4768e3d4321987c0184dc7481f0">
+<th colwidth="[121]" verticalAlign="middle" nodeId="0c38c1320f55451da5b07a2088a39035">
+<p nodeId="c9d8f5ceb9fa4542bc6b4dfe33b5a095">字段</p>
+</th>
+<th colwidth="[120]" nodeId="ed3e247301884bcfa412f602d9b54e9f">
+<p nodeId="8726b4fd366e4e0babcba1b0c75aca9f">操作符</p>
+</th>
+<th colwidth="[225]" nodeId="c3deb370213140e9ac5fd9db2ea3a86c">
+<p nodeId="40e07a38b05645f0992d933d52bc307b">说明</p>
+</th>
+</tr>
+<tr nodeId="7a069e26df454da8a7f5bbea9b5e4216">
+<td colwidth="[121]" verticalAlign="middle" nodeId="28af6aafcb924d46a2a5e09aba9bf184">
+<p nodeId="da6be18651054dd0aa3d450b8f28d78d">命中场景</p>
+</td>
+<td colwidth="[120]" nodeId="6fe8dc4a15df4816a2c4314f8776eb1d">
+<p nodeId="1d49acce9c1c426e94a93ddf1ac49093">包含</p>
+</td>
+<td colwidth="[225]" nodeId="fe0224af35154c329d87704c46a8a532">
+<p nodeId="be38d41fdb114c0b8ef0186dee3891ab">筛选进入某些场景的请求</p>
+</td>
+</tr>
+<tr nodeId="1de6fad384674192a106e8232c893d3a">
+<td rowspan="6" colwidth="[121]" verticalAlign="middle" nodeId="af891fad26474663a5b551a1eaf95ccd">
+<p nodeId="f961e44f7b774429879099a46b28e798">命中规则</p>
+</td>
+<td colwidth="[120]" nodeId="23c8fef8d33b4304909e85925d689411">
+<p nodeId="9d3a4d4959234f12bf21cad8d1183172">包含规则</p>
+</td>
+<td colwidth="[225]" nodeId="156740b5398742788f0733506e84a645">
+<p nodeId="ad157bb398ee4a89829eaeceb9237083">筛选命中某些规则之一的请求</p>
+</td>
+</tr>
+<tr nodeId="160e393a1cbb4c79a062aee121423e22">
+<td colwidth="[120]" nodeId="acdcf0cdc4eb4341b47db81b8949702a">
+<p nodeId="540b8e7fbea146caa7103b1a1fa5815c">包含规则组</p>
+</td>
+<td colwidth="[225]" nodeId="184ccc60f15b476ba6ec93f7c4fa436c">
+<p nodeId="dcba943acaa64f5b99cd82c144ea60f3">通过规则组批量筛选命中某些规则之一的请求</p>
+</td>
+</tr>
+<tr nodeId="2f72d3456143476d88de2178a89cc5d2">
+<td colwidth="[120]" nodeId="b02d92649a214eb3852710fdac7a1c55">
+<p nodeId="c42f576c05a54dad8e58e3ea28b13152">包含管理标签</p>
+</td>
+<td colwidth="[225]" nodeId="10d1ba25903c4863bd667bfcd2f8b355">
+<p nodeId="d88d721f3e1d43e995d5ccc1af8cffb1">通过管理标签批量筛选命中某些规则之一的请求</p>
+</td>
+</tr>
+<tr nodeId="4c5a5cfee8524baeb8eb035056724fc0">
+<td colwidth="[120]" nodeId="d9046f0459ec4a8e9ad6d75ce9a8dd2e">
+<p nodeId="dc3f310f3f2f4e83b2b7c1f1ba67b8d1">包含风险标签</p>
+</td>
+<td colwidth="[225]" nodeId="702d4ceb0e074ac9a4bc7251d5a5e852">
+<p nodeId="ac3576b7c7a1422abe53e86d99262cf7">通过风险标签批量筛选命中某些规则之一的请求</p>
+</td>
+</tr>
+<tr nodeId="67cb264fa5bf4bec90fd924f5b439b2f">
+<td colwidth="[120]" nodeId="f7aedd2bacdc420fa9ad040b764b62a1">
+<p nodeId="134bc2340ac94bcb872e0b969bd175b7">全选</p>
+</td>
+<td colwidth="[225]" nodeId="3cd548af0c19409b881c032569dc85d6">
+<p nodeId="5ae2fde6f23c4e6a96fd032a9f03fa13">筛选命中全部规则之一的请求</p>
+</td>
+</tr>
+<tr nodeId="23000e8a852c4e09922d475d72f6b3cf">
+<td colwidth="[120]" nodeId="0deb2f3849674b918c9b398f8ff9099d">
+<p nodeId="da2e87c76abd4040b093acb7ffe32e98">无需命中</p>
+</td>
+<td colwidth="[225]" nodeId="8bb1850a75234d4f98be00037c8629e3">
+<p nodeId="3a9ecca16b5741d28c8f12220b5e666d">取全量进入场景的请求，无需筛选命中某规则的请求</p>
+</td>
+</tr>
+<tr nodeId="06fbe44784b947ee8c25d4940913540c">
+<td rowspan="3" colwidth="[121]" verticalAlign="middle" nodeId="a2e3243caaad4e3dba61aa239626f539">
+<p nodeId="c3724eca62914bd5ab3341d31736fa75">命中决策</p>
+</td>
+<td colwidth="[120]" nodeId="e141ce91f0494a86b7208e5d9c31fb11">
+<p nodeId="aa147c35a9c44c05b602d6a3a7b69430">包含</p>
+</td>
+<td colwidth="[225]" nodeId="7a3e104c2d53425ca89d50b03d976af0">
+<p nodeId="88efaf4af99e4b9c851cfa2b7f2599af">筛选命中某些决策之一的请求</p>
+</td>
+</tr>
+<tr nodeId="a0576a5b666e4e03a4bde99697f67df2">
+<td colwidth="[120]" nodeId="6d87c7e44e4c43f9a5034317a969494e">
+<p nodeId="bbdd82af923d41efa0ab845d04aa3697">全选</p>
+</td>
+<td colwidth="[225]" nodeId="1c0e9027c7c64c3990370d5f0457c17e">
+<p nodeId="e57fa1619a57471ebd5b5999d25fd2da">筛选命中全部规则之一的请求</p>
+</td>
+</tr>
+<tr nodeId="0fbaf61b377c4063b22167507c1585f7">
+<td colwidth="[120]" nodeId="565b1e76bbd149ff895ad1043a89433d">
+<p nodeId="8ba7ae028fe34ee5ace0ee2d4c879d2f">无需命中</p>
+</td>
+<td colwidth="[225]" nodeId="5cae92712b064c2aadb8786270052542">
+<p nodeId="5f3ea99bca144232aed1cb754bd0d6c7">取全量进入场景的请求，无需筛选命中某决策的请求</p>
+</td>
+</tr>
+<tr nodeId="138bc92c0c424251a34187db9fc3b031">
+<td colwidth="[121]" verticalAlign="middle" nodeId="c11eb24e5509407fb54419c887d21bf0">
+<p nodeId="d370f30bf2ff4addb73901220e224475">命中事件</p>
+</td>
+<td colwidth="[120]" nodeId="be04a7654fa248fe9f43f33a07cb6512">
+<p nodeId="d1174bd74b4845d4ab059a8c7befc47c">包含</p>
+</td>
+<td colwidth="[225]" nodeId="1983198c479d46ddbbc6ac40504b329c">
+<p nodeId="eb8db518604744d5b70e92bc8740546c">筛选进入某些事件之一的请求</p>
+</td>
+</tr>
+<tr nodeId="f81d2d0b36e74343befcd381bdfa4cff">
+<td rowspan="2" colwidth="[121]" verticalAlign="middle" nodeId="22b0a79bd03d4dbcb9dd127d1fa73ffd">
+<p nodeId="7be22fa0f0414eefb47444581d95720a">命中接入点</p>
+</td>
+<td colwidth="[120]" nodeId="4c8adf76860147ceb38003197049ddde">
+<p nodeId="93eab47ae1b445cba2af3be12c932323">包含</p>
+</td>
+<td colwidth="[225]" nodeId="0af384c950334bfa993f7c9f8ee1b52f">
+<p nodeId="f98de983b56b4e7280a2a2259ebdd23e">筛选进入事件下某些接入点之一的请求</p>
+</td>
+</tr>
+<tr nodeId="eeeb4ee0d39f482694b345e58a14a903">
+<td colwidth="[120]" nodeId="b5bac886f07149c68f4599d297b83337">
+<p nodeId="5cee99a60d154cbdbf598653bb7876fc">全选</p>
+</td>
+<td colwidth="[225]" nodeId="1e1d6cc0b86043f9b6913babc5fd2e20">
+<p nodeId="c863afc328314cf584ae5f6ccae82845">筛选进入事件下全部接入点之一的请求</p>
+</td>
+</tr>
+<tr nodeId="6639c79a5b1349959afaafea6771aaf2">
+<td rowspan="2" colwidth="[121]" verticalAlign="middle" nodeId="23eec3919234418099133fe6f77e6a9f">
+<p nodeId="0d7554dcefd242318337e8b8f5933a7f">命中风险等级</p>
+</td>
+<td colwidth="[120]" nodeId="343bc8d0e8d6453e9f771a8ddcb83399">
+<p nodeId="e6c6a047506a454a946af6db3fad9779">包含</p>
+</td>
+<td colwidth="[225]" nodeId="daac7e3882cf4b0882d0a929a4bb712c">
+<p nodeId="1f4c9a9192f74c68bd38561c94b67793">筛选事件下命中某些风险等级之一的请求</p>
+</td>
+</tr>
+<tr nodeId="b76fe9b3cb5a429abf334780b158415b">
+<td colwidth="[120]" nodeId="cbeaba32732c4af48868b9313e935d90">
+<p nodeId="b3951dc4cde4482e8fffccb18c85e81d">全选</p>
+</td>
+<td colwidth="[225]" nodeId="555156dd6b1e44e09ddfd61a0eaa97bf">
+<p nodeId="a85dcb498bc542249020b21f96541f3b">筛选事件下命中全部风险等级之一的请求</p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+</li>
+</ul>
+</li>
+<li nodeId="1b8da0b28a834596b45c25b7c935865a">聚合方式：是否对数据源中某个key做groupby聚合逻辑。比如监测77领券事件下的每个活动的请求量，这里“每个活动”就是对活动字段做的聚合。此处可选择的key同筛选字段</li>
+</ul>
+</td>
+<td rowspan="3" colwidth="[1351]" nodeId="81297830226448598863bd8d1ba0905f">
+<p nodeId="9c5cb636bf6440c2993f5df8751e4ba0"><img src="https://km.sankuai.com/api/file/cdn/2446576687/122788867331?contentType=1&amp;isNewContent=false" name="image.jpeg" width="933.33" height="600" nodeId="600049c69f9843a497e37f4635a72cec" /></p>
+</td>
+</tr>
+<tr nodeId="fd873b09bb4b4151aa0b8cf19a54f37f">
+<td rowspan="2" colwidth="[115]" nodeId="c96e528e1d5c431cbd6d91d1d429ea20">
+<p nodeId="e67a9623e2834a36ae1758e97d5026af">逻辑可配置</p>
+</td>
+<td colwidth="[119]" nodeId="d0a4b420d3964a339771d11d110f82d8">
+<p nodeId="cfd6d81a0eda472f984239afe3bdc9cf">配置监控规则</p>
+</td>
+<td colwidth="[602]" nodeId="e2f679fb24774f42b1ab7caeede49657">
+<ul nodeId="cfc02c328a574cb8a1595601c6ba460a">
+<li nodeId="f3f627b9841f4881bd2420aeeb0bf82f">指标：指定监控的内容，例如请求量、用户量等。具体指标参考：<a href="https://km.sankuai.com/collabpage/2092740263" title="监控指标梳理" autoUpdate="true" nodeId="45344cea432d4342929d133c8ac74c38">监控指标梳理</a>（如当前指标不能满足诉求，请直接评论这个文档）</li>
+<li nodeId="4629a2735d174afbb98d3b9852e13fa4">监控周期：聚合Xmin内的数据进行计算</li>
+<li nodeId="88836aeecceb43a5a8db0a434bf709e9">
+<p nodeId="75684d2fa87b46e49220ff40da40bc38">计算逻辑：对数据进行何种计算处理，具体的计算逻辑如下</p>
+<km-collapse active="false" nodeId="58d7ae50a3624abeab64341e90be7749">
+<km-title><span color="#166FF7">计算函数详细说明</span></km-title>
+<km-content>
+<table responsive="false" nodeId="664f1aa0ef22467d86c900ba3b8d7fcd">
+<tr nodeId="3914219ea6b04ea6a9a6e2d6b2003be0">
+<th colwidth="[55]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="e35ed7af2ff649ee8f60e79a76c169de">
+<p nodeId="d67f03d2524f4fd5a4b24660a1d0c0d5" />
+</th>
+<th colwidth="[249]" verticalAlign="top" bgColor="rgb(247, 247, 247)" nodeId="772fd11f7cd5498c9ec317599a0963a3">
+<p nodeId="c591feadce3147018a11a792556e627e"><span font-size="14">计算函数</span></p>
+</th>
+<th colwidth="[80]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="6c58e8e687bf44b5a7d399677401db2b">
+<p nodeId="9f81ab532e434932a7ab8d0f8b0340fb"><span font-size="14">对比关系</span></p>
+</th>
+<th colwidth="[86]" verticalAlign="top" bgColor="rgb(246, 246, 246)" nodeId="866f05abce154299a8adb341e4fc9d04">
+<p nodeId="e3c5b701329a413e872adf423b6ec2e5"><span font-size="14">阈值</span></p>
+</th>
+<th colwidth="[625]" verticalAlign="top" bgColor="rgb(247, 247, 247)" nodeId="b61ee438122043768c3601c6e3824cfc">
+<p nodeId="97f9beac621643a2aedbb3fdb911e074"><span font-size="14">逻辑说明</span></p>
+</th>
+</tr>
+<tr nodeId="12ecd4feaf1949e8a8b3cb1f71844a49">
+<td colwidth="[55]" numCell="true" nodeId="9c0f08e317cd48af919aa747064b51a9">
+<p align="center" nodeId="da21cd0834dc4317bc1ce45186f1fc86" />
+</td>
+<td rowspan="2" colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" color="rgba(0, 0, 0, 0.87)" nodeId="1fbbe11520084dd2a144d39ba0a787db">
+<p nodeId="95b12fce75e6456e8c925aa161a3a917"><span font-size="14">绝对值</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f823cc9782214101b4c073146ed163d8">
+<p nodeId="e3c8af9d797d4939b03bd52db59411ac"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ef1abf85f0a1416a97d2afe5acdd3764">
+<p nodeId="1f2a2632c70149729a249cb5730b4c43"><span font-size="14">数值，单位适配计算函数</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" color="rgba(0, 0, 0, 0.87)" nodeId="54b9484ee32e4c9cb09ea86f8e2d45b9">
+<p nodeId="69636a24fa4d4a598bf9feb2b45fd9d7"><span color=""><span font-size="12">最近N分钟 （指标）绝对量（按维度去重）</span></span><span font-size="12">&gt;=阈值</span></p>
+</td>
+</tr>
+<tr nodeId="419dfc9f474c4102ad6d6e53c663301b">
+<td colwidth="[55]" numCell="true" nodeId="442e3e1e88f74f1b87a9e708273c8c45">
+<p align="center" nodeId="5757faa9a6304234a2576d2f4bf20307" />
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="14b4025b1ba544e1aef7ae130280de4f">
+<p nodeId="440575e782f049719eab4bc1bf197027"><span font-size="12">&lt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4ec0c688688749e88350b79d2132bdb2">
+<p nodeId="983ac0b070ca4ef6b92ec23af6464277"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="87c4b56235c445fe9237553b1bda9309">
+<p nodeId="ec86409e4c754a91a7ba4bf9f0c67a09"><span color=""><span font-size="12">最近N分钟 （指标）绝对量（按维度去重）</span></span><span font-size="12">&lt;=阈值</span></p>
+</td>
+</tr>
+<tr nodeId="87278a81471f4970b17db30d39fbb6d2">
+<td colwidth="[55]" numCell="true" nodeId="9e2a89eede824242881cdd4299af82b3">
+<p align="center" nodeId="a3736a59d24f48d8ab52a85e7b3cebf7" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1d73c5a8209f47e1bff1a2348e96efe8">
+<p nodeId="bd77749dc3fb49b1a39bcec294ebfe9b"><span font-size="14">最近N分钟绝对量比之前N分钟上升值</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4d12c56ae6904a7d840a48a95e1827ec">
+<p nodeId="1d16a304f7b643a4a6a0c9a841fe26c2"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="6ff8560dee1b45229921eaf3b49aa732">
+<p nodeId="7bc8c4eb81a044d48b1715e08eba1733"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="a2b130e986c84dc888a88bcdc83e6f07">
+<p nodeId="a8b49ad2e20c4d9dac7d0fa0f8e373d2"><span font-size="12">=M-N</span></p>
+<p nodeId="9157c03edab44126b26c944da946da7e"><span font-size="12">当前时间周期内绝对量较上一时间周期内绝对量上升值（上一时间周期时间绝对量N，当前时间周期内绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="05ffac106b6f44fb98ed26ef048eb281">
+<td colwidth="[55]" numCell="true" nodeId="8c6327fed9e641eabf54a9e2dbc3d128">
+<p align="center" nodeId="52e93323bc8444c08d27f581a16b1ab9" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3285f574003d4197bbbe23fdd563469c">
+<p nodeId="ef8a179ca1674bfbb3903988f22dbf8c"><span font-size="14">最近N分钟绝对量比之前N分钟下降值</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cce300265cf64a72a22d933a4bcdd828">
+<p nodeId="4577b4e5fc034b6fa90ee5784247edf3"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="013cc5df21b94c9d8c39d7253a8b19f3">
+<p nodeId="8229a550179a4172b44eb504da1863ca"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f91a2311873141098836828c28a6d06d">
+<p nodeId="a140b75204964a55902fc0b39e169ae7"><span font-size="12">=N-M</span></p>
+<p nodeId="8cfa938e356d400f9b743ddd460b5997"><span font-size="12">当前时间周期内绝对量较上一时间周期内绝对量下降值（上一时间周期绝对量N，当前时间周期绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="6f632124c9b347b592195d65aeedce64">
+<td colwidth="[55]" numCell="true" nodeId="a5a7446a869b41fca3ad6423397b3598">
+<p align="center" nodeId="3ed869a5cd4b42ba80b776349e0150c8" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="205df83bf53c470cbb02ae068b62513c">
+<p nodeId="979dd6e1911c459cae3a49633991539a"><span font-size="14">最近N分钟绝对量比之前N分钟上升百分比</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="0888299069824de9bcc6682591ca0dd6">
+<p nodeId="edc9ae8049bb4f0b842fe367e251e13e"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="91f18a4a29d44b239cd15017350d564d">
+<p nodeId="bfb9759fca0a45648e78a0b6d54c2199"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ff098a7c339a4b9cae4adf4b516dd593">
+<p nodeId="3de017115a4e42cb9131beb95ae930af"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="028bfe7437794d7c9cc4e8be6757bb89"><span font-size="12">当前时间周期内绝对量较上一时间周期内绝对量上升百分比（上一时间周期绝对量N，当前时间周期绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="4d04f7675f964add973cdfc59d1529cc">
+<td colwidth="[55]" numCell="true" nodeId="4c0637ba129c4817ae08172324c4f05c">
+<p align="center" nodeId="ea548ecf8c4845b3b55171b209775bf2" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="5fb0c25bbf7c425aa31912c538426088">
+<p nodeId="2e73655d219f4a86bd587a0841363096"><span font-size="14">最近N分钟绝对量比之前N分钟下降百分比</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="655bb2d697ab4b2fb6652c9077b5695e">
+<p nodeId="b32660178fc04a8e81cbd305cb7fd153"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ba312970fba54d0cb83762fcb3dca116">
+<p nodeId="980edcff44da442fb3b4b0056a9382ff"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4e641c80c0b841ce9d364af74556cae3">
+<p nodeId="9addf2213c074333b66ab44c6d491639"><span font-size="12">=（N-M）/M*100%</span></p>
+<p nodeId="a9572a56a0b34aefb42694e24d2a62e4"><span font-size="12">当前时间周期内绝对量较上一时间周期内绝对量下降百分比 （上一时间周期绝对量N，当前时间周期绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="696cea8c0bc846e4b07ed78d191dc1a6">
+<td colwidth="[55]" numCell="true" nodeId="b6ae45ec8593402490b0bc37cb4c5e3d">
+<p align="center" nodeId="5948407363504eb081e7f16fec016ef9" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="346354a6ace149a9aa8bd4ef2a2557ab">
+<p nodeId="cd0f4426817a4ca4819b9020a0c609b9"><span font-size="14">当前绝对量比昨天同一时间上升值</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c4abb3b02b9d4efc90cfaac761cba77a">
+<p nodeId="3240b0f27bd8406aacca40b3bb4355b2"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2780d137124c41fb90eb7d6ad1346c8a">
+<p nodeId="a124066e73cd4940871cc1a93cbca57f"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="73c8c331faa04472b86a2a8ddd1473ce">
+<p nodeId="117137fa0b544f18bc1db420e2914655"><span font-size="12">=M-N</span></p>
+<p nodeId="1b513070607949889d1a38a0016fd434"><span font-size="12">当前时间周期内绝对量较昨天同时间周期内绝对量上升值（昨天同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="28d405ce20bd4d7d8f4382ffb0b2dc00">
+<td colwidth="[55]" numCell="true" nodeId="6200b14b5ea142a4ac5b51562e1b8208">
+<p align="center" nodeId="d58c121319dc466eaebe29e377a856a6" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7d488534778b44ddb0fc401100d87b39">
+<p nodeId="0d98f9aa61f64154bb2bfcb59c4753eb"><span font-size="14">当前绝对量比昨天同一时间下降值</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="42afea006bbc44ee85bd7a54a6bf5990">
+<p nodeId="a1bf8628d79b4c2ab530b8abb35a029f"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ee35cc1df55341eca287af9c0066e662">
+<p nodeId="d0962d1d27cf4d08a81351195305c3e6"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d265832945fd4c3eaefaf1ef9c3555c3">
+<p nodeId="0dcf3b96134f4c48a680afe612339e88"><span font-size="12">=N-M</span></p>
+<p nodeId="c62e4a4fad6a4645952d304ca1e03dc0"><span font-size="12">当前时间周期内绝对量较昨天同时间周期内绝对量下降值 （昨天同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="c87d53dabd70466ca56d3c099e0f8f8c">
+<td colwidth="[55]" numCell="true" nodeId="4f6ac737a9334f0bb28dcdea11e813e1">
+<p align="center" nodeId="9fa92e15e33d44ecb9773fd50d4f83ee" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2f873c57f25141b1997bc1c42f20067c">
+<p nodeId="0b1c2b930f5f44b5903576dd75c0cda8"><span font-size="14">当前绝对量比昨天同一时间上升百分比</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="99a2ffc1c8b94662881b76ed816c2193">
+<p nodeId="8e0732bd49cc41c488664e1bdd8a1160"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c5b125e46bdb43feb33f68e9ee0c5962">
+<p nodeId="e5dcc996386b4ecdb4b8cfcb3ef064ab"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="8252455659e249cd9b972552479c907c">
+<p nodeId="d1f839defcee45f6b9f0af2fdd798023"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="6ecddcf36cec462fb95950979c847d98"><span font-size="12">当前时间周期内绝对量较昨天同时间周期内绝对量上升百分比（昨天同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="b5b349df7b9047d49bb75754f218ab63">
+<td colwidth="[55]" numCell="true" nodeId="c36b9c382d824d90b74b26a01c7bd757">
+<p align="center" nodeId="fd401f22a8c24a7188e04d5118d7614c" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="92cc876da68f49398a802c137c04b69d">
+<p nodeId="804b56c168044412a7a09d2ee07e82f5"><span font-size="14">当前绝对量比昨天同一时间下降百分比</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="13340608bc1c44c380877b2b1456d5cb">
+<p nodeId="0a7fbf6d95564425b94a4a8888cf4ed0"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="fee9a27c51fc47e88137ff84438a1de6">
+<p nodeId="a80ed346632f4d569ddc3e3466d0e322"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3d120a0673474d2b96e40b4b63248086">
+<p nodeId="67dec3aa453a4d86a9f5031ed47221c3"><span font-size="12">=（N-M）/M*100%</span></p>
+<p nodeId="527cbf373b2f40349bae3086c9e6f5f9"><span font-size="12">当前时间周期内绝对量较昨天同时间周期内绝对量下降百分比（昨天同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="608ce36af52745538c1750bb4f17f8d8">
+<td colwidth="[55]" numCell="true" nodeId="6694cb47cff44949be9f8db8ff6b9980">
+<p align="center" nodeId="61ddcd1e329f4b39b2d0b646b4df0dfb" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="3ef0d4313a574f28b03cc4b5bfdd99ba">
+<p nodeId="894f81c974a642119af88282b60f48a6"><span font-size="14">当前绝对量比上周同一时间上升值</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="58d5cf3ded974f188378033c5e3cbbe5">
+<p nodeId="c45588b7e1a84d72892e066323c93b95"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cd88f7120ace45efba336d93ef8534a7">
+<p nodeId="d76c897a1a6f4316bbaf753bca4e6f6d"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="41be528c7697451797a55f2ba7c4da1d">
+<p nodeId="c31aec24ab74401eafc2810d6393ffd2"><span font-size="12">=M-N</span></p>
+<p nodeId="c081ff3883f94e99b628c0a5205ff68a"><span font-size="12">当前时间周期内绝对量较上周同时间周期内绝对量上升值（上周同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="e928c380e96048479a6178bdc6e6d756">
+<td colwidth="[55]" numCell="true" nodeId="da975d8346144e5482a257d48310cebc">
+<p align="center" nodeId="86ea718936a0484abda6de905833aa03" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="b2d8fe937e0b4e76bf1177082c89329d">
+<p nodeId="37a8969bc52242468c6338b3fdeea11c"><span font-size="14">当前绝对量比上周同一时间下降值</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c2a71d8112e3464b8513966f13c7d0d5">
+<p nodeId="7d6dddb8ffb24208bc28960747242b29"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="cf61a6458e194d33874325bc09a6c2d0">
+<p nodeId="58f674105cfb43599b381f95553daf68"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f4e0fae646a949fcbf150214a060c246">
+<p nodeId="c3788a79803a447484c5e8bae572902d"><span font-size="12">=N-M</span></p>
+<p nodeId="0345e954a7f84ace968950327cb0b669"><span font-size="12">当前时间周期内绝对量较上周同时间周期内绝对量下降值 （上周同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="10962924fb91458fa41c906e22b8c193">
+<td colwidth="[55]" numCell="true" nodeId="a8f7e160c16b4ca2a884a30853c40c2b">
+<p align="center" nodeId="28614fba145b4b44b94fbe4612f05371" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e382281a418d4fc29089b03c5edd2e53">
+<p nodeId="c520e8211e2541f3addf6a64f4fa4b5f"><span font-size="14">当前绝对量比上周同一时间上升百分比</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7b26295f5d974dc7be54eac56c6f02a7">
+<p nodeId="b44b9df4433244e4bb2debf0b3f4a5fb"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f92b37f567754a4c9ecefef5071f0c61">
+<p nodeId="8bbab7b591a24e1b8c0f056c801a8b27"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="dfb1b9d0c8e144e49ef771970ef46886">
+<p nodeId="f49986095cf94afab802086e45cc84e6"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="b070603db71240f393ec0f7a60a12c72"><span font-size="12">当前时间周期内绝对量较上周同时间周期内绝对量上升百分比（上周同时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="2b8d93364622433ba92e711ab0c93114">
+<td colwidth="[55]" numCell="true" nodeId="967438549bf145beb3e84e87e840d36f">
+<p align="center" nodeId="046e585c9c144cde919765b8fc43a3f6" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="90dba621ec254dd9b3ab131516390cc3">
+<p nodeId="508718f386d34235a5b1493ea164807e"><span font-size="14">当前绝对量比上周同一时间下降百分比</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="e0e3087e64f543c39dd858ff62734c33">
+<p nodeId="48f1952fe09b4b4fbb97c8f3261939f0"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1c9f08924bc24a85a05782c506fedf8a">
+<p nodeId="5f688f779dd44d5b81a6de61ec9f20cd"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="4ccb48bf58c14138bde35d54e8b9dccd">
+<p nodeId="ef81e140271e42f09a6d19b809a5be3b"><span font-size="12">=（N-M）/M*100%</span></p>
+<p nodeId="39a58aff4d3e43908addf0d46cfa4a33"><span font-size="12">当前时间周期内绝对量较上周同时间周期内绝对量下降百分比（上周时间绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="9fa5722bcbe94663b917184df6e86894">
+<td colwidth="[55]" numCell="true" nodeId="ed91482f4e4346f89a3492c53e57d7e8">
+<p align="center" nodeId="9437c1e602f740a2a6d1e6fc7116e89d" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="225b71a92a3b43f6b3c92e95e2732077">
+<p nodeId="69645afae7f84f4992b26d8cfebd90a9"><span font-size="14">当前绝对量比基线上升值</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2f224c86181c441386c2c2f188d19731">
+<p nodeId="9be122c0e5014f62b095dca7b122037a"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="2df1555cea7242518c7debce2294bb6a">
+<p nodeId="7d19f149dc864ad3acaa24ae9b2c0e59"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" color="rgba(0, 0, 0, 0.87)" nodeId="0c7669b1981e4f1790d68c56c3e197e8">
+<p nodeId="8df4de3bd04d447687aaa825cede0993"><span font-size="12">=当前值-基线值</span></p>
+<p nodeId="a086d45d38ad4be1a4acd9c2f8d1078a"><span font-size="12">当前时间周期内绝对量与基线相比上升数值</span></p>
+</td>
+</tr>
+<tr nodeId="7ef117c6094a4319949bd895bcebe6f0">
+<td colwidth="[55]" numCell="true" nodeId="0aea4d9d2f054385a6cc18e880857bc0">
+<p align="center" nodeId="7a2d8bfd7b514042932b5362e03f1707" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="1b04839cd6114633adaa3c27b49196c8">
+<p nodeId="c393793354a04b9ba3f31a8c6a12664a"><span font-size="14">当前绝对量比基线下降值</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f4a431c1d0ca4fe79d29cf694287b79e">
+<p nodeId="7c9065d0ee064bb98e3095e322b1af4d"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="be29c6f3ef844efa825655b21fec8c47">
+<p nodeId="bee1b76f20aa446a8d13ab8f8c606fee"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" color="rgba(0, 0, 0, 0.87)" nodeId="fdc2d60670e344ff81e66f41f3ccd713">
+<p nodeId="e11290a392ba43078c8e6a8de46d97a6"><span font-size="12">=基线值-当前值</span></p>
+<p nodeId="b8ad7cc5177a4993aa4c167f3f3d3417"><span font-size="12">当前时间周期内绝对量与基线相比下降数值</span></p>
+</td>
+</tr>
+<tr nodeId="0f245b5435da42058294ae8fc0929f5f">
+<td colwidth="[55]" numCell="true" nodeId="6aa8a0c197f944f596218e0e0c7dc795">
+<p align="center" nodeId="fdbc297f70fa4556a450079d742a7d4b" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="7c3a08de7c87404585282389ef6c3320">
+<p nodeId="4b1c95b1d116473d9ea9683f913a0209"><span font-size="14">当前绝对量基线上升百分比</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="d34d097f9c814ba2ab2e1892607c6f22">
+<p nodeId="0d27b78173f141809b5ac1d964f136ca"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="ece74926161c49169f604f54c34d38c4">
+<p nodeId="93cc57ff4f2a41f2af2d2122cefaa84f"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="f06c2ad357cd4780a5143c544874cff4">
+<p nodeId="dfd735ae36a84ba9957d7454c8979caf"><span font-size="12">=（当前值-基线值）/基线</span></p>
+<p nodeId="613ae254a71248c3812512fbc91d6056"><span font-size="12">当前时间周期内绝对量与基线相比上升百分比</span></p>
+</td>
+</tr>
+<tr nodeId="ab49706ba0b947be94ea4d59ec82b4d5">
+<td colwidth="[55]" numCell="true" nodeId="003557f7629240d785ce2e7b58d1fc5a">
+<p align="center" nodeId="3443f40aabf543e9a345b4a15e4a3d95" />
+</td>
+<td colwidth="[249]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="15fe0efaa9d44be7af551d0bcf973f13">
+<p nodeId="f322a964e0344f7e8107a840f74993c0"><span font-size="14">当前绝对量比基线下降百分比</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="32f8ee460e6042a9a3186f079e6f2d04">
+<p nodeId="9b67e8daf22343ca825bd66ba1ee517f"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="45985d8ce907414baeed42a7bd17323e">
+<p nodeId="292aae384f7e4fd1a7291dad4fed8fd3"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" verticalAlign="top" bgColor="rgb(255, 255, 255)" nodeId="c0d100289b794b83a5b05142fc7b343d">
+<p nodeId="f245fd2ff99345f2a81135cdc8ea063e"><span font-size="12">=（基线值-当前值）/基线</span></p>
+<p nodeId="de1b0406a63745399773238af5d06892"><span font-size="12">当前时间周期内绝对量与基线相比下降百分比</span></p>
+</td>
+</tr>
+<tr nodeId="87c5f282ee0645a884ebdf6541afba45">
+<td colwidth="[55]" numCell="true" nodeId="55337d5fd00647ada2c0fa773ce74f94">
+<p nodeId="3f7209e37fde433ba702f33201738fbf" />
+</td>
+<td colwidth="[249]" bgColor="rgb(255, 242, 240)" nodeId="c34bf3693d94474c8cf1a2379573ddad">
+<p nodeId="7b47d91c3f554d838f4a7b3364b784c7">当前绝对量相比过去7天最大绝对量上升百分比</p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 242, 240)" nodeId="7e9ed7ecdfc54715aa50be82b4b21a1f">
+<p nodeId="89038a852da143fd9a89ba40162be270"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 242, 240)" nodeId="5f0afcb06a2748888ce6a006de1173f8">
+<p nodeId="f070118d80d348da85dcda9442067e28"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" bgColor="rgb(255, 242, 240)" nodeId="e1acf8acdb704253b18655d2544b1759">
+<p nodeId="eeb9db1298714b719e9415c44c592b7e"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="4eb47241abfb41bfad4f847051a45ace"><span font-size="12">当前时间周期内绝对量较过去7天内最大绝对量量上升百分比（过去7天内最大绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="66191530bba3419eb6f0ef3788b8fb16">
+<td colwidth="[55]" numCell="true" nodeId="b7a77551f49e4bcd9510b92da68f6c85">
+<p nodeId="9816d39ff2d84925846ecacced6bfc1d" />
+</td>
+<td colwidth="[249]" bgColor="rgb(255, 242, 240)" nodeId="c9cb133c0ac0454c832cb06768f9d8fb">
+<p nodeId="96e068ddb02e42e290397d3ac0ea14c9">当前绝对量相比过去7天最大绝对量下降百分比</p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 242, 240)" nodeId="feaa9d5127ed4ba6924dd664006240dc">
+<p nodeId="09bb45efc7e649c1a89b3f2137946669"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 242, 240)" nodeId="2ada1ec251694018afb2b327f91d553e">
+<p nodeId="f96eee55cce44c369251aeaf9499b2c7"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" bgColor="rgb(255, 242, 240)" nodeId="c8b5c35cdcb2480abe1a783bbc38ba48">
+<p nodeId="8b3ef56678234213a5f1de4c98350b0d"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="8541d035201d4802b0a3f9c4a8fd428c"><span font-size="12">当前时间周期内绝对量较过去7天内最大绝对量量下降百分比（过去7天内最大绝对量N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="551e005cedf643e5975a1caeadda2af9">
+<td colwidth="[55]" numCell="true" nodeId="448db0bb894e44c59eac10fd5c9c0534">
+<p nodeId="59604ad8ab774efa9dafc9f8b11bc143" />
+</td>
+<td colwidth="[249]" bgColor="rgb(255, 242, 240)" nodeId="64c8c58d10684fe5a22b39714019eeeb">
+<p nodeId="1ee6847dca09486283bac7fd36ccca80">当前绝对量相比过去3天平均值上升百分比</p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 242, 240)" nodeId="63f244de7a094325aa6ebd89ccbf3e1a">
+<p nodeId="42a8974ba93840839b47606b2d1dc048"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" verticalAlign="top" bgColor="rgb(255, 242, 240)" nodeId="7d5f83ee31fc4cf2a23a051cad99610e">
+<p nodeId="2ef06c0a32cc4e249ea4b1b91dabb95a"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" bgColor="rgb(255, 242, 240)" nodeId="d8598010545d481a9f32fa100c69590e">
+<p nodeId="e34d816e1929460da7815dc87d61ad24"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="c52545e38d4442c9bd0394a0a4be15c1"><span font-size="12">当前时间周期内绝对量较过去3天平均值上升百分比（过去3天内平均值N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="3769180beca04fb28456f89848142a49">
+<td colwidth="[55]" numCell="true" nodeId="56f656ab8126406483bfa9e3398d70af">
+<p nodeId="34c667319d174b9291ffa537e839ac27" />
+</td>
+<td colwidth="[249]" bgColor="rgb(255, 242, 240)" nodeId="71cac899da884e0f8f47395d2d698fe3">
+<p nodeId="4d0f44b1d92c4e36aa34e1cd4cff7fed">当前绝对量相比过去3天平均值下降百分比</p>
+</td>
+<td colwidth="[80]" bgColor="rgb(255, 242, 240)" nodeId="73067b1d2f184b5a90a01481ce95b380">
+<p nodeId="45988db1d9b948aaa93e88c346dc37f4"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 242, 240)" nodeId="38de21af66ee4591a5d699d23bde988c">
+<p nodeId="b83eaf7b04f3430591bd3fd18b6aad02"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" bgColor="rgb(255, 242, 240)" nodeId="1b4ea3676a194d7686be9279711db929">
+<p nodeId="86f85b947c9b4c42a780bdd58c64c77b"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="c5f2eea02b564c3d8dbc1eef7534c793"><span font-size="12">当前时间周期内绝对量较过去3天平均值下降百分比（过去3天内平均值N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="d3e21dca883b4668ab52a25c2c60263e">
+<td colwidth="[55]" numCell="true" nodeId="c655a42921934a00b84c825fb481b51c">
+<p nodeId="491019cc536a4adc9cb3cbd1879bad5a" />
+</td>
+<td colwidth="[249]" bgColor="rgb(255, 242, 240)" nodeId="b9679ee130094d78912b4cb61e5b94a5">
+<p nodeId="6288e9748c4340aaa067b708922bbdc1"><span font-size="14">当前绝对量比昨天平均值上升百分比</span></p>
+</td>
+<td colwidth="[80]" verticalAlign="top" bgColor="rgb(255, 242, 240)" nodeId="c74ab151626a4486a80ca18a141c9990">
+<p nodeId="be0cbff5c223493fa79ab3c7f21648fb"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 242, 240)" nodeId="57faba11c4274529be513c8b4df736d8">
+<p nodeId="92c1c53468b44f8686faf2a857017377"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" bgColor="rgb(255, 242, 240)" nodeId="8aed3c2e6dba4198a4fe770a3e0f9530">
+<p nodeId="ad538a16586c46eeba044dd30fae5c3c"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="796f95e8e68d47639015bb3c204d316c"><span font-size="12">当前时间周期内绝对量较昨天平均值上升百分比（昨天平均值N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="052b2bf9da2a426db80ab9ebfe055230">
+<td colwidth="[55]" numCell="true" nodeId="623a45a0e8774d2baaa15caeb4037d58">
+<p nodeId="1cbd3a7d6d8d483abea2e9260a345c93" />
+</td>
+<td colwidth="[249]" bgColor="rgb(255, 242, 240)" nodeId="f7941673fc8149ba98867e56b9ced362">
+<p nodeId="5c06d423e9ff4e69b1e3b8d4659bbf5a"><span font-size="14">当前绝对量比昨天平均值上升百分比</span></p>
+</td>
+<td colwidth="[80]" bgColor="rgb(255, 242, 240)" nodeId="75b1292eb5e742c28670f085875a3dc3">
+<p nodeId="04a09a8c0b5b42c089f3d254fb5716f9"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(255, 242, 240)" nodeId="8ea55103bd9047b0aa0285bf935714ba">
+<p nodeId="ae5e6729598c4c37913bafb8dc908201"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" bgColor="rgb(255, 242, 240)" nodeId="3aca084f9626463297559faa7c0979de">
+<p nodeId="54908fe874914f11b62b0d4584e02f89"><span font-size="12">=（M-N）/N*100%</span></p>
+<p nodeId="9dd38d9cea6243eeb5831d5551228d6f"><span font-size="12">当前时间周期内绝对量较昨天平均值下降百分比（昨天平均值N，当前时间绝对量M）</span></p>
+</td>
+</tr>
+<tr nodeId="8effe2dfd97b4c6893fb3930928de99e">
+<td colwidth="[55]" numCell="true" nodeId="25be35a56dd64bc6ac03fe7758f53478">
+<p nodeId="a456a47976ce4360b64734ceeaaa1b04" />
+</td>
+<td colwidth="[249]" bgColor="rgb(237, 250, 244)" nodeId="6324c920409d4cc69bbe50a4a2dd254a">
+<p nodeId="e9a55a87311f406ebae14095727f0731">离群点计算</p>
+</td>
+<td colwidth="[80]" bgColor="rgb(237, 250, 244)" nodeId="8583e6a0e4464dc08ff33ca6f0cbb734">
+<p nodeId="8829e1ab780d4f60be643d99230756be"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(237, 250, 244)" nodeId="1a90f835e3214598b59a7262c258266f">
+<p nodeId="0586fd7e86f24522b1f526d5555c7830"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" bgColor="rgb(237, 250, 244)" nodeId="4ae619bca38b4e12a74606b7650e4415">
+<p nodeId="97212e1b112b42f7b7619c284d248fbe"><span font-size="12">=（单个原始数据值-总体平均值）/总体标准差</span></p>
+</td>
+</tr>
+<tr nodeId="08d442e588274af3a623e88696952fa0">
+<td colwidth="[55]" numCell="true" nodeId="937ab15d5ab949089b8b4907deaa0ffc">
+<p nodeId="c11abc50f7c44e44ad7907df8a84dd30" />
+</td>
+<td colwidth="[249]" bgColor="rgb(237, 250, 244)" nodeId="eb56f60856d6445a928e74fcdefe7e5a">
+<p nodeId="283efb4074104044bc7d834ebd48bda7">3sigma异常值检测方法</p>
+</td>
+<td colwidth="[80]" bgColor="rgb(237, 250, 244)" nodeId="d0655f042ca043829d9f88bcc52f4934">
+<p nodeId="7488d19ee708468a856db8285b1cba23"><span font-size="12">&gt;=</span></p>
+</td>
+<td colwidth="[86]" bgColor="rgb(237, 250, 244)" nodeId="7e090f1df559434e9f5f5daf2313662e">
+<p nodeId="41f0cef3399f4c1fa4ec84b428394add"><span font-size="14">同上</span></p>
+</td>
+<td colwidth="[625]" bgColor="rgb(237, 250, 244)" nodeId="236b85f993b74805a2f586bd51646dd0">
+<p nodeId="d8fee61e234f49959cca959296f34aff"><a href="https://km.sankuai.com/collabpage/1703707611#id-%E7%86%94%E6%96%AD%E9%98%88%E5%80%BC%E8%AE%A1%E7%AE%97" title="熔断模块梳理" autoUpdate="true" nodeId="74436531e0de4b31a114393de236562f">熔断模块梳理</a></p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+</li>
+<li nodeId="f625a8787c7c45e1970ebeb96b3ea36c">去重方式：固定字段orderid、poiid、uuid、userid、mobile、merchantId</li>
+<li nodeId="a298ecdeb48f41178a8fa26039a847bb">触发次数：时间周期内满足该触发次数后该监控规则命中</li>
+</ul>
+</td>
+</tr>
+<tr nodeId="9f55e20ffbe74b69b8ed1136752526a7">
+<td colwidth="[119]" nodeId="8e89de6322624ccb98c5b07809fe688f">
+<p nodeId="d84d286e214e47249c4b113f512fa78f">配置监控通知</p>
+</td>
+<td colwidth="[602]" nodeId="3c4662f4f91d48c99400eb2217fb281d">
+<ul nodeId="af7858a23f4745dfaeab4c972cec8a1f">
+<li nodeId="e72537e815e146319aa8dd4dd10d95cf">告警负责人</li>
+<li nodeId="b22668c1c22943fca8d1966683b518f6">通知方式：大象、短信、电话</li>
+<li nodeId="92c2c07559754e1db389f996b693148f">通知内容：解析字段内容</li>
+<li nodeId="eb018f96c1a24747b087d8983ab0598e">通知频次：无</li>
+<li nodeId="e8c8167d54d049c59adcf77eadc2ccf6">通知人：自定义支持人/大象群通知</li>
+</ul>
+<km-note type="warning" nodeId="4b71d2e4cc7240049cd4a418b7b223e4">
+<km-title>大象群配置前请先看</km-title>
+<km-content>
+<ol nodeId="126449ab48e7460c9b328f0c25955d09">
+<li nodeId="3eeba41461c340a0854a983239cdbe1d"><strong>如何知道自己大象群ID是多少？</strong><br />进入网页版大象（<a href="https://x.sankuai.com" title="https://x.sankuai.com " nodeId="6bcdb8f4b6a84753bdaab157ff31099e">https://x.sankuai.com </a>）--&gt;点击想查询的大象群聊天窗口--&gt;查看此时url中的大象群ID复制即可。<br /><img src="https://km.sankuai.com/api/file/cdn/2446576687/127637499075?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1202" height="264" nodeId="ec954e53753b49cfad70f5e51f292e98" /></li>
+<li nodeId="243ce5da03cf4f409991126d83976c75"><strong>将ID配置到监控配置自定义群中</strong><img src="https://km.sankuai.com/api/file/cdn/2446576687/127636301228?contentType=1&amp;isNewContent=false" name="image.jpeg" width="839" height="95" nodeId="ec0d4daa15f64eadb3f4f450a1860902" /></li>
+<li nodeId="3f9d69c282e2450e862bb9cb15cd5031"><strong>将大象群ID提供给</strong><km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="62504143759748c0ab9db08a91c25d8a" /><span color="#FF4A47"><strong>（很重要的一步！否则无法告警给大象群）</strong></span></li>
+<li nodeId="be7e3f0b23504c548887a5480eaeeb87"><span color="#000"><strong>大象群群主将收到大象消息，点击【通过】即邀请公众号进群发送告警</strong></span><img src="https://km.sankuai.com/api/file/cdn/2446576687/127648528023?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1100" height="332" nodeId="51af33c08e6c4c9ab649b54ff438cfcd" /></li>
+</ol>
+</km-content>
+</km-note>
+<p nodeId="0a41c4bf664849ae8558d9669d06f07c" />
+</td>
+</tr>
+</table>
+<h2 nodeId="b98f5eb417174ab49c20c0cac2bcd9dc">3.2 告警告出与分析</h2>
+<table responsive="false" nodeId="517a9dbb7c42486f906876b39ca03d94">
+<tr nodeId="7013b15cc33046fe84188d182c928d53">
+<th colwidth="[113]" nodeId="6553b2a6cdf34bccb7f9f090e9edae02">
+<p nodeId="5fc622d7f45d4789986c7a41e34c7e8c">操作链路</p>
+</th>
+<th colwidth="[123]" nodeId="186d4642d7ba4d1884e2ff5692848fc2">
+<p nodeId="1b4a74a2744a46f9b59a0b3a184ad487">一级功能</p>
+</th>
+<th colwidth="[544]" nodeId="e99015b8e24c4c099ed12a9f92ec7ea0">
+<p nodeId="02a13c902f2841059bdc6bc40f42cb32">功能详述</p>
+</th>
+<th colwidth="[784]" nodeId="ac3ca8fbed634212a35c43bd7f292843">
+<p nodeId="d0a2bf7da504437bb1d188087b4fa388">页面示例</p>
+</th>
+</tr>
+<tr nodeId="deb2016947f14ff3a6fa51431e85a29a">
+<td rowspan="3" colwidth="[113]" nodeId="c2392a7eb1ea420bb4f19c5807e1447f">
+<p nodeId="6df7e8a34db94a15ad35666484fd0e46">告警数据可分析可下钻</p>
+</td>
+<td colwidth="[123]" nodeId="bac59878c97848ebb7cccaa202072eb9">
+<p nodeId="2505f41eb8984a8aacba9ea8e7a395ff">告警触发通知</p>
+</td>
+<td colwidth="[544]" nodeId="7b6c06eac8864cb7b835578d730cf0fe">
+<p nodeId="20ff56ab00794e8388f62e3bd301a3bf">告警消息告警至监控公众号或大象群</p>
+<p nodeId="ff9e1e32c06c41408b3f93a909a742d5" />
+</td>
+<td colwidth="[784]" nodeId="3e3daa88de264b449a5b8c839e835d83">
+<table responsive="false" nodeId="cadf9dc5c5e940819fe28c5f665817aa">
+<tr nodeId="49a4e2f4500d4f54b53a1c5ca449aa6a">
+<th colwidth="[120]" nodeId="37451a32d9964fb9920b5c6c66978420">
+<p nodeId="c191896dbb154085b19eddfb771c58a9">公众号告警</p>
+</th>
+<th colwidth="[120]" nodeId="0763986205b54a1193098bc28cd833d4">
+<p nodeId="2c88d10c2d2b4243875ef9d119f5349e">大象群告警</p>
+</th>
+</tr>
+<tr nodeId="9275bc6855594d2fbc1100be238d6b30">
+<td colwidth="[120]" nodeId="0b6d499b0cd24312b703accdc9acd45d">
+<p nodeId="9ee152f71fec41ef8278311b6aefc736"><img src="https://km.sankuai.com/api/file/cdn/2446576687/127633122863?contentType=1&amp;isNewContent=false" name="image.jpeg" width="216" height="133" nodeId="7d15c708573d4ddd94bc78ec4cb0c168" /></p>
+</td>
+<td colwidth="[120]" nodeId="bf4e0cafe63441169ff21f276f37f354">
+<p nodeId="d73de2ed966c4163acd229c451311201"><img src="https://km.sankuai.com/api/file/cdn/2446576687/127636861357?contentType=1&amp;isNewContent=false" name="image.jpeg" width="209" height="204" nodeId="863fb6657ff94af5887ffb2deb2343b2" /></p>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr nodeId="c37d2f91d6274953814475a26ca3a627">
+<td colwidth="[123]" nodeId="7993d74f7b8e4ec285017d73b3703bad">
+<p nodeId="4850b17433af400188f7d104be6fc192">告警记录查询</p>
+</td>
+<td colwidth="[544]" nodeId="6737d3cec71d4a8f95583ac5d63336ee">
+<p nodeId="10b5118a2a8e406cb1df3315c728d9b3">告警记录</p>
+<table responsive="false" nodeId="736fde88f2fe458598caf295628dec26">
+<tr nodeId="332f87693ffd491bb6040441ed2f8d3c">
+<th colwidth="[157]" nodeId="eb87a88885a64c35ad3c43e19593617f">
+<p nodeId="0a5db75ddf41415db354478ff94e8522">字段</p>
+</th>
+<th colwidth="[355]" nodeId="ad0396a8863c4d70a4d35e67fb965cd0">
+<p nodeId="51da220d80db408d95f3f44524e9f3c2">说明</p>
+</th>
+</tr>
+<tr nodeId="476b661a2eb64c6688e40c9f457436bc">
+<td colwidth="[157]" nodeId="3fe531dc364f47fcaa667ae0ae83b5ed">
+<p nodeId="c791e86f0d23453eb05035d29895df7a">告警状态</p>
+</td>
+<td colwidth="[355]" nodeId="546d3f6b4cc74e91a5566b1ad008068f">
+<p nodeId="6ce0cadab48b41cb99e5393aef8a9aef">已恢复/未恢复<br /><span font-size="12">监控配置所设定的监测时间周期内，监测是否存在数据异常。若存在，则状态为未恢复；若不存在，则状态为恢复</span></p>
+</td>
+</tr>
+<tr nodeId="f23be6843a9e48688c995eb0b06c9914">
+<td colwidth="[157]" nodeId="3d65e6990bed4e649e4f587fc8f930ad">
+<p nodeId="e476120f36514b88823f1398a5102242">处理时间线</p>
+</td>
+<td colwidth="[355]" nodeId="6a10c653a6464d65913ded69e14a5445">
+<p nodeId="6b0373c59d9d45b09a249286264a521e">包括「告警发生、ack、数据恢复」三类时间节点</p>
+</td>
+</tr>
+</table>
+<p nodeId="55caa827c78d4023af63903869d508c9" />
+</td>
+<td rowspan="2" colwidth="[784]" nodeId="4289ec83ab62494e96f5e8f674950230">
+<p nodeId="9186bc8442624b7689ed95bdd7d22cfa"><img src="https://km.sankuai.com/api/file/cdn/2446576687/127675854264?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1251.52" height="600" nodeId="434dd47600aa49968edc10e7c1a93592" /></p>
+</td>
+</tr>
+<tr nodeId="80ed012f0ffd419189267d3427bbde1f">
+<td colwidth="[123]" nodeId="0565b2031cd74c44a7cf36ec3f304801">
+<p nodeId="795a516c069049058aeebcae3353161c">告警处置</p>
+</td>
+<td colwidth="[544]" nodeId="71340909f2d6496ea6e752b23c2efb8a">
+<p nodeId="b459160086aa4c898877dc365fb6b087">ACK<br /><span font-size="12">静默操作，对于打扰过多的监控告警可设定告警静默一段时间</span></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="b132c1bd978f4f07923df7dc6c5d0844">四、FAQ</h1>
+<h2 nodeId="7c73b668602241aeb4bf78efac3ee2ad">4.1 为什么我配置的监控规则开启了，但一直没有消息告出？</h2>
+<p nodeId="778256ddc9054785b7884ce32f1eb592">监控规则存在屏蔽期，即当<span color="rgb(38, 38, 38)">用户创建新的熔断配置之前，相关的监控单元并未建立，计数的历史数据为0。因此，在监控创建后初期，需要</span><span color="rgb(245, 35, 45)">至少</span><span color="rgb(38, 38, 38)">收集一个周期的数据，才可进行正式的报出，正式报出前的这段时间为</span><span color="rgb(245, 35, 45)"><em>报出屏蔽期</em></span><span color="rgb(38, 38, 38)">，在这段时间内无法收到告警消息。具体屏蔽期示例及各计算函数屏蔽时间的参考文档：</span><a href="https://km.sankuai.com/page/1214650678" title="https://km.sankuai.com/page/1214650678" autoUpdate="true" nodeId="3f8afd848e004f3586b424d9d8ed521f">https://km.sankuai.com/page/1214650678</a>。</p>
+<h2 nodeId="6207cfec9c944d32810e71f3f6f94656">4.2 我想按例如userid/shopid等业务属性字段进行流量筛选或聚合，我要怎么操作？</h2>
+<p nodeId="d6e094033bc84abe8306af4efa561d1a">首先，确认当前空间是否支持你所需要的自定义业务属性字段。如没有，则提需给<km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="a756a60dc4a54c89a155f25fd1545095" />新增相应字段。</p>
+<p nodeId="c064133c7c6e4c87aecbc1a54724b8b7">此处拿poiid为例，我的诉求是筛选出poiid为一批固定门店的流量，并计算每个门店的命中某策略的命中量。因此我的操作是：<br />1）选定流量范围 2）添加poiid自定义筛选项，筛选需要监控的一批poiid 3）选择聚合，按照poiid进行聚合<br /><img src="https://km.sankuai.com/api/file/cdn/2446576687/127711205392?contentType=1&amp;isNewContent=false" name="image.jpeg" width="980" height="237" nodeId="1b3e70a4c2824c44946c32cd819881ad" /></p>
+<h2 nodeId="e746a8bb4a054711a59fce94c0d86830">4.3 为什么只有命中量指标，我想计算请求量如何配置？</h2>
+<p nodeId="c5916d1a2df4444aa537baaf8e66fcd9"><strong>结论：场景/事件的请求量=场景/事件的命中量</strong><br /><strong>配置方式：</strong><br /><img src="https://km.sankuai.com/api/file/cdn/2446576687/127684106495?contentType=1&amp;isNewContent=false" name="image.jpeg" width="320" height="83" nodeId="b5a622ee17e54a1fa0cfb69a35c9cce2" /></p>
+<p nodeId="39113daec067452dbc53c0c2ed5e7b74"><span font-size="12">解释说明：监控的主体是Zeus</span><span font-size="12"><strong>请求。因此</strong></span><span font-size="12">请求命中场景即进入该场景的请求量，符合进入该场景条件的请求。命中规则/决策：即命中该规则的请求量，符合该规则逻辑（计算结果为True）的请求。无需命中规则/决策</span></p>
+<h2 nodeId="f19dc106ff5643be9147010087ebd9dd">4.4 为什么我配了告警到大象群，但是没用呢？</h2>
+<p nodeId="7ce294a8191c4189a9415f5018e473cf">监控配置好大象群后，需要复制大象群ID提供给<km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="95995279217f46508180f9e2eea911d4" />再在公众号上进行配置。具体步骤参考上文：<a href="https://km.sankuai.com/collabpage/2446576687#b-4b71d2e4cc7240049cd4a418b7b223e4" title="https://km.sankuai.com/collabpage/2446576687#b-4b71d2e4cc7240049cd4a418b7b223e4" autoUpdate="true" nodeId="32787c5ca72f48b8bf7ed8b877355847">https://km.sankuai.com/collabpage/2446576687#b-4b71d2e4cc7240049cd4a418b7b223e4</a></p>
+<h1 nodeId="31daaabaad1e4b75a4f1e2a3db18ddc8">五、未来迭代计划</h1>
+<table responsive="false" nodeId="5759306da23742a78a50883d212d38ea">
+<tr nodeId="e137e793a38e450f888abe419d8f9b74">
+<th colwidth="[129]" nodeId="a26c775e3f774ad188c79ca859db154d">
+<p nodeId="456fbc0d45304be7add216cf93b839d8">版本</p>
+</th>
+<th colwidth="[673]" nodeId="c56eb8dc22f342bd865fefd6c1e0f77b">
+<p nodeId="b11e55f0a3f34e7fb051bed735965e80">建设内容</p>
+</th>
+</tr>
+<tr nodeId="ca2bfd17b42b481d83f9ebdb5df833fd">
+<td colwidth="[129]" nodeId="2c32d7860b834eabb017af667a5a1c75">
+<p nodeId="3a56f6f6e9c841d3b8b185e991f9b750">V1.0</p>
+</td>
+<td colwidth="[673]" nodeId="03243f5b95a248d8976347b8f9a177c8">
+<p nodeId="90b3d0d1d07247f3b4c8cd71dd5a7b3d"><strong>建设整体基本的配置-监控-告出链路</strong></p>
+<p nodeId="9060d390159e43a3b8c4d5b437b51b4d">a. 数据源配置：支持 Tatooine 和 Zeus-实时场景流量 配置</p>
+<p nodeId="ecb69bcefbb4411a8db9269273fd87b6">b. 监控逻辑配置：支持 非自定义计算函数逻辑 以及 固定解析 字段内容</p>
+<p nodeId="70e896ee409c46faa20ab2769438ad36">c. 告警通知与分析：支持 大象消息告警 及 页面记录告警 信息，并对告警信息进行ACK处理</p>
+</td>
+</tr>
+<tr nodeId="8d0d015e9f33406282be076a5fc400cd">
+<td colwidth="[129]" nodeId="9585543b9f7e4a13ae9c7a7c7e71c330">
+<p nodeId="71ad2dbda9664f1fbaf16cd212dcfc35">V2.0</p>
+</td>
+<td colwidth="[673]" nodeId="c21ba35f89aa45eeb366e68dce6bb0cf">
+<p nodeId="bc4c3d96962d488586ac3ec7b90abfd3">a. 数据源配置：支持Zeus近线和离线接入配置</p>
+<p nodeId="fe941de5d43f4fd5ad2dd6943ba0c4a4">b. 监控逻辑：支持账户离群点、UGC正态分布等自定义计算函数；支持设定触发n次后告警</p>
+<p nodeId="9eb390638538430ebd49ea855e6f176c">c. 告警通知与分析：与Hera事件库联动支持转风险事件</p>
+</td>
+</tr>
+<tr nodeId="c411e4ca0417450193c9058dc91f0020">
+<td colwidth="[129]" nodeId="f70137c0adc8487c96e876f0367dc06a">
+<p nodeId="d5603a404f394607a5d26cfda6ec1b06">V3.0</p>
+</td>
+<td colwidth="[673]" nodeId="cd961cb9272344eca1d4e6a1a6bdc80c">
+<p nodeId="82f355d0b791465288744593fac55c65">a. 数据源配置：支持Hera和自定义hive数据源配置</p>
+<p nodeId="c3e5d0bb48394608b666f8a1410dca02">b. 监控逻辑：支持告警测试；支持熔断相关优化</p>
+<p nodeId="f8eb5ce60acb411fb5a707b8cf3b994d">c. 告警通知与分析：支持拉群处理</p>
+<p nodeId="20d5d6bcc1c1484b8bb4ecfbcdebe95c">d. 告警配置可跟踪可治理：监控配置告警情况报表</p>
+</td>
+</tr>
+</table>
+<p nodeId="7e9e4621740849ac8171326ad93a182a"><strong>如有更多诉求暂未在当前规划中，可联系PM</strong><km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="dacd06c06daa4e2c9a89175c65c4db89" /><strong>～</strong><br /><img src="https://km.sankuai.com/api/file/cdn/2446576687/126875947697?contentType=1&amp;isNewContent=false" name="image.jpeg" width="115" height="115" nodeId="d6f2ddc2abba47fb9f0fce7286c59574" /><br /></p>
+</km-doc>

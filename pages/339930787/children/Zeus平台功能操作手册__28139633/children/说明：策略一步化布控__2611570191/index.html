@@ -1,0 +1,405 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：策略一步化布控</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-17">策略链路整体概览</a><a href="#section-26">Step1-配置流量</a><a href="#section-51">Step2-配置识别逻辑</a><a href="#section-82">Step3-配置执行决策</a><a href="#section-108">Step4-配置策略状态及优先级</a><a href="#section-138">Step5-配置监控熔断</a><a href="#section-313">后续策略发布</a><a href="#section-318">FAQ</a><a href="#section-333">宣讲视频</a><a href="#section-338"></a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：策略一步化布控</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/2611570191">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：策略一步化布控</h1>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:#7F7F7F"><em>“配置一条完整的策略需要来回切换？”</em></span><br><span style="color:#7F7F7F"><em>“要先创建好规则才能配置策略？”</em></span><br><span style="color:#7F7F7F"><em>“策略上线忘记配置监控熔断导致误伤/漏过？”</em></span><br>为解决操作链路过长，策略布控操作步骤零散不同功能TAB等问题，一步化布控提供<strong>在同一个页面从0-1完成策略配置到策略上线的策略布控方式</strong>。</p>
+</div>
+</div>
+<div style="none"></div>
+<h1 id="section-17"><span style="font-size:19px">策略链路整体概览</span></h1>
+<img src="assets/62425eb6dc8c38c7.svg" width="906" height="246" alt="流程图">
+<p><strong>功能入口：</strong><a href="https://zeus.sankuai.com/data_zeus_static/#/scene" title="https://zeus.sankuai.com/data_zeus_static/#/scene">https://zeus.sankuai.com/data_zeus_static/#/scene</a>（覆盖Zeus策略 增/删/改/查 流程）<br><img src="assets/9693f13f45f7b9eb.png" width="548" height="274" alt="image.jpeg"><img src="assets/74e1897b13428928.png" width="262" height="279" alt="image.jpeg"></p>
+<h1 id="section-26"><span style="font-size:19px">Step1-配置流量</span></h1>
+<blockquote>
+<p>策略的流量来源是什么？<br>可选择当前空间下的已有Zeus场景，对应场景关联事件流量后续将执行该条场景配置</p>
+</blockquote>
+<table>
+<tr>
+<th>
+<p>操作说明</p>
+</th>
+<th>
+<p>示意图</p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li>选择已有场景，根据已有场景所关联的事件，可确认进入当前策略的流量来源。</li>
+</ol>
+<div class="note">
+<strong>Q:我的场景没有关联事件流量？我该如何处理？</strong>
+<div>
+<p>A：事件到场景的关联映射关系需要策略同学在Tatooine平台上为事件映射对应的场景。平台链接：<a href="https://hansolo.vip.sankuai.com/#/eventManageList" title="https://hansolo.vip.sankuai.com/#/eventManageList">https://hansolo.vip.sankuai.com/#/eventManageList</a><img src="assets/49c0a0fb1584c5a0.png" width="1205.65" height="600" alt="image.jpeg"></p>
+</div>
+</div>
+</td>
+<td>
+<p><img src="assets/42c00ed38916ed57.png" width="1210.73" height="600" alt="image.jpeg"><img src="assets/02bb67198077a95b.png" width="1246.1" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-51"><span style="font-size:19px">Step2-配置识别逻辑</span></h1>
+<blockquote>
+<p>如何判定流量是否存在风险？<br>可在当前页面新建一条规则或选择使用已有规则对流量中的请求信息进行风险识别</p>
+</blockquote>
+<table>
+<tr>
+<th>
+<p>操作说明</p>
+</th>
+<th>
+<p>示意图</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【单条】</p>
+<ol>
+<li>在当前页面新建规则，并对规则内容完成测试。创建方式参考：<a href="../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改规则__312585969/index.html" title="https://km.sankuai.com/page/312585969">说明：创建/修改规则</a></li>
+<li>选择当前已有规则。</li>
+</ol>
+<p>【批量】</p>
+<ol>
+<li>选择已有规则组/规则标签添加，</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/0b2269f2f0e9b0b7.png" width="169" height="82" alt="image.jpeg"><img src="assets/5da855d12015f17c.png" width="169" height="85" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>点击规则右上方「打开调试工具」，对新创建的规则或所使用的已有规则逻辑进行测试。</p>
+</td>
+<td>
+<p><img src="assets/f12445f84133e67f.png" width="1210.73" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-82"><span style="font-size:19px">Step3-配置执行决策</span></h1>
+<blockquote>
+<p>需要对存在风险的请求执行什么动作？<br>可在当前页面选择使用已有决策，决策及其附加信息/决策理由在执行规则命中后会输出给调用方</p>
+</blockquote>
+<table>
+<tr>
+<th>
+<p>操作说明</p>
+</th>
+<th>
+<p>示意图</p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li>
+<p>当请求存在风险命中step2的识别规则时，执行此处配置的决策、附加信息、决策理由等信息。</p>
+<p>决策：<a href="../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：决策__1608157813/index.html" title="https://km.sankuai.com/collabpage/1608157813">说明：决策</a></p>
+<p>附加信息：<a href="../说明：Zeus决策附加信息使用文档__28253486/index.html" title="https://km.sankuai.com/page/28253486">说明：Zeus决策附加信息使用文档</a></p>
+<p>决策理由：<a href="../说明：决策理由使用__304311873/index.html" title="https://km.sankuai.com/page/304311873">说明：决策理由使用</a></p>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/9034fa32dc379abb.png" width="1209.45" height="600" alt="image.jpeg"><img src="assets/03261dd81b3e963d.png" width="1209.45" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-108"><span style="font-size:19px">Step4-配置策略状态及优先级</span></h1>
+<blockquote>
+<p>策略当前如何执行？多条策略同时命中如何返回业务方？<br>· 状态：可在当前页面设定策略状态（生效：正常执行并返回决策给业务方/ 标记：正常执行但结果仅落日志不返回业务方 / 离线：不执行该条策略）<br>· 优先级：多条策略同时命中后，下游将根据优先级对最终命中策略进行合并，数字越小优先级越高</p>
+</blockquote>
+<table>
+<tr>
+<th>
+<p>操作说明</p>
+</th>
+<th>
+<p>示意图</p>
+</th>
+</tr>
+<tr>
+<td>
+<ol>
+<li>
+<p>为策略设定当前执行状态及优先级。</p>
+<ol>
+<li>
+<p>状态：</p>
+<p><span style="font-size:12px">生效：正常执行并返回决策给业务方/ 标记：正常执行但结果仅落日志不返回业务方 / 离线：不执行该条策略</span></p>
+</li>
+<li>
+<p><span style="font-size:15px">优先级：</span></p>
+<p><span style="font-size:12px">多条策略同时命中后，下游将根据优先级对最终命中策略进行合并，数字越小优先级越高</span></p>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/7d7f65c1f8526741.png" width="1206.92" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-138"><span style="font-size:19px">Step5-配置监控熔断</span></h1>
+<blockquote>
+<p>策略上线之后担心命中不符合预期？<br>可在当前页面对于当前策略（当前场景*当前规则*当前决策纬度）设定监控&amp;熔断波动检测配置。</p>
+</blockquote>
+<p>根据<a href="https://km.sankuai.com/collabpage/2581602012" title="https://km.sankuai.com/collabpage/2581602012">【规范】Zeus各空间策略配置监控熔断阈值约定</a>，已要求强卡控1/3/4/5/152/184空间策略发布时每条策略都需要有监控/熔断配置。如有修改诉求，可联系<span>@刘思淼</span>。</p>
+<table>
+<tr>
+<th>
+<p>操作说明</p>
+</th>
+<th>
+<p>示意图</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>【监控配置】</p>
+<p>快速配置当前策略配置的关联监控信息，参考：<a href="../说明：监控告警__2446576687/index.html" title="https://km.sankuai.com/collabpage/2446576687">说明：监控告警</a></p>
+<details>
+<summary><span style="color:#3888FF">新建监控配置系统默认设定信息</span></summary>
+<div>
+<table>
+<tr>
+<th>
+<p>类型</p>
+</th>
+<th>
+<p>字段</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+</tr>
+<tr>
+<td rowspan="12" style="vertical-align:middle">
+<p>监控</p>
+</td>
+<td>
+<p>监控配置名称</p>
+</td>
+<td>
+<p><em>1274</em>普通场景_<em>6968</em>规则_<em>810</em>决策监控</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>启用状态</p>
+</td>
+<td>
+<p>启用</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>数据来源</p>
+</td>
+<td>
+<p>Zeus</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>流量类型</p>
+</td>
+<td>
+<p>场景流量</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>命中场景</p>
+</td>
+<td>
+<p>包含 当前提交场景</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>命中规则</p>
+</td>
+<td>
+<p>包含规则 当前提交规则</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>命中决策</p>
+</td>
+<td>
+<p>包含决策 当前提交决策</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>是否聚合</p>
+</td>
+<td>
+<p>是</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>按何聚合</p>
+</td>
+<td>
+<p>场景，规则，决策</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>负责人</p>
+</td>
+<td>
+<p>当前提交一步化配置的用户mis</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>通知方式</p>
+</td>
+<td>
+<p>P3-大象</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>通知频次上限</p>
+</td>
+<td>
+<p>无</p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+</td>
+<td>
+<p><img src="assets/acd472eb3ec7d64c.png" width="1205.65" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>【熔断配置】</p>
+<p>快速配置当前策略配置的关联熔断信息，参考：<a href="../说明：规则熔断__1091686902/index.html" title="https://km.sankuai.com/page/1091686902">说明：规则熔断</a></p>
+<details>
+<summary><span style="color:#3888FF">新建熔断配置系统默认设定信息</span></summary>
+<div>
+<table>
+<tr>
+<th>
+<p>类型</p>
+</th>
+<th>
+<p>字段</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+</tr>
+<tr>
+<td rowspan="9" style="vertical-align:middle">
+<p>熔断</p>
+</td>
+<td>
+<p>熔断模式</p>
+</td>
+<td>
+<p>若是普通场景的一步化布控页面---则为「单点熔断」<br>若是分层场景的一步化布控页面---则为「分层场景熔断」</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>熔断名称</p>
+</td>
+<td>
+<p><em>1274</em>普通场景_<em>6968</em>规则_<em>810</em>决策熔断<br><em>1274</em>分层场景_<em>6968</em>规则_<em>810</em>决策熔断</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>状态</p>
+</td>
+<td>
+<p>启用</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>场景</p>
+</td>
+<td>
+<p>当前提交配置的场景</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>规则</p>
+</td>
+<td>
+<p>当前提交配置的规则</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>决策</p>
+</td>
+<td>
+<p>当前提交配置的决策</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>执行动作</p>
+</td>
+<td>
+<p>人工熔断</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>通知方式</p>
+</td>
+<td>
+<p>大象</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>通知频次上限</p>
+</td>
+<td>
+<p>无</p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+<p></p>
+</td>
+<td>
+<p><img src="assets/633209f08e4a642a.png" width="1206.92" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-313"><span style="font-size:19px">后续策略发布</span></h1>
+<p>至此，策略配置已全部完成，后续策略发布上线等流程可参考：<a href="https://km.sankuai.com/collabpage/1359152952" title="https://km.sankuai.com/collabpage/1359152952">发布管控用户指南</a></p>
+<p></p>
+<h1 id="section-318"><span style="font-size:19px">FAQ</span></h1>
+<p><strong>Q:向规则组里面添加规则、向模版里添加规则，可以使用一步化布控吗？</strong></p>
+<p>A：一步化布控主要解决完整策略的从0-1布控，而规则组、模版纬度上游缺少场景流量属性，即使添加了也不算是一条完整的策略，因此不属于一步化布控的覆盖范畴内。</p>
+<p></p>
+<p><strong>Q:我的空间每新增一条配置都需要配置监控和熔断，很麻烦？</strong></p>
+<p>A：为了保障策略事后监测链路完善，避免漏配而<span style="color:rgba(0, 0, 0, 0.87)">导致误伤/漏过等问题难以及时发现和排查，平台推荐需要对于每条策略都完善相关监控熔断。如有空间特殊需要，可联系平台豁免或添加相关校验。</span><a href="https://km.sankuai.com/collabpage/2581602012" title="https://km.sankuai.com/collabpage/2581602012">【规范】Zeus各空间策略配置监控熔断阈值约定</a></p>
+<p></p>
+<p><strong>Q:一步化布控覆盖策略范围</strong></p>
+<p>A：当前仅实时策略，24年Q1将逐步覆盖近离场景。</p>
+<h1 id="section-333"><span style="font-size:19px">宣讲视频</span></h1>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/2611570191/136930933575?contentType=1">video1647377503.mp4</a></figcaption></figure>
+<h1 id="section-338"></h1>
+</article></main></body></html>

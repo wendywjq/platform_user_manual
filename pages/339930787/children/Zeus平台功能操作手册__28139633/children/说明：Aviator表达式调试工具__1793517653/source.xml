@@ -1,0 +1,89 @@
+<km-doc>
+<km-title nodeId="4bea0b0955d44f80a3ffbb620671f65b">说明：Aviator表达式调试工具</km-title>
+<km-catalog style="none" nodeId="39d1aa89b2ec4b8fae49a32d519c8727" />
+<h1 nodeId="dc9f89baa93f4590bf939960930a9c8c">一、背景</h1>
+<p nodeId="2342867ce6094433b65dd54a414616c2">当前<span font-size="15">zeus的Aviator配置过程中存在布控效率低、测试不到位等问题。为提升功能易用性，对于aviator使用相关痛点进行集中解决。</span></p>
+<h1 nodeId="2c602ac18fe8434b986558eebe58ee76">二、操作指南</h1>
+<table responsive="false" nodeId="1bd21e6a5e4640329c9136a80d438b72">
+<tr nodeId="e38a4240f1224213b976bf71512f714c">
+<th colwidth="[602]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="eba04711edf54b4f887503609a0b934c">
+<p nodeId="a6d69ffdf8974642ac796bcb0bf09dc6"><span color="rgb(255, 255, 255)"><span font-size="14"><strong>说明</strong></span></span></p>
+</th>
+<th colwidth="[671]" verticalAlign="top" bgColor="rgb(0, 58, 140)" nodeId="87b7dcdc84644a6d9aa0fe601c2d9f34">
+<p nodeId="f613660919c540bfaf120f0b0cde1935"><span color="rgb(255, 255, 255)"><span font-size="14">图</span></span></p>
+</th>
+</tr>
+<tr nodeId="dabd013ed4164a9e8fca8cba08a2d31b">
+<td colwidth="[602]" nodeId="611979ab7fb24c61bb53bf1d4a459815">
+<p nodeId="3ef574d373514266afc4758388e03f6b">【功能入口】</p>
+<ul nodeId="9478f87e0dc74da58d5559e182810dda">
+<li nodeId="058d4c2669bc4e769a97d9fe9eacefd2">直接入口：Plus+工具中心-表达式调试工具</li>
+<li nodeId="dec78dbea72d4154ad0bdf62d9217190">
+<p nodeId="4dc8495637a4417782dffb1c74e3c706">跳转入口：</p>
+<ul nodeId="270ef90ce1c3471b81899543f2249eba">
+<li nodeId="e4d6c70db28d4f72b54be0ce898824b9">因子/规则测试页</li>
+<li nodeId="cd31b9defb3243509a14a31e9ce99982">分层场景表达式框旁</li>
+<li nodeId="e723c645a5ae481a9ba66481fd28403a">画布表达式框旁</li>
+</ul>
+</li>
+</ul>
+<p nodeId="6b040c6d34df41459d35a8ffaccb08a0" />
+<p nodeId="d6f23915a3e14c8a89bb809ddf95b66d">[逻辑信息]</p>
+<ol nodeId="dcf86271dd714427a28f8388ff0060f2">
+<li nodeId="8907f5fcc57d4c42b2ee9f052dbad28c">
+<p nodeId="4e849819b5d74cceac840a90ecb240ef">aviator表达式：输入需要调试的aviator表达式，<span color="#FF4A47">目前仅支持展示Aviator5的执行明细</span></p>
+<ol nodeId="02eb856e1f834c99b56c9575f34d50fe">
+<li nodeId="7552bb574edb4e54abf034fe6ad7411c">输入方式：手动自行输入 or 从因子/规则/画布表达式/分层场景表达式跳转带入</li>
+<li nodeId="f33734c972a14a84920b2dc267f2b19a">输入完成后，请一定要点击"确定"按钮完成对表达式的校验，否则无法进行下面的测试用例添加！！</li>
+</ol>
+</li>
+</ol>
+<p nodeId="c9586456eedd49509abf403f248165ce">[添加测试信息]</p>
+<km-note type="warning" hiddenTitle="true" nodeId="8bc6c3b9789a4fcabd7cfc3a0e27e1d8">
+<km-title></km-title>
+<km-content>
+<p nodeId="5ee13b9d1cf3477e91df49613c1c25e8">此步前，请先点击aviator表达式输入框右下角的"确定"按钮，完成表达式校验</p>
+</km-content>
+</km-note>
+<ol nodeId="1d1ce64fe1bc4988b7eec9685915860a">
+<li nodeId="48e0a74717a741a78c4c3fc514c6fd5b">添加方式/期望输出类型/期望输出值：同因子测试逻辑</li>
+<li nodeId="d8e15cc4e9514fe38c520734c9f8e202">测试选中语句：鼠标可选中上方aviator表达式中某段语句，进行部分调试</li>
+</ol>
+<p nodeId="5039a5c4e9e146308575dc6bc0279c2c">[测试结果]</p>
+<ol nodeId="d4ab46a921374294bdbb83cf2843208f">
+<li nodeId="66807127ba81440c977e9e5f75af913a">
+<p nodeId="e029de9d628546888695c84e4f4e8237">分为当前测试结果和历史测试结果：</p>
+<ol nodeId="cdf736f3a91f45e397990926b8e5fd37">
+<li nodeId="b5b22ca02121418893a1d71613cbbe3a">
+<p nodeId="19d9106dcca8451cab9e1b3dd4cf0673">当前测试结果：</p>
+<ol nodeId="e05891d2b4d749dd971c4832563c9830">
+<li nodeId="24cff427f1614d5dba52df0bf92633f5">表格展示测试逻辑、输入、期望输出、实际输出、结果、测试人。可点击左侧蓝色箭头查看全部内容</li>
+<li nodeId="1ece6331c942453baa5a67e042035886">
+<p nodeId="7330cff7acd443378661fe995e385e28">执行明细：</p>
+<ol nodeId="6e4c1243a6114a7abc6f7ffb05c98656">
+<li nodeId="dd460d6f3932485aaa5f50e28854fee0">蓝色框展示各输入值的数据类型</li>
+<li nodeId="6a7837e8489844f4a960b6610f2902a3">黄色框展示执行结果即具体出错的原因</li>
+<li nodeId="c3c8e9f2443040fcb0ad389e06e1e280">灰色框展示表达式编译、参数解析、执行过程中的执行明细。目前仅支持展示Aviator5的执行明细</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[671]" nodeId="8e33fc106a4c4e3fab4da88ea7fbb0da">
+<p nodeId="5d0daf1c4c45495ba8a0c16a825505ad"><img src="https://km.sankuai.com/api/file/cdn/1793517653/50939785811?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1229.46" height="600" nodeId="6b51fb21a2204e96b94be455f32dbd34" /></p>
+<p nodeId="7092883171a44885929b9b6ca1267946"><img src="https://km.sankuai.com/api/file/cdn/1793517653/50955958751?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1229.46" height="600" nodeId="4adb21cbab7b4405880c5c255c60b8bf" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="d1199d85e0e249aeb3d54aaaa8362ff1" />
+<h1 nodeId="2ca1d82201d74663a90a61173a0e40c6">三、FAQ</h1>
+<ol nodeId="cb7b87eaf02d432b9600fc775ba8a925">
+<li nodeId="c3a11b518d024d3aa91573b1105c8f57">
+<p nodeId="e467c910ac2c49e5b6a2bee2dbfb8ace">为什么规则/因子测试中测试结果执行没有问题并且测试通过，但在aviator表达式单独调试的时候报错执行错误？</p>
+<p nodeId="32929c13bf90456099b24378ce924a30">可以看一下调试工具中输入参数类型是否正确。由于<span bg="rgb(255, 255, 255)">调试工具的参数不指定参数类型，系统只能依赖用户输入的类型进行解析无法进行强制转换兜底，例如输入字符串的时候需要两边加引号才能解析，否则系统无法区分字符串和数字。</span></p>
+</li>
+</ol>
+</km-doc>

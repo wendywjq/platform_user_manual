@@ -1,0 +1,405 @@
+<km-doc>
+<km-title nodeId="bb5e0947bdb847d491ff903699c1a078">说明：策略一步化布控</km-title>
+<km-note type="tip" hiddenTitle="true" nodeId="60512bbb182c4be4a176487f488c3cc5">
+<km-title></km-title>
+<km-content>
+<p nodeId="84933dae89e94de0b493e5fda19882e8"><span color="#7F7F7F"><em>“配置一条完整的策略需要来回切换？”</em></span><br /><span color="#7F7F7F"><em>“要先创建好规则才能配置策略？”</em></span><br /><span color="#7F7F7F"><em>“策略上线忘记配置监控熔断导致误伤/漏过？”</em></span><br />为解决操作链路过长，策略布控操作步骤零散不同功能TAB等问题，一步化布控提供<strong>在同一个页面从0-1完成策略配置到策略上线的策略布控方式</strong>。</p>
+</km-content>
+</km-note>
+<km-catalog style="none" nodeId="aff9300a3c2d4af28a509fc0a3c3f33f" />
+<h1 nodeId="e9e80daf2995443089048c8c6761f6ca"><span font-size="19">策略链路整体概览</span></h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/2611570191/136634099326?contentType=0&amp;isNewContent=false" width="906" height="246" nodeId="3957d48155e5498aa88d1013477606fe" />
+<p nodeId="a52dfdf67c02428a9f717877dd689875"><strong>功能入口：</strong><a href="https://zeus.sankuai.com/data_zeus_static/#/scene" title="https://zeus.sankuai.com/data_zeus_static/#/scene" nodeId="02198e51231f49609e4253181cc2a624">https://zeus.sankuai.com/data_zeus_static/#/scene</a>（覆盖Zeus策略 增/删/改/查 流程）<br /><img src="https://km.sankuai.com/api/file/cdn/2611570191/136644308047?contentType=1&amp;isNewContent=false" name="image.jpeg" width="548" height="274" nodeId="0a7c118f6d21431c858a93522429b1c1" /><img src="https://km.sankuai.com/api/file/cdn/2611570191/136743274163?contentType=1&amp;isNewContent=false" name="image.jpeg" width="262" height="279" nodeId="8eb7e2f16dad4b6f814db2767574809c" /></p>
+<h1 nodeId="964aca2351dd42d19e46312c17fb16ac"><span font-size="19">Step1-配置流量</span></h1>
+<blockquote nodeId="6ed56aeafe29486ea309e0564d7720b3">
+<p nodeId="3093109f4bfb41eeb7bfe1223ecb057f">策略的流量来源是什么？<br />可选择当前空间下的已有Zeus场景，对应场景关联事件流量后续将执行该条场景配置</p>
+</blockquote>
+<table responsive="false" nodeId="c3b4a82608434f94bb07e0b03d958ef1">
+<tr nodeId="fd204878c9aa42dfb48870f616a530e1">
+<th colwidth="[606]" nodeId="cf2c00368bd444cab88c2528f42dc92c">
+<p nodeId="82c7e08bcc1947b195b25fb5e27d2c1a">操作说明</p>
+</th>
+<th colwidth="[400]" nodeId="8dbf382f58dc4851933526e97faf3acb">
+<p nodeId="0e266585cc6441db93b77451a804da85">示意图</p>
+</th>
+</tr>
+<tr nodeId="c840b30cf7294b74bd431b56d4beaf52">
+<td colwidth="[606]" nodeId="fc52af3a96694bc48f0f2cc6b5413981">
+<ol nodeId="8b161b87213b4a86ac4c5a0b13a3f1a8">
+<li nodeId="669fe32265964194bd599f4d1467aeb1">选择已有场景，根据已有场景所关联的事件，可确认进入当前策略的流量来源。</li>
+</ol>
+<km-note type="info" nodeId="05511967c89c4cf6b0ebc1f435a1d842">
+<km-title>Q:我的场景没有关联事件流量？我该如何处理？</km-title>
+<km-content>
+<p nodeId="69ea6c3701e949788f38667ba538795d">A：事件到场景的关联映射关系需要策略同学在Tatooine平台上为事件映射对应的场景。平台链接：<a href="https://hansolo.vip.sankuai.com/#/eventManageList" title="https://hansolo.vip.sankuai.com/#/eventManageList" nodeId="ab4af03ea4a4409c88113e7255ce2f6d">https://hansolo.vip.sankuai.com/#/eventManageList</a><img src="https://km.sankuai.com/api/file/cdn/2611570191/136684691768?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1205.65" height="600" nodeId="40e2ee404d964ab59007f88598a96a12" /></p>
+</km-content>
+</km-note>
+</td>
+<td colwidth="[400]" nodeId="a29f67b599744126a198a70e202e7a59">
+<p nodeId="561096bda9c84f1db4a2907aadfa93fc"><img src="https://km.sankuai.com/api/file/cdn/2611570191/136677546215?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1210.73" height="600" nodeId="1d6099cae06a4fc198298b1a0bc8add7" /><img src="https://km.sankuai.com/api/file/cdn/2611570191/136699669584?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1246.1" height="600" nodeId="814c1044134547249c376a178f47811c" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="6d981a7c9a7c4b829b4eb3db0cb0974f"><span font-size="19">Step2-配置识别逻辑</span></h1>
+<blockquote nodeId="c3a75e6930c54fab944145cad8960214">
+<p nodeId="d26fc0aaa4964cdf8052b4eaff812681">如何判定流量是否存在风险？<br />可在当前页面新建一条规则或选择使用已有规则对流量中的请求信息进行风险识别</p>
+</blockquote>
+<table responsive="false" nodeId="3b6ba67b9b564c0fbc08c899598942f6">
+<tr nodeId="67567dc7a7bc439586611c3a903eccf3">
+<th colwidth="[625]" nodeId="2e3bb067bcc14b6a8d05dc0a624a01b9">
+<p nodeId="35c3f3602264412d8931237c1f3ea86a">操作说明</p>
+</th>
+<th colwidth="[400]" nodeId="358a1a2e06304ab4988a7ee2064303dd">
+<p nodeId="2ff501eee5784ca5aa28970512bb419b">示意图</p>
+</th>
+</tr>
+<tr nodeId="350361c74c3c4c96b8af026895a632e7">
+<td colwidth="[625]" nodeId="d270d5cd86b643a386922529c6c77a1c">
+<p nodeId="3b9988c084554768b72e71b5dba1c55e">【单条】</p>
+<ol nodeId="ecb1cd6b643e4be292ccf6b819e2a04e">
+<li nodeId="2a2d52ebf49d46018910819ba8e37efc">在当前页面新建规则，并对规则内容完成测试。创建方式参考：<a href="https://km.sankuai.com/page/312585969" title="https://km.sankuai.com/page/312585969" autoUpdate="true" nodeId="77c980551a20469da1b590a2d16545f4">https://km.sankuai.com/page/312585969</a></li>
+<li nodeId="93ad93a84cd841848e3e038c3bfc8941">选择当前已有规则。</li>
+</ol>
+<p nodeId="193eb05599b545879f2404b8caae3efe">【批量】</p>
+<ol nodeId="ce58b66a76a449aaa500eb69cbd39e65">
+<li nodeId="2743fbfc072d435d853579e6b5f363f4">选择已有规则组/规则标签添加，</li>
+</ol>
+</td>
+<td colwidth="[400]" nodeId="56e984e709ad4a2a9d370140dd180cf3">
+<p nodeId="596f5f7b3a7c4e09a325c7eb90863c58"><img src="https://km.sankuai.com/api/file/cdn/2611570191/136674981937?contentType=1&amp;isNewContent=false" name="image.jpeg" width="169" height="82" nodeId="1bf836ec973e4aa59ed86affb7f3a5a1" /><img src="https://km.sankuai.com/api/file/cdn/2611570191/136713852353?contentType=1&amp;isNewContent=false" name="image.jpeg" width="169" height="85" nodeId="fcab0bbdfef544d5ab3d8f73790f9737" /></p>
+</td>
+</tr>
+<tr nodeId="1b20458a063247ef8a19808edf59571a">
+<td colwidth="[625]" nodeId="aef88e972b3048258e541c3e82cd452f">
+<p nodeId="a9ab66684e6349abb150daa566ba0ce5">点击规则右上方「打开调试工具」，对新创建的规则或所使用的已有规则逻辑进行测试。</p>
+</td>
+<td colwidth="[400]" nodeId="dac8642edebf4651856c1a42b0327918">
+<p nodeId="82e1d7a034834b36ba90ed99be450c32"><img src="https://km.sankuai.com/api/file/cdn/2611570191/136720953058?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1210.73" height="600" nodeId="8b5a01dc9b924a98a4f590d3889f6903" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="c899aa430f90404d88e5788b8099d126"><span font-size="19">Step3-配置执行决策</span></h1>
+<blockquote nodeId="47df6cedddab4b97a93a2a06bf879da9">
+<p nodeId="27011ac5e54246738bb02355977d9dc4">需要对存在风险的请求执行什么动作？<br />可在当前页面选择使用已有决策，决策及其附加信息/决策理由在执行规则命中后会输出给调用方</p>
+</blockquote>
+<table responsive="false" nodeId="9e4f86b0cfbb41b098867597b684eda1">
+<tr nodeId="0d25bd2f4b6b465eaba448e8a424caa2">
+<th colwidth="[628]" nodeId="a3654568b8f240bfaad70d976e2e4a45">
+<p nodeId="0c81c0b307614d4ab69cb9e6eda89f70">操作说明</p>
+</th>
+<th colwidth="[400]" nodeId="793f47fd6312427d9b89051b70c43e25">
+<p nodeId="700269cebfbc492b99215d02486110d2">示意图</p>
+</th>
+</tr>
+<tr nodeId="d50b68fee80047b7aea16096bb16da0a">
+<td colwidth="[628]" nodeId="1e5b3b52e6e640faaa20adef6bee1929">
+<ol nodeId="13a558aed27c40deb91f78dd1de39f00">
+<li nodeId="7323db5bee0343bdb4583b361cd473fe">
+<p nodeId="ce600de5952143b6a8b676d5bf83f96d">当请求存在风险命中step2的识别规则时，执行此处配置的决策、附加信息、决策理由等信息。</p>
+<p nodeId="ce3eb56674ca4e21a115ba0442f4b035">决策：<a href="https://km.sankuai.com/collabpage/1608157813" title="https://km.sankuai.com/collabpage/1608157813" autoUpdate="true" nodeId="094b677349f74d488c69d93c1d3d9e7d">https://km.sankuai.com/collabpage/1608157813</a></p>
+<p nodeId="e1a11ac1bb054e248f397a37ce8a92b9">附加信息：<a href="https://km.sankuai.com/page/28253486" title="https://km.sankuai.com/page/28253486" autoUpdate="true" nodeId="8d85b301fbac46d2b53e7509a6aea902">https://km.sankuai.com/page/28253486</a></p>
+<p nodeId="4b9285c60b71461696233fa03bb1ec7f">决策理由：<a href="https://km.sankuai.com/page/304311873" title="https://km.sankuai.com/page/304311873" autoUpdate="true" nodeId="4073a1bef73e4513addb0670987bb58b">https://km.sankuai.com/page/304311873</a></p>
+</li>
+</ol>
+</td>
+<td colwidth="[400]" nodeId="7b5cbf6f483a40038ffb3f69a19e7e0b">
+<p nodeId="6787626fd9174e31b46ad499ed0a4996"><img src="https://km.sankuai.com/api/file/cdn/2611570191/136693994134?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1209.45" height="600" nodeId="5b6ca5e0d24a43e98b093f2a565660df" /><img src="https://km.sankuai.com/api/file/cdn/2611570191/136730307430?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1209.45" height="600" nodeId="104596470b704bba8d1a3ec7aa1b18d6" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="26c2e6beb8d54556be191ded3132546c"><span font-size="19">Step4-配置策略状态及优先级</span></h1>
+<blockquote nodeId="a8d2ada15cf041faaab722a5fb99c8d9">
+<p nodeId="5a26b29eda1f40c298cb088b8ac2339a">策略当前如何执行？多条策略同时命中如何返回业务方？<br />· 状态：可在当前页面设定策略状态（生效：正常执行并返回决策给业务方/ 标记：正常执行但结果仅落日志不返回业务方 / 离线：不执行该条策略）<br />· 优先级：多条策略同时命中后，下游将根据优先级对最终命中策略进行合并，数字越小优先级越高</p>
+</blockquote>
+<table responsive="false" nodeId="25143c92ea294c7cbc21f41ef810b05b">
+<tr nodeId="e09bba36dac845138799de98c5386c4d">
+<th colwidth="[643]" nodeId="85593495ca12435fbab1feb326d0de46">
+<p nodeId="cce7e40de2bd4acd9d6054ab2eb3ca25">操作说明</p>
+</th>
+<th colwidth="[416]" nodeId="cbcf0b9ed53e4273bc4805f8ca0da3e3">
+<p nodeId="d2504b16d44549fe9a575d523c166fad">示意图</p>
+</th>
+</tr>
+<tr nodeId="e11d95fd8a434f13b86c333b5c4d2d10">
+<td colwidth="[643]" nodeId="603516f86ab0420aad840c9a388d56f6">
+<ol nodeId="00ac290bd05a41a69cde6dd526b171dd">
+<li nodeId="b0b74f69296e431db033735dc7365f66">
+<p nodeId="44bac3dabd3947d8a994d461f9640977">为策略设定当前执行状态及优先级。</p>
+<ol nodeId="a1b4929552fc468fa7ee1be3e1135325">
+<li nodeId="74227d9c216b4f3698a3ca6af9ef984a">
+<p nodeId="4650c15c90eb46f3a44e45c7b3dc7d2c">状态：</p>
+<p nodeId="dfb8e5217a0948ba9eaf033e13efc414"><span font-size="12">生效：正常执行并返回决策给业务方/ 标记：正常执行但结果仅落日志不返回业务方 / 离线：不执行该条策略</span></p>
+</li>
+<li nodeId="90fdd17ae6724e6ba14628b76915afda">
+<p nodeId="b9b7e3bb82994565b3c897415728451a"><span font-size="15">优先级：</span></p>
+<p nodeId="68ae0adfc1e344f5b568326951b1a3a2"><span font-size="12">多条策略同时命中后，下游将根据优先级对最终命中策略进行合并，数字越小优先级越高</span></p>
+</li>
+</ol>
+</li>
+</ol>
+</td>
+<td colwidth="[416]" nodeId="a50644aaf68a4fb980fc429b75e16af4">
+<p nodeId="53927e1cdcb54deb8a6254faac1ac700"><img src="https://km.sankuai.com/api/file/cdn/2611570191/136692354579?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1206.92" height="600" nodeId="1edb9665f13e4b5da47488e8484825e2" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="ffa195e6a9624f0dad9465968e04cf15"><span font-size="19">Step5-配置监控熔断</span></h1>
+<blockquote nodeId="f975ca9960234edfb2c66a77a292baa0">
+<p nodeId="79ce9d7ea9bb425f9b17c4b4870ed76c">策略上线之后担心命中不符合预期？<br />可在当前页面对于当前策略（当前场景*当前规则*当前决策纬度）设定监控&amp;熔断波动检测配置。</p>
+</blockquote>
+<p nodeId="d7709a26b08c4927abb45afaa16bf7db">根据<a href="https://km.sankuai.com/collabpage/2581602012" title="https://km.sankuai.com/collabpage/2581602012" autoUpdate="true" nodeId="692de8631bf34f7c8fefb66c21d086fb">https://km.sankuai.com/collabpage/2581602012</a>，已要求强卡控1/3/4/5/152/184空间策略发布时每条策略都需要有监控/熔断配置。如有修改诉求，可联系<km-mention name="刘思淼" uid="liusimiao" empId="" nodeId="92f0d67e2221496ea3e5a372ca608faf" />。</p>
+<table responsive="false" nodeId="dc97122eb474420e82fbd9869677b3a9">
+<tr nodeId="bc6c94b889444974878a7b3504050d20">
+<th colwidth="[647]" nodeId="b589b157c4b24ee0a70c79fbf40af35e">
+<p nodeId="fa87b4075edd4246894619f26d466152">操作说明</p>
+</th>
+<th colwidth="[425]" nodeId="69158ac27f2e49a2a36f3ce95d61e025">
+<p nodeId="7ba5ea67193f4795b03f529e650b5eec">示意图</p>
+</th>
+</tr>
+<tr nodeId="dab56c9b6ca24428b2f981d9c631aaed">
+<td colwidth="[647]" nodeId="a6c8ffa282f5414a88463aea4d372b85">
+<p nodeId="8ae0252b9e434ce8bc86dc20eeae6a46">【监控配置】</p>
+<p nodeId="398fc37fde774a39808e86d88a6fbe8e">快速配置当前策略配置的关联监控信息，参考：<a href="https://km.sankuai.com/collabpage/2446576687" title="https://km.sankuai.com/collabpage/2446576687" autoUpdate="true" nodeId="3b672fb7075b45c2aef84936d87a6ac1">https://km.sankuai.com/collabpage/2446576687</a></p>
+<km-collapse active="false" nodeId="4b7142ae60e44f3392cc49ba1fb209fc">
+<km-title><span color="#3888FF">新建监控配置系统默认设定信息</span></km-title>
+<km-content>
+<table responsive="false" nodeId="515233059ede43cbbfda7f122e2ed15f">
+<tr nodeId="0f700b5b1bf44292b7688748543bb7d1">
+<th colwidth="[109]" nodeId="fc51198794af411cab3cae8add8e80d3">
+<p nodeId="0e6a441b355244c2bcd24c12c5db0403">类型</p>
+</th>
+<th colwidth="[144]" nodeId="b9e400b58d7f4de79b9856be341d97e4">
+<p nodeId="7b04f582c89946ad917c5c6f3240f8b4">字段</p>
+</th>
+<th colwidth="[396]" nodeId="0835068225ea4d7982e3e37caaf715fc">
+<p nodeId="3e0b122b1b9840ae8766669376fa778e">说明</p>
+</th>
+</tr>
+<tr nodeId="385830cd0b86499fabe812dfab123340">
+<td rowspan="12" colwidth="[109]" verticalAlign="middle" nodeId="5a789de6630e450285f5e1b02e0acff4">
+<p nodeId="81b7654bd77b4e6a8cff5002d97aa1a8">监控</p>
+</td>
+<td colwidth="[144]" nodeId="9ff35e5592134cb49745ea9493e1c333">
+<p nodeId="d2f3d8fa83eb457e8d3a5cdd718c04d9">监控配置名称</p>
+</td>
+<td colwidth="[396]" nodeId="5f47be90bd534edc96993e47ec3feb50">
+<p nodeId="077b15f22c334e7398dce4991a47052a"><em>1274</em>普通场景_<em>6968</em>规则_<em>810</em>决策监控</p>
+</td>
+</tr>
+<tr nodeId="d0bcc7b70c3f4770b589b7f008c27f70">
+<td colwidth="[144]" nodeId="1ae597523102403c95924ba6d1a095a9">
+<p nodeId="3b0285ab4d1f4d4885a2b2d0f24154b4">启用状态</p>
+</td>
+<td colwidth="[396]" nodeId="333ab6c23bc7478c87a173bcc19fa840">
+<p nodeId="3139636bee8047f499a70c9f83fbb18b">启用</p>
+</td>
+</tr>
+<tr nodeId="e016477d3041423ba9bc313d1a867bdf">
+<td colwidth="[144]" nodeId="fea295efbfad4c7aae20258e44ea50a2">
+<p nodeId="8cd9971ab26349ee95c66fb85ba013ce">数据来源</p>
+</td>
+<td colwidth="[396]" nodeId="90dce1fdf22b4b0caa314e1d314c4ed7">
+<p nodeId="3785169a1f474782aa7c3480d8fe93d5">Zeus</p>
+</td>
+</tr>
+<tr nodeId="0cd2abe7471c4290b3d999ee0a1b401e">
+<td colwidth="[144]" nodeId="e83beabed3cc4101a4b33744dc4f01c8">
+<p nodeId="6d5113e025114f06aad77cb37fb209e0">流量类型</p>
+</td>
+<td colwidth="[396]" nodeId="448903e979cf435a89d5de60d8fbda53">
+<p nodeId="255934192c50407aa14707220da2b1e9">场景流量</p>
+</td>
+</tr>
+<tr nodeId="f03c7bab93cc4c30acd7160dce7fe9f0">
+<td colwidth="[144]" nodeId="f4daa7c9863346678c35c417aa21e29c">
+<p nodeId="83f09c46277343f0904ff91ba3f637d9">命中场景</p>
+</td>
+<td colwidth="[396]" nodeId="9c14b1353b71445aad2c10f539442865">
+<p nodeId="02cafa4f3e324b8a861566ee9481a7f4">包含 当前提交场景</p>
+</td>
+</tr>
+<tr nodeId="b57714ad201241a298f126ef79af0c87">
+<td colwidth="[144]" nodeId="1a76a32640a0404fae73341f4eb07637">
+<p nodeId="48cac150b18741a09032774dc67e67ee">命中规则</p>
+</td>
+<td colwidth="[396]" nodeId="11bb2bd322f74905aea2867b405e0536">
+<p nodeId="7f966b0a44e84a0cac97ce00fb0bdf83">包含规则 当前提交规则</p>
+</td>
+</tr>
+<tr nodeId="9a9cd0c594b44028abdd1a430832c667">
+<td colwidth="[144]" nodeId="53b710ab18fb465380e414aca1a8ca14">
+<p nodeId="eeaa29d105e14d0c8a1391cd668d73ec">命中决策</p>
+</td>
+<td colwidth="[396]" nodeId="87ae8adaf26c434ba6f4f7efebc6e3e4">
+<p nodeId="870a733c05ed48b6b0a2ced35c8e5f2b">包含决策 当前提交决策</p>
+</td>
+</tr>
+<tr nodeId="78cb583789514511bc9f47cdaf2023ce">
+<td colwidth="[144]" nodeId="95b4e9519a624c3eb69e379a8b1a3fcf">
+<p nodeId="f8d2d1e11eae4afa80f40d48d53d9bc5">是否聚合</p>
+</td>
+<td colwidth="[396]" nodeId="983365fb4dbc472892afeb7160a05077">
+<p nodeId="1a23c7dad4bd4cf38d6dd29eb32af4b1">是</p>
+</td>
+</tr>
+<tr nodeId="ccfddd4b7e38460184ee3bcb6722ba30">
+<td colwidth="[144]" nodeId="cf9aea9fae6b471989d82d6f0732203a">
+<p nodeId="d0fdea3a36584480802bebed96e8853e">按何聚合</p>
+</td>
+<td colwidth="[396]" nodeId="f09d08a83d7142fb9406a14ae643dd6d">
+<p nodeId="38415841204a4e65acc942d450c7da81">场景，规则，决策</p>
+</td>
+</tr>
+<tr nodeId="709e1b266382492a99b1c1442fb99e7f">
+<td colwidth="[144]" nodeId="4a26f343b81645b7b5d2f9813c8e19df">
+<p nodeId="6ad1b115d5c44edf84c98cde4554785c">负责人</p>
+</td>
+<td colwidth="[396]" nodeId="98f61d8e08cb471685b37403112630f9">
+<p nodeId="0c82c0ae173a4595a60d2ec378053c45">当前提交一步化配置的用户mis</p>
+</td>
+</tr>
+<tr nodeId="873207d88df74b9fa08dd233076e2687">
+<td colwidth="[144]" nodeId="54628ec87a4a45d9942576f70c920e21">
+<p nodeId="19f53d47930842a899da99496157b876">通知方式</p>
+</td>
+<td colwidth="[396]" nodeId="ea44c26502d7429d8814b3cab45babf2">
+<p nodeId="737f202da862471881b048a65ef5e622">P3-大象</p>
+</td>
+</tr>
+<tr nodeId="e5781676e8be49a2a983d2b1d0342c63">
+<td colwidth="[144]" nodeId="1ef0904701ac4a6aa458918db89ceeed">
+<p nodeId="163f6c6a08cf4688ae1276c9ceddd44b">通知频次上限</p>
+</td>
+<td colwidth="[396]" nodeId="41ee2266759b4697b7bd6fc9bd6b28cf">
+<p nodeId="9f8ee202614e4d23a34346f5b0288a35">无</p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+</td>
+<td colwidth="[425]" nodeId="5a08bb4743954f17bfd3d3a9cb8c1c87">
+<p nodeId="4cceaac26efe40a29f9b19ccce3dd83e"><img src="https://km.sankuai.com/api/file/cdn/2611570191/136695802817?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1205.65" height="600" nodeId="ce216c9497274151ad95e5e15f3f8463" /></p>
+</td>
+</tr>
+<tr nodeId="372171d8e92e46a7b960ea4da9d7e7c0">
+<td colwidth="[647]" nodeId="7da956cbba3646a2a692e21e5b3162f8">
+<p nodeId="4e764b4881bc44aaa0af1d24d4f91bb3">【熔断配置】</p>
+<p nodeId="af5828a76b2d450abe570171fe4dd487">快速配置当前策略配置的关联熔断信息，参考：<a href="https://km.sankuai.com/page/1091686902" title="https://km.sankuai.com/page/1091686902" autoUpdate="true" nodeId="d6c82f50eb8a42389755dcce3546972f">https://km.sankuai.com/page/1091686902</a></p>
+<km-collapse active="false" nodeId="c7b1307716484c2c9b8b6307761c88a7">
+<km-title><span color="#3888FF">新建熔断配置系统默认设定信息</span></km-title>
+<km-content>
+<table responsive="false" nodeId="9e1deccaf9bf4a088fd16643df1a8ae4">
+<tr nodeId="8a6aa9380f5d43e0b80e91b8d5969e20">
+<th colwidth="[109]" nodeId="31c33c3ed95046ef98024b5758ab0927">
+<p nodeId="29b8c83604d4404c8e2950cac397b402">类型</p>
+</th>
+<th colwidth="[144]" nodeId="cfd00080fc584e7dac9c148c634a9add">
+<p nodeId="f90c57aa0f384fad9ce813b7db651120">字段</p>
+</th>
+<th colwidth="[396]" nodeId="7b04492e9ab54d22b7d3c2d637e192cc">
+<p nodeId="fb7147a10fa843d6a9f00c13d2db57f3">说明</p>
+</th>
+</tr>
+<tr nodeId="42f042a2e275428286488c9a632a884a">
+<td rowspan="9" colwidth="[109]" verticalAlign="middle" nodeId="50460871ba824db5a02bd648e6e0a1b3">
+<p nodeId="087030e732274e5c901300de9f16dadf">熔断</p>
+</td>
+<td colwidth="[144]" nodeId="9a04811565b64f9ab10969a511279f4a">
+<p nodeId="9da100542c294391a5a6607f9f6b9069">熔断模式</p>
+</td>
+<td colwidth="[396]" nodeId="75b2e87f82ac4e3d9d38d2e4fbc9afda">
+<p nodeId="7785c421e8824a8f8de274ad9ce7dfaa">若是普通场景的一步化布控页面---则为「单点熔断」<br />若是分层场景的一步化布控页面---则为「分层场景熔断」</p>
+</td>
+</tr>
+<tr nodeId="134c5ecb50dc4f52ab0dff32bac71d9e">
+<td colwidth="[144]" nodeId="a116e409c67148a9ae259aa9abab5268">
+<p nodeId="2d1b452e547648eabbc3de598ed08867">熔断名称</p>
+</td>
+<td colwidth="[396]" nodeId="d0885da6ee2549458b6822f8ba07f0c3">
+<p nodeId="e9be000f70c549c7a89dce4e6473ae83"><em>1274</em>普通场景_<em>6968</em>规则_<em>810</em>决策熔断<br /><em>1274</em>分层场景_<em>6968</em>规则_<em>810</em>决策熔断</p>
+</td>
+</tr>
+<tr nodeId="9dc46b3542d04aec8742b776856f14c4">
+<td colwidth="[144]" nodeId="c959fffccbac4812b8c696fff7ea4e30">
+<p nodeId="8796556f52c94c24be7beab814792f10">状态</p>
+</td>
+<td colwidth="[396]" nodeId="c46f8cd0c5d54d059d294aafd1e22701">
+<p nodeId="53883e535f854c0b8474ac202af82125">启用</p>
+</td>
+</tr>
+<tr nodeId="79082df12e194685a64d951f95bc8088">
+<td colwidth="[144]" nodeId="4a6ebd9a2cf249f99a55dee27a852137">
+<p nodeId="23dd5123583a4451bd19608d356549a6">场景</p>
+</td>
+<td colwidth="[396]" nodeId="32f8b78a60b847cf94c2338006a66018">
+<p nodeId="41735e1bd94a4eac8fa313225f50ce4e">当前提交配置的场景</p>
+</td>
+</tr>
+<tr nodeId="5caf3d9f72b54b978daa6a11f90b0d6d">
+<td colwidth="[144]" nodeId="0850348b91724ccd9d03dc825d523c49">
+<p nodeId="e6aae2b5b34140a882fa89cddfcfdda2">规则</p>
+</td>
+<td colwidth="[396]" nodeId="31f76b05ce434605b46ca4967cd2b2e6">
+<p nodeId="8def33c83fbe4f108eba572be51f2c2f">当前提交配置的规则</p>
+</td>
+</tr>
+<tr nodeId="05e469873ff84802997d53235228d45d">
+<td colwidth="[144]" nodeId="9777ceca0a144ed882d21be2d52d0b24">
+<p nodeId="fd0a2f4dfcea4208922b0df7066d2a11">决策</p>
+</td>
+<td colwidth="[396]" nodeId="7b931688f6b14bb3a1beecb2ef00f070">
+<p nodeId="330ce5f1395c4fc5a69645357778f809">当前提交配置的决策</p>
+</td>
+</tr>
+<tr nodeId="09828e7b217b4c1793d920ace63ea2f6">
+<td colwidth="[144]" nodeId="81f5716851984aacb0280ad81c422148">
+<p nodeId="3cc290c2492c41f0b8689a67d5a14bae">执行动作</p>
+</td>
+<td colwidth="[396]" nodeId="27557b9e10924733907a1779f96c86c0">
+<p nodeId="cf0c5141a3f74270aee5e3cb023e29db">人工熔断</p>
+</td>
+</tr>
+<tr nodeId="9aa8d6f71e1e460482dfa5c1e9ddda39">
+<td colwidth="[144]" nodeId="2748569c44ca48d398f016d9e6842358">
+<p nodeId="ed8b2b95fcb645c899b9a6d56c24746c">通知方式</p>
+</td>
+<td colwidth="[396]" nodeId="faa4ddf9efcd4b96bffadb9666bc74a8">
+<p nodeId="baf8f4828bfc463c9e12f075be517b85">大象</p>
+</td>
+</tr>
+<tr nodeId="4c20780088084bbaa5091b791a2b4e50">
+<td colwidth="[144]" nodeId="b9f292cf556e4d289004847b24148736">
+<p nodeId="ff0830e560d746c9aa3e9cdbef81fa52">通知频次上限</p>
+</td>
+<td colwidth="[396]" nodeId="b649d33ccfc74a9c9c4a4119e4b8f8fa">
+<p nodeId="8bc739630ba548959339b9c6b2779340">无</p>
+</td>
+</tr>
+</table>
+</km-content>
+</km-collapse>
+<p nodeId="0436f6c39bba4907b7cca469a78fa122" />
+</td>
+<td colwidth="[425]" nodeId="20cc53134df6494089d2a3816358f0eb">
+<p nodeId="d42346852adf4d77ae0273fbf0a24091"><img src="https://km.sankuai.com/api/file/cdn/2611570191/136692270068?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1206.92" height="600" nodeId="de318f821a134a0387bc4071a6c2d0a2" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="2822fb103d2f4f9caeee3cd2a3285324"><span font-size="19">后续策略发布</span></h1>
+<p nodeId="ef89a121b97943419476f41aae105c1b">至此，策略配置已全部完成，后续策略发布上线等流程可参考：<a href="https://km.sankuai.com/collabpage/1359152952" title="https://km.sankuai.com/collabpage/1359152952" autoUpdate="true" nodeId="2f252d5248214a78b0cb989772195812">https://km.sankuai.com/collabpage/1359152952</a></p>
+<p nodeId="3d574e2582c540a0910d88d9be3818d6" />
+<h1 nodeId="287c168a169843c7bb7a11a3a92c6b82"><span font-size="19">FAQ</span></h1>
+<p nodeId="b9d6dd28525540048c245702ebb176ea"><strong>Q:向规则组里面添加规则、向模版里添加规则，可以使用一步化布控吗？</strong></p>
+<p nodeId="ec2e865c773649f1b51fdac9545be85b">A：一步化布控主要解决完整策略的从0-1布控，而规则组、模版纬度上游缺少场景流量属性，即使添加了也不算是一条完整的策略，因此不属于一步化布控的覆盖范畴内。</p>
+<p nodeId="c5729109eddf49cda201bd7e399fd673" />
+<p nodeId="c7360eade2aa4957bf5c61690d0fed07"><strong>Q:我的空间每新增一条配置都需要配置监控和熔断，很麻烦？</strong></p>
+<p nodeId="627a26c0ac8e41d4914084a71256f793">A：为了保障策略事后监测链路完善，避免漏配而<span color="rgba(0, 0, 0, 0.87)">导致误伤/漏过等问题难以及时发现和排查，平台推荐需要对于每条策略都完善相关监控熔断。如有空间特殊需要，可联系平台豁免或添加相关校验。</span><a href="https://km.sankuai.com/collabpage/2581602012" title="https://km.sankuai.com/collabpage/2581602012" autoUpdate="true" nodeId="e4379588d22240af9002b6dd08e8bd16">https://km.sankuai.com/collabpage/2581602012</a></p>
+<p nodeId="a1462bde56024f0fb829b5d4fe917f29" />
+<p nodeId="4d90581ba5b54acab83d6cd85026a30c"><strong>Q:一步化布控覆盖策略范围</strong></p>
+<p nodeId="23a91100a5bb448094202430cb466681">A：当前仅实时策略，24年Q1将逐步覆盖近离场景。</p>
+<h1 nodeId="3e213aa7048e44c9beaa31beab940990"><span font-size="19">宣讲视频</span></h1>
+<km-video src="https://km.sankuai.com/api/file/cdn/2611570191/136930933575?contentType=1" name="video1647377503.mp4" size="30.45MB" width="0" height="0" nodeId="c7cf80a5767e4ce194eb30286ef572cc" />
+<h1 nodeId="79271f9dd7884ffd87113fae929047b7" />
+</km-doc>

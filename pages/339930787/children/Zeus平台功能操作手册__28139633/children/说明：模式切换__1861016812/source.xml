@@ -1,0 +1,142 @@
+<km-doc>
+<km-title nodeId="420b60b466d142b8b1c00006e66179f1">说明：模式切换</km-title>
+<km-catalog style="none" nodeId="32c7f75eb0c8466491f3a571a45d3691" />
+<h1 nodeId="0159ff4e6e6c45e49b1944226ef53613">一、背景</h1>
+<p nodeId="92997edd60d24a449196db011e3f13dd"><span font-size="15">多风险域有对Zeus上规则因上游业务诉求反复调整，产生的操作成本希望提效的诉求。模式切换主要解决风险域通用策略模版难以固化需要重复配置产生大量冗余规则、在大促/日常/应急等模式下需要人工介入响应业务时效低等问题。</span></p>
+<h1 nodeId="58f8065e932647919883c8921ed38b8f">二、操作链路</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1861016812/78322788790?contentType=0&amp;isNewContent=false" width="1320" height="434" nodeId="50857d01a7a442d5899ce4553ca7de14" />
+<h1 nodeId="1b412e0fc8e543f0a6194cb929bc6727">三、操作说明</h1>
+<km-note type="info" hiddenTitle="true" nodeId="49f5c351604a4c01985deabf1ecb39cc">
+<km-title></km-title>
+<km-content>
+<p nodeId="c50e85bd73274b5fa17383a6a4912e9d">模式切换功能按空间开启，未开启空间暂无法看到本功能。如需开启，可联系模式切换产品<km-mention name="龙含嫣(Louise Long)" uid="longhanyan" empId="" nodeId="1512119b65564171861c09afd7c35bb0" />，研发<km-mention name="谢鹏飞" uid="xiepengfei05" empId="" nodeId="27aefdfc78f543a6aebf00a0e7ca6d83" /><km-mention name="邓晏宁" uid="dengyanning" empId="" nodeId="250032e4dc9449948927ce25052132e5" /></p>
+</km-content>
+</km-note>
+<h2 nodeId="914d449578a240f387b09a0fa61c577d">3.1 空间管理员视角</h2>
+<ul nodeId="f9ffdf6da1d54ddabf12eb03e2fb8dd5">
+<li nodeId="048fbc6535d1428db75cf9743318a2a1"><strong>空间管理员主要完成空间内模式值的设定、编辑、删除</strong></li>
+</ul>
+<table responsive="false" nodeId="f8da119a15c0446e9e5f06b67646c7ca">
+<tr nodeId="7bb0eec281714e95b3cec8b279373058">
+<th colwidth="[335]" bgColor="#F4F5F7" nodeId="f10cf205bb214f52bac3dfc2f7d3bd8c">
+<p nodeId="ec6117b25dcc45cd9b6546cb2b836932"><span color="#000">说明</span></p>
+</th>
+<th colwidth="[755]" bgColor="#F4F5F7" nodeId="20be7b0e362d41e8a11650a724860cc6">
+<p nodeId="3dbca2387a8d47129e051bce604e1f65"><span color="#000">示意图</span></p>
+</th>
+</tr>
+<tr nodeId="5ded3de98b584150afd742dedeaae5ee">
+<td colwidth="[335]" nodeId="2d1592a0869e42d69b5b76544da871e2">
+<p nodeId="671e514fa5c24c73adf1503d9878867b"><strong>【Step1】模式列表查看空间内已有模式值</strong></p>
+<ol nodeId="d1e2a3c35814406da67c4fbe82430d0f">
+<li nodeId="88452f3f8a6c46b6a1754ec16af0286f">系统默认生成空间内“默认模式”，不可编辑删除</li>
+<li nodeId="6ede115902d7459582351cf2885316c8">单空间内包括默认模式在内，最多新建五个枚举值</li>
+<li nodeId="2a027240f19d429299c2bda8df5d98e8">单空间内模式枚举值不重复</li>
+</ol>
+</td>
+<td colwidth="[755]" nodeId="68684af08aa44cf5aabf9557ea23edbc">
+<p nodeId="157772bd536a45caadb01d35da8120f5"><img src="https://km.sankuai.com/api/file/cdn/1861016812/77767129530?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1256.33" height="600" nodeId="dbbe219b17224932a7feb42eab603c18" /></p>
+</td>
+</tr>
+<tr nodeId="988bd0106d4f496cafdca0a0652b053a">
+<td colwidth="[335]" nodeId="ce47bc1f00264becac3cf83c3202331c">
+<p nodeId="fb43fc0c4ef244eca9f7cd7e0f921aca"><strong>【Step2】添加模式枚举值</strong></p>
+<p nodeId="3da02ecb09ac461d941f52c7f7042ad9">点击模式列表页右上角<span font-size="15">「添加枚举」按钮，空间管理原可输入枚举值、含义、备注完成</span></p>
+</td>
+<td colwidth="[755]" nodeId="a5805a634bf448d28aa37b9b11dbc9ec">
+<p nodeId="d9248c3f59e443708bbca2f93be8ae24"><img src="https://km.sankuai.com/api/file/cdn/1861016812/77776979450?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1368.14" height="600" nodeId="c6e59c3e2af74553adc8ecd18b4795ca" /><img src="https://km.sankuai.com/api/file/cdn/1861016812/77779258495?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1249.84" height="600" nodeId="fdce5ecb57d34f0eb21903cba5126844" /></p>
+</td>
+</tr>
+<tr nodeId="47c0325ef3574bfc94d2225bd6e66ae1">
+<td colwidth="[335]" nodeId="5e4ef42fbf8942d2a3ce3af82e53d2b0">
+<p nodeId="65ea783b918a437d843fbceada093cf0"><strong>【Step3】编辑枚举值</strong></p>
+<p nodeId="c98b82e2348c4231ba4c12666eea1012">点击模式列表页右侧操作列-编辑，可对当前未被线上生效策略引用的枚举值</p>
+</td>
+<td colwidth="[755]" nodeId="d7a34779c2bb4096bc89ef59feb8ca34">
+<p nodeId="20e426e83cbf462e8e07a2a605c89712"><img src="https://km.sankuai.com/api/file/cdn/1861016812/77781641229?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1259.8" height="600" nodeId="e668797f1db94e3e8d62aa6bbf219e97" /></p>
+</td>
+</tr>
+<tr nodeId="6d30c8b7429a4f3ca10da8c193d2864b">
+<td colwidth="[335]" nodeId="b1cede097fe141f8b385da4043772c35">
+<p nodeId="177a8925731b456c918379fbf5cc1fbc"><strong>【Step4】删除枚举值</strong></p>
+<p nodeId="85e49d338664446b9c73a1f15c974ef3">此处只有未被线上生效策略引用的枚举值可直接删除</p>
+</td>
+<td colwidth="[755]" nodeId="c7f96faa8aa34be6b181b2409971bccc">
+<p nodeId="c5b5d9caf34045d58a066c15d5e18302"><img src="https://km.sankuai.com/api/file/cdn/1861016812/77775642425?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1259.08" height="600" nodeId="3c26c8b81c514bc1a6d4028b89753421" /><img src="https://km.sankuai.com/api/file/cdn/1861016812/77777584746?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1255.45" height="600" nodeId="bca879634a9a43b7a87c5c6d1b248a0b" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="44c5c000a48846ceb7a3ea5f7bde0108">3.2 策略视角</h2>
+<ul nodeId="3e5051235eac4857b18eed1bbd2dae54">
+<li nodeId="d0dbffb075594b7f9990921c82b9e064"><strong>策略PM主要完成空间内各动参规则阈值设定及场景模式切换</strong></li>
+</ul>
+<table responsive="false" nodeId="713ca492b5d14cc5a06daa7a43c60d71">
+<tr nodeId="6229e46418a04c5aa1731d1cbbb24f31">
+<th colwidth="[363]" bgColor="rgb(244, 245, 247)" nodeId="a3d3a9376b0c462ab1cab9226e760530">
+<p nodeId="11f3ac4f978f4b4d9dc00752a3cbf0f0"><span color="rgb(0, 0, 0)">说明</span></p>
+</th>
+<th colwidth="[755]" bgColor="rgb(244, 245, 247)" nodeId="28e9f18c1c8b44028359d8f96c8f3cb8">
+<p nodeId="a9fbf348b0924116a1c7ec1c370b5958"><span color="rgb(0, 0, 0)">示意图</span></p>
+</th>
+</tr>
+<tr nodeId="cad6bfcfd0b9429387a53621f5e37bc3">
+<td colwidth="[363]" nodeId="e983b3fb93894033a62b407885539cad">
+<p nodeId="7d73aa1783524f168c657a3b2a252898"><strong>【Step1】模式列表查看空间内已有模式值</strong></p>
+<p nodeId="a8905ab1fd2c4b3c96e7d21a47ab37aa">可查看当前空间所有的模式值，如有修改需求可联系本空间管理员同学完成修改</p>
+</td>
+<td colwidth="[755]" nodeId="ef6751637c294d2eacdced724cd3a3f7">
+<p nodeId="42a41207467d44fa8173b1211381fcdd"><img src="https://km.sankuai.com/api/file/cdn/1861016812/77785820580?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1255.62" height="600" nodeId="a6a4496eb6834ee98f5b0c52c0249534" /></p>
+</td>
+</tr>
+<tr nodeId="e1a9d64f7e2d4362beb7c94a8e347408">
+<td colwidth="[363]" nodeId="8dd1538563ad4f4488915b32b38d2b68">
+<p nodeId="029a27e567384f8bb212dc2d7cf75ece"><strong>【Step2】规则中配置动参</strong></p>
+<p nodeId="0334fe9d3df14a7cab3b85e488cb1602">右变量选择动参后，系统将自动生成动参变量填充至右变量输入框中</p>
+</td>
+<td colwidth="[755]" nodeId="8592e8e50ccf4c34858a2f6f189c43c7">
+<p nodeId="dfe0a668d8f7415c89007ea5ae5f37af"><img src="https://km.sankuai.com/api/file/cdn/1861016812/77842343404?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1240.48" height="600" nodeId="10f3199c2ccf45f7a395c31abfb4d486" /></p>
+</td>
+</tr>
+<tr nodeId="636755271e074524a9497ea934d35bd9">
+<td colwidth="[363]" nodeId="84014aa616bb43788138c17c82701485">
+<p nodeId="dd7d965c35cc473baf1e54ab1d4e85e6"><strong>【Step3】规则设置动参模式阈值</strong></p>
+<p nodeId="78696d0df2fc45dc9f7a8bf3981074a2">根据诉求手动填写动参在不同模式下的阈值，若某模式与默认模式可执行阈值一致，则可点击右上角<span font-size="15">「一键填充」自动复制默认模式中的值填入空白值。</span></p>
+</td>
+<td colwidth="[755]" nodeId="91cf0525edfa4631a12781d0ffb98907">
+<p nodeId="92ecbed053bb42fc851e7696ea268702"><img src="https://km.sankuai.com/api/file/cdn/1861016812/77835049010?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1236.85" height="600" nodeId="72473491051d46959d41a8c53e9499dd" /></p>
+</td>
+</tr>
+<tr nodeId="734f5eef7d03411ab55ef1cb751aa543">
+<td colwidth="[363]" nodeId="256bd1c36e63435e82be3f1b8525f985">
+<p nodeId="3e26475c03dc4bc0b0c9b3d1b8882e28"><strong>【Step4】将配置有动参的规则添加至场景中使用</strong></p>
+<p nodeId="7ddfa4ef00e44691a65d8acfb115bd5b">同正常场景配置流程</p>
+</td>
+<td colwidth="[755]" nodeId="9603b500f3dd4fceb465ec5326dc1268">
+<p nodeId="68a7de2c43834abb8a94f29881f7cda1"><img src="https://km.sankuai.com/api/file/cdn/1861016812/77841803618?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1245.2" height="600" nodeId="ff62d6950be84a3d8114b55745a61993" /><img src="https://km.sankuai.com/api/file/cdn/1861016812/77845492282?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1266.08" height="600" nodeId="84a5b435c4f34e4c9f2096cb53647a2d" /></p>
+</td>
+</tr>
+<tr nodeId="b2beffe716a54494b5d1c8f0e80dc71a">
+<td colwidth="[363]" nodeId="4c9fbcf4beaa43a2b5ef55cecc468877">
+<p nodeId="b07b94f503eb45b8be9c6fff3d9e274e"><strong>【Step5】模式切换</strong></p>
+<p nodeId="ce0e73606554449db85f2fdfb76db636">点击模式管理右上角<span font-size="15">「模式切换」按钮，新建发布任务进入变更环境</span></p>
+</td>
+<td colwidth="[755]" nodeId="6aa8ef6bc3b049e29295e44ca925ad47">
+<p nodeId="09b50cd0014b40649e3568e0c6f9a91a"><img src="https://km.sankuai.com/api/file/cdn/1861016812/77847246198?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1251.04" height="600" nodeId="d4fc7b11984d40eda30cb3c157b1d71e" /><img src="https://km.sankuai.com/api/file/cdn/1861016812/77847658973?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1255.02" height="600" nodeId="458bf5fcfaab48329be34c07e48b11a4" /><img src="https://km.sankuai.com/api/file/cdn/1861016812/77850575389?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1238.31" height="600" nodeId="fb1825c9b08346c0aca493a3b7f69f58" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="0a8ec39fae7145988be623be43c42ed7">四、FAQ</h1>
+<ol nodeId="f0ffa34d6438422eb3a201cde3e2e944">
+<li nodeId="73a531eefa764b9097cbe6c7198c90b0">
+<p nodeId="5bda786936ac4cafa4a11a7efd0b738e"><strong>为什么实验室中修改规则没有生效？</strong></p>
+<p nodeId="6fc5f6f3448d4ea4bd544e15693b5e73">当前实验室暂不支持规则内阈值变更和模式切换，预计二期迭代后开放功能。如有诉求，可联系liusimiao加急需求进展~</p>
+</li>
+</ol>
+<h1 nodeId="9689c455c5a545d89da7a13f3a371458">五、宣讲记录</h1>
+<p nodeId="b11c290393ef4b3096337d0e35280fff">​</p>
+<km-video src="https://km.sankuai.com/api/file/cdn/1861016812/78381721168?contentType=1" name="video1803541536.mp4" size="66.04MB" width="0" height="0" nodeId="44e73ccbc84d4a6face5ca2165a7bb4c" />
+<p nodeId="31251eae0039470d88e6d4416a38a162" />
+<km-footnote-list nodeId="3bad5e04b9884a5c9cfc2964ca7916f9">
+
+</km-footnote-list>
+</km-doc>

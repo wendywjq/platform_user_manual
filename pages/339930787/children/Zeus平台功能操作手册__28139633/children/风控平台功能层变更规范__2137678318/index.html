@@ -1,0 +1,698 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>风控平台功能层变更规范</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、基本信息说明</a><a href="#section-7">二、SLA保证</a><a href="#section-11">三、变更规范</a><a href="#section-12">3.1 功能应用的变更规范</a><a href="#section-17">3.1.1 用户变更前</a><a href="#section-22">3.1.2 变更操作中</a><a href="#section-81">3.1.3 变更完成</a><a href="#section-83">3.2 功能建设的变更规范</a><a href="#section-88">3.2.1 需求阶段</a><a href="#section-90">3.2.2 开发阶段</a><a href="#section-94">3.2.3 发布/变更执行的阶段</a><a href="#section-100">3.2.4 变更完成阶段</a><a href="#section-102">3.3 模型变更规范</a><a href="#section-106">3.3.1模型训练/准备阶段</a><a href="#section-109">3.3.2 模型上线阶段</a><a href="#section-113">3.3.3 模型上线完成</a><a href="#section-116">四、能力建设</a><a href="#section-460">五、SLA保障</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">风控平台功能层变更规范</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/2137678318">查看学城原文</a></p><article>
+<h1>风控平台功能层变更规范</h1>
+<div style="none"></div>
+<h2 id="section-3">一、基本信息说明</h2>
+<p>风控功能层定义及范围：风控工具平台上的功能，包含Tatooine、Zeus、Hera等平台上的功能。</p>
+<p>适用用户：B类用户-信息安全下风控策略产品、风控算法工程师、风控平台产品及风险运营；C类用户-信息安全下安全技术研发。</p>
+<p></p>
+<h2 id="section-7">二、SLA保证</h2>
+<p>服务可用率: &gt;99.99%</p>
+<p>响应耗时：39线 &lt; 200ms</p>
+<p></p>
+<h2 id="section-11">三、变更规范</h2>
+<h3 id="section-12">3.1 功能应用的变更规范</h3>
+<blockquote>
+<p><em><span style="font-size:12px">操作对象：B类用户</span></em></p>
+</blockquote>
+<h4 id="section-17">3.1.1 用户变更前</h4>
+<ul>
+<li>变更前需评估变更的影响范围。</li>
+<li>依据变更影响范围进行变更评审、周知，针对上游影响范围大，需发起变更评审环节、公示和确认。</li>
+<li>变更前周知变更的影响范围内的相关同学，开始发起变更。</li>
+</ul>
+<h4 id="section-22">3.1.2 变更操作中</h4>
+<table>
+<tr>
+<th>
+<p><span style="font-size:15px">产品线</span></p>
+</th>
+<th>
+<p><span style="font-size:15px">变更对象</span></p>
+</th>
+<th>
+<p><span style="font-size:15px">变更要求及规范</span></p>
+</th>
+<th>
+<p><span style="font-size:15px">平台操作手册</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:15px">Tatooine</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">事件-场景流量映射、事件接口协议</span></p>
+</td>
+<td rowspan="3">
+<p><span style="font-size:15px">可评估</span></p>
+<p><span style="font-size:15px">可审批</span></p>
+<p><span style="font-size:15px">可周知</span></p>
+<p><span style="font-size:15px">可灰度</span></p>
+<p><span style="font-size:15px">可监控</span></p>
+<p><span style="font-size:15px">可回滚</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">待补充</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:15px">Zeus</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">风控策略逻辑变更（即场景、规则、决策、特征、附加信息、决策理由、话术等）</span></p>
+</td>
+<td>
+<p><span style="font-size:15px"><a href="https://km.sankuai.com/page/1359152952" title="https://km.sankuai.com/page/1359152952">发布管控用户指南</a></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:15px">Hera</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">风控排查类、交付类SOP流程变更</span></p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/collabpage/2169766464" title="https://km.sankuai.com/collabpage/2169766464">学城文档 2169766464（无权限读取标题）</a></p>
+</td>
+</tr>
+</table>
+<h4 id="section-81">3.1.3 变更完成</h4>
+<p>对于发布完成的变更，需要持续关注流量、命中量和客诉量波动数据是否异常，至少观察时间大于1小时，如出现异常也应首先采取回滚方案进行回滚。</p>
+<h3 id="section-83">3.2 功能建设的变更规范</h3>
+<blockquote>
+<p><em><span style="font-size:12px">操作对象：C类用户</span></em></p>
+</blockquote>
+<h4 id="section-88">3.2.1 需求阶段</h4>
+<p>1） 需求方案设计阶段需要考虑可灰度能力、业务影响面评估等。</p>
+<h4 id="section-90">3.2.2 开发阶段</h4>
+<p>1) 开发代码需要保证一定的单测覆盖率，增量行覆盖率&gt;50%；</p>
+<p>2) 代码提交至少经过两位review 通过后、且qa流水线无异常卡点后方可提交合并；</p>
+<p>3) 代码功能需经过qa测试或者qa评估稳定性风险后，方可上线；</p>
+<h4 id="section-94">3.2.3 发布/变更执行的阶段</h4>
+<p>1）上线前发mcm周知相关业务方、leader审批，同时拉关键业务方配合观察业务指标稳定性等。</p>
+<p>2）<blockquote>可灰度，功能上线支持分批灰度上线，每批间隔观察时间至少半小时；针对影响面较大的功能迭代，需要支持按风险域可灰度；</blockquote></p>
+<p>3）上线过程中需观察服务稳定性，如超时、平响等性能指标，还需要关注关键风险域业务指标是否有异常，如关键场景决策率等，整体<a href="https://raptor.mws.sankuai.com/dashboard/list?dashboardType=base&amp;contents=7,48,52132&amp;dashboard=103789&amp;isCore=false" title="监控大盘">监控大盘</a>有无异常等。</p>
+<h4 id="section-100">3.2.4 变更完成阶段</h4>
+<p>1）异常情况：先回滚后查因；同步通报给leader和相关负责人；</p>
+<h3 id="section-102">3.3 模型变更规范</h3>
+<p><em><span style="font-size:12px">操作对象：B类用户</span></em></p>
+<h4 id="section-106">3.3.1模型训练/准备阶段</h4>
+<p>1）模型训练产出后上线前需要经过线下数据集效果评估符合预期后(具体参考不通模型的准召率等指标)，才可上线。</p>
+<p>2）定制化模型(如有)上线前，需要梳理相应输出决策的监控指标(预期决策效果，影响面评估)，并完成相应指标监控/卡控能力(如处置熔断配置等)后，方可上线</p>
+<h4 id="section-109">3.3.2 模型上线阶段</h4>
+<p>1）在线推理模型上线(已有模型版本更新)需按照一定比例经过灰度阶段(如1%-10%-50%-100%)，每个阶段有一定观察窗口(如至少10min以上，观察指标：线上对应场景决策率、耗时变化等)；新上线模型，依赖上游规则引用，具体参考规则上线流程。</p>
+<p>2）近线模型如团伙挖掘，模型调整需经过近线引擎的安全生产能力，灰度逐步生效(每一步灰度需要控制一定时间间隔，如半小时，观察具体指标：近线任务延迟、决策结果等)。</p>
+<p>3）能力层面风控模型平台需支持：模型灰度能力，模型服务sla监控、近线安全生产、场景的决策率变化等。</p>
+<h4 id="section-113">3.3.3 模型上线完成</h4>
+<p>1）模型服务异常情况下支持告警通报(异常告警发群消息、拉雷达等)；近线模型输出结果异常监控告警</p>
+<p>2）异常模型支持版本一键回滚、熔断、模型一键下线等；近线模型输出熔断、任务下线；</p>
+<h2 id="section-116">四、能力建设</h2>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>能力项</p>
+</th>
+<th>
+<p>预计完成时间</p>
+</th>
+<th>
+<p>产品</p>
+</th>
+<th>
+<p>研发</p>
+</th>
+</tr>
+<tr>
+<td rowspan="6">
+<p>zeus</p>
+</td>
+<td>
+<p>horae告警优化，提升告警准确率，支持场景-决策纬度的监控高级</p>
+</td>
+<td>
+<p>2024.4</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p><span>@郭鹏</span><span>@郭东方</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>上线流程涉及数据变更流程卡控</p>
+</td>
+<td>
+<p>2024.4</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p><span>@陈猛</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>zeus核心日志增加sla保障，如重点字段的取值分布dqc任务</p>
+</td>
+<td>
+<p>2024.4</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p><span>@牛志向</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>离线引擎监控大盘&amp;告警配置</p>
+</td>
+<td>
+<p>2024.4</p>
+</td>
+<td>
+<p><span>@姚珍珍</span></p>
+</td>
+<td>
+<p><span>@秦银</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>离线任务维度灰度能力</p>
+</td>
+<td>
+<p>2024.4-5</p>
+</td>
+<td>
+<p><span>@姚珍珍</span></p>
+</td>
+<td>
+<p><span>@秦银</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>zeus监控功能支持业务可配置</p>
+</td>
+<td>
+<p>2024.6</p>
+</td>
+<td>
+<p><span>@刘思淼</span></p>
+</td>
+<td>
+<p><span>@郭东方</span></p>
+</td>
+</tr>
+<tr>
+<td rowspan="3">
+<p>模型</p>
+</td>
+<td>
+<p>模型上线过程中的灰度卡控，包括观察时间限制等</p>
+</td>
+<td>
+<p>2024.10</p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span>@姜涛</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>模型任务上线前评估能力</p>
+</td>
+<td>
+<p>2024.6</p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span>@姜涛</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>模型监控(业务指标、系统指标)、告警</p>
+</td>
+<td>
+<p>2024.4-8</p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p><span>@姜涛</span></p>
+</td>
+</tr>
+<tr>
+<td rowspan="3">
+<p>Tatooine</p>
+</td>
+<td>
+<p>变更审批：事件场景映射、事件累计映射、虚拟事件路由、</p>
+<p>活动映射、异步处理、参数扩展、兜底决策理由、兜底风险等级支持变更审批及消息通知</p>
+</td>
+<td>
+<p>2024.8</p>
+</td>
+<td>
+<p><span>@王荣华</span></p>
+</td>
+<td>
+<p><span>@张锡川</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>一期灰度发布：事件管理高频变更及高风险的信息，进行灰度发布管控；事件场景映射、事件累计映射、虚拟事件路由</p>
+</td>
+<td>
+<p>2024.10</p>
+</td>
+<td>
+<p><span>@王荣华</span></p>
+</td>
+<td>
+<p><span>@张锡川</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>二期灰度发布：事件管理低频变更及高风险的信息，进行灰度发布管控；活动映射、异步处理、参数扩展、兜底决策理由、兜底风险等级</p>
+</td>
+<td>
+<p>2024.11</p>
+</td>
+<td>
+<p><span>@王荣华</span></p>
+</td>
+<td>
+<p><span>@张锡川</span></p>
+</td>
+</tr>
+<tr>
+<td rowspan="2">
+<p>Hera</p>
+</td>
+<td>
+<p>中低优模块支持变更审批（高优部分已覆盖）</p>
+<details>
+<summary>覆盖功能模块列表</summary>
+<div>
+<table>
+<tr>
+<th>
+<p>编号</p>
+</th>
+<th>
+<p>策略变更名称</p>
+</th>
+<th>
+<p>业务敏感性</p>
+</th>
+<th>
+<p>变更频率</p>
+</th>
+<th>
+<p>备注</p>
+</th>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td style="background-color:rgb(255, 232, 231)">
+<p><span style="color:rgb(51, 51, 51)">通用管理-运营配置</span></p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>高</p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>低</p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>高优，已上线</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td style="background-color:rgb(255, 232, 231)">
+<p><span style="color:rgb(51, 51, 51)">处罚中心-分层配置</span></p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>高</p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>低</p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>高优，已上线</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td style="background-color:rgb(255, 232, 231)">
+<p><span style="color:rgb(51, 51, 51)">处罚中心-普通处罚</span></p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>高</p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>低</p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>高优，已上线</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td style="background-color:rgb(255, 232, 231)">
+<p><span style="color:rgb(51, 51, 51)">处罚中心-处罚方式</span></p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>高</p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>低</p>
+</td>
+<td style="background-color:rgb(255, 232, 231)">
+<p>高优，已上线</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td style="background-color:rgb(252, 252, 202)">
+<p>通用管理-应急管控</p>
+</td>
+<td style="background-color:rgb(252, 252, 202)">
+<p>高</p>
+</td>
+<td style="background-color:rgb(252, 252, 202)">
+<p>低</p>
+</td>
+<td style="background-color:rgb(252, 252, 202)">
+<p>高优，已上线</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td>
+<p>风险排查-排查场景</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td>
+<p>反馈工单-映射场景</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td>
+<p>事件库-事件接入</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td>
+<p>通用管理-业务接入</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>低优</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td>
+<p>通用管理-字典管理</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>低优</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td>
+<p>通用管理-参数管理</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>低优</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td>
+<p>通用管理-调度任务</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>低优</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td>
+<p>反馈工单-模版配置</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>低优</p>
+</td>
+</tr>
+<tr>
+<th>
+<p></p>
+</th>
+<td>
+<p>审核中心-审核场景</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>中</p>
+</td>
+<td>
+<p>低优</p>
+</td>
+</tr>
+</table>
+</div>
+</details>
+</td>
+<td>
+<p>2024.9</p>
+</td>
+<td>
+<p><span>@姚珍珍</span></p>
+</td>
+<td>
+<p><span>@闫文茜</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>风险排查、事件库模块支持业务自主配置SLA监控</p>
+</td>
+<td>
+<p>2024.6</p>
+</td>
+<td>
+<p><span>@姚珍珍</span></p>
+</td>
+<td>
+<p><span>@闫文茜</span></p>
+</td>
+</tr>
+</table>
+<h2 id="section-460">五、SLA保障</h2>
+<table>
+<tr>
+<th>
+<p>平台</p>
+</th>
+<th>
+<p>指标</p>
+</th>
+<th>
+<p>保障值</p>
+</th>
+<th>
+<p>研发</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>Tatooine</p>
+</td>
+<td>
+<p>服务可用性</p>
+<p>TP999</p>
+</td>
+<td>
+<p>服务可用性 &gt;99.99%</p>
+<p>TP999&lt;300ms</p>
+</td>
+<td>
+<p><span>@张锡川</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>zeus</p>
+</td>
+<td>
+<p>服务可用性</p>
+<p>TP999</p>
+</td>
+<td>
+<p>服务可用性 &gt;99.99%</p>
+<p>TP999&lt;250ms</p>
+</td>
+<td>
+<p><span>@谢鹏飞</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>在线推理</p>
+</td>
+<td>
+<p>服务可用性</p>
+</td>
+<td>
+<p>服务可用性 &gt;99.99%</p>
+</td>
+<td>
+<p><span>@张宪贺</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>近线引擎</p>
+</td>
+<td>
+<p>账号安全下S和A级作业低可用时长</p>
+</td>
+<td>
+<p>&lt;1%</p>
+</td>
+<td>
+<p><span>@葛磊</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Hera</p>
+</td>
+<td>
+<p>服务可用性</p>
+</td>
+<td>
+<p>服务可用性 &gt;99.99%</p>
+</td>
+<td>
+<p><span>@张义波</span></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p></p>
+<div>
+
+</div>
+</article></main></body></html>

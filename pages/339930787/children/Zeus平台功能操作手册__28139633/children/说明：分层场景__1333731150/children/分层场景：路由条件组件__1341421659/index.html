@@ -1,0 +1,348 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>分层场景：路由条件组件</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-5">二、名词解释</a><a href="#section-53">三、使用指南</a><a href="#section-54">3.1 部署</a><a href="#section-102">3.2 短路条件</a><a href="#section-243">3.3 路由条件</a><a href="#section-302">3.4 其他Aviator文档</a><a href="#section-346">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：分层场景</a> / <a href="index.html">分层场景：路由条件组件</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/1341421659">查看学城原文</a></p><article>
+<h1>分层场景：路由条件组件</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>分层场景与普通场景的核心能力差异在于支持使用短路、路由等部署方法，构造出一个具有层级执行关系的图。这些能力集成在「路由条件组件」中。本文将介绍如何配置该组件。</p>
+<h1 id="section-5">二、名词解释</h1>
+<table>
+<tr>
+<th style="background-color:rgb(0, 55, 166);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:15px">名词</span></span></p>
+</th>
+<th style="background-color:rgb(0, 55, 166);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:15px">解释</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px"><a href="../../index.html" title="https://km.sankuai.com/page/1333731150"><strong>分层场景</strong></a></span></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">新的规则集合实体，对标过去一个普通场景，在场景内支持以层级关系+路由条件组织成树状的执行链路，使场景内策略达到分层执行的效果。因超时（或短路）未执行的链路将获得</span><span style="font-size:15px"><strong>补偿</strong></span><span style="font-size:15px">。</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="font-size:15px"><strong>路由条件</strong></span></p>
+</td>
+<td>
+<p><span style="font-size:14px">连接不同层级的策略节点的组件。</span><span><span style="font-size:14px">请求满足分支上的路由条件才能执行对应的下游的策略，类似多级路由中多个路由规则的集成，但不在规则列表中维护，仅归此分层场景所有，不支持跨树共享。在路由条件组件中，可选择启用决策相关的</span></span><span><span style="font-size:14px"><strong>短路条件</strong></span></span><span><span style="font-size:14px">。</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span style="font-size:15px"><strong>短路条件</strong></span></span></p>
+</td>
+<td>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:14px">「路由条件组件」里的一个配置项。如果开启短路条件，执行到该节点时会优先判断短路条件是否满足，满足则短路，不再往下路由。不满足则继续判断路由条件来决定是否向下个策略节点路由。</span></span></p>
+</td>
+</tr>
+</table>
+<h1 id="section-53">三、使用指南</h1>
+<h2 id="section-54">3.1 部署</h2>
+<table>
+<tr>
+<th style="background-color:rgb(0, 55, 166);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:rgb(0, 55, 166);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p>部署操作</p>
+<ul>
+<li>
+<p><span style="font-size:14px">拖拽：第一个拖进树的组件必须为策略节点。使用引线与上下层的路由条件组件相连。用例测试时，会检验有无断开的节点。成功在屏中拖拽出一个策略组件，将默认展开节点详情（右侧抽屉），在树中单击任意组件，右侧即切换为该组件的详情。</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">连线：路由条件组件上下各有一个空心圆，上方可以连接1条线，下方可连n条线。【1进n出，上方只能与策略节点输出连接，下方只能与策略节点输入连接】鼠标点按组件下方的圆形，拖动到下方层组件上方圆形处即可建立连线。</span></p>
+</li>
+<li>
+<p><span style="font-size:14px">清除：右键组件，点击删除后将该节点从分层场景中清除。对引线也可右键，点击删除即可删除策略节点之间的连线</span></p>
+</li>
+</ul>
+<p></p>
+<p>基本信息</p>
+<ul>
+<li><span style="font-size:14px">名称：可编辑，随时更新。在分层场景保存生效时真正生效。</span></li>
+<li><span style="font-size:14px">备注：可编辑，随时更新。在分层场景保存生效时真正生效。</span></li>
+</ul>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="font-size:14px">在组件左侧，有一个数字即为该组件在该分层场景中的编号ID。</span></p>
+<p><span style="font-size:14px">路由条件配置完成后，可以与下方多个策略节点相连接。需要在对应引线上选择对应判断哪个分支的条件，下方</span><span style="color:rgb(245, 35, 45)"><span style="font-size:14px">不同引线上不允许选择相同的分支</span></span><span style="font-size:14px">。</span></p>
+</div>
+</div>
+<p></p>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">选择分支</span></p>
+<p><img src="assets/19d12bc53ffc272f.png" width="481" height="363" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-102">3.2 短路条件</h2>
+<table>
+<tr>
+<th style="background-color:rgb(0, 55, 166);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px"><strong>说明</strong></span></span></p>
+</th>
+<th style="background-color:rgb(0, 55, 166);vertical-align:top">
+<p><span style="color:rgb(255, 255, 255)"><span style="font-size:14px">图</span></span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">1.启用短路条件</span></p>
+<p><span style="font-size:15px">默认不启用。选择「是」则</span><span style="color:rgb(38, 38, 38)"><span style="font-size:15px">开启短路条件。</span></span></p>
+<p><span style="color:rgb(38, 38, 38)"><span style="font-size:15px">效果：执行到该节点时会优先判断短路条件是否满足，满足则短路，不再往下路由；不满足则继续判断路由条件来决定是否向下个策略节点路由。</span></span></p>
+<p><span style="font-size:15px">启用后需要输入关于</span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">parent_decision_ids的表达式作为判断条件。</span></span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>请使用Aviator语法输入。短路条件只允许使用系统内置参数<span style="color:rgba(0, 0, 0, 0.87)">parent_decision_ids（含义：</span><span style="font-size:15px">上一个策略节点输出的决策ID</span><span style="color:rgba(0, 0, 0, 0.87)">），使用其他参数/因子都会提示报错。</span></p>
+</div>
+</div>
+<div class="note">
+<strong></strong>
+<div>
+<p>parent_decision_ids为<strong><u>数组类型</u></strong>，其中的元素为int型。例如：[65,25,103]，可参考下方常用例子输入表达式。</p>
+</div>
+</div>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p><span style="font-size:15px">说明</span></p>
+</th>
+<th>
+<p><span style="font-size:15px">示例</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p><span style="font-size:15px">上一个策略节点输出的决策ID非空</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">str(parent_decision_ids) != '[]'</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="vertical-align:middle">
+<p><span style="font-size:15px">上一个策略节点输出的决策ID为2</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">count(parent_decision_ids) == 1 &amp;&amp; include(parent_decision_ids, 2)</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="vertical-align:middle">
+<p><span style="font-size:15px">上一个策略节点输出的决策ID为24或14</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">count(parent_decision_ids) == 1 &amp;&amp; include(parent_decision_ids, 24) || include(parent_decision_ids, 14)</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+<p></p>
+</td>
+<td style="vertical-align:middle">
+<p><span style="font-size:15px">上一个策略节点输出的决策ID列表包含77</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">include(parent_decision_ids, 77)</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="vertical-align:middle">
+<p><span style="font-size:15px">上一个策略节点输出的决策ID列表包含77和2</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">include(parent_decision_ids, 77) &amp;&amp; include(parent_decision_ids, 2)</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="vertical-align:middle">
+<p><span style="font-size:15px">上一个策略节点输出的决策ID列表包含77或2</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">include(parent_decision_ids, 77) || include(parent_decision_ids, 2)</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td style="vertical-align:middle">
+<p><span style="font-size:15px">上一个策略节点输出的决策ID列表包含77但是不包含2</span></p>
+</td>
+<td>
+<p><span style="font-size:15px">include(parent_decision_ids, 77) &amp;&amp; !include(parent_decision_ids, 2)</span></p>
+</td>
+</tr>
+</table>
+<p><span style="font-size:15px">2.测试短路逻辑</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">点击【短路条件测试】，可以测试表达式的逻辑执行。在输入框设定该条表达式的输入值，即parent_decision_ids的值，选择执行后期望的输出，即命中与否。</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">点击测试按钮将会告知用户测试的结果为成功还是失败。</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">未进行测试，或是最新测试未通过时，状态为未就绪；</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">最新测试通过时，状态为已就绪。</span></span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="font-size:14px">1.此处并不会记录历史的测试结果，仅提示当前测试的通过与否，请在分层场景的「用例测试」环节之前确认短路条件逻辑就绪。</span></p>
+<p><span style="font-size:14px">2.短路条件仅允许使用zeus内置的参数parent_decision_ids</span></p>
+</div>
+</div>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">测试短路条件</span></p>
+<p><img src="assets/8491d52eeca85672.png" width="645" height="490" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h2 id="section-243">3.3 路由条件</h2>
+<table>
+<tr>
+<th style="background-color:#0037A6">
+<p><span style="color:#FFF"><span style="font-size:15px">说明</span></span></p>
+</th>
+<th style="background-color:#0037A6">
+<p><span style="color:#FFF">图</span></p>
+</th>
+</tr>
+<tr>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:15px">1.输入表达式</span></p>
+<p><span style="font-size:15px">请使用Aviator语法在路由条件各个分支中输入判断条件。路由条件分支默认至少1个，可以新增删除分支，分支校验不允许空。</span></p>
+<p><span style="font-size:15px">分支表达式的含义即为命中对应条件，即可向该分支指向的下一个策略节点路由。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>注意，路由条件仅支持普通参数，不支持因子与fetcher出参。若配置fetcher出参作为路由，<span style="color:rgb(255, 74, 71)">执行时将作为空值处理</span>！！</p>
+</div>
+</div>
+<p></p>
+<p><span style="font-size:15px">2.测试路由逻辑</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">点击【路由条件测试】，可以测试表达式的逻辑执行。</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">在输入框设定分支条件的输入值，即各个分支涉及到的参数的值，再填写执行后期望的输出，即命中的分支id的list，</span></span><span style="color:rgb(245, 35, 45)"><span style="font-size:15px">多个则用逗号（中文英文都可）隔开，例如：分支1，分支2 </span></span><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">。</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">点击测试按钮将会告知用户测试的结果为成功还是失败。</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">未进行测试，或是最新测试未通过时，状态为未就绪；</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:15px">最新测试通过时，状态为已就绪。</span></span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><span style="font-size:14px">1.此处并不会记录历史的测试结果，仅提示当前测试的通过与否，请在用例测试前确认短路条件逻辑就绪。</span></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><span style="font-size:14px">2.路由条件仅允许使用在zeus上注册过的参数，不允许使用因子。</span></span></p>
+</div>
+</div>
+</td>
+<td style="background-color:rgb(255, 255, 255);vertical-align:top">
+<p><span style="font-size:14px">测试路由条件的多个分支</span></p>
+<p><img src="assets/024bd5379848fecb.png" width="649" height="394" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-302">3.4 其他Aviator文档</h2>
+<table>
+<tr>
+<th style="background-color:#0037A6">
+<p></p>
+</th>
+<th style="background-color:#0037A6">
+<p><span style="color:#FFF">说明</span></p>
+</th>
+<th style="background-color:#0037A6">
+<p><span style="color:#FFF">链接</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>Aviator语法：详细介绍Aviator语法，包括基本类型和语法，函数等</p>
+</td>
+<td>
+<p><a href="https://www.yuque.com/boyan-avfmj/aviatorscript/cpow90" title="https://www.yuque.com/boyan-avfmj/aviatorscript/cpow90">https://www.yuque.com/boyan-avfmj/aviatorscript/cpow90</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>内置函数：详细介绍Aviator内置函数，包括函数书写，函数功能等</p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/28163535#id-4.6%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0" title="https://km.sankuai.com/page/28163535#id-4.6%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0">Aviator表达式简介</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>自定义拓展函数：详细介绍zeus现有自定义拓展函数</p>
+</td>
+<td>
+<p><a href="../../../说明：Zeus已支持扩展函数列表__28155153/index.html" title="https://km.sankuai.com/page/28155153">说明：Zeus已支持扩展函数列表</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>高阶表达式Array和Map的使用</p>
+</td>
+<td>
+<p><a href="https://km.sankuai.com/page/397391232" title="https://km.sankuai.com/page/397391232">最佳实践：高阶表达式Array和Map的使用</a></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-346">四、FAQ</h1>
+<table>
+<tr>
+<th style="background-color:rgb(0, 55, 166)">
+<p><span style="color:rgb(255, 255, 255)">问题</span></p>
+</th>
+<th style="background-color:rgb(0, 55, 166)">
+<p><span style="color:rgb(255, 255, 255)">答</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:22px">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+</article></main></body></html>

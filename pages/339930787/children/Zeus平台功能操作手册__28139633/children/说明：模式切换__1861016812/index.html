@@ -1,0 +1,142 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：模式切换</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-6">二、操作链路</a><a href="#section-8">三、操作说明</a><a href="#section-16">3.1 空间管理员视角</a><a href="#section-66">3.2 策略视角</a><a href="#section-123">四、FAQ</a><a href="#section-129">五、宣讲记录</a></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">说明：模式切换</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/1861016812">查看学城原文</a></p><p class="muted">本页视频保留原始链接，未下载视频文件。</p><article>
+<h1>说明：模式切换</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p><span style="font-size:15px">多风险域有对Zeus上规则因上游业务诉求反复调整，产生的操作成本希望提效的诉求。模式切换主要解决风险域通用策略模版难以固化需要重复配置产生大量冗余规则、在大促/日常/应急等模式下需要人工介入响应业务时效低等问题。</span></p>
+<h1 id="section-6">二、操作链路</h1>
+<img src="assets/f0bf9010a14ad801.svg" width="1320" height="434" alt="流程图">
+<h1 id="section-8">三、操作说明</h1>
+<div class="note">
+<strong></strong>
+<div>
+<p>模式切换功能按空间开启，未开启空间暂无法看到本功能。如需开启，可联系模式切换产品<span>@龙含嫣(Louise Long)</span>，研发<span>@谢鹏飞</span><span>@邓晏宁</span></p>
+</div>
+</div>
+<h2 id="section-16">3.1 空间管理员视角</h2>
+<ul>
+<li><strong>空间管理员主要完成空间内模式值的设定、编辑、删除</strong></li>
+</ul>
+<table>
+<tr>
+<th style="background-color:#F4F5F7">
+<p><span style="color:#000">说明</span></p>
+</th>
+<th style="background-color:#F4F5F7">
+<p><span style="color:#000">示意图</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><strong>【Step1】模式列表查看空间内已有模式值</strong></p>
+<ol>
+<li>系统默认生成空间内“默认模式”，不可编辑删除</li>
+<li>单空间内包括默认模式在内，最多新建五个枚举值</li>
+<li>单空间内模式枚举值不重复</li>
+</ol>
+</td>
+<td>
+<p><img src="assets/d785206922aab54d.png" width="1256.33" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>【Step2】添加模式枚举值</strong></p>
+<p>点击模式列表页右上角<span style="font-size:15px">「添加枚举」按钮，空间管理原可输入枚举值、含义、备注完成</span></p>
+</td>
+<td>
+<p><img src="assets/ca11625d1c776a02.png" width="1368.14" height="600" alt="image.jpeg"><img src="assets/fbb35f00da314e59.png" width="1249.84" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>【Step3】编辑枚举值</strong></p>
+<p>点击模式列表页右侧操作列-编辑，可对当前未被线上生效策略引用的枚举值</p>
+</td>
+<td>
+<p><img src="assets/1089fe84c6e1ba4f.png" width="1259.8" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>【Step4】删除枚举值</strong></p>
+<p>此处只有未被线上生效策略引用的枚举值可直接删除</p>
+</td>
+<td>
+<p><img src="assets/5ccf26c44dd44391.png" width="1259.08" height="600" alt="image.jpeg"><img src="assets/f39dfe38f4a2574a.png" width="1255.45" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-66">3.2 策略视角</h2>
+<ul>
+<li><strong>策略PM主要完成空间内各动参规则阈值设定及场景模式切换</strong></li>
+</ul>
+<table>
+<tr>
+<th style="background-color:rgb(244, 245, 247)">
+<p><span style="color:rgb(0, 0, 0)">说明</span></p>
+</th>
+<th style="background-color:rgb(244, 245, 247)">
+<p><span style="color:rgb(0, 0, 0)">示意图</span></p>
+</th>
+</tr>
+<tr>
+<td>
+<p><strong>【Step1】模式列表查看空间内已有模式值</strong></p>
+<p>可查看当前空间所有的模式值，如有修改需求可联系本空间管理员同学完成修改</p>
+</td>
+<td>
+<p><img src="assets/358ca71d1f6f2ccc.png" width="1255.62" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>【Step2】规则中配置动参</strong></p>
+<p>右变量选择动参后，系统将自动生成动参变量填充至右变量输入框中</p>
+</td>
+<td>
+<p><img src="assets/fe7553f5d4a091e1.png" width="1240.48" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>【Step3】规则设置动参模式阈值</strong></p>
+<p>根据诉求手动填写动参在不同模式下的阈值，若某模式与默认模式可执行阈值一致，则可点击右上角<span style="font-size:15px">「一键填充」自动复制默认模式中的值填入空白值。</span></p>
+</td>
+<td>
+<p><img src="assets/25ac206d04b0e4e7.png" width="1236.85" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>【Step4】将配置有动参的规则添加至场景中使用</strong></p>
+<p>同正常场景配置流程</p>
+</td>
+<td>
+<p><img src="assets/2be4ef687401ee00.png" width="1245.2" height="600" alt="image.jpeg"><img src="assets/f94d7cae079aee48.png" width="1266.08" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>【Step5】模式切换</strong></p>
+<p>点击模式管理右上角<span style="font-size:15px">「模式切换」按钮，新建发布任务进入变更环境</span></p>
+</td>
+<td>
+<p><img src="assets/25a01c18e0d92c1d.png" width="1251.04" height="600" alt="image.jpeg"><img src="assets/ca7f7a6d88bdba2e.png" width="1255.02" height="600" alt="image.jpeg"><img src="assets/f4cdc6e3a8a712dc.png" width="1238.31" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-123">四、FAQ</h1>
+<ol>
+<li>
+<p><strong>为什么实验室中修改规则没有生效？</strong></p>
+<p>当前实验室暂不支持规则内阈值变更和模式切换，预计二期迭代后开放功能。如有诉求，可联系liusimiao加急需求进展~</p>
+</li>
+</ol>
+<h1 id="section-129">五、宣讲记录</h1>
+<p>​</p>
+<figure><figcaption>视频（按要求仅保留名称和原链接）：<a href="https://km.sankuai.com/api/file/cdn/1861016812/78381721168?contentType=1">video1803541536.mp4</a></figcaption></figure>
+<p></p>
+<div>
+
+</div>
+</article></main></body></html>

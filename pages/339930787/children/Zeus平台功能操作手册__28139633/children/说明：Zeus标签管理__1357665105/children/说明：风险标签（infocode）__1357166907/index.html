@@ -1,0 +1,358 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：风险标签（infocode）</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-9">二、名词解释</a><a href="#section-43">三、操作指南</a><a href="#section-44">3.1 标签管理</a><a href="#section-495">3.2 给规则打标</a><a href="#section-540">3.3 批量删除与批量打标</a><a href="#section-631">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：Zeus标签管理</a> / <a href="index.html">说明：风险标签（infocode）</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/1357166907">查看学城原文</a></p><article>
+<h1>说明：风险标签（infocode）</h1>
+<div style="none"></div>
+<h1 id="section-3">一、背景</h1>
+<p>业务发展到一定程度，能够提炼出有限类的标签，来组合表征一个规则的业务含义。需要在执行后，能给下游传递这部分信息，以对风控结果做进一步有精细化运营的诉求。这类信息就被定义为infocode，以多级标签的形态管理，并绑定在规则上。标签本身具有优先级等属性，可供下游对信息做进一步加工。</p>
+<p>过去，zeus已有自身的标签体系，因此在infocode上线后，原标签体系定位为【管理类标签】，而infocode定位为【风险标签】。都在菜单-策略管理-标签中进行维护。</p>
+<details>
+<summary></summary>
+<div>
+
+</div>
+</details>
+<h1 id="section-9">二、名词解释</h1>
+<table>
+<tr>
+<th>
+<p>名词</p>
+</th>
+<th>
+<p>解释</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>管理类标签</p>
+</td>
+<td>
+<p>管理类标签用于在平台管理规则、因子、场景、特征、参数等实体。<a href="../说明：管理类标签__1357692026/index.html" title="https://km.sankuai.com/collabpage/1357692026">说明：管理类标签</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>风险标签</p>
+</td>
+<td>
+<p>风险标签仅能与规则绑定，有优先级属性，用于将规则本身携带的信息归类成体系。规则在命中后，会将这部分信息实时输出给调用方/下游。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>父标签</p>
+</td>
+<td>
+<p>当前标签归属的上一级标签即为当前标签的父标签。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>标签层级</p>
+</td>
+<td>
+<p>目前 风险标签 支持最多形成6级关系。即用户可创建的最高标签层级为1级 ，最低为6级</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>根标签</p>
+</td>
+<td>
+<p>系统内置的0级标签，默认作为所有1级标签的父标签。</p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-43">三、操作指南</h1>
+<h2 id="section-44">3.1 标签管理</h2>
+<table>
+<tr>
+<th>
+<p>模块</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>风险标签管理页</p>
+</td>
+<td>
+<p>菜单-策略管理-标签-风险标签Tab</p>
+<p>定义：区别于管理类标签。风险标签用于在规则命中后，向调用方/下游实时输出关于该条规则的风险信息。</p>
+<details>
+<summary>样例1-实时请求响应（<span style="color:#FF4A47">标红部分</span>）</summary>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.87)">{</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "requestId": "set-zf-rc-zeus-zeus-staging02-202207271555-3024",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decsionIdList": [],</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneConfDetailList": [</span><br><span style="color:rgba(0, 0, 0, 0.87)"> {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneId": 16187,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleId": 17305,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionId": 77,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "priority": 5,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonCode": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonDesc": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "status": 32,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "extraInfo": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleName": "liangjianhua_test2",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "accumulateFieldsExtraInfoList": [],</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonPriority": 0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleGroupId": 0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleGroupName": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "derivedParams": ""</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)"> ],</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "errMsg": "{}",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "code": 0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "factorResultJson": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "hitRuleFactorResultJson": {},</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "businessCode": 9,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneId": 16187,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionMergeResponse": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "mergeStrategy": 0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionIds": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionReasons": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionExtraInfoMap": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionDerivedParamMap": null</span><br><span style="color:rgba(0, 0, 0, 0.87)"> },</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "setCell": null,</span><br><span style="color:#FF4A47"> "infoCode": [</span><br><span style="color:#FF4A47"> {</span><br><span style="color:#FF4A47"> "ruleId": 17305,</span><br><span style="color:#FF4A47"> "tagId": 1610169,</span><br><span style="color:#FF4A47"> "tagName": "测试风险标签",</span><br><span style="color:#FF4A47"> "tagCode": 101,</span><br><span style="color:#FF4A47"> "layer": 1,</span><br><span style="color:#FF4A47"> "priority": 0,</span><br><span style="color:#FF4A47"> "parentInfo": {}</span><br><span style="color:#FF4A47"> },</span><br><span style="color:#FF4A47"> {</span><br><span style="color:#FF4A47"> "ruleId": 17305,</span><br><span style="color:#FF4A47"> "tagId": 1610170,</span><br><span style="color:#FF4A47"> "tagName": "测试风险标签子标签",</span><br><span style="color:#FF4A47"> "tagCode": 0,</span><br><span style="color:#FF4A47"> "layer": 2,</span><br><span style="color:#FF4A47"> "priority": 0,</span><br><span style="color:#FF4A47"> "parentInfo": {</span><br><span style="color:#FF4A47"> "1": {</span><br><span style="color:#FF4A47"> "tagId": 1610169,</span><br><span style="color:#FF4A47"> "tagName": "测试风险标签",</span><br><span style="color:#FF4A47"> "tagCode": 101,</span><br><span style="color:#FF4A47"> "priority": 0</span><br><span style="color:#FF4A47"> }</span><br><span style="color:#FF4A47"> }</span><br><span style="color:#FF4A47"> }</span><br><span style="color:#FF4A47"> ]</span><br><span style="color:rgba(0, 0, 0, 0.87)">}</span></p>
+</div>
+</details>
+<details>
+<summary>样例2-hive请求日志</summary>
+<div>
+<p><img src="assets/892c555992e83d1e.png" width="1278" height="476" alt="image.jpeg"></p>
+</div>
+</details>
+<details>
+<summary>样例3-mafka输出（<span style="color:#FF4A47">标红部分</span>）</summary>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.87)">{</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "takenEffectRuleIds": "2455046",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionIdToExtraInfoList": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "65": [</span><br><span style="color:rgba(0, 0, 0, 0.87)"> {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "test2": 123,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "test1": null</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)"> ]</span><br><span style="color:rgba(0, 0, 0, 0.87)"> },</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "subSceneIds": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "userid": 123,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "testRuleIds": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "markedRuleIds": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonCodes": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "businessCode": 9,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "requestId": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneId": 209423,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "fingerprint": {},</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "action": 0.0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisions": "0",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "grayRuleIds": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "multiLevelRouterSceneId": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "executeGrayRuleIds": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> </span><span style="color:#FF4A47">"infoCode": [</span><br><span style="color:#FF4A47"> {</span><br><span style="color:#FF4A47"> "ruleId": 2455046,</span><br><span style="color:#FF4A47"> "tagId": 821792,</span><br><span style="color:#FF4A47"> "tagName": "测试风险标签2",</span><br><span style="color:#FF4A47"> "tagCode": null,</span><br><span style="color:#FF4A47"> "layer": 1,</span><br><span style="color:#FF4A47"> "priority": 0,</span><br><span style="color:#FF4A47"> "parentInfo": {}</span><br><span style="color:#FF4A47"> },</span><br><span style="color:#FF4A47"> {</span><br><span style="color:#FF4A47"> "ruleId": 2455046,</span><br><span style="color:#FF4A47"> "tagId": 821793,</span><br><span style="color:#FF4A47"> "tagName": "测试风险标签1",</span><br><span style="color:#FF4A47"> "tagCode": null,</span><br><span style="color:#FF4A47"> "layer": 2,</span><br><span style="color:#FF4A47"> "priority": 0,</span><br><span style="color:#FF4A47"> "parentInfo": {</span><br><span style="color:#FF4A47"> "1": {</span><br><span style="color:#FF4A47"> "tagId": 821792,</span><br><span style="color:#FF4A47"> "tagName": "测试风险标签2",</span><br><span style="color:#FF4A47"> "tagCode": null,</span><br><span style="color:#FF4A47"> "priority": 0</span><br><span style="color:#FF4A47"> }</span><br><span style="color:#FF4A47"> }</span><br><span style="color:#FF4A47"> }</span><br><span style="color:#FF4A47"> ]</span><span style="color:rgba(0, 0, 0, 0.87)">,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionInfo": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "takenEffectStatus": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "65": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionDerivedParams": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionReason": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionExtraInfo": [</span><br><span style="color:rgba(0, 0, 0, 0.87)"> {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "test2": 123,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "test1": null</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)"> ]</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)"> },</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "markStatus": {},</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "grayStatus": {}</span><br><span style="color:rgba(0, 0, 0, 0.87)"> },</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneConfDetailList": [</span><br><span style="color:rgba(0, 0, 0, 0.87)"> {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleGroupName": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneId": 209423,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleName": "test123",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonCode": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleId": 2455046,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "priority": 5,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionId": 65,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleGroupId": 0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonDesc": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "status": 64,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "extraInfo": "{\"test2\":123,\"test1\":null}"</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)"> ],</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "paramContext": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__RULE_RUN_COMPLETE__": true,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "asyncCompensate": "{\"ruleInfo\":{},\"decisionInfo\":{},\"ruleToNodeId\":{}}",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__SYNC_COST_TIME__": 594,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__CACHE_FETCHED_PARAMS__": "[]",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "userid": 123,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "serverRequestId": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__REQUEST_TIME_FOR_ZEUS__": 1658924006593,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "action": 0.0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__FETCHER_ERROR__": "[{\"targetKeys\":[\"23.gis_lat_lng_bizcityinfo.shared_3-&gt;bankcard\"],\"errorMessage\":\"fetcher invoke condition not match\"}]",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sumTimeOfLongestPath": 529,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "zeusRequestIdForInvokeRemoteFetcher": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "traceId": "7723089567008213223",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__LONGEST_EXECUTE_PATH__": "RouterSceneId:null,sceneId:209423,longestPath:{decision_extra_info_3:0-&gt;bankcard:428-&gt;lng:1-&gt;}",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "cacheVersion": 22312700,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__SERVER_INTERRUPT_FACTOR_NAMES__": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "businessIdForInnerUse": 9,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "takenEffectAndMarkRulesRunTime": 594,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__CLIENT_APPKEY__": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "zeusFetcherErrorLog": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "factorToolExecuteInfo": "{\"5931\":{\"factorToolId\":5931,\"outputDetailList\":[{\"outputParamName\":\"sceneid\",\"score\":0.0,\"hitRuleDetail\":[]},{\"outputParamName\":\"action\",\"score\":0.0,\"hitRuleDetail\":[]}]}}",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__SCENE_RERUN_RULES__": {},</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneid": 0.0</span><br><span style="color:rgba(0, 0, 0, 0.87)"> },</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "hitRules": "2455046",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "subSceneKeys": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "accumulateDetails": [],</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "extraContext": {},</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionIds": "65",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "addtime": 1658924007,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "multiLevelRouterSceneKey": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "factorContext": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "regression_001": "others",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "factor_ip": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "e2_factor": false</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)">}</span></p>
+</div>
+</details>
+<p>标签以层级方式查看，可点每个标签前方的箭头，选择展开或收起其子标签。</p>
+</td>
+<td>
+<p><img src="assets/7d6f07095bf9951f.png" width="977.44" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>添加风险标签</p>
+</td>
+<td>
+<p>点击【添加标签】，在风险标签tab下，标签类型已经默认选择风险标签。</p>
+<p>输入自定义的标签名称，注意：名称不得与其他标签重复。</p>
+</td>
+<td>
+<p><img src="assets/62226e3b083184a6.png" width="960.87" height="600" alt="image.jpeg"></p>
+<p><img src="assets/9e7a8350558c143c.png" width="959.84" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>编辑标签内容</p>
+</td>
+<td>
+<p>允许编辑</p>
+<p>名称：不允许重复</p>
+<p>父标签：可选择别的父标签，即会使该标签从属到另一父标签下。</p>
+<p>标签优先级：允许更改</p>
+<p>标签编码：允许更改</p>
+<p></p>
+<p>删除：有依赖（已给规则打标过）的标签无法删除。</p>
+</td>
+<td>
+<p><img src="assets/1a51ea96a9b05d78.png" width="882.37" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>标签优先级重复提示</p>
+</td>
+<td>
+<p>若本次新增/编辑 提交的标签与已有标签的<span style="color:#FF4A47">优先级重复</span>，会弹窗提示用户此信息，并提供批量修改优先级的入口。</p>
+<p>（此时标签已经成功创建，平台允许同优先级标签存在）</p>
+<p>批量修改优先级入口也可以通过右上角【批量操作-批量修改优先级】 进入</p>
+</td>
+<td>
+<p><img src="assets/130794df816cd3e7.png" width="963.36" height="600" alt="image.jpeg"></p>
+<p><img src="assets/e5ec8accea080d16.png" width="1425" height="303.44" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>批量修改优先级</p>
+</td>
+<td>
+<p>对象类型（only风险标签，其他标签没有优先级）</p>
+<p>对象筛选：根据一系列搜索条件定位到需要批量修改优先级的项目。</p>
+<div class="note">
+<strong></strong>
+<div>
+<p>例：如本次添了一个优先级为500的标签，和原有某标签优先级重复，希望将原来大于500的优先级全部都+1，就可以搜索优先级范围500～999；也可根据标签id、名称、层级等进行搜索。</p>
+</div>
+</div>
+<p>在下方列表中，<span style="color:rgba(0, 0, 0, 0.9)">勾选最终需要修改的项目。确认表后方【修改为】字段的内容。点击提交，将会把勾选的项目进行批量提交修改。</span></p>
+</td>
+<td>
+<p><img src="assets/da2950b32010c9ce.png" width="1129.47" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-495">3.2 给规则打标</h2>
+<table>
+<tr>
+<th>
+<p>模块</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>规则-编辑-属性信息</p>
+</td>
+<td>
+<p>在规则编辑的第三步【属性信息】，可以为规则打上风险标签。</p>
+<p>点击【+新标签】，可在下拉框中，按照层级选择希望添加的标签。</p>
+<div class="note">
+<strong></strong>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.87)">注意：同规则仅允许赋予一条标签链路上的唯一标签。如有三层标签A1-A2-A3，不能同时给该规则同时赋予A2和A3。</span></p>
+</div>
+</div>
+<p>规则详情中，显示标签内容的格式为【……-父父标签-父标签-<span style="color:#FF4A47">当前标签</span>】</p>
+<p>点击【完成】，成功将标签打给该规则。</p>
+<p></p>
+<p>若需要按照<span style="color:#FF4A47">规则组</span>或其他条件<span style="color:#FF4A47">批量</span>给规则打上相同的标签，见3.3</p>
+</td>
+<td>
+<p><img src="assets/2d0046ba90fa05f0.png" width="965.57" height="600" alt="image.jpeg"></p>
+<p><img src="assets/a7edb9546885a4ab.png" width="924" height="600" alt="image.jpeg"></p>
+<p><img src="assets/354da88e568b724f.png" width="1425" height="282" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>规则列表页</p>
+</td>
+<td>
+<p>在规则列表页，也可以根据标签搜索规则。</p>
+<p>列表页中，考虑到展示效果，标签显示内容中 <span style="color:#FF4A47">不包含父标签信息</span>。</p>
+<p></p>
+</td>
+<td>
+<p><img src="assets/3b698f83780036b5.png" width="1425" height="521.77" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-540">3.3 批量删除与批量打标</h2>
+<table>
+<tr>
+<th>
+<p>模块</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>批量删除</p>
+</td>
+<td>
+<p><strong>功能描述</strong>：搜索定位<span style="color:#FF4A47">一批</span>具有<span style="color:#FF4A47">一个共同标签</span><span style="color:rgba(0, 0, 0, 0.9)">的对象（规则、因子、场景……）</span>，从这批对象中<span style="color:#FF4A47">删除掉</span><span style="color:rgba(0, 0, 0, 0.9)">对该标签的</span><span style="color:#FF4A47">引用关系</span>。</p>
+<p><strong>1.搜索要删除的对象标签</strong></p>
+<p>对象类型：选择要删除标签的对象<span style="color:rgba(0, 0, 0, 0.9)">（规则、因子、场景……）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">当选择规则时，需要进一步选择是【风险标签】还是【管理类标签】</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">如需要，也可以加上规则组维度进一步缩小范围。（组合搜索的逻辑：指定规则组中具有该标签的规则）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><strong>2.配置标签</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">下方配置标签list中，可以勾选最终需要确认删除的标签。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><strong>3.确认删除</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">最后点击【确认删除】，将会把该标签从对象中删去引用关系。</span></p>
+</td>
+<td>
+<p><img src="assets/0a8d017f7715cfe9.png" width="1425" height="489.34" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>批量打标</p>
+</td>
+<td>
+<p><strong>功能描述</strong>：搜索定位<span style="color:rgb(255, 74, 71)">一批</span><span style="color:rgba(0, 0, 0, 0.9)">对象（规则、因子、场景……）</span>，并选择一个期望配置的标签，给这批对象批量<span style="color:rgb(255, 74, 71)">加上</span><span style="color:rgba(0, 0, 0, 0.9)">对该标签的</span><span style="color:rgb(255, 74, 71)">引用关系</span>。</p>
+<p><strong>1.搜索要打标的对象</strong></p>
+<p>对象类型：选择要打标签的对象<span style="color:rgba(0, 0, 0, 0.9)">（规则、因子、场景……）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">当选择规则时，可以进一步选择用【风险标签】还是【管理类标签】来搜索。如需要也可以加上规则组维度进一步缩小范围（组合搜索的逻辑：指定规则组中 具有 该标签的规则）也可以只用规则组1个条件进行对象搜索</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">点击【查询】下方配置标签List会根据搜索条件展示所有搜到的对象。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>也可以选择<span style="color:#FF4A47">按文件</span>查询对象，准备txt文件，英文逗号隔开所有对象id。上传后，点击确认导入即可在下方list出现对象。示例：</p>
+<p>附件：<a href="https://km.sankuai.com/api/file/cdn/1357166907/4159183855?contentType=0">a.txt</a>（28B；仅保留名称和原链接）</p>
+</div>
+</div>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><strong>2.批量配置标签</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">需要在此处选择，想要给这批对象打上什么标签。（对象为规则时，还需要选择打管理类还是风险标签）如图中，选择“zq测试2级”后，下方List中所有对象将要打上的标签都变为“zq测试2级”。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><strong>3.配置标签</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">此时可以针对其中具体的某条对象进行微调，下拉选择别的标签。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><strong>4.确认打标</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">勾选最终需要确认打标的项目。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">最后点击【确认打标】，将给勾选项目，打上所配置的标签。</span></p>
+</td>
+<td>
+<p><img src="assets/43f74ba8f7877950.png" width="952.96" height="600" alt="image.jpeg"></p>
+<p><img src="assets/f8989334c18b1cbf.png" width="1116.87" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-631">四、FAQ</h1>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>问题</p>
+</th>
+<th>
+<p>答</p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>风险标签返回的消息格式是什么样的？</p>
+</td>
+<td>
+<p>见样例</p>
+<details>
+<summary>样例1-实时请求响应（<span style="color:rgb(255, 74, 71)">标红部分</span>）</summary>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.87)">{</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "requestId": "set-zf-rc-zeus-zeus-staging02-202207271555-3024",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decsionIdList": [],</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneConfDetailList": [</span><br><span style="color:rgba(0, 0, 0, 0.87)"> {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneId": 16187,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleId": 17305,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionId": 77,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "priority": 5,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonCode": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonDesc": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "status": 32,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "extraInfo": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleName": "liangjianhua_test2",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "accumulateFieldsExtraInfoList": [],</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonPriority": 0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleGroupId": 0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleGroupName": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "derivedParams": ""</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)"> ],</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "errMsg": "{}",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "code": 0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "factorResultJson": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "hitRuleFactorResultJson": {},</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "businessCode": 9,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneId": 16187,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionMergeResponse": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "mergeStrategy": 0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionIds": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionReasons": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionExtraInfoMap": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionDerivedParamMap": null</span><br><span style="color:rgba(0, 0, 0, 0.87)"> },</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "setCell": null,</span><br><span style="color:rgb(255, 74, 71)"> "infoCode": [</span><br><span style="color:rgb(255, 74, 71)"> {</span><br><span style="color:rgb(255, 74, 71)"> "ruleId": 17305,</span><br><span style="color:rgb(255, 74, 71)"> "tagId": 1610169,</span><br><span style="color:rgb(255, 74, 71)"> "tagName": "测试风险标签",</span><br><span style="color:rgb(255, 74, 71)"> "tagCode": 101,</span><br><span style="color:rgb(255, 74, 71)"> "layer": 1,</span><br><span style="color:rgb(255, 74, 71)"> "priority": 0,</span><br><span style="color:rgb(255, 74, 71)"> "parentInfo": {}</span><br><span style="color:rgb(255, 74, 71)"> },</span><br><span style="color:rgb(255, 74, 71)"> {</span><br><span style="color:rgb(255, 74, 71)"> "ruleId": 17305,</span><br><span style="color:rgb(255, 74, 71)"> "tagId": 1610170,</span><br><span style="color:rgb(255, 74, 71)"> "tagName": "测试风险标签子标签",</span><br><span style="color:rgb(255, 74, 71)"> "tagCode": 0,</span><br><span style="color:rgb(255, 74, 71)"> "layer": 2,</span><br><span style="color:rgb(255, 74, 71)"> "priority": 0,</span><br><span style="color:rgb(255, 74, 71)"> "parentInfo": {</span><br><span style="color:rgb(255, 74, 71)"> "1": {</span><br><span style="color:rgb(255, 74, 71)"> "tagId": 1610169,</span><br><span style="color:rgb(255, 74, 71)"> "tagName": "测试风险标签",</span><br><span style="color:rgb(255, 74, 71)"> "tagCode": 101,</span><br><span style="color:rgb(255, 74, 71)"> "priority": 0</span><br><span style="color:rgb(255, 74, 71)"> }</span><br><span style="color:rgb(255, 74, 71)"> }</span><br><span style="color:rgb(255, 74, 71)"> }</span><br><span style="color:rgb(255, 74, 71)"> ]</span><br><span style="color:rgba(0, 0, 0, 0.87)">}</span></p>
+</div>
+</details>
+<details>
+<summary>样例2-hive请求日志</summary>
+<div>
+<p><img src="assets/38f7db3a7979c3ee.png" width="1278" height="476" alt="image.jpeg"></p>
+</div>
+</details>
+<details>
+<summary>样例3-mafka输出（<span style="color:rgb(255, 74, 71)">标红部分</span>）</summary>
+<div>
+<p><span style="color:rgba(0, 0, 0, 0.87)">{</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "takenEffectRuleIds": "2455046",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionIdToExtraInfoList": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "65": [</span><br><span style="color:rgba(0, 0, 0, 0.87)"> {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "test2": 123,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "test1": null</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)"> ]</span><br><span style="color:rgba(0, 0, 0, 0.87)"> },</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "subSceneIds": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "userid": 123,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "testRuleIds": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "markedRuleIds": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonCodes": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "businessCode": 9,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "requestId": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneId": 209423,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "fingerprint": {},</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "action": 0.0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisions": "0",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "grayRuleIds": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "multiLevelRouterSceneId": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "executeGrayRuleIds": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> </span><span style="color:rgb(255, 74, 71)">"infoCode": [</span><br><span style="color:rgb(255, 74, 71)"> {</span><br><span style="color:rgb(255, 74, 71)"> "ruleId": 2455046,</span><br><span style="color:rgb(255, 74, 71)"> "tagId": 821792,</span><br><span style="color:rgb(255, 74, 71)"> "tagName": "测试风险标签2",</span><br><span style="color:rgb(255, 74, 71)"> "tagCode": null,</span><br><span style="color:rgb(255, 74, 71)"> "layer": 1,</span><br><span style="color:rgb(255, 74, 71)"> "priority": 0,</span><br><span style="color:rgb(255, 74, 71)"> "parentInfo": {}</span><br><span style="color:rgb(255, 74, 71)"> },</span><br><span style="color:rgb(255, 74, 71)"> {</span><br><span style="color:rgb(255, 74, 71)"> "ruleId": 2455046,</span><br><span style="color:rgb(255, 74, 71)"> "tagId": 821793,</span><br><span style="color:rgb(255, 74, 71)"> "tagName": "测试风险标签1",</span><br><span style="color:rgb(255, 74, 71)"> "tagCode": null,</span><br><span style="color:rgb(255, 74, 71)"> "layer": 2,</span><br><span style="color:rgb(255, 74, 71)"> "priority": 0,</span><br><span style="color:rgb(255, 74, 71)"> "parentInfo": {</span><br><span style="color:rgb(255, 74, 71)"> "1": {</span><br><span style="color:rgb(255, 74, 71)"> "tagId": 821792,</span><br><span style="color:rgb(255, 74, 71)"> "tagName": "测试风险标签2",</span><br><span style="color:rgb(255, 74, 71)"> "tagCode": null,</span><br><span style="color:rgb(255, 74, 71)"> "priority": 0</span><br><span style="color:rgb(255, 74, 71)"> }</span><br><span style="color:rgb(255, 74, 71)"> }</span><br><span style="color:rgb(255, 74, 71)"> }</span><br><span style="color:rgb(255, 74, 71)"> ]</span><span style="color:rgba(0, 0, 0, 0.87)">,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionInfo": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "takenEffectStatus": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "65": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionDerivedParams": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionReason": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionExtraInfo": [</span><br><span style="color:rgba(0, 0, 0, 0.87)"> {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "test2": 123,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "test1": null</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)"> ]</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)"> },</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "markStatus": {},</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "grayStatus": {}</span><br><span style="color:rgba(0, 0, 0, 0.87)"> },</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneConfDetailList": [</span><br><span style="color:rgba(0, 0, 0, 0.87)"> {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleGroupName": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneId": 209423,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleName": "test123",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonCode": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleId": 2455046,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "priority": 5,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionId": 65,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "ruleGroupId": 0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "reasonDesc": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "status": 64,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "extraInfo": "{\"test2\":123,\"test1\":null}"</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)"> ],</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "paramContext": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__RULE_RUN_COMPLETE__": true,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "asyncCompensate": "{\"ruleInfo\":{},\"decisionInfo\":{},\"ruleToNodeId\":{}}",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__SYNC_COST_TIME__": 594,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__CACHE_FETCHED_PARAMS__": "[]",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "userid": 123,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "serverRequestId": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__REQUEST_TIME_FOR_ZEUS__": 1658924006593,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "action": 0.0,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__FETCHER_ERROR__": "[{\"targetKeys\":[\"23.gis_lat_lng_bizcityinfo.shared_3-&gt;bankcard\"],\"errorMessage\":\"fetcher invoke condition not match\"}]",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sumTimeOfLongestPath": 529,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "zeusRequestIdForInvokeRemoteFetcher": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "traceId": "7723089567008213223",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__LONGEST_EXECUTE_PATH__": "RouterSceneId:null,sceneId:209423,longestPath:{decision_extra_info_3:0-&gt;bankcard:428-&gt;lng:1-&gt;}",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "cacheVersion": 22312700,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__SERVER_INTERRUPT_FACTOR_NAMES__": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "businessIdForInnerUse": 9,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "takenEffectAndMarkRulesRunTime": 594,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__CLIENT_APPKEY__": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "zeusFetcherErrorLog": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "factorToolExecuteInfo": "{\"5931\":{\"factorToolId\":5931,\"outputDetailList\":[{\"outputParamName\":\"sceneid\",\"score\":0.0,\"hitRuleDetail\":[]},{\"outputParamName\":\"action\",\"score\":0.0,\"hitRuleDetail\":[]}]}}",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "__SCENE_RERUN_RULES__": {},</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "sceneid": 0.0</span><br><span style="color:rgba(0, 0, 0, 0.87)"> },</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "hitRules": "2455046",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "subSceneKeys": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "accumulateDetails": [],</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "extraContext": {},</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "decisionIds": "65",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "addtime": 1658924007,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "multiLevelRouterSceneKey": "",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "factorContext": {</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "regression_001": "others",</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "factor_ip": null,</span><br><span style="color:rgba(0, 0, 0, 0.87)"> "e2_factor": false</span><br><span style="color:rgba(0, 0, 0, 0.87)"> }</span><br><span style="color:rgba(0, 0, 0, 0.87)">}</span></p>
+</div>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+<p></p>
+</td>
+<td>
+<p>配置了风险标签，也给规则打了标，但是实时返回结果里没有。</p>
+</td>
+<td>
+<p>请先确认本业务是否通过Tatooine请求zeus，若是，需要联系PM<span>@周强</span>和RD<span>@方小远</span>提需求，将在Tatooine对返回结果做加工，方可使用。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p>为什么不允许在同个规则中同时配置子标签及其父标签？</p>
+<p><img src="assets/b14b50f3bbce388f.png" width="282" height="196" alt="image.jpeg"></p>
+</td>
+<td>
+<p>规则命中时，返回消息体中<span style="color:#FF4A47">已经包括标签本身内容和其父标签信息</span>，见Q1，为防止消息体过大，冗余信息占用资源，遂限制该类配置。</p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:22px">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+</article></main></body></html>

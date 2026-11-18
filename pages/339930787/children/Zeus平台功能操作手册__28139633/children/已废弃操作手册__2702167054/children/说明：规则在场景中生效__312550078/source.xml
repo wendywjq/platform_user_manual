@@ -1,0 +1,15 @@
+<km-doc>
+<km-title nodeId="4b926c1f403448dbaeb808e9b408e806">说明：规则在场景中生效</km-title>
+<km-catalog style="none" nodeId="86c51a73b5bb49c4ad6de6c31a5e4bf2" />
+<h1 nodeId="7e673baaa0f3407aa05926d798b1292f">一、背景</h1>
+<p nodeId="f9b24250e0d749c69ad2a2ae423996b5">如果业务开通了强制标记权限，则新添加的场景配置必须在场景下标记30分钟方可再修改状态为生效。标记满足30分钟，会有大象通知标记完成。因此，在标记时间满足后，可以将场景状态改为生效。</p>
+<h1 nodeId="7520c2ea8dc04d558dbe5fa5254b7b47">二、操作说明</h1>
+<h2 nodeId="12e98c964d2c4da68c2609301b1ba806">step1：入口</h2>
+<p nodeId="d0b1967a940a445a880fa60d454bde7c">策略部署—&gt;场景</p>
+<p nodeId="a1273bb1f7834a99bc269ec05e820ce7"><img src="https://km.sankuai.com/api/file/cdn/312550078/90239518143?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1920" height="454" nodeId="3323c109a23d40c1a38e39976885307d" /></p>
+<h2 nodeId="adc59b8e004547b683f7c04d321894ee">step2：场景配置列表—修改场景下规则的状态</h2>
+<p nodeId="04052e0619b0454b944dc6b32cb74cd2">进入场景配置列表，选中相应场景，点击编辑，将状态改为生效，点击保存</p>
+<p nodeId="98bda0bbc4744305b44d72913529ad7e"><img src="https://km.sankuai.com/api/file/cdn/312550078/90242991212?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1171" height="600" nodeId="87d21c1d04e14c32a47af57d4fe00b95" /></p>
+<p nodeId="a640173640c44b28ba7dacee41dbed55" />
+<p nodeId="bc90465b6e274acfa8cad8c16cd58abb"><img src="https://km.sankuai.com/api/file/cdn/312550078/90240581690?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1179" height="600" nodeId="5c31d6a808394fb2a409eaadb67ab210" /></p>
+</km-doc>

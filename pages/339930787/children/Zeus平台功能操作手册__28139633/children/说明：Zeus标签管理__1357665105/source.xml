@@ -1,0 +1,42 @@
+<km-doc>
+<km-title nodeId="0b0024ef0c614a5f865785f9895af880">说明：Zeus标签管理</km-title>
+<p nodeId="1767949996b34e8d8004c23397d4efaf">当前，Zeus标签体系共分为以下两大类标签。</p>
+<table responsive="false" nodeId="d9da0122c5ab43c99097cd8b4bdd1901">
+<tr nodeId="98b0b90fb3af4761b1b90e27adde9460">
+<th colwidth="[99]" nodeId="12332849003b42c3a7cf060e1532b26d">
+<p nodeId="7cefc093a78f49d9813c1eca4dad2749"><span font-size="14">标签类型</span></p>
+</th>
+<th colwidth="[214]" nodeId="5af7ebd4c6eb4b55ac6bae8f678c397b">
+<p nodeId="224343747685467995664c99e8c6268e"><span font-size="14">使用指南</span></p>
+</th>
+<th colwidth="[537]" nodeId="24dd688267264f5aac0ccb52a46ff690">
+<p nodeId="eb794f61859044c0aa81e95233e1e3a1"><span font-size="14">说明</span></p>
+</th>
+</tr>
+<tr nodeId="684c1f0855e944e0bed4bf8b74f91993">
+<td colwidth="[99]" nodeId="b546340a145b48e695b6123ff7289578">
+<p nodeId="cb01f9b0734844b1a215bcc1a72cd6b5"><span font-size="14">管理类标签</span></p>
+<p nodeId="0200f74e5f26471096e83d39da846515" />
+</td>
+<td colwidth="[214]" nodeId="64c73213c0354351aebf5ad59a90703f">
+<p nodeId="7d525dedf47d4aabb6f8de766d2e7e58"><a href="https://km.sankuai.com/collabpage/1357692026" title="https://km.sankuai.com/collabpage/1357692026" autoUpdate="true" nodeId="f22c0736ede843f6aceec4bb4fcdaed2"><span font-size="14">https://km.sankuai.com/collabpage/1357692026</span></a></p>
+</td>
+<td colwidth="[537]" nodeId="a301913d9f104993bbd359adb7c34f1c">
+<p align="start" nodeId="8282285dd5ab45a799a716f81eba8fb7"><span font-size="14">管理类标签用于在平台管理规则、因子、场景、特征、参数等实体。</span></p>
+</td>
+</tr>
+<tr nodeId="a38e240ca1784b6e97dae278c85751f9">
+<td colwidth="[99]" nodeId="3bade54f500e40188d8f736c48cbb8ef">
+<p nodeId="ab2e0d0df2de42b6b77234b6a50830ed"><span font-size="14">风险标签</span></p>
+<p nodeId="50a48d7d09734eb4803aaaa2c2d85e93" />
+</td>
+<td colwidth="[214]" nodeId="0675b6b387f349e6869bb8f906625f2d">
+<p nodeId="cfad91e3c52a44d5a5e4be1626ec41b5"><a href="https://km.sankuai.com/collabpage/1357166907" title="https://km.sankuai.com/collabpage/1357166907" autoUpdate="true" nodeId="3977afde7db341c9827b21d05e5eee7a"><span font-size="14">https://km.sankuai.com/collabpage/1357166907</span></a></p>
+</td>
+<td colwidth="[537]" nodeId="7c8cc59f9b504da486e23c3ed59d72d3">
+<p nodeId="05a2c3ecabb3494f8a79cf4f4af46df5"><span font-size="14">风险标签仅能与规则绑定，有优先级属性，用于将规则本身携带的信息归类成体系。规则在命中后，会将这部分信息实时输出给调用方/下游。</span></p>
+</td>
+</tr>
+</table>
+<p nodeId="c18233553a164b21877616eedcd3841a" />
+</km-doc>

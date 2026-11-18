@@ -1,0 +1,159 @@
+<km-doc>
+<km-title nodeId="fe3bced87a554efc924d8bcf45ba56e1">说明：数据管理</km-title>
+<km-catalog style="none" nodeId="47c253e025f646939b014467e524a7e5" />
+<h1 nodeId="8b1de5fc6581467cbcf1931b54ffc0aa">一、功能说明与适用场景</h1>
+<ul nodeId="72340b06540442aeb390359afac7da3a">
+<li nodeId="2db732f4df47426593a025bb21bf1c14">数据管理：主要做入引擎数据的初始化定义，包含hive表、MQ两种信息。需用户前置在<a href="https://km.sankuai.com/page/986699376" title="万象" nodeId="a323d5c64458480686c93fae07877d8a">万象</a>上，将hive表/MQ(kafka/Mafka) 做Zeus读取授权，Zeus权限名称<img src="https://km.sankuai.com/api/file/cdn/1577280785/40862266767?contentType=1&amp;isNewContent=false" name="image.jpeg" width="125" height="27" nodeId="3086a503d0444f8c8067594e6886a108" />。注册后，可在Zeus近线引擎-画布、离线引擎-场景使用。其中mafka可不用申请</li>
+<li nodeId="160508ad1c8947c89cc2e5e3aee853ab">
+<p nodeId="8c7e84a833694ba29b7a0fdf36014226">注册后，引用MQ/hive的作业（画布/场景）中的策略，将以初始化后的参数为执行输入信息key，因此数据映射过程需要用户关注：</p>
+<ol nodeId="cecae869fe5a4e2b955512104d05b4f2">
+<li nodeId="4f9547eb8d0e41b19427322180dbdc0f">若映射过程中 数据原始参数与平台参数命名、类型一致，则在后续策略中可以直接使用该命名；</li>
+<li nodeId="bf0aa9cba41c408786f48e270625710e">若数据原始参数与平台参数名不一致，则后续策略中需要使用平台参数；</li>
+<li nodeId="f2a247924b34435c80f760f7a0dd6a61">若数据原始参数与平台参数名一致、类型不一致，且在做映射时允许该情况，则后续策略中需要使用平台参数的类型；</li>
+</ol>
+</li>
+<li nodeId="4bdf3e110bc2471fb7166a03cd81014a">为什么要做数据初始化？</li>
+</ul>
+<p nodeId="23f36c28916d40caaeca0e6af3d6bcdd">a.以近线为例，<span color="rgba(0, 0, 0, 0.87)">Flink会自动退化到kryo序列化器，这种序列化器是非flink自身实现的且性能较差，导致作业序列化以及网络传输成本高，从而影响作业性能</span></p>
+<p nodeId="4a0b8a7e82c147b9aacffd8551a53a24"><span color="rgba(0, 0, 0, 0.87)">b.需要做数据源与执行策略逻辑间的映射，若无该功能，需要上游业务配合，面向多风险域、多业务方存在冗余开发成本。</span></p>
+<h1 nodeId="00ca4d40d81d4fc5a6a44c61d02fdc24">二、使用概览</h1>
+<km-drawio src="https://km.sankuai.com/api/file/cdn/1577280785/28290111426?contentType=0&amp;isNewContent=false" width="786" height="316" nodeId="f8b908ef19864f38bb6913505d657743" />
+<h1 nodeId="988224bb9f6f40238471f393f1ae213d">三、操作指南</h1>
+<table responsive="false" nodeId="3a56e32e719646a9897e553f12129c03">
+<tr nodeId="d1e8659ff4d44aae8376eda19276c12d">
+<th colwidth="[621]" nodeId="651ea5314ff041938a81214f0c066752">
+<p nodeId="9e971d8f44214f2988fc85151b9bc417">说明（以MQ为例）</p>
+</th>
+<th colwidth="[666]" nodeId="1b32f6402bd84153bb4b6b94003ed94b">
+<p nodeId="78483baedf9741479ff3eafb6ecd9393">页面</p>
+</th>
+</tr>
+<tr nodeId="1e1d3ad104ce4fbba9e182a891838f00">
+<td colwidth="[621]" nodeId="92b89fe3e1fc4b438204d56e9de1e0b3">
+<p nodeId="4c3c9aa08dc945c5bb9929dec5d17c5a">【入口】</p>
+<p nodeId="7d62a53ab6d54eef9e81f676f92a25b5">配置中心--&gt;数据管理--&gt;新建MQ</p>
+</td>
+<td colwidth="[666]" nodeId="3520332e2a56468c9b4e23d72c73db70">
+<p nodeId="5bd3a180ed124078b39db9a60d931532"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28281189069?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1192" height="454.45" nodeId="b8042cc0a34b46c09b3c11ed07367932" /></p>
+</td>
+</tr>
+<tr nodeId="ae21d1115adc47a0b1f4ac94972669fd">
+<td colwidth="[621]" nodeId="68cb5618a11e4cce94d91041131b423e">
+<p nodeId="c542eccf629b4b2faa91476389df13a2">【新建】</p>
+<ul nodeId="73af92598c0649f38769079d67d82285">
+<li nodeId="5cbf0b556e0340e88dc192d889ea2978">
+<p nodeId="25a05c9afa334748a257b0425c8e1283">Kafka：</p>
+<ul nodeId="993f9abc97c243bda0483fc047255526">
+<li nodeId="71c9554ad86c4de19105f4d719783692"><span color="">名称：kafka topic的名称，必填</span></li>
+<li nodeId="069eabf2d5234c72ac7f73c79018c6ba">namespace：支持中英文，为topic所在的space组，必填</li>
+<li nodeId="32a770f1c79b4e81a915e4f1b56434e8">水印时间：即Watermark<km-footnote id="006afdca-8e52-49d5-ac13-f5fb77c22a0c" annotate="水印时间：即Watermark：对于窗口类的组件，Watermark可以理解成一个窗口延迟触发机制，用用来解决乱序问题的。我们可以设置Watermark的延时时长t，每次系统会校验已经到达的数据中最大的maxEventTime，然后认定eventTime小于maxEventTime - t的所有数据都已经到达，如果有窗口的停止时间等于maxEventTime – t，那么这个窗口被触发执行" nodeId="204856a4b9484354b9a60cacc03b7e68" /></li>
+<li nodeId="1e007e630dd2405a834c13bdba55f63f">时间维度：指画布/任务执行的时间戳，如果不填topic中的时间字段，则默认系统时间戳，即画布开始运行的时间字段，非必填；若填写需要设定时间维度格式。</li>
+<li nodeId="59d1312e939d4043853a640712103278">
+<p nodeId="d61e72b273dc437a874091cd5fc1d2da">时间维度格式：支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</p>
+<p nodeId="8af76be3585c4828830cd07a38eee98f">默认原格式说明：<span color="rgba(0, 0, 0, 0.87)">只处理时间戳格式字段且被格式化成秒级别</span></p>
+</li>
+<li nodeId="b82feb6a37cb406bb132cab60b74454a">备注：用户可对该kafka组件进行备注，非必填</li>
+<li nodeId="bc07a5210ae74bfd898ada97c8c09398">日志类型：即确定所选kafka topic的日志类型，支持Log、NewLog、Snappy，必选</li>
+</ul>
+</li>
+<li nodeId="dc97824312ba4a21afb8d0ffcf9596dd">
+<p nodeId="96cf60e0d9d049579f7cade3f02f01a9">Mafka：</p>
+<ul nodeId="2bfb1d791dcb4e148457ef5fbdf827f3">
+<li nodeId="212e3714fdfc40f4a97e854633c75f1a">
+<p align="start" nodeId="f612c752bb544828a4cff9bd4ef59d0d"><span font-size="14">名称：支持中英文数字等，不超过128字符。填写后画布中央的组件名称会变更，必填</span></p>
+</li>
+<li nodeId="027823567e9840f5a65993d2f9c64808">
+<p align="start" nodeId="6fd49c09bab548fcbce7be17d3c66082"><span font-size="14">namespace：支持中英文，为topic所在的space组，必填</span></p>
+</li>
+<li nodeId="e28510d2ea83483eb23e46b898ae8e17"><span color="">subscribeGroup：mafka消费组</span></li>
+<li nodeId="c4a948fc845e4509b394fca9a8a0c3f2">
+<p align="start" nodeId="c719bec8e555404ba5d0877f5622c3c1"><span font-size="14">Topic：指整个画布配置的topic的名称，必填</span></p>
+</li>
+<li nodeId="a885783c18224bb7ada5ec43d497ef05"><span font-size="14">消费组appkey</span></li>
+<li nodeId="1c1379d08aae4238812fbc76b98735bc">
+<p nodeId="54c8d45771824b7992289a3184d3d2ee"><span font-size="14">是否配置set消费：默认不配置set消费</span></p>
+<ol nodeId="22cc4d26c12e4df7b528adcb4ebd8eba">
+<li nodeId="11d4d283830a4b3089fa531172d2ddcc">跨set消费：选中后，将消费所有set</li>
+<li nodeId="038cbadec3e649d6b0a80fc4acb2536c">指定set<span color="">消费</span>：选中后，需指定一个cell</li>
+</ol>
+</li>
+<li nodeId="c3f12ef7567f41a0ae07258bdff48f56">
+<p nodeId="202f3edc966b4752b8da8d51a08a9539"><span color="">消费起点：默认选中从最新消费</span></p>
+<ol nodeId="2860001b0f1d42a186ecfc2fc0a5a8bb">
+<li nodeId="3104d47c453d41fea1d7f4a60657fcdf">从最新消费</li>
+<li nodeId="d05a3070a09d4fd287291e68868c4223">指定消费起始时间：需选择<span color="rgb(0, 0, 0)">消费起始的时间，默认回溯一天。如果需要回溯多天消息，请先前往</span><a href="http://mafka.mws-test.sankuai.com/consumer/95119569/detail/track?showPriority=1&amp;topicId=26027805&amp;consumerId=95119572&amp;buId=5&amp;action=monitor" title="mafka平台申请白名单" nodeId="e65f1965423e43788dbf143f3540eb2f">mafka平台申请白名单</a><span color="rgb(0, 0, 0)">，若未申请白名单但选择多天，系统将自动只回溯一天消息</span></li>
+<li nodeId="7a24329877754ffaa4f868194f79cd9a">接上次消费</li>
+</ol>
+</li>
+<li nodeId="920f1d5a4a9040e995c3203197d32140">
+<p align="start" nodeId="b7121af487474ee3834ff6c130501855"><span font-size="14">时间维度：指画布任务执行的时间戳，如果不填topic中的时间字段，则默认系统时间戳，即画布开始运行的时间字段，非必填</span></p>
+</li>
+<li nodeId="712afc4d460d4e97b8aaf869becdd39d">
+<p align="start" nodeId="81d8b897c02240daa455322e579812ff"><span font-size="14">时间维度格式：支持用户对时间维度字段的格式进行转换，如果不填，则默认原格式，非必填</span></p>
+</li>
+<li nodeId="546aa4f65b034e0f822a743b27565407">
+<p align="start" nodeId="98ed8a607d3b4ab79bb22a64bf0da3c6"><span font-size="14">备注：用户可对该组件进行备注，非必填</span></p>
+</li>
+<li nodeId="cd10fd89009e439180afcb30bd6a4e85">
+<p align="start" nodeId="17fc284f60564fd29f7282fff572f32e"><span font-size="14">日志类型：即确定所选topic的日志类型，支持Log、NewLog、Snappy，必选</span></p>
+</li>
+</ul>
+</li>
+</ul>
+<p nodeId="4b02387186204217b4c9722bd1864560" />
+</td>
+<td colwidth="[666]" nodeId="bc6bc895e32b4f0dbc12c53f9f4d49f0">
+<p nodeId="5550767f6db849f395dc6a506f58ea57"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28290111435?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1192" height="459.87" nodeId="198b8f31ffdb4c09a1b878e8530530f5" /></p>
+<p nodeId="f496e35763d24dabaf9d9817be9f4af2"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28281189075?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1439" height="498.5" nodeId="f5df6a1a34bd4f06a3be3208c22202ff" /></p>
+<p nodeId="a331744eaa0f4f6abc62854cc86e829d"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28287593595?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1150.06" height="600" nodeId="d1f011481ed3498a8d7c59c7ff404409" /></p>
+<p nodeId="5cd4058c3b134b5fbde81008034aad8d"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28293317501?contentType=1&amp;isNewContent=false" name="image.jpeg" width="569" height="198" nodeId="d7dbd47cad0c4b139200514f0f8525e1" /></p>
+<p nodeId="e908502603ea4cdcb2de9e401d45fb03"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28284395486?contentType=1&amp;isNewContent=false" name="image.jpeg" width="583" height="255" nodeId="fe37d17c1b5c4e5981511ae9d25b2dae" /></p>
+</td>
+</tr>
+<tr nodeId="0b58cdc73e38419b9234ffb2d52b4a7d">
+<td colwidth="[621]" nodeId="da3c0160ae49489e974503e04b8ed432">
+<p nodeId="e8bb23ee52b64fd0908be90720d381b7">【查询】</p>
+<p nodeId="4d096e00d8b8459283e4295558079c7f">支持Topic、最后修改人和类型的筛选</p>
+</td>
+<td colwidth="[666]" nodeId="98f78475d4ea4a8fbde93b59b6f67c98">
+<p nodeId="7a6ef6f9a998417db000223d43a466b5"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28287593597?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1439" height="504.49" nodeId="eb8f1ec013fa4f7f8341c62202707600" /></p>
+</td>
+</tr>
+<tr nodeId="63ca49548fa04b2d99a305ff1e07ba44">
+<td colwidth="[621]" nodeId="64f3e795c8c1414b906b7744b9e2bf61">
+<p nodeId="b653d8417fca496e8f4e13a951a2ca07">【编辑】</p>
+<ul nodeId="a9f2e360d7324122b9f7aaa5a41a8314">
+<li nodeId="1e71b6b986f04416adfe77fc1a61872e"><span color="rgba(0, 0, 0, 0.9)">编辑页面入口：MQ详情页面</span></li>
+<li nodeId="6986b90cebd349669ad131dc5597dbb4"><span color="rgba(0, 0, 0, 0.9)">只允许时间维度、时间维度格式、水印时间(ms)、备注、日志类型和共享业务方修改</span></li>
+<li nodeId="ff2199b4ba87480b97290c471e2b684c"><span color="rgba(0, 0, 0, 0.9)">其中水印时间(ms)和日志类型修改，会导致画布作业重启</span></li>
+<li nodeId="04e2f26733424379b0f983e428b926fb"><span color="rgba(0, 0, 0, 0.9)">支持增量添加MQ下的参数</span></li>
+</ul>
+</td>
+<td colwidth="[666]" nodeId="fe6a99c003b0413d89e9f62c95aac5b2">
+<p nodeId="6130d0bf49a042709186f22620935e3d"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28293317505?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1439" height="570.41" nodeId="67d5ca9a2bc44f35b938eaac6f82502c" /></p>
+<p nodeId="cb796638826143589c3843242c89dbba"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28284395491?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1439" height="497.98" nodeId="d25237790211400d959c5c19fcd460c6" /></p>
+</td>
+</tr>
+<tr nodeId="4e86d56afac44699b636320025c8f8e7">
+<td colwidth="[621]" nodeId="4a98775e8b7a425bb87df6d546a83504">
+<p nodeId="bd00bd21be7a439da9cd26ff233d22c4">【查看引用】</p>
+<p nodeId="b1216cc25e9e4a3483404bbe05c3b598">引用信息查看入口：MQ详情--&gt;被引用信息</p>
+</td>
+<td colwidth="[666]" nodeId="29b8b371f6fd43e380cbf943abc2b473">
+<p nodeId="fe21005e33774405849a49665a6d6d4c"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28287593601?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1439" height="249.12" nodeId="a801f4de8a0a4525b092a8f38a6da982" /></p>
+</td>
+</tr>
+</table>
+<h1 nodeId="55e7f47816874d358f8347d367d28739">四、FAQ</h1>
+<p nodeId="a5a299420c394365813ee228aafaafd3"><strong>Q1：除MQ注册外，是否支持批量参数注册？</strong></p>
+<p nodeId="0443368e610641e38d68455bd9a652c7">A：支持，可使用<a href="https://zeus.sankuai.com/data_zeus_static/#/param/multiAdd" title="参数批量注册" nodeId="5446ee8fc1b54cbb92ad02409176e00b">参数批量注册</a></p>
+<p nodeId="973db53a86244e92ba23d8d448f6bc4e"><strong>Q2：注册好的MQ如何与策略相关联，实现数据--&gt;策略的关联？</strong></p>
+<p nodeId="a5e582beccf94e8594635ce524e6819f">A：截止2023Q1 目前只支持近线-画布作业的关联，在画布中引用kafka/Mafka组件即可；近线-场景规则作业可在「配置中心--&gt;数据映射」中添加MQ与场景见的映射</p>
+<p nodeId="366c7f55614247d6bffe3e1910f71b4c"><strong>Q3：注册好的hive表如何与策略相关联，实现数据--&gt;策略的关联？</strong></p>
+<p nodeId="ecf0a628d3a944d7a3349b160b85bb13">A：在「配置中心--&gt;离线任务」中添加hive与场景见的映射</p>
+<p nodeId="dbe9058146c44e2ab1ad16bc66277816"><strong>Q4: 怎么使用水印时间</strong>？</p>
+<p nodeId="28d1b4a2f4d64e359d224b9941e3a7d4"><img src="https://km.sankuai.com/api/file/cdn/1577280785/28659263587?contentType=1&amp;isNewContent=false" name="image.jpeg" width="651" height="134" nodeId="c5a4611496a544b583d617916ad2a9c7" /></p>
+<km-footnote-list nodeId="73ce2cba9cd74746aa2e9039f5e4aa40">
+<km-footnote-item footnoteNodeId="204856a4b9484354b9a60cacc03b7e68" nodeId="6e17601239264fce845bc3601694cf69"><p nodeId="c6b6211a6b5c4ed58e9ba9b0793113b5">水印时间：即Watermark：对于窗口类的组件，Watermark可以理解成一个窗口延迟触发机制，用用来解决乱序问题的。我们可以设置Watermark的延时时长t，每次系统会校验已经到达的数据中最大的maxEventTime，然后认定eventTime小于maxEventTime - t的所有数据都已经到达，如果有窗口的停止时间等于maxEventTime – t，那么这个窗口被触发执行</p></km-footnote-item>
+</km-footnote-list>
+</km-doc>

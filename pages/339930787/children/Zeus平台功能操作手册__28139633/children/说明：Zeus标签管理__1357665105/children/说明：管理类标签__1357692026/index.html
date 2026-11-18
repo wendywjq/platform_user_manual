@@ -1,0 +1,239 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说明：管理类标签</title><link rel="stylesheet" href="../../../../../../../../archive.css"></head><body><aside><b>本页目录</b><a href="#section-3">一、背景</a><a href="#section-12">二、名词解释</a><a href="#section-46">三、操作说明</a><a href="#section-47">3.1 标签管理</a><a href="#section-101">3.2  给对象打标</a><a href="#section-121">3.3  批量打标与批量删除</a><a href="#section-198">四、FAQ</a></aside><main><div class="bread"><a href="../../../../../../../../index.html">归档首页</a> / <a href="../../../../index.html">Zeus平台功能操作手册</a> / <a href="../../index.html">说明：Zeus标签管理</a> / <a href="index.html">说明：管理类标签</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/1357692026">查看学城原文</a></p><article>
+<h1>说明：管理类标签</h1>
+<div style="none"></div>
+<h1 id="section-3"><span style="color:rgb(0, 0, 0)"><strong>一、背景</strong></span></h1>
+<p>随着风控规则、活动场景数量越来越多，维护成本日益增加，为解决上述问题，推出标签体系，为规则和活动场景分类。标签有多重分类维度，且分类维度有可能会新增，不同业务会有不同的分类维度，以反作弊为例，按公司业务分类：支付、早餐、外卖；按新人属性分类，如纯新客、品类新客、非新客等。总结下标签有如下作用：</p>
+<ul>
+<li>方便批量处理：出现参数异常，相关规则批量设置为不生效；新增活动场景，可按照标签批量添加规则</li>
+</ul>
+<ul>
+<li>查询、统计需求：提供查询接口用于统计分析</li>
+</ul>
+<p></p>
+<h1 id="section-12">二、名词解释</h1>
+<table>
+<tr>
+<th>
+<p>名词</p>
+</th>
+<th>
+<p>解释</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>管理类标签</p>
+</td>
+<td>
+<p>管理类标签用于在平台管理规则、场景等实体。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>风险标签</p>
+</td>
+<td>
+<p>风险标签仅能与规则绑定，有优先级属性，用于将规则本身携带的信息归类成体系。规则在命中后，会将这部分信息实时输出给调用方/下游。<a href="../说明：风险标签（infocode）__1357166907/index.html" title="https://km.sankuai.com/collabpage/1357166907">说明：风险标签（infocode）</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>父标签</p>
+</td>
+<td>
+<p>当前标签归属的上一级标签即为当前标签的父标签。</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>标签层级</p>
+</td>
+<td>
+<p>目前支持最多形成6级关系。即用户可创建的最高标签层级为1级 ，最低为6级</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>根标签</p>
+</td>
+<td>
+<p>系统内置的0级标签，默认作为所有1级标签的父标签。</p>
+</td>
+</tr>
+</table>
+<p></p>
+<h1 id="section-46">三、操作说明</h1>
+<h2 id="section-47">3.1 标签管理</h2>
+<table>
+<tr>
+<th>
+<p>模块</p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>图例</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>管理类标签-管理页</p>
+</td>
+<td>
+<p><strong>配置中心-标签-管理类标签</strong></p>
+<p>定义：管理类标签用于在平台管理规则、场景等实体。</p>
+<p>标签以层级方式查看，可点每个标签前方的箭头，选择展开或收起其子标签。</p>
+</td>
+<td>
+<p><img src="assets/55791257053a73d5.png" width="1206.92" height="600" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>创建新标签</p>
+</td>
+<td>
+<p>在标签页面点击<span style="color:rgb(245, 35, 45)"> 添加标签</span>，填写要创建的新标签的信息，包括 <span style="color:rgb(245, 35, 45)">名称、标签类型、父标签ID、标签必选</span>，点击 <span style="color:rgb(245, 35, 45)">添加</span> 即可；</p>
+<ul>
+<li><span style="color:rgb(245, 35, 45)">名称：</span>自定义；</li>
+<li><span style="color:rgb(245, 35, 45)">标签类型：</span>规则/场景，选择一种类型；</li>
+<li><span style="color:rgb(245, 35, 45)">父标签ID：</span>默认创建的标签为父标签/根标签，如果创建的标签是现有标签的子标签，可以在此选择父标签（父标签/根标签与子标签之间的关系类似于一级分类和二级分类，这样设定是便于标签的管理；需要注意的是：在规则/场景/参数/因子中添加标签时，添加的是父标签，如果父标签下面有子标签的话会再选择父标签下面的的某个子标签）</li>
+<li>
+<p><span style="color:rgb(245, 35, 45)">标签必选：</span>默认否，如果选择【是】表明在创建规则/场景时，该标签会成为一个必选下拉框，用户需要下拉选择其中的标签（这些标签都是<u>必选标签</u>的末级子标签），打在当前编辑的规则/场景上；</p>
+<details>
+<summary>标签必选 示例</summary>
+<div>
+<p>如下图，该空间将规则标签中的一级标签【规则标签测试】设置为【必选】标签。则在规则编辑中，【规则标签测试】成为了独立的下拉选择框。里面可选择的内容即【规则标签测试】下方的末级子标签。</p>
+<p>Q：为啥【测试标签】、【测试标签层级】这两个没有出现在下拉选项里<br>A：因为其下方还有更下级的标签【测试得分】，目前实现上会直接取到末级。</p>
+<p><img src="assets/7bbfbd09a3d05e86.png" width="1371" height="600" alt="image.jpeg"></p>
+<p><img src="assets/1ac1468d946135bd.png" width="1003" height="600" alt="image.jpeg"></p>
+</div>
+</details>
+</li>
+<li><span style="color:rgb(245, 35, 45)">共享业务方：</span>把该标签共享给哪个zeus空间；</li>
+</ul>
+</td>
+<td>
+<p><img src="assets/86856c7cee0f21e5.png" width="488" height="312" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h2 id="section-101">3.2  给对象打标</h2>
+<p>给各类对象打管理类标签，方法基本相同，都在对象的编辑页，点击新增标签，下拉选择即可。</p>
+<table>
+<tr>
+<th>
+<p>操作</p>
+</th>
+<th>
+<p>文档指南</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>给规则打标</p>
+</td>
+<td>
+<p><a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改规则__312585969/index.html" title="https://km.sankuai.com/page/312585969">说明：创建/修改规则</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>给场景打标</p>
+</td>
+<td>
+<p><a href="../../../说明：获得了正式业务方权限，接下来怎么做呢？__312485395/children/说明：创建＿修改场景__220134551/index.html" title="https://km.sankuai.com/page/220134551">说明：创建/修改场景</a></p>
+</td>
+</tr>
+</table>
+<h2 id="section-121">3.3  批量打标与批量删除</h2>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>说明</p>
+</th>
+<th>
+<p>示意图</p>
+</th>
+</tr>
+<tr>
+<td>
+<p>批量打标</p>
+</td>
+<td>
+<p><strong>功能描述</strong>：搜索定位<span style="color:rgb(0, 0, 0)">一批对象（规则、场景），选择一个期望配置的标签。给这批对象批量打标</span></p>
+<p><strong>入口：</strong>批量操作-批量打标签</p>
+<p><strong>1.搜索要打标的对象</strong></p>
+<p>对象类型：选择要打标签的对象<span style="color:rgba(0, 0, 0, 0.9)">（规则、场景），点击【查询】下方配置标签List会根据搜索条件展示所有搜到的对象。</span></p>
+<div class="note">
+<strong></strong>
+<div>
+<p>也可以选择按文件查询对象，准备txt文件，英文逗号隔开所有对象id。上传后，点击确认导入即可在下方list出现对象。示例：</p>
+<p>附件：<a href="https://km.sankuai.com/api/file/cdn/1357692026/142012472249?contentType=0">a.txt</a>（28B；仅保留名称和原链接）</p>
+<p>​</p>
+</div>
+</div>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><strong>2.批量配置标签</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">需要在此处选择，想要给这批对象打上什么标签。（对象为规则时，还需要选择打管理类还是风险标签）如图中，选择“zq测试2级”后，下方List中所有对象将要打上的标签都变为“zq测试2级”。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><strong>3.配置标签</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">此时可以针对其中具体的某条对象进行微调，下拉选择别的标签。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><strong>4.确认打标</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">勾选最终需要确认打标的项目。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">最后点击【确认打标】，将给勾选项目，打上所配置的标签。</span></p>
+</td>
+<td>
+<p><img src="assets/59dac9de686d17d5.png" width="368" height="184" alt="image.jpeg"></p>
+<p><img src="assets/9ea8883af4c7ff9b.png" width="367" height="233" alt="image.jpeg"></p>
+<p><img src="assets/ab25f7eee26125d5.png" width="355" height="189" alt="image.jpeg"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>批量删除</p>
+</td>
+<td>
+<p><strong>功能描述</strong>：<span style="color:rgb(0, 0, 0)">搜索定位一批具有一个共同标签的对象（规则、场景），将从对象中删除该标签。</span></p>
+<p><strong>1.搜索要删除的对象标签</strong></p>
+<p>对象类型：选择要删除标签的对象<span style="color:rgba(0, 0, 0, 0.9)">（规则、场景）</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><strong>2.配置标签</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">下方配置标签list中，可以勾选最终需要确认删除的标签。</span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)"><strong>3.确认删除</strong></span></p>
+<p><span style="color:rgba(0, 0, 0, 0.9)">最后点击【确认删除】，将会把该标签从对象中删去引用关系。</span></p>
+</td>
+<td>
+<p><img src="assets/9e8f7c5f8c4b9726.png" width="399" height="140" alt="image.jpeg"></p>
+</td>
+</tr>
+</table>
+<h1 id="section-198">四、FAQ</h1>
+<table>
+<tr>
+<th>
+<p></p>
+</th>
+<th>
+<p>问题</p>
+</th>
+<th>
+<p>答</p>
+</th>
+</tr>
+<tr>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</table>
+<p></p>
+<p><span style="color:rgba(0, 0, 0, 0.87)"><span style="font-size:22px">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+</article></main></body></html>

@@ -1,0 +1,7 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QA</title><link rel="stylesheet" href="../../../../../../archive.css"></head><body><aside><b>本页目录</b></aside><main><div class="bread"><a href="../../../../../../index.html">归档首页</a> / <a href="../../index.html">Zeus平台功能操作手册</a> / <a href="index.html">QA</a></div><p class="muted">保存日期：2026-11-18 · <a href="https://km.sankuai.com/collabpage/2708696713">查看学城原文</a></p><article>
+<h1>QA</h1>
+<p>Q：规则命中不符合预期如何排查？为什么我的规则没有命中</p>
+<p>A：可以在规则测试中，将不符合预期的请求id输入后点击添加测试用例<img src="assets/f78185b68b322c75.png" width="1251.9105224609375" height="287.71" alt="image.png">可以在可视化测试结果电路图中查看具体哪个环节规则执行不符合预期，鼠标悬停在组件上时可以查看规则条件是否命中，以及当前条件的特征实际值是多少。<br><img src="assets/bda65ca488de70fb.png" width="1109.9146728515625" height="514" alt="image.png"></p>
+<p>Q：熔断配置链接？<br>A：<a href="https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList" title="https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList">https://zeus.sankuai.com/data_zeus_static/#/rulesFuseList</a></p>
+<p>Q：为什么多模规则命中，但是决策为通过？<br>A：如果附加信息配置了有序识别，可能是因为多模规则命中，但是不符合有序识别结果，打标失败导致。可以根据日志中决策信息查看，是否对应的图list，动图list，文list等均为空数组，如果是，那么是不符合有序识别结果导致打标失败，请确认送审图文具体哪一个应该被打标，对应规则中特征list的位置是否有值。<br><img src="assets/3ad07ee653da284b.png" width="1088.76" height="600" alt="image.png"></p>
+</article></main></body></html>

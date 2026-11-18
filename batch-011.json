@@ -1,0 +1,294 @@
+{
+  "root_id": "28139633",
+  "saved_date": "2026-11-18",
+  "batch": 11,
+  "document_count": 22,
+  "cumulative_document_count": 227,
+  "traversal": "depth_first_in_api_order",
+  "documents": [
+    {
+      "id": "2213144559",
+      "title": "分层场景：决策树",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：分层场景__1333731150/children/分层场景：决策树__2213144559",
+      "parent_id": "1333731150",
+      "source": "https://km.sankuai.com/collabpage/2213144559",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 4,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "2213172993",
+      "title": "决策树模板说明",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：分层场景__1333731150/children/分层场景：决策树__2213144559/children/决策树模板说明__2213172993",
+      "parent_id": "2213144559",
+      "source": "https://km.sankuai.com/collabpage/2213172993",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1341421659",
+      "title": "分层场景：路由条件组件",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：分层场景__1333731150/children/分层场景：路由条件组件__1341421659",
+      "parent_id": "1333731150",
+      "source": "https://km.sankuai.com/collabpage/1341421659",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 3,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "2254837925",
+      "title": "分层场景识别模板使用说明",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：分层场景__1333731150/children/分层场景识别模板使用说明__2254837925",
+      "parent_id": "1333731150",
+      "source": "https://km.sankuai.com/collabpage/2254837925",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 10,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "1357665105",
+      "title": "说明：Zeus标签管理",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus标签管理__1357665105",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1357665105",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "336731944",
+      "title": "（废）说明：标签使用手册",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus标签管理__1357665105/children/（废）说明：标签使用手册__336731944",
+      "parent_id": "1357665105",
+      "source": "https://km.sankuai.com/collabpage/336731944",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 6,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1357166907",
+      "title": "说明：风险标签（infocode）",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus标签管理__1357665105/children/说明：风险标签（infocode）__1357166907",
+      "parent_id": "1357665105",
+      "source": "https://km.sankuai.com/collabpage/1357166907",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 17,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1357692026",
+      "title": "说明：管理类标签",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Zeus标签管理__1357665105/children/说明：管理类标签__1357692026",
+      "parent_id": "1357665105",
+      "source": "https://km.sankuai.com/collabpage/1357692026",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 8,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1577280785",
+      "title": "说明：数据管理",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：数据管理__1577280785",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1577280785",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 13,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "1626109941",
+      "title": "说明：累计服务指南",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：累计服务指南__1626109941",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1626109941",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 29,
+      "remote_images": 0,
+      "diagrams": 5
+    },
+    {
+      "id": "1716007605",
+      "title": "说明：流量预警",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：流量预警__1716007605",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1716007605",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 7,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "1793517653",
+      "title": "说明：Aviator表达式调试工具",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：Aviator表达式调试工具__1793517653",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1793517653",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 2,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "1861016812",
+      "title": "说明：模式切换",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：模式切换__1861016812",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/1861016812",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 15,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "2137678318",
+      "title": "风控平台功能层变更规范",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/风控平台功能层变更规范__2137678318",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/2137678318",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "2213713621",
+      "title": "说明：权限管理",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：权限管理__2213713621",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/2213713621",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 20,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "2446576687",
+      "title": "说明：监控告警",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：监控告警__2446576687",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/2446576687",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 17,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "2611570191",
+      "title": "说明：策略一步化布控",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/说明：策略一步化布控__2611570191",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/2611570191",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 14,
+      "remote_images": 0,
+      "diagrams": 1
+    },
+    {
+      "id": "2702167054",
+      "title": "已废弃操作手册",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/已废弃操作手册__2702167054",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/2702167054",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 0,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "170907477",
+      "title": "说明：创建/修改规则（废弃）",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/已废弃操作手册__2702167054/children/说明：创建＿修改规则（废弃）__170907477",
+      "parent_id": "2702167054",
+      "source": "https://km.sankuai.com/collabpage/170907477",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 12,
+      "remote_images": 0,
+      "diagrams": 2
+    },
+    {
+      "id": "312550078",
+      "title": "说明：规则在场景中生效",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/已废弃操作手册__2702167054/children/说明：规则在场景中生效__312550078",
+      "parent_id": "2702167054",
+      "source": "https://km.sankuai.com/collabpage/312550078",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 3,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "2708696713",
+      "title": "QA",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/QA__2708696713",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/2708696713",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 3,
+      "remote_images": 0,
+      "diagrams": 0
+    },
+    {
+      "id": "2794478904",
+      "title": "操作指南：为数字员工申请zeus空间权限",
+      "path": "pages/339930787/children/Zeus平台功能操作手册__28139633/children/操作指南：为数字员工申请zeus空间权限__2794478904",
+      "parent_id": "28139633",
+      "source": "https://km.sankuai.com/collabpage/2794478904",
+      "saved_date": "2026-11-18",
+      "local_images_and_diagrams": 5,
+      "remote_images": 0,
+      "diagrams": 0
+    }
+  ],
+  "media": [
+    {
+      "document_id": "1861016812",
+      "type": "video",
+      "name": "video1803541536.mp4",
+      "url": "https://km.sankuai.com/api/file/cdn/1861016812/78381721168?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "2446576687",
+      "type": "video",
+      "name": "video1231011809.mp4",
+      "url": "https://km.sankuai.com/api/file/cdn/2446576687/130473733953?contentType=1",
+      "status": "remote_only"
+    },
+    {
+      "document_id": "2611570191",
+      "type": "video",
+      "name": "video1647377503.mp4",
+      "url": "https://km.sankuai.com/api/file/cdn/2611570191/136930933575?contentType=1",
+      "status": "remote_only"
+    }
+  ],
+  "attachments": [
+    {
+      "document_id": "1357166907",
+      "name": "a.txt",
+      "url": "https://km.sankuai.com/api/file/cdn/1357166907/4159183855?contentType=0",
+      "size": "28B",
+      "status": "names_and_links_only_by_request"
+    },
+    {
+      "document_id": "1357692026",
+      "name": "a.txt",
+      "url": "https://km.sankuai.com/api/file/cdn/1357692026/142012472249?contentType=0",
+      "size": "28B",
+      "status": "names_and_links_only_by_request"
+    }
+  ],
+  "video_policy": "names_and_original_links_only",
+  "asset_errors": [],
+  "pause_after_batch": true
+}

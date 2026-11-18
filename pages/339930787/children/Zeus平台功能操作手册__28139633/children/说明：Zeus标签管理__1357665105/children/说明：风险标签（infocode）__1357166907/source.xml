@@ -1,0 +1,358 @@
+<km-doc>
+<km-title nodeId="c85bc418ffa94a7e95ff5b50b9024292">说明：风险标签（infocode）</km-title>
+<km-catalog style="none" nodeId="97078d96054247a688787bff402f36b5" />
+<h1 nodeId="9a4ca9d90e0641c1a0f24319777827d7">一、背景</h1>
+<p nodeId="016e9aa1e4064725b792d6e17aa55468">业务发展到一定程度，能够提炼出有限类的标签，来组合表征一个规则的业务含义。需要在执行后，能给下游传递这部分信息，以对风控结果做进一步有精细化运营的诉求。这类信息就被定义为infocode，以多级标签的形态管理，并绑定在规则上。标签本身具有优先级等属性，可供下游对信息做进一步加工。</p>
+<p nodeId="4b02ee9cdbfb4e67a354e9dab3894bdf">过去，zeus已有自身的标签体系，因此在infocode上线后，原标签体系定位为【管理类标签】，而infocode定位为【风险标签】。都在菜单-策略管理-标签中进行维护。</p>
+<km-collapse active="false" nodeId="f61ce407b615460d95edfb8bd7cc95a6">
+<km-title></km-title>
+<km-content>
+
+</km-content>
+</km-collapse>
+<h1 nodeId="4ed9ab0570f84fb9a7858e6dba93718d">二、名词解释</h1>
+<table responsive="false" nodeId="bd33d5a1262d4e298a1456d3ddb48203">
+<tr nodeId="5d4da78f05474eba9e920b2d758d1dab">
+<th colwidth="[96]" nodeId="074b6c474b9b4ec1a894dcb454005666">
+<p nodeId="001533e5178f44cb9d8e55bcf9cd20e8">名词</p>
+</th>
+<th colwidth="[759]" nodeId="28587ca90bb14ed79e48a9a86a793f77">
+<p nodeId="4b72ce520aee417e8d3597076b9e13aa">解释</p>
+</th>
+</tr>
+<tr nodeId="13230b664e6c4a8a9753d610fdd30aea">
+<td colwidth="[96]" nodeId="acd5eada508f4b9c991eb7d8cf07910c">
+<p nodeId="6471a61f2dae48a5b4ad45f16583fa86">管理类标签</p>
+</td>
+<td colwidth="[759]" nodeId="b02d44fbdafe44f382b6608380965cf0">
+<p align="start" nodeId="ae523a3d071f4a00b10912af1ab64cb9">管理类标签用于在平台管理规则、因子、场景、特征、参数等实体。<a href="https://km.sankuai.com/collabpage/1357692026" title="https://km.sankuai.com/collabpage/1357692026" autoUpdate="true" nodeId="d2dbed42eecb43e0b7ba078dfda483e6">https://km.sankuai.com/collabpage/1357692026</a></p>
+</td>
+</tr>
+<tr nodeId="11a45655b1c4487c9d1d193c2cd7d5dd">
+<td colwidth="[96]" nodeId="12b069d10b164969a8fd94e7b8025062">
+<p nodeId="f681b93dd48044638c39d83bfc327aae">风险标签</p>
+</td>
+<td colwidth="[759]" nodeId="9b3135eb42e541a7b8879f5c84e0585c">
+<p nodeId="1fc2ea50fa274946bec3fcb84968e61b">风险标签仅能与规则绑定，有优先级属性，用于将规则本身携带的信息归类成体系。规则在命中后，会将这部分信息实时输出给调用方/下游。</p>
+</td>
+</tr>
+<tr nodeId="9b9e425ee2c04fa78c86b0d9e336ee02">
+<td colwidth="[96]" nodeId="7d06def7391f458e8377d26e533a5966">
+<p nodeId="632cb802b3bd43eb820b51df4b659bc7">父标签</p>
+</td>
+<td colwidth="[759]" nodeId="c8f709b8029a44bb93582364306aba45">
+<p nodeId="d4a978807c624e60a9143708d5fb3dfb">当前标签归属的上一级标签即为当前标签的父标签。</p>
+</td>
+</tr>
+<tr nodeId="a8f7ee9e933548eca353a9641d322f85">
+<td colwidth="[96]" nodeId="834d60bef6164e46af17d6015e4022bb">
+<p nodeId="e8dc748e19f84375b9fb0e3b0462a7fc">标签层级</p>
+</td>
+<td colwidth="[759]" nodeId="cd611ba1a9444f5a8342b71ac7b49932">
+<p nodeId="fb76adfffe584829bde8a9eddf5854ec">目前 风险标签 支持最多形成6级关系。即用户可创建的最高标签层级为1级 ，最低为6级</p>
+</td>
+</tr>
+<tr nodeId="7487d55121874e0fb259e807fb523e2a">
+<td colwidth="[96]" nodeId="d84db835e8d8464fa271cd10c48748c3">
+<p nodeId="6a9c80d34a8a46beb162a229c4297dd3">根标签</p>
+</td>
+<td colwidth="[759]" nodeId="54d9c234d1724130b528dc458ecb6edb">
+<p nodeId="824b0c34371c4a70bb0114b2cc29f3b5">系统内置的0级标签，默认作为所有1级标签的父标签。</p>
+</td>
+</tr>
+</table>
+<p nodeId="cbf7861dbc0e4414bef739c725e06635" />
+<h1 nodeId="e06fa14b7f6b411fbd27b13acf1ee71b">三、操作指南</h1>
+<h2 nodeId="e7e10e2e363041c8b334ca52366dbf83">3.1 标签管理</h2>
+<table responsive="false" nodeId="9aac7367ca09498eaed6673ad0c95ae4">
+<tr nodeId="cebe42a2f61d4a7bb054cbf21a8d7355">
+<th colwidth="[126]" nodeId="c467c567366a4dc1a099925b159a44ad">
+<p nodeId="48aa5042b12b446cb1df9189d81873e8">模块</p>
+</th>
+<th colwidth="[516]" nodeId="45bb526294784154b42b90541e6419ad">
+<p nodeId="160e788438d348c896bfcb4d9effc9b2">说明</p>
+</th>
+<th colwidth="[528]" nodeId="da4f2eff78db4e75a145db82fafb26ce">
+<p nodeId="d7ef0d17fe734309a03c992723526988">图例</p>
+</th>
+</tr>
+<tr nodeId="81fa59bd33084e95879687c232215457">
+<td colwidth="[126]" nodeId="7cc3a31a2ba3458ba45ecc37bdcf5861">
+<p nodeId="8ed6fd0827b44c8580754829242841b6">风险标签管理页</p>
+</td>
+<td colwidth="[516]" nodeId="08114df4c7ff4962bc21cee28189d798">
+<p nodeId="890e3f7d7a494a4e9528a97145899101">菜单-策略管理-标签-风险标签Tab</p>
+<p nodeId="3fffcb3acbfc4ea888e64e3375fd499e">定义：区别于管理类标签。风险标签用于在规则命中后，向调用方/下游实时输出关于该条规则的风险信息。</p>
+<km-collapse active="false" nodeId="e95ccd5f38524fd2a46acfdda6e0aa21">
+<km-title>样例1-实时请求响应（<span color="#FF4A47">标红部分</span>）</km-title>
+<km-content>
+<p nodeId="11ebef4761f24ff598f743ad98a9bd8b"><span color="rgba(0, 0, 0, 0.87)">{</span><br /><span color="rgba(0, 0, 0, 0.87)"> "requestId": "set-zf-rc-zeus-zeus-staging02-202207271555-3024",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decsionIdList": [],</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneConfDetailList": [</span><br /><span color="rgba(0, 0, 0, 0.87)"> {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneId": 16187,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleId": 17305,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionId": 77,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "priority": 5,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonCode": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonDesc": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "status": 32,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "extraInfo": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleName": "liangjianhua_test2",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "accumulateFieldsExtraInfoList": [],</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonPriority": 0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleGroupId": 0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleGroupName": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "derivedParams": ""</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)"> ],</span><br /><span color="rgba(0, 0, 0, 0.87)"> "errMsg": "{}",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "code": 0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "factorResultJson": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "hitRuleFactorResultJson": {},</span><br /><span color="rgba(0, 0, 0, 0.87)"> "businessCode": 9,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneId": 16187,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionMergeResponse": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "mergeStrategy": 0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionIds": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionReasons": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionExtraInfoMap": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionDerivedParamMap": null</span><br /><span color="rgba(0, 0, 0, 0.87)"> },</span><br /><span color="rgba(0, 0, 0, 0.87)"> "setCell": null,</span><br /><span color="#FF4A47"> "infoCode": [</span><br /><span color="#FF4A47"> {</span><br /><span color="#FF4A47"> "ruleId": 17305,</span><br /><span color="#FF4A47"> "tagId": 1610169,</span><br /><span color="#FF4A47"> "tagName": "测试风险标签",</span><br /><span color="#FF4A47"> "tagCode": 101,</span><br /><span color="#FF4A47"> "layer": 1,</span><br /><span color="#FF4A47"> "priority": 0,</span><br /><span color="#FF4A47"> "parentInfo": {}</span><br /><span color="#FF4A47"> },</span><br /><span color="#FF4A47"> {</span><br /><span color="#FF4A47"> "ruleId": 17305,</span><br /><span color="#FF4A47"> "tagId": 1610170,</span><br /><span color="#FF4A47"> "tagName": "测试风险标签子标签",</span><br /><span color="#FF4A47"> "tagCode": 0,</span><br /><span color="#FF4A47"> "layer": 2,</span><br /><span color="#FF4A47"> "priority": 0,</span><br /><span color="#FF4A47"> "parentInfo": {</span><br /><span color="#FF4A47"> "1": {</span><br /><span color="#FF4A47"> "tagId": 1610169,</span><br /><span color="#FF4A47"> "tagName": "测试风险标签",</span><br /><span color="#FF4A47"> "tagCode": 101,</span><br /><span color="#FF4A47"> "priority": 0</span><br /><span color="#FF4A47"> }</span><br /><span color="#FF4A47"> }</span><br /><span color="#FF4A47"> }</span><br /><span color="#FF4A47"> ]</span><br /><span color="rgba(0, 0, 0, 0.87)">}</span></p>
+</km-content>
+</km-collapse>
+<km-collapse active="false" nodeId="2542718781824ffa85e2675bc6f89c06">
+<km-title>样例2-hive请求日志</km-title>
+<km-content>
+<p nodeId="78513942490e4989870795c7b0828104"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4163043861?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1278" height="476" nodeId="1f1163572c89423b919e41e1219a60dc" /></p>
+</km-content>
+</km-collapse>
+<km-collapse active="false" nodeId="73a6fadbb7dc49ea83435fc9d85b6907">
+<km-title>样例3-mafka输出（<span color="#FF4A47">标红部分</span>）</km-title>
+<km-content>
+<p nodeId="dff3226e168a4deab4afa025e468eef7"><span color="rgba(0, 0, 0, 0.87)">{</span><br /><span color="rgba(0, 0, 0, 0.87)"> "takenEffectRuleIds": "2455046",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionIdToExtraInfoList": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "65": [</span><br /><span color="rgba(0, 0, 0, 0.87)"> {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "test2": 123,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "test1": null</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)"> ]</span><br /><span color="rgba(0, 0, 0, 0.87)"> },</span><br /><span color="rgba(0, 0, 0, 0.87)"> "subSceneIds": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "userid": 123,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "testRuleIds": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "markedRuleIds": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonCodes": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "businessCode": 9,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "requestId": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneId": 209423,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "fingerprint": {},</span><br /><span color="rgba(0, 0, 0, 0.87)"> "action": 0.0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisions": "0",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "grayRuleIds": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "multiLevelRouterSceneId": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "executeGrayRuleIds": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> </span><span color="#FF4A47">"infoCode": [</span><br /><span color="#FF4A47"> {</span><br /><span color="#FF4A47"> "ruleId": 2455046,</span><br /><span color="#FF4A47"> "tagId": 821792,</span><br /><span color="#FF4A47"> "tagName": "测试风险标签2",</span><br /><span color="#FF4A47"> "tagCode": null,</span><br /><span color="#FF4A47"> "layer": 1,</span><br /><span color="#FF4A47"> "priority": 0,</span><br /><span color="#FF4A47"> "parentInfo": {}</span><br /><span color="#FF4A47"> },</span><br /><span color="#FF4A47"> {</span><br /><span color="#FF4A47"> "ruleId": 2455046,</span><br /><span color="#FF4A47"> "tagId": 821793,</span><br /><span color="#FF4A47"> "tagName": "测试风险标签1",</span><br /><span color="#FF4A47"> "tagCode": null,</span><br /><span color="#FF4A47"> "layer": 2,</span><br /><span color="#FF4A47"> "priority": 0,</span><br /><span color="#FF4A47"> "parentInfo": {</span><br /><span color="#FF4A47"> "1": {</span><br /><span color="#FF4A47"> "tagId": 821792,</span><br /><span color="#FF4A47"> "tagName": "测试风险标签2",</span><br /><span color="#FF4A47"> "tagCode": null,</span><br /><span color="#FF4A47"> "priority": 0</span><br /><span color="#FF4A47"> }</span><br /><span color="#FF4A47"> }</span><br /><span color="#FF4A47"> }</span><br /><span color="#FF4A47"> ]</span><span color="rgba(0, 0, 0, 0.87)">,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionInfo": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "takenEffectStatus": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "65": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionDerivedParams": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionReason": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionExtraInfo": [</span><br /><span color="rgba(0, 0, 0, 0.87)"> {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "test2": 123,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "test1": null</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)"> ]</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)"> },</span><br /><span color="rgba(0, 0, 0, 0.87)"> "markStatus": {},</span><br /><span color="rgba(0, 0, 0, 0.87)"> "grayStatus": {}</span><br /><span color="rgba(0, 0, 0, 0.87)"> },</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneConfDetailList": [</span><br /><span color="rgba(0, 0, 0, 0.87)"> {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleGroupName": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneId": 209423,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleName": "test123",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonCode": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleId": 2455046,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "priority": 5,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionId": 65,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleGroupId": 0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonDesc": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "status": 64,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "extraInfo": "{\"test2\":123,\"test1\":null}"</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)"> ],</span><br /><span color="rgba(0, 0, 0, 0.87)"> "paramContext": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__RULE_RUN_COMPLETE__": true,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "asyncCompensate": "{\"ruleInfo\":{},\"decisionInfo\":{},\"ruleToNodeId\":{}}",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__SYNC_COST_TIME__": 594,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__CACHE_FETCHED_PARAMS__": "[]",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "userid": 123,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "serverRequestId": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__REQUEST_TIME_FOR_ZEUS__": 1658924006593,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "action": 0.0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__FETCHER_ERROR__": "[{\"targetKeys\":[\"23.gis_lat_lng_bizcityinfo.shared_3-&gt;bankcard\"],\"errorMessage\":\"fetcher invoke condition not match\"}]",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sumTimeOfLongestPath": 529,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "zeusRequestIdForInvokeRemoteFetcher": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "traceId": "7723089567008213223",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__LONGEST_EXECUTE_PATH__": "RouterSceneId:null,sceneId:209423,longestPath:{decision_extra_info_3:0-&gt;bankcard:428-&gt;lng:1-&gt;}",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "cacheVersion": 22312700,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__SERVER_INTERRUPT_FACTOR_NAMES__": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "businessIdForInnerUse": 9,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "takenEffectAndMarkRulesRunTime": 594,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__CLIENT_APPKEY__": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "zeusFetcherErrorLog": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "factorToolExecuteInfo": "{\"5931\":{\"factorToolId\":5931,\"outputDetailList\":[{\"outputParamName\":\"sceneid\",\"score\":0.0,\"hitRuleDetail\":[]},{\"outputParamName\":\"action\",\"score\":0.0,\"hitRuleDetail\":[]}]}}",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__SCENE_RERUN_RULES__": {},</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneid": 0.0</span><br /><span color="rgba(0, 0, 0, 0.87)"> },</span><br /><span color="rgba(0, 0, 0, 0.87)"> "hitRules": "2455046",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "subSceneKeys": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "accumulateDetails": [],</span><br /><span color="rgba(0, 0, 0, 0.87)"> "extraContext": {},</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionIds": "65",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "addtime": 1658924007,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "multiLevelRouterSceneKey": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "factorContext": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "regression_001": "others",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "factor_ip": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "e2_factor": false</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)">}</span></p>
+</km-content>
+</km-collapse>
+<p nodeId="d5c41ffe0dde45f8971a09ab98b80f47">标签以层级方式查看，可点每个标签前方的箭头，选择展开或收起其子标签。</p>
+</td>
+<td colwidth="[528]" nodeId="1087313f5a684dfc803fa6d3d1bfc8e3">
+<p nodeId="4bac227990fe4b8aa971e2ad53d96d6a"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4131225925?contentType=1&amp;isNewContent=false" name="image.jpeg" width="977.44" height="600" nodeId="11edcc11354e444ca01334082135238f" /></p>
+</td>
+</tr>
+<tr nodeId="fe3a217d7334426aa1b1e8d00543bd71">
+<td colwidth="[126]" nodeId="efd445f3beb541a49a4f5fbc0c2fabd2">
+<p nodeId="b1f748ae46e4451195a1d787ef4850bb">添加风险标签</p>
+</td>
+<td colwidth="[516]" nodeId="8e8480d77292453090cbed51d225891b">
+<p nodeId="66e5068e44de4228a1f31037c18e50fe">点击【添加标签】，在风险标签tab下，标签类型已经默认选择风险标签。</p>
+<p nodeId="e34bd8e7ff4041bbb19e37e30e819196">输入自定义的标签名称，注意：名称不得与其他标签重复。</p>
+</td>
+<td colwidth="[528]" nodeId="e443c2371f75412eb55331e47d251674">
+<p nodeId="d36e5d592d0941f38218b2adc9b8adf2"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4133232192?contentType=1&amp;isNewContent=false" name="image.jpeg" width="960.87" height="600" nodeId="a640fe5e751246ca855529e89936c0a6" /></p>
+<p nodeId="152829d9cb904f6f99243271f713fc16"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4133012727?contentType=1&amp;isNewContent=false" name="image.jpeg" width="959.84" height="600" nodeId="9a96c7d267ce403fb7c0dae4e105ea4d" /></p>
+</td>
+</tr>
+<tr nodeId="3802824f172d417b8274d910fa7b6a5e">
+<td colwidth="[126]" nodeId="73508eb0ae974192a40560474b73b1de">
+<p nodeId="4d7bf172c7e64ee1a8341749af939015">编辑标签内容</p>
+</td>
+<td colwidth="[516]" nodeId="89dca811558e451d9614b31cf045d685">
+<p nodeId="b958df0fef0b47a79bab480ed21a4273">允许编辑</p>
+<p nodeId="4fbb674819d74412abc143d738944d6a">名称：不允许重复</p>
+<p nodeId="6b79844735a94dde806cad89bf8a407f">父标签：可选择别的父标签，即会使该标签从属到另一父标签下。</p>
+<p nodeId="636f8ff1daa243469fb5e7e582861cf3">标签优先级：允许更改</p>
+<p nodeId="560f131828cb476da62d452625f9bcc7">标签编码：允许更改</p>
+<p nodeId="155ca873584d4c6a89ca94e40a06f237" />
+<p nodeId="5764dba5e959437ab23393d4ab5a8b7c">删除：有依赖（已给规则打标过）的标签无法删除。</p>
+</td>
+<td colwidth="[528]" nodeId="d977d01d88404b8b8f64a7d268864022">
+<p nodeId="7f4edaf659f148828250bee5931346b2"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4133222246?contentType=1&amp;isNewContent=false" name="image.jpeg" width="882.37" height="600" nodeId="0e686008e91d4fb68b0090778802a39f" /></p>
+</td>
+</tr>
+<tr nodeId="6d509dd4fb794eaca6a2e41a586593cf">
+<td colwidth="[126]" nodeId="de00927fb95449a7b2256f39611fbe72">
+<p nodeId="d1580dd4529d444b8b3ba9f48c4a3ffa">标签优先级重复提示</p>
+</td>
+<td colwidth="[516]" nodeId="e8251d76c917465f8a4b4542f98230f7">
+<p nodeId="9e662705dd3c4eceba83d78ce724ec00">若本次新增/编辑 提交的标签与已有标签的<span color="#FF4A47">优先级重复</span>，会弹窗提示用户此信息，并提供批量修改优先级的入口。</p>
+<p nodeId="89b8239c1012435896b31ebebe1019d6">（此时标签已经成功创建，平台允许同优先级标签存在）</p>
+<p nodeId="4faf17c57f7f49b7a6703758668ca8c4">批量修改优先级入口也可以通过右上角【批量操作-批量修改优先级】 进入</p>
+</td>
+<td colwidth="[528]" nodeId="9fbe01c4483d41a989ff17d58bc54fcb">
+<p nodeId="d71f46494bb8409d8d48fe01eb0bc934"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4131619657?contentType=1&amp;isNewContent=false" name="image.jpeg" width="963.36" height="600" nodeId="f8c7d86c0b7c4949979c4fa7d09e00b2" /></p>
+<p nodeId="e398c0e54de14fbd83e26944fd706a37"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4148240856?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1425" height="303.44" nodeId="b4306d71ce564283aaf8566bc33cb1bd" /></p>
+</td>
+</tr>
+<tr nodeId="50b8fe76c400490c8351a572a9be5bad">
+<td colwidth="[126]" nodeId="0abe7e3d03a24b90870ad142a8372e06">
+<p nodeId="90c144cb0aee42bc9cb9bc7a075b8bfd">批量修改优先级</p>
+</td>
+<td colwidth="[516]" nodeId="1d5f3f3081c94c9b803763d9e18190e7">
+<p nodeId="2ac70c61fb2648599091b5310606e5e3">对象类型（only风险标签，其他标签没有优先级）</p>
+<p nodeId="3df7b106c5a741459f05bbd39e46e972">对象筛选：根据一系列搜索条件定位到需要批量修改优先级的项目。</p>
+<km-note type="info" hiddenTitle="true" nodeId="252976125c464461bb46bb0511438bfb">
+<km-title></km-title>
+<km-content>
+<p nodeId="7aba0b634014447f8c8573f670a06291">例：如本次添了一个优先级为500的标签，和原有某标签优先级重复，希望将原来大于500的优先级全部都+1，就可以搜索优先级范围500～999；也可根据标签id、名称、层级等进行搜索。</p>
+</km-content>
+</km-note>
+<p nodeId="f203a8d65b2e4acd947cfb5aa71b85b7">在下方列表中，<span color="rgba(0, 0, 0, 0.9)">勾选最终需要修改的项目。确认表后方【修改为】字段的内容。点击提交，将会把勾选的项目进行批量提交修改。</span></p>
+</td>
+<td colwidth="[528]" nodeId="67fae25a68924f438a717020f53188bd">
+<p nodeId="b7eaea15e86841a1b633a28a1bfe34a4"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4131637060?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1129.47" height="600" nodeId="4d8328ef77a0462794bf1024b24a0f8f" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="93861a8c3921405fa5c592ac59d49dfc">3.2 给规则打标</h2>
+<table responsive="false" nodeId="5e6c311a3e7e43468010a8b7ba794e76">
+<tr nodeId="91d7a429ebc34487aa67ce66e3ec3c05">
+<th colwidth="[102]" nodeId="e42fe543847e4687aef888208266e526">
+<p nodeId="18572f40204248baa964ccd497bf69a8">模块</p>
+</th>
+<th colwidth="[516]" nodeId="2ba7262041b84958a9536974341940a6">
+<p nodeId="0e7a32feb89f4894a6c96fadf68f1224">说明</p>
+</th>
+<th colwidth="[528]" nodeId="5b6ce58936e245febdfa2254b3eb8e71">
+<p nodeId="3e6cf866bfe34c95941676a3318e07a9">图例</p>
+</th>
+</tr>
+<tr nodeId="5c83d3b819504872a8012b9a2bccc8bf">
+<td colwidth="[102]" nodeId="9fc731d2655a447f8257110f5a471a91">
+<p nodeId="93e452248cec4d50a8f4066462609720">规则-编辑-属性信息</p>
+</td>
+<td colwidth="[516]" nodeId="a9bd2b6bc233498882dc884a4389ce69">
+<p nodeId="79dbee29ac9e4280bc6c3841b7b3d466">在规则编辑的第三步【属性信息】，可以为规则打上风险标签。</p>
+<p nodeId="d325a593c6b14708a9050f6a494452a1">点击【+新标签】，可在下拉框中，按照层级选择希望添加的标签。</p>
+<km-note type="tip" hiddenTitle="true" nodeId="c3fe93e3433243248d34493cf4911c92">
+<km-title></km-title>
+<km-content>
+<p nodeId="eccd6654b53e4c478eb7719ecc69baec"><span color="rgba(0, 0, 0, 0.87)">注意：同规则仅允许赋予一条标签链路上的唯一标签。如有三层标签A1-A2-A3，不能同时给该规则同时赋予A2和A3。</span></p>
+</km-content>
+</km-note>
+<p nodeId="a5b5babeb2cc47a3b48aeb79f0b8099b">规则详情中，显示标签内容的格式为【……-父父标签-父标签-<span color="#FF4A47">当前标签</span>】</p>
+<p nodeId="298f0edd07534c2188c22d62d67b99e0">点击【完成】，成功将标签打给该规则。</p>
+<p nodeId="ade7961096924f3abb962b60e75439c5" />
+<p nodeId="3e4b597630e04d9ca04996158470b046">若需要按照<span color="#FF4A47">规则组</span>或其他条件<span color="#FF4A47">批量</span>给规则打上相同的标签，见3.3</p>
+</td>
+<td colwidth="[528]" nodeId="0abfe955496f48568ff136a4fe72cf50">
+<p nodeId="a83a1b818e5840d2a74700c4e4958e64"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4148071347?contentType=1&amp;isNewContent=false" name="image.jpeg" width="965.57" height="600" nodeId="d18efa499f7e4de29f07378e44d3a6a6" /></p>
+<p nodeId="a5dbbb160e9c4fc99dcf083adf103318"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4146917115?contentType=1" name="image.jpeg" width="924" height="600" nodeId="f4cfc8914dc0496aa7db05d6f99e3a80" /></p>
+<p nodeId="9d19cf7981354445ba2beab50ef5f79e"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4147546310?contentType=1" name="image.jpeg" width="1425" height="282" nodeId="ae4c738a88ca4d2f8678ac37f8d9b32b" /></p>
+</td>
+</tr>
+<tr nodeId="d74345c622ac46a29834dd379e997e77">
+<td colwidth="[102]" nodeId="eab709d96cb54e4599d491f999a11bdf">
+<p nodeId="ac645835d3744f7ea924777a5af71da6">规则列表页</p>
+</td>
+<td colwidth="[516]" nodeId="de55ffba356c43e28b8f1917657a0f40">
+<p nodeId="4aa21433aef240c3949ec3143c29fc42">在规则列表页，也可以根据标签搜索规则。</p>
+<p nodeId="ed0e1b00ee334557a01773d73d22ca43">列表页中，考虑到展示效果，标签显示内容中 <span color="#FF4A47">不包含父标签信息</span>。</p>
+<p nodeId="c604023ae09e4697b2185b21f071fbeb" />
+</td>
+<td colwidth="[528]" nodeId="21918a142d634287bcd4117177f773b1">
+<p nodeId="b480ea45336348af8f79a7876e491314"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4144958094?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1425" height="521.77" nodeId="694724525f2d4c408ea74daa2e4382d1" /></p>
+</td>
+</tr>
+</table>
+<h2 nodeId="d1df5a9d655b4df9a35239090e4571f3">3.3 批量删除与批量打标</h2>
+<table responsive="false" nodeId="a1d3ca55987e4100a267c579e64c154b">
+<tr nodeId="bda825209fa24d1eb1a4aee654fcdb5d">
+<th colwidth="[93]" nodeId="a8a9921508a04f2ea72c2a3fab86fb16">
+<p nodeId="79ae04b838374e4999e075bece520466">模块</p>
+</th>
+<th colwidth="[516]" nodeId="5c2a8cf9a2ea4efc8c6451bc39d0393a">
+<p nodeId="77b299b29f12452cadf3175191accb26">说明</p>
+</th>
+<th colwidth="[528]" nodeId="c4c86cf929304dc0bbf3c2cbdccd7c6a">
+<p nodeId="08d81602ae104b93a9feebb32a27024d">图例</p>
+</th>
+</tr>
+<tr nodeId="ab9b5790519f43ed87199cce7d76f7b9">
+<td colwidth="[93]" nodeId="6e485bba965c443dbfd3e111ab3cef29">
+<p nodeId="7f9b32b6d5284be7b93fffa7a54132b3">批量删除</p>
+</td>
+<td colwidth="[516]" nodeId="e7b6513247c84d0e82071be99cb99f68">
+<p nodeId="70fc4f6a4d2746d09bf75e4ec2b5842f"><strong>功能描述</strong>：搜索定位<span color="#FF4A47">一批</span>具有<span color="#FF4A47">一个共同标签</span><span color="rgba(0, 0, 0, 0.9)">的对象（规则、因子、场景……）</span>，从这批对象中<span color="#FF4A47">删除掉</span><span color="rgba(0, 0, 0, 0.9)">对该标签的</span><span color="#FF4A47">引用关系</span>。</p>
+<p nodeId="6167d34fa680470bba51185d310d2bb1"><strong>1.搜索要删除的对象标签</strong></p>
+<p nodeId="c5ffbeeb062944fa835cfb0e4107496c">对象类型：选择要删除标签的对象<span color="rgba(0, 0, 0, 0.9)">（规则、因子、场景……）</span></p>
+<p nodeId="50d5177c24c94daba646c7dbccfb39ae"><span color="rgba(0, 0, 0, 0.9)">当选择规则时，需要进一步选择是【风险标签】还是【管理类标签】</span></p>
+<p nodeId="0548ad44ce3544f39ca68a3ce44d1a41"><span color="rgba(0, 0, 0, 0.9)">如需要，也可以加上规则组维度进一步缩小范围。（组合搜索的逻辑：指定规则组中具有该标签的规则）</span></p>
+<p nodeId="3d3ac475aba749cfb8c7ed24230b8257"><span color="rgba(0, 0, 0, 0.9)"><strong>2.配置标签</strong></span></p>
+<p nodeId="b4d080fec9e543e1b43c341129767d86"><span color="rgba(0, 0, 0, 0.9)">下方配置标签list中，可以勾选最终需要确认删除的标签。</span></p>
+<p nodeId="99c3edf0eedc4c2d86342a5f763de302"><span color="rgba(0, 0, 0, 0.9)"><strong>3.确认删除</strong></span></p>
+<p nodeId="2ecd31d0b03a4b518a23ac7fde1e9e08"><span color="rgba(0, 0, 0, 0.9)">最后点击【确认删除】，将会把该标签从对象中删去引用关系。</span></p>
+</td>
+<td colwidth="[528]" nodeId="b5b2967df92c4312a22e76f2e0cddbba">
+<p nodeId="e933374b92a74c148342c9a2050810f1"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4148199666?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1425" height="489.34" nodeId="a288ce6dcd9f4cd78de6f3a13e581b22" /></p>
+</td>
+</tr>
+<tr nodeId="9b0e389d6d6b4ff58c179617c02240bd">
+<td colwidth="[93]" nodeId="4020fd00654a40a99172eb5cf2ef9e92">
+<p nodeId="29d09d19ea854b629d9d98f13f91c274">批量打标</p>
+</td>
+<td colwidth="[516]" nodeId="a61825045e86497cbca42cf74b04d2d5">
+<p nodeId="b830802a00ac497589cdfe19e643ea4e"><strong>功能描述</strong>：搜索定位<span color="rgb(255, 74, 71)">一批</span><span color="rgba(0, 0, 0, 0.9)">对象（规则、因子、场景……）</span>，并选择一个期望配置的标签，给这批对象批量<span color="rgb(255, 74, 71)">加上</span><span color="rgba(0, 0, 0, 0.9)">对该标签的</span><span color="rgb(255, 74, 71)">引用关系</span>。</p>
+<p nodeId="dd31e3b76a1b449d8e3dc3bd5d9fa2c5"><strong>1.搜索要打标的对象</strong></p>
+<p nodeId="6dc21e58ac7244bfac9bbc2a026197d8">对象类型：选择要打标签的对象<span color="rgba(0, 0, 0, 0.9)">（规则、因子、场景……）</span></p>
+<p nodeId="92cbc900c834444784ad3c37ea322ae9"><span color="rgba(0, 0, 0, 0.9)">当选择规则时，可以进一步选择用【风险标签】还是【管理类标签】来搜索。如需要也可以加上规则组维度进一步缩小范围（组合搜索的逻辑：指定规则组中 具有 该标签的规则）也可以只用规则组1个条件进行对象搜索</span></p>
+<p nodeId="7791b4891f144d11bb35fe3ad36034b3"><span color="rgba(0, 0, 0, 0.9)">点击【查询】下方配置标签List会根据搜索条件展示所有搜到的对象。</span></p>
+<km-note type="info" hiddenTitle="true" nodeId="38fd881b617548099272527a82c4e414">
+<km-title></km-title>
+<km-content>
+<p nodeId="2357d5d6731c4d76acff82e800ed0e51">也可以选择<span color="#FF4A47">按文件</span>查询对象，准备txt文件，英文逗号隔开所有对象id。上传后，点击确认导入即可在下方list出现对象。示例：</p>
+<km-attachment src="https://km.sankuai.com/api/file/cdn/1357166907/4159183855?contentType=0" name="a.txt" size="28B" nodeId="e9a45fe5cff94471833c287acff1754a" />
+</km-content>
+</km-note>
+<p nodeId="cbe119593f514eb6850aed37527a50f4"><span color="rgba(0, 0, 0, 0.9)"><strong>2.批量配置标签</strong></span></p>
+<p nodeId="f5fe617b1f954dc8809e2b20edbb9f26"><span color="rgba(0, 0, 0, 0.9)">需要在此处选择，想要给这批对象打上什么标签。（对象为规则时，还需要选择打管理类还是风险标签）如图中，选择“zq测试2级”后，下方List中所有对象将要打上的标签都变为“zq测试2级”。</span></p>
+<p nodeId="d228db6522d341a5960347149f058433"><span color="rgba(0, 0, 0, 0.9)"><strong>3.配置标签</strong></span></p>
+<p nodeId="8ae73941d5194ac6adbf0358e9149fd3"><span color="rgba(0, 0, 0, 0.9)">此时可以针对其中具体的某条对象进行微调，下拉选择别的标签。</span></p>
+<p nodeId="3c5acd6c456a431aa6f3f6dcc3e97767"><span color="rgba(0, 0, 0, 0.9)"><strong>4.确认打标</strong></span></p>
+<p nodeId="c361a9b3964d45c78fa03ac5a2b43b55"><span color="rgba(0, 0, 0, 0.9)">勾选最终需要确认打标的项目。</span></p>
+<p nodeId="bec7158d9e6a44d680de69b80ca06f38"><span color="rgba(0, 0, 0, 0.9)">最后点击【确认打标】，将给勾选项目，打上所配置的标签。</span></p>
+</td>
+<td colwidth="[528]" nodeId="1a5250f777b741ffbfb383d5054f234b">
+<p nodeId="64a185f561574b5f8ad6a7ca071ab09e"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4148968762?contentType=1&amp;isNewContent=false" name="image.jpeg" width="952.96" height="600" nodeId="6b9a64c579ad4240ac0c94cf513587c3" /></p>
+<p nodeId="6e80271954f640c1a5ae55f86f9a3a1a"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4152626710?contentType=1&amp;isNewContent=false" name="image.jpeg" width="1116.87" height="600" nodeId="63a03c8eb99b40838909cf3a0619158b" /></p>
+</td>
+</tr>
+</table>
+<p nodeId="4730ee62161e45eb871df408f3983e8c" />
+<h1 nodeId="927f42173f66450db847b44a050b7e55">四、FAQ</h1>
+<table responsive="false" nodeId="b8ee93a767344050b034957ed428495e">
+<tr nodeId="20041fb6e231472392c96270d6674f71">
+<th colwidth="[50]" nodeId="6356766f21ea4d15b1c07f72e34d9f0a">
+<p nodeId="de23a9038e0645fb8ef5a59c1952a02f" />
+</th>
+<th colwidth="[446]" nodeId="42a75085ac88450883f58c2175566329">
+<p nodeId="278f6a8816dd479bbf8d0132aaa374ee">问题</p>
+</th>
+<th colwidth="[745]" nodeId="d33c63b115e14f8a8d385e3675944037">
+<p nodeId="3df8c6f3d98f45ad8d96e109ac180330">答</p>
+</th>
+</tr>
+<tr nodeId="d13d0453d4344848b27b17ffa29a5fd6">
+<td colwidth="[50]" numCell="true" nodeId="4b8edac9061a4d8b85ef4428c1866b65">
+<p nodeId="243ee58910b24272af3be4138568aedc" />
+</td>
+<td colwidth="[446]" nodeId="8e1eeb2c3dbe42cb9663df82f8362b68">
+<p nodeId="33b50b930e364a99b16e6ad51679907a">风险标签返回的消息格式是什么样的？</p>
+</td>
+<td colwidth="[745]" nodeId="8cb3e1ae15e94b9d8adf73c605fbb777">
+<p nodeId="1cf3da38b6bd44c1b2289926f5891687">见样例</p>
+<km-collapse active="false" nodeId="1fef867c5be94d68bc3473cbffab5f36">
+<km-title>样例1-实时请求响应（<span color="rgb(255, 74, 71)">标红部分</span>）</km-title>
+<km-content>
+<p nodeId="89c70d3eafd042b4bfefeac73db46f04"><span color="rgba(0, 0, 0, 0.87)">{</span><br /><span color="rgba(0, 0, 0, 0.87)"> "requestId": "set-zf-rc-zeus-zeus-staging02-202207271555-3024",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decsionIdList": [],</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneConfDetailList": [</span><br /><span color="rgba(0, 0, 0, 0.87)"> {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneId": 16187,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleId": 17305,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionId": 77,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "priority": 5,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonCode": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonDesc": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "status": 32,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "extraInfo": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleName": "liangjianhua_test2",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "accumulateFieldsExtraInfoList": [],</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonPriority": 0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleGroupId": 0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleGroupName": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "derivedParams": ""</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)"> ],</span><br /><span color="rgba(0, 0, 0, 0.87)"> "errMsg": "{}",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "code": 0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "factorResultJson": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "hitRuleFactorResultJson": {},</span><br /><span color="rgba(0, 0, 0, 0.87)"> "businessCode": 9,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneId": 16187,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionMergeResponse": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "mergeStrategy": 0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionIds": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionReasons": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionExtraInfoMap": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionDerivedParamMap": null</span><br /><span color="rgba(0, 0, 0, 0.87)"> },</span><br /><span color="rgba(0, 0, 0, 0.87)"> "setCell": null,</span><br /><span color="rgb(255, 74, 71)"> "infoCode": [</span><br /><span color="rgb(255, 74, 71)"> {</span><br /><span color="rgb(255, 74, 71)"> "ruleId": 17305,</span><br /><span color="rgb(255, 74, 71)"> "tagId": 1610169,</span><br /><span color="rgb(255, 74, 71)"> "tagName": "测试风险标签",</span><br /><span color="rgb(255, 74, 71)"> "tagCode": 101,</span><br /><span color="rgb(255, 74, 71)"> "layer": 1,</span><br /><span color="rgb(255, 74, 71)"> "priority": 0,</span><br /><span color="rgb(255, 74, 71)"> "parentInfo": {}</span><br /><span color="rgb(255, 74, 71)"> },</span><br /><span color="rgb(255, 74, 71)"> {</span><br /><span color="rgb(255, 74, 71)"> "ruleId": 17305,</span><br /><span color="rgb(255, 74, 71)"> "tagId": 1610170,</span><br /><span color="rgb(255, 74, 71)"> "tagName": "测试风险标签子标签",</span><br /><span color="rgb(255, 74, 71)"> "tagCode": 0,</span><br /><span color="rgb(255, 74, 71)"> "layer": 2,</span><br /><span color="rgb(255, 74, 71)"> "priority": 0,</span><br /><span color="rgb(255, 74, 71)"> "parentInfo": {</span><br /><span color="rgb(255, 74, 71)"> "1": {</span><br /><span color="rgb(255, 74, 71)"> "tagId": 1610169,</span><br /><span color="rgb(255, 74, 71)"> "tagName": "测试风险标签",</span><br /><span color="rgb(255, 74, 71)"> "tagCode": 101,</span><br /><span color="rgb(255, 74, 71)"> "priority": 0</span><br /><span color="rgb(255, 74, 71)"> }</span><br /><span color="rgb(255, 74, 71)"> }</span><br /><span color="rgb(255, 74, 71)"> }</span><br /><span color="rgb(255, 74, 71)"> ]</span><br /><span color="rgba(0, 0, 0, 0.87)">}</span></p>
+</km-content>
+</km-collapse>
+<km-collapse active="false" nodeId="d41b7d4b494243658545538d5092acea">
+<km-title>样例2-hive请求日志</km-title>
+<km-content>
+<p nodeId="517e94a11cd949668a80b76829f89133"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4163043861?contentType=1" name="image.jpeg" width="1278" height="476" nodeId="83c0c8e160984829a1848975ff551382" /></p>
+</km-content>
+</km-collapse>
+<km-collapse active="false" nodeId="abf76d057db44a1a8195bcad5e2fcf06">
+<km-title>样例3-mafka输出（<span color="rgb(255, 74, 71)">标红部分</span>）</km-title>
+<km-content>
+<p nodeId="ab628db4ca524c14aa4681253058099f"><span color="rgba(0, 0, 0, 0.87)">{</span><br /><span color="rgba(0, 0, 0, 0.87)"> "takenEffectRuleIds": "2455046",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionIdToExtraInfoList": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "65": [</span><br /><span color="rgba(0, 0, 0, 0.87)"> {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "test2": 123,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "test1": null</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)"> ]</span><br /><span color="rgba(0, 0, 0, 0.87)"> },</span><br /><span color="rgba(0, 0, 0, 0.87)"> "subSceneIds": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "userid": 123,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "testRuleIds": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "markedRuleIds": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonCodes": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "businessCode": 9,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "requestId": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneId": 209423,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "fingerprint": {},</span><br /><span color="rgba(0, 0, 0, 0.87)"> "action": 0.0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisions": "0",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "grayRuleIds": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "multiLevelRouterSceneId": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "executeGrayRuleIds": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> </span><span color="rgb(255, 74, 71)">"infoCode": [</span><br /><span color="rgb(255, 74, 71)"> {</span><br /><span color="rgb(255, 74, 71)"> "ruleId": 2455046,</span><br /><span color="rgb(255, 74, 71)"> "tagId": 821792,</span><br /><span color="rgb(255, 74, 71)"> "tagName": "测试风险标签2",</span><br /><span color="rgb(255, 74, 71)"> "tagCode": null,</span><br /><span color="rgb(255, 74, 71)"> "layer": 1,</span><br /><span color="rgb(255, 74, 71)"> "priority": 0,</span><br /><span color="rgb(255, 74, 71)"> "parentInfo": {}</span><br /><span color="rgb(255, 74, 71)"> },</span><br /><span color="rgb(255, 74, 71)"> {</span><br /><span color="rgb(255, 74, 71)"> "ruleId": 2455046,</span><br /><span color="rgb(255, 74, 71)"> "tagId": 821793,</span><br /><span color="rgb(255, 74, 71)"> "tagName": "测试风险标签1",</span><br /><span color="rgb(255, 74, 71)"> "tagCode": null,</span><br /><span color="rgb(255, 74, 71)"> "layer": 2,</span><br /><span color="rgb(255, 74, 71)"> "priority": 0,</span><br /><span color="rgb(255, 74, 71)"> "parentInfo": {</span><br /><span color="rgb(255, 74, 71)"> "1": {</span><br /><span color="rgb(255, 74, 71)"> "tagId": 821792,</span><br /><span color="rgb(255, 74, 71)"> "tagName": "测试风险标签2",</span><br /><span color="rgb(255, 74, 71)"> "tagCode": null,</span><br /><span color="rgb(255, 74, 71)"> "priority": 0</span><br /><span color="rgb(255, 74, 71)"> }</span><br /><span color="rgb(255, 74, 71)"> }</span><br /><span color="rgb(255, 74, 71)"> }</span><br /><span color="rgb(255, 74, 71)"> ]</span><span color="rgba(0, 0, 0, 0.87)">,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionInfo": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "takenEffectStatus": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "65": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionDerivedParams": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionReason": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionExtraInfo": [</span><br /><span color="rgba(0, 0, 0, 0.87)"> {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "test2": 123,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "test1": null</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)"> ]</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)"> },</span><br /><span color="rgba(0, 0, 0, 0.87)"> "markStatus": {},</span><br /><span color="rgba(0, 0, 0, 0.87)"> "grayStatus": {}</span><br /><span color="rgba(0, 0, 0, 0.87)"> },</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneConfDetailList": [</span><br /><span color="rgba(0, 0, 0, 0.87)"> {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleGroupName": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneId": 209423,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleName": "test123",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonCode": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleId": 2455046,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "priority": 5,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionId": 65,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "ruleGroupId": 0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "reasonDesc": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "status": 64,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "extraInfo": "{\"test2\":123,\"test1\":null}"</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)"> ],</span><br /><span color="rgba(0, 0, 0, 0.87)"> "paramContext": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__RULE_RUN_COMPLETE__": true,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "asyncCompensate": "{\"ruleInfo\":{},\"decisionInfo\":{},\"ruleToNodeId\":{}}",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__SYNC_COST_TIME__": 594,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__CACHE_FETCHED_PARAMS__": "[]",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "userid": 123,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "serverRequestId": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__REQUEST_TIME_FOR_ZEUS__": 1658924006593,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "action": 0.0,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__FETCHER_ERROR__": "[{\"targetKeys\":[\"23.gis_lat_lng_bizcityinfo.shared_3-&gt;bankcard\"],\"errorMessage\":\"fetcher invoke condition not match\"}]",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sumTimeOfLongestPath": 529,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "zeusRequestIdForInvokeRemoteFetcher": "set-xr-rc-zeus-zeus-test02-202207271155-1",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "traceId": "7723089567008213223",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__LONGEST_EXECUTE_PATH__": "RouterSceneId:null,sceneId:209423,longestPath:{decision_extra_info_3:0-&gt;bankcard:428-&gt;lng:1-&gt;}",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "cacheVersion": 22312700,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__SERVER_INTERRUPT_FACTOR_NAMES__": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "businessIdForInnerUse": 9,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "takenEffectAndMarkRulesRunTime": 594,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__CLIENT_APPKEY__": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "zeusFetcherErrorLog": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "factorToolExecuteInfo": "{\"5931\":{\"factorToolId\":5931,\"outputDetailList\":[{\"outputParamName\":\"sceneid\",\"score\":0.0,\"hitRuleDetail\":[]},{\"outputParamName\":\"action\",\"score\":0.0,\"hitRuleDetail\":[]}]}}",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "__SCENE_RERUN_RULES__": {},</span><br /><span color="rgba(0, 0, 0, 0.87)"> "sceneid": 0.0</span><br /><span color="rgba(0, 0, 0, 0.87)"> },</span><br /><span color="rgba(0, 0, 0, 0.87)"> "hitRules": "2455046",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "subSceneKeys": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "accumulateDetails": [],</span><br /><span color="rgba(0, 0, 0, 0.87)"> "extraContext": {},</span><br /><span color="rgba(0, 0, 0, 0.87)"> "decisionIds": "65",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "addtime": 1658924007,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "multiLevelRouterSceneKey": "",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "factorContext": {</span><br /><span color="rgba(0, 0, 0, 0.87)"> "regression_001": "others",</span><br /><span color="rgba(0, 0, 0, 0.87)"> "factor_ip": null,</span><br /><span color="rgba(0, 0, 0, 0.87)"> "e2_factor": false</span><br /><span color="rgba(0, 0, 0, 0.87)"> }</span><br /><span color="rgba(0, 0, 0, 0.87)">}</span></p>
+</km-content>
+</km-collapse>
+</td>
+</tr>
+<tr nodeId="5b59d5c7fa8e499daeaae34ff1ce235c">
+<td colwidth="[50]" numCell="true" nodeId="5666728122e84df5be5defd65e4cdc03">
+<p nodeId="af09b8ac46a642f2be333d8b52b3f85c" />
+<p nodeId="f12545d7d8e6498a9ba546ffbb6bddc9" />
+</td>
+<td colwidth="[446]" nodeId="f544f81df7024d1abd7ef180178f2c53">
+<p nodeId="8596ff20337345b7ae164f8d610a1daa">配置了风险标签，也给规则打了标，但是实时返回结果里没有。</p>
+</td>
+<td colwidth="[745]" nodeId="94563933623b47b5ac140d903d4542dc">
+<p nodeId="fa3ee0b477d441d19c5293c4461f2892">请先确认本业务是否通过Tatooine请求zeus，若是，需要联系PM<km-mention name="周强" uid="zhouqiang23" empId="" nodeId="069749e11c0349c1acca758b373ed82c" />和RD<km-mention name="方小远" uid="fangxiaoyuan" empId="" nodeId="7abb47ae3f094952bfa0a3c1c26b5d36" />提需求，将在Tatooine对返回结果做加工，方可使用。</p>
+</td>
+</tr>
+<tr nodeId="40c1f45bf92c4886a2387284a914e273">
+<td colwidth="[50]" numCell="true" nodeId="c2b9bc60813f4d5c9a85b5d405d395fd">
+<p nodeId="b28bba3942a441c78c592361f655de24" />
+</td>
+<td colwidth="[446]" nodeId="7daa520a4d5c4af7846bda2f32fd2e7b">
+<p nodeId="20ae2b8bf5454435b94b498937ac5cfa">为什么不允许在同个规则中同时配置子标签及其父标签？</p>
+<p nodeId="e2fdcefa1731493a9d6dc2802c6409f3"><img src="https://km.sankuai.com/api/file/cdn/1357166907/4164218680?contentType=1" name="image.jpeg" width="282" height="196" nodeId="d0ebc9f137164c22a5b05ba7bf83384d" /></p>
+</td>
+<td colwidth="[745]" nodeId="5820ad2297bb4dd88ffe1ada0ffd880c">
+<p nodeId="ea4e4e2941c04ddbb31ef1de3f1224f6">规则命中时，返回消息体中<span color="#FF4A47">已经包括标签本身内容和其父标签信息</span>，见Q1，为防止消息体过大，冗余信息占用资源，遂限制该类配置。</p>
+</td>
+</tr>
+</table>
+<p nodeId="26a3cdecc0a44adab31fd430c6aafc7b" />
+<p nodeId="810af5900035485cbfe8b00641afa328"><span color="rgba(0, 0, 0, 0.87)"><span font-size="22">❤️ 欢迎使用并在文档评论区提供宝贵意见与建议！</span></span></p>
+</km-doc>
